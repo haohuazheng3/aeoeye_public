@@ -60,9 +60,25 @@ curl -X POST https://aeoeye.com/api/v1/reports \
   -d '{"input": "yourbrand.com"}'
 ```
 
-## About this repository
+## What's in this repository
 
-This is the public face of AEOeye. The application source is kept in a private repository —
-this repo carries the project's public identity and documentation.
+The four free tools above, exactly as they run on aeoeye.com — plus the type definition
+for the report the API returns.
+
+```
+tools/
+  llms-txt-generator.tsx     Build a valid llms.txt for your site
+  ai-robots-generator.tsx    Choose which AI crawlers may access you
+  schema-generator.tsx       Generate Organization / FAQ / Article JSON-LD
+  seo-roi-calculator.tsx     Model the return on an SEO/AEO programme
+types/
+  report.ts                  The shape of an AEOeye report, field by field
+```
+
+They're plain React components — `react` and `lucide-react`, nothing else. Read them,
+lift them, adapt them. MIT.
+
+The audit engine itself (question generation, multi-engine querying, answer judging,
+the site-audit layers) stays closed — that's the product.
 
 Questions: [contact@aeoeye.com](mailto:contact@aeoeye.com)
