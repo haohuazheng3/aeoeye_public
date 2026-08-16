@@ -1,0 +1,166 @@
+{
+ "slug": "how-much-of-the-web-does-chatgpt-use",
+ "type": "answers",
+ "title": "How Much of the Web Does ChatGPT Actually Use?",
+ "metaTitle": "How Much Data Does ChatGPT Use? (Web Sources)",
+ "metaDescription": "How much of the web ChatGPT really uses, split into training vs live retrieval, with real cited stats. The numbers are smaller than you think.",
+ "primaryKeyword": "how much data does chatgpt use",
+ "shortAnswer": "ChatGPT uses two very different slices of the web. Its model was trained on a filtered crawl that boiled roughly 45TB of raw text down to about 570GB. But for live answers it reads only a handful of pages per query, fetched fresh from a search index. Neither touches most of the web.",
+ "intro": "Here's the thing almost everyone gets wrong: ChatGPT does not \"use the whole internet.\" It uses two separate, surprisingly thin slices of it, and they work in completely different ways.\n\nOne slice is frozen training data from a few years ago. The other is live retrieval that reads maybe five to ten pages the moment you hit enter. If you want your content cited, you need to understand which slice you're fighting for. This page splits them cleanly and backs every number with a real source.",
+ "sections": [
+  {
+   "heading": "Training vs retrieval: which 'web' are we even talking about?",
+   "body": "ChatGPT touches the web in two distinct ways, and conflating them is the single biggest mistake in AEO. **Training** is a one-time, frozen snapshot baked into the model's weights. **Retrieval** (ChatGPT Search) is live: it queries a search index in real time and reads a few pages per answer. Training shapes the model's default knowledge; retrieval is what cites your URL today.\n\n- **Training data** = the corpus used to build the model. Static. Has a cutoff date. You cannot rank in it after the fact.\n- **Retrieval** = live web search at query time. Dynamic. This is where fresh content gets pulled in and linked.\n\nIf your goal is getting cited in answers right now, retrieval is the game. Training is mostly out of your hands."
+  },
+  {
+   "heading": "How much data was ChatGPT trained on?",
+   "body": "The base GPT-3 model behind early ChatGPT was trained on a heavily filtered crawl: roughly **45TB of compressed plain text** that was cleaned down to about **570GB**, equal to roughly 400 billion tokens. That 570GB is the number that matters. It is a tiny, curated fraction of what got crawled, let alone the whole web.\n\nThe composition of that GPT-3 dataset, per OpenAI's own paper, broke down like this:\n\n- **~60%** filtered [Common Crawl](https://en.wikipedia.org/wiki/Common_Crawl) (open web pages)\n- **~22%** WebText2 (outbound links from Reddit posts with 3+ upvotes)\n- **~16%** two internet book corpora\n- A slice of English Wikipedia\n\nNotice what that means: the model's web knowledge is filtered web, not raw web. Quality signals like Reddit upvotes literally decided what made the cut. Source: [the GPT-3 paper, 'Language Models are Few-Shot Learners'](https://arxiv.org/abs/2005.14165)."
+  },
+  {
+   "heading": "How big is the crawl ChatGPT trained on, really?",
+   "body": "Common Crawl is enormous on its own, yet it still captures only a slice of the live web. The corpus spans **over 100 billion pages across multiple petabytes** collected over a decade, and each monthly crawl now grabs roughly **2 to 3 billion pages**. The September 2025 crawl alone held about 2.39 billion pages and 421 TiB uncompressed, per [Common Crawl's own release notes](https://commoncrawl.org/blog/september-2025-crawl-archive-now-available).\n\nBut here's the catch that AEO folks need to internalize: Common Crawl explicitly does **not** crawl the deep web, password-protected pages, login-walled content, or sites that block bots. So even the raw input excludes huge swathes of the internet before any filtering happens.\n\nThen OpenAI filtered that down to ~570GB for GPT-3. The web is estimated in the thousands of petabytes. The training set is a rounding error against the whole thing."
+  },
+  {
+   "heading": "How much of the web does ChatGPT read for a live answer?",
+   "body": "For a live answer, ChatGPT reads almost nothing, just a handful of pages per query. ChatGPT Search rewrites your prompt into one or more targeted search queries, pulls back a short list of results from its search partner index, and reads the top few it can cleanly parse. We're talking single digits, not the whole web.\n\nOpenAI launched [ChatGPT search](https://openai.com/index/introducing-chatgpt-search/) broadly in late 2024 and early 2025. As of 2025 there are three retrieval depths, and the page count scales hard with each:\n\n- **Standard web search** — a handful of sources per answer, query-driven, with inline citations.\n- **Deep Research** — synthesizes dozens to hundreds of sources for a single report.\n- **Agent mode** — actively clicks, scrolls, and scrapes across sites.\n\nFor 95% of normal questions, you're competing to be one of about five to ten links the model chooses to read. That scarcity is the whole ballgame for AEO."
+  },
+  {
+   "heading": "How does ChatGPT decide which pages to use?",
+   "body": "ChatGPT doesn't grab result #1 and stop. It scans the available sources and prioritizes pages it can cleanly parse and reuse, which rewards structure and punishes mush. Readability and machine-parseability are the deciding factors, not just raw rank.\n\nWhat tips the scales, based on how the retrieval layer behaves:\n\n- **Clean HTML structure** — well-formed tables, clear headings, labeled sections.\n- **Answer-first content** — a direct answer near the top it can lift verbatim.\n- **Credibility cues** — visible author names, dates, consistent formatting, citations.\n- **Licensed publishers** — OpenAI has content deals with AP, Reuters, Condé Nast, Hearst and others, which feed the index.\n\nIf the model can't quickly understand and extract from your page, it moves to one it can. This is why a thin, ad-choked page loses to a tightly structured one even on the same topic. Want to see which of these queries you already show up for? AEOeye runs a [free AI visibility audit](https://aeoeye.com) across ChatGPT, Perplexity, Google AI, Claude and Gemini so you can stop guessing."
+  },
+  {
+   "heading": "So what should you actually do about it?",
+   "body": "Stop optimizing for training, start optimizing for retrieval. You can't retroactively get into a frozen 570GB training set, but you can make your live pages the easy pick for the five-to-ten links ChatGPT reads per query. That's where the leverage is.\n\nPractical moves, in priority order:\n\n1. **Lead with the answer.** Put a 40-60 word direct answer at the top of every page. Retrieval models lift these.\n2. **Make it machine-readable.** Real HTML headings, tables, lists. Add [schema.org](https://schema.org) structured data so parsers don't guess.\n3. **Don't block the crawlers.** If you wall off content or block AI bots, you self-eliminate from both training and live retrieval.\n4. **Earn credibility signals.** Bylines, dates, sources, and outbound citations to authoritative pages.\n5. **Audit your current visibility.** Measure where you appear before and after changes, not from a single account that personalizes results."
+  }
+ ],
+ "keyTakeaways": [
+  "ChatGPT uses the web in two unrelated ways: frozen training data and live retrieval. Don't confuse them.",
+  "GPT-3's training set was filtered from ~45TB of compressed text down to roughly 570GB, about 400 billion tokens. A tiny slice of the web.",
+  "Around 60% of that GPT-3 data came from filtered Common Crawl, plus ~22% Reddit-linked WebText2 and ~16% books.",
+  "Common Crawl spans 100B+ pages over multiple petabytes but skips the deep web, login walls, and bot-blocked sites entirely.",
+  "For a live answer, ChatGPT reads only a handful of pages per query, not the whole web. That scarcity is what AEO competes for.",
+  "Win retrieval by being machine-readable and answer-first; you can't retroactively enter the training set."
+ ],
+ "faqs": [
+  {
+   "q": "How much data does ChatGPT use in total?",
+   "a": "It depends on which mode. The underlying GPT-3 model was trained on a filtered corpus of roughly 570GB of text (boiled down from about 45TB compressed). For a live answer via ChatGPT Search, it reads only a handful of fresh pages per query, not a large dataset."
+  },
+  {
+   "q": "Does ChatGPT use the entire internet?",
+   "a": "No. Its training set is a filtered fraction of the web that excludes the deep web, login-walled pages, and bot-blocked sites. Its live retrieval reads only about five to ten pages per query. Most of the internet never touches a given ChatGPT answer."
+  },
+  {
+   "q": "What percentage of ChatGPT's training came from Common Crawl?",
+   "a": "For GPT-3, roughly 60% of the training mix came from a filtered version of Common Crawl. The rest was about 22% WebText2 (Reddit-linked pages), 16% book corpora, and a portion of Wikipedia, per OpenAI's GPT-3 paper."
+  },
+  {
+   "q": "Is ChatGPT's training data up to date?",
+   "a": "No. Training data is a frozen snapshot with a cutoff date. That's exactly why live retrieval (ChatGPT Search) exists, to pull current pages at query time. If you want to be cited on recent topics, you're competing in retrieval, not training."
+  },
+  {
+   "q": "How can I tell if ChatGPT uses my website?",
+   "a": "Run a visibility audit that tests real prompts across engines and shows whether your pages get cited. AEOeye offers a free audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini so you can see exactly where you appear instead of guessing."
+  }
+ ],
+ "comparisonTable": {
+  "columns": [
+   "Dimension",
+   "Training data",
+   "Live retrieval (ChatGPT Search)"
+  ],
+  "rows": [
+   {
+    "label": "What it is",
+    "values": [
+     "Frozen snapshot baked into model weights",
+     "Real-time web search at query time"
+    ]
+   },
+   {
+    "label": "Scale of web used",
+    "values": [
+     "~570GB filtered text (from ~45TB compressed)",
+     "~5-10 pages per query"
+    ]
+   },
+   {
+    "label": "Freshness",
+    "values": [
+     "Stuck at a cutoff date",
+     "Current, fetched on the spot"
+    ]
+   },
+   {
+    "label": "Can you influence it now?",
+    "values": [
+     "No — set in stone after training",
+     "Yes — structure and publish for it"
+    ]
+   },
+   {
+    "label": "What wins",
+    "values": [
+     "Being in the corpus years ago",
+     "Machine-readable, answer-first pages"
+    ]
+   }
+  ]
+ },
+ "sources": [
+  {
+   "label": "Language Models are Few-Shot Learners (GPT-3 paper), arXiv",
+   "url": "https://arxiv.org/abs/2005.14165"
+  },
+  {
+   "label": "Common Crawl — Wikipedia",
+   "url": "https://en.wikipedia.org/wiki/Common_Crawl"
+  },
+  {
+   "label": "Common Crawl, September 2025 Crawl Archive",
+   "url": "https://commoncrawl.org/blog/september-2025-crawl-archive-now-available"
+  },
+  {
+   "label": "Introducing ChatGPT search — OpenAI",
+   "url": "https://openai.com/index/introducing-chatgpt-search/"
+  },
+  {
+   "label": "ChatGPT Search — OpenAI Help Center",
+   "url": "https://help.openai.com/en/articles/9237897-chatgpt-search"
+  },
+  {
+   "label": "schema.org structured data",
+   "url": "https://schema.org"
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Common Crawl",
+   "definition": "A free, open repository of web crawl data spanning 100B+ pages over multiple petabytes, widely used to train large language models. It skips the deep web, login walls, and bot-blocked sites.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Common_Crawl"
+  },
+  {
+   "term": "Training data",
+   "definition": "The static corpus used to build a model's weights. It has a cutoff date and cannot be changed after training, which is why it goes stale.",
+   "sourceUrl": "https://arxiv.org/abs/2005.14165"
+  },
+  {
+   "term": "Retrieval (RAG / live search)",
+   "definition": "Fetching fresh pages from a search index at query time and feeding them to the model so it can cite current sources beyond its training cutoff.",
+   "sourceUrl": "https://openai.com/index/introducing-chatgpt-search/"
+  },
+  {
+   "term": "Token",
+   "definition": "The unit of text a language model processes, roughly a word fragment. GPT-3's ~570GB training set equated to about 400 billion tokens.",
+   "sourceUrl": "https://arxiv.org/abs/2005.14165"
+  }
+ ],
+ "howToSteps": [],
+ "updated": "2026-06-26",
+ "image": {
+  "url": "https://images.pexels.com/photos/17489157/pexels-photo-17489157.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "Detailed view of a server rack with a focus on technology and data storage.",
+  "photographer": "panumas nikhomkhai",
+  "photographerUrl": "https://www.pexels.com/@cookiecutter"
+ }
+}

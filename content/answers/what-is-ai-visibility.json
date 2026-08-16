@@ -1,0 +1,69 @@
+{
+ "slug": "what-is-ai-visibility",
+ "type": "answer",
+ "title": "AI Visibility: What It Is and How to Measure It",
+ "metaTitle": "AI Visibility: What It Is & How to Measure It",
+ "metaDescription": "AI visibility is how often AI engines like ChatGPT and Perplexity name your brand. Learn the 4 metrics that measure it: mention rate, rank, sentiment",
+ "primaryKeyword": "ai visibility",
+ "shortAnswer": "AI visibility is how often and how prominently AI answer engines — ChatGPT, Perplexity, Google AI Overviews, Claude, and Gemini — name and recommend your brand when people ask questions in your category. You measure it with four metrics: mention rate (how often you appear), rank (where you appear in the answer), sentiment (how you're described), and share of voice (your slice of mentions versus competitors). It's the AI-era successor to search rankings: if the model doesn't surface you, the user never sees you.",
+ "intro": "A buyer asks ChatGPT, \"What's the best payroll software for a 20-person startup?\" The model returns three names and a paragraph each. Your company isn't one of them. The user picks from the list, books a demo, and never types a search query, never visits Google, never sees your homepage. That entire decision happened inside a single AI answer — and you weren't in the room.\n\nThat's the problem AI visibility describes. For two decades, being found meant ranking on a results page full of blue links the user scanned themselves. Now the model reads the web for them and hands back a short list of recommendations. AI visibility is your presence inside that short list. It's measurable, it moves, and right now most brands have no idea what theirs is.",
+ "sections": [
+  {
+   "heading": "What AI visibility actually means",
+   "body": "AI visibility is the degree to which generative AI engines surface, cite, and recommend your brand in their answers. Not whether a page about you exists somewhere — whether the model *uses* it when a real person asks a real question.\n\nThree things have to happen for you to be visible:\n\n- **The model knows you exist.** Your brand is present in its training data and in the live sources it retrieves at answer time.\n- **The model considers you relevant.** When the query is in your category, it pulls you in rather than three competitors.\n- **The model represents you accurately.** It describes what you do, who you're for, and what you cost without hallucinating or repeating a stale fact.\n\nMiss any one and you're invisible for that query. This is fundamentally different from a backlink count or a keyword ranking. An AI engine synthesizes an answer from dozens of sources — Reddit threads, G2 reviews, your docs, a YouTube transcript, a comparison article — and emits a single recommendation. Visibility is whether your name survives that synthesis. It's also probabilistic: ask the same question twice and you might appear once. That's why you measure it across many prompts and many runs, not a single check."
+  },
+  {
+   "heading": "Why AI visibility matters now, not later",
+   "body": "The behavior shift is already here, not coming. Google's AI Mode reached roughly 75 million daily active users, and around 93% of those sessions end without a single click to any website. Read that again: if your brand isn't named *inside* the answer, you don't exist for that user. There's no second-chance scroll to a blue link.\n\nMeanwhile AI-referred traffic converts at 30-40% — far above classic organic — because the person arrives pre-qualified by a recommendation they trust. A name-drop in ChatGPT does the persuading that a landing page used to.\n\nThe uncomfortable part: the average brand mention rate across AI engines sits around 17%. Most companies appear in fewer than one in five relevant answers. And the models barely agree with each other — studies show they pick the same top recommendation only about 44% of the time, with full consensus on roughly 4% of queries. So you can dominate ChatGPT and be a ghost in Perplexity. Treating \"AI search\" as one channel is the first mistake. It's five engines, each with its own sourcing logic, and you need a read on all of them."
+  },
+  {
+   "heading": "The four metrics that measure AI visibility",
+   "body": "You can't manage what you don't measure, and AI visibility breaks cleanly into four numbers:\n\n- **Mention rate** — across a fixed set of buyer questions, what percentage of AI answers name you at all? This is your foundation. A 17% mention rate means you show up in roughly one of every six relevant answers.\n- **Rank (position)** — when you *are* named, are you the first recommendation or the afterthought in a list of seven? Being mentioned third still beats not appearing, but the first name carries disproportionate weight in how the user chooses.\n- **Sentiment** — how does the model describe you? \"Great for non-technical teams\" versus \"powerful but has a steep learning curve\" versus a flat-out wrong claim about your pricing. Sentiment is the half of visibility everyone forgets, and a confidently wrong model can actively cost you deals.\n- **Share of voice** — your mentions divided by total mentions for every tracked brand in your category, times 100. This is the competitive scoreboard. If three rivals split 70% of mentions and you hold 6%, you know exactly where you stand and who to displace.\n\nTrack all four per engine — ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini — because a strong average hides the engine where you're absent."
+  },
+  {
+   "heading": "How AI engines actually decide whom to recommend",
+   "body": "Knowing how the models source answers tells you where visibility comes from — and it's not where SEO veterans expect.\n\nThe single most important finding: **brand mentions across the web correlate roughly 3x more strongly with AI visibility than backlinks do.** In an analysis of 75,000 brands, those in the top quartile for web mentions earned over 10x more AI citations than the next quartile down. The currency shifted from links to mentions. AI engines are essentially measuring consensus — how many independent, credible sources talk about you — not how many sites link to you.\n\nEach engine has a personality:\n\n- **ChatGPT** leans on consensus sources — Wikipedia, established publications, and competitor sites.\n- **Perplexity** cites Reddit heavily (nearly half of its top citations in some studies) and weights real-time, fresh sources. It also cites about 3x more sources per answer than ChatGPT, so there are more slots to win.\n- **Claude** rewards depth and structure — it's notably more likely to cite pages with clear headings and bullet points.\n- **Google AI Overviews** still overlap ~54% with classic organic rankings, and YouTube mentions in titles and transcripts are one of the strongest correlating factors.\n\nThe pattern underneath all of them: be talked about, in structured detail, across many credible places."
+  },
+  {
+   "heading": "How to start measuring and improving yours",
+   "body": "Don't guess. Get a baseline, then move it.\n\n1. **Build a prompt set.** Write 30-50 questions a real buyer would ask in your category — \"best [product] for [use case],\" \"alternatives to [competitor],\" \"is [your brand] good for [need].\" These are your test queries.\n2. **Run them across every engine, multiple times.** Because answers are probabilistic, run each prompt several times per engine and log when you appear, where you rank, and how you're described.\n3. **Score the four metrics and watch your competitors' numbers too.** Share of voice only means something relative to the field.\n4. **Fix the inputs.** Get mentioned in the sources each engine trusts — earn Reddit and review-site presence, publish structured comparison and \"best-of\" content, correct factual errors at the source, and build the kind of broad, credible mention footprint the models reward.\n\nDoing this by hand across five engines and dozens of prompts is brutal, which is the whole reason AEOeye exists — its free audit runs your brand across the major AI engines and hands you mention rate, rank, sentiment, and share of voice in one pass, so you start from data instead of a hunch. Then re-measure monthly. AI visibility isn't a one-time fix; it's a number you steer."
+  }
+ ],
+ "keyTakeaways": [
+  "AI visibility is how often and how prominently AI engines (ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini) name and recommend your brand in their answers.",
+  "It's measured with four metrics: mention rate, rank, sentiment, and share of voice — track each one per engine.",
+  "The stakes are real now: ~93% of Google AI Mode sessions end with zero clicks, so if you're not in the answer, you don't exist for that user.",
+  "The average brand mention rate is only ~17%, and engines agree on the top pick just ~44% of the time — so you must measure every engine separately.",
+  "Web mentions correlate ~3x more strongly with AI visibility than backlinks; consensus and broad credible coverage beat link-building.",
+  "Each engine sources differently — Perplexity loves Reddit, Claude rewards structure, AI Overviews lean on YouTube and organic — so optimize for each."
+ ],
+ "faqs": [
+  {
+   "q": "How is AI visibility different from SEO?",
+   "a": "SEO gets your page ranked so a human can click it. AI visibility gets your brand named inside the answer the model writes, often with no click at all. SEO rewards backlinks and keywords; AI visibility is driven far more by web mentions, third-party consensus, and structured content — web mentions correlate roughly 3x more strongly with AI citations than backlinks do. They overlap but are not the same channel."
+  },
+  {
+   "q": "What's a good AI visibility mention rate?",
+   "a": "The cross-engine average is about 17%, so anything above that puts you ahead of most brands. Category leaders push well past 50% on their core buyer questions. But the number only matters relative to competitors and per engine — a 40% mention rate in ChatGPT means little if you're at 5% in Perplexity where your buyers also ask. Always read mention rate alongside share of voice."
+  },
+  {
+   "q": "Can I measure AI visibility myself for free?",
+   "a": "Yes. Build a set of 30-50 buyer questions, run them through ChatGPT, Perplexity, Claude, Gemini, and Google AI Overviews several times each, and log when you're mentioned, where you rank, and how you're described. It's tedious to do by hand across five engines, so tools like AEOeye's free audit automate the runs and return mention rate, rank, sentiment, and share of voice in one report."
+  },
+  {
+   "q": "Why does my brand show up in ChatGPT but not Perplexity?",
+   "a": "Because the engines source answers differently and agree on the top recommendation only about 44% of the time. ChatGPT leans on consensus sources like Wikipedia and established publications; Perplexity weights Reddit and real-time content heavily. If your brand has strong editorial coverage but little Reddit or fresh-source presence, you'll appear in one and vanish in the other. That's why you measure and optimize each engine separately."
+  },
+  {
+   "q": "Does sentiment really matter, or just whether I'm mentioned?",
+   "a": "Sentiment matters a lot, and it's the metric most teams ignore. Being mentioned with a wrong pricing claim or a 'steep learning curve' caveat can cost you deals as surely as not appearing at all. AI engines synthesize descriptions from across the web, so a stale fact or a negative review thread can become the model's default characterization of you. Tracking and correcting sentiment is as important as raising your mention rate."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/16094043/pexels-photo-16094043.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "A focused individual types on a laptop running AI software indoors.",
+  "photographer": "Matheus Bertelli",
+  "photographerUrl": "https://www.pexels.com/@bertellifotografia"
+ }
+}

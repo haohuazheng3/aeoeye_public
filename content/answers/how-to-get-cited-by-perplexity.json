@@ -1,0 +1,73 @@
+{
+ "slug": "how-to-get-cited-by-perplexity",
+ "type": "answer",
+ "title": "How to Get Cited by Perplexity: What Its Citation Engine Actually Rewards",
+ "metaTitle": "How to Get Cited by Perplexity (2026 Playbook)",
+ "metaDescription": "Perplexity cites pages that answer fast, stay fresh, and own a niche. Here's exactly what its retrieval engine rewards — and how to earn citations.",
+ "primaryKeyword": "get cited by perplexity",
+ "shortAnswer": "To get cited by Perplexity, answer the question in the first 100 words of your page, keep the content updated within the last 12–18 months, and own a specific niche rather than chasing broad topics. Perplexity pulls 60+ sources per query, reranks them through three ML layers, and cites the 3–5 that are most semantically relevant, freshest, and most structurally clear — not the ones with the most backlinks. Add JSON-LD schema (Article, FAQ, Person), let PerplexityBot crawl you, and earn mentions in Reddit threads and trusted publications, because Perplexity leans heavily on community and earned media.",
+ "intro": "Perplexity doesn't rank ten blue links. It reads the web, picks a handful of sources, and writes an answer with little [1][2][3] footnotes. Get inside those footnotes and you get traffic, authority, and a compounding moat. Miss them and you're invisible — there's no page two to fall back to.\n\nHere's the part most SEO advice gets wrong: the signals that win in Google barely move the needle in Perplexity. Backlinks? Low influence. Domain size? Niche blogs out-cite major publishers constantly. What actually matters is a different, more mechanical game — and once you see how the pipeline works, the playbook gets obvious.",
+ "sections": [
+  {
+   "heading": "How Perplexity actually picks who gets cited",
+   "body": "Perplexity runs a six-stage retrieval pipeline, and citations are baked in *during* generation, not bolted on after. When you type a query, it parses intent, then retrieves 60+ candidate sources using a hybrid of BM25 keyword matching and dense semantic embeddings (its own `pplx-embed` models since early 2025). Those candidates pass through three ML reranking layers (L1–L3) with a quality threshold around 0.7 — only the top ~30% survive. The final 3–5 sources get embedded into the prompt with their citation numbers already attached, then the LLM writes constrained to that evidence.\n\nThe practical takeaway: citation is a **weakest-link problem**, not a weighted score. In Google, a monster backlink profile can rescue mediocre content. In Perplexity, if you fail any single gate — semantic relevance, freshness, structural clarity, crawl access — you're cut entirely, no matter how strong everything else is. Optimization here means making sure you don't fail *any* gate, not maxing out one.\n\nOne more wrinkle: Focus Modes (Web, Academic, Social, Video) swap the entire source pool *before* ranking. The same query in Academic mode pulls only peer-reviewed work. Know which pool you're trying to live in."
+  },
+  {
+   "heading": "Answer in the first 100 words — the BLUF rule",
+   "body": "This is the single highest-leverage change you can make. Roughly 90% of Perplexity's top-cited pages answer the core question within the first 100 words. The reranker extracts a snippet to score relevance, and if your direct answer is buried under a 300-word preamble about 'the evolving landscape,' the snippet it grabs is fluff — and you lose to the page that led with the answer.\n\nWrite Bottom Line Up Front. State the answer plainly in sentence one, then earn the rest of the page by adding depth, nuance, and proof. A few rules that consistently help:\n\n- Open with a direct, declarative answer to the exact question the page targets.\n- Use the question (or a close paraphrase) as an H2 so the retriever can match intent.\n- Make answers self-contained — Perplexity quotes a passage, not your whole page, so each section should stand alone.\n- Kill throat-clearing intros. 'In today's world' is dead weight that pushes your answer past the snippet window.\n\nIf you want to see which of your pages bury the lede, AEOeye's free audit shows how your content reads to an AI retriever versus a human — it's a fast gut-check on whether your answer survives snippet extraction."
+  },
+  {
+   "heading": "Freshness is a hard gate, not a tiebreaker",
+   "body": "About 70% of Perplexity's top citations were updated within the last 12–18 months, and content refreshed in the last 30 days gets cited dramatically more often than stale pages. Perplexity treats recency as a near-binary filter for many queries — a 2023 page competing against a 2026 version of the same content usually just loses.\n\nThis doesn't mean churning out new posts. It means a **systematic refresh schedule** on the pages you want cited. Update the stats, change the visible 'last updated' date (and the `dateModified` in your schema — they must agree), add a line about what's new, and re-publish. Revisit your cornerstone answer pages at least every quarter; revisit anything tied to fast-moving topics (pricing, tools, regulations) monthly.\n\nThere's also an engagement loop running underneath this. Perplexity watches how users respond to cited sources, and pages that get poor engagement can drop out within roughly a week. Freshness gets you in; usefulness keeps you there."
+  },
+  {
+   "heading": "Own a narrow niche — topical depth beats domain size",
+   "body": "Here's the most counterintuitive finding, and the most encouraging one for smaller sites: around 93% of pages Perplexity cites have fewer than 10 referring domains. Topical authority on a specific subject consistently outweighs raw domain authority. A focused blog that covers one thing exhaustively gets cited over a giant publisher that covers it shallowly.\n\nThat's a gift if you're not a Tier-1 brand. You can't out-authority Forbes on everything — but you can out-depth them on your one thing. The move is to build genuine topical clusters: a pillar page plus a dozen specific sub-questions, all interlinked, all answering real queries with real expertise. Perplexity's embeddings reward semantic completeness — when your site clearly 'understands' a topic from every angle, you become the obvious source to pull from.\n\nConcretely: pick a lane narrow enough that you can plausibly become the deepest resource on the open web, then cover every sub-question a curious person would ask. Breadth is a trap here. Depth compounds."
+  },
+  {
+   "heading": "Structured data and crawl access — the technical gates",
+   "body": "Schema markup is a real, measured edge: pages with JSON-LD show roughly a 47% top-3 citation rate versus 28% without — about a 19-point swing. Perplexity uses structured data to understand entities, authorship, and Q&A relationships without guessing. Prioritize three types:\n\n- **Article / FAQPage** — tells the engine what the page answers and how it's organized.\n- **Person schema with real credentials** — author markup with genuine expertise correlates with ~2.3x higher citation rates. Name your authors, link their bios, declare their authority.\n- **`dateModified`** — feeds the freshness gate. Keep it honest and current.\n\nNone of this matters if PerplexityBot can't reach you. Check your `robots.txt` — many sites block AI crawlers by accident or by stale default. Perplexity needs to fetch your raw content; it does *not* execute heavy client-side JavaScript well, so anything rendered only after JS runs may be invisible to it. Server-render or statically generate the content you want cited. Fast, clean, crawlable HTML is the floor everything else stands on. Verify yours before optimizing anything else — a single blocked rule can zero out an otherwise perfect page."
+  },
+  {
+   "heading": "Get into the sources Perplexity already trusts: Reddit and earned media",
+   "body": "Perplexity leans hard on community content. At points in 2026, Reddit accounted for a large share of its cited sources — community answers are authentic, conversational, and validated by upvotes, which is exactly the texture Perplexity favors. That share is volatile (it dropped sharply after Reddit's legal dispute, with YouTube and other sources filling the gap), so don't bet everything on one platform — but the signal is clear: **you don't only get cited through your own domain. You get cited through the places Perplexity already pulls from.**\n\nA realistic off-site playbook:\n\n- Participate genuinely in the subreddits where your topic lives. Helpful, entity-specific, non-spammy answers can themselves become cited sources — and they shape the consensus Perplexity reads.\n- Earn mentions in trusted publications and roundups. Being named as a recommended option in an article the engine retrieves puts you in the answer even when your own page isn't cited.\n- Make your brand the answer to specific questions ('best X for Y'), because that's the phrasing both Reddit threads and Perplexity queries use.\n\nThink of it as building citation surface area across the open web, not just polishing your homepage. The brands that win in Perplexity show up everywhere the engine looks."
+  }
+ ],
+ "keyTakeaways": [
+  "Lead with the answer: ~90% of Perplexity's top-cited pages answer the core question in the first 100 words. Cut the intro fluff.",
+  "Freshness is a gate, not a bonus — ~70% of citations were updated within 12–18 months. Keep a real refresh schedule and align your dateModified.",
+  "Topical depth beats domain authority. ~93% of cited pages have under 10 referring domains, so out-depth bigger sites on a narrow niche.",
+  "Add JSON-LD schema (Article, FAQ, Person with credentials) — it correlates with a ~19-point jump in top-3 citation rate.",
+  "Make sure PerplexityBot can crawl you: unblock it in robots.txt and server-render content, since Perplexity handles heavy JavaScript poorly.",
+  "Build citation surface area off-site too — Reddit threads and trusted publications are sources Perplexity actively pulls from."
+ ],
+ "faqs": [
+  {
+   "q": "How long does it take to get cited by Perplexity after publishing?",
+   "a": "Faster than Google — Perplexity retrieves live web content per query rather than relying on a slow-updating index, so a crawlable, fresh page can be cited within days of publishing or updating. The bottleneck is usually crawl access and relevance, not time. If a page isn't getting cited after a couple of weeks, the problem is almost always a failed gate (buried answer, stale date, blocked crawler, or thin topical depth), not patience."
+  },
+  {
+   "q": "Do backlinks help you get cited by Perplexity?",
+   "a": "Far less than in traditional SEO. Analyses consistently show backlink profiles are a low-influence signal for Perplexity, and about 93% of cited pages have fewer than 10 referring domains. Perplexity weights semantic relevance, freshness, structural clarity, and topical depth much more heavily. Don't ignore links entirely — they still signal trust — but pouring effort into link building while leaving your answer buried on line 12 is optimizing the wrong thing."
+  },
+  {
+   "q": "Why does Perplexity cite Reddit so much, and can I use that?",
+   "a": "Reddit content is authentic, conversational, and community-validated by upvotes — the exact texture Perplexity's retrieval favors, and at points in 2026 it made up a large share of cited sources. You can absolutely use it: participate genuinely in relevant subreddits with helpful, specific answers that can themselves get cited and shape the consensus Perplexity reads. Avoid spam — it backfires. Note the share is volatile after legal disputes, so treat Reddit as one channel, not your whole strategy."
+  },
+  {
+   "q": "How do I know if Perplexity can even crawl my site?",
+   "a": "Check your robots.txt for any rule blocking PerplexityBot or AI crawlers — many sites block them by default or by accident. Then confirm your key content is in the raw HTML, not rendered only after JavaScript runs, because Perplexity handles heavy client-side JS poorly. Server-rendering or static generation is safest. A free AEOeye audit will flag crawl-access and rendering issues alongside how your pages read to an AI engine, so you can fix the floor before optimizing anything else."
+  },
+  {
+   "q": "What's the single biggest mistake brands make trying to get cited by Perplexity?",
+   "a": "Burying the answer. Teams write SEO-style intros that warm up for 200 words before saying anything useful, and Perplexity's snippet extractor grabs that warm-up instead of an answer — so the page loses to a competitor who led with the point. State your answer in the first sentence, in plain language, then add depth below. It feels almost too blunt for human readers, but it's exactly what the retrieval engine rewards."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "A close-up view of a laptop displaying a search engine page.",
+  "photographer": "cottonbro studio",
+  "photographerUrl": "https://www.pexels.com/@cottonbro"
+ }
+}

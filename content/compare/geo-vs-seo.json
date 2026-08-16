@@ -1,0 +1,136 @@
+{
+ "slug": "geo-vs-seo",
+ "type": "compare",
+ "title": "GEO vs SEO: What's Actually Different, What Carries Over, and What to Do Now",
+ "metaTitle": "GEO vs SEO: Key Differences & What to Do",
+ "metaDescription": "GEO vs SEO compared: what carries over, what's genuinely new, and the exact moves to get cited by ChatGPT, Perplexity, and AI Overviews — not just ranked.",
+ "primaryKeyword": "geo vs seo",
+ "shortAnswer": "SEO optimizes to rank a page in a list of blue links; GEO (Generative Engine Optimization) optimizes to get your brand quoted and cited inside an AI-generated answer from ChatGPT, Perplexity, Google AI Overviews, Claude, or Gemini. They share a foundation — crawlability, authority, clear content — but diverge on the unit of success: SEO wins a position, GEO wins a mention. You need both. SEO still drives most traffic today; GEO captures the answer layer that's eating the click.",
+ "intro": "Here's the thing nobody selling you a \"GEO course\" will say plainly: GEO is not a replacement for SEO. It's a second optimization target that happens to ride on most of the same plumbing. If your site is invisible to Googlebot, it's invisible to GPTBot too. If your content is vague mush, no ranking algorithm and no language model will pick it up.\n\nBut the moment a user types a question into ChatGPT instead of Google, the rules of *winning* change completely. There's no page two. There's no SERP to climb. There's one answer, and either you're in it — named, quoted, linked — or you don't exist. This page breaks down exactly what transfers from your SEO playbook, what's brand new, and the concrete moves that actually move the needle.",
+ "sections": [
+  {
+   "heading": "The one-sentence difference that explains everything",
+   "body": "SEO competes for a *position*. GEO competes for a *mention*.\n\nThat single shift cascades into every tactical difference. In SEO, ten results fit on a page, so being #4 still gets clicks. In a generative answer, the model synthesizes one response from a handful of sources — often three to five — and names maybe two brands. There is no consolation prize for ranking sixth in the model's reasoning. You're either a cited source or you're invisible.\n\nThis is why GEO rewards a different shape of content. Google has historically rewarded comprehensive, keyword-aligned pages it can rank. Language models reward **extractable, quotable, self-contained statements** they can lift into an answer without ambiguity. A 3,000-word guide can rank #1 on Google and never get cited by Perplexity if the actual answer is buried in paragraph nine behind three hedging sentences. The model wants the claim, stated cleanly, attributable to you.\n\nGet this and the rest is detail."
+  },
+  {
+   "heading": "What carries straight over from SEO",
+   "body": "Most of your foundation is reusable. Don't let anyone tell you to start from zero.\n\n- **Crawlability and indexing.** GPTBot, ClaudeBot, PerplexityBot, and Google-Extended need to reach your pages. Blocked robots.txt, JavaScript-only rendering, and slow servers hurt you in both worlds. If Google can't see it, neither can the model that trained on Google's index.\n- **Topical authority and backlinks.** Models lean heavily on sources the wider web already trusts. The same domains that rank also tend to get cited — Wikipedia, established publications, authoritative niche sites. Your link equity still matters; it's a trust signal both systems read.\n- **Clear information architecture.** Logical headings, descriptive anchor text, and clean URLs help crawlers and parsers alike.\n- **Structured data.** Schema markup (FAQ, Product, Organization, HowTo) gives machines unambiguous facts. It mattered for rich results; it matters more now for entity disambiguation.\n- **Search intent.** Understanding *why* someone asks is the core skill. It transfers perfectly. The query just arrives as a full natural-language question instead of three keywords.\n\nIf you've done real SEO, you're maybe 60% of the way to GEO already."
+  },
+  {
+   "heading": "What's genuinely new with GEO",
+   "body": "Now the part your SEO playbook doesn't cover.\n\n- **Citation, not ranking, is the KPI.** You stop asking \"where do I rank?\" and start asking \"in which AI answers am I named, and what does the model say about me?\" This is a share-of-voice game across thousands of prompt variations.\n- **Off-site presence drives on-site citation.** Models synthesize from the whole web. Being discussed on Reddit, in G2 reviews, in third-party listicles, and in industry roundups influences whether you get pulled into an answer — even when your own site isn't the cited source. SEO mostly optimized your own pages; GEO forces you to shape the conversation *about* you everywhere.\n- **Quotability beats comprehensiveness.** A crisp, stand-alone factual sentence (\"X integrates with 200+ tools and starts at $29/month\") gets extracted. A meandering paragraph doesn't.\n- **Freshness and consensus.** Models favor claims corroborated across multiple sources and recent enough to trust. Conflicting or outdated info gets you dropped.\n- **No deterministic SERP.** Ask the same question twice, get different sources. You're optimizing for probability of inclusion, not a fixed rank. That means tracking visibility across many engines and many prompt phrasings — which is exactly what AEOeye's free audit does: it runs your brand through real AI engines and shows you where you're cited, where a competitor is named instead, and why."
+  },
+  {
+   "heading": "The action plan: do these, in this order",
+   "body": "Stop theorizing. Here's the sequence that works.\n\n1. **Audit your current AI visibility first.** Run the prompts your buyers actually type into ChatGPT and Perplexity. See who gets named. You can't fix what you haven't measured — and most brands are shocked to find a competitor owns answers they assumed were theirs.\n2. **Unblock the AI crawlers.** Check robots.txt for GPTBot, ClaudeBot, PerplexityBot, Google-Extended. Blocking them to \"protect content\" is the fastest way to disappear from answers.\n3. **Rewrite your money pages to be extractable.** Lead with the direct answer. Add a tight summary up top. Put specific facts — pricing, specs, comparisons — in clean sentences and tables, not buried prose.\n4. **Add and validate structured data.** Organization, Product, FAQ schema. Make your entity unambiguous.\n5. **Earn third-party mentions.** Get into the listicles, comparison pages, review sites, and forum threads that models read. Pursue placements where your category is discussed.\n6. **Build genuine question-answer content.** Map real questions to crisp answers. This is where SEO content and GEO content overlap most — and where you get double duty.\n7. **Track over time.** AI answers shift weekly. Monitor citation share, not just rankings, and re-audit monthly."
+  }
+ ],
+ "keyTakeaways": [
+  "SEO wins a ranking position; GEO wins a citation inside an AI-generated answer. Different unit of success, same plumbing underneath.",
+  "Roughly 60% of GEO is reused SEO foundation: crawlability, authority, backlinks, schema, and intent all transfer.",
+  "The genuinely new work: optimizing for quotability over comprehensiveness, and shaping off-site mentions (Reddit, reviews, listicles) that models synthesize from.",
+  "There's no page two in a generative answer — you're cited or invisible. Being 'sixth best' earns nothing.",
+  "Lead every important page with a direct, extractable answer and back it with specific facts in clean sentences and tables.",
+  "Don't choose between them. SEO still drives most traffic today; GEO captures the fast-growing answer layer. Run both."
+ ],
+ "faqs": [
+  {
+   "q": "Is GEO replacing SEO?",
+   "a": "No. GEO is an additional optimization target, not a replacement. SEO still drives the majority of search traffic and feeds the same web index that trains and grounds AI models. The smart move is to keep your SEO foundation and layer GEO on top — most of the work overlaps, and abandoning SEO would also weaken your GEO, since models trust sources the broader web already ranks and cites."
+  },
+  {
+   "q": "Can I do GEO without doing SEO first?",
+   "a": "Practically, no. The same crawlability, site authority, and clean content that SEO demands are prerequisites for being cited by AI engines. If GPTBot or PerplexityBot can't crawl your pages, or your content is too vague to extract a clear claim from, GEO tactics have nothing to stand on. Think of SEO as the foundation and GEO as the framing you build once that foundation is solid."
+  },
+  {
+   "q": "How do I measure GEO success if there's no ranking?",
+   "a": "You measure citation share and brand mention across AI engines. Instead of 'where do I rank for this keyword,' you ask 'for the questions my buyers type into ChatGPT, Perplexity, and Google AI Overviews, how often is my brand named, linked, or quoted — and what is the model saying about me versus competitors?' Tools like AEOeye run your brand through real AI engines across many prompt variations to track exactly that."
+  },
+  {
+   "q": "What's the single biggest GEO mistake?",
+   "a": "Writing for comprehensiveness instead of extractability. A 3,000-word guide can rank #1 on Google and never get cited by an AI engine because the actual answer is buried behind hedging and fluff. Models lift clean, self-contained, attributable statements. Lead with the direct answer, state specific facts plainly, and the same page can win both a ranking and a citation."
+  },
+  {
+   "q": "Should I block AI crawlers to protect my content?",
+   "a": "Only if you're comfortable disappearing from AI answers entirely. Blocking GPTBot, ClaudeBot, Google-Extended, or PerplexityBot in robots.txt is the fastest way to guarantee a competitor gets named in answers where you should appear. Unless you have a specific legal or licensing reason, allow the crawlers — visibility in the answer layer is increasingly where discovery happens."
+  }
+ ],
+ "comparisonTable": {
+  "columns": [
+   "Dimension",
+   "SEO",
+   "GEO"
+  ],
+  "rows": [
+   {
+    "label": "Goal",
+    "values": [
+     "Rank a page high in search results",
+     "Get cited inside an AI-generated answer"
+    ]
+   },
+   {
+    "label": "Unit of success",
+    "values": [
+     "A position on the SERP",
+     "A brand mention or citation"
+    ]
+   },
+   {
+    "label": "Where it appears",
+    "values": [
+     "Google, Bing results pages",
+     "ChatGPT, Perplexity, AI Overviews, Claude, Gemini"
+    ]
+   },
+   {
+    "label": "Content shape that wins",
+    "values": [
+     "Comprehensive, keyword-aligned pages",
+     "Extractable, quotable, self-contained claims"
+    ]
+   },
+   {
+    "label": "Key off-site lever",
+    "values": [
+     "Backlinks to your domain",
+     "Mentions across Reddit, reviews, listicles, forums"
+    ]
+   },
+   {
+    "label": "Result behavior",
+    "values": [
+     "Deterministic ranking you can track",
+     "Probabilistic inclusion; varies per query"
+    ]
+   },
+   {
+    "label": "Primary KPI",
+    "values": [
+     "Rankings, organic traffic, CTR",
+     "Citation share, brand mention rate"
+    ]
+   },
+   {
+    "label": "Schema's role",
+    "values": [
+     "Rich results and snippets",
+     "Entity disambiguation for models"
+    ]
+   },
+   {
+    "label": "There's a 'page two'?",
+    "values": [
+     "Yes — lower ranks still get some clicks",
+     "No — cited or invisible"
+    ]
+   }
+  ]
+ },
+ "image": {
+  "url": "https://images.pexels.com/photos/14541039/pexels-photo-14541039.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "A man editing photos on multiple screens at a desk in dim lighting.",
+  "photographer": "Alan Quirván",
+  "photographerUrl": "https://www.pexels.com/@quirva"
+ }
+}

@@ -1,0 +1,97 @@
+---
+title: "ChatGPT Custom Instructions: What to Put in Them"
+description: "What ChatGPT custom instructions are, how to set them up, and what to put in the two fields — with weak-vs-strong examples that actually change your output."
+date: "2026-07-18"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["chatgpt custom instructions", "chatgpt settings", "chatgpt personalization", "custom instructions examples", "chatgpt projects vs custom instructions"]
+faqs: [{"q": "What are ChatGPT custom instructions?", "a": "ChatGPT custom instructions are saved preferences under Settings that tell the model persistent facts about you and how you want it to respond, applied automatically to every new chat. Instead of re-explaining your role, tone preference, or format needs each time, you set them once and the model reads them as background context automatically."}, {"q": "How do I set custom instructions in ChatGPT?", "a": "Go to Settings > Personalization > Custom Instructions, then fill in the two fields: one for background about you, one for how you want responses formatted and toned. Save, then start a new chat to test \u2014 instructions only apply going forward, not to conversations already in progress."}, {"q": "What should I put in ChatGPT custom instructions?", "a": "Include specifics: your role and industry, your technical expertise level, your preferred tone, formatting preferences like bullet points or tables, and anything you want the model to avoid, such as excessive hedging or unnecessary clarifying questions. Specific, testable phrasing works; generic requests like \"be helpful\" change nothing because the model already defaults to that."}, {"q": "Are custom instructions the same as Projects?", "a": "No. Custom instructions are global \u2014 they apply to every chat you start. Projects are scoped to one specific workspace, holding files and context relevant to a single piece of work without affecting your other conversations. Use custom instructions for defaults that are always true about you; use Projects for one contained task or client."}]
+image: {"url": "https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Laptop displaying data analytics graph in a modern office setting, symbolizing growth and technology.", "photographer": "ThisIsEngineering", "photographerUrl": "https://www.pexels.com/@thisisengineering"}
+sources: []
+---
+
+## What are ChatGPT custom instructions?
+
+ChatGPT custom instructions are a settings panel where you tell the model who you are and how you want it to answer, once, and it applies that context to every new chat automatically. Set it up right and you stop pasting the same three paragraphs of "I'm a beginner, keep it short, use bullet points" into every conversation.
+
+They live under Settings > Personalization > Custom Instructions. What they do is simple: ChatGPT quietly adds your saved preferences to the context of every new conversation, before you type a word. The model reads that context the way it would read the first few messages of a chat, except you never had to type them.
+
+Two things matter here that people miss on the first read:
+
+- Custom instructions apply to new chats, not chats already in progress. Reopening an old thread won't pull in instructions you saved after it started.
+- They're a strong nudge, not a hard rule. The model treats your instructions as important context, not as an unbreakable law — it can still drift on a long, unusual conversation, especially if your instructions conflict with what you're actually asking for in the moment.
+
+If you've ever felt like you're introducing yourself to ChatGPT all over again every time you open it, this is the feature that fixes that. It's the difference between explaining your job to a stranger every meeting versus working with a colleague who already knows it.
+
+## The two boxes: about you + how to respond
+
+There are two separate fields, and mixing them up is the most common reason people's instructions underperform. One box covers who you are — background, role, what you're working on. The other covers how the model should behave — tone, format, what to avoid.
+
+**Box 1 asks something like "What would you like ChatGPT to know about you?"** This is facts, not preferences. Your job, your industry, your technical level, ongoing projects, tools you use, constraints you work under. Static, biographical context that stays true across ten different tasks, not something specific to today's question.
+
+**Box 2 asks something like "How would you like ChatGPT to respond?"** This is style, not substance. Should it hedge less? Skip the disclaimers? Default to bullet points? Avoid a certain kind of filler phrase? Push back when it disagrees instead of just agreeing? This box shapes the how, not the what.
+
+The mistake is putting response-style requests ("be concise") into the "about you" box, or dumping your job history into the "how to respond" box. The model usually parses it either way, but keeping the two separated makes both fields easier to edit later — and easier for you to reason about when the output starts drifting from what you wanted.
+
+## How to set up custom instructions
+
+Setting up custom instructions takes about five minutes: open Settings, find Personalization, fill in the two fields with specific answers instead of generic ones, and save. The instructions apply starting with your next new chat.
+
+The general path, regardless of which version of the interface you're on:
+
+1. Open ChatGPT and go to **Settings**.
+2. Find **Personalization**, where Custom Instructions live.
+3. Fill in the "about you" field with real specifics — not "I'm a professional," but what kind of professional, doing what, for whom.
+4. Fill in the "how to respond" field with actual behavioral preferences, not vague adjectives like "be nice."
+5. Save, then start a new chat to test it.
+
+That last step matters more than it sounds. Test with a real prompt you'd actually send — not "hello" — and check whether the tone and structure match what you asked for. If they don't, the instructions were too vague, and vagueness is the failure mode that trips up almost everyone here.
+
+
+![Laptop displaying coding software on a desk, alongside a coffee mug and notebook.](https://images.pexels.com/photos/34804002/pexels-photo-34804002.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## What to put in them (with examples)
+
+The instructions that work are specific enough that a stranger reading them could predict your ideal answer; the ones that don't work are generic enough to apply to anyone. "Be helpful and concise" tells the model nothing it doesn't already default to.
+
+Good custom instructions usually cover five things: your role, your expertise level, your tone preference, your format preference, and what to explicitly avoid. Here's the difference between phrasing that changes nothing and phrasing that actually changes output:
+
+| Field | Weak example | Strong example |
+|---|---|---|
+| Role | "I work in marketing" | "I run growth for a 12-person B2B SaaS company; I write the emails and briefs, I don't code" |
+| Expertise level | "I'm not very technical" | "Explain technical concepts with a plain-English analogy first, then the precise term — don't assume I know the acronyms" |
+| Tone | "Be friendly" | "Talk to me like a sharp colleague, not a customer service rep — skip the enthusiasm, skip 'great question'" |
+| Format | "Keep it short" | "Default to bullet points over paragraphs; use a table for anything with three or more comparable items; no summary paragraph at the end" |
+| What to avoid | "Don't be annoying" | "Never hedge with 'it depends' without immediately saying what it depends on; don't ask clarifying questions for low-stakes tasks — make a reasonable assumption and say what you assumed" |
+
+Notice the pattern: the strong column always answers a follow-up question the weak column leaves open. "I'm not very technical" makes the model guess what that means. "Explain with an analogy first" doesn't leave room to guess.
+
+A few things worth naming explicitly if they apply to you: your industry's jargon, whether you want sources cited, whether you prefer being told when the model is uncertain, and whether you want pushback when your idea has a flaw. That last one is underused — most people's instructions optimize for agreeableness by accident, simply by never mentioning it.
+
+## Custom instructions vs Projects vs custom GPTs
+
+Custom instructions, Projects, and custom GPTs solve the same underlying problem at different scopes: custom instructions set your global defaults across every chat, Projects hold context for one specific body of work, and custom GPTs package a configuration into a shareable tool.
+
+- **Custom instructions** — always on, everywhere, for you personally. Use for context that's true no matter what you're working on: your role, your general tone preference.
+- **[Projects](/blog/chatgpt-projects)** — scoped to one workspace, with its own files and context that don't bleed into unrelated chats. Use when you have a specific piece of work — a client, a codebase, a research topic — that needs its own persistent memory, separate from everything else you do.
+- **Custom GPTs** — a configuration you can package and share with others, or reuse as a distinct tool with its own instructions and knowledge files, independent of your personal settings.
+
+If you're comparing this to Google's ecosystem, [Gemini Gems](/blog/gemini-gems) occupy roughly the same niche as custom GPTs — a reusable, purpose-built configuration rather than a global default that follows you everywhere.
+
+The practical rule: if it's true about you in every conversation, it belongs in custom instructions. If it's true only for one project, it belongs in a Project. If you want to hand a specific tool to someone else, build a custom GPT.
+
+## Custom instructions and getting consistent output
+
+Custom instructions produce more consistent output than re-prompting because the context is present before you type, not reconstructed imperfectly each time from whatever you happen to remember to mention. Re-prompting is lossy — you forget to restate a preference, or phrase it slightly differently, and the output shifts with it.
+
+There's a compounding benefit too. When your baseline preferences are fixed, you notice faster when an answer breaks pattern — which makes it easier to catch the model guessing instead of actually reasoning through your specific situation. Inconsistent baseline output buries that signal; consistent baseline output makes deviations obvious.
+
+This matters more the heavier you lean on ChatGPT for anything with a house style — a newsletter voice, a code style, a specific analytical framework you always want applied. Custom instructions turn that from something you enforce manually, chat by chat, into something the tool enforces for you by default.
+
+If you're also weighing whether the underlying subscription is worth it for how much you'd actually use features like this, that's a separate question — see [our breakdown of what ChatGPT Plus gets you](/blog/is-chatgpt-plus-worth-it) — and if you're comparing ChatGPT against other assistants entirely, [our AI chatbot comparison](/blog/best-ai-chatbot) covers how they stack up on personalization and beyond.
+
+## What does configuring AI have to do with being recommended by it?
+
+As more people configure their AI tools to their exact needs — custom instructions, Projects, saved preferences — the answers those tools give get more personalized, but the underlying pool of information they draw from doesn't change. When someone asks ChatGPT, Perplexity, or Gemini to recommend a product or brand in your category, personalization shapes the delivery, not the facts the model has learned about who's actually good at what.
+
+That means being the brand an AI assistant recommends still comes down to the same thing it always has: accurate, current, well-structured public content the model can find and trust. [AEOeye](/) audits whether tools like ChatGPT, Perplexity, and Gemini (as of this writing) are recommending your brand when people ask the buying questions that matter — the same instinct that makes you double-check whether your own custom instructions are actually shaping your answers the way you intended.

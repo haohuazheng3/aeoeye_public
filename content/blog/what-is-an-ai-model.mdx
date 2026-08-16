@@ -1,0 +1,94 @@
+---
+title: "What Is an AI Model? A Plain-English Explanation"
+description: "AI model, explained plainly: what it is, how it's built, the main types, and why the model behind a tool changes what it says about your brand."
+date: "2026-07-18"
+category: "Fundamentals"
+readingTime: "8 min read"
+keywords: ["what is an ai model", "ai model", "types of ai models", "foundation model vs fine-tuned model", "ai model comparison"]
+faqs: [{"q": "What is an AI model in simple terms?", "a": "An AI model is a program trained on data to recognize patterns and produce output \u2014 text, images, predictions, or recommendations. It's the underlying engine behind AI tools: ChatGPT, image generators, and voice assistants are all applications built around one or more models, not the model itself."}, {"q": "What is the difference between an AI model and an LLM?", "a": "An LLM (large language model) is one type of AI model \u2014 specifically, one trained on text to understand and generate language. \"AI model\" is the broader category, covering image models, multimodal models, and other formats. Every LLM is an AI model, but not every AI model is an LLM."}, {"q": "What are the main types of AI models?", "a": "AI models are commonly grouped by function \u2014 language models, image models, multimodal models, speech models, and recommendation models \u2014 and by openness, meaning proprietary models with private weights versus open-weight models anyone can download and run. Most consumer AI tools are built on language or multimodal models."}, {"q": "Why do different AI models give different answers?", "a": "Each model is trained on a different slice of data, up to a different point in time, and may retrieve live web content differently. That means ChatGPT, Gemini, Claude, and Perplexity can recommend different brands for the same question \u2014 none of them are wrong, they're just drawing on different inputs."}]
+image: {"url": "https://images.pexels.com/photos/6961857/pexels-photo-6961857.png?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "An adult using a laptop indoors, browsing search results at a wooden table with coffee.", "photographer": "Firmbee.com", "photographerUrl": "https://www.pexels.com/@firmbee-com-22729701"}
+sources: []
+---
+
+## What is an AI model?
+
+An AI model is a program trained on large amounts of data to recognize patterns and generate predictions, text, images, or other output on demand. It's the "brain" behind nearly every AI tool you use. Type a question into ChatGPT, and a model processes your words and writes a reply. Ask an app to turn a text prompt into a picture, and a different kind of model handles that instead.
+
+Strip away the marketing language, and what's left is math: a model is a very large set of numerical parameters, tuned during training so specific inputs reliably produce useful outputs. A model doesn't "know" things the way a person does. It has learned statistical relationships between words, images, or other data, and it uses those relationships to predict what comes next.
+
+This distinction matters because "AI" is not one product. ChatGPT, Gemini, Claude, and Perplexity are applications — interfaces built around one or more underlying models. The model is the engine; the chatbot is the car built around it. That separation explains why AI tools sometimes disagree with each other, and why the same company's product can behave differently after an update.
+
+If you're comparing the chat apps themselves rather than the models underneath them, our [best AI chatbot](/blog/best-ai-chatbot) breakdown covers how the major options stack up.
+
+## How AI models are built
+
+In plain English, building a model follows a simple path: data goes in, training happens, and a set of learned parameters comes out as a usable model.
+
+- **Data collection.** Engineers gather huge volumes of text, images, code, or other material — web pages, books, licensed datasets, and more, depending on what the model is meant to do.
+- **Training.** The raw data is fed through a neural network, a structure loosely modeled on how neurons connect in a brain. The model repeatedly guesses an output, checks how wrong it was, and adjusts its internal parameters to be a little less wrong next time. Repeat that at massive scale, and the model gradually improves.
+- **Learned parameters.** What comes out of training isn't a lookup table of facts — it's a huge set of weighted connections encoding patterns from the training data. That's why models can generate original sentences instead of quoting text back verbatim, and also why they can occasionally state something confidently that isn't true.
+- **Fine-tuning and alignment.** Before a model ships in a consumer product, most companies run additional training rounds so it follows instructions, refuses harmful requests, and matches a particular tone — without changing the model's underlying knowledge.
+- **Deployment.** The finished model connects to an interface — a chat window, an API, a search feature — where people actually use it. Some deployments also connect the model to live retrieval systems for current information.
+
+What matters for anyone thinking about AI visibility is the shape of the process: a model's behavior is a product of what data it saw and how it was trained, not a fixed, universal truth machine.
+
+## Types of AI models
+
+AI models can be grouped two ways: by what they do, and by how open their design is to the public.
+
+By function, the main categories are:
+
+- **Language models (LLMs)** — trained on text to understand and generate language. This covers chatbots, writing assistants, and summarization tools.
+- **Image models** — trained on images (often paired with text) to generate or edit visuals from a prompt.
+- **Multimodal models** — trained across more than one data type, so a single model can accept text, images, or audio and reason across all of them.
+- **Speech and audio models** — handle transcription, voice generation, or audio understanding.
+- **Recommendation and prediction models** — the less visible category, powering product recommendations or fraud detection.
+
+By openness, models fall roughly into two camps: proprietary models, where the company keeps the underlying weights private, and open-weight models, where the trained parameters are published for anyone to download and run. Each approach trades off cost, control, and customization — a qualitative distinction, not a ranking of quality.
+
+| Model type | What it does | Example use |
+|---|---|---|
+| Language model (LLM) | Understands and generates text | Chatbots, drafting, summarizing |
+| Image model | Generates or edits images from prompts | Text-to-image creation tools |
+| Multimodal model | Processes and reasons across text, images, and/or audio in one system | Describing a photo, answering questions about a document |
+| Speech/audio model | Transcribes or generates spoken audio | Voice assistants, transcription tools |
+| Recommendation model | Predicts relevance or ranks options | Product suggestions, content feeds |
+
+For a deeper look at the language-model category specifically, see [what is an LLM](/blog/what-is-an-llm).
+
+
+![A focused individual types on a laptop running AI software indoors.](https://images.pexels.com/photos/16094043/pexels-photo-16094043.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Foundation models vs fine-tuned models
+
+A foundation model is a large, general-purpose model trained on broad data; a fine-tuned model is a specialized version adjusted for a narrower job. Think of the foundation model as raw material and the fine-tuned model as the finished product built from it.
+
+Companies rarely train a massive general model from scratch for every use case — it's resource-intensive and unnecessary when a foundation model already exists. Instead, they start with a foundation model and adapt it: additional training on domain-specific data, instruction-following adjustments, or narrower guardrails for a specific product. The result behaves differently even though it shares the same underlying architecture and much of the same learned knowledge.
+
+This matters for anyone trying to understand AI behavior, because a single foundation model can end up powering several different products, each fine-tuned to behave a bit differently. For the longer explanation of how foundation models work and why they anchor so much of the current AI landscape, see [what is a foundation model](/blog/what-is-a-foundation-model).
+
+## Why the model behind a tool matters for your brand
+
+Different AI models are trained on different data and retrieve information in different ways, so they can give different answers about the same brand. Being visible in one model's answers doesn't mean you're visible in another's.
+
+This is easy to miss because all AI chat tools look similar from the outside — a text box, a reply. But ask ChatGPT, Gemini, Claude, and Perplexity the same question about your product category, and you may get four different sets of recommended brands. That's not a bug. Each tool is built on a different model, trained on a different slice of the internet, up to a different point in time, with different rules about when it searches the live web versus answering from what it already "knows."
+
+For a business, that means AI visibility isn't a single target — it's several. A brand might be well represented in one model's training data because of strong press coverage from years back, while a newer competitor gets pulled into another model's answers because that model leans more heavily on live retrieval. Neither model is "wrong" — they're just built differently.
+
+This is also why single-tool testing is misleading. Checking only ChatGPT and concluding your brand is "doing fine" in AI search ignores every other model your buyers might be asking instead. For a side-by-side look at how the major models actually differ in practice, see [AI model comparison](/blog/ai-model-comparison).
+
+## How models decide what to say about you
+
+When a model answers a question about your brand, it draws on three things: what it learned during training, what it retrieves live from the web (if it can), and what signals suggest your brand is a credible, authoritative answer. Get any one of these wrong, and you're invisible in that answer — even if you'd be a great fit.
+
+- **Trained knowledge** is what the model absorbed during its original training run — everything from your site copy to press mentions to forum discussions, if it existed and was included in the training data. This is largely out of your control after the fact, though it explains why some brands show up in a model's answers and others don't, regardless of current quality.
+- **Retrieval** is what a model pulls in at answer time, if it's connected to live search. Tools like Perplexity and the search-enabled modes of ChatGPT and Gemini can fetch current pages rather than relying solely on training data. This is where structured, well-organized, currently published content — the kind a model can quickly parse and quote — has the most influence.
+- **Authority signals** are the trust markers a model (or its retrieval system) uses to decide which sources are worth citing: consistent information across the web, clear sourcing, third-party mentions, and content that directly and clearly answers the question being asked, rather than talking around it.
+
+Together, these three factors explain why AI visibility isn't just about ranking in Google — it's about being a source models want to repeat.
+
+## See what AI models are already saying about your brand
+
+The model behind an AI tool shapes what it knows, how it searches, and what it's willing to recommend — which is exactly why the same question can get a different answer from ChatGPT, Gemini, Claude, and Perplexity. If you've only checked one of them, you've only seen part of the picture.
+
+[AEOeye](/) audits how your brand actually shows up across the major AI models, side by side, so you can see where you're visible, where you're missing, and what's driving the gap. Run a free audit to see where you currently stand today.

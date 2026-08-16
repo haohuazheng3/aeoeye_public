@@ -1,0 +1,114 @@
+---
+title: "How to Optimize for AI Search: A 5-Step Playbook"
+description: "A complete playbook for AI search optimization: crawlability, quotable structure, entity authority, and how to measure which AI engines actually cite you."
+date: "2026-07-18"
+category: "Strategy"
+readingTime: "7 min read"
+keywords: ["how to optimize for ai search", "ai search optimization", "ai search visibility", "answer engine optimization", "generative engine optimization"]
+faqs: [{"q": "How do you optimize for AI search?", "a": "Make your content crawlable (allow bots like GPTBot and ClaudeBot), structure it for extraction with answer-first paragraphs, lists, and tables, build entity authority through consistent naming and schema, cover full buyer questions instead of keywords, then measure which engines actually cite you on a regular cadence."}, {"q": "Is AI search optimization different from SEO?", "a": "Not fundamentally \u2014 it's built on the same foundation of crawlability, clean HTML, and topical authority. What's added is a focus on quotable, answer-first structure instead of just rankings, plus measuring citations directly by asking engines your buyers' questions, since there's no AI search impressions report to check."}, {"q": "How do I get my site to show up in ChatGPT and Perplexity?", "a": "Confirm GPTBot and PerplexityBot aren't blocked in robots.txt, make sure your key pages render clean, crawlable HTML, write answer-first passages that work as standalone quotes, and add structured data so engines can verify who you are. Then test by asking both engines your buyers' real questions."}, {"q": "How do I measure AI search visibility?", "a": "There's no impressions dashboard for AI search, so measure it by asking each engine \u2014 ChatGPT, Perplexity, Gemini, Google AI Overviews, Claude \u2014 the actual questions your buyers ask, on a repeated cadence, then log which brands get named, including competitors, to see where you actually stand."}]
+image: {"url": "https://images.pexels.com/photos/5537527/pexels-photo-5537527.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Three people gathered around a laptop reviewing a tool together.", "photographer": "Zen Chung", "photographerUrl": "https://www.pexels.com/@zen-chung"}
+sources: []
+---
+
+## How do you optimize for AI search?
+
+You optimize for AI search by making your content easy to reach, easy to understand, and easy to quote — then checking which engines actually cite you. That's four jobs: crawlability, quotability, authority, and measurement.
+
+Skip any one of them and the other three stop mattering. A page ChatGPT can't crawl never gets read. A page it reads but can't parse never gets quoted. A page it quotes but doesn't trust gets dropped for a more authoritative source. And if you're not measuring who gets named, you're optimizing blind and guessing at results.
+
+If you want the underlying concept first, read [what AI search actually is](/blog/what-is-ai-search). This guide assumes that context and goes straight to five steps, plus a lever-by-lever table you can act on this week.
+
+## Step 1: Make sure AI can reach you
+
+Nothing else here matters if AI crawlers can't fetch your content in the first place. Start there, not with content strategy.
+
+The engines that matter most run their own bots — GPTBot (OpenAI), ClaudeBot (Anthropic), PerplexityBot, and Google-Extended, among others. If your robots.txt blocks them, often a leftover from a blanket "block all bots" rule your dev team set years ago, you're invisible to that engine no matter how good your content is.
+
+Check for:
+
+- **Robots.txt blocks.** Audit robots.txt for each crawler by name, not just a wildcard User-agent: * rule.
+- **JavaScript-only rendering.** If content only appears after client-side JS runs, some crawlers may see a blank page. Server-render or pre-render anything that matters.
+- **Stale noindex tags.** Common leftovers from a staging environment or a redesign that never got cleaned up.
+- **Login walls and aggressive bot detection.** A crawler that hits a CAPTCHA or paywall stops right there.
+- **Clean, semantic HTML.** Real headings, real lists, real tables — not div soup styled to look structured.
+
+See our full [AI crawler list](/blog/ai-crawler-list) for every bot worth allowing and how to verify access yourself.
+
+## Step 2: Structure content to be quoted
+
+Being crawlable gets you read. It doesn't get you quoted — that's a separate skill, and most sites never build it.
+
+AI engines extract passages, not pages. When Perplexity or an AI Overview answers a question, it's pulling a self-contained chunk of text — often a sentence or two — that already reads like an answer. If your best insight is buried in paragraph four after three paragraphs of throat-clearing, it won't get pulled.
+
+Write for extraction:
+
+- **Answer-first paragraphs.** Open each section with the direct answer in one or two sentences before you explain or qualify it.
+- **Question-style headings.** "What is X?" matches "what is X" queries far more reliably than a clever, ambiguous title does.
+- **Lists and tables over dense prose.** Structured formats are easier for a model to parse and easier for a human to scan — the same formatting helps both audiences at once.
+- **Self-contained sections.** Each section should make sense if it's the only thing quoted, with no "as mentioned above" or dangling pronouns.
+
+This is a rewrite discipline, not a one-time task. Every page you publish should pass a simple test: would this sentence make sense pasted into a chat answer, alone, with no surrounding context?
+
+
+![Close-up of a notebook with SEO terms and keywords, highlighting a checklist approach.](https://images.pexels.com/photos/942331/pexels-photo-942331.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Step 3: Strengthen authority and entity
+
+AI engines don't just need an answer — they need a source they trust enough to repeat. That's an authority problem, not a content problem.
+
+Three things build that trust:
+
+- **Consistent entity naming.** Use the same brand name, product name, and terminology everywhere: your site, your schema, your social profiles, your press mentions. Inconsistent naming makes it harder for an engine to confirm you're one real entity worth citing.
+- **Structured data.** Organization, Article, FAQPage, and Product schema give engines explicit, machine-readable facts instead of forcing them to infer from prose. It doesn't guarantee a citation, but it removes ambiguity that could cost you one.
+- **Earned mentions elsewhere.** Being referenced on other sites — press, forums, comparison pages, review sites — signals you're a real, established player, not a page that showed up once. It's the AI-era version of link building, and it works on the same underlying logic: other sources vouching for you.
+
+None of this is exotic. It's the boring, compounding work of being a legible, verifiable entity online, done consistently enough that a model never has to guess who you are.
+
+## Step 4: Cover the questions, not just keywords
+
+A keyword is a proxy for a question. AI engines answer the question directly, so plan around the question, not the search term that hints at it.
+
+Two habits matter most here:
+
+- **Map the full question tree.** For any topic, buyers ask a starting question, then follow-ups. "What is AI search?" leads to "how is it different from SEO?" leads to "how do I optimize for it?" Cover that chain, whether across a linked cluster of pages or, for closely related sub-questions, within one thorough page.
+- **One intent per page.** Don't merge "what is X" and "how do I do X" into a single page chasing both. That dilutes the answer-first passage for either query and makes extraction harder. Split them, and link between them.
+
+This is also where a lot of "AI SEO" content fails: it's written to contain a keyword, not to resolve a question. Engines are getting better at telling the difference.
+
+## Which lever helps which engine?
+
+No single tactic covers every engine, and the overlap is imperfect and still shifting. Here's the general pattern, worth treating as a starting map rather than a guarantee:
+
+| Lever | What to do | Which engines it helps |
+|---|---|---|
+| Crawler access | Allow GPTBot, ClaudeBot, PerplexityBot, and Google-Extended in robots.txt | All engines — this is the floor, not an edge |
+| Answer-first structure | Lead each section with a direct, quotable answer | ChatGPT, Perplexity, AI Overviews |
+| Structured data | Add Organization, Article, and FAQPage schema | Google AI Overviews, Gemini |
+| Entity consistency | Use identical naming across your site, schema, and outside mentions | Claude, Gemini, Perplexity |
+| Earned third-party mentions | Get referenced on sites the engine already trusts | Perplexity, Google AI Overviews |
+
+Engines update retrieval and ranking logic often enough that yesterday's pattern can shift without much notice — treat this as direction, not a fixed rulebook.
+
+## Step 5: Measure and iterate
+
+You can't check AI search impressions in a dashboard the way you can with Google Search Console — there isn't one. That's the single biggest difference from traditional SEO tracking, so you have to build visibility checks into your own workflow.
+
+The practical method: ask each engine the real questions your buyers ask, on a regular cadence, and track who gets named. The question isn't whether your page ranks — it's whether the engine says your name when someone asks the question you're trying to win.
+
+Do this by:
+
+- **Running the same question set across engines** — ChatGPT, Perplexity, Gemini, Google AI Overviews, Claude — since each retrieves and cites differently.
+- **Logging who's mentioned, not just whether you are.** Your competitors' visibility is the baseline you're actually competing against.
+- **Repeating on a cadence**, because answers shift as engines re-crawl and re-rank sources. A one-time check tells you almost nothing about a trend.
+
+See our guide to [measuring AI visibility](/blog/measuring-ai-visibility) for the full method, including how to track it over time instead of as a single spot check.
+
+## AI search optimization vs traditional SEO
+
+AI search optimization is built on traditional SEO, not separate from it. Crawlability, clean HTML, and topical authority were always the foundation. What's changed is the shift toward [generative search](/blog/generative-search): the target is now a self-contained, extractable answer instead of a blue link, and you measure citations by asking directly, since there's no impressions report to pull.
+
+The overlap is real — technical SEO, structured data, and topical depth all still matter, and skipping them doesn't get easier just because a model is reading your page instead of a ranking algorithm parsing it. If your SEO is already solid, you're most of the way there. The remaining gap is almost always structure and measurement, not a full rebuild.
+
+## Where to start
+
+Start by finding out where you already stand. Run a free audit with [AEOeye](/) to see which AI engines currently name you, which name your competitors instead, and which of the five levers above is your actual gap — before you spend a quarter rewriting content for a problem you might not have.

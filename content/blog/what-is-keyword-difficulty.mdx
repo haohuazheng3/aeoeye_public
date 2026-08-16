@@ -1,0 +1,104 @@
+---
+title: "What Is Keyword Difficulty? What the KD Score Really Measures"
+description: "Keyword difficulty scores your competition's backlinks, not your odds of ranking. How KD is calculated, why tools disagree, and the trap we hit on a new domain."
+date: "2026-07-18"
+category: "Fundamentals"
+readingTime: "8 min read"
+keywords: ["what is keyword difficulty", "keyword difficulty", "kd in seo", "good keyword difficulty score"]
+faqs: [{"q": "What is a good keyword difficulty score?", "a": "There's no universal good score \u2014 it depends on your domain's authority. A KD of 30 is realistic for an established site with strong backlinks, but risky for a brand-new domain. Treat KD as relative to your own link profile and history, not as an absolute threshold that applies to everyone equally."}, {"q": "Why do KD scores differ between tools?", "a": "Each tool builds KD from its own backlink index and weighting formula \u2014 there's no industry standard. Ahrefs-class tools lean on referring domains to the exact ranking URLs; Semrush-class tools blend authority signals; Moz and Mangools apply their own proprietary authority scores. The same keyword can score 10 in one and 40 in another."}, {"q": "Is low keyword difficulty always easy to rank?", "a": "No \u2014 we learned this firsthand. We targeted KD 0-15 keywords on a new domain and the pages opened 60-90 positions deep, not top 10, because KD measures the incumbents' backlinks, not your authority gap. Low KD means the ceiling is low; it says nothing about how far below it you're starting."}, {"q": "Does keyword difficulty apply to AI search?", "a": "Not directly \u2014 no standardized KD metric exists yet for AI answer engines. The closest analog is citation difficulty: how entrenched the sources an engine already cites for a question are, and how hard they'd be to join or displace. You approximate it by asking the engines directly and tracking who gets named over time."}]
+image: {"url": "https://images.pexels.com/photos/31466992/pexels-photo-31466992.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Person interacting with DeepSeek AI chat app on smartphone, focusing on digital innovation and communication.", "photographer": "Abdelrahman  Ahmed", "photographerUrl": "https://www.pexels.com/@arshutter"}
+sources: []
+---
+
+Keyword difficulty (KD) is a 0-100 score estimating how hard it is to crack the top 10 for a search term — built almost entirely from the backlink profiles of whoever is already ranking. That's the useful part, and it's also the trap: KD measures your competition, not you.
+
+We learned that the expensive way, targeting a batch of KD 0-15 keywords on a brand-new domain and watching the pages open 60-90 positions deep instead of an easy climb. Here's what the score actually measures, why tools disagree on it, and how to use it without getting burned.
+
+## What is keyword difficulty?
+
+Keyword difficulty — often just called KD in SEO conversations — is a 0-100 estimate of how hard it would be to rank in the top 10 for a specific term, calculated mainly from the backlink profiles of the pages currently holding those top 10 spots. It's a competition-side metric: a snapshot of the link strength you're up against today, not a prediction about your specific odds.
+
+Here's how that snapshot gets built. A tool pulls the URLs sitting in positions 1 through 10 right now, counts the referring domains and links pointing at those specific pages, and sometimes factors in the strength of the whole domain behind them. That data compresses into one number: more and stronger incumbent links, higher KD.
+
+Two things follow. First, KD is a snapshot of today's SERP, not a forecast. Second, it deliberately excludes one huge variable: your site. A KD of 12 describes the incumbents' backlinks — not your domain's age, your backlinks, or your topical history. That gap is where most people misread the number, us included, at first.
+
+## How tools calculate KD (and why they disagree)
+
+Every major SEO tool builds keyword difficulty from a different backlink model, which is why the same keyword can score 10 in one tool and 40 in another. There's no industry-standard formula — each vendor picked its own inputs, its own link index, and its own calibration. Trusting a single tool's number in isolation is a common, avoidable mistake.
+
+The differences break down roughly by tool class:
+
+| Tool class | Main input | Bias | Implication |
+|---|---|---|---|
+| Ahrefs-class | Referring domains linking to the exact ranking URLs | Rewards link-building activity; can undercount pages that rank on relevance or user signals | A high score can be a genuine link fight in niches with few link-worthy assets |
+| Semrush-class | Blended authority signals — backlinks plus estimated competition density across the domain | Smooths one-off backlink spikes but can inflate scores in broad, crowded niches | More useful for comparing across niches than judging one narrow term precisely |
+| Moz/Mangools-class | Proprietary domain and page authority scores applied to the current ranking set | Authority scores update on the vendor's own schedule and can lag a SERP that just reshuffled | A low score can look stale right after a ranking shakeup — recheck manually |
+
+None of these are wrong — they're measuring related but distinct things through different link indexes. That's also why the Moz and Mangools family sits in its own category; if their scoring model doesn't fit how you plan to use KD, it's worth comparing [Mangools alternatives](/blog/mangools-alternatives) instead of assuming one vendor's number is the objective truth.
+
+The practical rule: a KD number is reliably comparable only within the same tool, tracked over time. A 15 from one tool against a 25 from another tells you almost nothing.
+
+
+![Smartphone screen showing Google search in dark mode with the Google logo in the background.](https://images.pexels.com/photos/15406292/pexels-photo-15406292.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## The KD trap we lived through
+
+We targeted a batch of KD 0-15 keywords on a brand-new domain and expected a fast, easy climb. Instead, those pages opened in the 60-90 position band and crawled upward slowly over several weeks — because KD scores the strength of the incumbents currently ranking, not the size of the authority gap between them and a domain with zero history.
+
+Here's what that looked like in practice. We picked terms with KD scores in the single digits and low teens, on the theory that "low difficulty" meant "quick win." The pages went live, got indexed, and sat far outside the top 10 — not "page 2," but deep enough that we had to scroll for a while to find them.
+
+Nothing about that contradicted the KD score. It had correctly described the incumbents: beatable backlink profiles, weak in theory. What it never asked, because it isn't built to ask, was where our domain stood relative to them. We had:
+
+- No meaningful backlink history of our own
+- No topical track record in the engines' eyes
+- No link velocity — nothing pointing at us yet, let alone accumulating
+
+A domain missing all three starts several rungs below "comparable," no matter how weak the incumbents look on paper. Low KD told us the ceiling was low. It said nothing about the floor we were starting from.
+
+The pages did climb, gradually, as the domain built its own signals. That's the honest part of this story: low KD on a new domain isn't a false promise, it's a slow one. Winnable eventually is not the same claim as winnable this week — and KD, by itself, never tells you which one you're getting.
+
+## What KD actually predicts — and what it can't
+
+KD reliably predicts two things: the relative backlink gap you'd need to close against the current top 10, and how your target keywords rank against each other in difficulty. It's solid for relative ordering within a list you control. It's a poor predictor of almost everything else about your specific attempt to rank.
+
+What it predicts well:
+
+- The rough size of the link-building lift needed compared to today's incumbents
+- Which keywords on your list are comparatively easier or harder than the others
+
+What it can't tell you:
+
+- How long it will take you to close that gap — that depends on your domain's history, not just the incumbents' backlinks
+- Whether the content currently ranking is actually good, or just old and undisturbed — a quality gap KD has no way to see
+- Whether the SERP's intent has shifted since the tool last crawled it — an informational term can quietly turn transactional
+- Whether Google will rank a page like yours at all — some SERPs structurally favor big, established domains regardless of backlink counts
+
+Treat the score as one input describing the competition, not a verdict on your outcome.
+
+## How to use KD correctly
+
+Use KD as a relative filter across your own candidate list, never as a standalone verdict. The real decision happens when you open the live SERP and check whether the current top 10 has weak spots — forums, thin pages, stale content — that a low score only hints at.
+
+The workflow that actually works:
+
+1. **Build your candidate list first.** Cluster related terms so you're evaluating one topic at a time instead of five overlapping variants — a [keyword clustering tool](/blog/keyword-clustering-tool) does this faster than doing it by hand.
+2. **Sort by KD for relative order, not absolute difficulty.** Read "10 vs. 40" as "easier vs. harder within this list," not "achievable vs. impossible."
+3. **Open the live SERP for anything you're seriously considering.** Look at who's ranking: a Reddit thread, a five-year-old listicle, a forum post with no on-page optimization at all. Scanning the [People Also Ask](/blog/people-also-ask) box for the same query is a fast way to spot gaps the top 10 hasn't addressed.
+4. **Match intent before anything else.** A weak SERP with the wrong intent still won't convert — confirm the ranking pages are even the right content type for what you're trying to do.
+5. **Decide.** Weak SERP, low KD, and a genuine intent match together mean go. Missing any one of those means pause — the number alone is never a green light.
+
+A KD score is a rumor about the competition. The live SERP is the deposition.
+
+## Is there a keyword difficulty for AI answers?
+
+No standardized keyword-difficulty metric exists yet for AI answer engines, as of this writing. The closest analog is citation difficulty: how entrenched the sources an engine currently cites for a given question are, and how hard it would be to join or displace them.
+
+Traditional KD works because tools can query a stable, rankable list — Google's top 10 — through a backlink index built for that purpose. AI answer engines don't expose an equivalent list. ChatGPT, Perplexity, Gemini, Google AI Overviews, and Claude generate answers dynamically, often citing a small, engine-specific set of sources rather than a public ranking you can query through an API.
+
+What actually determines whether you get cited looks different from backlink weight:
+
+- Whether the engine already has a small set of go-to sources for that exact question
+- How authoritative and consistent those sources are across the broader web, not just one link graph
+- Whether your content answers the question in a format the engine can extract cleanly
+
+The practical way to approximate citation difficulty today is direct: ask the engines the question yourself, note who gets named, and track it over time, since the answer changes as engines update. That's the audit [AEOeye](/) runs — which questions your brand is already cited for across the major engines, and where a competitor gets named instead every time. For a fuller framework on tracking this, see [how to measure AI visibility](/blog/measuring-ai-visibility).

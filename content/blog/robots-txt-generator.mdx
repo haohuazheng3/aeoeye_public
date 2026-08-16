@@ -1,0 +1,115 @@
+---
+title: "Robots.txt Generator: Build One, Then Decide on AI Crawlers"
+description: "A practical guide to building a robots.txt file, plus the real decision behind it: whether to let GPTBot, ClaudeBot, and PerplexityBot read your site."
+date: "2026-07-18"
+category: "Tools"
+readingTime: "8 min read"
+keywords: ["robots txt generator", "robots.txt generator", "robots.txt file", "how to create a robots.txt file", "block AI crawlers", "GPTBot robots.txt", "ClaudeBot", "PerplexityBot", "AI crawler robots.txt"]
+faqs: [{"q": "What is a robots.txt generator?", "a": "A robots.txt generator is a tool that produces a robots.txt file through a form or template instead of a text editor. It outputs the same plain-text rules \u2014 user-agent, disallow, allow, and sitemap directives \u2014 that you'd get hand-writing the file; the generator just reduces the chance of a syntax mistake."}, {"q": "Do I need a robots.txt file?", "a": "Not strictly \u2014 crawlers will index your site without one. But without a robots.txt, you have no way to point crawlers to your sitemap, keep them out of low-value paths like checkout or admin pages, or make a deliberate call about AI crawlers. A five-line file is cheap insurance against messy, undirected crawling."}, {"q": "Should I block AI crawlers in robots.txt?", "a": "It depends on your goal. Blocking GPTBot, ClaudeBot, or PerplexityBot keeps your content out of that engine's training and answers \u2014 a fair call if you're protecting proprietary content. But it also makes you ineligible to be cited when someone asks that engine a question your page could answer. There's no default-correct choice."}, {"q": "How do I allow AI crawlers?", "a": "Make sure no Disallow rule under User-agent: * blocks the paths you want indexed, since AI crawlers without a dedicated rule simply follow that catch-all. If you'd previously blocked them, add explicit permissive rules for GPTBot, ClaudeBot, PerplexityBot, and Google-Extended, or delete the rule that excluded them, then verify with a live fetch of robots.txt."}]
+image: {"url": "https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Wooden blocks spelling SEO on a laptop keyboard convey digital marketing concepts.", "photographer": "Atlantic Ambience", "photographerUrl": "https://www.pexels.com/@freestockpro"}
+sources: [{"label": "Anthropic \u2014 Does Anthropic crawl data from the web?", "url": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"}]
+---
+
+Robots.txt hasn't changed much since 1994. What's changed is who's reading it. A file that used to just keep Googlebot out of your admin folder now decides whether ChatGPT, Claude, and Perplexity ever see your content at all — and most site owners are making that call by accident, not on purpose.
+
+This guide covers what a robots.txt generator does, what the file itself controls, a working example you can copy today, and the AI-crawler decision now built into every robots.txt file.
+
+## What Is a Robots.txt Generator?
+
+A robots.txt generator is a tool that builds a robots.txt file for you — the plain-text rules that tell crawlers which parts of your site they're allowed to request. It's a short file and not hard to hand-write, but the stakes are higher now that AI crawlers read it too, alongside search engines.
+
+Robots.txt lives at your domain root — `https://yoursite.com/robots.txt` — and nowhere else. Put it in a subfolder and crawlers won't find it. The file itself is a list of rules: which user-agent a rule applies to, which paths it can't touch, and where your sitemap lives.
+
+This is a guide, not a sales pitch. You'll get a copy-pasteable example below, plus an honest look at when a generator is worth using versus when you should just open a text editor.
+
+## What Robots.txt Actually Does
+
+Robots.txt gives crawlers three kinds of instructions: which bot the rule targets, which paths are off-limits, and where your sitemap lives. That's the whole job. It's a request, not a lock — compliant bots honor it, but nothing stops a bot from ignoring it entirely.
+
+The core directives:
+
+- **User-agent** — names the crawler a rule applies to. `*` means "every crawler without a more specific rule below."
+- **Disallow** — a path the named crawler shouldn't request. `Disallow: /admin/` blocks that folder; `Disallow: /` blocks the entire site.
+- **Allow** — carves out an exception inside a disallowed path, or states explicitly that a path is fair game.
+- **Sitemap** — a full URL pointing crawlers to your XML sitemap, so they can find pages even ones you haven't linked internally.
+
+Two things trip people up. First, robots.txt is publicly visible to anyone who types `/robots.txt` after your domain — it isn't a place to hide sensitive URLs, since listing a path there just tells people where to look.
+
+Second, it controls crawling, not indexing; a disallowed page can still appear in search results (usually with no description) if enough other pages link to it. The Robots Exclusion Protocol was formalized as [IETF RFC 9309](https://www.rfc-editor.org/rfc/rfc9309) in 2022, which is why the syntax is now standardized across every major crawler instead of a loose, incon
+sistent convention.
+
+
+![Close-up of a notebook with SEO terms and keywords, highlighting a checklist approach.](https://images.pexels.com/photos/942331/pexels-photo-942331.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## A Basic Robots.txt (Example)
+
+Here's a generic robots.txt that blocks nothing important, points crawlers to your sitemap, and keeps low-value paths like checkout and admin pages out of the crawl. Copy it, swap in your own domain, and you have a working file in under a minute.
+
+```
+User-agent: *
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /*?*sort=
+Allow: /
+
+Sitemap: https://www.example.com/sitemap.xml
+```
+
+What each line does:
+
+- `User-agent: *` — applies to every crawler that doesn't have its own dedicated block further down the file.
+- `Disallow: /admin/` and `Disallow: /checkout/` — keep account-specific pages with no reason to be indexed out of the crawl.
+- `Disallow: /*?*sort=` — a wildcard rule blocking parameterized URLs (sort, filter, session IDs) that otherwise create thousands of duplicate-content variants.
+- `Allow: /` — states explicitly that everything else is fair game. Often redundant, but harmless, and some generators add it for clarity.
+- `Sitemap:` — the full, absolute URL to your XML sitemap, not tied to any single user-agent.
+
+That's a complete, valid file. Google's own [robots.txt documentation](https://developers.google.com/search/docs/crawling-indexing/robots/intro) confirms this is all the syntax there is — no hidden complexity a generator is secretly handling for you.
+
+## The AI-Crawler Decision Every Site Now Faces
+
+Robots.txt now doubles as the on/off switch for AI visibility. GPTBot, ClaudeBot, PerplexityBot, and Google-Extended all check your robots.txt before reading your pages, and each one feeds a different AI answer engine. Block one and you're structurally invisible in that engine's answers — no amount of good content fixes a crawler that never got past the front door.
+
+This is a real decision, not a technicality. Some publishers block AI crawlers on principle, to keep content out of model training. That's a legitimate call.
+
+But it trades away something concrete: eligibility to be cited when someone asks ChatGPT, Claude, or Perplexity a question your page answers. You can't be recommended by an engine you never let read you.
+
+There's no universal right answer — it depends on whether AI referral traffic and citations matter to your business, or whether keeping content out of training sets matters more to you. What's not okay is blocking these crawlers by accident, which is the far more common outcome. For the full roster of crawlers and what they do, see the [AI crawler list](/blog/ai-crawler-list); if you've weighed it and decided to block some or all of them, [here's exactly how](/answers/how-to-block-ai-crawlers).
+
+| AI Crawler | Engine It Feeds | Block It and You Lose |
+|---|---|---|
+| GPTBot | ChatGPT (training and some browsing features) | Any chance of being cited in ChatGPT answers |
+| OAI-SearchBot | ChatGPT's live web search results | Visibility when ChatGPT searches the web in real time |
+| ClaudeBot | Claude | Citations and mentions in Claude's answers |
+| PerplexityBot | Perplexity | Inclusion among Perplexity's cited sources |
+| Google-Extended | Gemini and AI Overviews | Appearing in Gemini answers and AI Overviews |
+
+## Common Robots.txt Mistakes
+
+The most expensive robots.txt mistakes are quiet ones. A stray `Disallow: /` under `User-agent: *` blocks your entire site — usually a leftover from a staging environment that got copied straight to production. Nobody notices until traffic quietly drops.
+
+Three mistakes show up constantly:
+
+- **Blocking the whole site by accident.** One extra slash in a `Disallow` line is the difference between hiding a folder and hiding everything. Check the live file after every deploy, not just the one sitting in your repo.
+- **Blocking CSS and JS.** Rules that disallow `/assets/` or `/static/` can stop crawlers from rendering a page the way a visitor actually sees it. Google has said blocking resource files hurts its ability to understand your layout and content — the same logic applies to any AI crawler trying to parse the page.
+- **Blocking AI bots without meaning to.** A blanket "block unknown bots" rule copied from an old security template, or a broad rule written before GPTBot and ClaudeBot existed, can end up excluding engines you'd actually want citing you. If your robots.txt hasn't been touched since before 2023, it's worth a second look.
+
+Robots.txt is one line item on a much longer list of technical basics worth auditing — see the full [technical SEO checklist](/blog/technical-seo-checklist) for the rest.
+
+## Generator vs. Hand-Writing: Which Should You Use?
+
+For most sites, hand-writing robots.txt is fine. It's five to fifteen lines of plain text, and you already know your own URL structure better than a generic tool does. Generators earn their keep on large, complex sites with many parameter patterns, or for non-technical site owners who'd rather fill in a form than risk a typo.
+
+The honest tradeoff:
+
+- **Hand-writing** gives you full control with zero dependency on a third-party tool, and takes about five minutes once you know the directives above.
+- **Generators** reduce the risk of a syntax slip — like a missing slash that blocks far more than intended — and can save time if you're managing dozens of parameter patterns on a large catalog site.
+
+Whichever route you take, test the live file afterward. Fetch `yoursite.com/robots.txt` directly and read it the way a crawler would, rather than trusting the file sitting in your repo. A generator that produces clean syntax doesn't guarantee the rules are the ones you actually meant to write.
+
+## Getting Read Is Not the Same as Getting Cited
+
+Fixing robots.txt is necessary, not sufficient. Getting the file right means AI crawlers can read your site — it doesn't mean they'll cite it, recommend it, or mention your brand when someone asks a buying question your page answers.
+
+That's a separate problem, and it's a content and structure one rather than a syntax one. Once your robots.txt is confirmed clean, the next question is what makes an AI engine choose your page over a competitor's, which is covered in [how to optimize for AI search](/blog/how-to-optimize-for-ai-search).
+
+If you want to know where you actually stand today, that's the gap [AEOeye](/) audits directly: plug in your brand or URL and see whether ChatGPT, Perplexity, Gemini, Google AI, and Claude are naming you when it matters — not just whether they're technically allowed to crawl you.

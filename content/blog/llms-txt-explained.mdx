@@ -1,0 +1,104 @@
+---
+title: "llms.txt Explained: Should Your Site Have One?"
+description: "A clear-eyed look at llms.txt: what the file actually does, what it doesn't do today, who should bother shipping one, and how to write a good one."
+date: "2026-06-25"
+category: "Technical"
+readingTime: "8 min read"
+keywords: ["llms.txt", "AEO", "answer engine optimization", "AI visibility", "llms-full.txt", "ChatGPT SEO", "Perplexity", "structured content for AI"]
+faqs: [{"q": "Does adding an llms.txt make ChatGPT or Perplexity recommend my brand?", "a": "There's no public evidence that it does as of mid-2026. No major consumer AI assistant is confirmed to fetch llms.txt at inference time to decide recommendations. It's a content-delivery convenience for agents and tools that opt in, not a ranking signal. Whether you're recommended depends far more on how trusted sources describe you and whether your own pages answer questions clearly."}, {"q": "What's the difference between llms.txt and llms-full.txt?", "a": "llms.txt is a curated Markdown index that links to your important pages with short descriptions. llms-full.txt inlines the entire content of those pages into one file, so a model can ingest everything in a single fetch without crawling. Use llms.txt for large or frequently changing sites, llms-full.txt when your corpus is small enough to fit comfortably in context. Many sites ship both."}, {"q": "Where do I put the llms.txt file?", "a": "At the root of your domain, served at yoursite.com/llms.txt as plain text or Markdown. The convention mirrors robots.txt. The linked pages ideally have clean Markdown (.md) versions so models can parse the substance without HTML clutter."}, {"q": "Is llms.txt the same as robots.txt?", "a": "No. robots.txt tells crawlers what they may or may not access. llms.txt does the opposite in spirit — it's a curated, machine-friendly summary of the content you most want an LLM to understand, with links and descriptions. robots.txt is about access control; llms.txt is about content delivery and comprehension."}, {"q": "Who should not bother with llms.txt?", "a": "Small local businesses and thin marketing sites get little from it. Their AI visibility hinges on accurate, consistent mentions across reviews, directories, and third-party content, not a root file. If you'd only be able to produce a sparse file pointing at marketing pages, your time is better spent auditing how assistants currently describe you and fixing the gaps."}]
+image: {"url": "https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Close-up of colorful programming code displayed on a computer monitor with a dark background.", "photographer": "Nemuel Sereti", "photographerUrl": "https://www.pexels.com/@nemuel"}
+---
+
+Every few months a new file at the root of your domain gets anointed as the thing that will fix your AI visibility. Right now that file is `llms.txt`. You've probably seen the takes: "Add an llms.txt and watch ChatGPT start recommending you." You've probably also seen the backlash: "It's snake oil, no model reads it." Both camps are wrong in the specific, irritating way that confident people are usually wrong.
+
+Here's what `llms.txt` actually is, what it does and doesn't do as of mid-2026, and a straight answer on whether you should ship one.
+
+## What llms.txt actually is
+
+`llms.txt` is a proposed standard — originally floated by Jeremy Howard of Answer.AI in late 2024 — for a Markdown file you place at the root of your domain (`yoursite.com/llms.txt`). The idea is simple and genuinely sensible: HTML is a mess for machines. A product page is 95% navigation, cookie banners, scripts, and layout, with the actual substance buried somewhere in the middle. `llms.txt` gives you a clean, curated, Markdown summary of your site — the parts you most want an LLM to understand — with links to more detail.
+
+The format is loose but conventional. An H1 with your site name, an optional blockquote summary, then H2 sections grouping links to your important pages, each link followed by a short description:
+
+```
+# Acme Analytics
+
+> Acme is a product analytics platform for B2B SaaS teams.
+
+## Docs
+- [Quickstart](https://acme.com/docs/quickstart.md): Get tracking in 10 minutes
+- [API Reference](https://acme.com/docs/api.md): Full REST and webhook docs
+
+## Pricing
+- [Plans](https://acme.com/pricing.md): Tiers, limits, and what's included
+```
+
+There's a companion convention, `llms-full.txt`, which inlines the entire content rather than just linking to it — handy when you want a model to ingest everything in one fetch without crawling. Many docs platforms (Mintlify, for instance) now generate both automatically.
+
+That's it. It is a sitemap for language models, written in prose. Nothing more exotic than that.
+
+## What it does NOT do today — and this is the important part
+
+This is where most articles lie to you by omission, so let me be blunt.
+
+**No major consumer AI assistant is confirmed to fetch `llms.txt` at inference time to decide what to recommend.** Not ChatGPT, not Claude, not Gemini, not Google's AI Overviews. Google's John Mueller said plainly that nobody at Google uses it and compared its current utility to the old keywords meta tag. When ChatGPT browses to answer a question, it hits your actual pages or a search index — it doesn't go looking for `llms.txt` first. As of mid-2026, there is no public evidence that adding this file changes whether an AI assistant names your brand in an answer.
+
+> If someone tells you `llms.txt` will make ChatGPT recommend your product, they are selling you something. The file is a content-delivery convenience, not a ranking signal. Treat anyone who conflates the two as a source you should stop trusting.
+
+So why does it exist, and why isn't it dead? Because the value is real but narrower than the hype:
+
+- It's a clean ingestion target for **agents and tools you control or that opt in** — coding assistants, RAG pipelines, internal copilots, and a growing set of dev-tool integrations that explicitly look for it.
+- It's a hedge. Standards calcify fast once a couple of big players adopt them. The marginal cost of shipping a good `llms.txt` is a few hours; the cost of being late if it does get adopted is months of being invisible to whatever consumes it.
+- For documentation-heavy sites, the `.md` versions of pages it points to are genuinely easier and cheaper for any LLM to parse than your rendered HTML.
+
+The honest framing: `llms.txt` is adoption-pending infrastructure. Useful now in specific places, potentially useful broadly later, useless as a magic visibility lever today.
+
+## Who should actually bother
+
+Not everyone needs one. Let me split the audience.
+
+### Ship one if:
+
+- **You run developer docs, an API, or technical content.** This is the sweet spot. Agents that write code against your API benefit immediately, and the `.md` page versions are low-effort wins. If you're a dev tool and you don't have one, you're behind your competitors who do.
+- **You publish a large, structured knowledge base** — help centers, product catalogs, comparison content — where you'd want a model to grab the canonical version rather than guess from a cluttered page.
+- **You have the engineering capacity to keep it current.** A stale `llms.txt` is worse than none, because the whole point is that it's the curated, trustworthy version.
+
+### Don't lose sleep over it if:
+
+- You're a small local business or a thin marketing site. Your AI visibility problem is almost entirely about whether you're mentioned and described accurately across the web — reviews, directories, third-party content — not about a root file.
+- You'd have to fake it. A three-link `llms.txt` pointing at marketing pages adds nothing.
+
+The uncomfortable truth is that for most brands, `llms.txt` is somewhere between item #8 and #15 on the list of things that actually move AI recommendations. The things ahead of it — being cited by sources models trust, having clear and extractable answers on your own pages, consistent factual descriptions of what you do across the web — matter far more right now. If you don't know where you currently stand on those, that's the thing to fix first. A [free AEO audit from AEOeye](https://aeoeye.com) will show you how assistants actually describe and rank you today, which tells you whether `llms.txt` is even on your critical path.
+
+## How to write a good one
+
+If you've decided to ship, do it properly. A bad `llms.txt` is just noise at your root.
+
+### 1. Lead with a sharp, factual summary
+
+The blockquote under your H1 is the single most valuable line in the file. Make it the description you'd want an LLM to repeat verbatim when someone asks "what is [your brand]?" Be concrete: who it's for, what category it's in, what makes it distinct. Avoid adjectives that mean nothing ("innovative," "leading"). A model can't repeat "leading" — it can repeat "a project management tool built for agencies that bill by the hour."
+
+### 2. Curate ruthlessly
+
+The reason `llms.txt` beats a sitemap is human judgment. Include the 15-40 pages that actually matter — docs, pricing, key product pages, your best explainer content. Leave out the press releases, the duplicate landing pages, the legal boilerplate. Every link should earn its place.
+
+### 3. Write descriptions for every link
+
+The text after each link is your chance to disambiguate. "API Reference: full REST and webhook docs, including rate limits and auth" is far more useful than a bare link. These descriptions are cheap context that help a model route to the right page.
+
+### 4. Serve clean Markdown at the linked URLs
+
+This is the step people skip. If your links point to `.md` versions of pages, make sure those actually exist and contain the substance without the chrome. On many stacks you can serve a Markdown variant by appending `.md` to the URL or via content negotiation. If you can't, link to the regular page — but the Markdown route is the whole efficiency argument.
+
+### 5. Decide between llms.txt and llms-full.txt
+
+Use `llms.txt` (links only) if your content is large or changes often. Add `llms-full.txt` (everything inlined) if your corpus is small enough to fit in a reasonable context window and you want single-fetch ingestion. Many sites ship both. Don't inline a million tokens — that defeats the purpose and nothing will read it whole.
+
+### 6. Keep it current, automatically
+
+Generate it from your CMS or docs build, not by hand. The value evaporates the moment it drifts from reality. If you can't automate it, scope it small enough that updating it is trivial.
+
+## The realistic verdict
+
+Ship an `llms.txt` if you're a docs-heavy, technical, or knowledge-rich site and you can keep it accurate. Treat it as good hygiene and a cheap hedge, not as a growth lever. Skip the anxiety if you're a small site — your effort is better spent elsewhere.
+
+And whatever you do, don't let `llms.txt` become a way to feel productive about AI visibility while ignoring the harder, higher-leverage work. The question that determines whether ChatGPT recommends you isn't "do I have a file at my root?" It's "when someone asks the assistant about my category, am I in the answer, and is the description accurate?" That's measurable today. Measure it, fix the gaps, and put `llms.txt` where it belongs on the list — useful, worth doing, and nowhere near the top.

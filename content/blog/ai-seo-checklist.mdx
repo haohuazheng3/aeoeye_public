@@ -1,0 +1,71 @@
+---
+title: "The AI SEO Checklist (2026): 25 Steps to Rank in Search AND Get Cited by AI"
+description: "A 25-step checklist covering both scoreboards of 2026 SEO: classic search rankings and AI citations from ChatGPT, Perplexity, and AI Overviews."
+date: "2026-07-10"
+category: "Strategy"
+readingTime: "8 min read"
+keywords: ["ai seo checklist", "ai seo checklist 2026", "ai seo optimization checklist", "seo ai visibility checklist", "ai search optimization", "aeo checklist", "answer engine optimization checklist", "technical seo for ai", "e-e-a-t checklist", "ai crawlers robots.txt"]
+faqs: [{"q": "What is an AI SEO checklist?", "a": "It's a structured list of technical, content, trust, and measurement actions that improve both classic search rankings and the odds that AI tools like ChatGPT or Perplexity cite your pages when answering a question."}, {"q": "How is AI SEO different from normal SEO?", "a": "Normal SEO optimizes for ranking in a list of links; AI SEO (often called AEO) optimizes for being the sentence or paragraph an AI model quotes directly in its answer. Many of the same foundations apply, but content structure and entity trust matter more."}, {"q": "How often should I run this checklist?", "a": "Treat items 1–20 as a one-time setup pass, then re-run the full checklist monthly. AI models and SERPs both change enough month to month that a single pass isn't durable."}, {"q": "What's the first thing to check?", "a": "Crawlability. Confirm robots.txt isn't blocking AI crawlers like GPTBot or PerplexityBot, and that your key pages aren't accidentally set to noindex — content and trust work are wasted if a page can't be reached in the first place."}]
+image: {"url": "https://images.pexels.com/photos/942331/pexels-photo-942331.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Close-up of a notebook with SEO terms and keywords, highlighting a checklist approach.", "photographer": "Tobias Dziuba", "photographerUrl": "https://www.pexels.com/@tobias-dziuba-319638"}
+sources: [{"label": "Google Search Central — Search Essentials", "url": "https://developers.google.com/search/docs"}, {"label": "OpenAI — GPTBot crawler documentation", "url": "https://platform.openai.com/docs/gptbot"}, {"label": "web.dev — Core Web Vitals", "url": "https://web.dev/articles/vitals"}, {"label": "Schema.org — Organization", "url": "https://schema.org/Organization"}, {"label": "Google Search Central — Creating helpful, reliable, people-first content", "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"}]
+---
+
+Most SEO checklists were written for one scoreboard: Google's ten blue links. In 2026 there's a second scoreboard running at the same time — whether ChatGPT, Perplexity, Gemini, and Google's AI Overviews cite your pages when someone asks a buying question. This checklist covers both, because working only one is working half the job.
+
+The 25 items below are grouped into five sections, roughly in the order you should tackle them: foundation first, iteration last. You don't need to finish all 25 in a weekend — but you should know exactly where you stand on each one.
+
+## Foundation: technical & crawlability
+
+Before content or trust signals matter, both search engines and AI crawlers need to reach, read, and parse your pages. These five checks come first because everything else sits on top of them.
+
+1. **Confirm every important page is actually crawlable.** Check for accidental `noindex` tags, blocked paths in robots.txt, or pages that only render after JavaScript some crawlers don't execute. A page that isn't crawlable can't rank or be cited, no matter how good it is.
+2. **Keep your sitemap accurate and submitted.** An XML sitemap that includes dead URLs or omits new ones sends a weak signal about how well-maintained your site is. Resubmit it whenever your URL structure changes.
+3. **Check robots.txt allows AI crawlers.** GPTBot, PerplexityBot, ClaudeBot, and Google-Extended are separate user agents from your regular search crawler — it's easy to block AI bots by accident (or by a plugin's default settings) without blocking Googlebot. Verify each one explicitly.
+4. **Fix page speed and Core Web Vitals.** Slow pages get crawled less often and abandoned by readers faster, which both hurt rankings. Run your key pages through a Core Web Vitals check and prioritize the worst offenders first.
+5. **Use clean, semantic HTML with a logical heading hierarchy.** One H1, properly nested H2s and H3s, and real `table` or `ul` markup instead of styled `div`s make it far easier for both search indexers and AI extraction models to parse what your page is actually saying.
+
+## Content: answer-shaped writing
+
+AI answer engines extract sentences and paragraphs, not whole pages — so content has to be shaped to be pulled out and quoted, not just read top to bottom.
+
+6. **Open every page with an answer-first paragraph.** State the direct answer to the implied question in the first one or two sentences, before any preamble. This is the single highest-leverage habit for AI citation, because most extraction models weight the opening content of a section heavily.
+7. **Write H2s as questions.** "What is X?" or "How do you do Y?" headings map directly onto how people phrase queries to AI assistants, which makes it easier for a model to match your section to a user's question.
+8. **Keep paragraphs short — two to four sentences.** Dense walls of text are harder for both humans skimming and models extracting to isolate a clean, quotable answer.
+9. **Use tables and lists wherever you're comparing things.** Pricing, feature comparisons, and step sequences belong in structured markup, not prose — it's the format AI systems most reliably parse and reproduce correctly.
+10. **Add FAQ blocks with schema markup.** A well-marked-up FAQ section gives AI systems a pre-packaged question-and-answer pair to lift directly, and it can also earn rich results in classic search.
+11. **Stick to one intent per page.** A page trying to rank for five different questions usually answers none of them clearly. If you're not sure what "answer-shaped" content looks like in practice, see [what answer engine optimization actually means](/blog/what-is-answer-engine-optimization).
+
+![A notebook page with Content Strategy written on it, representing a structured plan.](https://images.pexels.com/photos/15635243/pexels-photo-15635243.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Entity & trust
+
+AI models and search engines both need to resolve who you are before they'll cite you — that's an entity and trust problem, not a keyword problem.
+
+12. **Keep your entity naming consistent.** Use the same brand name, spelling, and capitalization everywhere — your site, your schema, your social profiles, your directory listings. Inconsistent naming makes it harder for models to confirm you're the same entity across sources.
+13. **Add Organization schema to your site.** This is the structured-data equivalent of a business card: name, logo, URL, and social profiles in a format both search engines and AI systems can parse without guessing.
+14. **Maintain a real About page.** A thin or missing About page is a weak trust signal. Say who runs the site, what it does, and why it's credible — briefly, and without inventing credentials you don't have.
+15. **Strengthen your E-E-A-T signals.** Experience, expertise, authoritativeness, and trust are the factors Google's own guidelines describe as central to quality evaluation, and they show up in how confidently AI systems cite a source too. If you're not sure what counts, [E-E-A-T is explained here](/glossary/e-e-a-t).
+16. **Cite authoritative sources.** Linking out to primary data, official documentation, or recognized research signals that your content is grounded rather than recycled — and it's the same behavior AI systems reward when choosing what to cite themselves.
+
+## Off-site consensus
+
+AI models cross-check what your site says about itself against what the rest of the web says about you — off-site consensus is now a citation input, not just a reputation nice-to-have.
+
+17. **Collect and respond to reviews.** Consistent, recent reviews across platforms are a signal both AI systems and human buyers use to judge trustworthiness before they'll recommend you.
+18. **Get included in listicles and roundups.** "Best X tools" and "Y alternatives" articles are exactly the kind of page AI models pull from when answering comparison questions — being named in a handful of credible ones matters more than being named in dozens of weak ones.
+19. **Show up in forums and communities.** Reddit threads and niche community discussions are cited disproportionately often by AI answer engines, because they read as unfiltered opinion rather than marketing copy. A genuine, non-spammy presence there carries real weight.
+20. **Keep third-party descriptions of you consistent.** If your G2 listing, Crunchbase profile, and directory entries describe your product three different ways, that inconsistency makes it harder for a model to build a confident picture of what you actually do.
+
+## Measure & iterate
+
+A checklist without measurement is a guess — you need a baseline, a way to track change over time, and a refresh cadence, or none of the first 20 items will compound.
+
+21. **Run a baseline AI visibility audit.** Before changing anything else, find out whether AI tools currently mention you at all for the questions that matter to your business. [Run a free audit](/#audit) to get that starting point.
+22. **Track your AI mention rate over time.** A single audit is a snapshot; tracking mentions across ChatGPT, Perplexity, and AI Overviews over weeks tells you whether your changes are working.
+23. **Monitor Google Search Console alongside AI visibility.** Impressions, clicks, and position data in Search Console still matter — AI visibility is additive to classic SEO, not a replacement for watching it.
+24. **Refresh stale pages instead of only publishing new ones.** Outdated statistics, dead links, and old screenshots quietly erode trust signals on pages that used to perform well. A refresh often outperforms a brand-new post for the same effort.
+25. **Re-audit monthly, not once.** AI models update, competitors publish, and SERPs shift — a checklist run once and forgotten decays. For the deeper mechanics behind these two scoreboards, see [how AI is changing SEO](/blog/ai-for-seo) and [how to improve your AI visibility](/blog/how-to-improve-ai-visibility); AEOeye's [free tools](/tools) can help you check specific items without a full audit.
+
+Working through all 25 items won't guarantee a citation from any specific AI system — nobody can promise that. What it does is remove the reasons a model or a search engine would have to skip you: unreachable pages, unanswerable content, unresolved identity, and no way to tell if any of it worked.
+
+Run the checklist, then verify it worked. [Start a free AI visibility audit](/#audit) to see where you actually stand before and after.

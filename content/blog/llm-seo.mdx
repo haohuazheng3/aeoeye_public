@@ -1,0 +1,81 @@
+---
+title: "LLM SEO: Get Recommended by Large Language Models"
+description: "LLM SEO is how you get ChatGPT, Perplexity, Gemini and Claude to surface and recommend your brand. The mechanism, the tactics, and how it relates to AEO"
+date: "2026-06-25"
+category: "Technical"
+readingTime: "6 min read"
+keywords: ["llm seo"]
+faqs: [{"q": "Is LLM SEO the same as GEO or AEO?", "a": "Largely yes. LLM SEO and GEO (generative engine optimization) are near-synonyms — both aim to get you surfaced and cited inside AI-generated answers. AEO (answer engine optimization) is slightly broader, covering featured snippets and voice as well as AI answers. The three share around 80% of their tactics; the names mostly reflect which surface the writer is focused on. Don't get hung up on the labels — optimize to be the trusted answer everywhere."}, {"q": "Does traditional SEO still matter for getting cited by AI?", "a": "Yes, more than people expect. When a model runs a live search to answer a query, it heavily favors pages that already rank well organically. Retrieval rank and citation probability are strongly correlated. SEO fundamentals — crawlability, authority, relevance — are the floor LLM SEO builds on, not a replacement for it."}, {"q": "How do I get ChatGPT or Perplexity to recommend my brand specifically?", "a": "Two things in parallel. First, make your own pages easy to retrieve and quote: direct answers up front, self-contained chunks, specific stats, clean structure. Second, build consensus — get your brand mentioned accurately and consistently across the third-party sources models trust (Reddit, review sites, industry roundups, Wikipedia where you qualify). Models recommend brands that multiple independent sources agree on."}, {"q": "Why does the AI describe my brand incorrectly?", "a": "Because the model formed its impression from whatever the web — and its training data — says about you, which may be outdated, sparse, or contradictory. The fix is to flood the zone with accurate, consistent information: correct your own pages, earn fresh third-party mentions with the right positioning, and clean up authoritative sources like Wikidata. A confident wrong description is a priority-one problem; it actively steers buyers away."}, {"q": "How do I measure LLM SEO results?", "a": "Track share of voice (how often each model names you versus competitors across buying-intent prompts), citation presence (are your pages among the cited sources), and description accuracy. Because answers are non-deterministic, run each prompt multiple times and measure each engine separately — they overlap surprisingly little. AEOeye's free audit gives you a baseline across the major engines so you can prove your changes moved the needle."}]
+image: {"url": "https://images.pexels.com/photos/16094043/pexels-photo-16094043.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "A focused individual types on a laptop running AI software indoors.", "photographer": "Matheus Bertelli", "photographerUrl": "https://www.pexels.com/@bertellifotografia"}
+---
+
+Someone asks ChatGPT, "What's the best tool for X?" and a name comes back. Sometimes it's yours. Usually it isn't — and you have no idea why. That's the problem LLM SEO solves.
+
+Classic SEO got you ranked on a page of blue links a human chose from. LLM SEO is different: there's no page of links, there's one answer, and a model decided what goes in it. The mechanics that drive that decision — retrieval, chunking, consensus, authority — are knowable and, to a real degree, controllable. This page breaks down how the machine actually picks, the tactics that move you into the answer, and how LLM SEO relates to the alphabet soup of AEO and GEO you keep seeing.
+
+
+> **LLM SEO** is optimizing so large language models mention and cite your brand — a shift from ranking a page in a list to being named inside the answer the model generates.
+## What LLM SEO actually means (and why the name is misleading)
+LLM SEO is optimizing so large language models surface, quote, and recommend you when users ask them questions. The "SEO" part is a borrowed word — it anchors the idea to something marketers already understand — but it's a little misleading. You are not optimizing for a ranking algorithm that returns ten links. You're optimizing for two separate things at once.
+
+First, **retrieval**: when a model answers a live query (Perplexity does this on every query; ChatGPT and Gemini do it for anything time-sensitive or factual), it runs a search, pulls candidate pages, and reads them. You want to be in that candidate set and easy to lift from.
+
+Second, **the model's internalized impression of your brand** — what it absorbed during training from the millions of pages, forums, and articles it read. That's why a brand can get recommended even when no live search happens: the model already "knows" it.
+
+Good LLM SEO works both levers. Most people only think about the first one, which is why their results plateau.
+
+## The mechanism: how a model decides what to surface
+Strip away the mystique and modern AI answers run on a retrieval-augmented generation (RAG) pipeline. Understanding the stages tells you exactly where to intervene.
+
+1. **Query fan-out.** The engine doesn't just search your exact question. It generates related sub-queries — "fan-out queries" — and searches all of them. If you only rank for one phrasing, you miss most of the retrieval surface.
+2. **Candidate retrieval and ranking.** It pulls pages, heavily weighted toward sources that already rank well organically. Retrieval rank and citation probability are tightly correlated — if you're invisible in classic search, you're usually invisible to the model too.
+3. **Chunking.** Pages get split into 50–150-word passages. The model cites passages, not pages. A self-contained, quotable chunk wins; a brilliant point buried in a 400-word paragraph loses.
+4. **Embedding and relevance scoring.** Each chunk becomes a vector and gets matched for semantic similarity to the query. Clear, on-topic, plainly-worded passages score higher than clever or vague ones.
+5. **Synthesis.** The model weaves surviving chunks into one answer and attaches citations to what it actually used.
+
+Every tactic below maps to a specific stage in that pipeline.
+
+## The tactics that actually move the needle
+Here's what works, in rough priority order:
+
+- **Write self-contained, extractable chunks.** Research across multiple 2026 studies found content structured into clear 50–150-word passages earns roughly 2.3x more citations than long-form unstructured prose. Lead each section with a direct, standalone answer, then support it. Assume the model reads one paragraph in isolation — because it does.
+- **Front-load direct answers.** Put the answer in the first sentence under a question-shaped heading. This is the single highest-leverage habit. It serves chunking, relevance scoring, and featured snippets simultaneously.
+- **Add specific, quotable facts.** Pages with 2–3 prominent pull quotes containing concrete statistics saw about a 37% lift in citation rates. Models prefer to cite a number with a source over a generality. Vague pages get paraphrased; specific pages get quoted and attributed.
+- **Use structured data and clean HTML.** Schema markup, real tables, descriptive H2/H3s, and lists give machine-readable structure that speeds classification and extraction.
+- **Rank in classic search anyway.** Retrieval still leans on organic rank. SEO fundamentals are the floor, not a separate game.
+- **Match natural-language query phrasing.** People ask models in full sentences. Your headings should mirror how a person actually asks, not how a keyword tool spells it.
+
+## Build consensus, not just pages
+This is the part most LLM SEO advice skips, and it's where the durable wins live. Models don't trust a single page making a claim about itself. They look for **consensus** — agreement across many independent sources.
+
+When your brand shows up with consistent positioning across Reddit threads, YouTube tutorials, industry roundups, review sites, comparison articles, and your own site, the model gains confidence and starts recommending you unprompted. That cross-source agreement is the strongest recommendation signal there is.
+
+The domain concentration is brutal here: 2026 citation-index research found the top 15 domains capture roughly 68% of all consolidated AI citation share — more concentrated than PageRank ever was. A meaningful slice of those are sites you don't own: Reddit, Wikipedia, G2, established publications. So your work extends past your own pages:
+
+- Earn mentions in the roundups and "best X for Y" articles models lean on.
+- Be present and accurately described where your category is discussed (Reddit, niche forums, review platforms).
+- Keep your positioning consistent everywhere — contradictory descriptions across sources actively hurt you.
+- Get a clean, factual Wikipedia or Wikidata presence if you legitimately qualify.
+
+You're not gaming a ranking. You're making the web's collective answer about your brand correct and consistent.
+
+## LLM SEO vs GEO vs AEO: untangling the acronyms
+You'll see LLM SEO, GEO, AEO, LLMO and AI SEO used almost interchangeably. Here's the honest mapping, because the distinctions are real but small.
+
+- **AEO (Answer Engine Optimization)** is the oldest of the new acronyms. It's about winning *direct answers* — featured snippets, People Also Ask, voice results, and now AI answer boxes. AEO's core habit (answer the question directly, immediately) is foundational to all of this.
+- **GEO (Generative Engine Optimization)** specifically targets being *cited and synthesized* inside AI-generated answers — ChatGPT, Perplexity, Google AI Overviews — where you're one of several woven-in sources.
+- **LLM SEO / LLMO** centers the *model itself* — earning trustworthy retrieval and recommendation by LLMs anywhere they appear, including their internalized brand knowledge.
+
+The practical truth: these share roughly 80% of their tactics. Clear answers, strong authority, structured content, consensus across the web — all three want the same things. The terminology mostly reflects which surface a given writer is staring at. Pick the framing that fits your team and stop worrying about the labels. Optimize for being the trusted answer everywhere; the acronym is just packaging.
+
+## Measuring whether it's working
+Classic SEO has rank trackers. LLM SEO is messier because answers are non-deterministic — ask the same question twice and the wording, and sometimes the brands named, shift. You can't check a single ranking; you have to sample.
+
+What to actually track:
+
+- **Share of voice in answers.** Across a set of buying-intent prompts in your category, how often does each model name you versus competitors? Run each prompt several times — one answer is noise.
+- **Citation presence.** When the model links sources, are your pages (and the third-party pages that mention you) among them?
+- **Sentiment and accuracy.** Does the model describe you correctly? A confident wrong description is its own emergency.
+- **Per-engine gaps.** Platforms barely agree — one 2026 audit found only about 11% overlap in cited sources between ChatGPT and Perplexity. Winning on one is no guarantee on another, so measure each separately.
+
+Doing this by hand across ChatGPT, Perplexity, Gemini and Claude, repeated for statistical signal, gets old fast. AEOeye runs a free audit that checks how AI engines currently see and describe your brand — a fast way to get your baseline before you start optimizing, so you can prove the work moved something.

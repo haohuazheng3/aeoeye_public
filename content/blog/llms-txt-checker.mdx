@@ -1,0 +1,90 @@
+---
+title: "LLMs.txt Checker: Validate Your File in 2 Minutes"
+description: "A practical llms.txt checker: validate existence, structure, and links in two minutes without a tool, then see why a valid file still isn't the same as AI visibility."
+date: "2026-07-17"
+category: "Technical"
+readingTime: "7 min read"
+keywords: ["llms txt checker", "llms.txt validator", "check llms.txt", "llms.txt test"]
+faqs: [{"q": "How do I check if my llms.txt works?", "a": "Visit yourdomain.com/llms.txt directly in a browser. Confirm it returns a 200 status as plain text or markdown, not an HTML error page. Then scan for a single H1 title, a one-line summary, ## section headers, and properly formatted - [title](url): description link lines. Click each link to confirm none are broken."}, {"q": "Where should llms.txt be located?", "a": "llms.txt belongs at your site's root \u2014 yourdomain.com/llms.txt, the same level as robots.txt and sitemap.xml. Subdirectory placement (yourdomain.com/blog/llms.txt) won't be recognized by any crawler or AI system looking for it. If your site runs on multiple subdomains, each one that should be discoverable needs its own root-level file."}, {"q": "Do AI engines actually read llms.txt?", "a": "Inconsistently, and mostly unconfirmed. There's no public evidence that ChatGPT, Claude, Gemini, or Perplexity systematically fetch and use llms.txt when answering questions \u2014 some crawlers appear to request it occasionally, others ignore it entirely. Treat it as a low-cost, low-risk addition, not a proven ranking or citation lever."}, {"q": "What should llms.txt contain?", "a": "An H1 with your site or brand name, a one-line > summary blockquote, and ## sections grouping markdown links in the format - [Title](url): short description. List only pages you'd actually want an AI system to treat as canonical \u2014 docs, key product pages, pricing \u2014 not your entire sitemap."}]
+image: {"url": "https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Close-up of colorful programming code displayed on a computer monitor with a dark background.", "photographer": "Nemuel Sereti", "photographerUrl": "https://www.pexels.com/@nemuel"}
+sources: []
+---
+
+An llms.txt checker validates one thing: whether the markdown file at yourdomain.com/llms.txt exists, loads correctly, and follows the loose structure AI systems are supposed to parse. You don't need to install anything to run this check. You need about two minutes, a browser tab, and this page.
+
+That's worth saying up front because most llms.txt checker tools you'll find are thin wrappers around a fetch request and a regex. Useful if you're auditing client sites at scale. Unnecessary if you're checking your own domain once and want to know it's set up right. This piece walks through both: the manual version you can run right now, and the honest read on whether any of it moves the needle.
+
+## What Is an LLMs.txt Checker?
+
+An llms.txt checker confirms four things: the file exists at the correct URL, it returns real plain text instead of an error page, its structure follows the llms.txt convention, and the links inside it actually resolve. That's the entire job description — nothing more exotic than that.
+
+For background: llms.txt is a proposed convention — a markdown file living at your site's root — meant to give AI systems a compact summary of what your site is and which pages matter most. It's voluntary. Nobody enforces it, and no search engine requires it. We've covered [what llms.txt actually is and where it came from](/blog/llms-txt-explained) in more depth elsewhere. This page assumes you already have a file and want to know if it's built correctly.
+
+A checker — whether it's a tool or your own eyes — is really just asking:
+
+- Does the file exist where it's supposed to?
+- Is it served as plain text or markdown, not buried in an HTML template?
+- Does it follow the expected shape (title, summary, sections, links)?
+- Do the links it lists actually go anywhere?
+
+Nothing on that list requires software. It requires attention.
+
+## How Do You Check Your LLMs.txt Manually in 2 Minutes?
+
+Open yourdomain.com/llms.txt in a browser tab, confirm it loads as plain text, then scan the structure top to bottom. That's most of what any automated checker does anyway — it just does it faster and across more domains.
+
+Here's the sequence we'd run on our own site:
+
+1. **Fetch it.** Type yourdomain.com/llms.txt into the address bar. You want a 200 response and readable plain text — not a 404, not a redirect to your homepage, and not your CMS theme wrapped around the content.
+2. **Check the content type.** View source if you're unsure. The response should be plain text or markdown. If you see `<html>` tags around your llms.txt content, your server is serving it through a template instead of as a static file — that's a real, common failure.
+3. **Check the structure.** Look for a single `# Title` at the top, a `> summary` blockquote under it, and `##` headers grouping the rest of the content into sections. This is the shape most implementations expect.
+4. **Check the link lines.** Each entry should follow `- [Title](url): description`. Click through a sample — or every link, if the file is short — and confirm none 404.
+5. **Sanity-check size and encoding.** The file should be plain UTF-8 text and reasonably sized. A multi-thousand-line llms.txt defeats the purpose; it's supposed to be a summary, not a mirror of your sitemap. Most implementations run anywhere from a few dozen lines to a couple hundred — long enough to be useful, short enough to stay a summary.
+
+Run through those five and you've done what any llms.txt validator does under the hood.
+
+| Check | How | Pass looks like | Common failure |
+|---|---|---|---|
+| File exists | Visit yourdomain.com/llms.txt | HTTP 200, loads directly | 404, redirect to homepage |
+| Content type | View source | Plain text or markdown | Wrapped in HTML/theme |
+| Title + summary | Look for `# Title` and `> summary` | One clear H1, one-line summary | Missing summary, multiple H1s |
+| Sections + links | Scan `##` headers and link lines | `- [Title](url): description` | Broken markdown syntax |
+| Link integrity | Click or curl each URL | All links resolve | Stale links to dead pages |
+| Size/encoding | Check length and characters | UTF-8, concise | Bloated file, mixed encoding |
+
+
+![Vibrant and engaging code displayed on a computer screen, showcasing programming concepts.](https://images.pexels.com/photos/27427258/pexels-photo-27427258.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Checker Tools vs. Manual Checks: Which Do You Need?
+
+Checker tools just automate the six rows in that table — fine if you're validating dozens of sites, unnecessary if you're checking your own domain a few times a year. The steps above are simple enough that a spreadsheet of client URLs is really the only case where automation earns its keep. If you manage llms.txt across a client portfolio, that's when a dedicated checker earns a bookmark — batch-running the same six checks by hand across twenty domains is where manual stops being the efficient choice and starts being busywork.
+
+Here's the part most checker tools can't touch, though: syntax validity says nothing about content quality. A perfectly formatted llms.txt that lists your abandoned blog category page, a pricing page you retired last quarter, and no link to your actual documentation will pass every automated check and still fail at its one job. The checker confirms the envelope is addressed correctly. It has no opinion on whether you mailed the right letter.
+
+That's the part worth spending your two minutes on, honestly — not the syntax, which is forgiving, but the list itself. Ask whether every URL in the file is a page you'd actually want an AI system treating as your canonical answer on that topic. If it isn't, fix the list before you worry about the formatting.
+
+## Does LLMs.txt Actually Work? The Honest Caveat
+
+A clean llms.txt doesn't guarantee any AI engine reads it, cites it, or treats your site any differently. Support across ChatGPT, Claude, Gemini, Perplexity, and Google AI is inconsistent, and mostly unconfirmed publicly by any of them.
+
+We've made the fuller version of this argument in [our skeptical take on llms.txt](/blog/llms-txt-is-overrated), so we won't repeat it all here. Short version: it's a hint, not a guarantee, and treating it as a guaranteed visibility lever sets you up to be disappointed by a file that was never built to do that.
+
+If you want harder evidence than a general sense that it's probably fine, check your own server logs for AI crawler activity — our [AI crawler list](/blog/ai-crawler-list) has the current user agents worth searching for. Seeing GPTBot or ClaudeBot hit your site tells you a crawler is active. It doesn't tell you your llms.txt specifically got read, or that it changed anything about how you got summarized.
+
+None of that is a reason to skip it. It's a reason to be honest about what you're doing when you add it: a cheap, harmless, five-minute addition — not a growth lever you should be spending a sprint on.
+
+## Found a Broken LLMs.txt? Here's How to Fix It Fast
+
+If any check above failed, the fastest fix is to regenerate the file rather than hand-patch broken markdown. Hand-editing llms.txt is exactly the kind of task where a missing dash or an unescaped bracket quietly breaks the structure without throwing an error anywhere you'd notice.
+
+Feed your site into our [free llms.txt generator](/tools/llms-txt-generator) instead, and you'll get a compliant file — correct title, summary, sections, and link formatting — in under a minute. Swap it in, re-run the manual check above, and move on.
+
+One more thing worth building into your routine: llms.txt isn't a file you write once and forget. When you ship a new product page, retire an old one, or restructure your docs, the file should move with it. A stale llms.txt pointing at pages you've since deleted is arguably worse than having no file at all — it's confidently wrong instead of just absent.
+
+## The Bigger Check: Are AI Engines Actually Citing You?
+
+Passing every check in this article tells you your file is valid. It tells you nothing about whether ChatGPT, Perplexity, Gemini, Google AI, or Claude actually mention your brand when someone asks a buying question in your category.
+
+That's a different, harder question — and it's the one that actually matters. Validity is a formatting exercise. Visibility is whether you show up at all.
+
+That gap is exactly what [AEOeye](/) measures: run a free audit and see, in plain terms, whether the major AI engines currently recommend you, ignore you, or recommend a competitor instead when someone asks the question your llms.txt was hoping to answer. A tidy file is a nice-to-have. Knowing where you actually stand is the part worth checking next.

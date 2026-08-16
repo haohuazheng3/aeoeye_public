@@ -1,0 +1,54 @@
+{
+  "slug": "do-ai-overviews-send-any-traffic",
+  "type": "answer",
+  "title": "Do AI Overviews Send Any Traffic? Yes — But Less, and Differently",
+  "metaTitle": "Do AI Overviews Send Traffic? Yes, But Less",
+  "metaDescription": "Yes, AI Overviews send traffic — through citation links, not blue links. Here's how much, who gets it, and how to measure your share.",
+  "primaryKeyword": "do ai overviews send traffic",
+  "shortAnswer": "Yes, but less than a traditional #1 ranking would, and unevenly across query types. Being cited in an AI Overview can still send clicks from people who want to go deeper than the summary — and it carries real brand-visibility value even on the visits that never happen. At the same time, AI Overviews absorb clicks for simple informational queries that used to reach your site. So the net effect on your traffic depends heavily on query type, and on whether you're the cited source or buried below the fold entirely.",
+  "intro": "Ask most SEOs whether AI Overviews send traffic and you'll get one of two answers: a panicked \"no, it's over\" or a defensive \"don't worry, it's fine.\" Neither is honest. The real answer sits in between, and it depends on things most traffic reports don't break out — query type, whether you're the cited source, and whether you're even measuring citations at all. Here's the actual mechanics, not the panic or the reassurance.",
+  "sections": [
+    {
+      "heading": "Do AI Overviews Send Any Traffic?",
+      "body": "Yes — AI Overviews do send traffic, just not through the mechanism you're used to. Instead of ten blue links competing for the click, Google's AI Overview synthesizes an answer and drops a handful of citation links inside or below it. If your page is one of those citations, you get a shot at the click. If it isn't, you get nothing — not even the old consolation prize of ranking #4 or #5 on the page.\n\nThe traffic that does flow tends to go to sources the AI treats as worth digging into further: original research, detailed comparisons, primary documentation — things a summary can't fully replace. A quick factual query (\"what year did X happen\") rarely sends a click to anyone, because the Overview already answered it. A query that implies \"I need to evaluate options\" or \"I need the specifics\" is far more likely to push someone through to a cited page.\n\nSo the honest framing isn't \"AI Overviews kill traffic\" or \"AI Overviews are fine, don't worry about it.\" It's this: the total click pool for a given query shrinks, and what's left concentrates on fewer sources — the ones actually named. Getting named is now the game."
+    },
+    {
+      "heading": "Citation vs. Click: The Value Beyond Traffic",
+      "body": "A citation without a click still matters, because it's brand exposure at the exact moment someone is deciding what to trust. Even if the searcher never taps through, seeing your brand name attached to the AI's answer builds the kind of familiarity that shows up later as a direct search or a returning visitor. That's the same mechanic behind [zero-click search](/glossary/zero-click-search): the query gets answered right on the results page, but the source still gets remembered.\n\nThis is a harder value to put a number on than a session count in Google Analytics, and I won't pretend otherwise — anyone promising you a clean citation-to-revenue conversion rate is guessing. But treating every citation-without-a-click as a \"loss\" misreads what's actually happening. You didn't lose a visitor you would have gotten anyway; you gained a mention in front of someone who, a week ago, wouldn't have encountered your brand at all unless they scrolled past four ads and three competitors first.\n\nThe pages that benefit most from this effect are the ones built around a clear point of view or a named product — not generic explainers that could have come from anywhere."
+    },
+    {
+      "heading": "How AI Overviews Change Your Traffic Mix",
+      "body": "AI Overviews reshape your traffic mix by pulling clicks away from broad informational queries and concentrating what's left on the pages that actually get cited. If most of your organic traffic historically came from \"what is X\" or \"how does X work\" searches, expect that segment to shrink — the Overview now answers those directly, often well enough that nobody needs to click through at all.\n\nCommercial and comparison queries behave differently. Overviews still appear on \"best X for Y\" or \"X vs Y\" searches, but users evaluating a purchase or a tool tend to want more than a synthesized paragraph — they want the actual comparison, the actual pricing, the actual pros and cons in someone's own words. That's where being the cited source, not just an indexed page, starts to pay off in real clicks rather than just exposure. We dig into this shift in more detail in [AI Overviews and your traffic](/blog/ai-overviews-and-your-traffic), including which query types held up and which didn't.\n\nThe practical takeaway: don't judge \"how AI Overviews affected my traffic\" from a single blended number. Break it out by query type first."
+    },
+    {
+      "heading": "How to Measure and Respond",
+      "body": "You measure AI Overview impact by tracking citations and mention rate, not just click-through traffic — because clicks alone will make the picture look worse than it actually is. Google Search Console's Performance report now separates some AI Overview impressions, which is a start, but it won't tell you how often your brand gets named without a click, or how you're described when you are.\n\nThat's the gap a proper AI visibility check fills: it runs your actual buyer questions through the AI engines your customers use, and shows you whether you're mentioned, how you're framed next to competitors, and where you're invisible entirely. We built [our guide to measuring AI visibility](/blog/measuring-ai-visibility) around exactly this — what to track, how often, and what \"good\" looks like at different stages.\n\nIf you haven't checked lately whether ChatGPT, Perplexity, Gemini, or Google's AI Overview actually mention your brand when someone asks a buying question, that's the first gap to close before you can even debate whether the traffic math is in your favor. [Run a free AI visibility audit](/#audit) and see where you stand today."
+    }
+  ],
+  "keyTakeaways": [
+    "AI Overviews do send traffic, but through citation links rather than organic rankings — and the total click pool per query is usually smaller.",
+    "Simple factual queries lose the most clicks; comparison and commercial queries still send real traffic to cited sources.",
+    "A citation without a click still builds brand recall, similar to the value described in zero-click search.",
+    "Query type matters more than any single blended traffic number when you're judging AI Overview impact.",
+    "Track citation rate and brand mention rate, not just Search Console clicks, to see the full picture.",
+    "Getting cited is the new ranking #1 — invisibility in AI answers now costs more than a lost position on page one."
+  ],
+  "faqs": [
+    {
+      "q": "Do AI Overviews reduce website traffic?",
+      "a": "For many informational queries, yes — the Overview answers the question directly, so fewer users click through. But for comparison, evaluation, and commercial queries, traffic often holds up better, especially for cited sources, so the effect isn't uniform across your whole site."
+    },
+    {
+      "q": "Does being cited in an AI Overview send clicks?",
+      "a": "Yes, cited sources do get clicks, particularly from users who want more detail than the summary provides. It's typically fewer clicks than a #1 organic ranking would generate, but it's not zero, and it comes with brand-visibility value even on the visits that don't happen."
+    },
+    {
+      "q": "How do I track AI Overview traffic?",
+      "a": "Start with Google Search Console's Performance report, which increasingly separates AI Overview-related impressions and clicks. Pair that with a direct AI visibility check — testing your actual buyer queries against ChatGPT, Perplexity, Gemini, and Google's AI Overview — to see citation and mention rates Search Console can't show you."
+    },
+    {
+      "q": "Are AI Overviews bad for SEO?",
+      "a": "They're a disruption, not a death sentence. They shrink clicks for some query types and reward others. The pages that suffer most are thin, generic explainers; the ones that hold up are original, specific, and worth citing — which was good SEO practice before AI Overviews existed too."
+    }
+  ]
+}

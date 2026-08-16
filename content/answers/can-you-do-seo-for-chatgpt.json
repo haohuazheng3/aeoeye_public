@@ -1,0 +1,69 @@
+{
+ "slug": "can-you-do-seo-for-chatgpt",
+ "type": "answer",
+ "title": "Can You Do SEO for ChatGPT? Yes — But It's a Different Game",
+ "metaTitle": "Can You Do SEO for ChatGPT? Yes, Here's How",
+ "metaDescription": "Can you do SEO for ChatGPT? Yes — but it runs on Bing's index, not Google's. Here's what actually moves the needle and what's a waste of time.",
+ "primaryKeyword": "can you do seo for chatgpt",
+ "shortAnswer": "Yes, you can do SEO for ChatGPT — but it's not Google SEO. ChatGPT's web search runs on Bing's index, so getting indexed and ranking in Bing is step one. From there, what gets you cited is different: clear, well-structured pages that directly answer questions, plus third-party trust signals (reviews, directories, Reddit, press) that teach ChatGPT to associate your brand with a category. You can't game it, but you can absolutely influence it.",
+ "intro": "\"Can you even do SEO for ChatGPT?\" is the right question to ask in 2026 — because the honest answer is yes, with a catch most guides skip. ChatGPT isn't a search engine you submit a sitemap to. It's a language model that pulls live web results (mostly from Bing), re-ranks them, and decides — on its own opaque criteria — which handful to actually cite. Your Google rankings barely transfer: studies show only about 12% of URLs ChatGPT cites also rank in Google's top 10.\n\nSo the playbook changes. This is the discipline now called AEO (Answer Engine Optimization) or GEO. Below is what genuinely works, what's a waste of effort, and how to tell whether ChatGPT already mentions you.",
+ "sections": [
+  {
+   "heading": "What \"SEO for ChatGPT\" actually means",
+   "body": "ChatGPT does three different things, and \"SEO\" only touches two of them.\n\n- **Trained knowledge.** When ChatGPT answers from its base model, it's drawing on what it absorbed during training — months or years ago. You can't optimize this directly, but the brands it \"knows\" are the ones that were widely written about across the web when the model was trained.\n- **Live web search.** When ChatGPT browses (the SearchGPT pipeline), it fires sub-queries against Bing's index, retrieves dozens of pages, re-ranks them, and cites a few. This is where real-time optimization happens.\n- **Shopping.** For product queries, ChatGPT increasingly pulls from product feeds and Google Shopping listings on top of web pages.\n\nSo \"doing SEO for ChatGPT\" really means two jobs: getting retrieved (be in Bing's index, be crawlable) and getting selected (be the clearest, most trusted answer once retrieved). Most people only do the first and wonder why they're invisible."
+  },
+  {
+   "heading": "What actually works",
+   "body": "The levers that move ChatGPT visibility, roughly in order of impact:\n\n- **Rank in Bing, not just Google.** Around 87% of ChatGPT Search citations match Bing's top results. If you're not indexed in Bing Webmaster Tools, fix that today — it's the single biggest blind spot. Submit your sitemap to Bing directly.\n- **Build third-party trust signals.** This matters more here than in classic SEO. ChatGPT leans on what *others* say about you: G2 and Capterra reviews, industry directories, Reddit threads, press mentions, \"best X for Y\" listicles. Authoritative list mentions alone drive an estimated 41% of commercial recommendations. Get into the roundups that rank for your category.\n- **Write answer-shaped content.** Lead with the direct answer, then support it. Use clear H2s phrased as real questions, short paragraphs, and lists. ChatGPT favors predictable structure — nearly half its top citations come from Wikipedia precisely because the markup is consistent.\n- **Add structured data and freshness.** Schema markup lets the model extract facts with confidence. And recency matters: roughly 71% of citations come from content published in the last ~3 years. Update your cornerstone pages."
+  },
+  {
+   "heading": "What doesn't work (stop wasting time)",
+   "body": "A few things get hyped that don't move ChatGPT:\n\n- **llms.txt.** It sounds official, but in 2026 there's no evidence ChatGPT's crawlers (GPTBot, OAI-SearchBot) read it. It's consumed by coding agents like Cursor and Claude Code, not the chat product. Skip it as a visibility tactic.\n- **Keyword stuffing and exact-match density.** ChatGPT works on meaning, not keyword frequency. Cramming your target phrase 20 times does nothing and can read as spam.\n- **Blocking GPTBot \"to protect content\".** Block GPTBot and you may exclude yourself from being cited as a source. Unless you have a strong reason, allow OAI-SearchBot at minimum.\n- **Assuming Google rankings carry over.** They mostly don't. 44% of SaaS brands with strong Google rankings have zero ChatGPT visibility. Different index, different selection logic.\n- **Thin AI-generated filler.** ChatGPT retrieves ~85% of pages and discards them without citing. Generic content gets evaluated and dropped. Depth and specificity are what survive the re-ranking."
+  },
+  {
+   "heading": "How ChatGPT decides what to cite",
+   "body": "Worth understanding the machinery, because it explains the tactics. The pipeline runs in stages: ChatGPT interprets your question and generates several sub-queries, retrieves the top results from Bing's index (supplemented by OpenAI's own crawl), then runs a cross-encoder re-ranker to score each page for how well it semantically answers the *full* query — not just matches keywords.\n\nThen it gets brutal. One analysis of 548,534 retrieved pages across 15,000 prompts found ChatGPT cites only about 15% of what it pulls. The other 85% are read and thrown away. The pages that survive tend to share traits: they answer the specific question directly, they're structurally clean (headings, lists, tables), they carry authority signals, and the brand is corroborated elsewhere on the web. You're not optimizing for a ranking position — you're optimizing to be the page that most confidently and clearly resolves the query."
+  },
+  {
+   "heading": "A practical starter plan",
+   "body": "If you want to actually do this, here's a sequence that works:\n\n1. **Audit your current state.** Ask ChatGPT (with web search on) the questions your customers ask — \"best [category] tool for [use case]\" — and note whether you appear and who does. AEOeye's free audit automates this across ChatGPT, Perplexity, Google AI Overviews, Claude and Gemini so you can see exactly where you stand and against whom.\n2. **Get indexed in Bing.** Verify your site in Bing Webmaster Tools, submit your sitemap, fix crawl errors.\n3. **Own the roundups.** Identify the \"best of\" listicles ranking for your category in Bing and get included — through outreach, reviews, or earning the mention.\n4. **Restructure your top pages** to answer-first format with clear question-based headings and schema.\n5. **Seed trust signals** — reviews on G2/Capterra, a strong Wikipedia-adjacent footprint, helpful Reddit participation.\n6. **Re-test monthly.** Visibility shifts as models and indexes update; treat it as ongoing, not one-and-done."
+  }
+ ],
+ "keyTakeaways": [
+  "Yes, you can do SEO for ChatGPT — but it runs on Bing's index, so Bing indexing is step one, not Google.",
+  "Only ~12% of ChatGPT citations also rank in Google's top 10; Google rankings don't reliably transfer.",
+  "Third-party trust signals (reviews, directories, Reddit, press, 'best of' listicles) drive a huge share of brand recommendations.",
+  "Answer-first, well-structured content with schema gets cited; keyword stuffing and llms.txt do not.",
+  "ChatGPT cites only ~15% of the pages it retrieves — depth and clear structure survive the re-ranking, filler gets discarded.",
+  "Don't block GPTBot/OAI-SearchBot if you want to be cited, and re-test your visibility monthly."
+ ],
+ "faqs": [
+  {
+   "q": "Is ChatGPT SEO the same as Google SEO?",
+   "a": "No. ChatGPT's web search runs primarily on Bing's index and applies its own selection criteria. Around 87% of its citations match Bing's top results, while only about 12% align with Google's top 10. The fundamentals of good content overlap, but the index, the ranking logic, and the trust signals differ enough that you need a separate plan."
+  },
+  {
+   "q": "How do I check if ChatGPT mentions my brand?",
+   "a": "Turn on web search in ChatGPT and ask the buying-intent questions your customers ask — like 'best [category] tool for [use case]' — and see if you appear. For a systematic view across ChatGPT, Perplexity, Google AI Overviews, Claude and Gemini at once, run AEOeye's free audit, which shows where you're cited and who's beating you."
+  },
+  {
+   "q": "Should I create an llms.txt file for ChatGPT?",
+   "a": "Not as a visibility tactic. As of 2026 there's no evidence ChatGPT's crawlers read llms.txt — it's used by coding agents like Cursor and Claude Code, not the chat product. Your effort is better spent on Bing indexing, structured answer-first content, and earning third-party mentions."
+  },
+  {
+   "q": "How long does it take to show up in ChatGPT?",
+   "a": "It varies. Live-search visibility can change within days once you're indexed in Bing and earn relevant citations or listicle placements. Trained-knowledge associations move much more slowly, since they depend on the broader web writing about you over time. Treat it as an ongoing effort and re-test monthly."
+  },
+  {
+   "q": "Will blocking GPTBot hurt my ChatGPT visibility?",
+   "a": "Likely yes. If you block GPTBot or OAI-SearchBot, you risk excluding your pages from being retrieved and cited. Unless you have a specific reason to restrict training use, allow OAI-SearchBot so your content can appear as a source in ChatGPT's answers."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/36513381/pexels-photo-36513381.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "Person typing on a laptop displaying ChatGPT logo with a green vibrant setting.",
+  "photographer": "UMA media",
+  "photographerUrl": "https://www.pexels.com/@uma-media-2149408028"
+ }
+}

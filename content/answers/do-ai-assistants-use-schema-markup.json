@@ -1,0 +1,69 @@
+{
+ "slug": "do-ai-assistants-use-schema-markup",
+ "type": "answer",
+ "title": "Do AI Assistants Use Schema Markup? The Evidence-Based Answer",
+ "metaTitle": "Do AI Assistants Use Schema Markup? (Evidence)",
+ "metaDescription": "Do AI assistants use schema markup? Yes and no — it depends on the pipeline. Here's what ChatGPT, Perplexity, Gemini and AI Overviews actually do with",
+ "primaryKeyword": "do ai assistants use schema markup",
+ "shortAnswer": "Partially, and it depends on the pipeline. AI assistants do not \"parse\" schema.org JSON-LD at the moment they generate an answer — a raw LLM tokenizes your page as text and treats the schema block like any other string. But the retrieval and indexing systems that feed those assistants (Google's index behind AI Overviews and Gemini, Bing's behind ChatGPT and Copilot) absolutely use structured data to classify, disambiguate, and qualify content for citation. So schema doesn't make an LLM \"read better,\" but it helps your page get found, understood, and surfaced as a source.",
+ "intro": "Ask ten \"AI SEO\" vendors whether AI assistants use schema markup and you'll get ten confident, contradictory answers. One camp swears schema is the secret to getting cited by ChatGPT. The other camp ran tests showing the major chatbots completely ignore JSON-LD. Both are looking at a real piece of the truth and mistaking it for the whole thing.\n\nThe confusion comes from treating \"AI assistant\" as one system. It isn't. There's the language model that writes the answer, and there's the retrieval-and-indexing machinery that decides which pages it even sees. Schema behaves very differently in each. Get that distinction right and the whole question becomes answerable — with evidence, not vibes.",
+ "sections": [
+  {
+   "heading": "The one distinction that resolves the whole debate",
+   "body": "A modern AI answer is produced by a chain, not a single model. Roughly: a **crawler** fetches and indexes pages → a **retrieval layer** picks the most relevant ones for a query → the **LLM** reads those few pages and writes an answer with citations.\n\nSchema markup matters wildly differently at each stage:\n\n- **At index/retrieval time (high impact):** Google and Bing have parsed schema.org for over a decade. That parsed data feeds their knowledge graphs, content-type classification, and entity resolution. ChatGPT Search rides Bing's index; AI Overviews and Gemini ride Google's. So your schema is *already working* before any LLM is involved.\n- **At inference time (low-to-zero impact):** When the LLM actually reads a page, it tokenizes the whole HTML — including your JSON-LD — as plain text. It does not run a JSON-LD parser. It does not treat `\"@type\": \"Product\"` as a structured field. It's just more tokens in the soup.\n\nOnce you see those as two separate questions, the contradictory test results stop being contradictory."
+  },
+  {
+   "heading": "What the tests actually showed",
+   "body": "Two pieces of evidence are worth knowing because people cite them to argue opposite conclusions.\n\nSearchVIU ran a controlled **direct-fetch** test: they put a product price *only* inside JSON-LD, never in visible HTML, then asked ChatGPT, Claude, Gemini, Perplexity and Bing Copilot to fetch the page. None of the five found the schema-only price. Gemini found visible prices 50% of the time, ChatGPT 37.5%, Claude 0% — but the schema-locked value was invisible to all of them. Conclusion: **during live fetch, chatbots read visible content, not your structured data.**\n\nThe flip side is Mark Williams-Cook's \"duck test,\" where a fictional address hidden in *invalid* JSON-LD got repeated back by ChatGPT and Perplexity anyway. That doesn't prove they parse schema — it proves the opposite. They scraped the text string because it was *text on the page*, format be damned.\n\nThe honest read: LLMs don't parse schema. They consume text. Schema-as-text occasionally leaks through, but you can't rely on that, and you shouldn't hide anything important in it."
+  },
+  {
+   "heading": "So why does schema still correlate with more AI citations?",
+   "body": "Because the retrieval layer is doing the work the LLM isn't. Several analyses report real lift — sites with complete structured data cited markedly more often in Perplexity, and pages with proper schema appearing more frequently in AI Overviews. Treat the exact multipliers floating around the industry (2.5x, 2.7x, 180%) as directional marketing math, not peer-reviewed fact. The mechanism, though, is sound and worth internalizing:\n\n- Schema lets the index **classify** your page correctly (this is a Product / Recipe / FAQ / Article), which improves whether it's retrieved for the right queries.\n- Schema **disambiguates entities** — it tells Google your \"Apple\" is the org with this `sameAs` Wikidata ID, feeding the knowledge graph that grounds AI answers.\n- Schema qualifies you for **rich results and shopping/pricing features**, which Google's John Mueller singled out as genuinely structured-data-dependent.\n\nMueller's own summary of \"does schema help LLMs\" was blunt: *\"yes, no, and it depends\"* — on the feature and how the system uses it. That's not a dodge. That's the accurate answer."
+  },
+  {
+   "heading": "What to actually mark up (and what's a waste of time)",
+   "body": "Mark up for **machine understanding and eligibility**, not because you think an LLM will read the JSON. The high-leverage types in 2026:\n\n- **Organization** (with `sameAs`, logo, founding info) — anchors your brand as a known entity so assistants attribute claims to you correctly.\n- **Article / NewsArticle** — author, `datePublished`, `dateModified`. Freshness and authorship signals feed retrieval and AI-Overview source selection.\n- **Product** — price, availability, reviews. This is where structured data is load-bearing for shopping surfaces.\n- **FAQPage** — still useful for query matching, even though Google scaled back FAQ rich snippets. Keep the answers visible in the HTML too.\n- **BreadcrumbList** and **WebSite/SearchAction** — cheap, help structure understanding.\n\nWhat to skip: stuffing keywords into schema, marking up content that isn't visible on the page, or hiding facts only in JSON-LD. Google can demote spammy markup, and as the fetch tests showed, hidden-in-schema facts may never reach the LLM at all. Golden rule: **everything important must exist in visible, clean HTML first.** Schema is a clarifying layer on top, never a substitute."
+  },
+  {
+   "heading": "The bigger lever most people skip: visible structure",
+   "body": "Here's the uncomfortable part for schema enthusiasts. Because the LLM reads rendered text, the formatting that helps you most is the stuff a human can see:\n\n- Clear `H2`/`H3` headings that mirror real questions.\n- A direct, quotable answer in the first sentence under each heading.\n- Lists, tables, and short definitional sentences the model can lift cleanly.\n- Consistent name/brand/entity mentions across the page and the web.\n- Authoritative citations and mentions pointing at you.\n\nSchema and semantic HTML aren't competitors — do both. But if you only have budget for one, invest in making your *visible* content unambiguous, because that's what the model literally ingests. Schema then quietly improves your odds of being retrieved in the first place.\n\nIf you want to know whether ChatGPT, Perplexity, Gemini and Google AI actually cite *you* today — and which competitors they name instead — AEOeye's free audit checks your real visibility across the assistants so you're optimizing against evidence, not assumptions."
+  }
+ ],
+ "keyTakeaways": [
+  "AI assistants don't parse schema at answer-time — a raw LLM tokenizes your JSON-LD as plain text and never runs a structured-data parser.",
+  "The retrieval and indexing layers behind the assistants (Google's, Bing's) do use schema heavily for classification, entity resolution, and citation eligibility.",
+  "Controlled fetch tests showed all five major chatbots missed a price that lived only in JSON-LD — never hide important facts in schema.",
+  "Schema correlates with more AI citations because it helps you get retrieved and understood, not because the LLM reads the markup directly.",
+  "Mark up Organization, Article, Product, and FAQPage — but every fact must also exist in visible, clean HTML.",
+  "Visible structure (clear headings, direct answers, lists, tables, consistent entities) is the bigger lever, since that's the text the model actually ingests."
+ ],
+ "faqs": [
+  {
+   "q": "Does ChatGPT read schema markup?",
+   "a": "Not when generating answers. ChatGPT Search rides Bing's index, and Bing uses structured data to classify and surface pages — so schema helps you get found. But when the model fetches and reads a page, it processes the HTML as text and ignores the JSON-LD as a structured format. A fetch test confirmed it missed a price stored only in schema."
+  },
+  {
+   "q": "Is schema markup a ranking factor for AI Overviews?",
+   "a": "Not a direct ranking factor — Google's John Mueller has been clear that structured data doesn't directly boost rankings. But it affects eligibility: it helps Google classify your content, resolve your entities, and qualify you for rich and shopping features, which in turn influences whether AI Overviews cite you as a source."
+  },
+  {
+   "q": "If LLMs don't parse schema, should I bother adding it?",
+   "a": "Yes. Schema works upstream, at the index and retrieval layer that feeds the assistants. It improves content classification, entity disambiguation, and rich-result eligibility — all of which raise your odds of being retrieved and cited. It's just not a substitute for clear, visible content, which is what the LLM actually reads."
+  },
+  {
+   "q": "What schema types matter most for AI visibility in 2026?",
+   "a": "Organization (with sameAs for entity grounding), Article with author and dates, Product with price and reviews, and FAQPage. Add BreadcrumbList and WebSite markup as cheap wins. Always keep the underlying facts in visible HTML — markup clarifies content, it doesn't replace it."
+  },
+  {
+   "q": "Can I put information only in JSON-LD to get cited?",
+   "a": "No. Tests show schema-only facts often never reach the language model, because it reads rendered text, not your structured data block. Hiding key information in JSON-LD is also the kind of mismatch search engines can penalize. Everything important must appear in the visible page content."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/574069/pexels-photo-574069.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "Close-up of a person coding on a laptop, showcasing web development and programming concepts.",
+  "photographer": "Lukas Blazek",
+  "photographerUrl": "https://www.pexels.com/@goumbik"
+ }
+}

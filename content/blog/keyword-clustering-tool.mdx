@@ -1,0 +1,89 @@
+---
+title: "Keyword Clustering Tool: The Free Method That Works"
+description: "SERP-overlap vs. semantic keyword clustering, the tool classes worth using, and a free workflow to turn keyword lists into a page-by-page site map."
+date: "2026-07-18"
+category: "Tools"
+readingTime: "8 min read"
+keywords: ["keyword clustering tool", "keyword clustering", "keyword grouping", "cluster keywords free", "SERP overlap clustering", "semantic keyword clustering"]
+faqs: [{"q": "What is keyword clustering?", "a": "Keyword clustering is the process of grouping related keywords into sets that a single page can target, instead of writing one page per keyword. Tools do this by checking shared ranking URLs (SERP-overlap) or by measuring meaning-similarity (semantic clustering). The output is a page map, not just a bigger keyword list."}, {"q": "What's the best keyword clustering tool?", "a": "There's no single best option \u2014 it depends on method and scale. Under 500 keywords, an AI assistant plus manual SERP spot-checks works fine for free. Past that, a dedicated SERP-overlap tool (the keywordinsights.ai class) is more accurate than semantic-only suite features, and worth the cost at volume."}, {"q": "Can ChatGPT cluster keywords?", "a": "Yes. Paste a keyword list and prompt it to group by search intent rather than shared words, and it does a workable job for lists under a few hundred keywords. Treat the output as a draft, though \u2014 spot-check five clusters against live SERPs before you assign pages, since the model has no real-time ranking data."}, {"q": "How many keywords per cluster?", "a": "There's no fixed number \u2014 it depends on how many distinct ways people search for the same intent. Some clusters hold two or three keywords; head-term clusters can hold a dozen or more variants and long-tail phrasings. The test isn't count, it's whether every keyword in the cluster would be satisfied by the same page."}]
+image: {"url": "https://images.pexels.com/photos/31466992/pexels-photo-31466992.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Person interacting with DeepSeek AI chat app on smartphone, focusing on digital innovation and communication.", "photographer": "Abdelrahman  Ahmed", "photographerUrl": "https://www.pexels.com/@arshutter"}
+sources: []
+---
+
+## What is a keyword clustering tool?
+
+A keyword clustering tool groups a list of keywords into sets that should be targeted by a single page, based on either shared ranking URLs or shared meaning. The output isn't a bigger keyword list — it's a smaller list of pages you actually need to build.
+
+There are two ways these tools decide what belongs together:
+
+- **SERP-overlap clustering.** The tool checks who currently ranks for each keyword. If the same two or three URLs show up in the top 10 for "keyword clustering tool" and "keyword grouping tool," Google has already decided those terms serve one intent — so they go in one cluster, targeted by one page.
+- **Semantic clustering.** The tool embeds each keyword as a vector and groups by meaning-similarity, with no live SERP data involved. "Cluster keywords free" and "free keyword clustering" land together because they're semantically close, whether or not Google currently treats them as one intent.
+
+SERP-overlap is the ranking-truth method — it tells you what Google is doing right now, not what a model thinks two phrases mean. Semantic clustering is faster and cheaper to run at scale, because it skips the SERP calls entirely. Neither is "better" in the abstract; they trade accuracy for speed in opposite directions. If you're unsure how difficulty affects which clusters deserve a page, see our guide to [keyword difficulty](/blog/what-is-keyword-difficulty) — a 720-search, KD-13 term is a different build call than a KD-60 term at the same volume.
+
+## Why clustering decides your site architecture
+
+Clustering is the step where you decide how many pages your site needs and what each one is allowed to talk about — get it wrong and you either build ten thin pages that all rank for nothing, or one bloated page that ranks for nothing either.
+
+The rule underneath every clustering method is the same: one intent, one page. When two keywords share intent — the same searcher, the same job to be done, the same page they'd be happy landing on — they belong on the same page. When they don't, splitting them is correct even if the keywords look similar on the surface.
+
+Bad clustering fails in one of two directions:
+
+- **Cannibalization.** You publish separate pages for keywords that actually share intent. Both pages compete for the same query, Google can't decide which one to rank, and both underperform the single stronger page they could have been.
+- **Thin fragmentation.** You lump keywords with different intents onto one page to save time. The page tries to answer three questions at once and does none of them well enough to rank for any of them.
+
+This is the part of "keyword research" that's actually strategy. Finding keywords is a data pull. Deciding which ones live together on a page is the decision that determines your entire site map — and it's the one most guides skip past on their way to a tool recommendation.
+
+| Method | How it works | Accuracy for SEO | Cost posture | Best for |
+|---|---|---|---|---|
+| SERP-overlap clustering | Pulls live top-10 rankings for each keyword and groups terms that share ranking URLs | High — reflects what Google is actually doing right now | Higher (SERP data pulls or a paid tool) | Money pages, anywhere cannibalization risk is real |
+| Semantic clustering | Embeds keywords as vectors and groups by meaning-similarity, no live SERP data | Moderate — reflects meaning, not current ranking behavior | Low (embeddings are cheap, no SERP calls) | Fast topic mapping, early-stage content planning |
+| Hybrid (SERP + semantic) | Uses semantic similarity to pre-group, then confirms clusters with SERP overlap | High, with less manual spot-checking required | Mid — what most dedicated tools charge for | Teams clustering at scale without doing it fully by hand |
+
+## The tool landscape
+
+Four ways to actually run this, roughly in order of how much you'll pay for them.
+
+**Dedicated clustering tools** (the keywordinsights.ai class) do SERP-overlap clustering as their core product — paste in a keyword list, and the tool pulls live SERPs and returns clusters with a suggested page map. This is the accuracy-first option, built for people clustering hundreds or thousands of keywords at once.
+
+**Suite grouping features** (the Semrush-class option) live inside tools you may already be paying for. Keyword grouping is a secondary feature bolted onto a broader keyword research or SEO suite, usually semantic or hybrid rather than pure SERP-overlap. If you already have the seat, it's worth trying before you buy something dedicated.
+
+**DIY with an AI assistant** is the option most people skip and shouldn't. Paste a keyword list into Claude or ChatGPT and prompt for intent-based groups. It's genuinely workable for lists under a few hundred keywords — the model is doing a rough version of semantic clustering using its own judgment instead of embeddings math. A prompt that works:
+
+"You are an SEO strategist. Group these keywords into clusters by search intent, not by shared words. For each cluster, give: (1) a cluster name, (2) the keywords in it, (3) the single best page type to target them, (4) the dominant intent — informational, commercial, or transactional. Flag any keyword that could reasonably belong to two clusters. Keywords: [paste list]"
+
+**Spreadsheet plus manual SERP checks** is the slowest option and the only one that's genuinely ground-truth. You cluster by hand, or with an assistant, then open the live SERP for each keyword and check who's actually ranking. It doesn't scale past a few dozen keywords, but it's the method you fall back to when a cluster from any other tool looks wrong.
+
+
+![Three people gathered around a laptop reviewing a tool together.](https://images.pexels.com/photos/5537527/pexels-photo-5537527.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## The free path that actually works
+
+You don't need a paid clustering tool to build a correct site architecture. You need one afternoon and a search console export.
+
+1. **Export your Google Search Console queries.** Pull the last three to six months of query data. This is a list of terms people are already typing to find you — a far better starting point than a fresh keyword list, because intent overlap is already showing up in your own impressions and clicks.
+2. **Have an AI assistant cluster them by intent**, using a prompt like the one above. Don't accept the first pass uncritically — ask it to explain why it grouped two keywords together, and split anything the reasoning doesn't actually support.
+3. **Spot-check five clusters against live SERPs.** Pick the clusters you're most likely to build pages for and check the top 10 for each keyword inside them. Same two or three URLs keep showing up? Good, the cluster holds. Completely different results? Split it. Also scan the [People Also Ask](/blog/people-also-ask) boxes on those SERPs — the questions Google surfaces there are a fast, free signal for whether a cluster genuinely shares one intent or just shares words.
+4. **Assign exactly one page per surviving cluster.** Not one page per keyword, not one page per five clusters — one page per cluster. This is the output that actually changes what you build.
+
+## Clustering for the AI-answer era
+
+Here's the part most clustering guides miss: your clusters aren't just a page map anymore. They're your buyer-question set.
+
+Every keyword cluster represents a question a real person is asking, whether they type it into Google or ask it out loud to ChatGPT or Gemini. If the cluster is right, the page you build for it should answer that question directly enough that an AI system could lift the answer and cite you for it — the same extractability that makes a page rank well is what makes it quotable inside an AI-generated answer.
+
+That means clustering work doubles as AI-visibility planning. The cluster tells you which page to build; the intent behind the cluster tells you the exact question that page needs to answer in its first two sentences, not buried in paragraph six. Get the [content strategy](/blog/ai-content-strategy) around that page right, and you're targeting a ranking position and an AI citation with the same piece of content.
+
+This is also where it's worth checking your work. Once you've mapped clusters to pages, [AEOeye](/) audits whether AI engines like ChatGPT, Perplexity, Gemini, and Claude actually surface your brand when someone asks the questions those clusters represent — which tells you whether your clustering decisions are translating into real AI visibility or just sitting in a spreadsheet.
+
+## How to choose
+
+Match the tool to your keyword volume, not the other way around.
+
+| Keyword volume | Recommended approach |
+|---|---|
+| Under 500 keywords | DIY with an AI assistant, spot-checked against live SERPs |
+| 500–5,000 keywords | A dedicated SERP-overlap clustering tool |
+| Already paying for a suite | Try the built-in grouping feature before buying anything new |
+
+If you're under 500 keywords, paying for a dedicated tool is overkill — an assistant and an afternoon gets you there just as accurately. Past a few thousand keywords, manually checking SERPs for every cluster stops being realistic, and a dedicated tool earns its price. And if clustering is already sitting inside software you're paying for anyway, there's no reason to add another subscription before testing what you already have. For more no-cost options beyond clustering itself, see our list of [free AI SEO tools](/blog/free-ai-seo-tools).

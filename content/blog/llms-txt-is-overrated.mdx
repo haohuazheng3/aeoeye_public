@@ -1,0 +1,66 @@
+---
+title: "Is llms.txt Worth It? Why It's Overrated (And What to Do Instead)"
+description: "llms.txt is overhyped. AI search bots barely fetch it and no major engine uses it for ranking. Here's what actually moves AI visibility instead."
+date: "2026-06-26"
+category: "Opinion"
+readingTime: "5 min read"
+keywords: ["is llms.txt worth it"]
+faqs: [{"q": "Does llms.txt help with ChatGPT or Perplexity rankings?", "a": "No. Neither OpenAI nor Perplexity documents llms.txt as a citation or ranking signal, and server-log studies show their search bots don't fetch it. To improve ChatGPT or Perplexity visibility, focus on crawler access, answer-first content, structured data, and off-site citations instead."}, {"q": "Will having an llms.txt file hurt my SEO?", "a": "No, it won't hurt anything — it's a static file that engines ignore for search. The only real cost is opportunity cost: time and budget spent on llms.txt is time not spent on the crawler-access, structure, and citation work that actually moves AI visibility."}, {"q": "Should I create an llms.txt for my documentation site?", "a": "Yes, if AI coding agents are a meaningful audience. Tools like Cursor, Claude Code, Windsurf, and GitHub Copilot look for /llms.txt and /llms-full.txt to load clean context. For a docs portal this is the one genuinely useful application of the file."}, {"q": "What's the difference between llms.txt and robots.txt?", "a": "robots.txt controls crawler access and is actively enforced by AI bots — getting it wrong can block you entirely. llms.txt is a curated content index that crawlers are free to ignore, and the AI search engines do ignore it. One is mandatory hygiene; the other is optional and largely unread."}, {"q": "If llms.txt is overrated, what actually improves AI visibility?", "a": "Five things, in order: allow AI crawlers in robots.txt, write answer-first (BLUF) content, add Schema.org structured data, earn mentions on trusted sites like Reddit and Wikipedia, and measure how AI engines currently answer about your brand so you fix the right gaps."}]
+sources: [{"label": "Ahrefs: We Analyzed 137K Sites — 97% of llms.txt Files Never Get Read", "url": "https://ahrefs.com/blog/llmstxt-study/"}, {"label": "Search Engine Journal: 97% of llms.txt Files Got No Requests, Ahrefs Data Shows", "url": "https://www.searchenginejournal.com/97-of-llms-txt-files-got-no-requests-ahrefs-data-shows/579478/"}, {"label": "Search Engine Journal: Google Says LLMs.txt Comparable To Keywords Meta Tag", "url": "https://www.searchenginejournal.com/google-says-llms-txt-comparable-to-keywords-meta-tag/544804/"}, {"label": "The official /llms.txt proposal (llmstxt.org)", "url": "https://llmstxt.org/"}, {"label": "Answer.AI: /llms.txt — a proposal to help LLMs use websites", "url": "https://www.answer.ai/posts/2024-09-03-llmstxt.html"}, {"label": "schema.org structured data vocabulary", "url": "https://schema.org/"}]
+image: {"url": "https://images.pexels.com/photos/34804002/pexels-photo-34804002.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Laptop displaying coding software on a desk, alongside a coffee mug and notebook.", "photographer": "Daniil Komov", "photographerUrl": "https://www.pexels.com/@dkomov"}
+---
+
+Let me be blunt: llms.txt is the most over-marketed file in the AEO world right now, and most of the people selling you on it are selling you a checkbox, not an outcome.
+
+The idea sounds great — a tidy Markdown index that tells AI models exactly what your site is about. The reality is that the AI search engines you actually care about don't read it. I'm not saying it's useless. I'm saying it's been hyped into a priority it hasn't earned, and there are five things that will move your AI visibility far more, today. This page makes the contrarian case with real data, then tells you where to spend your effort instead.
+
+## What is llms.txt, exactly?
+llms.txt is a proposed Markdown file you place at your domain root (`/llms.txt`) that gives language models a curated, plain-text index of your most important pages. It was proposed by Jeremy Howard, co-founder of Answer.AI, on September 3, 2024, and the spec lives at [llmstxt.org](https://llmstxt.org/).
+
+The pitch is reasonable on paper. LLM context windows are limited, and converting messy HTML — nav bars, ads, JavaScript — into clean text is lossy. The proposal defines two files:
+
+- **`/llms.txt`** — a short, human-curated list of key pages with one-line descriptions, like a sitemap written for a model.
+- **`/llms-full.txt`** — an optional companion that dumps your full content into a single Markdown document.
+
+Think of it as `robots.txt`'s ambitious cousin. Where robots.txt controls *access*, llms.txt tries to provide *context*. It's a thoughtful idea. The problem is what happened next — which is to say, almost nothing.
+
+## Is llms.txt worth it for AI search visibility?
+No. If your goal is showing up in ChatGPT, Perplexity, Google AI Overviews, or Gemini, llms.txt is decoration. The engines that decide whether you get cited do not consume it, and the data on this is no longer ambiguous.
+
+Ahrefs analyzed server logs across 137,000 domains and found that **97% of existing llms.txt files attract no readers at all** — human or bot ([Ahrefs, June 2026](https://ahrefs.com/blog/llmstxt-study/)). When a file *was* fetched, the readership wasn't AI search bots; the top requesters were GPTBot and Claude-Code, i.e. crawlers and coding tools, not the answer surfaces you're optimizing for.
+
+Here's the part that kills the 'just in case' argument: Ahrefs found that for sites *missing* an llms.txt, the AI-bot share of those 404 requests was effectively **zero**. AI search bots don't even *check* whether the file exists. The humans probing for absent llms.txt files? Mostly SEOs snooping on competitors. The bots never go looking.
+
+## What do Google and the AI labs actually say about it?
+They've told you, plainly, that it doesn't matter for search. Google has been the most direct, and OpenAI, Anthropic, and Perplexity have simply declined to document it as any kind of signal.
+
+- **Google** lists llms.txt among the things site owners can ignore for generative AI search. In July 2025, Gary Illyes confirmed Google doesn't support it and isn't planning to.
+- **John Mueller** (Google) put it on the record on Reddit: "AFAIK none of the AI services have said they're using LLMs.TXT (and you can tell when you look at your server logs that they don't even check for it)." He compared it to the long-dead [keywords meta tag](https://www.searchenginejournal.com/google-says-llms-txt-comparable-to-keywords-meta-tag/544804/) — a signal everyone optimized that engines quietly ignored.
+- **OpenAI, Anthropic, Perplexity** — none of their crawler or citation documentation asks you to publish llms.txt or treats it as a visibility requirement.
+
+When the platforms themselves say 'we don't read this,' and your own server logs confirm it, that's not FUD. That's the answer.
+
+## Then why does everyone keep recommending it?
+Because llms.txt is cheap to ship, easy to sell as a 'we're AI-ready' deliverable, and there's one legitimate use case that gets generalized into a universal one. The honest reason it persists is incentives, not evidence.
+
+Three things keep the hype alive:
+
+1. **It's a frictionless checkbox.** Agencies and AEO tools can 'add llms.txt' in an afternoon and show a tangible artifact. Real visibility work is slower and harder to invoice.
+2. **It pattern-matches to robots.txt.** People assume a root-level text file 'for AI' must work the way robots.txt does. It doesn't — robots.txt is enforced by crawlers; llms.txt is a request crawlers ignore.
+3. **The coding-tool use case is real,** and it gets laundered into a search claim. Which brings us to the one place llms.txt genuinely earns its keep.
+
+## Where llms.txt actually IS worth it: docs for AI coding agents
+If you run a developer documentation site, ship it — this is the one scenario where llms.txt pulls real weight. AI coding agents actively look for it, and here the file does exactly what it promises.
+
+Tools like **Cursor, Windsurf, Claude Code, GitHub Copilot, Cline, and Aider** check for `/llms.txt` and `/llms-full.txt` when pointed at a docs site, using them to load clean, token-efficient context instead of scraping rendered HTML. That's why the named bots that *do* fetch these files skew toward GPTBot and Claude-Code rather than search crawlers ([Ahrefs](https://ahrefs.com/blog/llmstxt-study/)). It's also why early adopters were companies like Anthropic, Stripe, Cursor, and Mintlify — developer-tooling shops with docs that LLMs ingest directly.
+
+Mueller framed it perfectly: llms.txt is "not done for search" — it's a "temporary crutch, perhaps to save some tokens" for coding tools parsing developer docs. So: documentation portal feeding agents? Yes, worth it. Marketing site chasing ChatGPT citations? No.
+
+## What to do instead: 5 higher-leverage AEO moves
+Spend the hour you'd waste on llms.txt on things the engines actually consume. These are the levers that decide whether an AI answer cites you, in rough order of leverage.
+
+1. **Don't block the AI crawlers in robots.txt.** This is the inverse of llms.txt and it's enforced. If `GPTBot`, `OAI-SearchBot`, `PerplexityBot`, `ClaudeBot`, or `Google-Extended` are disallowed, no file on earth saves you. Audit this first.
+2. **Answer-first structure (BLUF).** Open pages and sections with a direct 40–60 word answer, then elaborate. Models extract clean, self-contained answers — give them one to lift.
+3. **Schema.org structured data.** FAQPage, Article, Organization, and Product markup are documented, parseable signals engines already use ([schema.org](https://schema.org/)). This is the 'machine-readable context' people *think* llms.txt provides — except it works.
+4. **Earn citations and mentions off-site.** AI answers lean heavily on sources the model already trusts. Being referenced on Reddit, Wikipedia, and authoritative industry sites moves your inclusion rate more than any root-level file.
+5. **Measure what AI engines actually say about you.** You can't optimize a black box you can't see. AEOeye's [free AI visibility audit](https://aeoeye.com) shows how ChatGPT, Perplexity, Google AI, Claude, and Gemini currently answer about your brand — so you fix what's broken instead of shipping files nobody reads.

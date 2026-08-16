@@ -1,0 +1,69 @@
+{
+ "slug": "how-to-check-if-ai-mentions-your-brand",
+ "type": "answer",
+ "title": "How to Check If AI Mentions Your Brand (ChatGPT, Perplexity, Google AI)",
+ "metaTitle": "AI Visibility Checker: See If AI Mentions Your Brand",
+ "metaDescription": "An AI visibility checker tells you whether ChatGPT, Perplexity and Google AI name your brand. Here's how to check it manually and at scale — with real",
+ "primaryKeyword": "ai visibility checker",
+ "shortAnswer": "An AI visibility checker is a tool that runs realistic buyer questions through ChatGPT, Perplexity, Google AI Overviews, Gemini and Claude, then reports whether each one names your brand, links to your site, and how you stack up against competitors. To check manually: ask each engine 15-30 real category questions (\"best [product] for [use case]\"), log whether you're mentioned, cited, and how you're positioned. To check at scale, use a dedicated checker — AEOeye runs hundreds of prompts across all the engines and tracks your mention rate over time, which is the only way to spot a trend instead of a single lucky answer.",
+ "intro": "You typed your company name into ChatGPT, got a glowing paragraph, and felt great. That tells you almost nothing. Nobody searches for your brand by name when they're deciding what to buy — they ask \"what's the best tool for X,\" and either you show up in that answer or you don't.\n\nChecking AI visibility properly means flipping the question. Not \"what does ChatGPT say about us,\" but \"when a buyer describes their problem without knowing we exist, do we get named?\" That's a harder thing to measure, partly because AI answers change every time you ask. Here's how to do it right — by hand for a quick read, and at scale when you need numbers you can trust.",
+ "sections": [
+  {
+   "heading": "Mention vs. citation: know which one you're measuring",
+   "body": "These get conflated constantly, and they're not the same thing.\n\nA **mention** is when the answer names your brand in the text — \"For project management, tools like Asana, Linear, and YourBrand work well.\" A **citation** is when the engine links to your domain as a source, usually shown in a footnote, a source panel, or an inline link.\n\nThey come from different places. Mentions are pulled from the model's training data plus whatever it retrieves live — so a mention reflects your overall reputation across the web. Citations come almost entirely from real-time retrieval, so they reflect whether a *specific page* of yours ranks for the query the engine ran behind the scenes.\n\nYou want both, but they're fixed differently. Weak on mentions? You have a presence problem — not enough authoritative third-party sources describe you in your category. Weak on citations? You have a content problem — your pages aren't structured to be the source an engine grabs. When you check visibility, log them as separate columns. A brand can be mentioned constantly and never cited, or cited often yet rarely recommended by name."
+  },
+  {
+   "heading": "The fast manual check: 30 minutes, real signal",
+   "body": "You don't need a tool to get started. You need the right prompts and a logging habit.\n\nWrite 15 to 30 questions a real buyer would ask — never including your brand name. Cover the spread:\n\n- **Category:** \"best [product type] for [audience]\"\n- **Comparison:** \"[competitor] alternatives\" / \"[competitor] vs what else\"\n- **Use case:** \"how do I [job your product does]\"\n- **Buyer-stage:** \"what should I look for when choosing a [product type]\"\n\nRun each one through ChatGPT, Perplexity, and Google (toggle AI Mode / watch for the AI Overview). For each, record four things: were you **mentioned**, were you **cited**, what **position** (first name listed vs. buried), and the **sentiment** (recommended, neutral, or mischaracterized). A plain spreadsheet beats memory here.\n\nTwo non-obvious moves. First, run ChatGPT prompts in both browsing and non-browsing mode — the answers diverge sharply, and most of your buyers are on the default. Second, ask each prompt two or three times in fresh chats. You'll watch yourself appear and vanish across identical questions. That flicker is the whole reason manual checking has a ceiling."
+  },
+  {
+   "heading": "Why a single check lies to you",
+   "body": "AI answers are non-deterministic. Same prompt, different session, different brands named. The model samples from a probability distribution every time, so a brand sitting at the edge of its \"top tools\" cluster shows up maybe 40% of the time. Ask once and you'll conclude you're in — or out — when the truth is a percentage.\n\nThat percentage is the only metric that matters, and you can't get it from one look. **Mention rate** — how often you appear across many runs of the same prompt — is the real KPI. A brand mentioned in 8 of 10 runs is in genuinely different shape from one mentioned in 2 of 10, even though a casual single check might catch either as \"yes, we're there.\"\n\nThe answers also drift between engines and over time. Perplexity leans hard on live retrieval and citations; ChatGPT leans more on trained knowledge; Google AI Overviews track closely with what ranks. A model update or a competitor's new comparison page can move you five points in a week. Which is why visibility isn't a thing you check once — it's a thing you monitor."
+  },
+  {
+   "heading": "Checking at scale: what a real AI visibility checker does",
+   "body": "Once you're past a handful of prompts across five engines, runs three deep, doing it by hand falls apart fast. That's the job a dedicated **AI visibility checker** exists for.\n\nA good one does four things you can't practically do manually:\n\n- **Runs hundreds of prompts** across ChatGPT, Perplexity, Google AI Overviews, Gemini and Claude on a schedule, not in your browser.\n- **Repeats each prompt** enough times to compute a real mention rate instead of a coin-flip snapshot.\n- **Pulls competitors automatically**, so you see share of voice — you're named in 30% of category answers, your top rival in 55%.\n- **Tracks the trend**, alerting you when a number moves so you can tie it to a content change or a model update.\n\nThis is exactly what AEOeye is built to do — its free audit runs your real category prompts across every major engine and hands back your mention rate, citation rate, and where competitors are eating your share, in one pass. The point isn't the dashboard. It's converting a fuzzy \"are we in AI results?\" into a number you can move and defend in a meeting."
+  },
+  {
+   "heading": "Turn the check into a baseline you can act on",
+   "body": "A check is only useful if it becomes a baseline. Once you have your numbers — mention rate per engine, citation rate, share of voice, sentiment — freeze them as your starting line, dated.\n\nThen read the gaps. Three patterns and what each tells you:\n\n- **Mentioned but never cited** → competitors own the source pages for your category. Fix: build the comparison and \"best X\" pages engines actually pull from.\n- **Cited but rarely recommended** → engines find you but don't trust you enough to lead with you. Fix: earn more third-party mentions (reviews, listicles, expert roundups) that reinforce your category authority.\n- **Mischaracterized** → the model has stale or wrong facts about you. Fix: tighten your own site's plain-language descriptions and get accurate third-party coverage; models correct slowly but they do correct.\n\nRe-run the exact same prompt set monthly. Same questions, same engines, same number of repetitions — otherwise you can't compare. The trend line is the deliverable. One check tells you where you stand today; the same check repeated tells you whether anything you did actually worked."
+  }
+ ],
+ "keyTakeaways": [
+  "Check whether AI names you for category questions ('best X for Y'), not for your brand name — branded prompts tell you almost nothing about how buyers find you.",
+  "Mentions and citations are different: a mention names you in the text (reputation), a citation links your domain (page-level ranking). Track them separately.",
+  "AI answers are non-deterministic — ask any prompt several times. Your mention RATE across runs is the real metric, not a single yes/no.",
+  "Manual checking with a 15-30 prompt library and a spreadsheet works for a quick read but hits a ceiling fast at scale.",
+  "A dedicated AI visibility checker runs hundreds of prompts across all engines, computes mention rate, and tracks competitor share of voice over time.",
+  "Freeze your numbers as a dated baseline and re-run the identical prompt set monthly — the trend line, not the snapshot, proves whether your work moved the needle."
+ ],
+ "faqs": [
+  {
+   "q": "Can I just ask ChatGPT what it says about my brand?",
+   "a": "You can, but it's the least useful check. Typing your own name returns a description, not a recommendation — and nobody finds you that way. Real buyers ask category questions ('best tool for X') without knowing you exist. Test those instead, and you'll learn whether AI actually surfaces you when it counts."
+  },
+  {
+   "q": "Why do I show up in AI answers sometimes but not others?",
+   "a": "AI models are non-deterministic — they sample from a probability distribution on every run, so the same prompt yields different brands each time. If you sit near the edge of a model's 'top tools' cluster, you'll appear in some runs and not others. That's why your mention rate across many runs matters far more than any single answer."
+  },
+  {
+   "q": "Is there a free AI visibility checker?",
+   "a": "Yes. AEOeye offers a free audit that runs your real category prompts across ChatGPT, Perplexity, Google AI Overviews, Gemini and Claude, then reports your mention rate, citation rate, and competitor share of voice in one pass — the kind of multi-engine, multi-run check that's impractical to do by hand."
+  },
+  {
+   "q": "What's the difference between being mentioned and being cited?",
+   "a": "A mention names your brand in the answer text and reflects your overall reputation across the web. A citation links your domain as a source and reflects whether a specific page of yours ranks for the engine's behind-the-scenes query. You want both, but they're fixed differently — mentions through third-party authority, citations through better, more structured pages."
+  },
+  {
+   "q": "How often should I check my AI visibility?",
+   "a": "Monthly, using the exact same prompt set each time. AI answers drift as models update and competitors publish new content, so a one-time check goes stale fast. Re-running an identical baseline monthly is the only way to separate real movement from the natural noise of non-deterministic answers."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "A close-up view of a laptop displaying a search engine page.",
+  "photographer": "cottonbro studio",
+  "photographerUrl": "https://www.pexels.com/@cottonbro"
+ }
+}

@@ -1,0 +1,91 @@
+---
+title: "What Is Crawling? How Search and AI Bots Discover Your Site"
+description: "What is crawling? It's how bots like Googlebot and GPTBot find and fetch your pages before they can rank or get cited by AI. Here's how it works."
+date: "2026-07-18"
+category: "Technical"
+readingTime: "7 min read"
+keywords: ["what is crawling", "web crawling", "what is a web crawler", "crawling vs indexing", "AI crawlers", "GPTBot", "ClaudeBot", "how does crawling work"]
+faqs: [{"q": "What is crawling in SEO?", "a": "Crawling is the process where automated bots \u2014 like Googlebot or GPTBot \u2014 visit web pages, follow their links, and fetch the HTML so the content can be indexed and later used in search results or AI answers. It's the discovery step that has to happen before any page can rank or get cited anywhere."}, {"q": "What is the difference between crawling and indexing?", "a": "Crawling is discovery \u2014 a bot fetches your page's HTML. Indexing happens after: the content gets parsed, stored, and organized so it can be retrieved later. A page can be crawled without ever being indexed, but it can't be indexed without first being crawled. Crawling gets you in line; indexing puts you on the shelf."}, {"q": "What is a web crawler?", "a": "A web crawler (or \"bot\" or \"spider\") is an automated program that visits web pages, reads their content, and follows the links it finds to discover more pages. Search engines use crawlers like Googlebot to build their index; AI companies use crawlers like GPTBot and ClaudeBot to gather content their models can reference."}, {"q": "Do AI systems crawl websites?", "a": "Yes. OpenAI, Anthropic, and Perplexity all run their own crawlers \u2014 GPTBot, ClaudeBot, and PerplexityBot \u2014 that fetch web pages the same way Googlebot does. These bots feed model training or live answer generation, so blocking them in robots.txt can make your site invisible in that engine's AI-generated answers."}]
+image: {"url": "https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Sleek laptop showcasing data analytics and graphs on the screen in a bright room.", "photographer": "Lukas Blazek", "photographerUrl": "https://www.pexels.com/@goumbik"}
+sources: []
+---
+
+## What is crawling in SEO?
+
+Crawling is how search engines and AI systems discover web pages in the first place. Automated programs called bots — Googlebot, GPTBot, ClaudeBot, and dozens of others — follow links from page to page, fetch the HTML, and hand it off to be indexed and eventually used in answers. No crawl, no visibility. It's the very first step in the pipeline that ends with your page ranking in Google or getting quoted by ChatGPT.
+
+That sounds simple, and mechanically it is. What trips people up is assuming crawling only matters for classic search. In 2026 it doesn't. Every AI engine that cites live sources — ChatGPT, Perplexity, Google's AI Overviews — depends on a crawler visiting your site first. If that bot never shows up, or you've blocked it without realizing, you're not "ranking lower." You're not in the running at all.
+
+Not every bot is one you want, either. Legitimate search and AI crawlers request pages politely, identify themselves, and respect the rules you set. Scrapers and spam bots ignore all of that. When people ask "what is crawling," they almost always mean the legitimate kind — the traffic worth welcoming, not blocking on principle.
+
+## How crawling works
+
+Crawling starts from a list of known URLs — pages the bot has visited before, links submitted through a sitemap, or links discovered elsewhere on the web. The bot fetches each URL, downloads the HTML, and looks for outbound links inside it.
+
+Every new link goes into a queue. The bot works through that queue continuously, prioritizing pages it thinks change often or matter more — your homepage, typically, gets crawled far more often than a five-year-old blog comment thread. Fetch, extract links, queue, repeat — that loop is the entire mechanism.
+
+Bots don't visit once and disappear, either. They return on a rhythm: daily or faster for a fast-moving news site, monthly or slower for a page that rarely changes. That's why fixing a crawling problem doesn't fix your visibility instantly — you're waiting for the next visit, not the next page load.
+
+A few things influence how much of your site actually gets crawled:
+
+- **Crawl budget** — how many pages a bot is willing to fetch from your domain in a given window, roughly tied to your site's size and authority.
+- **Internal linking** — pages with no incoming links are much harder for a bot to find.
+- **Server response** — slow or error-prone pages get crawled less; bots back off from sites that time out.
+- **robots.txt directives** — explicit rules telling a bot what it can and can't fetch.
+
+That last one is where most crawling problems actually start. A single misconfigured line in robots.txt can quietly wall off an entire section of your site — or an entire crawler — without anyone noticing until traffic never shows up.
+
+## Crawling vs indexing
+
+Crawling and indexing are two different jobs, and mixing them up is the most common confusion in SEO. Crawling is discovery: a bot fetches the page. Indexing is what happens after — the content gets parsed, stored, and organized so it can actually be retrieved later.
+
+Think of it like a delivery: crawling is the truck dropping boxes of books at the library door. Indexing is the librarian cataloging them onto shelves by subject. Nobody can check out a book still sitting in an unopened box, no matter how many trucks show up.
+
+A page can be crawled and never indexed — thin content, duplicate content, and a stray noindex tag are the usual culprits. For the full mechanics of what happens after the fetch, see our breakdown of [what indexing actually means](/blog/what-is-indexing).
+
+Only indexed pages are eligible to show up anywhere a user or an AI model might find them — a traditional [search results page](/blog/what-is-a-serp), an AI Overview, or a cited answer in ChatGPT. Crawling gets you in line. Indexing is what puts you on the shelf.
+
+
+![Three people gathered around a laptop reviewing a tool together.](https://images.pexels.com/photos/5537527/pexels-photo-5537527.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## The crawlers that matter now
+
+Five years ago, "crawling" meant Googlebot and maybe Bingbot. The list is longer now, and it includes bots that never send you a single visitor directly — they feed AI models instead.
+
+| Crawler | What it feeds | Why allow it |
+|---|---|---|
+| Googlebot | Google Search and Discover | Still the baseline for organic visibility — block it and you disappear from Google entirely |
+| GPTBot | OpenAI's model training and data collection | Determines whether ChatGPT has ever "read" your content when it forms answers about your space |
+| ClaudeBot | Anthropic's model training | Same logic for Claude — no crawl, no chance of being the source behind a Claude answer |
+| PerplexityBot | Perplexity's answer engine and live citations | Perplexity leans on real-time crawling to cite sources directly inside its answers |
+| Google-Extended | Gemini and Google's AI features, separate from Search | Lets you control AI training use without touching your regular Search ranking |
+
+Each of these bots identifies itself by user agent and is supposed to check robots.txt before fetching anything. That means the decision to allow or block each one usually comes down to a single line in a text file — which is exactly why so many sites get it wrong without ever noticing. For the fuller roster, including smaller and newer players, see our [AI crawler list](/blog/ai-crawler-list).
+
+## Why AI crawlers changed the stakes
+
+Blocking an AI crawler doesn't just cost you a few visits in a server log — it makes you invisible in that engine's answers, permanently, until you unblock it and it gets crawled again. That's a different kind of risk than a typical SEO mistake, and most site owners haven't updated their mental model for it yet.
+
+Here's the pivot: crawling used to be a search engine problem. Now it's an AI visibility problem first. A buyer asking ChatGPT for the best tool in a category never sees a ranked list of blue links — they see whatever the model decided to mention, built from whatever it was able to crawl and retrieve. If GPTBot or ClaudeBot never reached your comparison page, you're not losing a ranking position. You're absent from the conversation entirely.
+
+This is exactly the blind spot we see constantly: a site with excellent Google rankings that's completely absent from ChatGPT and Perplexity answers, because an AI crawler was quietly blocked for months and nobody thought to check. Often it's not even a deliberate choice — a security plugin or a CDN's "bot protection" default did it automatically.
+
+That's the gap crawling closes. It's no longer just the plumbing behind search rankings; it's the gate every AI engine has to pass through before it can mention you at all.
+
+## How to make sure you get crawled
+
+Getting crawled reliably comes down to a handful of unglamorous basics, done consistently rather than perfectly:
+
+- **Serve crawlable HTML.** Bots need to see your actual content in the initial response, not content that only appears after JavaScript runs. If your page is blank until a script executes, some crawlers will miss the content entirely.
+- **Check robots.txt for accidental blocks.** Audit it directly — don't assume. Security plugins and CDNs sometimes add bot-blocking rules by default, silently.
+- **Submit a sitemap.** It's the most direct way to hand bots a complete list of URLs instead of hoping they find every page through links alone.
+- **Avoid JS-only rendering for critical content.** If a page's main value — pricing, specs, the actual answer to a query — only loads client-side, some AI crawlers won't execute it and will fetch a near-blank page instead.
+- **Build real internal links.** Orphan pages, the ones nothing else on your site links to, are the easiest pages for a crawler to simply never find.
+
+Run through our [technical SEO checklist](/blog/technical-seo-checklist) for the full version of this list, including the settings that trip up most sites without anyone noticing.
+
+## Does getting crawled mean you'll get cited?
+
+No — and this is the part most crawling guides skip entirely. Getting crawled is necessary, not sufficient. A bot can fetch your page cleanly, and the AI model can still leave you out of its answer, because crawling only proves you're eligible. It says nothing about whether the engine trusts you, prefers a competitor, or simply never surfaces your category of page at all.
+
+That gap — crawlable but invisible — is exactly what we built [AEOeye](/) to catch. It audits whether ChatGPT, Perplexity, Gemini, Google AI, and Claude actually recommend you when a real buyer asks, instead of just confirming your pages are technically reachable. Fixing your crawl settings is step one. Knowing whether it worked is a different question — and it's the one that actually affects revenue.

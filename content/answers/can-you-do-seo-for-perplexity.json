@@ -1,0 +1,54 @@
+{
+  "slug": "can-you-do-seo-for-perplexity",
+  "type": "answer",
+  "title": "Can You Do SEO for Perplexity? Yes — It's About Being Citable",
+  "metaTitle": "Can You Do SEO for Perplexity? Yes — Here's How",
+  "metaDescription": "Yes — you can do SEO for Perplexity, but it's not keyword density. See how Perplexity picks sources to cite, and what actually makes a page citable.",
+  "primaryKeyword": "can you do seo for perplexity",
+  "shortAnswer": "Yes, though it isn't classic SEO. Perplexity retrieves live web sources in response to a query and cites the answers that are clearest, most current, and easiest to extract — not the pages with the most backlinks or keyword density. 'SEO for Perplexity' really means becoming the most citable answer on the open web: answer-shaped content, verifiable freshness, and mentions from sources Perplexity already trusts enough to treat as corroborating evidence.",
+  "intro": "Search this exact phrase — can you do SEO for Perplexity — and you'll find plenty of shrugging non-answers, because most SEOs are still trying to force a decade of Google playbook onto a tool that doesn't work like Google. Perplexity doesn't crawl once, build a static index, and rank pages for months at a time. It goes and searches the live web every time someone asks it a question, then decides on the spot which sources deserve to be cited. That's a fundamentally different game, and it rewards different things. Below is what actually determines whether Perplexity cites you — not just what sounds like it should.",
+  "sections": [
+    {
+      "heading": "Can You Do SEO for Perplexity?",
+      "body": "Yes — you can do SEO for Perplexity, but the target you're optimizing for isn't a ranking position, it's a citation slot inside a generated answer. Perplexity is built on retrieval-augmented generation, or [RAG](/glossary/retrieval-augmented-generation): when someone asks a question, it retrieves a handful of live web pages relevant to that exact query, reads them, and writes an answer that cites the sources it actually used.\n\nThat changes what 'optimizing' means. There's no fixed index position to climb toward, and no static SERP you're competing against for months on end — every query is a fresh retrieval-and-rank event. Keyword density, exact-match domains, and backlink volume for their own sake don't move the needle the way they used to for classic search rankings.\n\nI'd go further: most 'Perplexity SEO' advice circulating right now is just recycled Google SEO advice with the word 'Perplexity' swapped in, and it underperforms because the underlying mechanic is genuinely different. What actually works is making your content the easiest, most current, most trustworthy answer to pull from — for the specific questions your buyers ask, not just a head-term keyword."
+    },
+    {
+      "heading": "How Perplexity Chooses Sources",
+      "body": "Perplexity favors sources that are on-topic, fresh, easy to extract an answer from, and backed up by other sources saying something similar. There's no official public ranking-factor list, but based on how Perplexity's retrieval system works and consistent real-world testing, four factors keep showing up as decisive:\n\n- **On-topic** — the page needs to answer the specific question asked, not just be broadly related to the subject.\n- **Fresh** — for anything time-sensitive (pricing, product features, 'best of' lists, industry news), pages with visible, credible recency signals get preferred over stale ones.\n- **Extractable** — the answer has to be easy to lift out. A clear sentence or short passage that directly answers the question beats a paragraph you have to infer meaning from.\n- **Corroborated** — Perplexity tends to favor claims multiple independent sources agree on. If your page is the only one on the internet saying something, it's a harder sell than if three or four credible sources say something similar.\n\nNone of that is about tricking an algorithm. It's closer to what a sharp research assistant would do if you asked them to find a good answer fast: pick the source that's clearly on-topic, recent, easy to quote, and backed up elsewhere."
+    },
+    {
+      "heading": "What to Actually Do",
+      "body": "Four things move the needle, and none of them are exotic.\n\n1. **Write answer-shaped passages.** Put a direct, self-contained answer in the first one or two sentences of each section — the kind of sentence that still makes sense if it's the only one Perplexity quotes. Save the nuance and caveats for after.\n2. **Keep freshness visible.** Date your updates, refresh numbers and examples on a schedule, and say plainly when something changed. A page that visibly hasn't been touched in two years reads as a worse bet than one updated last month, especially for anything that changes over time.\n3. **Earn third-party mentions.** Because Perplexity favors corroborated claims, getting other credible sites, review pages, forums, and comparison posts to reference the same facts about you matters — arguably more than it ever did for classic SEO. Our guide on [how to rank in Perplexity](/blog/how-to-rank-in-perplexity) goes deeper on this.\n4. **Use structured markup.** FAQPage, Article, and HowTo schema won't force a citation on their own, but they make your content easier to parse correctly, which helps at the extraction step.\n\nFor a step-by-step breakdown of the citation side specifically, read [how to get cited by Perplexity](/answers/how-to-get-cited-by-perplexity)."
+    },
+    {
+      "heading": "How to Check if Perplexity Actually Cites You",
+      "body": "You check by asking the questions your actual buyers ask — not your target keyword, the real question — directly inside Perplexity, and reading the citations it returns. Do this across ten or fifteen realistic prompts, repeat it periodically since answers regenerate per query, and track whether your domain shows up, and where.\n\nDoing that by hand for every engine — Perplexity, ChatGPT, Google's AI Overviews, Gemini, Claude — across a real prompt set gets tedious fast, which is the exact gap AEOeye is built to close. It runs your brand or URL through those engines against buyer-style prompts and shows you where you're being cited, where a competitor is instead, and what's likely missing on your page.\n\nIf you've never actually checked whether Perplexity cites you for the questions that matter to your business, that's the first thing to fix — before touching a single line of content. [Run a free AEOeye audit](/#audit) and see exactly where you stand."
+    }
+  ],
+  "keyTakeaways": [
+    "Yes, you can optimize for Perplexity — but it's citation optimization, not classic rank optimization, since every answer is generated live from freshly retrieved sources.",
+    "Perplexity favors sources that are on-topic, fresh, extractable, and corroborated by other sources — not backlink count or keyword density.",
+    "Answer-shaped passages (a direct answer in the first sentence or two of a section) get quoted more often than buried, hedge-y paragraphs.",
+    "Third-party mentions matter more here than in classic SEO, because Perplexity leans on corroboration across independent sources.",
+    "Structured schema (FAQPage, Article, HowTo) helps Perplexity extract your content correctly, even though it doesn't guarantee a citation.",
+    "The only way to know if it's working is to test real buyer questions inside Perplexity — or run an AEOeye audit to check across engines at once."
+  ],
+  "faqs": [
+    {
+      "q": "Does Perplexity use Google?",
+      "a": "Not exclusively. Perplexity runs its own retrieval layer — crawling the web directly (its crawler is publicly known as PerplexityBot) and combining that with search infrastructure and other data sources, then re-ranking and synthesizing results at query time. Ranking well in Google isn't a prerequisite for being cited in Perplexity, though being crawlable and indexable in general still matters."
+    },
+    {
+      "q": "How do I get cited by Perplexity?",
+      "a": "Publish content that directly answers a specific question in the first sentence or two, keep it visibly current, get the same facts corroborated on other credible sites, and use clear schema markup so the page is easy to parse — those four things influence extraction more than any technical trick."
+    },
+    {
+      "q": "Does Perplexity have traditional rankings?",
+      "a": "No. There's no fixed position #1 or static SERP to climb. Each query triggers a fresh retrieval, and the sources cited in an answer can change from one query to the next, even for the same topic, depending on what's currently available, fresh, and corroborated at that moment."
+    },
+    {
+      "q": "How often does Perplexity update?",
+      "a": "Its answers aren't pulled from a periodically refreshed index the way a traditional search engine's rankings are — they're generated from a live web retrieval at the moment of the query, so in a real sense it's updating continuously rather than on a fixed schedule. That's also why freshness signals on your own page matter: stale content is competing against sources that were just retrieved fresh."
+    }
+  ]
+}

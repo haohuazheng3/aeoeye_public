@@ -1,0 +1,54 @@
+{
+  "slug": "does-chatgpt-use-bing",
+  "type": "answer",
+  "title": "Does ChatGPT Use Bing? Yes — and Why That Changes Your SEO",
+  "metaTitle": "Does ChatGPT Use Bing? Yes — Here's Why It Matters",
+  "metaDescription": "ChatGPT's live search runs largely on Bing's index. Learn why Bing indexing matters for AI visibility and how to check if ChatGPT actually cites you.",
+  "primaryKeyword": "does chatgpt use bing",
+  "shortAnswer": "Yes — when ChatGPT searches the live web, it's pulling largely from Bing's index, not Google's. OpenAI has said its browsing tool draws on a mix of licensed publisher content and live web search, and Bing has been the backbone of that retrieval layer since the original browsing plugin. That means if a page isn't indexed in Bing, ChatGPT often can't find it to cite it — no matter how well it ranks on Google. Bing indexing is necessary but not sufficient: it's step one, not the whole game.",
+  "intro": "If you've spent a decade optimizing for Google, the ChatGPT era comes with an uncomfortable wrinkle: the search engine wired into it isn't Google. Bing plays a much bigger role in AI answer engines than most marketers realize, and ignoring it means going invisible to a growing slice of buyer research. Here's how the plumbing actually works, and what to do about it.",
+  "sections": [
+    {
+      "heading": "Does ChatGPT Use Bing?",
+      "body": "Yes. When ChatGPT needs current information — a recent product launch, this week's pricing, \"best tools for X in 2026\" — it runs a live web search, and that search has run on Microsoft's Bing infrastructure since OpenAI first added browsing to the product. This isn't hidden: OpenAI's original browsing plugin and the ChatGPT search feature were both built on a partnership with Bing, and reporting around the ChatGPT search launch confirmed Bing remains a core retrieval source, alongside content OpenAI licenses directly from publishers like news organizations.\n\nThat doesn't make ChatGPT \"just Bing with a chat interface\" — it's more layered than that. OpenAI supplements Bing's results with its own crawler (GPTBot), direct licensing deals with select publishers, and its own ranking logic that decides which retrieved pages are trustworthy enough to summarize or quote. But the retrieval layer — the part that decides which pages even enter the candidate pool before any of that ranking happens — leans heavily on Bing's index. If Bing hasn't crawled and indexed a page, ChatGPT's search tool has a much harder time surfacing it, and a much harder time citing it, no matter how good the content is once it's found. Think of Bing's index as the front door — necessary, but not the whole house."
+    },
+    {
+      "heading": "Why Is Being in Bing's Index Step One?",
+      "body": "If Bing hasn't indexed a page, ChatGPT effectively can't retrieve it — you're invisible before the ranking question ever comes up. This is the step most teams skip, because they've spent years assuming \"ranking well on Google\" covers the whole job. It doesn't anymore.\n\nGetting indexed in Bing isn't difficult, but it rarely happens by accident:\n- Create a free Bing Webmaster Tools account and verify your domain — most teams have never done this even though they've had a Google Search Console account for years.\n- Submit an XML sitemap so Bing knows what exists on your site and how it's structured.\n- Use the URL Submission tool or the IndexNow API to push new and updated pages immediately, instead of waiting for Bing's next scheduled crawl.\n- Check your crawl stats for \"discovered, not indexed\" pages and fix the usual culprits: thin content, robots.txt blocks, or a stray noindex tag left over from a redesign or migration.\n\nIt also helps to understand what's actually crawling your site in the first place. Our [AI crawler glossary entry](/glossary/ai-crawler) breaks down how bots like GPTBot, Bingbot, and PerplexityBot differ, and what each one needs from your site's technical setup to do its job properly."
+    },
+    {
+      "heading": "Bing Isn't Everything — What Else Does ChatGPT Weigh?",
+      "body": "Being indexed in Bing gets a page into the candidate pool — it doesn't get it cited. Once ChatGPT has a set of retrieved pages to draw from, it favors content that reads like a direct, well-supported answer over content written primarily to rank.\n\nA few patterns show up consistently in what ChatGPT actually pulls into its answers:\n- Third-party consensus. ChatGPT leans on independent reviews, comparison roundups, and forum discussion — Reddit threads show up constantly — because that content reads as less self-interested than a brand's own homepage making the same claim about itself.\n- Answer-shaped structure. Pages that open with a direct, specific answer and back it up with detail get pulled into summaries far more easily than marketing copy that buries the actual point three paragraphs in.\n- Structured data and clean entities. Schema markup, consistent naming for your product or brand, and simple HTML make it easier for a language model to parse exactly what a page is claiming and quote it accurately.\n\nWe go deeper on the retrieval-and-ranking mechanics in [how to rank in ChatGPT](/guides/how-to-rank-in-chatgpt), and on content strategy specifically in [ChatGPT SEO](/blog/chatgpt-seo). The short version: Bing indexing opens the door. The content behind that door still has to earn the citation on its own merits."
+    },
+    {
+      "heading": "How Do You Check If ChatGPT Actually Cites You?",
+      "body": "The only reliable way to know is to ask ChatGPT the questions your buyers actually ask, and read what comes back. Guessing from your Google rankings won't tell you anything useful — the two systems pull from different indexes, weigh different signals, and often disagree about who deserves the spotlight.\n\nRun a handful of real buyer prompts — \"best [category] for [use case],\" \"[your brand] vs [competitor],\" \"is [your brand] worth it\" — and note three things: whether you show up at all, whether a competitor gets recommended in your place, and which sources ChatGPT is actually citing when it answers. Do this across ChatGPT, Perplexity, and Gemini too, since each one pulls from its own mix of indexes and has its own blind spots — a brand that's well-cited in one can be completely absent from another.\n\nThat's exactly what AEOeye's free audit automates: it runs your brand through real buyer prompts across ChatGPT, Perplexity, Gemini, and Google AI, and shows you who actually gets recommended and why. [Run a free AI visibility audit](/#audit) and find out where you stand before you spend another month optimizing for an index that isn't the one deciding your fate."
+    }
+  ],
+  "keyTakeaways": [
+    "ChatGPT's live web search runs largely on Bing's index, not Google's.",
+    "If Bing hasn't indexed your page, ChatGPT's search tool can't easily find it.",
+    "Bing Webmaster Tools plus IndexNow gets new pages indexed faster than waiting on a crawl.",
+    "Bing indexing gets you into the candidate pool — it doesn't guarantee a citation.",
+    "ChatGPT favors third-party consensus (reviews, forums, comparisons) over brand-authored pages.",
+    "The only real test is running actual buyer prompts through ChatGPT and reading the answers."
+  ],
+  "faqs": [
+    {
+      "q": "Does ChatGPT use Google?",
+      "a": "Not directly for live search — ChatGPT's browsing tool is built on Bing's index rather than Google's. OpenAI does license content from some publishers separately, but Google Search rankings don't automatically translate into ChatGPT visibility."
+    },
+    {
+      "q": "Do I need to be in Bing to appear in ChatGPT?",
+      "a": "Effectively, yes, for anything that requires a live web search. If your site isn't verified and indexed in Bing Webmaster Tools, ChatGPT's retrieval step has little chance of surfacing your pages, no matter how strong your content is."
+    },
+    {
+      "q": "Does ChatGPT still use its training data?",
+      "a": "Yes — for general knowledge questions, ChatGPT answers from what it learned during training, not live search. But for anything time-sensitive, like pricing or \"best of 2026\" lists, it switches to live browsing, which is where Bing's index comes in."
+    },
+    {
+      "q": "How do I get indexed in Bing?",
+      "a": "Verify your domain in Bing Webmaster Tools, submit an XML sitemap, and use the IndexNow API to push new or updated URLs immediately instead of waiting for Bing to recrawl on its own schedule."
+    }
+  ]
+}

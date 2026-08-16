@@ -1,0 +1,93 @@
+---
+title: "How the AEOeye AI Visibility Score Is Calculated (Full Methodology)"
+description: "How AEOeye calculates your 0-100 AI visibility score: the exact formula for engine scoring, site signals, mention rate, and competitor gaps — no black box."
+date: "2026-07-10"
+category: "AI Visibility"
+readingTime: "7 min read"
+keywords: ["ai visibility score", "aeoeye score methodology", "how is ai visibility measured", "ai visibility formula", "ai engine visibility score", "brand mention rate ai", "ai search visibility score", "competitor gap ai search", "site aeo signal score", "ai visibility methodology"]
+faqs: [{"q": "What is the AEOeye AI visibility score?", "a": "It's a 0-100 score combining two parts: 75% from your brand's average visibility across active AI engines (Claude, ChatGPT, Perplexity, Google AI, Gemini) — scored per question by mention, rank, and sentiment — and 25% from your site's AEO technical signals (crawlability, structured data, answer-shaped content). If only one component is available, that component alone becomes the score."}, {"q": "Why is my AI visibility score low?", "a": "Usually one of two causes: your brand isn't being mentioned in AI answers to buyer-intent questions (check your mention rate and per-question detail), or your site is losing points on technical/content checks — missing structured data, poor crawlability, or content that doesn't answer the question directly. The report breaks out both halves so you can see which one is dragging the score down."}, {"q": "Is there an industry-standard AI visibility score?", "a": "No. No industry-standard scale exists — every tool defines visibility with its own question set, engines, and weighting, so scores from different tools aren't comparable to each other. The useful signal is your own score's trend over time, not how it stacks up against a number from a different tool."}, {"q": "How often should I re-run the audit?", "a": "AI answers change as models update and as your site's signals change, so a one-time score is a snapshot, not a fixed grade. Re-run periodically and track the trend rather than fixating on a single number — that trend is what tells you whether your AEO work is actually moving the needle."}]
+image: {"url": "https://images.pexels.com/photos/12969403/pexels-photo-12969403.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A laptop displaying an analytics dashboard, representing the AEOeye score methodology.", "photographer": "Atlantic Ambience", "photographerUrl": "https://www.pexels.com/@freestockpro"}
+sources: [{"label": "Schema.org", "url": "https://schema.org/"}]
+---
+
+Every AI visibility tool shows you a number. Almost none of them show you the formula behind it. We think that's backwards — a score without a published methodology is just a marketing claim wearing a decimal point, so here's exactly how AEOeye calculates yours, step by step, with every constant left in.
+
+## What the AEOeye score measures
+
+Your AEOeye score is a single 0-100 number built from two parts: 75% comes from how visible your brand actually is inside AI engine answers, and 25% comes from your site's AEO technical signals. Nothing else feeds into it — no traffic estimates, no domain authority, no guesswork dressed up as data.
+
+Formally:
+
+**Overall score = 0.75 × (average visibility score across active engines) + 0.25 × site signal score**, clamped to 0-100.
+
+If we only have one component — your site scan ran but no engines were active, or the reverse — we don't fabricate the missing half. The single available component becomes the score, and the report tells you plainly which half is missing and why.
+
+## Step 1: Real buyer questions across five engines
+
+We don't ask AI engines "what do you think of [your brand]?" We ask the questions a real buyer would type before they've ever heard of your brand, then check whether you show up in the answer. That distinction is the entire point of the audit — brand-name lookups tell you nothing about whether AI recommends you to someone who hasn't decided yet.
+
+Where activated, the question set runs across five engines:
+
+- **Claude**
+- **ChatGPT**
+- **Perplexity**
+- **Google AI**
+- **Gemini**
+
+Each question is phrased around buyer intent — "best tools for X," "X vs Y," "how do I solve Z" — rather than your brand name, because that's how people actually query AI assistants when they're deciding, not when they already know what they want. A tool that only tests "tell me about [brand]" is measuring name recognition, not visibility.
+
+## Step 2: Scoring each answer
+
+Every answer gets scored 0-1, per engine, per question. If your brand isn't mentioned at all, the score is 0 — full stop, no partial credit for being "sort of relevant." If it is mentioned, the score is **rankFactor × sentiment multiplier**.
+
+| Signal | Condition | Value |
+|---|---|---|
+| rankFactor | Ranked #1 | 1.00 |
+| rankFactor | Each position lower | −0.12 per position, floor 0.30 |
+| rankFactor | Mentioned, no clear rank | 0.60 |
+| Sentiment multiplier | Positive | 1.00 |
+| Sentiment multiplier | Neutral | 0.85 |
+| Sentiment multiplier | Negative | 0.50 |
+
+Worked example: your brand is mentioned at rank #2 with neutral sentiment. rankFactor = 1.00 − 0.12 = 0.88. Sentiment multiplier = 0.85. Score = 0.88 × 0.85 ≈ 0.75 for that question, on that engine.
+
+The floor at 0.30 exists so that a mention buried deep in a list still counts for something — being mentioned at all beats total invisibility — but it can't inflate to the same level as a genuine top-of-answer placement. There's no hidden weighting on top of this, no adjustable knob per customer. Same rank, same sentiment, same score, every time.
+
+## Step 3: Engine scores and mention rate
+
+Each engine gets its own 0-100 visibility score: the average of that engine's per-question scores, multiplied by 100. Alongside it we report [mention rate](/glossary/mention-rate) — questions mentioned ÷ questions asked — as a separate, simpler number.
+
+These two metrics diagnose different problems. Visibility score tells you how well you show up when you're mentioned, rank and sentiment included. Mention rate tells you how often you show up at all. A brand can post a high mention rate but a mediocre visibility score if it keeps landing in position 4 with neutral sentiment — that's a positioning problem. A brand with a low mention rate but strong visibility score when it does appear has the opposite problem: it's simply not coming up often enough. The fix for each looks nothing alike, which is why we report both instead of collapsing them into one number.
+
+![Abstract visualization of data analytics with charts, representing score components.](https://images.pexels.com/photos/97080/pexels-photo-97080.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Step 4: Site signals — the other 25%
+
+The remaining 25% of your score comes from a technical and content audit of your site, scored the same way across every check: **pass = 1, warn = 0.5, fail = 0**, averaged across all checks and multiplied by 100.
+
+We check things like:
+
+- **Crawlability** — can AI crawlers actually reach, fetch, and parse your pages, or are they blocked or buried behind JavaScript rendering they can't execute?
+- **Structured data** — do you have the schema markup (FAQPage, Article, HowTo, and similar) that helps engines extract facts confidently instead of guessing at them?
+- **Answer-shaped content** — do your pages state the answer in the first sentence or two, or does the reader (and the AI summarizing the page) have to wade through three paragraphs of throat-clearing to find it?
+
+A "warn" isn't a failure — it's a signal that something is present but incomplete, and it costs you half the points a clean pass would earn. This is the half of the score you have the most direct control over: engine visibility depends partly on what AI models already know, but site signals are entirely in your hands.
+
+## Step 5: Competitors and gaps
+
+For every competitor, we count total mentions across engines, the number of questions they appear in, and — the metric that matters most — **wins vs you**: questions where you're absent from every engine but the competitor is recommended. Competitors are ranked by wins rather than raw mention count, because volume alone can mislead; see [share of model](/glossary/share-of-model) for why relative presence matters more than how often a name gets said.
+
+A **[competitor gap](/glossary/competitor-gap)** is more specific than a loss: it's a question where your brand is absent across all five engines *and* at least one competitor is recommended there. We sort gaps with the highest-intent questions first, because a gap on a low-intent, exploratory question costs you far less than a gap on the question your actual buyers ask right before they choose a vendor. Fixing the top of that sorted list moves the needle; fixing the bottom mostly doesn't.
+
+## Why we publish the formula
+
+We publish the exact formula because transparency is the only thing that makes a score trustworthy. If you can't see the math, you're being asked to take our word for a number that might inform a real budget decision — and we'd rather you didn't have to.
+
+Two honesty notes worth stating plainly, because most tools in this category skip them:
+
+- **There is no industry-standard AI visibility score.** Every tool defines "visibility" differently — different question sets, different weighting, different engines — so a score from one tool is not comparable to a score from another. Comparing them is close to meaningless. What's actually useful is tracking your own score's trend over time; see [measuring AI visibility](/blog/measuring-ai-visibility) for how to do that properly, and [how to improve your AI visibility](/blog/how-to-improve-ai-visibility) once you know where you stand.
+- **Inactive engines are labeled, never faked.** If an engine wasn't activated for your audit, we mark it "inactive" and exclude it from every average. We don't estimate a plausible-looking number, interpolate from the engines we do have, or quietly average it in as a zero. Missing data stays missing, visibly.
+
+That's the whole methodology — five engines, one formula, no black box, nothing rounded in your favor.
+
+Want to see it applied before you run your own? Look at a [full example report](/example) first, then [run your own free audit](/#audit) and get the real numbers for your brand.

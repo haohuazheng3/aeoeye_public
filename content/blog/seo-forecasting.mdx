@@ -1,0 +1,110 @@
+---
+title: "SEO Forecasting: A Defensible Method (Not a Promise)"
+description: "Most SEO forecasts are single-point fiction. Here's a defensible method — keyword universe, CTR curves, scenario ranges — and what breaks it by month six."
+date: "2026-07-18"
+category: "Strategy"
+readingTime: "8 min read"
+keywords: ["seo forecasting", "seo forecast", "seo traffic projection", "seo forecasting method", "how to forecast seo traffic", "ctr curve seo forecast", "ai visibility forecasting"]
+faqs: [{"q": "What is SEO forecasting?", "a": "SEO forecasting is the practice of projecting future organic traffic, rankings, or revenue from a defined set of planned SEO work \u2014 content, links, technical fixes \u2014 over a set time horizon. It exists because budgets need numbers before work starts. Done honestly, it's a range with assumptions attached, not a single guaranteed figure."}, {"q": "How accurate are SEO forecasts?", "a": "Most single-point forecasts miss because they treat a guess as a guarantee \u2014 search volume shifts, algorithms update, and SERP features change the CTR curve mid-quarter. A range built from your own Search Console data and three scenarios (conservative, base, optimistic) survives scrutiny far better than a smooth 12-month line that quietly picks the ending number first."}, {"q": "What data do you need for an SEO forecast?", "a": "You need a defined keyword universe with search volume and current position (from Search Console, not a rank tracker), a CTR curve pulled from your own historical data by position and SERP feature, and your real organic conversion rate segmented by page type. Skipping any of these means guessing where a number should come from."}, {"q": "Can you forecast AI search traffic?", "a": "Not the way you forecast organic search. ChatGPT, Perplexity, and AI Overviews don't publish impression data, so there's no CTR curve to project from. What you can do instead is baseline how often you're cited in AI answers today and trend that citation share over time \u2014 measurement first, projection later."}]
+image: {"url": "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A diverse group working on marketing strategies with charts and laptops in an office.", "photographer": "Kindel Media", "photographerUrl": "https://www.pexels.com/@kindelmedia"}
+sources: []
+---
+
+Most SEO forecasts you'll see this quarter are a single confident line curving up and to the right over 12 months — usually fiction, because false precision sells better than an honest range.
+
+This is the honest version: a repeatable method, a worked example with the arithmetic shown, and a clear list of what breaks the model before month six.
+
+**In this article:**
+- What SEO forecasting actually is
+- Why most forecasts are theater
+- A defensible, six-step method
+- A worked example with real math
+- What breaks forecasts, and when to revisit
+- Whether AI visibility can be forecast at all
+- How to present a forecast that survives
+
+## What is SEO forecasting?
+
+SEO forecasting is the practice of projecting future organic traffic, rankings, or revenue from planned SEO work — content, links, technical fixes — over a set time horizon. It exists for one reason: budgets need numbers before work starts, and "trust us, it'll grow" doesn't survive a finance review.
+
+Every forecast answers a version of the same question: if you rank position X for these keywords by month Y, what does that traffic convert to? The mechanics are simple. The judgment calls — which keywords, which position, which CTR, which conversion rate — are where forecasts go wrong.
+
+Done honestly, a forecast is a planning tool: it forces you to write assumptions down before you're graded on them. Done dishonestly, it's a sales tool dressed as analysis.
+
+## Why most SEO forecasts are theater
+
+Most SEO forecasts are theater because they present a guess as a guarantee. A single line — "month 12: 40,000 sessions" — implies a precision that no one modeling organic search actually has. Search volume shifts, algorithms update, competitors ship content, and SERPs sprout new AI features mid-quarter. None of that fits on a smooth curve.
+
+The tell is usually the chart itself: monotonic growth, no dips, no seasonality, landing exactly on a round number that happens to match the sales target. That's not a model — that's a number picked first and a curve drawn backward to justify it.
+
+The honest product isn't a number. It's a range with the assumptions attached: "Base case: 8,000–12,000 sessions/month by month nine, assuming position moves from 14 to 6 across 60 keywords." That sentence is defensible a year later. The smooth curve isn't — and everyone who's had to explain a missed forecast already knows it.
+
+
+![Close-up of a smartphone with an AI assistant interface on screen over a laptop.](https://images.pexels.com/photos/30530426/pexels-photo-30530426.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## The defensible method
+
+A forecast holds up only when every number in it traces back to a source. Six steps, in order:
+
+1. **Define the keyword universe.** List every keyword the target pages rank for or should target, with volume and current position — unlisted keywords don't get forecast, they get hoped for.
+2. **Record current positions.** Pull average position from Search Console over a real date range, not a rank-tracker snapshot from last Tuesday.
+3. **Set scenario targets.** Assign each keyword conservative, base, and optimistic target positions by your horizon date, adjusted for competition — a KD 65 term doesn't move from 22 to 4 in four months on demand.
+4. **Apply your own CTR curve.** Pull CTR by position bucket from your own Search Console history, segmented by SERP feature — AI Overviews, shopping units, knowledge panels.
+5. **Multiply by volume.** Projected clicks = search volume × CTR at the scenario's target position, summed across the universe.
+6. **Convert at your real rate.** Use the actual conversion rate for that page type, not the blended site-wide average.
+
+Show every input as its own line. An untraceable number deserves the distrust it gets.
+
+## A worked example (illustrative math)
+
+**Illustrative walkthrough with round numbers, not a client result — the arithmetic is what matters, not the figures.**
+
+Say you have 100 keywords averaging position 8, each with average monthly volume of 300. Total addressable volume: 100 × 300 = 30,000 searches/month.
+
+At position 8, CTR — from your own Search Console data, not a generic table — runs around 2%. Current clicks: 30,000 × 2% = 600/month.
+
+Base case: a content refresh plus internal linking moves average position from 8 to 4 within nine months. Position 4 CTR, from the same historical data, runs closer to 6%. Projected clicks: 30,000 × 6% = 1,800/month — a gain of 1,200 clicks/month, a 3x lift, not a 10x lift, because the real curve between positions 4 and 8 is steeper than most decks assume.
+
+Apply a 2% conversion rate: 1,800 × 2% = 36 conversions/month, up from 12. At a $150 average order value, that's $5,400/month versus $1,800 today — a $3,600 delta, not the $20,000 a rounder curve might imply.
+
+Run the same math at position 6 (conservative) and position 2 (optimistic), and you have a range, not a point. That range is the forecast.
+
+Those inputs fail in predictable ways:
+
+| Forecast Input | Where to Get It | The Common Error |
+|---|---|---|
+| Current rankings | Google Search Console, average position over 90 days | Using a single-day rank tracker snapshot, which overstates volatility in either direction |
+| Search volume | Keyword tool cross-checked against GSC impressions | Trusting tool-reported volume at face value for branded or near-1-CTR queries |
+| CTR curve | Your own GSC data by position bucket and SERP feature | Applying a generic "position 1 = 30%" curve to a SERP where AI Overviews or shopping units eat clicks |
+| Ranking timeline | Historical time-to-rank for similar content on the same domain | Assuming every keyword moves on the same 3–6 month clock regardless of competition |
+| Conversion rate | Analytics, segmented by landing page and intent | Using the blended site-wide rate instead of the rate for the specific page being forecast |
+| Scenario range | Three explicit cases: conservative, base, optimistic | Presenting only the base case as "the forecast," which becomes a promise the moment it leaves the deck |
+
+## What breaks forecasts
+
+Every SEO forecast starts decaying the day you publish it. Four things break them fastest:
+
+- **Algorithm updates.** A core update can move average position for an entire keyword universe by several spots in either direction, independent of anything your team did.
+- **AI Overviews and zero-click SERPs.** The CTR curve you built from six-month-old data may no longer exist — AI Overviews absorb clicks even at position 1. See [SEO isn't dead, but the click math changed](/blog/is-seo-dead) for how much this varies by query type.
+- **Seasonality.** A B2B keyword set that dips every December and a retail set that spikes every November will blow through a flat monthly forecast in both directions.
+- **The CTR curve itself shifts.** SERP layouts change quarter to quarter, so the CTR-by-position table you built in Q1 may already be wrong by Q3.
+
+None of this makes forecasting worthless. It makes a forecast a snapshot, not a contract. Rebuild the CTR curve and re-run the scenarios quarterly, and log the delta between forecast and actual every time — that delta is more useful than the forecast itself, because it shows you which assumption broke.
+
+## Can you forecast AI visibility?
+
+No — not the way you forecast organic search, and anyone promising an "AI traffic forecast" number is skipping a step that doesn't exist. Search Console gives you impressions and clicks by position; ChatGPT, Perplexity, and Google AI Overviews give you none of that. No impression data means no CTR curve, and no CTR curve means no defensible projection — you'd be forecasting from a number you invented.
+
+What you can do is measurement before projection: baseline how often your brand gets cited or recommended in AI answers for your target queries, then trend that citation share over time — the same way you'd track rankings before you had enough history to forecast them. That's different from [tracking AI-driven referral traffic](/blog/ai-traffic-analytics) in analytics, which measures clicks, not mentions. Start by [measuring where you actually stand](/blog/measuring-ai-visibility); a forecast built on a baseline you don't have yet is just the theater problem again, one layer up.
+
+This is the gap [AEOeye](/) audits: where AI engines mention your brand today, so you have a real baseline before anyone asks you to project one.
+
+## How to present a forecast that survives
+
+A forecast survives budget review, and the twelve months after it, when it's built to be checked, not just approved. Three things make that possible:
+
+- **Present ranges, never a single number.** Say "conservative: X, base: Y, optimistic: Z" every time — in the deck, the email, the verbal recap. The moment a range gets shortened to "about Y" in someone's notes, you own a promise you didn't make.
+- **Attach an assumptions slide.** List every input from the method above — universe size, target positions, CTR source, conversion rate — where people actually look.
+- **Set kill criteria in advance.** Define what a miss means before you're explaining one: traffic more than 30% under the conservative case by month six triggers a strategy review, not a quietly rewritten forecast.
+
+Under-promise structurally, not by padding the number down. A forecast tied to [what the underlying SEO work costs](/blog/seo-pricing) is easier to defend than a standalone traffic prediction — it's obviously an estimate tied to inputs, not a guarantee tied to hope. That's what gets a forecast believed the second time, after the first one was inevitably a little wrong.

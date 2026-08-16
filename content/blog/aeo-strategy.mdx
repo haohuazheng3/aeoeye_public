@@ -1,0 +1,95 @@
+---
+title: "AEO Strategy: The Four Decisions That Decide Whether AI Names You"
+description: "A real AEO strategy forces four trade-offs: which questions to compete on, memory vs retrieval, owned pages vs third-party proof, and what to measure."
+date: "2026-07-25"
+category: "Strategy"
+readingTime: "8 min read"
+keywords: ["aeo strategy", "answer engine optimization strategy", "aeo plan", "how to build an aeo strategy"]
+faqs: [{"q":"What is an AEO strategy, in one sentence?","a":"An AEO strategy is a set of decisions — which buyer questions to compete on, whether you're chasing model memory or live retrieval, how much effort goes to owned pages versus third-party proof, and what single metric you track — not a list of tactics like schema and FAQs."},{"q":"Should I track AI mention rate or search rankings for AEO?","a":"Track mention rate on a fixed list of real buyer questions. Rankings and impressions can rise while your brand is never actually recommended in an answer, so a rankings-only view will tell you the strategy is working when it isn't."},{"q":"Is an AEO strategy different from an SEO strategy?","a":"Yes. SEO strategy optimizes for ranking a page for many queries; AEO strategy optimizes for being the specific source a model trusts enough to name in a short answer, which often means doing less, more precisely, rather than covering more topics."},{"q":"How long does an AEO strategy take to show results?","a":"Retrieval-driven mentions can shift within weeks once your pages are crawlable, structured, and cited elsewhere. Memory-driven mentions, where a model names you from training data alone, typically take 6 months to multiple years because they depend on a future training run."}]
+sources: [{"label":"GEO: Generative Engine Optimization (arXiv)","url":"https://arxiv.org/abs/2311.09735"},{"label":"Retrieval-augmented generation — Wikipedia","url":"https://en.wikipedia.org/wiki/Retrieval-augmented_generation"},{"label":"Web search tool — Claude Docs (Anthropic)","url":"https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool"},{"label":"Organization — Schema.org","url":"https://schema.org/Organization"},{"label":"Introduction to structured data markup — Google Search Central","url":"https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"},{"label":"Search engine results page — Wikipedia","url":"https://en.wikipedia.org/wiki/Search_engine_results_page"},{"label":"FAQPage — Schema.org","url":"https://schema.org/FAQPage"}]
+
+image: {"url": "https://images.pexels.com/photos/7698706/pexels-photo-7698706.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Two colleagues in formal attire discussing strategies on a whiteboard in a modern office space.", "photographer": "Yan Krukau", "photographerUrl": "https://www.pexels.com/@yankrukov"}
+---
+
+Most "AEO strategy" content is a checklist wearing a strategy's clothes: add schema, write FAQs, get cited, repeat. None of that is a strategy — it's a task list with no order and no owner. A real strategy tells you what to stop doing.
+
+Running audits on how ChatGPT, Claude, Perplexity, Gemini, and Google AI Overviews answer buyer questions, the pattern holds: brands that get named made four specific calls early and lived with what each one cost. This piece is those four decisions, not another tactic dump. For the baseline first, read [what AEO actually is](/blog/what-is-answer-engine-optimization); this one assumes you know that already.
+
+## What Separates a Strategy From a Tactic List?
+
+An AEO strategy is a small number of binding choices about where you compete and what you give up to compete there; a tactic list is actions anyone can execute without ever getting named. The four decisions below are the choices — everything else is execution.
+
+Pages currently ranking for AEO strategy advice show the tell: twenty or thirty tactics with equal weight, no ranking of which to do first or skip. That's fine as a glossary; it fails as a strategy, because a strategy is defined by its refusals, not its inclusions. [How AEO differs from SEO](/blog/aeo-vs-seo) explains why at the mechanical level: SEO rewards covering everything a competitor covers, AEO rewards being the one source a model trusts enough to name. Those goals pull in different directions, which is why a shared task list serves neither well.
+
+## Decision 1: Which Buyer Questions Do You Actually Compete On?
+
+Pick the 10-20 buyer questions where being named changes a purchase, not the questions with the highest search volume. Narrowing this hard feels small next to a competitor's 200-topic content calendar — but competing everywhere means you're the top answer nowhere.
+
+Not every question a model can answer about your category is worth winning. Split your list:
+
+- **Worth winning**: "best [category] for [use case]," "[competitor] alternative," "is [brand] worth it," "[category A] vs [category B]" — right before a decision gets made.
+- **Not worth your effort yet**: broad definitional queries like "what is [category]," where a citation earns awareness but rarely moves someone toward a trial this week.
+
+Rank candidates by how much a mention would change a buying decision, not by search volume — a 40-search comparison question asked right before paying beats a 4,000-search definitional one that only shows up early in research. Specificity beats coverage for a mechanical reason: the [GEO: Generative Engine Optimization study](https://arxiv.org/abs/2311.09735) found that adding citations, statistics, and direct quotations lifted content's visibility in AI answers by as much as 40% — generic breadth wasn't one of the interventions that worked. A proper AEO audit's first output is this exact list: buyer questions where you're invisible, ranked by stakes, not size. [This checklist](/blog/aeo-audit-checklist) walks through building it yourself.
+
+## Decision 2: Are You Chasing Model Memory or Live Retrieval?
+
+Memory and retrieval are two different wins that get lumped together as "AEO." Memory means the model names you from what it learned in training — durable, but slow to earn; retrieval means it finds and cites you when it searches at answer time — faster to win, but you vanish the moment the model answers without searching.
+
+This split isn't marketing language, it's mechanical. [Retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) describes exactly this: a model can generate purely from parameters learned in training, or pull fresh documents at query time and ground its answer in those instead. It's not hypothetical — Anthropic's docs describe Claude [issuing a live web search mid-answer](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool) instead of relying only on training data, and ChatGPT browsing, Perplexity, and Google AI Overviews all work the same way.
+
+Most brands should chase retrieval first:
+
+1. **Retrieval fixes are immediate.** Clear pages, current facts, and structured comparisons can move a live-search answer within weeks.
+2. **Memory fixes have no dashboard.** Getting baked into a future training run needs consistent mentions across many authoritative sources, sustained for years.
+
+Chase memory as a background effect of retrieval done well, not a campaign with its own budget.
+
+
+![Team members brainstorming and strategizing on a whiteboard with diagrams and charts.](https://images.pexels.com/photos/7869303/pexels-photo-7869303.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Pavel Danilyuk](https://www.pexels.com/@pavel-danilyuk) on [Pexels](https://www.pexels.com)*
+
+## Decision 3: Do You Build Owned Pages or Earn Third-Party Proof?
+
+AI answers to comparison and "best X" questions lean heavily on roundups, reviews, and comparison articles you don't control, not on brand websites. Decide upfront how much effort goes to your own site versus earning mentions elsewhere, because for a low-authority brand, one good third-party placement usually moves an answer faster than another blog post on your own domain.
+
+That's not a reason to skip your own site — it's a reason to be honest about what owned pages are actually for:
+
+1. State exact facts about your product that no third party will bother verifying: pricing, limits, integrations.
+2. Carry clean [Organization schema](https://schema.org/Organization) and [structured data](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data) so crawlers and retrieval systems parse your entity correctly.
+3. Give reviewers something specific and citable to quote directly instead of paraphrasing loosely.
+
+Third-party placement should do the rest — the roundups, the "alternatives to X" posts, the review comparisons — because that's what models actually pull from when answering a buyer's question. If you're low-authority with limited hours, spend them earning three mentions elsewhere, not writing a fourth page nobody links to.
+
+## Decision 4: What's Your One Metric — Mention Rate or Impressions?
+
+Pick mention rate on real buyer questions as your north star, or pick impressions and rank — not both, because measuring both means acting on neither. Mention rate answers "would a model actually recommend us," the only number tied to revenue; impressions answer "did we show up," which is not the same claim.
+
+The trap is specific and common: tracking how often your brand name appears in AI answers looks like progress and proves nothing about recommendation. A model can name you in a "companies in this space include..." list, in a negative comparison, or in a footnote — every one counts as an "impression" in most tracking setups. None of them is a buyer being told to choose you.
+
+Impressions and rank are inherited from classic [search engine results page](https://en.wikipedia.org/wiki/Search_engine_results_page) tracking, built for a world where a blue link either got clicked or it didn't. That framework has no slot for "the model quoted us and nobody clicked anything," which is most of what happens in an AI answer. Mention rate is harder to track and worth it anyway: take the buyer-question list from Decision 1, run it on a schedule, and score whether you're named as a recommendation, not just referenced.
+
+## How Do the Four Decisions Compare at a Glance?
+
+| Decision | Option A | Option B | Who should pick it | What you sacrifice |
+|---|---|---|---|---|
+| Question scope | Narrow: 10-20 high-stakes buyer questions | Broad: every question in your category | Narrow fits nearly everyone; broad fits only category leaders with content teams to match | Narrow gives up early "coverage" vanity metrics; broad gives up ever being the top answer anywhere |
+| Memory vs. retrieval | Retrieval: fix what's indexable and citable now | Memory: earn mentions consistent enough for a future training run | Retrieval first for almost every brand; memory as a background effect, not a standalone plan | Retrieval can evaporate if a model stops searching; memory shows no result for months or years |
+| Owned vs. third-party | Owned pages with clean facts and schema | Third-party mentions, reviews, comparisons | Low-authority brands lean third-party; brands with real domain authority can lean owned | Owned-only gives up the trust boost of an independent source; third-party-only gives up message control |
+| What you measure | Mention rate on real buyer questions | Impressions or brand-name rank tracking | Anyone who needs a number tied to revenue picks mention rate | Mention rate is slower and harder to automate; impressions are easy to report and easy to misread |
+
+## What Do You Do in the First 30 Days vs. the First 6 Months?
+
+In the first 30 days, fix what's fully inside your control: pick your buyer questions, ship core schema, and get your facts pages accurate and crawlable. The compounding work — third-party placements and repeated mentions — only shows up as a real mention-rate lift after 6 months, so don't judge the strategy on a 30-day number.
+
+**First 30 days**
+- Finalize the buyer-question list from Decision 1 and run every question across ChatGPT, Claude, Perplexity, Gemini, and Google AI Overviews to get a real baseline.
+- Ship [Organization and FAQPage schema](https://schema.org/FAQPage) on your core pages, and confirm your [llms.txt](/blog/llms-txt-explained) gives retrieval systems a clean map of what to index.
+- Fix the two or three owned pages that state your facts most ambiguously: pricing, category, and what you actually do.
+
+**Months 2 through 6**
+- Pitch three to five third-party roundups or comparison sites per month in your category; one strong placement usually beats a month of on-site publishing for retrieval-driven questions.
+- Re-run your baseline monthly and track mention rate, not impressions, as the number that decides whether this is working.
+- Treat memory — consistent mentions across many high-authority sources — as a slower, second-order payoff, not a task with its own deadline.
+
+If you want the ranked question list and a real baseline instead of guessing, [run an AEOeye audit](/) — the [$29 full report](/pricing) hands you the question list and current mention rate this strategy starts from.

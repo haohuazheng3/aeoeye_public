@@ -1,0 +1,92 @@
+---
+title: "AEO vs SEO: What Actually Changes"
+description: "A sharp, opinionated breakdown of AEO vs SEO — what carries over from search optimization, what's genuinely new, and what to stop doing to get cited by AI."
+date: "2026-06-25"
+category: "Strategy"
+readingTime: "8 min read"
+keywords: ["AEO vs SEO", "answer engine optimization", "AI visibility", "ChatGPT SEO", "Perplexity optimization", "Google AI Overview", "generative engine optimization", "brand citations in AI"]
+faqs: [{"q": "Is AEO replacing SEO?", "a": "No. AEO builds on SEO rather than replacing it. Crawlability, topical authority, trust signals, and backlinks all still matter and form the foundation. What changes is that being recommended inside a synthesized AI answer requires additional work — answer-shaped content, off-site presence on the pages models cite, and tracking what the engines actually say about you. SEO is necessary but no longer sufficient."}, {"q": "What's the single biggest difference between optimizing for Google search and optimizing for ChatGPT or Perplexity?", "a": "Search returns a ranked list and the user picks; answer engines return one synthesized response and name only two or three brands inside it. There's no consolation traffic for being fourth-best. You're either cited in the answer or functionally invisible for that query, which makes the bar far higher than earning a page-one ranking."}, {"q": "Can I see how AI assistants describe my brand the way I see rankings in Search Console?", "a": "Not in your existing analytics — Search Console and rank trackers don't show what models say in their answers. You have to prompt the assistants with real buyer questions and read the output, or use a tool like AEOeye's free audit that runs those prompts across ChatGPT, Perplexity, Gemini, and AI Overviews and reports where you're named versus missing."}, {"q": "Does keyword research still matter for AEO?", "a": "The questions still matter, but keyword volume as a primary KPI does not. Answer engines retrieve passages that answer specific sub-questions, so you optimize for the real questions buyers ask and structure direct answers to them. Chasing high-volume head terms and tracking ranking position tells you progressively less as AI Overviews absorb the clicks."}, {"q": "Why does my competitor get recommended by AI when my content is better?", "a": "Answer engines synthesize from the whole web and lean on third-party consensus — listicles, review sites like G2, comparison articles, and community threads. If those sources name your competitor and not you, the model often follows that consensus regardless of how strong your own landing page is. Earning accurate representation on those off-site pages is frequently the missing lever."}]
+image: {"url": "https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Wooden blocks spelling SEO on a laptop keyboard convey digital marketing concepts.", "photographer": "Atlantic Ambience", "photographerUrl": "https://www.pexels.com/@freestockpro"}
+---
+
+You probably landed here because something stopped working. Traffic from a few money keywords flattened or dipped, and when you asked ChatGPT or Perplexity a question your product clearly answers, a competitor got named instead of you. So you went looking for "AEO vs SEO" to figure out whether this is a new game or the old one with a fresh coat of paint.
+
+Short answer: it's the old game plus a second scoreboard you can't see. Most of your SEO work still matters. But the things that *win* in an answer engine are different enough that treating AEO as "SEO with better schema" will quietly cost you the recommendation.
+
+Let me be precise about what carries over, what's actually new, and what you should stop wasting time on.
+
+
+> **The core difference:** SEO optimizes for a ranked list of ten links a human scans and clicks; AEO optimizes for a single synthesized answer that names only two or three brands. In an answer engine, there is no consolation traffic for being fourth-best.
+## The mental model that matters
+
+SEO optimizes for a **ranked list**. You're competing for position on a results page, and the user does the final selection — they scan ten blue links and click one. Your job was to earn a slot and write a title good enough to win the click.
+
+AEO optimizes for a **synthesized answer**. There's no list to scan. A model reads a pile of sources, decides which claims to trust, and hands the user one composed response with a handful of brands named inside it. The user often never sees a link at all. The model *is* the click.
+
+That single shift cascades into everything. In search, being #4 still gets you traffic. In an answer engine, being "the fourth-best source the model considered" usually gets you nothing, because the model only surfaces two or three. AEO is closer to winning a citation in a literature review than ranking in a directory.
+
+> The hardest thing for SEO veterans to accept: in an answer engine, there is no long tail of consolation traffic. You are either named in the answer or you functionally do not exist for that query. Page-two thinking is dead.
+
+## What carries straight over from SEO
+
+Good news first, because it's a lot. The fundamentals didn't get repealed.
+
+- **Crawlability and clean HTML.** If GPTBot, ClaudeBot, PerplexityBot, or Google's crawlers can't fetch and parse your page, you can't be cited. Content stranded behind heavy client-side JS, or blocked in robots.txt, is invisible. This is table stakes, exactly as it was.
+- **Topical authority.** Models lean on sources that demonstrably know a domain deeply. A site with thirty thin posts on everything loses to a site with thirty deep posts on one thing. The "topic cluster" strategy SEOs have run for a decade transfers cleanly.
+- **Real expertise and trust signals.** Google's E-E-A-T was a preview of how LLMs weight sources. Named authors with credentials, citations to primary data, an "about" page that proves you're a real operation — all of it raises the odds a model treats you as quotable.
+- **Backlinks and brand mentions, reframed.** Links still matter as a trust proxy, but unlinked brand mentions now matter almost as much. When forums, review sites, and reputable articles say "[your brand] does X well," that co-occurrence is training and retrieval signal even without an `<a href>`.
+- **Page speed and Core Web Vitals.** Less directly tied to citation, but a slow, broken page is a page that gets crawled less reliably and trusted less.
+
+If your SEO house is a mess, fix it first. AEO does not let you skip the basics — it raises the penalty for not having them.
+
+## What is genuinely new
+
+Here's where the playbooks diverge, and where most teams are underinvested.
+
+### Answer-shaped content, not keyword-shaped content
+
+SEO trained us to build pages around keywords and search volume. Answer engines retrieve **passages**, not pages. A model pulls the specific paragraph that directly answers a sub-question and drops it into its response.
+
+That means the unit of optimization shrank. You want self-contained, extractable chunks: a question stated plainly as a heading, followed by a direct two-to-four-sentence answer *before* any throat-clearing. The 1,200-word "ultimate guide" that buries the actual answer under an intro about why the topic matters is structurally hostile to retrieval. Lead with the answer. Add nuance after.
+
+### You're optimizing for claims, not rankings
+
+A model doesn't rank you — it decides whether to *believe and repeat* a specific factual claim. So the new question is: "What does the AI currently say about my category, and is my brand part of that answer?" You can't see this in Search Console. You have to actually prompt the engines with the questions your buyers ask and read what comes back. (This is the gap an AEOeye audit is built to close — it runs the real buyer prompts across ChatGPT, Perplexity, Gemini, and AI Overviews and shows you where you're named, where you're missing, and who's getting recommended instead.)
+
+### Off-site presence is now load-bearing
+
+In classic SEO, your own domain was the asset and links pointed to it. In AEO, models synthesize from the *whole web*, and they lean heavily on third-party consensus. Where you sit on a "best X tools" listicle, what Reddit threads say about you, how you're described on G2 or in a comparison article — these often influence the answer more than your own landing page. You can write the perfect homepage and still lose because the broader web hasn't been told you belong in the consideration set.
+
+### Structured data does heavier lifting
+
+Schema markup was a nice-to-have for rich snippets. For AEO it's a clarity tool: FAQ, HowTo, Product, and Organization schema spell out entities and relationships in a form machines parse without ambiguity. It won't manufacture authority you don't have, but it removes the friction that makes a model uncertain about what you are.
+
+## What to stop doing
+
+This is the part SEO blogs won't tell you, because it deprecates work people still bill for.
+
+**Stop chasing keyword-volume rankings as the primary KPI.** Position tracking on a hundred head terms tells you less every quarter. A query can have a thriving AI Overview that vaporizes the clicks your #1 ranking used to earn. Rankings are now a leading indicator at best, not the scoreboard.
+
+**Stop writing intro fluff.** Every sentence before the answer is a sentence that lowers the chance your answer gets extracted cleanly. The "in today's fast-paced world" opener isn't just bad writing — it's an AEO liability.
+
+**Stop over-producing thin content for the long tail.** Pumping out 200 lightweight pages to catch low-volume queries was a defensible SEO move. In AEO it's actively harmful: it dilutes your topical authority and trains models to see you as shallow. Fewer, deeper, genuinely authoritative pages win.
+
+**Stop treating your domain as the whole battlefield.** If your entire content budget goes to on-site blog posts and none to earning mentions, reviews, and placements where models actually look, you're optimizing the one surface that matters least in a synthesized answer.
+
+**Stop optimizing exclusively for Google.** ChatGPT, Perplexity, Claude, and Gemini each retrieve and weight sources differently. Perplexity is citation-hungry and rewards fresh, well-sourced pages. ChatGPT leans on a mix of training data and live browsing. AI Overviews still skew toward Google's existing index. One-size optimization leaves coverage on the table.
+
+## A practical sequence to act on
+
+If you want a concrete order of operations rather than a vibe:
+
+1. **Audit what the engines say about you now.** Prompt the major assistants with your real buyer questions — category comparisons, "best tool for X," "alternatives to [competitor]." Note where you're absent. A free AEOeye audit will do this systematically across engines so you're working from data, not anecdote.
+2. **Fix extractability.** Restructure your top pages so each sub-question has a heading and a direct answer up top. Add FAQ/Product schema. Make sure AI crawlers aren't blocked.
+3. **Find the consensus pages that decide your category.** The listicles, comparison posts, and community threads the models cite. Get accurately represented there — correct outdated mentions, earn inclusion in the relevant "best of" content.
+4. **Build genuine depth on your core topics** instead of breadth across shallow ones.
+5. **Re-measure monthly.** AEO results move with model updates and fresh crawls. This is a tracking discipline, not a one-time fix.
+
+## The honest takeaway
+
+AEO is not a replacement for SEO and anyone selling it as a clean break is overselling. The crawlability, authority, and trust work you've done is the *foundation* — none of it is wasted. But it is no longer sufficient. The moment a model composes the answer instead of listing options, "rank well and earn the click" stops being the whole job. The new job is being the source a machine trusts enough to name.
+
+Treat your SEO playbook as necessary infrastructure and your AEO work as the layer that decides whether you're in the answer or invisible. The brands that win the next few years will be the ones who stopped arguing about which discipline is "real" and just measured what the AI actually says about them — then went and fixed it.

@@ -1,0 +1,140 @@
+{
+ "slug": "perplexity-vs-chatgpt-for-brand-visibility",
+ "type": "compare",
+ "title": "Perplexity vs ChatGPT for Brand Visibility: How They Cite, and How to Win Each",
+ "metaTitle": "Perplexity vs ChatGPT for Brand Visibility",
+ "metaDescription": "Perplexity vs ChatGPT cite almost entirely different sources for your brand. Here's exactly how each picks, and the playbook to get recommended by both.",
+ "primaryKeyword": "perplexity vs chatgpt",
+ "shortAnswer": "For brand visibility, Perplexity and ChatGPT behave like two different search engines that happen to share a chat box. Perplexity cites roughly 22 sources per answer, leans hard on Reddit and freshly updated pages, and mentions brands by name ~13% of the time. ChatGPT cites ~10 sources, leans on Wikipedia, LinkedIn and authority signals like awards and accreditation, and names brands far less often. Only about 11% of the domains they cite overlap, so winning one does not win the other. You need a separate play for each.",
+ "intro": "Here's the trap most brands fall into: they assume \"AI search\" is one thing, optimize for it once, and wonder why they show up in ChatGPT but vanish in Perplexity (or the reverse). The data is brutal on this point. An audit of 680 million AI citations found only **11% domain overlap** between what ChatGPT cites and what Perplexity cites. Eleven percent. These are not two flavors of the same engine. They retrieve differently, rank differently, and decide whether to say your brand's name out loud using almost opposite logic.\n\nSo \"Perplexity vs ChatGPT\" isn't a pick-one question. It's a \"know which one you're losing and why\" question. Below is exactly how each engine sources information, how often it'll actually name your brand, and the specific moves that work for each — including the ones that work for one and actively waste your time on the other.",
+ "sections": [
+  {
+   "heading": "The core difference: a research engine vs. a conversational answer engine",
+   "body": "Perplexity is built as a research engine. Every answer is a real-time retrieval-augmented generation pass: it queries a live index of 200+ billion URLs, runs candidates through a three-layer reranking pipeline (relevance, then authority/recency, then structure), and stitches inline numbered citations to nearly every claim. The result averages **~21.9 citations per answer**. Showing its work is the product.\n\nChatGPT is a conversational answer engine that *can* search. When it does, it retrieves candidate pages, runs them through the model, and synthesizes one fluent answer — citing only about **10.4 sources**, and only ~15% of the pages it actually retrieved. The other 85% get read and discarded silently. Often, for a non-time-sensitive query, ChatGPT may not browse at all and instead answer from its trained-in knowledge, where your brand either exists as a known entity or doesn't.\n\nThat architectural gap drives everything else. Perplexity rewards being *findable and fresh right now*. ChatGPT rewards being *established and trusted enough to already live in the model's understanding of your category*. One is a librarian pulling the newest sources; the other is an expert recalling what it already believes to be true."
+  },
+  {
+   "heading": "How often each one actually says your brand's name",
+   "body": "This is the stat that reframes the whole comparison. A 2026 study of 34,234 AI responses measured how often each engine names a brand directly:\n\n- **Perplexity: ~13.05%** of responses named a brand\n- **ChatGPT: ~0.59%** of responses named a brand\n\nThat's a ~22x gap. Perplexity, because it's citing 20+ sources and surfacing inline links, naturally name-drops brands, publications, and products constantly. ChatGPT tends toward category-level answers (\"look for a tool that offers X and Y\") and reserves named recommendations for entities it's highly confident about.\n\nThe strategic read: **Perplexity is where you fight for the citation slot.** There are more slots, competition per slot is lower, and getting named is realistic with the right content. **ChatGPT is where you fight to become a known entity** — to be one of the few brands the model is confident enough to name unprompted. That's a slower, deeper game built on being mentioned consistently across the sources ChatGPT already trusts. Don't expect the same tactic to move both needles."
+  },
+  {
+   "heading": "How Perplexity picks sources (and how to get cited)",
+   "body": "Perplexity's ranking weights break down roughly as: content relevance (~30%), visual/structural placement (~20%), domain authority (~15%), **freshness (~15%)**, source diversity (~10%), and structured data (~10%). Two of those punch above their stated weight.\n\n**Recency is the single biggest lever.** Pages updated within 30 days hit an 82% citation rate; that collapses to 37% for older content. Content starts losing ground after just a couple of months. If your cornerstone pages haven't been touched this quarter, you're bleeding Perplexity visibility.\n\n**Reddit is the other.** Reddit accounts for ~46.7% of Perplexity citations. Perplexity loves the authentic problem-solving format, community validation via upvotes, and recent conversational threads. This is the channel SEO never trained anyone for.\n\nWhat works:\n- **Refresh on a cadence.** Add visible \"last updated\" timestamps and actually update the facts. This alone moves Perplexity.\n- **Structure for extraction.** Question-shaped H2/H3s, visible statistics, proprietary data, named sources with methodology.\n- **Show up on Reddit authentically.** Answer real buyer questions in relevant subs with named entities and concrete evidence — not ads. The brands winning here are participating, not promoting.\n- **Cite others.** Perplexity favors pages that themselves link to authoritative sources."
+  },
+  {
+   "heading": "How ChatGPT picks sources (and how to get cited)",
+   "body": "ChatGPT's citation behavior comes down to three reinforcing factors: domain authority, content structure, and freshness — applied more conservatively than Perplexity.\n\n**Authority dominates.** Sites with 32,000+ referring domains are ~3.5x more likely to be cited than sites under 200. Wikipedia alone is ~7.8% of ChatGPT citations (and ~48% of its *top* citations), with LinkedIn, editorial publications, and review platforms forming the rest of the input layer. ChatGPT also actively checks credential signals: for \"best nursing programs\" it weighed accreditation and pass rates; for \"best SEO agency,\" industry awards. Real credentials change your citation probability.\n\n**Structure is a measurable multiplier.** Pages with FAQ schema, comparison tables, and inline citations get cited ~40% more. And **position matters** — the first 30% of a page accounts for 44.2% of all LLM citations. Bury your answer below the fold and it may never get read.\n\nWhat works:\n- **Earn presence in ChatGPT's trusted layer:** a solid Wikipedia entity, consistent LinkedIn presence, coverage in editorial and review platforms.\n- **Collect real credentials** — awards, certifications, accreditations — and state them on-page in plain text.\n- **Front-load the answer.** Lead with the direct response, then expand.\n- **Add FAQ schema and comparison tables.** They're weighted heavily.\n- Don't lean on Google rankings as a proxy — only ~12% of ChatGPT-cited URLs rank in Google's top 10, and 44% of SaaS brands with strong Google rankings have *zero* ChatGPT visibility."
+  },
+  {
+   "heading": "The one-page checklist for both at once",
+   "body": "You don't need two entirely separate content operations — you need a base that satisfies both, plus a few engine-specific add-ons.\n\n**Do for both:**\n- Front-load a direct, quotable answer in the first 30% of every page.\n- Use question-shaped headings, FAQ schema, and comparison tables.\n- Keep an entity footprint clean and consistent (same name, same claims everywhere).\n\n**Tilt toward Perplexity:**\n- Refresh key pages monthly with visible timestamps.\n- Build authentic Reddit presence around real buyer questions.\n- Publish proprietary stats and data others will cite.\n\n**Tilt toward ChatGPT:**\n- Get into Wikipedia, LinkedIn, and trusted review/editorial sites.\n- Surface credentials, awards, and accreditations on-page.\n- Earn high-authority referring domains over time.\n\nThe honest problem: you can't fix what you can't see. Most brands have no idea they're invisible in Perplexity until a prospect mentions a competitor it recommended. Running a free AEOeye audit shows you, side by side, whether ChatGPT and Perplexity actually name your brand for your category's key prompts — and which sources each is pulling — so you can aim the work instead of guessing."
+  }
+ ],
+ "keyTakeaways": [
+  "Only ~11% of the domains ChatGPT and Perplexity cite overlap — winning one does not win the other.",
+  "Perplexity names a brand in ~13% of answers; ChatGPT in just ~0.59%. Perplexity is the citation game; ChatGPT is the known-entity game.",
+  "Perplexity cites ~22 sources per answer and leans on Reddit (~47% of its citations) and freshly updated pages.",
+  "ChatGPT cites ~10 sources, leans on Wikipedia/LinkedIn/editorial, and rewards real credentials, awards, and high domain authority.",
+  "Freshness is Perplexity's biggest lever: 82% citation rate for content updated within 30 days vs. 37% for stale pages.",
+  "Google rankings barely predict either — only ~12% of ChatGPT-cited URLs rank in Google's top 10."
+ ],
+ "faqs": [
+  {
+   "q": "Is Perplexity or ChatGPT better for getting my brand recommended?",
+   "a": "Neither is universally 'better' — they reward different things. Perplexity is easier to get cited in because it surfaces ~22 sources per answer and names brands ~13% of the time, and freshness plus Reddit presence move the needle fast. ChatGPT is harder but higher-trust: it names brands rarely (~0.59%) and only for entities it's confident about, so it rewards long-term authority. Most brands should pursue both with a shared content base and engine-specific tactics."
+  },
+  {
+   "q": "Why does my brand show up in ChatGPT but not Perplexity (or vice versa)?",
+   "a": "Because they cite almost entirely different sources — only ~11% domain overlap. ChatGPT pulls from Wikipedia, LinkedIn, and editorial/review sites and favors established authority; Perplexity pulls heavily from Reddit and recently updated pages. If you're strong in one channel but absent from the other, you'll appear in one engine and vanish in the other. The fix is to diversify where you earn presence."
+  },
+  {
+   "q": "Does ranking on Google get me cited by ChatGPT or Perplexity?",
+   "a": "Surprisingly little. Only ~12% of URLs ChatGPT cites also rank in Google's top 10, and 44% of SaaS brands with strong Google rankings have no ChatGPT visibility at all. Both engines apply their own selection criteria — authority signals and structure for ChatGPT, freshness and community sources for Perplexity. Treat AI visibility as a separate discipline from traditional SEO, not a byproduct of it."
+  },
+  {
+   "q": "How important is Reddit for Perplexity visibility?",
+   "a": "Very. Reddit accounts for roughly 46.7% of Perplexity's citations because the engine favors authentic, recent, community-validated problem-solving threads. The brands winning here aren't running ads — they're answering real buyer questions in relevant subreddits with named entities and concrete evidence. For ChatGPT, Reddit matters less; Wikipedia and LinkedIn carry more weight there."
+  },
+  {
+   "q": "How do I tell if I'm actually invisible in these engines?",
+   "a": "Run real prompts your buyers would use and see whether each engine names you and what sources it cites. Doing this manually across ChatGPT and Perplexity for every key query is tedious, so a tool like AEOeye's free audit checks both side by side and shows which sources each is pulling — so you know exactly where you're missing and can target the work."
+  }
+ ],
+ "comparisonTable": {
+  "columns": [
+   "Factor",
+   "Perplexity",
+   "ChatGPT"
+  ],
+  "rows": [
+   {
+    "label": "Core model",
+    "values": [
+     "Real-time research engine (always retrieves)",
+     "Conversational engine that sometimes retrieves"
+    ]
+   },
+   {
+    "label": "Avg. citations per answer",
+    "values": [
+     "~21.9",
+     "~10.4"
+    ]
+   },
+   {
+    "label": "Names a brand directly",
+    "values": [
+     "~13.05% of answers",
+     "~0.59% of answers"
+    ]
+   },
+   {
+    "label": "Top source types",
+    "values": [
+     "Reddit (~47%), fresh updated pages, data-rich content",
+     "Wikipedia (~48% of top cites), LinkedIn, editorial & review sites"
+    ]
+   },
+   {
+    "label": "Biggest ranking lever",
+    "values": [
+     "Freshness (82% cite rate if updated <30 days)",
+     "Domain authority (32k+ referring domains = 3.5x cites)"
+    ]
+   },
+   {
+    "label": "What it checks for brands",
+    "values": [
+     "Recency, structure, community validation",
+     "Credentials, awards, accreditation, entity trust"
+    ]
+   },
+   {
+    "label": "Structure rewards",
+    "values": [
+     "Question H2/H3s, visible stats, named methodology",
+     "FAQ schema, comparison tables, front-loaded answers (+40%)"
+    ]
+   },
+   {
+    "label": "Best brand strategy",
+    "values": [
+     "Win the citation slot: refresh + authentic Reddit",
+     "Become a known entity: authority + credentials over time"
+    ]
+   },
+   {
+    "label": "Google ranking correlation",
+    "values": [
+     "Low — own freshness and source diversity",
+     "Low — only ~12% of cited URLs rank top 10 on Google"
+    ]
+   }
+  ]
+ },
+ "image": {
+  "url": "https://images.pexels.com/photos/8547191/pexels-photo-8547191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "A focused woman working at her laptop in a bright, modern office setting.",
+  "photographer": "www.kaboompics.com",
+  "photographerUrl": "https://www.pexels.com/@karola-g"
+ }
+}

@@ -1,0 +1,145 @@
+---
+title: "Technical SEO Checklist: Every Check, One Table, Updated for AI Search"
+description: "The technical SEO checklist we actually run: crawl, speed, structure, schema, and the AI crawler checks most 2026 audits still skip — with one printable table."
+date: "2026-07-18"
+category: "Technical"
+readingTime: "7 min read"
+keywords: ["technical seo checklist", "technical seo audit checklist", "technical seo basics", "ai crawler access", "core web vitals checklist", "structured data validation"]
+faqs: [{"q": "What is technical SEO?", "a": "Technical SEO is the set of site infrastructure fixes \u2014 crawlability, indexing, speed, rendering, HTTPS, structured data, and (as of 2026) AI crawler access \u2014 that let search engines and AI systems find, read, and understand your pages. It's distinct from content SEO and link building; a technically broken site can't rank no matter how good its content is."}, {"q": "How often should I do a technical SEO audit?", "a": "Run a full technical SEO audit quarterly, check the top five failure-prone items \u2014 noindex tags, Core Web Vitals, redirect chains, AI crawler access, and schema validity \u2014 monthly, and always re-run the full checklist after any migration, replatform, or major template change, since those cause the most site-wide breakage."}, {"q": "What are the most important technical SEO factors?", "a": "The highest-impact factors are crawlability (robots.txt, sitemap, no accidental noindex), Core Web Vitals on mobile, and canonical or redirect logic, since these directly control whether pages get indexed at all. Structured data and AI crawler access matter next, controlling how machines interpret and reach your content, not just whether they can."}, {"q": "Does technical SEO matter for AI search?", "a": "Yes, arguably more than for traditional search. AI answer engines like ChatGPT and Perplexity rely on their own crawlers \u2014 GPTBot, ClaudeBot, PerplexityBot \u2014 and if those are blocked, a site is structurally invisible to AI search regardless of content quality. Extractable, answer-first content structure also directly affects whether AI systems can quote you."}]
+image: {"url": "https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Laptop displaying data analytics graph in a modern office setting, symbolizing growth and technology.", "photographer": "ThisIsEngineering", "photographerUrl": "https://www.pexels.com/@thisisengineering"}
+sources: [{"label": "Google Search Central \u2014 Canonicalization documentation", "url": "https://developers.google.com/search/docs/crawling-indexing/canonicalization"}, {"label": "web.dev \u2014 Core Web Vitals", "url": "https://web.dev/articles/vitals"}, {"label": "Google Search Central \u2014 Mobile-first indexing", "url": "https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-first-indexing"}]
+---
+
+Most technical SEO checklists were built for a world where every visitor arrived through a blue link. That world is half gone. This one keeps what still gets you indexed and ranked, and adds the four checks that decide whether AI answer engines can read you at all.
+
+## The technical SEO checklist at a glance
+
+A technical SEO checklist should fit on one screen: crawl and index, speed, structure, structured data, and — new for 2026 — AI crawler access. Here's the full 18-item list, grouped by what it protects.
+
+**Crawl & index**
+- [ ] robots.txt doesn't block anything it shouldn't
+- [ ] XML sitemap is live and submitted
+- [ ] No pages carry an accidental noindex
+- [ ] Canonical tags point where you mean them to
+- [ ] No orphan pages — every page gets an internal link
+
+**Speed & rendering**
+- [ ] Core Web Vitals pass on mobile
+- [ ] Pages render correctly on real devices
+- [ ] Content is visible without JavaScript execution
+
+**Structure**
+- [ ] Site runs on HTTPS everywhere, no mixed content
+- [ ] URLs are clean and human-readable
+- [ ] No redirect chains longer than one hop
+- [ ] 404s are real 404s, not soft 404s
+- [ ] Important pages are ≤3 clicks from the homepage
+
+**Structured data**
+- [ ] Organization, Article, and FAQ schema validate with no errors
+- [ ] Entity names (brand, author, org) are consistent site-wide
+
+**AI-era additions**
+- [ ] AI crawlers (GPTBot, ClaudeBot, PerplexityBot) aren't accidentally blocked
+- [ ] llms.txt is in place (optional, low effort)
+- [ ] Content is extractable — answers stated plainly, not buried
+
+That's the full list. Below: what each means, how to verify it, and one table to bookmark.
+
+## Crawl & index: the checks that decide whether you exist
+
+If a page can't be crawled and indexed, nothing else here matters. These five checks catch the mistakes that quietly remove pages from Google.
+
+**robots.txt sanity.** Open yourdomain.com/robots.txt and read every Disallow line — a leftover staging-site rule blocking /blog/ is more common than you'd expect.
+
+**Sitemap live and submitted.** List only canonical, indexable URLs — no redirects, 404s, or noindexed pages — then submit it and watch the Discovered-vs-Indexed gap in Search Console.
+
+**No accidental noindex.** One misplaced noindex tag on a shared template can deindex thousands of pages in a single deploy — usually a CMS default or leftover staging flag.
+
+**Canonical logic.** Every page needs one canonical, pointing to itself unless it's a genuine duplicate. Google [treats it as a hint, not a directive](https://developers.google.com/search/docs/crawling-indexing/canonicalization), so conflicting signals make it guess.
+
+**Orphan pages.** A page with zero internal links is nearly invisible to crawlers. Crawl your site with [Screaming Frog or an alternative](/blog/screaming-frog-alternatives) and cross-check against your sitemap.
+
+
+![Hands typing on a laptop with a blank white screen in a dimly lit room.](https://images.pexels.com/photos/7864382/pexels-photo-7864382.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Speed & rendering: the checks that decide whether bots can read you
+
+A fast page that never finishes rendering is still invisible. This group checks whether content actually reaches a crawler, not just whether the server returns 200.
+
+**Core Web Vitals.** Google's pass marks are LCP under 2.5s, INP under 200ms, and CLS under 0.1, [measured from real users](https://web.dev/articles/vitals) — check Search Console first; it's field data, not a guess.
+
+**Mobile rendering.** Google indexes [the mobile version by default](https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-first-indexing). Open key pages on an actual phone and check nothing is clipped, overlapping, or hidden behind a banner.
+
+**JS dependency.** Disable JavaScript, or check Search Console's "View Crawled Page," and see what's left — if your answer only appears after JS runs, some AI crawlers may never see it.
+
+## Structure: the checks that decide whether they trust you
+
+Structural debt wastes crawl budget on pages that don't deserve it, starving the ones that do.
+
+**HTTPS everywhere.** Every URL serves over HTTPS, with no mixed-content warnings from old HTTP images or scripts.
+
+**Clean URLs.** /blog/technical-seo-checklist beats /index.php?id=482 — not a big ranking factor alone, but easier to link to and parse.
+
+**Redirect chains.** A→B→C wastes crawl budget and leaks link equity at every hop — collapse every chain to one 301 straight to the final URL.
+
+**404 hygiene.** Dead pages should return a true 404 or 410 — not a 200 with "not found" text, which is a soft 404 that misleads crawlers.
+
+**Internal link depth.** Pages more than three clicks from the homepage mostly go uncrawled. Hub and category pages exist to fix this.
+
+## Structured data: the checks that decide whether they understand you
+
+Structured data doesn't move rankings directly — it's the fastest way to tell a machine exactly what your entity is.
+
+**Schema validation.** Organization, Article, and FAQPage schema should validate with zero errors in Google's Rich Results Test — see [structured data for AI](/blog/structured-data-for-ai) for why this matters even more for AI answer engines.
+
+**Entity consistency.** Brand, author, and logo should match byte-for-byte across your schema, About page, and social profiles. Inconsistent naming is a quiet reason AI systems cite a competitor instead.
+
+## The full checklist, one table
+
+Bookmark this — it's the version you'll actually reopen every quarter.
+
+| Check | Tool | Pass criteria |
+|---|---|---|
+| robots.txt sanity | View /robots.txt | No Disallow on indexable sections |
+| XML sitemap | Search Console → Sitemaps | "Success" status, no orphaned/404 URLs |
+| No accidental noindex | Search Console → Pages | "Excluded by noindex" matches intent |
+| Canonical logic | Page source / URL Inspection | Self-referencing unless true duplicate |
+| Orphan pages | Site crawler vs. sitemap | All sitemap URLs reached via internal links |
+| Core Web Vitals | Search Console → CWV report | LCP < 2.5s, INP < 200ms, CLS < 0.1 |
+| Mobile rendering | Real device + URL Inspection | Nothing clipped, overlapping, or hidden |
+| JS dependency | Disable JS / "View Crawled Page" | Core content present without JS |
+| HTTPS | Browser padlock / SSL checker | No mixed content site-wide |
+| Clean URLs | Manual crawl / sitemap review | No query-string IDs on key URLs |
+| Redirect chains | Crawler redirect report | Single 301 hop, no chains |
+| 404 hygiene | Crawler status code report | True 404/410, not a soft 404 |
+| Internal link depth | Crawler "crawl depth" report | Key pages ≤ 3 clicks from homepage |
+| Schema validation | Google Rich Results Test | Zero errors, Organization/Article/FAQ |
+| Entity consistency | Manual review across profiles | Brand/author name matches everywhere |
+| AI crawler access | robots.txt + server logs | GPTBot/ClaudeBot/PerplexityBot allowed + hitting server |
+| llms.txt | View /llms.txt | Present, lists key pages (optional) |
+| Extractable content | Manual read of top pages | Answer in each section's first 1-2 sentences |
+
+## The AI-era additions explained
+
+Technical SEO checklists never used to mention AI crawlers — now they must. Block GPTBot, ClaudeBot, or PerplexityBot and you cannot appear in ChatGPT, Claude, or Perplexity answers, no matter how good the content is — you're structurally absent, not just ranked lower. This happens more than owners realize: an old "block all bots but Google" rule, a security-plugin default, or a CDN anti-scraping feature can disallow AI crawlers too, and nothing alerts you, since Search Console only tracks Googlebot.
+
+The check has two parts: scan robots.txt for Disallow rules against AI user agents — see our [AI crawler list](/blog/ai-crawler-list) for current names — then check server logs to confirm those crawlers are actually hitting your site, not just technically permitted to.
+
+Not every site should allow every crawler by default. Some owners deliberately block specific bots over training-data concerns while keeping others open for answer-engine visibility — our guide on [how to block AI crawlers](/answers/how-to-block-ai-crawlers) covers doing it on purpose, engine by engine.
+
+llms.txt is optional — a plain-text index some AI systems reference, worth five minutes. Extractable structure matters more: put the answer in each section's first sentence, not paragraph four.
+
+## How often to run this
+
+Run the full 18-item checklist quarterly, the top 5 monthly, and the whole thing again after every migration or major template change.
+
+Monthly top 5: no accidental noindex, Core Web Vitals, redirect chains, AI crawler access, and schema validation — these break silently and cost the most. The rest degrade slowly enough that quarterly is fine.
+
+Migrations deserve a full pass, not a spot check — domain moves and CMS switches most often cause a checklist item to fail site-wide overnight.
+
+## Crawlable isn't the same as cited
+
+Passing this checklist means engines and AI crawlers can read your site. It doesn't mean they cite you over a competitor when someone asks a buying question — that's a separate, harder problem.
+
+Technical SEO is the floor, not the ceiling: it depends on what your content says and whether an AI model trusts you as the source. Once your checklist is green, the real question is whether ChatGPT, Perplexity, Gemini, and Google AI Overviews actually recommend you — [AEOeye](/) runs a free audit that checks exactly that.

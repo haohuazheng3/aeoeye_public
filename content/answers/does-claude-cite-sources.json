@@ -1,0 +1,54 @@
+{
+  "slug": "does-claude-cite-sources",
+  "type": "answer",
+  "title": "Does Claude Cite Sources? What It Means for Getting Recommended",
+  "metaTitle": "Does Claude Cite Sources? What It Means for Brands",
+  "metaDescription": "Claude cites sources when it uses web search or tools — not in plain training-data answers. Here's how to become a source Claude actually links to.",
+  "primaryKeyword": "does claude cite sources",
+  "shortAnswer": "Yes — when Claude has web search or tool access turned on, it can pull in outside sources and link to them directly in its answer. Without that access, Claude is answering purely from its training data, and it usually won't cite anything because there's nothing external to point to. If you want to be the source Claude actually cites, the target isn't 'rank on Google' — it's being a clear, well-structured, independently-corroborated authority that both search engines and Claude's own reasoning can point to with confidence.",
+  "intro": "If you're trying to get your brand recommended inside AI answers, 'does Claude cite sources' is really two questions wearing one trench coat: what does Claude do technically, and what do you need to do to be the thing it points to. The short version is that citation behavior in Claude depends entirely on whether it's browsing the live web or just recalling what it learned in training. Below is how that split works, and what actually raises your odds of showing up as the cited source instead of getting silently paraphrased.",
+  "sections": [
+    {
+      "heading": "Does Claude cite sources?",
+      "body": "Yes, but only when Claude is actually looking something up. When web search or another retrieval tool is switched on — inside Claude.ai, the Claude API with the web search tool, or a Project connected to external documents — Claude will reference the pages it pulled from and typically link to them inline or in a source list under the answer.\n\nTurn that access off, though, and Claude falls back to its training data. In that mode it's reasoning from what it learned during training, not from a live document it can point to, so it usually won't produce a citation at all — and if it does name a source from memory, treat that with real caution, because it can be wrong or outdated.\n\nThis is the split that matters for AEO: a Claude answer with citations is grounded and traceable; a Claude answer without them is closer to an opinion Claude formed during training. If you want to understand how models like Claude weigh trained memory against fresh evidence when a brand comes up, [how AI assistants choose brands](/blog/how-ai-assistants-choose-brands) goes deeper into that mechanism."
+    },
+    {
+      "heading": "How to become a source Claude cites",
+      "body": "Claude cites pages that answer the question cleanly, in a format its retrieval step can lift without guesswork. That means a direct answer near the top, not three paragraphs of throat-clearing before you get to the point.\n\nA few things consistently help:\n- **Answer the question in the first sentence.** Claude's retrieval favors passages it can quote or summarize with minimal interpretation.\n- **Use real structure** — headings, short paragraphs, comparison tables, numbered steps. A wall of text is harder for any tool-using model to extract cleanly.\n- **Back claims with attributable facts**, not vague superlatives. 'Best' with no evidence is skippable; 'Anthropic's own documentation says X' is not.\n- **Get corroborated elsewhere.** Claude's web search tends to weight pages that agree with other independent sources on a topic higher than a single lone claim, even a well-written one.\n\nIf you want the fuller mechanics of what makes a page 'citable' versus just indexed, the [citations glossary](/glossary/citations) breaks down the difference between being crawled, being ranked, and actually being the thing an AI answer points to."
+    },
+    {
+      "heading": "Claude vs ChatGPT vs Perplexity on citations",
+      "body": "The three handle citations differently by default, and that difference matters more than most comparisons let on. Perplexity is citation-first — nearly every answer ships with numbered source links because sourcing is the product. ChatGPT shows inline citations when browsing or its native search is active, off by default in a plain chat. Claude cites when it's grounded through web search or a connected tool, but its baseline conversational mode is quieter about sourcing than either of the other two.\n\nPractically: if your goal is visibility across AI answers generally, don't optimize for one engine's citation style and assume the others behave the same. Perplexity rewards structured, fact-dense pages because it's built to quote them constantly. Claude and ChatGPT reward the same thing, just less consistently, because citation is a mode they switch into rather than a default they run in. For the ChatGPT side of this specifically, [how to get recommended by ChatGPT](/blog/how-to-get-recommended-by-chatgpt) covers what changes when browsing is on versus off."
+    },
+    {
+      "heading": "How to check if Claude mentions you",
+      "body": "Ask Claude directly, with web search turned on, using the same buyer-style questions your customers would type — 'best [category] for [use case]' or '[you] vs [competitor]' — and read the answer for whether you're named, and whether you're the linked source or just background noise Claude paraphrased without credit.\n\nRun it more than once. Claude's answers shift across sessions and prompt phrasing, so a single good result doesn't mean you're reliably showing up, and a single miss doesn't mean you're invisible. Vary the phrasing, vary the intent (comparison, 'best of', troubleshooting), and track it over weeks rather than judging off one lucky answer.\n\nThis is exactly what AEOeye audits systematically instead of manually — Claude is one of the engines it checks alongside ChatGPT, Perplexity, and Google AI, so you get a real answer on whether you're being cited or ignored, and where. [Run a free audit](/#audit) to see what Claude is actually saying about your brand right now."
+    }
+  ],
+  "keyTakeaways": [
+    "Claude only cites sources when web search or a retrieval tool is active — not in plain trained-knowledge mode.",
+    "Ungrounded Claude answers can still name sources from memory, but those aren't verified links and can be wrong or outdated.",
+    "Citable content leads with a direct answer, uses real structure (headings, tables, lists), and backs claims with attributable facts.",
+    "Independent corroboration across multiple sites raises the odds Claude's search surfaces and cites you.",
+    "Perplexity is citation-first by default, ChatGPT cites when browsing is on, Claude cites when grounded — none behave the same way out of the box.",
+    "Test with buyer-style prompts and web search on, repeated over time, not judged off a single one-off question."
+  ],
+  "faqs": [
+    {
+      "q": "Does Claude have web access?",
+      "a": "Yes, when it's enabled. Claude.ai supports web search as a toggle, the Claude API offers a web search tool developers can turn on, and Claude can connect to external documents inside Projects. Outside of those modes, Claude answers from training data alone."
+    },
+    {
+      "q": "Does Claude use Google or Bing?",
+      "a": "Anthropic hasn't published the exact search backend behind Claude's web search feature. What's documented is the behavior: when search is enabled, Claude retrieves live web results and can cite them — the specific index powering that retrieval isn't disclosed in detail."
+    },
+    {
+      "q": "How do I get cited by Claude?",
+      "a": "Write answer-first, well-structured content that states your point clearly near the top, back it with attributable facts, and get corroborated by other independent sources on the same topic — that combination is what Claude's retrieval and citation step tends to favor."
+    },
+    {
+      "q": "Does Claude recommend brands?",
+      "a": "Yes, when asked directly — 'what's the best tool for X' style questions will get Claude naming specific brands, grounded or not. Whether it cites a source for that recommendation depends on whether web search was active when it answered."
+    }
+  ]
+}

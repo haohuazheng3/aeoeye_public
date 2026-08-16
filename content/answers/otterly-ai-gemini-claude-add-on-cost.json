@@ -1,0 +1,69 @@
+{
+ "slug": "otterly-ai-gemini-claude-add-on-cost",
+ "type": "answer",
+ "title": "Otterly.ai Gemini & Claude Add-On Cost: What You Actually Pay",
+ "metaTitle": "Otterly.ai Gemini & Claude Add-On Cost Explained",
+ "metaDescription": "Gemini and Claude aren't included in Otterly.ai's base plans. Here's the real per-tier add-on cost and what full multi-engine coverage actually runs you.",
+ "primaryKeyword": "otterly.ai gemini claude add-on cost",
+ "shortAnswer": "On Otterly.ai, only ChatGPT, Google AI Overviews, Perplexity, and Microsoft Copilot are included by default. Gemini and Google AI Mode are paid add-ons ($9-$149/mo each depending on tier), and Claude is a separate add-on ($29-$439/mo). So a $189/month Standard plan realistically climbs to around $416/month once you add Gemini, Google AI Mode, and Claude for full coverage. If you just want to see your multi-engine AI visibility first, AEOeye runs a free, instant blind audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini with no add-on fees.",
+ "intro": "\"Multi-engine AI search monitoring\" is Otterly.ai's headline pitch, but the engines most people care about most — Gemini and Claude — aren't in the base price. They're add-ons stacked on top of your plan, and the cost scales with your tier.\n\nThis page lays out exactly what those add-ons cost, what \"full coverage\" actually totals, and how to decide whether it's worth it for your situation. We'll also be upfront about where a free tool like AEOeye fits and where it doesn't.",
+ "sections": [
+  {
+   "heading": "What's included vs. what costs extra",
+   "body": "Otterly.ai's three self-serve tiers — Lite ($29/mo), Standard ($189/mo), and Premium ($489/mo) — all include the same four engines by default: **ChatGPT, Google AI Overviews, Perplexity, and Microsoft Copilot**.\n\nThree engines are *not* included and must be purchased as add-ons:\n\n- **Google Gemini**\n- **Google AI Mode**\n- **Claude**\n\nThat's the important nuance. When Otterly markets broad AI-engine coverage, the version of that coverage you actually get on day one stops at four engines. Gemini (the consumer Google model many of your buyers use), Google's conversational AI Mode, and Claude all sit behind a paywall on top of whatever plan you're already paying for. None of the three is bundled at any tier — not even Premium. So the gap between the marketing story and the out-of-the-box product is real, and it widens precisely on the engines that have grown fastest in actual consumer usage."
+  },
+  {
+   "heading": "The exact add-on cost per tier",
+   "body": "Add-on pricing scales with your plan, so the more prompts you track, the more each extra engine costs. Here are the published monthly figures:\n\n| Add-on | Lite | Standard | Premium |\n|---|---|---|---|\n| Google AI Mode | $9 | $59 | $149 |\n| Google Gemini | $9 | $59 | $149 |\n| Claude | $29 | $109 | $439 |\n\nAnnual billing trims roughly 15% off these, but the structure is the same: every engine you add is a separate recurring line item.\n\nNotice Claude is the most expensive add-on at every tier — $439/month on Premium alone, more than the Premium base plan's $489. If Claude visibility matters to you (and for many B2B and research-heavy categories it does, since Claude users skew toward considered purchases), that single add-on can rival the cost of your whole subscription."
+  },
+  {
+   "heading": "What 'full coverage' really totals",
+   "body": "The sticker price you compare against competitors is rarely the price you pay for the complete multi-engine picture. Add it up on the Standard plan, the one Otterly marks 'Most Popular':\n\n- Standard base: **$189**\n- Google Gemini: **+$59**\n- Google AI Mode: **+$59**\n- Claude: **+$109**\n- **Total: ~$416/month**\n\nSo a plan advertised at $189 lands north of $400 once you actually cover Gemini, Google AI Mode, and Claude. The same pattern holds at Lite ($29 base → ~$76 with all three) and Premium ($489 → ~$1,226).\n\nThis isn't hidden or dishonest — Otterly publishes every number on its pricing page. But it does mean you should budget for the all-in figure, not the headline tier, if a true cross-engine view is what you're buying the tool for. Compare apples to apples: the cost to monitor *all* the engines, not just the four that come bundled."
+  },
+  {
+   "heading": "Is the add-on model actually a problem?",
+   "body": "Not necessarily — it depends on what you need. The à la carte structure has a genuine upside: if you only care about ChatGPT and Perplexity, you never pay for Claude or Gemini, and the $29 Lite tier is a legitimately cheap entry point into ongoing tracking.\n\nOtterly is also a mature, established monitoring platform. It offers continuous tracking, sentiment analysis, 50-plus country localization, GEO URL audits, and API/MCP access on higher tiers — depth that a free instant audit doesn't replicate. If you need historical dashboards, scheduled re-runs, and team workflows, that ongoing platform is doing real work for the money.\n\nThe model only becomes a problem when the marketing implies broad coverage is included and the budget reality is that it isn't. If you walked in expecting Gemini and Claude in the box, the climb from $189 to ~$416 is a fair thing to feel surprised by. Knowing the structure up front lets you decide deliberately instead of discovering it at checkout."
+  },
+  {
+   "heading": "A free way to see your multi-engine picture first",
+   "body": "If your immediate question is simply *'where do I stand across the AI engines, including Gemini and Claude?'* you don't have to commit to a paid plan and stack add-ons just to find out.\n\n[AEOeye](https://aeoeye.com) runs a **free, instant blind audit** across ChatGPT, Perplexity, Google AI, Claude, and Gemini — all in one pass, with no per-engine add-on fees, no trial clock, and no contract. It asks the engines the real questions your buyers ask and shows whether you're recommended, where you rank, and which competitors win. It's a fast, honest way to see your true cross-engine position before deciding whether a paid monitoring subscription is worth it.\n\nBe clear on the trade-off, though: AEOeye is newer and lighter than Otterly on enterprise analytics, historical trend dashboards, and deep ongoing localization — its deeper multi-engine querying activates with usage. If you need a fully built-out monitoring platform with years of history and team tooling, Otterly (add-ons included) is the more established product. If you want to start free and see all five engines today, AEOeye is built exactly for that."
+  }
+ ],
+ "keyTakeaways": [
+  "Otterly.ai includes only ChatGPT, Google AI Overviews, Perplexity, and Microsoft Copilot by default at every tier.",
+  "Gemini and Google AI Mode are add-ons ($9 Lite / $59 Standard / $149 Premium each); Claude is a separate add-on ($29 / $109 / $439).",
+  "Claude is the priciest add-on — $439/month on Premium, more than the Premium base plan itself.",
+  "A $189 Standard plan realistically reaches ~$416/month once Gemini, Google AI Mode, and Claude are added.",
+  "Annual billing saves ~15%, and the à la carte model is genuinely cheaper if you only need a couple of engines.",
+  "AEOeye offers a free, instant blind audit across all five major engines — including Gemini and Claude — with no add-on fees, useful for checking your position before committing to a paid plan."
+ ],
+ "faqs": [
+  {
+   "q": "Are Gemini and Claude included in Otterly.ai's base plans?",
+   "a": "No. Every Otterly tier (Lite, Standard, Premium) includes ChatGPT, Google AI Overviews, Perplexity, and Microsoft Copilot by default. Gemini, Google AI Mode, and Claude are all separate paid add-ons at every tier, including Premium."
+  },
+  {
+   "q": "How much does the Claude add-on cost on Otterly.ai?",
+   "a": "Claude costs $29/month on Lite, $109/month on Standard, and $439/month on Premium. It's the most expensive add-on engine — on Premium it costs nearly as much as the base plan itself. Annual billing reduces these by roughly 15%."
+  },
+  {
+   "q": "What does Otterly.ai really cost with all engines added?",
+   "a": "On the $189/month Standard plan, adding Gemini (+$59), Google AI Mode (+$59), and Claude (+$109) brings the total to about $416/month. The headline tier price doesn't reflect full multi-engine coverage."
+  },
+  {
+   "q": "Does Otterly.ai have a free tier?",
+   "a": "No. Otterly offers a free trial (no permanent free plan). If you want to check your multi-engine AI visibility for free first, AEOeye runs a free, instant audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini with no add-on fees or trial clock."
+  },
+  {
+   "q": "Is Otterly.ai's add-on pricing a dealbreaker?",
+   "a": "Not for everyone. If you only need a couple of engines, the à la carte model can keep costs low, and Otterly is a mature platform with deep ongoing analytics. It's only a concern if you assumed broad coverage was included — knowing the structure up front lets you budget for the all-in figure rather than the headline tier."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/8970693/pexels-photo-8970693.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "Organized office desk with pricing formula document, laptop, and smartphone calculator.",
+  "photographer": "Leeloo The First",
+  "photographerUrl": "https://www.pexels.com/@leeloothefirst"
+ }
+}

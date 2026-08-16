@@ -1,0 +1,47 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+tsconfig.tsbuildinfo
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env
+.env
+.env*.local
+.vercel
+
+# test
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# secrets scratch
+/.secrets/
+
+# ⚠️ 凭据类 —— 永不进 git(哪怕仓库是 private)
+#
+# git 历史是永久的:提交过一次,之后删除也还在历史里,而仓库一旦误设为 public
+# 就是全量泄漏。这两份另做备份,不靠版本控制:
+#   · .env.local —— 生产变量在 Vercel 上有权威副本,`vercel env pull` 可随时取回
+#   · account.md —— 平台账号与站点密码,归密码管理器
+account.md
+
+# 注:seo.md / docs/audit / docs/rounds / docs/qc / .seo-tools 已收进仓库。
+# 它们是跨会话的知识资产,电脑丢了没有备份就是真的没了 —— 而且不含任何凭据
+# (2026-08-15 逐文件扫描确认)。

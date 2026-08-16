@@ -1,0 +1,103 @@
+---
+title: "What Is a Foundation Model? Definition, Examples, and Why It Matters for Your Brand"
+description: "A foundation model is a large, general-purpose AI model adapted for many tasks. See how GPT, Gemini, and Claude compare, and why it matters for your brand."
+date: "2026-07-18"
+category: "Fundamentals"
+readingTime: "8 min read"
+keywords: ["what is a foundation model", "foundation model", "foundation model examples", "foundation model vs llm", "foundation model vs fine-tuned model", "AI model families"]
+faqs: [{"q": "What is a foundation model in simple terms?", "a": "In simple terms, a foundation model is one big, general-purpose AI model trained on a huge amount of data, then adapted for lots of specific jobs. Instead of building a new model from scratch for every task, developers start from this shared base and customize it through prompting, fine-tuning, or retrieval."}, {"q": "What's the difference between a foundation model and an LLM?", "a": "A large language model (LLM) is a foundation model specialized in language. Foundation model is the broader category \u2014 it also includes models that handle images, audio, or code alongside text. Every LLM is a foundation model, but not every foundation model is only a language model."}, {"q": "What are examples of foundation models?", "a": "Well-known foundation models include OpenAI's GPT family (which powers ChatGPT), Google's Gemini family, and Anthropic's Claude family \u2014 all proprietary, API-access models. Open-weight examples include Meta's Llama family and Mistral's models, which publish their weights so developers can download, inspect, and fine-tune them directly."}, {"q": "Why are foundation models important?", "a": "Foundation models matter because they're the base layer nearly every AI product sits on, including the AI assistants people ask about your brand. Which foundation model powers a tool shapes what that tool already \"knows\" about you, and where its retrieval system looks for current information to fill the gaps."}]
+image: {"url": "https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Overhead view of a laptop showing data visualizations, representing an audit.", "photographer": "Lukas Blazek", "photographerUrl": "https://www.pexels.com/@goumbik"}
+sources: []
+---
+
+## What is a foundation model?
+
+A foundation model is a large AI model trained on broad, diverse data at massive scale, built so it can be adapted to many different downstream tasks instead of just one. It's the general-purpose base that other AI products get built on top of. The GPT family, the Gemini family, and the Claude family are all foundation models.
+
+"Foundation model" describes a role, not a brand name. It's the broad base layer in the AI stack — the raw, general-purpose intelligence. Developers add fine-tuning, prompting, retrieval, and product design on top of that base to turn it into an actual chatbot, coding assistant, or search feature.
+
+The term overlaps with [large language model](/blog/what-is-an-llm), and people often use the two interchangeably in casual conversation. They aren't quite identical: foundation model is the broader category. An LLM is a foundation model that specializes in language; some foundation models also process images, audio, or code, which stretches past what "language model" technically describes. Foundation model itself sits inside the even wider category of [AI model](/blog/what-is-an-ai-model), which covers any trained system that produces predictions or output, foundation-scale or not.
+
+What actually makes a model "foundation"-level:
+
+- Trained on a huge, broad dataset — text, code, and often other formats, at a scale most individual companies can't replicate.
+- Trained with general objectives, like predicting the next word, instead of one narrow task.
+- Capable out of the box across a wide range of jobs: writing, summarizing, coding, reasoning, translation.
+- Meant to be a starting point, adapted through fine-tuning, prompting, or retrieval rather than used raw for every use case.
+
+## Why are foundation models called "foundation" models?
+
+The name describes the role, not the underlying technology: one base model becomes the shared foundation that many different applications get built on top of, the same way one physical foundation supports many different buildings above it. Stanford researchers popularized the term in a 2021 paper to capture this "one base, many uses" pattern as it took over the field.
+
+Before that shift, most AI models were trained from scratch for one single purpose — a model for spam detection, another for translation, another for image tagging, each built and trained independently. Foundation models flipped that approach. Now one enormous, expensive-to-train base model gets reused across hundreds of downstream applications, each adapting it in its own direction:
+
+- A customer support tool fine-tunes it on help-desk transcripts and past tickets.
+- A coding assistant wraps it in developer tools and a code-specific system prompt.
+- A search engine pairs it with retrieval so it can cite current web pages instead of relying on memory alone.
+
+Same foundation, different buildings on top of it.
+
+## What's the difference between a foundation model and a fine-tuned model?
+
+A foundation model is the broad, general-purpose base. A fine-tuned or specialized model is that same base, trained further (or prompted heavily) on narrower data so it performs one job especially well — legal-document review, a single company's support tickets, or medical note summarization.
+
+Neither version is "better" in the abstract. They trade off differently, and most products you actually touch are the fine-tuned layer, not the raw base:
+
+| Dimension | Foundation model | Fine-tuned model |
+|---|---|---|
+| Purpose | General-purpose, broad capability | Optimized for one specific task or domain |
+| Training data | Massive, broad-coverage, general | Smaller, curated dataset layered on top |
+| Flexibility | High — adapts to many use cases | Narrower — tuned for accuracy on one job |
+| Typical owner | AI labs and major platforms | App developers and individual businesses |
+| Cost to build | Very high — trained from scratch | Lower — builds on an existing foundation |
+| Example | The base GPT, Gemini, or Claude model | A support chatbot tuned on one company's docs |
+
+When you chat with a product built by a smaller company, you're almost always talking to a fine-tuned or heavily prompted layer sitting on top of someone else's foundation model, not the raw foundation model itself.
+
+
+![Close-up of colorful programming code displayed on a computer monitor with a dark background.](https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## What are the major foundation model families?
+
+Today's landscape is dominated by a handful of large proprietary foundation model families, alongside a growing set of open-weight alternatives that anyone can download and adapt directly.
+
+Proprietary, API-access families — you reach these through a product or a paid API, not by downloading the model yourself:
+
+- OpenAI's GPT family, which powers ChatGPT and a wide range of third-party products through the OpenAI API.
+- Google's Gemini family, which powers the Gemini app, Google AI features, and AI-generated answers inside Google Search.
+- Anthropic's Claude family, which powers Claude.ai and is available through the Anthropic API for other products to build on.
+
+Open-weight families — the model weights themselves are published, so companies and developers can self-host, inspect, or fine-tune them without going through an API:
+
+- Meta's Llama family, one of the most widely adopted open-weight lines available today.
+- Mistral's model family, another actively developed and widely used open-weight option.
+- A growing set of smaller labs and research groups releasing open-weight models tuned for specific niches, like coding or multilingual tasks.
+
+These families differ in training data mix, supported modalities (text-only versus text-plus-image-plus-audio), and licensing terms — "open-weight" doesn't always mean unrestricted commercial use, so the license is worth checking before building on one. What they share is the underlying pattern: one broad base model, adapted many different ways downstream.
+
+## Why do foundation models matter for your brand?
+
+The foundation model behind an AI tool shapes what that tool "knows" about your brand from training — and different foundations, trained on different data at different times, can produce very different answers about the same company.
+
+This matters more than it might sound. ChatGPT runs on GPT. The Gemini app runs on Gemini. Claude.ai runs on Claude. Each of those foundation models saw a different slice of the internet during training, at a different point in time, weighted differently by each lab's own data and safety choices. If your brand had thin, outdated, or confused coverage in the data one model trained on, that model's answers about you will reflect it — even if a competitor's brand was covered clearly in the exact same dataset.
+
+That's why brand visibility across AI assistants isn't one problem to solve, it's several separate ones running in parallel: your brand can look strong in one foundation model's answers and nearly invisible in another's, for reasons that have nothing to do with which brand is actually better. Our [AI model comparison](/blog/ai-model-comparison) breaks down how these differences actually show up when you ask the same question across different assistants side by side.
+
+## How does retrieval change what a foundation model can answer?
+
+A foundation model's core knowledge is frozen the moment training ends — it doesn't automatically know about anything that happened after that cutoff, and it may know very little about narrower brands and topics it saw rarely during training. Retrieval-augmented generation (RAG) is how AI products fill that gap, pulling in fresh, external information at the exact moment someone asks a question.
+
+This is the part that matters most for anyone trying to get found in AI answers. When a foundation model retrieves information instead of relying purely on what it memorized during training, it's pulling from indexed web content — pages, structured data, recent articles, help docs. That retrieval layer is where new and updated content gets a real shot at being cited, regardless of what the base model already "knew" at training time.
+
+See our guide to [what RAG is](/blog/what-is-rag) for a closer look at how that retrieval layer works and what it takes to get pulled into it.
+
+In practice, this means two different games are being played at once:
+
+- The training-data game: how your brand is represented in the broad data a foundation model learned from. This is slow-moving and hard to influence directly, since it depends on what already existed on the web at training time.
+- The retrieval game: how your content is structured, indexed, and surfaced when an AI tool searches for a live answer right now. This one moves fast, and it's the part you can actually act on today.
+
+## How do you get cited across every foundation model?
+
+You don't get to choose which foundation model a given AI tool runs on. What you can control is how citable your brand is in the retrieval layer sitting on top of every one of them.
+
+[AEOeye](/) audits how your brand actually shows up across ChatGPT, Perplexity, Gemini, Google AI, and Claude — the real products built on these different foundation models — so you can see exactly where you're getting cited, where your coverage is thin, and where a competitor is showing up in your place instead. Run a free audit to see where your brand stands today.

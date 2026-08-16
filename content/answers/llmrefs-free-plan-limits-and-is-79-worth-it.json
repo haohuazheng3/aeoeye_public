@@ -1,0 +1,65 @@
+{
+ "slug": "llmrefs-free-plan-limits-and-is-79-worth-it",
+ "type": "answer",
+ "title": "LLMrefs Free Plan Limits and Is the $79 Pro Plan Worth It?",
+ "metaTitle": "LLMrefs Free Plan Limits & Is $79/mo Worth It?",
+ "metaDescription": "LLMrefs' free plan tracks just 1 keyword and Pro is $79/mo for 50 keywords / 500 prompts (labeled \"limited time\"). Here's who it's worth it for and what to",
+ "primaryKeyword": "LLMrefs free plan limits and is $79 worth it",
+ "shortAnswer": "LLMrefs' free plan tracks only 1 keyword, so it's a test drive, not a working tool. The single Pro plan is $79/mo for 50 keywords and 500 prompts, and the price is publicly labeled \"limited time only,\" so treat it as promotional rather than locked-in. It's worth it if you've already validated which keywords matter and want ongoing weekly tracking across many AI engines. If you just want to see whether ChatGPT, Perplexity, Claude, Gemini, and Google AI recommend your brand right now, run a free instant audit first before committing $79/mo.",
+ "intro": "LLMrefs is a legitimate, well-regarded AI search visibility tracker, and the questions in this search are the right ones to ask: the free plan is genuinely limited, and the $79/mo Pro plan carries some asterisks worth understanding before you pay.\n\nThis page lays out exactly what each plan gives you, where reviewers say the limits bite, and how to decide whether $79/mo is the right call for your situation, or whether you should run a free, no-setup audit first to see real per-engine answers before committing.",
+ "sections": [
+  {
+   "heading": "What the free plan actually includes",
+   "body": "LLMrefs' free account tracks **1 keyword**, with limited models and prompts and a low-frequency refresh. No credit card is required to sign up, which is genuinely nice. But one keyword is enough to see what the dashboard looks like and confirm the tool detects your brand, not to do real work.\n\nIn practice, one keyword expands into a handful of auto-generated prompts across the AI engines, so you get a narrow slice: how you rank for a single query theme. If your business has more than one buying intent, more than one product line, or competitors who win on different searches, you'll hit the ceiling immediately.\n\nThe honest read from reviewers matches this. WordsAtScale's review puts it plainly: the free plan works for initial testing but isn't viable long-term. Treat it as a demo, not a tier you can live on. That's a reasonable design choice for a paid SaaS, just know going in that the free plan is a try-before-you-buy, not a usable free product."
+  },
+  {
+   "heading": "The $79/mo Pro plan: what you get and the fine print",
+   "body": "There's effectively one paid tier (often labeled \"All in One\") at **$79/mo**, covering up to **50 keywords** and **500 prompts** tracked, with weekly dashboard updates, citation tracking across 50+ countries and 20+ languages, unlimited team members, unlimited projects, CSV export, and API access. A 7-day free trial is available.\n\nTwo caveats buyers should weigh. First, the price on LLMrefs' own pricing page is marked **\"Limited time only.\"** That's a real flag: it signals the $79 rate is promotional, not a guaranteed permanent price, so budget with the possibility it rises. Second, the caps are fixed at this single tier. Fifty keywords and 500 prompts comfortably cover most small-to-mid businesses, and several reviewers agree it's adequate for typical needs. But if you're an agency juggling many clients or a brand with broad keyword coverage, reviewers note the depth can feel tight, and the refresh cadence (weekly rather than continuous) can feel slow when you want faster signal."
+  },
+  {
+   "heading": "Is $79/mo worth it? A straight answer",
+   "body": "It's worth it when three things are true: you already know which keywords and queries matter to your buyers, you want ongoing tracking (not a one-time look), and 50 keywords / 500 prompts fits your footprint. For an in-house marketer or a lean agency tracking a defined set of brand and category terms across many AI engines weekly, that's a fair price for what's a focused, well-built tool.\n\nIt's a weaker fit if you're still in discovery, just trying to find out whether AI engines mention you at all, or if you need enterprise-grade historical dashboards and high keyword volume. In those cases you'd be paying $79/mo to configure keywords before you've confirmed there's a problem worth tracking.\n\nThe \"limited time\" label is reason to not over-anchor on $79 as your long-term cost. Start with the 7-day trial, load your real keywords, and decide based on what the dashboard tells you, not the headline price."
+  },
+  {
+   "heading": "A free way to see real per-engine answers first",
+   "body": "If your underlying question is \"do ChatGPT, Perplexity, Claude, Gemini, and Google AI actually recommend my brand right now?\", you can answer that before paying anyone. That's exactly what **AEOeye** does: a free, instant, zero-setup audit. No 1-keyword cap to configure, no $79/mo commitment up front, and no keyword setup before you see results, you get real per-engine answers showing whether each model recommends you, where you rank, and which competitors win.\n\nThe honest tradeoffs: AEOeye is newer and lighter on enterprise analytics and long-run historical dashboards than an established tracker like LLMrefs, and its deeper multi-engine querying activates with usage. LLMrefs is the more mature choice if your need is structured, recurring keyword tracking with CSV/API export and team workflows.\n\nA sensible path: run AEOeye's free audit to confirm there's a visibility gap and see which engines and competitors matter, then decide whether LLMrefs' $79/mo prompt-by-prompt tracking is worth setting up. You diagnose for free, then pay only if ongoing tracking earns its keep."
+  }
+ ],
+ "keyTakeaways": [
+  "LLMrefs' free plan tracks just 1 keyword — useful for testing the dashboard, not for real ongoing work.",
+  "The single Pro plan is $79/mo for up to 50 keywords and 500 prompts, with weekly dashboard updates, CSV export, and API access.",
+  "The $79 price is publicly labeled \"limited time only\" — treat it as promotional, not a guaranteed permanent rate.",
+  "50 keywords / 500 prompts covers most SMBs, but agencies and broad-coverage brands report the caps and weekly refresh can feel tight at scale.",
+  "$79/mo is worth it once you know which keywords matter and want recurring multi-engine tracking; it's premature if you're still discovering whether AI engines mention you.",
+  "AEOeye offers a free, instant, no-setup audit of whether ChatGPT, Perplexity, Claude, Gemini, and Google AI recommend you — a low-risk way to diagnose before committing $79/mo."
+ ],
+ "faqs": [
+  {
+   "q": "How many keywords does the LLMrefs free plan track?",
+   "a": "Just one. The free account tracks a single keyword with limited models and prompts and a low-frequency refresh, and no credit card is required. It's enough to see how the tool works and confirm it detects your brand, but reviewers agree it isn't viable for ongoing use — it's a test drive, not a usable free tier."
+  },
+  {
+   "q": "What does the $79/mo LLMrefs Pro plan include?",
+   "a": "The single paid tier covers up to 50 keywords and 500 tracked prompts, with weekly dashboard updates, citation tracking across 50+ countries and 20+ languages, unlimited team members and projects, CSV export, and API access. There's a 7-day free trial, and an Enterprise tier with custom pricing for higher volume."
+  },
+  {
+   "q": "Is the $79 LLMrefs price permanent?",
+   "a": "Not guaranteed. LLMrefs' own pricing page labels the $79/mo rate \"limited time only,\" which signals it's promotional rather than a locked-in permanent price. Budget with the possibility it changes, and don't anchor your long-term cost planning solely on $79."
+  },
+  {
+   "q": "Is LLMrefs worth $79 a month?",
+   "a": "It's worth it if you already know which keywords matter to your buyers, want recurring weekly tracking across many AI engines, and fit within 50 keywords / 500 prompts. It's premature if you're still figuring out whether AI engines mention you at all, or if you need enterprise-scale keyword volume and deep historical dashboards."
+  },
+  {
+   "q": "Is there a free way to check AI visibility without setting up keywords?",
+   "a": "Yes. AEOeye runs a free, instant, zero-setup audit showing whether ChatGPT, Perplexity, Claude, Gemini, and Google AI recommend your brand right now — no 1-keyword cap, no keyword configuration, and no $79/mo commitment before you see real per-engine answers. It's lighter on enterprise analytics than LLMrefs, but it's a low-risk way to diagnose before paying for ongoing tracking."
+  }
+ ],
+ "comparisonTable": null,
+ "image": {
+  "url": "https://images.pexels.com/photos/6802042/pexels-photo-6802042.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "Person checking stock market graphs on laptop and smartphone, focusing on financial data.",
+  "photographer": "Hanna Pad",
+  "photographerUrl": "https://www.pexels.com/@anna-nekrashevich"
+ }
+}

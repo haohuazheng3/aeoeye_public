@@ -1,0 +1,92 @@
+---
+title: "What Is Agentic AI? A Plain-English Definition"
+description: "A clear, no-hype definition of agentic AI: how it differs from chatbots and generative AI, real examples, and why it's changing how brands get discovered."
+date: "2026-07-18"
+category: "Fundamentals"
+readingTime: "7 min read"
+keywords: ["what is agentic ai", "agentic ai", "agentic ai vs generative ai", "agentic ai examples", "what is an ai agent", "ai agents for business"]
+faqs: [{"q": "What is agentic AI in simple terms?", "a": "Agentic AI is AI that can carry out a multi-step task on its own \u2014 planning what to do, using tools to do it, and adjusting along the way \u2014 instead of just answering one question at a time. You give it a goal; a chatbot waits for your next message, while agentic AI keeps working toward that goal."}, {"q": "What's the difference between agentic AI and generative AI?", "a": "Generative AI creates content \u2014 text, images, code \u2014 when you ask for it, then stops. Agentic AI can use generative AI as one step inside a longer process: it plans a task, takes actions using tools, checks the results, and keeps going until the goal is done or it needs your input."}, {"q": "What are examples of agentic AI?", "a": "Common examples include research agents that gather and cross-check information across sources, shopping agents that compare products and narrow options, coding agents that write and test software changes, and workflow agents that move data and tasks between business tools without a person handling every step manually."}, {"q": "How does agentic AI affect marketing?", "a": "As agents start researching and recommending products for people, getting chosen by an agent becomes as important as ranking in search. Brands that don't appear in an agent's comparison or shortlist lose that customer before a human ever sees a webpage, which makes AI visibility a new marketing priority."}]
+image: {"url": "https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A futuristic humanoid robot in an indoor setting, symbolizing AI content and search.", "photographer": "Alex Knight", "photographerUrl": "https://www.pexels.com/@agk42"}
+sources: []
+---
+
+Ask five vendors what "agentic AI" means and you'll get five different pitches — most of them designed to make a chatbot with an API call sound like an autonomous employee. Here's the version without the sales language.
+
+## What is agentic AI?
+
+Agentic AI is artificial intelligence that pursues a goal across multiple steps largely on its own — planning, choosing tools, acting, and adjusting — with only light human input along the way. A chatbot answers the question you asked; agentic AI decides what needs to happen next and does it.
+
+That distinction is bigger than it sounds. Ask a standard chatbot to "find me a flight and book it," and it will explain how you might do that yourself. Ask an agentic system the same thing, and it can search fares, weigh them against your stated preferences, and complete the booking — checking in with you only when a decision genuinely needs your judgment.
+
+"Agentic" refers to agency: the system acts as your agent, not just a responder waiting on the next prompt. Under the hood, most agentic systems still run on a [large language model](/blog/what-is-an-llm) — the same core technology behind ordinary chatbots. What changes is the scaffolding wrapped around it: memory, tool access, and a loop that lets the model take several turns before handing control back to a person.
+
+For the narrower technical definition of what counts as "an agent" versus a plain automation script, see [what is an AI agent](/blog/what-is-an-ai-agent). This piece stays focused on the broader agentic paradigm and what it means for people outside the engineering team.
+
+## Agentic AI vs generative AI vs chatbots
+
+Generative AI produces content on request; agentic AI takes actions toward a goal, often using generative AI as one step inside a longer process. Chatbots sit in between — conversational, but reactive, with no persistent goal of their own.
+
+These three terms get used interchangeably in vendor decks, and that's the actual source of the confusion — loose language creates loose expectations. Here's the distinction that holds up under scrutiny:
+
+| Dimension | Chatbot | Generative AI | Agentic AI |
+|---|---|---|---|
+| Primary behavior | Responds to a single prompt | Creates content, code, or images on request | Pursues a multi-step goal |
+| Initiative | None — waits for input | None — waits for input | Plans its own next steps |
+| Tool use | Rare, if any | Sometimes (plugins, search) | Core to how it operates |
+| Memory across steps | Usually none | Usually none | Holds context across the task |
+| Human role | Asks, reads the answer | Asks, reviews the output | Sets the goal, approves key decisions |
+| Failure mode | Wrong or shallow answer | Off-brief or inaccurate output | Compounding errors across steps |
+
+Notice the overlap: agentic AI is often generative AI plus a task loop bolted on, not a separate invention. That's why so much "agentic" branding is really a generative model wearing a to-do list. The real test isn't whatever label a vendor chose — it's whether the system can act across more than one step without a human clicking "continue" each time.
+
+
+![Overhead view of a frustrated woman in loungewear with a laptop and crumpled papers, facing remote work stress.](https://images.pexels.com/photos/6029065/pexels-photo-6029065.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## How agentic AI works
+
+Most agentic systems run the same basic loop: perceive the situation, plan a next step, act using a tool, observe the result, then re-plan. No single step is complicated — the capability comes from chaining them without a human re-prompting at every turn.
+
+- **Perceive** — the system reads the current state: your instructions, a webpage, a file, an API response, or the outcome of its last action.
+- **Plan** — it decides what to do next based on the goal it was given, often breaking a large task into smaller ones.
+- **Act** — it calls a tool: a search, a code execution, a form submission, an API request, a purchase.
+- **Observe** — it checks what actually happened, which isn't always what it expected.
+- **Re-plan** — it adjusts course based on that observation, and the cycle repeats until the goal is met, it hits a wall it can't resolve, or it hands control back to a human.
+
+That loop is the real dividing line between agentic AI and a script. A script runs a fixed sequence no matter what happens; an agentic system changes its plan mid-task when circumstances change. It's also why agentic systems fail differently than chatbots or plain automation do — the errors show up mid-loop, not just in a final output.
+
+## What agentic AI can do today
+
+Agentic AI is already doing real work in a handful of well-defined areas: research, shopping comparisons, coding, and internal workflow automation. These are all places where multi-step tasks used to require a person clicking through every stage. A few patterns have become common enough to name:
+
+- **Research agents** — given a question, they search multiple sources, cross-check claims against each other, and return a synthesized answer instead of a list of links.
+- **Shopping and comparison agents** — given a need, they gather candidate products, compare specs and reviews against stated criteria, and narrow the field, sometimes completing the purchase directly. This is already reshaping how people discover products in the first place — we go deeper on that shift in [AI shopping](/blog/ai-shopping).
+- **Coding agents** — given a task or a bug report, they read the relevant code, write and test changes, and iterate until checks pass, flagging anything that needs human judgment.
+- **Workflow automation agents** — inside a business, they chain steps across tools — pulling data, drafting a document, updating a record, sending a notification — that previously required a person moving between apps by hand.
+
+None of this is fully hands-off in practice today. The realistic pattern is "agent handles the multi-step work, human approves the parts that matter," not full autonomy with zero oversight.
+
+## Why agentic AI matters for your brand
+
+Here's the part most explainers skip: when an agent researches and recommends products on someone's behalf, it becomes a new discovery surface — and if your brand isn't in its consideration set, you're invisible to that customer regardless of how good your SEO is. That's the actual business stakes behind this trend.
+
+Consider what a shopping or research agent does before it recommends anything: it gathers candidates, compares them against stated criteria, and produces a shortlist. That process resembles what organic search used to do — except the "results page" is now a private, one-shot answer instead of ten links a customer scans and compares themselves. If an agent never surfaces your product while building that shortlist, no amount of on-page polish fixes it after the fact.
+
+This is the same shift already underway with AI answer engines and assistants, and it's why marketing teams are starting to treat "does the AI recommend us" as its own discipline, separate from traditional rankings. We break down how that discipline works in practice in [AI SEO agent](/blog/ai-seo-agent) — the tooling side of getting found by systems that act, not just systems that answer a query.
+
+The practical takeaway: agentic AI doesn't only change how work gets done inside a company. It changes who gets chosen outside of it, often before a human ever sees a list of options.
+
+## The honest limits
+
+Agentic AI is genuinely useful and genuinely unreliable in ways that matter — both at once. Three limits are worth stating plainly, as of this writing.
+
+- **Compounding errors.** A single wrong step early in a chain can throw off everything after it, and the system doesn't always catch its own mistake. The longer the task, the more chances a small error has to become a large one.
+- **Oversight is still required.** For anything with real consequences — spending money, publishing something publicly, touching production systems — a human checkpoint at key decisions isn't excess caution, it's the current state of the art.
+- **Reliability varies sharply by task.** Well-scoped, well-documented work goes far better than open-ended requests. Ask an agent to do something genuinely novel and the failure rate climbs fast.
+
+None of this is a reason to dismiss the category. It's a reason to be precise about what "agentic" actually promises, versus what it's marketed as. The honest description: a capable assistant with a longer leash, not an autonomous employee.
+
+## Will agentic AI recommend your brand?
+
+Increasingly, that's the real question — and unlike "are we ranking on page one," it's not one you can answer by guessing. Agentic AI is already shortlisting products and answers before a human ever weighs in, which means the more useful question isn't just "what is agentic AI," it's "does it choose us."
+
+As agents take over more research and shopping tasks, being visible to them becomes its own form of shelf placement, separate from where you rank in traditional search. That's exactly the question [AEOeye](/) exists to answer: whether AI systems — agentic or otherwise — actually recommend your brand when it counts, and precisely where you stand if they don't yet.

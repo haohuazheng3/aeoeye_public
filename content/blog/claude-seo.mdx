@@ -1,0 +1,71 @@
+---
+title: "Claude SEO: How to Use Claude for SEO (and Get Recommended by It)"
+description: "Claude SEO means two things: using Claude for SEO work, and getting Claude to recommend your brand. This guide covers both — and where each one breaks down."
+date: "2026-07-17"
+category: "AI Search"
+readingTime: "7 min read"
+keywords: ["claude seo", "how to use claude for seo", "claude for seo", "seo for claude", "claude code seo", "does claude search the web"]
+faqs: [{"q": "Can Claude do SEO?", "a": "Yes, for the parts of SEO that involve long documents, code, and structured output \u2014 content audits, redirect maps, schema markup, rewrites under tight constraints. It can\u2019t replace analytics tools, rank trackers, or link building, and it will invent numbers if you ask it to estimate things it doesn\u2019t actually know. Use it as an analyst and coder, and verify anything numeric before you trust it."}, {"q": "Is Claude better than ChatGPT for SEO?", "a": "Better at different things, not better overall. Claude tends to hold up better across long, messy documents and precise, constrained instructions, which suits big audits and careful rewrites. Most serious SEO workflows end up using whichever model fits the specific task well, rather than picking one exclusively."}, {"q": "How do I rank in Claude\u2019s answers?", "a": "There\u2019s no confirmed ranking algorithm to game, but the qualitative pattern is consistent: Claude cites sources when it searches the web, so content that\u2019s crawlable, clearly structured, and corroborated by other sites is what it can actually find and point to. Being the only place making a claim about your own brand, with nothing else backing it up, makes you much harder to cite with confidence."}, {"q": "Does Claude search the web?", "a": "Yes \u2014 when a question calls for current information, Claude can search and cites the sources it pulls from rather than answering purely from training data. That mechanism is exactly why being present in crawlable, well-structured content matters if you want Claude to ever mention your brand."}]
+image: {"url": "https://images.pexels.com/photos/34804002/pexels-photo-34804002.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Laptop displaying coding software on a desk, alongside a coffee mug and notebook.", "photographer": "Daniil Komov", "photographerUrl": "https://www.pexels.com/@dkomov"}
+sources: []
+---
+
+“Claude SEO” means two different things, and almost nobody bothers to say which one they mean. Type it into Google right now and you’ll find GitHub repos full of Claude Code skills, a handful of thin blog posts, and YouTube tutorials — nobody has written the serious version of either half yet.
+
+The first meaning: using Claude as a tool to do SEO work — audits, technical scripts, content rewrites, log-file digging. The second: optimizing your site so Claude recommends it when someone asks a buying question. Both are real, both are growing fast, and they call for almost opposite skills. This piece covers both, in that order, and makes clear which half you’re reading at any given point.
+
+## How to Use Claude for SEO
+
+Claude earns its keep on the SEO tasks other tools quietly fumble: long documents, code, and instructions that need to be followed precisely rather than approximately. It isn’t a keyword-research tool and it isn’t a rank tracker — treat it as an unusually well-read analyst who never gets bored re-reading your whole site twice.
+
+### What Is Claude Actually Good At Here?
+
+Five things, specifically: reading long documents without losing the thread, writing code, returning clean structured output, following precise editorial instructions, and running repetitive site work as an agent through Claude Code.
+
+- **Long-document analysis.** Paste a full content inventory, a crawl export, or a stack of Search Console queries and ask it to find the pattern — cannibalization clusters, orphaned pages, the same idea repeated across five different URLs. Claude holds a large amount of context steady without losing the thread halfway through, which is exactly what a sprawling spreadsheet review demands.
+- **Writing code.** Redirect maps, schema generators, regex for parsing log files, a script that diffs two sitemap pulls against each other — this is where Claude stops being a chatbot and starts being a junior engineer who doesn’t mind boring work.
+- **Structured output.** Ask for JSON, a CSV, or a markdown table, and that’s what comes back — not three paragraphs of throat-clearing first. That matters whenever the output needs to feed straight into another tool.
+- **Careful instruction-following on rewrites.** Tell it exactly what to change and what to leave alone — which headings stay, which paragraph to touch, how long the result should run — and Claude tends to actually respect those constraints instead of drifting back to its own preferred structure by paragraph three.
+- **Agentic workflows via Claude Code.** For repetitive site work — batch alt-text audits, bulk metadata rewrites, finding every page missing a canonical tag — Claude Code can chain file reads, edits, and shell commands instead of you copying and pasting one page at a time.
+
+### Which Prompts Should You Actually Try?
+
+Start with tasks that have a clear right answer, so you can check Claude’s work fast rather than take it on faith. Five to run this week:
+
+- **Content audit at scale** — *“Here’s a spreadsheet of URLs with title, meta description, and word count — flag anything duplicated in intent and group the flags by topic.”*
+- **Redirect mapping after a migration** — *“Match this old URL list to the new URL list by slug similarity and content type, and flag anything with no confident match.”*
+- **Schema generation** — *“Write FAQPage JSON-LD for these Q&A pairs, valid against schema.org, no extra properties.”*
+- **Log-file triage** — *“From this sample of server log lines, extract every bot-user-agent hit and count requests per path.”*
+- **Editorial rewrite under constraints** — *“Rewrite this paragraph so the first sentence directly answers the heading above it — don’t change anything else on the page.”*
+
+### Where Does Claude Get SEO Wrong?
+
+It doesn’t know your analytics, and it will happily invent numbers if you let it. Claude has no idea what your actual search volume, click-through rate, or ranking position is unless you paste that data in yourself — ask it to estimate traffic or keyword volume without giving it real numbers, and it will produce a plausible-sounding figure anyway, because that’s what a language model does when asked a question it can’t actually answer. It can’t earn you a backlink, and it can’t crawl your live site the way a real crawler does from inside a chat window. Treat every number that comes out of Claude as a draft, not a fact, until you’ve checked it against Search Console, your crawler, or whatever tool actually measured it. A good chunk of the prompting logic here carries over from other models too — our [ChatGPT prompts for SEO](/blog/chatgpt-prompts-for-seo) guide has a deeper library if you want more patterns to borrow.
+
+## SEO for Claude: Getting Recommended by Claude
+
+Claude is also an answer engine, and when someone asks it a buying question, it names names. Getting named is a different problem than using Claude well — it has more in common with digital PR than with prompt engineering, and there’s no dashboard anywhere that shows you your “Claude ranking.”
+
+Here’s what’s actually known, without pretending there’s more data than there is. Claude can search the web when a question calls for current information, and when it does, it cites the sources it pulled from — see exactly what that looks like in our breakdown of [whether Claude cites sources](/answers/does-claude-cite-sources). That single fact is most of the playbook: if your content is crawlable, clearly structured, and corroborated by other sites saying similar things about you, it sits in the pool of material Claude can pull from and point to. If it’s locked behind heavy JavaScript rendering, buried in a PDF, or exists only as a claim you make about yourself with nobody else backing it up, Claude has a much harder time surfacing it with any confidence.
+
+Curious what Claude already says about your brand, today, before you change a single page? That’s worth checking directly rather than guessing — run a [free audit at AEOeye](/), and Claude is one of the engines it actually queries, alongside the other major AI answer engines, so you see the real answer instead of assuming one.
+
+
+![Hands typing on a laptop with a blank white screen in a dimly lit room.](https://images.pexels.com/photos/7864382/pexels-photo-7864382.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Claude for SEO vs. SEO for Claude
+
+Same three words, opposite direction. Here’s the split in one table:
+
+| | Claude for SEO | SEO for Claude |
+|---|---|---|
+| **Goal** | Get SEO work done faster and more accurately | Get named when Claude answers a buyer’s question |
+| **Who does the work** | You, with Claude as analyst and coder | Your site’s structure, third-party mentions, and crawlability |
+| **Core moves** | Long-context audits, scripts, structured rewrites, Claude Code automation | Clear, crawlable, well-corroborated content that’s easy to cite accurately |
+| **How you measure it** | Time saved and error rate versus doing it by hand | Whether Claude actually mentions you — check directly, don’t guess |
+
+## The Real Take: Analyst, Not Oracle
+
+Claude is the most underrated SEO workbench in the current AI lineup, and it’s underrated for a specific reason: it’s better at long context and code than it is at being a search engine, and most people go looking for a search engine. That’s backwards. The people getting real value out of Claude for SEO are using it to read an entire site at once and to write the boring scripts nobody wants to write by hand — not asking it “what should I rank for” as if it were a keyword tool with opinions.
+
+The reverse holds just as hard. While you’re sitting in a Claude window running an audit, Claude is also, separately, the exact engine some buyer might be asking about you an hour from now. It’s simultaneously your analyst and something being optimized for — two different relationships with the same product, and neither one is optional once buyers are already turning to it to ask questions about brands like yours. For the wider picture of optimizing for AI answer engines generally rather than just Claude, our [LLM SEO](/blog/llm-seo) guide covers the ground that applies across ChatGPT, Gemini, Perplexity, and Claude alike; and if you want the ChatGPT-specific version of the how-to-use-it section above, that’s covered in our [ChatGPT SEO](/blog/chatgpt-seo) piece.

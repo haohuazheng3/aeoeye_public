@@ -1,0 +1,106 @@
+---
+title: "Why AI Doesn't Mention Your Brand (And How to Fix It)"
+description: "AI assistants skip your brand for five fixable reasons: thin content, no third-party mentions, missing schema, fuzzy category, or dominant rivals. Here's"
+date: "2026-06-25"
+category: "Strategy"
+readingTime: "8 min read"
+keywords: ["AEO", "answer engine optimization", "AI brand visibility", "why AI doesn't mention my brand", "ChatGPT brand recommendations", "third-party mentions", "structured data AEO", "AI search optimization", "Perplexity visibility", "brand corpus"]
+faqs: [{"q": "Why does ChatGPT recommend my competitors but never mention my brand?", "a": "Usually because the model's training corpus and live retrieval contain far more independent, third-party references to your competitors — reviews, roundups, community discussion — than to you. Models weight what others say about a brand more heavily than what the brand says about itself, so even strong on-site content loses to a rival who simply gets talked about more across the web."}, {"q": "Does structured data actually help AI assistants mention my brand?", "a": "Yes, indirectly but meaningfully. JSON-LD schema (Organization, Product, FAQPage) hands machines clean, unambiguous facts about who you are, what you sell, and for whom. It won't single-handedly make you the recommended answer, but it removes parsing friction and ensures live-retrieval systems can extract accurate facts instead of guessing or skipping you."}, {"q": "How do I check whether AI models even know my brand exists?", "a": "Ask ChatGPT, Perplexity, Gemini, and Claude your top category questions, plus the direct prompt 'What do you know about [your brand]?' Note where you appear, where competitors appear instead, and any inaccuracies. Also run a search for your brand excluding your own domain to gauge your third-party footprint. AEOeye's free audit automates this sweep across the major assistants."}, {"q": "I'm a small brand competing against category giants. Is AEO even worth it?", "a": "Yes, but don't fight head-on for generic queries the incumbents own. Target modifier queries with specific intent — 'best [tool] for [narrow audience or use case].' These have far less corpus competition, sharper buyer intent, and a focused product is genuinely the better answer, making it realistic to become the named recommendation."}, {"q": "How long does it take to start showing up in AI answers?", "a": "Crawlability and schema fixes can register within weeks once pages are re-crawled. Category clarity compounds over a couple of months. The slow lever — building third-party mentions through reviews, roundups, and community presence — typically takes several months to meaningfully shift what models say, because it depends on independent sources accumulating and being absorbed into the corpus."}]
+image: {"url": "https://images.pexels.com/photos/6029065/pexels-photo-6029065.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Overhead view of a frustrated woman in loungewear with a laptop and crumpled papers, facing remote work stress.", "photographer": "www.kaboompics.com", "photographerUrl": "https://www.pexels.com/@karola-g"}
+---
+
+Type a question into ChatGPT or Perplexity — "best project management tool for agencies," "top CRMs for solar installers," "what's a good alternative to Mailchimp" — and watch what comes back. If your brand isn't in the answer, you're not losing a ranking. You're losing the recommendation itself. There's no second page to scroll to. There's the answer, and there's everything the model decided not to say.
+
+This is a different game than SEO, and most brands are losing it for reasons they can't see. Let me walk through the actual causes, in roughly the order I find them when I audit a brand, and what to do about each.
+
+## First, understand what the model is actually doing
+
+An LLM answering "best X for Y" isn't querying a live index. It's reconstructing a consensus from its training data and, when retrieval is on (Perplexity, AI Overviews, ChatGPT with search), pulling a handful of fresh pages to ground the answer. To get named, your brand has to exist in two places: the **frozen corpus** the model learned from, and the **live documents** it can fetch in the moment.
+
+Most invisibility traces back to a brand being thin or absent in one or both. Here's how that happens.
+
+## Reason 1: Your web presence is thin and self-referential
+
+The most common pattern I see: a company has a slick homepage, a pricing page, maybe a blog with twelve posts, and almost nothing else. From a model's perspective, that brand barely exists. There isn't enough text describing what you do, for whom, and why you're different, for the model to form a confident representation.
+
+Worse, everything that *does* exist is in your own voice. Marketing copy on your own domain is the least trustworthy signal a model has, because every company claims to be the best, fastest, most loved. The model has learned to discount it.
+
+### The fix
+
+Produce real, specific, useful content that describes your category and your place in it — not slogans. Pages that answer the exact questions buyers ask: comparisons, "how to choose," use-case breakdowns, integration guides, honest limitations. The goal isn't keyword coverage. It's giving the model unambiguous, repeated, concrete statements it can absorb: *this product does X, for Y type of customer, and is known for Z.*
+
+A test I use: read your own site as if you'd never heard of the company. Could you state, in one sentence, what category it competes in and who it's for? If you hesitate, the model is hesitating too.
+
+## Reason 2: No third-party mentions — nobody else talks about you
+
+This is the big one, and it's where most of the gap lives.
+
+Models trust corroboration. When ten independent sources — a Reddit thread, a G2 review, a roundup post on someone else's blog, a Substack newsletter, a YouTube transcript — all mention your brand in the same category, that repetition becomes the model's belief. When the only place your name appears is your own domain, you're a rumor, not a fact.
+
+> Here's the opinion I'll stake my name on: in AEO, what others say about you matters more than anything you publish yourself. You can write the best content on the internet about your own product and still be invisible, because the model weights independent corroboration far above self-description. The brands winning AI recommendations didn't out-write their competitors. They got talked about more.
+
+This is uncomfortable for marketers who are used to controlling the message. You don't control this. You influence it.
+
+### The fix
+
+Go where the corpus is actually built:
+
+- **Get into the listicles and roundups** that already rank for your category. "Best [category] tools 2026" posts are training data and live-retrieval fodder at once. Pitch the authors. Offer them something real.
+- **Earn reviews on third-party platforms** — G2, Capterra, Trustpilot, industry-specific directories. These get scraped, cited, and quoted constantly.
+- **Show up in community discussion.** Reddit, Hacker News, niche Slack/Discord communities, Stack Overflow if you're technical. Models lean heavily on these because the language is candid and comparative. You can't fake this, but you can participate honestly and be worth mentioning.
+- **Get a few earned-media or guest pieces** on domains the model already trusts.
+
+One genuinely useful mention on a respected third-party site moves the needle more than fifty pages on your own blog. Budget accordingly.
+
+## Reason 3: No structured data, so machines can't parse you
+
+A surprising number of brands publish facts a human can read but a machine can't reliably extract. No Organization schema, no Product markup, no FAQ schema, founders and pricing buried in JavaScript or images, a robots.txt or anti-bot setup that quietly blocks the very crawlers that feed AI systems.
+
+If GPTBot, ClaudeBot, PerplexityBot, and Google's crawlers can't fetch and parse your pages, you've opted out of live retrieval without realizing it.
+
+### The fix
+
+- Add **JSON-LD structured data**: `Organization`, `Product`, `FAQPage`, `Article` where relevant. This is the most literal way to hand a machine clean facts.
+- Make sure your **most important claims live in plain HTML text**, not trapped in images or rendered only via client-side JS.
+- **Audit your robots.txt and CDN bot rules.** Confirm you're allowing the AI crawlers you want. Many brands block them by accident through aggressive bot protection.
+- Keep an up-to-date, factual **"About"** page with founding date, location, leadership, and a crisp category statement. Models reach for these constantly.
+
+This is the cheapest category of fix — mostly a few hours of engineering — and the one most often skipped.
+
+## Reason 4: Your category is ambiguous
+
+Some brands are invisible not because they're unknown but because the model can't figure out *what to recommend them for*. You call yourself a "growth platform" or a "revenue operating system." Nobody searches for that. The model has no clean slot to file you under, so when someone asks for a concrete category, you don't surface.
+
+Ambiguity is death in answer engines, because the model is matching a specific question to specific entities. If your identity is a fog of invented terminology, you lose to the competitor who plainly says "email marketing software for ecommerce."
+
+### The fix
+
+Pick the category your buyers actually use and own it relentlessly. Use the words real people type. You can have a grander vision in your hero copy, but somewhere prominent and machine-readable, state the boring, literal category. Then reinforce it everywhere — third-party mentions, schema, comparison content — so the association hardens. Specificity beats aspiration every time a model is choosing what to name.
+
+## Reason 5: Competitors already own the corpus
+
+Sometimes you've done a lot right and still lose, because two or three incumbents are mentioned so often that they've become the default answer. Ask for "best CRM" and you'll get the same names every time. The model's prior is overwhelmingly stacked toward them.
+
+You will not dislodge that head-on. What you *can* do is win the **modifier queries** — the long tail where intent is specific and the giants are too generic to be the right answer.
+
+### The fix
+
+Target the qualified questions: "best CRM **for solo real estate agents**," "Mailchimp alternative **for nonprofits**," "project management tool **for video production teams**." These have less competition in the corpus, the asker has sharper intent, and a focused product is genuinely the better answer. Build content and earn mentions around those specific phrasings. You're not trying to be the best CRM. You're trying to be the obvious answer to a narrower question — and there are hundreds of those.
+
+## How to diagnose which of these is hurting you
+
+Don't guess. Do this in an afternoon:
+
+1. **Interrogate the models directly.** Ask ChatGPT, Perplexity, Gemini, and Claude your top ten category questions. Note when you appear, when a competitor does, and — revealingly — what the model says when you ask it point-blank, "What do you know about [your brand]?" The gaps and the inaccuracies are your roadmap.
+2. **Search your brand minus your own domain.** A `yourbrand -site:yourdomain.com` query shows you how much of the world actually talks about you. If it's sparse, Reason 2 is your problem.
+3. **Check your crawlability.** Confirm the AI bots aren't blocked and your key facts are in parseable HTML with schema.
+
+If you'd rather not run all of this by hand, [AEOeye's free audit](https://aeoeye.com) does exactly this sweep — it tests your brand across the major assistants, shows where competitors are being named instead of you, and flags the structural gaps (missing schema, thin third-party footprint, blocked crawlers) behind the silence. It's the fastest way to turn "AI never mentions us" into a specific, ranked list of what to fix.
+
+## The order of operations that actually works
+
+If I had to sequence the work for a brand starting from near-zero:
+
+First, fix crawlability and structured data — it's quick and it unblocks everything downstream. Second, nail your category language so every signal points the same direction. Third — and this is where the real time and money go — invest in third-party presence: reviews, roundups, community, earned media. That's the lever, and it's the slowest, which is exactly why so few competitors do it well.
+
+The brands that win AI recommendations over the next few years won't be the ones with the cleverest prompts or the most blog posts. They'll be the ones the rest of the internet has the most to say about. Start building that footprint now, while the corpus for your category is still being written.

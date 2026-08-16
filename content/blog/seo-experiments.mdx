@@ -1,0 +1,109 @@
+---
+title: "SEO Experiments: How to Test Instead of Guess"
+description: "Most SEO 'experiments' prove nothing: no control group, confounded metrics, post-hoc verdicts. Here's how to run SEO tests you can actually trust."
+date: "2026-07-18"
+category: "Strategy"
+readingTime: "7 min read"
+keywords: ["seo experiments", "seo testing", "seo split testing", "how to run seo tests", "seo experiment template"]
+faqs: [{"q": "What is SEO testing?", "a": "SEO testing (or SEO experimentation) means making a single, defined change to a page or group of pages, tracking one pre-chosen metric over a fixed window, and comparing it to a decision rule you wrote before launch. Without a hypothesis, a cohort, and a rule set in advance, a ranking change afterward is just an observation, not a test."}, {"q": "How long should an SEO experiment run?", "a": "Most SEO experiments need a minimum of four to six weeks \u2014 long enough for Google to fully crawl and process the change, and for your metric to smooth out normal day-to-day and week-to-week noise. Title or schema tests can sometimes resolve in two to three weeks; content and internal-linking changes usually need the full six."}, {"q": "Can small websites run SEO experiments?", "a": "Yes, but not true statistical split tests \u2014 most small sites lack the page count and traffic for that. The realistic method is a time-based before/after test: pick a cohort of comparable pages you leave untouched, run a fixed four-to-six-week window, and annotate any algorithm updates so you can rule out other causes."}, {"q": "How do you test AI search visibility?", "a": "Since answer engines like ChatGPT and Perplexity don't provide impression data, you can't watch a dashboard the way you would with Search Console. Instead, audit whether a page gets cited today, change one variable \u2014 like adding FAQ schema or an answer-first intro \u2014 then re-audit on a set cadence and compare citation presence."}]
+image: {"url": "https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Laptop displaying data analytics graph in a modern office setting, symbolizing growth and technology.", "photographer": "ThisIsEngineering", "photographerUrl": "https://www.pexels.com/@thisisengineering"}
+sources: []
+---
+
+Most SEO 'experiments' you read about are a coincidence wearing a lab coat. Someone changed a title tag, rankings moved three weeks later, and the post calls it proof. Real experiments are more boring than that — and because they're honest, the answer is often 'no measurable effect.' Here's how to run ones that actually mean something, at a scale a small site can pull off.
+
+## What is an SEO experiment?
+
+An SEO experiment is a change made with a hypothesis, a single metric, a defined cohort of pages, a fixed time window, and a decision rule written down before you look at results. If you can't state what counts as a win before you launch, you're not running an experiment — you're making a change and hoping.
+
+Four things separate a real experiment from a story:
+
+- **Hypothesis.** What you expect to happen, and in which direction — 'CTR will increase,' not 'this should help.'
+- **Cohort.** The exact pages in the test, and a comparable set of pages you're leaving alone.
+- **Duration.** A fixed window set before launch, not 'until the number looks good.'
+- **Verdict.** Pass, fail, or inconclusive — decided by the rule you wrote before you started, not the story that fits the data afterward.
+
+'We changed stuff and traffic went up' is not on that list. That's an anecdote with a chart attached.
+
+## Why most SEO 'experiments' prove nothing
+
+Most published SEO experiments fail before they start: there's no control group, so there's no way to separate your change from an algorithm update, a seasonal swing, or a competitor's unrelated move. Worse, the metric usually gets picked after the results come in — the statistical equivalent of drawing the target around the arrow.
+
+Three problems show up over and over:
+
+- **No control group.** A single page or a whole site, measured before and after, with nothing held constant for comparison.
+- **Confounding events.** Google ships multiple core updates a year, on top of constant smaller ones, plus seasonality and SERP feature changes — any of which moves your numbers regardless of what you did.
+- **Post-hoc metrics.** Traffic, clicks, position, 'engagement' — whichever numbers moved get declared the ones that mattered, after the fact.
+
+Add survivorship bias on top: the case studies you read are the ones that worked. Nobody publishes 'we tried this and nothing happened,' even though that's the more common outcome.
+
+
+![A close-up view of a laptop displaying a search engine page.](https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## What you can actually test
+
+Small sites can't run true statistical split tests, but they can run clean, single-variable changes measured against a metric that's native to the change — not vanity traffic. Five things are worth testing on almost any site:
+
+- **Title/description rewrites** → CTR in Search Console, filtered to the same query set, before vs. after.
+- **Adding schema** (FAQ, HowTo, Article) → rich-result impressions and CTR, once Google has re-crawled and validated the markup.
+- **Content refreshes** → average position and impressions on the target query cluster.
+- **Internal-link additions** → crawl frequency and indexing status of the linked page.
+- **Answer-first restructuring** → position movement, and increasingly, whether AI answer engines start citing the page at all.
+
+If you're not sure which of these your site is even missing, our [technical SEO checklist](/blog/technical-seo-checklist) is the audit to run first — you can't test a fix for a problem you haven't confirmed exists.
+
+## The honest constraint: statistical power
+
+A true split test needs enough pages and enough traffic to detect a real effect against normal noise, and most blogs, small SaaS sites, and local business sites simply don't have it — with too few pages or too little traffic, random noise can look exactly like a real effect, and a real effect can hide inside noise. The realistic substitute is a time-based before/after test, run with guardrails that keep the comparison fair, because no amount of wanting a 'real' A/B test changes the math.
+
+Three guardrails make the before/after method credible instead of hopeful:
+
+- **Stable comparison pages.** A cohort you didn't touch, tracked over the same window — your closest thing to a control group.
+- **4-6 week windows, minimum.** Long enough for Google to fully process the change and for daily noise to average out.
+- **Annotate everything.** Log every algorithm update and site change during the window, so a spike or drop has a visible, timestamped explanation.
+
+Sanity-check the result against a [forecasted baseline](/blog/seo-forecasting) instead of eyeballing a graph — a page already trending up will keep trending up whether you touched it or not, and the forecast shows what 'no change' would have looked like.
+
+Enterprise page-group split testing — routing thousands of URLs into randomized test and control buckets — is real, and it works. It also needs a page count and traffic volume most sites will never have. That's not a gap in your process. It's a gap in scale.
+
+Here's the same five tests, lined up with metric, minimum duration, and the trap that invalidates each one:
+
+| Test type | Metric | Minimum duration | Trap to avoid |
+|---|---|---|---|
+| Title/description rewrite | CTR (Search Console) | 2-3 weeks | Comparing across a season or SERP layout change |
+| Schema addition | Rich-result impressions, CTR | 3-4 weeks | Testing before Google has validated the markup |
+| Content refresh | Average position, impressions | 4-6 weeks | Rewriting so much it's a new page, not a refresh |
+| Internal-link addition | Crawl frequency, indexing status | 4-6 weeks | Adding links site-wide so no single effect is isolated |
+| Answer-first restructuring | Position, AI citation presence | 4-6 weeks | Judging it on rankings alone when the real target is citations |
+
+## A simple experiment template
+
+Copy this before your next change. Six lines, filled in before you touch anything, turn a guess into an experiment.
+
+1. **Hypothesis, with direction.** 'Adding FAQ schema to [cohort] will increase rich-result CTR' — not just 'schema will help.'
+2. **Single metric.** Pick one. Not traffic and rankings and engagement — one number that settles the question.
+3. **Cohort pages.** Name the exact URLs in the test, and a comparable set you're leaving untouched.
+4. **Fixed window.** Set the end date now. Don't extend it because the number isn't there yet.
+5. **Decision rule, written before launch.** 'If [metric] moves by [threshold] within [window], it's a pass. If not, it's a fail — revert or move on.'
+6. **Log everything.** The change, the date, every algorithm update or site change during the window, and the final verdict. Inconclusive is a legitimate result. Write it down anyway.
+
+## How we experiment at AEOeye
+
+At [AEOeye](/), experimentation isn't a side project — it's how we treat publishing. Every page we ship gets tracked in Search Console over the following weeks, compared against similar pages in its cohort, and either left alone, refreshed, or retired based on what the data says.
+
+We don't publish and forget. Each batch of pages becomes its own informal test group: pages underperforming their cohort get flagged for a refresh, and pages that clearly aren't working after a fair runway get consolidated or cut instead of left to quietly rot. Publish-and-measure isn't a metaphor for experimentation here — it is the experimentation, running continuously instead of in isolated bursts.
+
+## AI-visibility experiments: the new frontier
+
+Testing for classic SEO is hard enough. Testing for AI visibility is harder — ChatGPT, Perplexity, and Google's AI Overviews don't hand you an impressions dashboard. You can't watch a graph move; you have to go check, by hand or with a tool built for it.
+
+The problem is structural: there's no Search Console equivalent for how many times an answer engine considered citing a page. No impressions, no CTR, nothing native to compare before and after. So the method changes shape:
+
+- **Baseline audit.** Check whether any answer engine cites or references the page today, for its target questions.
+- **Change one variable.** Add FAQ schema, rewrite the intro to lead with a direct answer, add a comparison table — one change, same discipline as any other test.
+- **Re-audit on a fixed cadence** (every 2-4 weeks), since answer engines pull from indexes that refresh on their own schedule, not yours.
+- **Compare citation presence** across audits: cited, not cited, or cited but paraphrased differently. That's the metric.
+
+Since there's no dashboard, you need something that asks the same questions on the same cadence and records the same answer every time — that's the gap our [AI-visibility audits](/blog/measuring-ai-visibility) exist to close. Pair it with your [AI traffic analytics](/blog/ai-traffic-analytics) to see whether a citation change ever shows up as a real referral session.
+
+This is the new frontier mostly because almost nobody is doing it rigorously yet. Most 'AI SEO' content today has the same problem as the section above: survivorship stories in a newer coat of paint.

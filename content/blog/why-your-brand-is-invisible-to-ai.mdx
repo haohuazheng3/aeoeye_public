@@ -1,0 +1,84 @@
+---
+title: "Why Your Brand Is Invisible to AI (And the Real Reasons Nobody Tells You)"
+description: "Your brand is invisible to ChatGPT, Perplexity and Google AI for specific, fixable reasons. Here's the honest diagnostic agencies won't give you, plus how to check."
+date: "2026-06-26"
+category: "Opinion"
+readingTime: "6 min read"
+keywords: ["why is my brand invisible to ai"]
+faqs: [{"q": "How do I check if AI can see my brand?", "a": "Run the same buyer-intent queries you care about across ChatGPT, Perplexity, Google AI, Claude and Gemini and note whether you're mentioned, cited, or absent on each. Then verify AI retrieval bots (OAI-SearchBot, PerplexityBot, Google-Extended, ClaudeBot) can actually fetch your pages by checking robots.txt and your CDN logs. AEOeye's free audit does both in one pass."}, {"q": "Does blocking GPTBot make my brand invisible in ChatGPT?", "a": "Not in live search. GPTBot only gathers training data — OAI-SearchBot powers ChatGPT's live, cited answers. Blocking GPTBot won't remove you from ChatGPT Search, but blocking OAI-SearchBot will. Many brands confuse the two and block the wrong one, which is why checking both is essential."}, {"q": "Will more blog posts fix my AI invisibility?", "a": "Usually not on their own. There's near-zero correlation between content length and AI citations, and ~84% of citations come from earned media rather than your own site. More blog posts help only if they're answer-first, schema-rich, and reinforced by third-party mentions on sites like G2, Reddit and Wikipedia."}, {"q": "Why does AI recommend my competitor and not me?", "a": "Domain authority and third-party consensus. High-traffic domains get roughly 3x more AI citations, and 40-55% of citations concentrate in under 1,000 domains. If your competitor has more reviews, listicle placements and press coverage, the model corroborates them and not you — but each engine differs, so you may already outrank them elsewhere."}, {"q": "How long does it take to become visible in AI search?", "a": "It depends on the cause. A blocked-crawler fix can restore visibility within days to a few weeks once bots re-crawl. Building third-party presence and entity consistency — the bigger lever — typically takes one to three months as reviews, mentions and corroborating sources accumulate and get re-indexed by the engines."}]
+sources: [{"label": "150+ AI SEO Statistics for 2026 — Position Digital", "url": "https://www.position.digital/blog/ai-seo-statistics/"}, {"label": "How ChatGPT, Perplexity, Gemini, and Claude Decide What to Cite — Yext", "url": "https://www.yext.com/blog/how-chatgpt-perplexity-gemini-claude-decide-what-to-cite"}, {"label": "Measuring & Improving AI Share of Voice — NetRanks", "url": "https://www.netranks.ai/blog/measuring-improving-ai-share-of-voice/"}, {"label": "How to Block or Allow AI Bots on Your Website — Mersel AI", "url": "https://www.mersel.ai/blog/how-to-block-or-allow-ai-bots-on-your-website"}, {"label": "ChatGPT vs Perplexity: Only 11% of Cited Sources Overlap — AuthorityTech", "url": "https://authoritytech.io/curated/ai-citation-11-percent-platform-overlap-per-engine-audit-2026"}, {"label": "OpenAI Bots Documentation (GPTBot vs OAI-SearchBot)", "url": "https://platform.openai.com/docs/bots"}]
+image: {"url": "https://images.pexels.com/photos/7864382/pexels-photo-7864382.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Hands typing on a laptop with a blank white screen in a dimly lit room.", "photographer": "VAZHNIK", "photographerUrl": "https://www.pexels.com/@vazhnik"}
+---
+
+Let me be blunt: if ChatGPT, Perplexity or Google's AI Overview never mentions your brand, it is almost never because your website is "not optimized enough." That's the lazy diagnosis agencies sell you so they can charge for more blog posts.
+
+The real reasons are structural, and most of them have nothing to do with how pretty your homepage is. AI engines retrieve, weigh and synthesize information in a fundamentally different way than the ten blue links you spent a decade optimizing for. This page walks through the seven reasons brands actually go dark in AI answers, ranked roughly by how often I see them and how few people talk about them.
+
+## Why don't AI tools mention my brand at all?
+Because AI answers are built mostly from what *other people* say about you, not what you say about yourself. Roughly **85% of brand mentions in AI answers come from third-party pages**, and about [84% of AI citations come from earned media rather than brand-owned pages](https://www.position.digital/blog/ai-seo-statistics/). If G2, Reddit, Wikipedia, industry listicles and press don't reference you, the model has nothing to corroborate.
+
+This is the single biggest mental-model error. SEO trained everyone to think "my site = my visibility." In AI search, your site is necessary but nowhere near sufficient. The model treats your owned pages as a self-interested source and weights them accordingly.
+
+The average brand gets mentioned in just [17.2% of relevant AI answers](https://www.netranks.ai/blog/measuring-improving-ai-share-of-voice/) — so being absent isn't unusual, it's the default state you have to actively climb out of.
+
+## Is a blocked crawler making me invisible? (Check this first)
+Yes — and this is the most common silent killer. If your robots.txt, CDN or firewall blocks the AI *retrieval* bots, you can be flawless on every other front and still never appear. Around [30% of websites accidentally block AI crawlers](https://www.mersel.ai/blog/how-to-block-or-allow-ai-bots-on-your-website) because their robots.txt was written years ago for Googlebot and never updated.
+
+Here's the trap almost everyone falls into: **GPTBot and OAI-SearchBot are different bots.** GPTBot gathers training data; OAI-SearchBot powers ChatGPT's live, cited search results. Blocking one does nothing to the other. People block GPTBot to "protect their content," feel safe, and have no idea they're still invisible in live answers — or vice versa.
+
+Worse, roughly [27% of B2B SaaS and ecommerce sites unknowingly block LLM crawlers at the CDN layer](https://www.mersel.ai/blog/how-to-block-or-allow-ai-bots-on-your-website). Your robots.txt looks perfect, but Cloudflare or your WAF is quietly returning a 403 to PerplexityBot. You will never see this in Google Search Console.
+
+The bots you need to explicitly allow: `OAI-SearchBot` (ChatGPT), `PerplexityBot`, `Google-Extended` (Gemini/AI Overviews), `ClaudeBot`. Check both your robots.txt *and* your edge/CDN logs. AEOeye's free audit fetches your pages as these specific bots, which is the fastest way to catch a CDN-level block you'd otherwise never notice.
+
+## Why does AI cite my competitor instead of me?
+Because the engine is rewarding domain authority and third-party consensus, and your competitor has more of both. **Domain traffic is the #1 predictor of AI citations**, and [high-traffic sites earn roughly 3x more citations than low-traffic ones](https://www.position.digital/blog/ai-seo-statistics/). Authority compounds: [40-55% of ChatGPT and Perplexity citations flow to fewer than 1,000 domains](https://www.position.digital/blog/ai-seo-statistics/).
+
+That sounds hopeless, but it isn't — because each engine has a different taste, and you can exploit that:
+
+- **ChatGPT** trusts what the internet broadly agrees on. Wikipedia alone is [its single most-cited source at ~7.8% of citations](https://www.yext.com/blog/how-chatgpt-perplexity-gemini-claude-decide-what-to-cite).
+- **Perplexity** leans on community and reviews — Reddit was its top source for most of 2025.
+- **Gemini** trusts what your brand says about itself more than the others do.
+
+And they barely overlap: [ChatGPT and Perplexity share only 11% of their cited sources](https://authoritytech.io/curated/ai-citation-11-percent-platform-overlap-per-engine-audit-2026). If you're losing to a competitor on one engine, you may already be winning on another — but you'll never know without measuring each separately.
+
+## Is my content structured wrong for AI? (It's not length)
+Probably — but not in the way you think. Forget word count. There's [near-zero correlation between length and citation across 174,000 cited pages, and 53.4% of cited pages are under 1,000 words](https://www.position.digital/blog/ai-seo-statistics/). Stop padding posts to 2,500 words; the model doesn't care.
+
+What actually moves citations:
+
+1. **Answer-first writing.** A striking [44.2% of LLM citations are pulled from the first 30% of a page](https://www.position.digital/blog/ai-seo-statistics/) — the intro. Bury your answer below a 400-word windup and the model often never reaches it. Lead with the direct answer, every time.
+2. **Structured data and schema.** Sites with author schema are [3x more likely to appear in AI answers](https://www.yext.com/blog/how-chatgpt-perplexity-gemini-claude-decide-what-to-cite), and pages adding structured data plus FAQ blocks saw a [44% lift in AI citations](https://www.yext.com/blog/how-chatgpt-perplexity-gemini-claude-decide-what-to-cite).
+3. **Extractable facts.** Clear claims, definitions, comparisons and lists that a model can lift cleanly. Verified, structured, directly-distributed data made up [54.53% of distinct citation sources](https://www.yext.com/blog/how-chatgpt-perplexity-gemini-claude-decide-what-to-cite) in Yext's analysis.
+
+Writing for AI is closer to writing a good reference entry than a clever blog post.
+
+## Why do AI answers about my brand have facts wrong — or none at all?
+Because your facts are inconsistent across the web, so the model either picks a stale version or refuses to commit. If your pricing says one thing on your site, another on G2, and a third in an old press release, the engine has no high-confidence signal — and AI models default to silence or hedging when sources conflict.
+
+This is an entity-consistency problem, and it's invisible in normal analytics. The fixes are unglamorous but decisive:
+
+- Make your core facts (what you do, who you serve, pricing tier, founding, category) **identical** everywhere they appear.
+- Get a Wikipedia or Wikidata entity if you legitimately qualify — it's disproportionately trusted, especially by ChatGPT.
+- Keep your owned "facts" pages (about, pricing, comparison) current, because Gemini in particular leans on what you say about yourself.
+
+The goal is to make your brand an unambiguous *entity*, not a fuzzy collection of contradicting pages.
+
+## Why is this happening now when my SEO was fine?
+Because the channel moved out from under you. AI search isn't a niche anymore: [AI search visits grew ~42.8% year over year, from 15.6 billion to 27.4 billion between Q1 2025 and Q1 2026](https://www.netranks.ai/blog/measuring-improving-ai-share-of-voice/), and about a third of US consumers now start product discovery with an AI tool.
+
+Your rankings can be intact while your *visibility* quietly erodes, because the user never sees the blue links — they see a synthesized answer that may or may not include you. Traditional SEO metrics like backlinks and traffic [have surprisingly little direct impact on whether you get cited](https://www.position.digital/blog/ai-seo-statistics/); the rules genuinely changed.
+
+The uncomfortable part: most teams have no idea where they stand. Only [14% of marketers actually track AI citations, even though 43% call AI search a core 2026 strategy](https://www.netranks.ai/blog/measuring-improving-ai-share-of-voice/). You can't fix invisibility you aren't measuring.
+
+## How do I actually diagnose why I'm invisible?
+Run the checks in order of impact — don't start with content, start with access. The fastest path is to confirm AI bots can even reach you, then check whether third parties corroborate you, then fix your on-page structure. Most teams do this backwards and waste months rewriting blog posts while a CDN rule keeps them invisible.
+
+Work through this sequence:
+
+1. **Crawler access** — Can `OAI-SearchBot`, `PerplexityBot`, `Google-Extended` and `ClaudeBot` fetch your key pages? Check robots.txt *and* CDN/WAF logs.
+2. **Third-party presence** — Do you show up on G2, Reddit, Wikipedia, relevant "best of" listicles and press? This is 80% of the battle.
+3. **Entity consistency** — Are your core facts identical everywhere?
+4. **On-page structure** — Answer-first openings, FAQ schema, author schema, extractable claims.
+5. **Per-engine share of voice** — Measure ChatGPT, Perplexity, Google AI, Claude and Gemini *separately*; they disagree 89% of the time.
+
+That last step is where most tools fall short. [AEOeye's free AI visibility audit](https://aeoeye.com) runs the same query across ChatGPT, Perplexity, Google AI, Claude and Gemini, shows where you're cited (and where your competitor is instead), and flags crawler-access problems — so you get a real diagnosis instead of "write more content."

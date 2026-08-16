@@ -1,0 +1,116 @@
+---
+title: "The Complete AI Crawler List: GPTBot, PerplexityBot, and Every Bot That Matters"
+description: "One table, every AI crawler that matters: GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Googlebot, and more — bot token, type, and what blocking each one costs you."
+date: "2026-07-17"
+category: "Technical"
+readingTime: "8 min read"
+keywords: ["gptbot", "oai-searchbot", "ai crawler list", "list of ai crawlers", "ai bots list", "perplexitybot", "ai user agents", "claudebot", "google-extended", "block ai crawlers"]
+faqs: [{"q": "How many AI crawlers are there?", "a": "Roughly fifteen bot tokens are worth tracking today across OpenAI, Anthropic, Perplexity, Google, Meta, Amazon, Apple, ByteDance, and Common Crawl. Each one falls into training, search-index, or user-triggered fetching, and companies periodically add new tokens as their products evolve \u2014 so treat any list, including this one, as a living reference rather than a fixed count."}, {"q": "Which AI bots should I block?", "a": "Most sites should block nothing, or block only pure training crawlers \u2014 GPTBot, ClaudeBot, Google-Extended, CCBot, Meta-ExternalAgent, Applebot-Extended, Bytespider \u2014 if they monetize content through licensing or a paywall. Search-index bots like OAI-SearchBot and PerplexityBot, and user-triggered bots like ChatGPT-User, are worth keeping open if you want any AI visibility at all."}, {"q": "Do AI crawlers respect robots.txt?", "a": "The major documented AI crawlers from OpenAI, Anthropic, Perplexity, and Google publish official policies stating they respect robots.txt disallow rules for their named tokens. That's a stated policy, not a technical guarantee, and it doesn't cover undocumented scrapers that impersonate these bots \u2014 verifying against official documentation matters more than trusting the token name alone."}, {"q": "What is the difference between GPTBot and OAI-SearchBot?", "a": "GPTBot is OpenAI's training crawler: it feeds future model training and has no effect on ChatGPT's live answers today. OAI-SearchBot is the crawler that builds the index ChatGPT Search actually queries, so blocking it removes you from ChatGPT's search results and citations right now."}]
+image: {"url": "https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Close-up of colorful programming code displayed on a computer monitor with a dark background.", "photographer": "Nemuel Sereti", "photographerUrl": "https://www.pexels.com/@nemuel"}
+sources: [{"label": "Anthropic \u2014 Does Anthropic crawl data from the web?", "url": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"}, {"label": "Search Engine Land \u2014 Perplexity: 780M monthly queries (Jun 2025)", "url": "https://searchengineland.com/perplexity-780-million-monthly-queries-month-456725"}]
+---
+
+Roughly fifteen AI crawler tokens are worth knowing by name right now, and each one falls into one of three types that determines what happens when you block it. Get the type wrong and you'll either leak content you meant to protect, or vanish from an AI answer you actually wanted to win.
+
+Every AI bot hitting your server does one of three jobs:
+
+- **Training crawlers** scrape your pages to feed a model's training corpus. Blocking one opts you out of future training, with no effect on that company's live product today.
+- **Search/index crawlers** build the index a chatbot's search feature queries in real time. Block one and you disappear from that product's cited answers, the same way blocking Googlebot removes you from Google Search.
+- **User-triggered fetchers** activate only when a live person asks the AI to check your specific URL. Block one and that request fails or falls back to stale data — nothing happens until someone actually asks.
+
+Mixing these up is the single most common [AI crawler](/glossary/ai-crawler) mistake we see. Site owners block "GPTBot" thinking they're keeping their brand out of ChatGPT's search results — but GPTBot is training-only; the token that actually controls ChatGPT search visibility is a different bot entirely. The table below exists so you never have to guess again.
+
+## The Complete AI Crawler List
+
+| Bot token | Company | Type | What blocking costs you |
+|---|---|---|---|
+| GPTBot | OpenAI | Training | Opts you out of future OpenAI model training. No effect on ChatGPT's live browsing or citations today. |
+| OAI-SearchBot | OpenAI | Search index | Removes you from ChatGPT Search results and citations — the bot that actually drives ChatGPT visibility. |
+| ChatGPT-User | OpenAI | User-triggered | Breaks the live fetch when someone asks ChatGPT to open or check your page in real time. |
+| ClaudeBot | Anthropic | Training | Opts you out of future Claude model training. No effect on live Claude answers. |
+| Claude-SearchBot | Anthropic | Search index | Removes you from Claude's search-grounded, citation-based answers. |
+| Claude-User | Anthropic | User-triggered | Breaks the live fetch when someone asks Claude to read your page directly. |
+| PerplexityBot | Perplexity | Search index | Removes you from Perplexity's index — since citing sources is the entire product, this is a full visibility loss. |
+| Perplexity-User | Perplexity | User-triggered | Breaks the live fetch triggered by a user's query in the moment they ask about your page. |
+| Google-Extended | Google | AI training control | Opts you out of Gemini and AI feature training use. Does not affect Google Search rankings or indexing. |
+| Googlebot | Google | Search index | Removes you from Google Search entirely — organic rankings and AI Overviews both depend on this crawler. |
+| CCBot | Common Crawl | Training (feeds many) | Opts you out of the open dataset that numerous labs reuse to build their own training sets. |
+| Meta-ExternalAgent | Meta | Training | Opts you out of Meta's AI training use of your content. |
+| Amazonbot | Amazon | Training / product intelligence | Limits your visibility in Amazon's AI-assisted answers and Alexa-related web intelligence. |
+| Applebot-Extended | Apple | AI training control | Opts you out of Apple's AI training use, separate from standard Applebot search crawling. |
+| Bytespider | ByteDance | Training | Opts you out of the training pipelines behind ByteDance's AI products. |
+
+Every token above is the AI user agent identifying that bot in your server logs — worth a scan before you write a single robots.txt rule.
+
+## OpenAI's Three Bots: GPTBot, OAI-SearchBot, and ChatGPT-User
+
+OpenAI runs three separate bots because it treats three separate jobs as three separate decisions. [GPTBot](/glossary/gptbot) is the one people search for most, but it has the least day-to-day consequence: blocking it doesn't touch ChatGPT's ability to browse or cite you now, only whether your pages train future models. OAI-SearchBot is the one that actually determines whether you show up when someone searches inside ChatGPT, and ChatGPT-User fires in the background every time a user pastes your URL or asks about your specific page.
+
+
+![A robotic hand reaching into a digital network, symbolizing AI monitoring and action.](https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Anthropic's Three Bots: ClaudeBot, Claude-SearchBot, and Claude-User
+
+Anthropic mirrors OpenAI's structure almost exactly, splitting training, search, and live fetching into three named tokens. ClaudeBot trains, Claude-SearchBot indexes for search-grounded answers, and Claude-User fetches on demand when someone asks Claude to look at a page directly. We've gone deeper on the training bot in our [ClaudeBot](/blog/claudebot) breakdown, including why blocking it is a narrower decision than most site owners assume.
+
+## Perplexity's
+ Two Bots: PerplexityBot and Perplexity-User
+
+Perplexity's crawler setup is simpler than OpenAI's or Anthropic's because there's no separate training bot to weigh — just PerplexityBot building the index and Perplexity-User handling live, on-demand fetches. Because Perplexity's entire product is answering with citations, blocking PerplexityBot isn't a training opt-out at all; it's an opt-out of the product's core function, which is showing up in the answer.
+
+## Google's Two Bots: Google-Extended vs. Googlebot
+
+These two get confused constantly, and confusing them is the costliest mistake on this list. Google-Extended is a training-only control token: it decides whether your content trains Gemini and related AI features, with zero effect on Google Search rankings or indexing. Googlebot is the one that actually crawls you for Search — misconfigure that one and you lose organic visibility entirely, AI Overviews included, since Overviews are built on the same search index Googlebot feeds.
+
+## Building a Combined Crawler Strategy
+
+Once every bot is sorted into training, search, or user-triggered, the strategy writes itself: pick a training-data stance once, then apply it consistently across GPTBot, ClaudeBot, Google-Extended, Meta-ExternalAgent, CCBot, Applebot-Extended, Amazonbot, and Bytespider — and leave every search and user-triggered bot alone. CCBot is a special case: because Common Crawl's dataset gets reused by many labs, blocking it has a broader, more diffuse effect than blocking any single company's bot.
+
+## Which AI Crawlers Should You Block?
+
+Most sites should block close to nothing, and the group that should block something is narrower than the volume of "how do I block AI bots" searches suggests. Three scenarios cover almost everyone:
+
+- **You monetize content through licensing or a paywall.** Consider blocking training bots specifically — GPTBot, ClaudeBot, Google-Extended, Meta-ExternalAgent, CCBot, Applebot-Extended, Bytespider — while leaving search and user-triggered bots open so you're still discoverable and citable.
+- **You want AI visibility, like most brands, publishers, and SaaS companies.** Allow everything. Each of these bots is a channel for your content to reach someone doing product or purchase research inside an AI tool instead of a search box.
+- **You're worried about server load, not data use.** Rate-limit instead of blocking — a crawler hitting your server too often is a performance problem with a performance fix, not a visibility problem.
+
+Our own stance, argued at length in [why blocking GPTBot is usually a mistake](/blog/blocking-gptbot-is-usually-a-mistake): for most commercial sites, the right robots.txt is the one you almost didn't touch. Every crawler you block is a future answer you're not in — and unlike a Google ranking, there's no quick recovery; you simply don't exist in that model's picture of the world until you reverse the block and wait for the next update. For the mechanics of writing the rules, see our [guide to blocking AI crawlers](/answers/how-to-block-ai-crawlers).
+
+## The Middle-Path robots.txt Config
+
+If you read the framework above and land on "block training, keep search and user-triggered open," here's what that looks like in practice. We'd only recommend this exact config for paywalled publishers and licensing-first businesses; everyone else should default to allowing all of it.
+
+```
+# The middle-path config: block training bots, allow search + user-triggered
+# Recommended only for paywalled or licensing-first publishers
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: *
+Allow: /
+```
+
+Notice what's absent: OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, and Googlebot are all left alone. Blocking any of those trades away real visibility for a training-data opt-out that mostly duplicates the bots you already blocked above.
+
+## How to Verify a Crawler Is Genuine
+
+Verify a crawler against its source before you act on a log line — every major AI company publishes official documentation listing its current bot tokens, and several also publish IP-based verification methods to confirm a request claiming to be GPTBot or PerplexityBot actually came from their infrastructure. That check matters because a user agent string is just text a bot chooses to send: nothing stops an unrelated scraper from calling itself "GPTBot" to slip past a lazy allowlist or scrape content under false pretenses.
+
+Check the token against official documentation rather than trusting the string alone, and check back periodically — companies add and rename bots as products evolve, which is why this is a living reference, not a one-time snapshot. Robots.txt is also separate from an [llms.txt file](/blog/llms-txt-explained): one controls crawling access, the other guides what an AI reads once it's already there, and conflating the two is a common misconfiguration.
+
+## Where AI Visibility Actually Gets Decided
+
+None of this matters in the abstract — it determines whether your brand shows up when someone asks an AI tool for a recommendation instead of typing a search query. If you want to see where you currently stand, AEOeye runs a [free audit](/) that checks whether ChatGPT, Perplexity, Gemini, Google AI Overviews, and Claude actually recommend you.

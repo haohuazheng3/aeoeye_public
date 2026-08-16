@@ -1,0 +1,54 @@
+{
+  "slug": "does-ai-search-replace-seo",
+  "type": "answer",
+  "title": "Does AI Search Replace SEO? No — It Forks It",
+  "metaTitle": "Does AI Search Replace SEO? No — It Forks It",
+  "metaDescription": "AI search doesn't replace SEO — it forks it into a second discipline: AEO. See what's changing, what still matters, and how to measure both at once.",
+  "primaryKeyword": "does ai search replace seo",
+  "shortAnswer": "No. AI search doesn't replace SEO — it forks it into two disciplines running in parallel. Google search still drives the bulk of buyer traffic, and the fundamentals — crawlable pages, real authority, well-structured content — still matter, because AI answer engines draw on those same signals. What's new is a second scoreboard: whether you get cited or named by name inside ChatGPT, Perplexity, and Google AI Overviews, a discipline now called AEO. You have to compete on both scoreboards now, not pick one and abandon the other.",
+  "intro": "Every few months someone declares SEO dead because ChatGPT can now answer questions directly. It's a lazy take. AI search hasn't replaced SEO — it split it into two related-but-distinct jobs, and most teams are only doing one of them. This page walks through what actually changed, what didn't move an inch, and how to run both tracks without either one quietly rotting while you focus on the other.",
+  "sections": [
+    {
+      "heading": "Does AI Search Replace SEO?",
+      "body": "No — AI search does not replace SEO. It forks the discipline into two parallel tracks: classic SEO (ranking in Google's organic results) keeps running exactly as before, while a new track — getting cited, quoted, or named inside AI-generated answers — now runs alongside it.\n\nThink of it less like a changing of the guard and more like a new department opening next to an existing one. The old department (SEO) didn't get shut down. It's still hiring. But the new department (AEO — answer engine optimization) has its own scoreboard, its own failure modes, and its own audit questions: does ChatGPT recommend your brand when someone asks for the best option in your category? Does Perplexity cite your page as a source? Does Google's AI Overview pull your content into the summary, or summarize a competitor and never send the click your way?\n\nIf you only track one scoreboard, you're flying half-blind. That's the actual shift here — not replacement, addition."
+    },
+    {
+      "heading": "What's Actually Changing With AI Search?",
+      "body": "What's changing is measurement and where the click happens, not the underlying goal of being found. A second scoreboard now exists alongside classic rankings: whether AI tools cite, quote, or recommend you by name, independent of whether anyone clicks through.\n\nThree things are genuinely new:\n\n- **A second scoreboard.** Ranking #1 in Google no longer guarantees visibility, because AI Overviews and chat assistants can answer the question without anyone clicking through. You can rank well and still be invisible in the answer that actually gets read.\n- **Zero-click pressure is real.** More searches now end without a visit to any website, because the AI answer satisfies the question on the spot. This isn't unique to AI — featured snippets did the same thing years ago — but AI answers extend it further and across more query types.\n- **A new discipline with its own name.** AEO is the practice of getting cited, quoted, and recommended by name inside AI answers. It borrows heavily from SEO — structure, authority, clarity — but optimizes for a different outcome: being the source an AI model trusts enough to name, not just the page a human clicks.\n\nWe break down exactly where these two disciplines overlap and where they diverge in [aeo vs seo](/blog/aeo-vs-seo) — worth reading if you're deciding where to put next quarter's content budget."
+    },
+    {
+      "heading": "What Hasn't Changed About SEO?",
+      "body": "What hasn't changed is the foundation: crawlability, real authority, and genuinely helpful, well-structured content are still the baseline requirement, because AI answer engines draw on the same underlying signals classic SEO has always rewarded.\n\nThis is the part the \"SEO is dead\" crowd conveniently skips. AI answer engines don't invent their answers from nothing:\n\n- **Crawlability.** If a bot can't access and parse your page, no AI model — and no search engine — can cite it. Robots.txt mistakes, JavaScript-only rendering, and broken sitemaps kill AEO exactly as fast as they kill SEO.\n- **Real authority.** Google's ranking systems and AI retrieval systems both lean on trust signals — backlinks, mentions, consistent entity information, a track record of being right. There's no shortcut here; authority is still earned, not prompted into existence.\n- **Genuinely helpful, well-structured content.** Thin, keyword-stuffed pages perform badly in both worlds. Clear answers, honest comparisons, and content that actually solves the reader's problem are what both a Google ranking algorithm and an AI retrieval system are trying to surface.\n\nAI search runs on top of the same content quality bar SEO has enforced for years — it just adds a second judge to the panel. We go deeper on how classic SEO practices feed AI visibility in [ai for seo](/blog/ai-for-seo)."
+    },
+    {
+      "heading": "How Do You Do Both SEO and AEO?",
+      "body": "Keep your SEO fundamentals running, then add AEO measurement on top — don't swap one discipline for the other. In practice, that means tracking rankings and citations side by side, then auditing to see where you currently stand in each.\n\nConcretely:\n\n1. **Keep your SEO fundamentals running.** Technical health, on-page structure, link building, and helpful content aren't optional legacy work — they're still the substrate AI answers are built from.\n2. **Add a second set of questions to your reporting.** Alongside rank tracking, start asking: am I named when someone asks ChatGPT, Perplexity, or Google AI for a recommendation in my category? Am I cited as a source, or ignored in favor of a competitor?\n3. **Treat AEO as measurable, not mystical.** If you're new to the term, our [answer-engine-optimization glossary](/glossary/answer-engine-optimization) entry defines it plainly and links out to the mechanics.\n4. **Audit before you guess.** Most teams have no idea whether AI models currently recommend them, ignore them, or actively push a competitor instead. That's not a strategy gap you can reason your way out of — you have to check.\n\nThat last point is the whole reason AEOeye exists. [Run a free AI visibility audit](/#audit) and see, in plain terms, whether ChatGPT, Perplexity, Gemini, Google AI, and Claude currently mention your brand when a buyer asks the kind of question your SEO was supposed to win."
+    }
+  ],
+  "keyTakeaways": [
+    "AI search doesn't replace SEO — it forks it into two parallel disciplines that both need attention.",
+    "SEO fundamentals (crawlability, authority, helpful content) still feed AI answers directly; skipping them hurts both scoreboards.",
+    "AEO adds a new scoreboard: getting cited or named inside AI answers, not just ranking in blue links.",
+    "Zero-click behavior is increasing, so being cited by name matters even when nobody clicks through.",
+    "You can't manage what you don't measure — audit whether AI tools currently recommend, ignore, or bypass you.",
+    "Treat SEO and AEO as one combined visibility strategy, not a choice between the old world and the new one."
+  ],
+  "faqs": [
+    {
+      "q": "Is SEO dead?",
+      "a": "No. SEO isn't dead — the fundamentals it enforces (crawlable pages, real authority, genuinely helpful content) are exactly what AI answer engines rely on to decide what to cite. What's dead is treating SEO as the only scoreboard that matters."
+    },
+    {
+      "q": "Will AI replace Google search?",
+      "a": "Not in any near-term sense that matters for most businesses. Google still handles enormous search volume, and Google itself is folding AI Overviews into its own results rather than being replaced by a separate product. The realistic scenario is coexistence: traditional results, AI Overviews, and standalone AI assistants all competing for the same query."
+    },
+    {
+      "q": "Do I still need SEO in 2026?",
+      "a": "Yes. If your pages aren't crawlable, authoritative, and well-structured, you lose on both classic Google rankings and AI citations, since AI answer engines draw on the same quality signals. SEO is now table stakes for AEO, not a separate, optional track."
+    },
+    {
+      "q": "What is AEO and how is it different from SEO?",
+      "a": "AEO (answer engine optimization) is the practice of getting your brand cited, quoted, or recommended by name inside AI-generated answers from tools like ChatGPT, Perplexity, and Google AI. SEO optimizes for ranking in a list of links; AEO optimizes for being the answer itself."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+---
+title: "Structured Data for AI: The Definitive Guide to Schema That AI Actually Uses"
+description: "Which schema types matter for AI search, how ChatGPT, Perplexity and Google AI use structured data, real examples, and how to stop schema drift. Cornerstone guide."
+date: "2026-06-26"
+category: "Technical"
+readingTime: "8 min read"
+keywords: ["structured data for ai"]
+faqs: [{"q": "Is structured data required for ChatGPT or Google AI Overviews?", "a": "No. Google states plainly that structured data isn't required for generative AI search and there's no special schema you need to add. It still helps with rich-result eligibility and entity clarity, so keep it, but treat it as foundational hygiene rather than a requirement for AI visibility."}, {"q": "Which is the best structured data format for AI, JSON-LD, Microdata or RDFa?", "a": "JSON-LD. Google recommends it as the easiest to implement and maintain at scale, and it's the dominant format in practice (on 41% of pages per the 2024 Web Almanac). It lives in one clean script block instead of being woven through your HTML, which makes it far easier to keep accurate."}, {"q": "If schema doesn't boost citations, why bother with it at all?", "a": "Because it does the foundational work everything else relies on: disambiguating your entity, wiring you to the knowledge graph via sameAs, keeping facts machine-readable and consistent, and qualifying you for rich results. The Ahrefs study found no direct citation lift, but AI-cited pages still carry JSON-LD ~3x more often, schema correlates with well-run sites."}, {"q": "Is there a special schema type for AI, like AIPage or LLMOptimized?", "a": "No, and you should be skeptical of anyone who says otherwise. There is no AIPage type, no LLMOptimized property and no AI-Overview schema extension. Google has been explicit about this. Use the standard schema.org types correctly; that's what AI engines actually parse."}, {"q": "What is schema drift and why is it dangerous?", "a": "Schema drift is when your structured data stops matching your live page, a stale price, a deleted FAQ, a departed author still listed in the markup. It's dangerous because you're feeding AI and search engines confidently wrong facts, which is worse than no markup. Prevent it by generating schema from the same data that renders the page and validating on every deploy."}, {"q": "Should I use llms.txt instead of structured data?", "a": "Use both, they operate at different levels. Structured data resolves facts and entities on individual pages; llms.txt is a site-level file that points AI crawlers to your best content and states attribution preferences. They're complementary layers of an AEO foundation, not alternatives."}]
+sources: [{"label": "Ahrefs — We Tracked 1,885 Pages Adding Schema. AI Citations Barely Moved", "url": "https://ahrefs.com/blog/schema-ai-citations/"}, {"label": "Web Almanac 2024 — Structured Data (HTTP Archive)", "url": "https://almanac.httparchive.org/en/2024/structured-data"}, {"label": "Google Search Central — Intro to Structured Data", "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"}, {"label": "Search Engine Journal — Schema Markup Didn't Move AI Citations in Ahrefs Test", "url": "https://www.searchenginejournal.com/schema-markup-didnt-move-ai-citations-in-ahrefs-test/574568/"}, {"label": "Search Engine Land — Schema and AI Overviews: Does structured data improve visibility?", "url": "https://searchengineland.com/schema-ai-overviews-structured-data-visibility-462353"}, {"label": "Search Engine Land — How schema markup fits into AI search, without the hype", "url": "https://searchengineland.com/schema-markup-ai-search-no-hype-472339"}, {"label": "Schema.org", "url": "https://schema.org/"}]
+image: {"url": "https://images.pexels.com/photos/27427258/pexels-photo-27427258.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Vibrant and engaging code displayed on a computer screen, showcasing programming concepts.", "photographer": "Seraphfim Gallery", "photographerUrl": "https://www.pexels.com/@seraphfim"}
+---
+
+Let me be blunt about something the AEO industry keeps fudging: structured data is not a magic citation button. The single best controlled study we have, Ahrefs tracking 1,885 pages that added schema, found basically zero lift in AI citations after the markup went live. And yet I still tell every client to ship clean schema. Why? Because the same data shows AI-cited pages are roughly three times more likely to carry JSON-LD, and because structured data does the unglamorous work that everything else in AI visibility depends on: it removes ambiguity about who you are and what your facts actually say.
+
+This is the page I wish existed when people first started asking "what schema do I need for ChatGPT?" It covers what AI engines genuinely do with markup, which types are worth your time, real JSON-LD examples, and the silent killer nobody talks about, schema drift, where your markup quietly starts lying about your own pages.
+
+## What is structured data, and why does AI care?
+Structured data is a standardized vocabulary (schema.org) that you embed in a page so machines can read your facts without guessing. Instead of an AI parsing "$49/mo" out of messy HTML, you hand it `"price": "49", "priceCurrency": "USD"` as a labeled fact. It is the difference between scraping and being told.
+
+The format that matters is **JSON-LD**, a block of JavaScript Object Notation in your page `<head>` or body. Google explicitly recommends it: *"Google recommends using JSON-LD for structured data if your site's setup allows it, as it's the easiest solution for website owners to implement and maintain at scale"* ([Google Search Central](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)). The older Microdata and RDFa formats still work, but JSON-LD won because it lives in one clean block instead of being tangled through your markup.
+
+Why AI cares comes down to one word: **disambiguation**. Large language models build internal representations of entities, your company, your products, your authors, and stitch them to facts. Clean structured data resolves "is this the same Acme as that Acme?" and "what is the canonical price/rating/author?" before the model ever has to infer it. AI crawlers like GPTBot, PerplexityBot and Google-Extended can use that markup as a reading map to skip nav, ads and boilerplate and go straight to your facts ([Search Engine Land](https://searchengineland.com/schema-markup-ai-search-no-hype-472339)).
+
+## Does structured data actually get you cited by AI? (The honest answer)
+Honest answer: not directly, and anyone selling you a guaranteed-citation schema package is overstating it. The best evidence cuts against the hype, but the nuance is what matters. Schema is a supporting actor, not the lead.
+
+The landmark test is Ahrefs' May 2026 study, which tracked **1,885 pages** that added JSON-LD for the first time (Aug 2025–Mar 2026) against 4,000 control pages, using difference-in-differences. The results after adding schema:
+
+| Platform | Change in citations |
+|---|---|
+| Google AI Overviews | −4.6% (small, significant decline) |
+| Google AI Mode | +2.4% (indistinguishable from zero) |
+| ChatGPT | +2.2% (indistinguishable from zero) |
+
+Their verdict: *"Adding schema didn't boost citations on any platform"* ([Ahrefs](https://ahrefs.com/blog/schema-ai-citations/), [Search Engine Journal](https://www.searchenginejournal.com/schema-markup-didnt-move-ai-citations-in-ahrefs-test/574568/)).
+
+But here is the twist in their *own* data: across a 6-million-URL pool, AI-cited pages were almost **three times more likely** to carry JSON-LD. Ahrefs correctly calls this correlation, not causation, sites that ship clean schema also tend to have better content, links and technical hygiene. My read: schema is a marker of a well-run site and a foundation for the entity signals AI relies on, not a lever you pull for instant citations. Build it because the fundamentals demand it, not because of a promised bump.
+
+## How do ChatGPT, Perplexity and Google AI use structured data?
+Each engine uses structured data differently, and none of them treat it as a ranking command. Broadly: Google uses it for rich-result eligibility that AI surfaces can pull from; ChatGPT and Perplexity use it as clean factual scaffolding when they fetch your live page; all of them use it to firm up entity understanding.
+
+- **Google AI Overviews / AI Mode** — Google is explicit that *"structured data isn't required for generative AI search, and there's no special schema.org markup you need to add,"* but recommends keeping it for rich-result eligibility ([Search Engine Land](https://searchengineland.com/schema-ai-overviews-structured-data-visibility-462353)). There is **no `AIPage` type, no `LLMOptimized` property, no AI-Overview extension**, that is folklore. AI Overviews can draw from surfaces (product cards, recipes, org panels) that schema makes you eligible for.
+- **ChatGPT (search/browse)** — When ChatGPT fetches your URL live, JSON-LD gives it labeled facts (price, author, FAQ answers) instead of forcing it to parse prose. It reduces the chance the model invents or misreads a detail.
+- **Perplexity** — Similar live-fetch behavior; it cites sources heavily, and unambiguous structured facts make your page a safer, more quotable source.
+- **Claude / Gemini** — Both ingest page content when browsing; structured markup helps them attribute facts to the right entity.
+
+The through-line: structured data does not *make* an engine cite you. It makes the facts it does ingest correct and attributable, which is table stakes for being a trustworthy source. Want to see which engines currently mention your brand and where the gaps are? AEOeye's [free AI visibility audit](https://aeoeye.com) checks ChatGPT, Perplexity, Google AI, Claude and Gemini in one pass.
+
+## Which schema types actually matter for AI? (Priority order)
+Focus on five workhorses: Organization, Product, FAQPage, Article and HowTo. These map directly to the facts AI engines most often need to attribute, who you are, what you sell, what you answer, who wrote it, and how to do something. Skip the long tail until these are solid.
+
+Real-world adoption is lower than you'd think, which is exactly why getting these right is an edge. From the 2024 Web Almanac (HTTP Archive), JSON-LD is on **41% of pages** (up from 34% in 2022), but specific types are sparse ([Web Almanac](https://almanac.httparchive.org/en/2024/structured-data)):
+
+| Schema type | Share of pages | Why AI cares |
+|---|---|---|
+| Organization | 7.16% | Anchors your brand entity, logo, sameAs links to knowledge graph |
+| Product | 0.77% | Price, availability, rating, GTIN, the facts AI quotes in shopping answers |
+| FAQPage | ~0.6% | Q&A pairs map cleanly to how people prompt AI |
+| Article / BlogPosting | 0.18% / 1.40% | Author, publish date, headline, E-E-A-T and freshness signals |
+| HowTo | sparse | Stepwise instructions AI can lift into procedural answers |
+
+Priority order for most sites:
+
+1. **Organization** (sitewide) — set this first; everything else hangs off your entity. Include `name`, `url`, `logo`, and `sameAs`.
+2. **Article / BlogPosting** — on every content page, with a real `author` and dates.
+3. **FAQPage** — where you genuinely have Q&A.
+4. **Product** — for any commercial/SaaS offering, with `offers` and `aggregateRating` if real.
+5. **HowTo / WebSite / BreadcrumbList** — supporting context.
+
+## What does correct JSON-LD look like? (Copy-paste examples)
+Correct JSON-LD is a single `<script type="application/ld+json">` block with a valid `@context`, an accurate `@type`, and properties that match what's visible on the page. Here are the two you'll use most.
+
+**Organization** (place sitewide, e.g. homepage):
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AEOeye",
+  "url": "https://aeoeye.com",
+  "logo": "https://aeoeye.com/logo.png",
+  "description": "Free AI visibility audit across ChatGPT, Perplexity, Google AI, Claude and Gemini.",
+  "sameAs": [
+    "https://www.linkedin.com/company/aeoeye",
+    "https://x.com/aeoeye"
+  ]
+}
+```
+
+**FAQPage** (only if the Q&A is genuinely on the page):
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Does structured data get me cited by AI?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not directly. It builds entity clarity and factual consistency that AI engines rely on, but it is not a guaranteed citation lever."
+    }
+  }]
+}
+```
+
+Non-negotiable rules: use `https://schema.org` for `@context`; the `sameAs` array is how you wire your entity to the knowledge graph; and the markup must describe what a human actually sees. Validate every block with [Google's Rich Results Test](https://search.google.com/test/rich-results) and the [Schema.org validator](https://validator.schema.org/) before shipping.
+
+## What is schema drift, and how do you stop it?
+Schema drift is when your structured data slowly stops matching your live page, the markup says one price, the page shows another; the FAQ JSON-LD lists a question you've since deleted; the author in the schema left the company a year ago. It is the most common, most damaging schema problem, and it's invisible until something breaks.
+
+Drift happens because schema is usually injected by a template, plugin or CMS field that nobody re-checks when the visible content changes. The HTTP Archive's own framing for 2024 is blunt: implementation *quality* varies widely even as adoption grows. Stale markup is worse than no markup, because you're now feeding AI and search engines confidently wrong facts, and FAQ markup that doesn't reflect real on-page Q&A is exactly the kind of mismatch Google warns against ([SiteSpeakAI](https://sitespeak.ai/ai-overview-glossary/structured-data-and-ai-overviews)).
+
+How to stop it:
+
+1. **Single source of truth** — generate schema from the same data that renders the page (price, author, dates), never hand-maintain a parallel copy.
+2. **Validate in CI** — run the markup through a validator on every deploy; fail the build on errors.
+3. **Scheduled audits** — re-crawl your top pages monthly and diff schema against visible content.
+4. **Kill orphan types** — Google narrowed FAQ rich-result eligibility, so don't keep FAQPage markup on pages that no longer have real FAQs ([Search Engine Land](https://searchengineland.com/schema-ai-overviews-structured-data-visibility-462353)).
+5. **Match human and machine** — if it's not visible to a user, it shouldn't be in your JSON-LD.
+
+## How does structured data fit with llms.txt and the rest of AEO?
+Structured data is the page-level layer; llms.txt is the site-level layer; together with strong content they form your AI-visibility foundation. Schema tells an engine what a single page's facts are; llms.txt gives crawlers a curated map of your whole site. Use both, not one.
+
+`llms.txt` is a plain-text file at your domain root that points AI crawlers (GPTBot, PerplexityBot, Google-Extended) to your most important, AI-ready content and states attribution preferences. By 2026 it moved from experiment to real signal, with Anthropic, Stripe, Vercel and Cloudflare publishing one ([Search Engine Land via search results](https://searchengineland.com/schema-markup-ai-search-no-hype-472339)). The complementary framing: schema resolves entities at the page level, llms.txt orients crawlers at the brand level.
+
+Where structured data sits in the full AEO stack:
+
+- **Entity layer** — Organization + `sameAs` so AI knows who you are.
+- **Fact layer** — Product/Article/FAQPage so individual claims are clean and attributable.
+- **Crawl layer** — llms.txt + robots rules so AI bots reach the right pages.
+- **Content layer** — the actual answer quality, which the Ahrefs data suggests is what really drives citations.
+
+Don't over-index on markup at the expense of content. Schema makes good content legible to machines; it cannot make thin content worth citing. Get the facts clean, then go win on substance.

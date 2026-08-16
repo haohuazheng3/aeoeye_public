@@ -1,0 +1,66 @@
+---
+title: "How to Rank in Google AI Mode (2026)"
+description: "AI Mode isn't AI Overviews renamed. See how Google's query fan-out actually ranks content, and the step-by-step playbook to rank in Google AI Mode."
+date: "2026-07-10"
+category: "AI Search"
+readingTime: "6 min read"
+keywords: ["how to rank in google ai mode", "how to rank in ai mode", "google ai mode seo", "google ai mode optimization", "google ai mode vs ai overviews", "query fan-out", "google ai mode ranking factors", "ai overviews vs ai mode", "e-e-a-t for ai search", "structured data for google ai mode"]
+faqs: [{"q": "Is AI Mode the same as AI Overviews?", "a": "No. AI Overviews are AI-generated summaries shown above the traditional results on a normal search page. AI Mode is a separate, full-page conversational search experience where you can ask follow-up questions in the same session. Both draw from the same index, but they retrieve and rank content differently."}, {"q": "Does SEO still work for AI Mode?", "a": "Yes — the fundamentals still apply, but comprehensiveness matters more than single-keyword targeting. Technical crawlability, structured data, and E-E-A-T signals still count; AI Mode simply rewards topical depth and passage-level clarity on top of them, since it retrieves across multiple sub-queries per conversation."}, {"q": "Can I opt out of AI Mode?", "a": "There's no AI-Mode-specific opt-out. Since AI Mode draws from the same index as standard Search, the same controls apply: noindex removes a page from Search entirely, and nosnippet opts a page out of the snippets that features like AI Overviews and AI Mode depend on — though that also removes your regular snippet in classic results."}, {"q": "What is query fan-out?", "a": "Query fan-out is the technique Google uses in AI Mode to break one user question into several related sub-queries, retrieve results for each, and synthesize the strongest passages into a single conversational answer, rather than running one query against one ranking pass."}]
+image: {"url": "https://images.pexels.com/photos/15406292/pexels-photo-15406292.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Smartphone screen showing Google search in dark mode with the Google logo in the background.", "photographer": "Bastian Riccardi", "photographerUrl": "https://www.pexels.com/@shutter-speed"}
+sources: [{"label": "Google Search Central — AI features in Google Search", "url": "https://developers.google.com/search/docs/appearance/ai-features"}, {"label": "Google Search Central — Creating helpful, reliable, people-first content", "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content-people-first-content"}, {"label": "Google Search Central — Intro to structured data", "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"}, {"label": "Google Search Central — How Search works", "url": "https://developers.google.com/search/docs/fundamentals/how-search-works"}]
+---
+
+If you've been treating Google's AI Mode as "AI Overviews, but bigger," you're optimizing for the wrong target. Ranking in Google AI Mode means something different: it's a separate, fully conversational search experience with its own retrieval logic, and most of the AI Overview advice circulating right now doesn't fully transfer to it. Here's what's actually different, how ranking works inside it, and the playbook for getting surfaced.
+
+## What is Google AI Mode (and how is it different from AI Overviews)?
+
+AI Mode is Google's full conversational search experience; AI Overviews are the summary box that sits on a normal results page. Ranking in AI Mode means being retrievable across a multi-turn answer, not just winning one snapshot — and confusing the two is the biggest reason teams misallocate their effort right now.
+
+AI Overviews sit inside classic search results: you type a query, get ten blue links, and sometimes an AI-generated summary appears above them, citing a handful of sources. AI Mode replaces the entire results page with a chat interface. You ask a question, Google answers conversationally, and you can follow up — "what about for a small team," "how much does that cost" — without starting a new search. Every follow-up triggers new retrieval, which means your content has to hold up across a conversation, not just match one query to one page.
+
+| Aspect | AI Overviews | AI Mode |
+|---|---|---|
+| Where it lives | Above traditional results, on the normal results page | Its own full-page, chat-style experience |
+| Interaction | One query, one static summary | Multi-turn, with follow-up questions in the same session |
+| What it pulls | A handful of cited snippets per query | Synthesized passages from many sources, refreshed each turn |
+| Ranking logic | Close to featured-snippet retrieval | Query fan-out across sub-questions (more below) |
+| Can you opt out | No AI-Mode-specific control | Same controls as AI Overviews — governed by nosnippet/noindex |
+
+Both surfaces draw from the same underlying index, and both can cite your pages — but AI Mode's follow-up behavior is the real shift. A page built to answer one keyword well can still earn a normal AI Overview citation and lose every follow-up turn in AI Mode, because nothing on the page answers what the user asks next. If you're already watching [how AI Overviews are affecting your traffic](/blog/ai-overviews-and-your-traffic), treat AI Mode as the harder version of that same pressure — not a duplicate of it.
+
+## How ranking works in AI Mode
+
+Google uses a technique it calls query fan-out: it breaks your question into several related sub-queries, retrieves results for each, and synthesizes the strongest passages into one answer. You win a fan-out slot by comprehensively answering the sub-questions around a topic, not just the headline query.
+
+Query fan-out, defined plainly: a single user question gets expanded, behind the scenes, into multiple underlying searches — covering related angles, comparisons, definitions, and likely follow-ups — before the AI assembles a response. Ask "best CRM for a 5-person agency" and AI Mode almost certainly isn't running one retrieval pass. It's more likely pulling separate results for something like "best CRM for small teams," "CRM pricing for agencies," and "CRM vs spreadsheet for small business" — then stitching the strongest passages together into a single answer.
+
+What that means for how you should think about ranking:
+
+- **A single page can't win a whole conversation.** If your content answers only the head query and ignores the adjacent sub-questions, a competitor's page picks up those fan-out slots instead — even if you outrank them for the main keyword.
+- **Passages matter more than pages.** AI Mode extracts and cites specific paragraphs, not whole URLs. A page can sit at #1 in traditional search and still lose every fan-out slot because no single passage directly answers the sub-question being asked.
+- **Topic depth beats keyword matching.** Coverage of the whole cluster — definitions, comparisons, pricing, use cases, objections — gives you more surface area across the sub-queries Google generates than one narrowly optimized page ever will.
+- **Specificity compounds.** Vague, generic paragraphs get passed over for passages with concrete numbers, dates, and direct claims that are easy to lift and cite cleanly.
+
+This is the same logic behind [AI search optimization](/blog/ai-search-optimization) broadly, and it's exactly what AEOeye's audit engine checks for: not "does this page rank," but "does any passage on this domain answer this specific sub-question well enough for an AI system to quote it."
+
+![A robotic hand reaching into a digital network on a blue background, symbolizing AI technology.](https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## The AI Mode playbook (step-by-step)
+
+There's no separate "AI Mode SEO" toolkit. It's disciplined, comprehensive execution of fundamentals that fan-out retrieval rewards far more heavily than traditional ranking ever did. In order of leverage:
+
+1. **Build topical depth, not just one page.** Map every sub-question a buyer would actually ask around your topic — definitions, comparisons, pricing, alternatives, edge cases — and cover each one, either as sections in a pillar page or as a linked cluster. One page per keyword means one shot per fan-out slot.
+2. **Write passage-level direct answers.** Open each section with a self-contained 1–2 sentence answer that doesn't depend on the paragraph before it. AI Mode lifts passages out of context; a sentence that only makes sense mid-flow won't get cited, even on a page that otherwise ranks well.
+3. **Add structured data Google can parse cleanly.** FAQPage, HowTo, and Article schema won't force a citation on their own, but they make your content's structure unambiguous to machine parsing — which is exactly what fan-out retrieval leans on. Google's own structured data documentation is worth following closely for implementation details.
+4. **Strengthen E-E-A-T signals.** Real author and organization identity, cited sources, original data, and a clear reason to trust the page all feed the same helpful-content systems that Google has said inform its AI features, not just traditional ranking.
+5. **Keep technical crawlability clean.** AI Mode draws from the same index as regular Search. If Googlebot can't crawl it, render it, or reach it — broken internal links, blocked JavaScript, orphaned pages — it can't be fanned out to, no matter how well the page is written.
+
+None of this is exotic. It's the boring fundamentals, done at a level of comprehensiveness most sites still skip, because most sites are still writing for one query instead of a conversation. Our [guide to ranking in AI Overviews](/guides/how-to-rank-in-ai-overviews) covers the passage- and snippet-level tactics that carry over directly to AI Mode, and it's worth reading alongside this one since the two surfaces share most of their retrieval logic.
+
+## How to tell if you appear in AI Mode
+
+You can't fully audit AI Mode citations by hand. Results are conversational, personalized, and vary by session, so no static rank tracker captures them reliably. The practical move is to test your brand and topic against the same AI systems buyers actually use, then track whether — and how — you show up.
+
+That's the specific gap AEOeye's audit is built to close: it runs your brand or URL against ChatGPT, Perplexity, Gemini, Google AI, and Claude using the buyer-style questions your prospects actually ask, and shows you where you get surfaced and where you don't. It's not a replacement for occasionally watching your own AI Mode sessions by hand, but it gives you a repeatable baseline instead of guessing off a handful of manual searches.
+
+Check your visibility in Google's AI answers before you sink weeks into chasing fan-out slots you might already be winning, or missing completely. [Run a free audit](/#audit) and see exactly where you stand.

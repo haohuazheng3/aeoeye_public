@@ -1,0 +1,210 @@
+{
+ "slug": "how-to-do-an-aeo-audit",
+ "type": "guides",
+ "title": "How to Do an AEO Audit: A Step-by-Step Guide (2026)",
+ "metaTitle": "How to Do an AEO Audit: Step-by-Step (2026)",
+ "metaDescription": "A practical, step-by-step AEO audit you can run yourself: test buyer prompts across ChatGPT, Perplexity and Google AI, score citations, and fix the gaps.",
+ "primaryKeyword": "how to do an aeo audit",
+ "shortAnswer": "To do an AEO audit, build a list of 20-50 real buyer prompts, run each across ChatGPT, Perplexity, Google AI, Claude and Gemini, then log three things: are you mentioned, are you cited with a link, and which competitors and source pages won instead. Score your share of voice and fix the pages engines actually pull from.",
+ "intro": "Most \"AEO audits\" are SEO audits wearing a costume. They crawl your site, flag missing meta tags, and call it a day — while ignoring the only question that matters: when a real buyer asks ChatGPT or Perplexity about your category, do you show up, and who beats you when you don't?\n\nA real AEO audit starts from the answer engine's output, not your sitemap. You sit on the user's side of the screen, fire the prompts your buyers actually type, and grade what the model says back. This guide walks the exact process — prompt sets, scoring, and the fixes that move the needle — so you can run it yourself this week.",
+ "sections": [
+  {
+   "heading": "What is an AEO audit, and how is it different from an SEO audit?",
+   "body": "An AEO (Answer Engine Optimization) audit measures whether AI answer engines — ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini — mention and cite your brand when users ask category questions, and which sources they pull from instead. It grades model *output*, not your site's crawlability.\n\nThe difference is where you point the camera. An SEO audit looks inward: titles, links, Core Web Vitals, keyword rankings. An AEO audit looks outward at the model — given a real buyer prompt, what does the engine actually say, and who gets cited?\n\nThis matters because ranking no longer guarantees being quoted. Ahrefs found only **38% of AI Overview citations come from pages ranking in the top 10** organically — so your #1 blue link can be invisible inside the AI answer that now sits above it. AEO audits exist to catch exactly that gap."
+  },
+  {
+   "heading": "Why bother? What's actually at stake in 2026",
+   "body": "Because the answer box is eating the click. Google AI Overviews now appear on **more than 31% of search results pages**, and they synthesize an answer before the user ever scrolls to your link. If you're not in that synthesis, you don't exist for that query.\n\nThe traffic shift is real, not theoretical. ChatGPT began embedding brand homepage links inline in May 2026, and monitored referral traffic to brand sites roughly doubled overnight — homepage referrals jumped over 350% week-over-week per [Similarweb data](https://www.similarweb.com/blog/marketing/geo/gen-ai-stats/). The brands capturing that traffic are the ones the model already trusted enough to cite.\n\nAnd the visitors convert. AI-referred traffic converts far above organic — one analysis pegs **ChatGPT-referred conversion at 15.9%** versus 1.76% for organic search. These are people mid-decision, handed your name by a machine they trust. An AEO audit tells you whether that machine knows you exist."
+  },
+  {
+   "heading": "Step 1 of the audit: what you need before you start",
+   "body": "You need almost nothing — that's the point. AEO auditing is mostly disciplined prompting, not expensive tooling. Here's the minimum kit before you run the steps below.\n\n- **A spreadsheet.** One row per prompt-per-engine. This is your system of record.\n- **Logged-out / incognito browser sessions** for each engine, so personalization and your own history don't skew results.\n- **Accounts on the five engines that matter:** ChatGPT, Perplexity, Google (AI Mode / AI Overviews), Claude, and Gemini. Together these dominate measurable AI referrals — ChatGPT alone drove **~62% of B2B AI referrals** in early 2026.\n- **Your competitor list** — the 3-5 names you'd hate to lose a deal to.\n- **Optional but faster:** an automated visibility tracker. AEOeye's [free AI visibility audit](https://aeoeye.com) runs a starter prompt set across all five engines for you, so you're not copy-pasting 50 times by hand.\n\nThat's it. No crawler, no API budget required to get a real signal."
+  },
+  {
+   "heading": "How do I build a prompt set that reflects real buyers?",
+   "body": "Write 20-50 prompts the way your buyer would actually type them — full questions, not keywords. Cover the whole journey: problem-aware, solution-aware, and brand-aware. This list *is* your audit; a lazy prompt set produces a worthless audit.\n\nBuild it in four buckets:\n\n1. **Category / problem prompts** — \"best tools for [job]\", \"how do I [solve problem]\". Tests whether you surface at all when nobody's searching your name.\n2. **Comparison prompts** — \"[You] vs [Competitor]\", \"alternatives to [Competitor]\". This is where deals are won or lost.\n3. **Recommendation prompts** — \"what's the best [category] for a [persona/use case]?\" Tests fit for your ICP.\n4. **Brand prompts** — \"what is [your brand]\", \"is [your brand] any good\". Tests whether the model's story about you is even accurate.\n\nPull the exact wording from your sales call transcripts, support tickets, and Reddit threads. Prompts you invented at your desk are how audits lie to you."
+  },
+  {
+   "heading": "How do I score what the engines say back?",
+   "body": "Score three binary fields per prompt, per engine — mentioned, cited, and accurate — then tally a share-of-voice number. Keep it boringly objective so the audit is repeatable next quarter.\n\nFor every prompt/engine cell, log:\n\n- **Mentioned? (Y/N)** — did your brand appear in the answer at all?\n- **Cited? (Y/N)** — is there a clickable link/source pointing to *your* domain?\n- **Sentiment / accuracy** — is what it says correct, or is it hallucinating an old price or a feature you killed?\n- **Who won instead** — list every competitor named and every source URL cited.\n\nThen compute **AI Share of Voice**: your mentions ÷ total brand mentions across the prompt set. Watch the citation sources closely — Yext's analysis of 6.8M citations found **86% come from brand-managed sources** (first-party sites and listings), so the pages winning are usually ownable. That column tells you exactly where to go to work."
+  },
+  {
+   "heading": "What do I actually fix once the audit is done?",
+   "body": "Fix the content patterns that answer engines reward, on the pages your audit showed are losing. The fixes are concrete and backed by the foundational research, not vibes.\n\nThe original Princeton/IIT GEO study ([arxiv 2311.09735](https://arxiv.org/abs/2311.09735), KDD 2024) tested optimizations across 10,000 queries and found the biggest winners were **adding citations, direct quotations, and statistics — boosting visibility 30-40%**. So:\n\n- **Lead with the answer (BLUF).** Put the direct answer in the first 1-2 sentences. Roughly **44% of LLM citations are pulled from the first third of a page** — bury your answer and you forfeit it.\n- **Add real statistics and cite real sources** inline. This is the single highest-leverage move the study found.\n- **Add an FAQ block with FAQPage schema.** Google deprecated FAQ *rich results* on May 7, 2026, but [explicitly still uses the structured data](https://developers.google.com/search/docs/appearance/structured-data/faqpage) to understand pages — and it hands models clean Q&A pairs to quote.\n- **Get into third-party sources** — listings, review sites, comparison roundups. If competitors win the cited URLs, you need to be on those same pages.\n- **Refresh stale pages.** Recently updated pages earn meaningfully more citations than years-old ones."
+  },
+  {
+   "heading": "How often should I re-run this, and what should I track?",
+   "body": "Re-run a full AEO audit quarterly, and spot-check your top 10 priority prompts monthly. AI answers are non-deterministic and models update constantly — a single snapshot is a photograph, but visibility is a movie.\n\nTrack these over time, not just once:\n\n- **AI Share of Voice** per engine (your headline metric).\n- **Citation count** to your domain.\n- **Accuracy drift** — models silently update their story about you; catch wrong prices or dead features fast.\n- **Competitor movement** — who's gaining mentions you used to own.\n\nManual quarterly auditing is fine to start. Once you're tracking dozens of prompts across five engines, the copy-paste math gets brutal — that's the moment to automate it with a continuous tracker so you get alerted when your share of voice drops instead of finding out a quarter late."
+  }
+ ],
+ "keyTakeaways": [
+  "An AEO audit grades model output, not your sitemap: start from the buyer's prompt and check whether you're mentioned and cited across ChatGPT, Perplexity, Google AI, Claude and Gemini.",
+  "Ranking #1 no longer guarantees being quoted — only 38% of AI Overview citations come from pages in the organic top 10.",
+  "Your prompt set IS the audit: write 20-50 real buyer questions across category, comparison, recommendation and brand buckets, sourced from sales calls and support tickets.",
+  "Score three binary fields per result — mentioned, cited, accurate — then compute AI Share of Voice and log every competitor and source URL that beat you.",
+  "The proven fixes from the foundational GEO study are adding citations, statistics and quotations, which lifted visibility 30-40%; pair them with BLUF answers and FAQPage schema.",
+  "Re-run quarterly and spot-check monthly — AI answers drift, so a one-time snapshot goes stale fast."
+ ],
+ "faqs": [
+  {
+   "q": "How long does an AEO audit take?",
+   "a": "A solid manual audit of 25-30 prompts across five engines takes one focused day: a couple of hours to build the prompt set, a few hours to run and log every result, and an hour to score share of voice and write up the gaps. Automated tools compress the running step to minutes, but the prompt-building and interpretation are where the value is — don't skip them."
+  },
+  {
+   "q": "What tools do I need to do an AEO audit?",
+   "a": "At minimum, a spreadsheet and free accounts on ChatGPT, Perplexity, Google AI, Claude and Gemini. That's enough to get a real signal. Dedicated AI visibility trackers (like AEOeye's free audit) automate the prompt-running and scoring across engines, which matters once you're tracking dozens of prompts and want alerts on drift rather than a one-time snapshot."
+  },
+  {
+   "q": "How is AEO different from GEO?",
+   "a": "They're effectively the same discipline with two names. AEO (Answer Engine Optimization) and GEO (Generative Engine Optimization) both mean optimizing to be mentioned and cited by AI answer engines. GEO is the term from the original 2023 Princeton/IIT research paper; AEO is the marketing-friendlier label. Audit the same way regardless of which word your team uses."
+  },
+  {
+   "q": "Why am I cited in ChatGPT but invisible in Google AI Overviews?",
+   "a": "Because each engine has its own retrieval and source preferences — they pull from different indexes and trust different domains. ChatGPT leans on its training plus live search and brand-managed sources; Google AI Overviews lean heavily on its own index and structured data. That's exactly why you audit all five engines separately instead of assuming one result represents them all."
+  },
+  {
+   "q": "Does schema markup still help after Google deprecated FAQ rich results?",
+   "a": "Yes. Google removed the visual FAQ rich result in May 2026 but stated it still uses FAQPage structured data to understand pages. More importantly, clean Q&A pairs give answer engines pre-formatted, quotable passages — which is the whole game in AEO. Keep your FAQPage and HowTo schema; you're marking up for the models now, not for a SERP widget."
+  }
+ ],
+ "comparisonTable": {
+  "columns": [
+   "Dimension",
+   "SEO Audit",
+   "AEO Audit"
+  ],
+  "rows": [
+   {
+    "label": "What it measures",
+    "values": [
+     "Your site's crawlability and rankings",
+     "What AI engines say and cite when prompted"
+    ]
+   },
+   {
+    "label": "Starting point",
+    "values": [
+     "Your sitemap / crawl",
+     "A real buyer's prompt"
+    ]
+   },
+   {
+    "label": "Core question",
+    "values": [
+     "Do I rank for keywords?",
+     "Am I mentioned and cited in the answer?"
+    ]
+   },
+   {
+    "label": "Surfaces checked",
+    "values": [
+     "Google SERP blue links",
+     "ChatGPT, Perplexity, Google AI, Claude, Gemini"
+    ]
+   },
+   {
+    "label": "Headline metric",
+    "values": [
+     "Keyword rankings / organic traffic",
+     "AI Share of Voice + citation count"
+    ]
+   },
+   {
+    "label": "Key fixes",
+    "values": [
+     "Tags, links, speed, content depth",
+     "BLUF answers, stats, quotes, FAQ schema, third-party citations"
+    ]
+   }
+  ]
+ },
+ "sources": [
+  {
+   "label": "GEO: Generative Engine Optimization (Aggarwal et al., KDD 2024) — arXiv:2311.09735",
+   "url": "https://arxiv.org/abs/2311.09735"
+  },
+  {
+   "label": "Google Search Central — FAQPage structured data documentation",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+  },
+  {
+   "label": "Schema.org — FAQPage type",
+   "url": "https://schema.org/FAQPage"
+  },
+  {
+   "label": "Similarweb — Gen AI stats & brand visibility (2026)",
+   "url": "https://www.similarweb.com/blog/marketing/geo/gen-ai-stats/"
+  },
+  {
+   "label": "Omnibound — AI Search & GEO statistics (2025-2026)",
+   "url": "https://www.omnibound.ai/blog/ai-search-statistics"
+  },
+  {
+   "label": "Position Digital — 150+ AI SEO statistics (2026)",
+   "url": "https://www.position.digital/blog/ai-seo-statistics/"
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Answer Engine Optimization (AEO)",
+   "definition": "The practice of optimizing content so AI answer engines (ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini) mention and cite your brand directly in their generated answers, rather than just ranking your page in a list of links.",
+   "sourceUrl": "https://arxiv.org/abs/2311.09735"
+  },
+  {
+   "term": "Generative Engine Optimization (GEO)",
+   "definition": "The original academic term, from a 2023 Princeton/IIT paper, for optimizing content to maximize visibility inside generative search engine responses; used interchangeably with AEO.",
+   "sourceUrl": "https://arxiv.org/abs/2311.09735"
+  },
+  {
+   "term": "AI Share of Voice",
+   "definition": "A brand's mentions divided by total brand mentions across an audit's prompt set, measuring how often an AI engine names you versus competitors for category questions.",
+   "sourceUrl": "https://www.similarweb.com/blog/marketing/geo/gen-ai-stats/"
+  },
+  {
+   "term": "FAQPage schema",
+   "definition": "A schema.org structured-data type that marks up question-and-answer pairs so search and AI systems can extract and quote them; Google still uses it to understand pages after deprecating its visual rich result in May 2026.",
+   "sourceUrl": "https://developers.google.com/search/docs/appearance/structured-data/faqpage"
+  }
+ ],
+ "howToSteps": [
+  {
+   "name": "Pick your engines and set up clean sessions",
+   "text": "Open ChatGPT, Perplexity, Google (AI Mode/AI Overviews), Claude and Gemini in logged-out or incognito windows so your history doesn't bias results. Create one tracking spreadsheet with a row per prompt and a column per engine."
+  },
+  {
+   "name": "Build a 20-50 prompt buyer question set",
+   "text": "Write real buyer questions across four buckets: category/problem prompts, comparison prompts (you vs competitor, alternatives to X), recommendation prompts for your ICP, and brand prompts. Pull exact wording from sales calls, support tickets and Reddit — not from your imagination."
+  },
+  {
+   "name": "Run every prompt across all five engines",
+   "text": "Fire each prompt into each engine and capture the full answer plus every source link. Run category and comparison prompts twice, since AI answers are non-deterministic and vary between runs."
+  },
+  {
+   "name": "Score mentioned, cited, and accurate for each result",
+   "text": "For every prompt/engine cell, log three fields: Were you mentioned (Y/N)? Were you cited with a link to your domain (Y/N)? Is the claim accurate or hallucinated? Note the sentiment too."
+  },
+  {
+   "name": "Log who won — competitors and source URLs",
+   "text": "For each answer, list every competitor named and every URL cited. This reveals which brands own your category in the model's mind and exactly which pages (yours or third-party) the engines pull from."
+  },
+  {
+   "name": "Calculate AI Share of Voice and find the gaps",
+   "text": "Compute your share of voice (your mentions ÷ total brand mentions) per engine. Flag the prompts where you're absent, miscited, or beaten — these are your prioritized worklist, ordered by buyer intent and frequency."
+  },
+  {
+   "name": "Fix the pages with citations, stats, quotes and schema",
+   "text": "On losing pages, lead with a direct answer in the first two sentences, add real statistics and cited sources, insert an FAQ block with FAQPage schema, and pursue placement in the third-party sources competitors are winning. These are the 30-40% visibility levers from the GEO study."
+  },
+  {
+   "name": "Re-audit on a schedule and track drift",
+   "text": "Re-run the full audit quarterly and spot-check your top 10 prompts monthly. Track share of voice, citation counts, accuracy drift, and competitor movement over time so you catch drops before they cost you deals."
+  }
+ ],
+ "updated": "2026-06-26",
+ "image": {
+  "url": "https://images.pexels.com/photos/7691749/pexels-photo-7691749.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "Man seated at a desk using laptops to monitor stock market trends and investments.",
+  "photographer": "Yan Krukau",
+  "photographerUrl": "https://www.pexels.com/@yankrukov"
+ }
+}

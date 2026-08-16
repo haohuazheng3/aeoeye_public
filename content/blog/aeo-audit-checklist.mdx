@@ -1,0 +1,74 @@
+---
+title: "The AEO Audit Checklist (2026): 20 Checks Before You Optimize for AI"
+description: "The AEO audit checklist: 20 checks across AI visibility, content, entity, and off-site signals — printable, and ordered fastest-first."
+date: "2026-07-10"
+category: "Strategy"
+readingTime: "7 min read"
+keywords: ["aeo audit checklist", "aeo audit checklist template", "aeo checklist", "geo audit checklist", "geo optimization checklist", "ai visibility audit", "answer engine optimization checklist", "ai search visibility checklist", "geo audit", "aeo audit steps"]
+faqs: [{"q": "What is an AEO audit?", "a": "An AEO audit is a systematic check of whether AI answer engines — ChatGPT, Perplexity, Gemini, Google AI Overviews — mention, cite, and accurately describe your brand when someone asks a buying question. It covers four areas: current AI visibility, content quotability, entity/technical signals, and off-site presence."}, {"q": "How long does an AEO audit take?", "a": "A manual pass through all 20 checks usually takes 2-4 hours if you already know the brand well. Testing prompts across four AI engines is the slowest part by hand; an automated audit tool can generate the visibility and technical checks in minutes, leaving content and off-site review for you."}, {"q": "How often should I audit AI visibility?", "a": "Re-run the six visibility checks monthly — model answers shift with every update, sometimes without warning. A full 20-point audit, including content and off-site checks, is worth repeating quarterly or right after any major site, naming, or positioning change."}, {"q": "Is a GEO audit different from an AEO audit?", "a": "No. GEO (Generative Engine Optimization) and AEO (Answer Engine Optimization) are two names for the same discipline — optimizing for AI-generated answers instead of ranked links. The 20 checks in this list apply under either label."}]
+image: {"url": "https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Overhead view of a laptop showing data visualizations, representing an audit.", "photographer": "Lukas Blazek", "photographerUrl": "https://www.pexels.com/@goumbik"}
+sources: [{"label": "GEO: Generative Engine Optimization (arXiv)", "url": "https://arxiv.org/abs/2311.09735"}, {"label": "Schema.org — Organization", "url": "https://schema.org/Organization"}, {"label": "Schema.org — FAQPage", "url": "https://schema.org/FAQPage"}, {"label": "Google Search Central — Organization structured data", "url": "https://developers.google.com/search/docs/appearance/structured-data/organization"}, {"label": "OpenAI — GPTBot documentation", "url": "https://platform.openai.com/docs/gptbot"}, {"label": "Google — Introducing the Knowledge Graph", "url": "https://blog.google/products/search/introducing-knowledge-graph-things-not/"}]
+---
+
+You can't fix what you haven't measured. An AEO audit checks whether ChatGPT, Perplexity, Gemini, and Google AI Overviews actually recommend your brand when someone asks a buying question — before you rewrite a single page. (If you landed here looking for the customs compliance program, this is the answer-engine-optimization checklist; different AEO, wrong page.)
+
+This is the working version: 20 checks across four groups, printable, ordered so the free and fast checks come first. For the full walkthrough of why each step matters and exactly how to execute it, use the companion [step-by-step audit tutorial](/guides/how-to-do-an-aeo-audit) — this page is the checklist you run alongside it, not a replacement for it. Everything below also works if your team calls it a GEO audit instead — [researchers use "Generative Engine Optimization" for the same discipline](https://arxiv.org/abs/2311.09735), just a different label on the same 20 checks.
+
+## Visibility checks: what AI says today
+
+These six checks establish your baseline — what the models are already saying about you, right now, before you touch anything. They cost time, not money, so run them first.
+
+1. **Run your core buyer-intent prompts across ChatGPT, Perplexity, Gemini, and Google AI Overviews.** Skip brand-name prompts — test the questions a buyer types before they know your name, like "best AEO tool for a small team" or "how do I check if AI recommends my brand." Use the same 8-10 prompts on every engine; see [measuring AI visibility](/blog/measuring-ai-visibility) for how to build the list.
+2. **Log every mention verbatim, not just a yes/no.** Copy the exact sentence the model used about you. The wording reveals what claim the model currently believes is true, accurate or not.
+3. **Map competitor occupancy for the same prompts.** If a rival appears in 8 of 10 answers and you appear in 2, that's the real gap — measured, not guessed.
+4. **Read the sentiment, not just the presence.** A hedged mention ("some users report issues with X") is worse than no mention at all. Presence without sentiment is a vanity number.
+5. **Trace every citation to the actual page it links to.** Click through. If the model is citing a three-year-old listicle instead of your site, that listicle — not your homepage — is what needs fixing first.
+6. **Test phrasing variants of the same question.** "Best AEO tool" and "AEO audit software" can pull entirely different answer sets, because generative engines aren't doing keyword-matched search the way Google does — treat each phrasing as its own separate test.
+
+## Content checks: is your site quotable?
+
+Content checks measure whether your pages can actually be lifted and cited — written so a model can extract one clean sentence, not written to rank on ten blue links.
+
+7. **Open every important section with the answer, not the setup.** State the conclusion in the first sentence, then explain. Models truncate; if the answer is buried in paragraph three, it usually doesn't get quoted.
+8. **Phrase your H2s as the questions people actually ask.** "What is an AEO audit?" gets extracted more often than "Overview." Match the header to the shape of the query.
+9. **Write at least one self-contained 40-60 word passage per section.** It should make sense with zero surrounding context, because that's exactly how a model will lift it out of the page.
+10. **Add a short FAQ block, ideally marked up with [FAQPage schema](https://schema.org/FAQPage), to any page answering question-shaped queries.** Three to five Q&As, plainly worded, is the single easiest structural win on this list.
+11. **Confirm each page targets one intent, not three.** A page trying to rank for "what is AEO," "AEO vs SEO," and "AEO tools" simultaneously dilutes the exact-match signal a model needs to cite it for any one of them.
+
+![Abstract visualization of data analytics with charts, representing an audit baseline.](https://images.pexels.com/photos/97080/pexels-photo-97080.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Entity & technical checks
+
+Entity checks confirm the model can identify who you are with confidence; technical checks confirm its crawler can actually reach your pages in the first place.
+
+12. **Use one consistent brand name everywhere — no abbreviations that split your identity.** Models resolve entities partly by name-matching across sources; a brand that's "AEOeye" on the homepage and "AEO Eye" on LinkedIn reads as two weaker entities instead of one strong one.
+13. **Add [Organization schema](https://schema.org/Organization) to your homepage and about page.** It's the most direct signal you can send about who you are, formatted the way [Google's own structured-data docs](https://developers.google.com/search/docs/appearance/structured-data/organization) recommend machines read it.
+14. **Check robots.txt allows the AI crawlers, not just Googlebot.** OpenAI, Google, and others [publish their crawler user-agents](https://platform.openai.com/docs/gptbot) specifically so you can allow or block them on purpose — most sites have never checked which they're currently blocking by accident.
+15. **Keep an about page with real, specific facts — not marketing copy.** Founding year, what the product does in one plain sentence, how to contact you. Models pull disambiguating facts from exactly this kind of page.
+16. **Check your presence in the knowledge-graph layer — Wikidata, Wikipedia, Crunchbase.** These are reference sources [Google has built entity recognition around since 2012](https://blog.google/products/search/introducing-knowledge-graph-things-not/), and other engines lean on similar graphs; see [entity SEO](/glossary/entity-seo) for how the layer works.
+
+## Off-site checks
+
+Off-site checks matter because models cite third parties more often than they cite you directly — your own site is only one input among many.
+
+17. **Check review-site presence: G2, Capterra, Trustpilot, category-relevant directories.** These pages get crawled and cited constantly; a thin or missing profile is a citation opportunity you're handing straight to a competitor.
+18. **Search for "best [category] tools" roundups and confirm you're listed.** Listicles are exactly the kind of page generative engines lean on for comparison answers — if you're absent from the roundups, you're absent from the comparisons.
+19. **Search your brand name on Reddit and relevant forums.** Unprompted user mentions carry real weight with models trained partly on this kind of discussion; note what people actually say, good or bad, not just whether they say it.
+20. **Check that your description is consistent across the sites that mention you.** A different one-line description on every directory reads as noise; a matching description reinforces the same entity claim everywhere it appears.
+
+## Common audit mistakes to avoid
+
+Most first audits fail the same four ways — and every one of them produces a score you can't trust.
+
+- **Testing only brand-name prompts.** Asking "what is AEOeye" tells you nothing; buyers who already know your name don't need AI to find you. Audit the category questions people ask before they've heard of you.
+- **Auditing one engine and assuming the rest match.** ChatGPT, Perplexity, Gemini, and AI Overviews run different models on different sources, and they routinely disagree about the same brand. One engine is a data point, not a verdict.
+- **Treating one snapshot as permanent.** Model answers shift with every update, often silently. An audit is a reading on a moving gauge — date it, and plan to re-run it.
+- **Fixing content before establishing the baseline.** Rewriting pages before you know what the engines currently say means you can never prove your changes worked. Measure first, optimize second — that's the entire point of auditing.
+
+## Scoring and next steps
+
+Score yourself honestly: one point per check you can prove, not one you assume. Under 12 out of 20 means you're pre-audit — start with the six visibility checks, because they tell you which of the remaining 14 actually matter for your situation. 12-16 means you have real gaps worth a focused sprint. 17-20 means you're maintaining, not fixing — re-run the visibility checks monthly and the rest quarterly.
+
+Want to see what a finished pass looks like before you start your own? Look at a [completed example report](/example) for the shape of the output. And if any of the terms above are new, the [definition and background on answer engine optimization](/blog/what-is-answer-engine-optimization) is the place to start.
+
+Or skip the manual version entirely — our [GEO audit guide](/blog/geo-audit) explains what a done-for-you audit covers, or run all 20 checks automatically in one free audit at [AEOeye](/#audit).

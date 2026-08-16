@@ -1,0 +1,119 @@
+---
+title: "What Is a Meta Description? (Plus What AI Search Ignores)"
+description: "A meta description is the snippet tag search engines show under your title. Learn how to write one that earns clicks — and why AI Overviews ignore it."
+date: "2026-07-18"
+category: "Fundamentals"
+readingTime: "7 min read"
+keywords: ["what is a meta description", "meta description", "meta description length", "meta description example", "how to write a meta description", "meta description seo"]
+faqs: [{"q": "What is a meta description?", "a": "A meta description is an HTML tag in a page's <head> that summarizes its content in one or two sentences. Search engines may display it as the snippet under your title on the results page. It doesn't directly affect rankings, but a clear, compelling description can improve click-through rate."}, {"q": "What is the ideal meta description length?", "a": "Aim for roughly 150-160 characters, since Google typically truncates snippets around that point on desktop (less on mobile). There's no hard limit enforced by search engines \u2014 write the shortest sentence that fully and accurately answers the query, then stop; padding it out rarely helps."}, {"q": "Do meta descriptions affect rankings?", "a": "No, not directly. Google has stated meta descriptions are not a ranking factor. What they do influence is click-through rate \u2014 a compelling snippet earns more clicks at the same position, which can indirectly signal relevance over time, but writing one won't move your rankings by itself."}, {"q": "Do AI Overviews use meta descriptions?", "a": "No. AI Overviews, ChatGPT, Perplexity, and similar answer engines generate responses by extracting and summarizing your page's actual body content, not your meta description tag. To be cited by AI search, focus on clear, answer-first writing in your headings and paragraphs \u2014 not on the description tag."}]
+image: {"url": "https://images.pexels.com/photos/12969403/pexels-photo-12969403.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A laptop displaying an analytics dashboard, representing the AEOeye score methodology.", "photographer": "Atlantic Ambience", "photographerUrl": "https://www.pexels.com/@freestockpro"}
+sources: []
+---
+
+## What is a meta description?
+
+A meta description is an HTML tag that summarizes a page's content in one or two sentences. It sits in the page's `<head>`, never appears on the page itself, and exists for exactly one purpose: to describe the page to search engines and, sometimes, to the people scanning a [search engine results page](/blog/what-is-a-serp).
+
+When it works as intended, a search engine pulls that text and displays it as the snippet under your title. That's it. A meta description doesn't influence how your page gets indexed and doesn't directly change your ranking position — it changes whether the person looking at page one decides your result is worth clicking.
+
+Don't confuse it with the Open Graph description (`og:description`), which controls the preview text on social platforms like X and LinkedIn. The two can hold the same text, but they serve different systems — one for search engines, one for social shares. Treating them as identical is a common, easy-to-fix mistake.
+
+Here's what one looks like in a page's source code:
+
+```html
+<meta name="description" content="A clear, specific sentence about exactly what this page delivers.">
+```
+
+Short, specific, and written for a human — not stuffed with keywords. That's the whole spec.
+
+## Why meta descriptions matter
+
+The entire job of a meta description is click-through rate, not rank. It's your pitch on a results page crowded with nine other pitches.
+
+Google has said directly, more than once, that meta descriptions aren't a ranking signal. Content quality, relevance, and links carry that weight. But CTR still matters in practice:
+
+- A page that earns more clicks than expected for its position sends a signal that it satisfies the query — useful over time, even if indirectly.
+- A missing or vague description gets replaced automatically, usually with a random sentence from your page that wasn't written to persuade anyone.
+- On competitive queries where every title looks similar, the description is often the only real differentiator left.
+
+Skip it, and you're leaving your click-through rate to chance.
+
+## How to write a good meta description
+
+Keep it to roughly 150-160 characters, make it accurate to what's actually on the page, and write it like ad copy — specific enough to prove the page answers the exact question someone typed.
+
+A few rules worth following on every page:
+
+- **Match the intent.** If someone searches "what is X," say what X is — don't tease it and make them click to find out.
+- **Front-load the value.** Put your strongest sentence in the first 120 characters; anything past ~160 tends to get cut off.
+- **Write one per page.** Duplicate descriptions across a site signal that the pages are interchangeable, even when they aren't.
+- **Skip the keyword stuffing.** A description crammed with repeated phrases reads as spam to both readers and Google — and gets rewritten more often.
+- **Give a reason to click** — a number, a timeframe, a concrete outcome — not just a restatement of the title.
+
+Good and bad examples, side by side:
+
+| Meta description | Why it works (or doesn't) |
+|---|---|
+| "AEOeye audits ChatGPT, Perplexity, and Google AI in one report — see if AI assistants recommend your brand." | Specific mechanism, concrete benefit, no filler. |
+| "Welcome to our website. We offer the best solutions for all your business needs." | Generic enough to fit any company on earth — answers nothing. |
+| "Compare 7 email marketing tools by price, deliverability, and automation (2026)." | A number, clear criteria, and a freshness signal in one line. |
+| "Home, Products, Services, About Us, Contact" | A navigation list, not a sentence — reads as spam. |
+
+
+![Close-up of a notebook with SEO terms and keywords, highlighting a checklist approach.](https://images.pexels.com/photos/942331/pexels-photo-942331.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Google rewrites meta descriptions
+
+Here's the part most guides skip: Google frequently ignores what you wrote and generates its own snippet instead, usually pulling a sentence straight from your page's body content.
+
+It does this often enough that experienced SEOs stop treating their meta description as a guarantee and start treating it as a strong suggestion. Google tends to keep your version when:
+
+- It closely matches the actual search query
+- It's accurate and specific to what's on the page
+- It doesn't look truncated, auto-generated, or keyword-stuffed
+
+The same thing happens to title tags, for what it's worth — so if you've noticed Google displaying a different title than the one you wrote, you're not imagining it. It's the same underlying behavior: Google optimizing for what it thinks searchers need to see, not for what you asked it to show.
+
+The practical takeaway: write your description for a human deciding between ten blue links, not for an algorithm. The closer it matches genuine intent, the better your odds Google trusts it enough to leave it alone.
+
+But assume going in that you don't fully control this piece of real estate. Google does.
+
+## Meta descriptions in the AI era
+
+Here's the pivot that most meta description articles never make: AI Overviews, ChatGPT, Perplexity, Gemini, and Claude don't read your meta description to build their answers. They extract from your actual body content.
+
+A meta description is written for a human scanning a list of ten results. An AI answer engine isn't scanning a list — it's retrieving passages, evaluating them, and deciding whether your page earns a citation.
+
+It never looks at your `<meta name="description">` tag as part of that decision. It reads your headings, your opening sentences, your structured data, and the substance of the page itself.
+
+That means the exact skill behind a good meta description — say the most important thing first, specifically, with no wasted words — is the skill your body content needs now, applied throughout the page instead of packed into one 160-character tag. Write your [content that ranks in AI Overviews](/blog/how-to-rank-in-ai-overviews) the same way you'd write a great snippet: answer first, specific, no throat-clearing. Do that and you win twice — humans click, and AI engines extract and cite you.
+
+Two different games, two different scorecards:
+
+- Meta descriptions influence whether a human clicks your blue link.
+- Body content influences whether an AI assistant cites your page at all.
+
+Optimizing one doesn't automatically optimize the other.
+
+## Do meta descriptions still matter?
+
+Yes for classic search CTR. Much less — arguably not at all — for AI-generated answers. The honest move is to keep writing good ones for humans and stop treating the tag as an AI visibility lever.
+
+Meta descriptions aren't dead. They still decide whether a real person clicks your result on Google, Bing, or any traditional results page, and that alone is reason enough to write one carefully for every page that matters.
+
+What's changed is the ceiling. A great description used to feel like core SEO strategy; now it's one useful piece inside a much bigger picture — one that includes solid [on-page SEO](/blog/what-is-on-page-seo) fundamentals and a [technical SEO](/blog/what-is-technical-seo) foundation that lets both search engines and AI crawlers reach and parse your content in the first place.
+
+The short version:
+
+- Writing for classic search? A tight, honest meta description still earns clicks.
+- Writing for AI answer engines? Spend that same effort on your headings and opening sentences instead — that's what actually gets read.
+
+Skip the tag entirely and you leave clicks on the table for no reason. Treat it as your main lever for AI visibility and you're optimizing a signal that answer engines don't read. Do both, on the pages that need it, and you've covered the whole spectrum.
+
+## How do you know if AI engines actually see you?
+
+The only way to know whether ChatGPT, Perplexity, Gemini, Google AI, or Claude actually mention your brand is to test it directly — which is what [AEOeye](/) does.
+
+You can perfect every meta description on your site and still have no idea whether Claude recommends a competitor over you the moment someone asks for a buying recommendation. That blind spot is the reason AEOeye exists: run a free audit and see, in plain terms, whether today's AI assistants surface your brand, cite your pages, or skip you for a competitor who structured their content better.
+
+A meta description earns you a click. Knowing whether AI engines recommend you is a different question entirely — and now it's one you can actually answer.

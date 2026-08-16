@@ -1,0 +1,129 @@
+{
+ "slug": "llmrefs",
+ "type": "vs",
+ "title": "AEOeye vs LLMrefs: Free Instant Audit vs Keyword Rank Tracking",
+ "metaTitle": "AEOeye vs LLMrefs: Honest 2026 Comparison",
+ "metaDescription": "AEOeye vs LLMrefs compared fairly: free instant per-engine AI audit vs keyword-level rank tracking across 11 engines. See pricing, speed, and who each fits.",
+ "primaryKeyword": "aeoeye vs LLMrefs",
+ "shortAnswer": "AEOeye gives you a free, instant audit that shows whether ChatGPT, Perplexity, Google AI, Claude, and Gemini actually recommend your brand right now — no keyword setup, no 1-keyword cap, no $79/mo commitment to see real per-engine answers. LLMrefs is a keyword-first rank tracker covering 11+ engines with historical share-of-voice dashboards and geo-targeting, best for SEO teams who already think in keywords and want ongoing broad tracking. Start with AEOeye to find out where you stand today; add LLMrefs if you need continuous keyword-level monitoring at scale.",
+ "intro": "Both tools answer a question traditional SEO can't: when buyers ask an AI assistant for a recommendation, does your brand show up? They go about it very differently. AEOeye runs a free, zero-setup audit and shows the actual per-engine answers in minutes. LLMrefs is a keyword-first analytics platform that tracks rankings and \"share of voice\" across 11+ AI engines over time, priced for marketing teams and agencies.\n\nThis is a fair head-to-head. We'll be specific about where each one wins, where LLMrefs is genuinely stronger, and how to decide — without trashing either tool.",
+ "sections": [
+  {
+   "heading": "The core difference: instant audit vs keyword rank tracking",
+   "body": "AEOeye and LLMrefs solve the same problem from opposite ends.\n\n**AEOeye** is built around a single question: *right now, do the AI engines real buyers use recommend your brand?* You enter a brand or site, and it blind-queries ChatGPT, Perplexity, Google AI, Claude, and Gemini with the kind of questions buyers actually ask — then shows you the real answers, whether you were recommended, where you ranked, and which competitors won. No keyword list to build, no dashboard to configure. The output is the AI's own words, per engine.\n\n**LLMrefs** is built around keywords. You configure the keywords and topics you care about, and it tracks how often your brand is mentioned or cited across 11+ engines, rolling the results into a proprietary visibility score and share-of-voice metrics over time. It's a rank tracker reimagined for AI search — closer in spirit to the SEO tools agencies already live in.\n\nNeither approach is wrong. AEOeye answers *\"where do I stand today?\"* in one sitting. LLMrefs answers *\"how is my keyword visibility trending across engines?\"* over weeks and months."
+  },
+  {
+   "heading": "Pricing and free tier",
+   "body": "This is where the gap is widest, and it cuts in AEOeye's favor for getting started.\n\n**AEOeye** is free to start and instant — you see real per-engine answers before paying anything, with no keyword cap and no sales call. Its deeper multi-engine querying activates with usage, so the more you run, the richer the picture gets.\n\n**LLMrefs** offers a free plan that effectively tracks a single keyword (publicly described alongside a 7-day trial), which makes it a way to test the interface rather than a usable free tier. Real depth lives in the single **\"All in One\" Pro plan at $79/mo** — 50 keywords and 500 prompts, with unlimited projects and team members. That $79 price is publicly labeled **\"limited time only,\"** so treat it as promotional rather than a guaranteed permanent rate.\n\nTo be fair to LLMrefs: $79/mo for broad keyword tracking across 11+ engines is genuinely inexpensive compared with most enterprise AI-visibility platforms. The trade-off is that you commit and configure keywords before you see prompt-by-prompt depth, whereas AEOeye shows you real answers first, for free."
+  },
+  {
+   "heading": "Where LLMrefs is genuinely stronger",
+   "body": "We won't pretend AEOeye wins everything. LLMrefs has real advantages, and if these match your needs it may be the better fit.\n\n- **Engine breadth.** LLMrefs covers 11+ engines — ChatGPT, ChatGPT Search, Google AI Overviews, Google AI Mode, Gemini, Perplexity, Claude, Grok, Copilot, Meta AI, and DeepSeek. That's broader than AEOeye's core five.\n- **Historical dashboards and trends.** It's built for ongoing tracking, with a visibility score, share-of-voice trends, and competitor benchmarking over time. AEOeye is newer and lighter on long-horizon historical analytics.\n- **Geo and language targeting.** LLMrefs offers geo-targeting across 20+ countries and 10+ languages — useful for international or multi-market brands.\n- **Keyword-native workflow.** If your team already thinks in keywords and topics, LLMrefs slots into existing SEO reporting cleanly, including CSV exports and team collaboration.\n\nIf you need continuous, broad, keyword-level rank tracking with trend history across many engines and regions, that's LLMrefs' home turf."
+  },
+  {
+   "heading": "Where AEOeye is stronger",
+   "body": "AEOeye's edge is speed, honesty, and prompt-level transparency for non-experts.\n\n- **Free and instant.** You get real per-engine answers in minutes, with no keyword setup, no 1-keyword cap, and no $79/mo commitment to see whether AI actually recommends you today.\n- **You see the actual answers.** AEOeye shows the AI's real response per engine — not just an aggregated share-of-voice score. You can read exactly what ChatGPT or Perplexity said and which competitor it named.\n- **Blind multi-engine querying.** It asks buyer-style questions across engines the way a real customer would, rather than tracking pre-chosen keywords, so you catch recommendations you didn't think to query.\n- **No learning curve.** A founder or marketer with no SEO background can run an audit and understand the result. No keyword strategy required first.\n\nThis directly addresses a common critique of keyword-first tools: independent reviewers note that keyword-level \"share of voice\" can make it hard to diagnose *why* you appear or which content won a citation. AEOeye's prompt-level answers make that visible from the first run."
+  },
+  {
+   "heading": "Data freshness and diagnostic depth",
+   "body": "Freshness is worth scrutinizing on both sides.\n\nLLMrefs updates each keyword in the dashboard at least once per week, with daily refreshes available on Pro. Some independent reviews push back here: GenerateMore scored its data freshness 2/5 and noted the cadence can feel slow for fast-moving categories, and reviewers report that citation parsers can break for a period when OpenAI, Anthropic, or Google change response formats. The same review rated data accuracy 2/5, tied largely to the keyword-level aggregation rather than prompt-level visibility — the most actionable detail (like the Sources tab) can be buried in a simplified UX. None of this makes LLMrefs unusable; it reflects the inherent difficulty of parsing a moving target.\n\nAEOeye sidesteps part of this by surfacing the raw per-engine answer on demand: you run an audit and read what the engine said *now*, rather than waiting on a scheduled refresh of an aggregate score. The honest trade-off is the flip side of being newer — AEOeye is lighter on the long historical dashboards and enterprise analytics LLMrefs has built out, and its deepest multi-engine querying activates as you use it more."
+  },
+  {
+   "heading": "How to choose",
+   "body": "A simple decision guide:\n\n**Start with AEOeye if** you want to know — today, for free — whether ChatGPT, Perplexity, Google AI, Claude, and Gemini recommend your brand, and you'd rather read the real answers than configure keywords first. It's ideal for founders, small teams, and anyone validating their AI visibility before committing budget. There's no contract and no setup, so there's little reason not to run it first.\n\n**Choose LLMrefs if** you're an SEO professional, agency, or growth team that already works in keywords and topics, needs ongoing rank tracking across 11+ engines, wants historical trend dashboards and share-of-voice scoring, and values geo/language targeting at an approachable $79/mo (noting the price is flagged as promotional).\n\n**Use both if** it fits your workflow: run AEOeye for a fast, honest, prompt-level snapshot and competitor read, then layer LLMrefs on top for continuous keyword-level monitoring. They complement each other more than they overlap — one tells you where you stand right now, the other tracks how it moves."
+  }
+ ],
+ "keyTakeaways": [
+  "AEOeye is free and instant: real per-engine answers from ChatGPT, Perplexity, Google AI, Claude, and Gemini with no keyword setup, no cap, and no $79/mo commitment to see results.",
+  "LLMrefs is keyword-first: it tracks rankings, mentions, and citations across 11+ engines and rolls them into a share-of-voice score over time — built for SEO teams and agencies.",
+  "LLMrefs is genuinely stronger on engine breadth (11+), historical trend dashboards, geo-targeting (20+ countries, 10+ languages), and a keyword-native reporting workflow.",
+  "AEOeye is stronger on speed, zero setup, and showing the AI's actual answers per engine — not just an aggregated score — which makes diagnosing why you appear far easier.",
+  "Pricing: AEOeye starts free; LLMrefs' usable depth is the single $79/mo 'All in One' plan (50 keywords, 500 prompts), with that price publicly labeled 'limited time only.'",
+  "Independent reviewers (GenerateMore) rated LLMrefs 2/5 on data accuracy and freshness, citing keyword-level aggregation and a weekly-to-monthly cadence; AEOeye is newer and lighter on long historical analytics."
+ ],
+ "faqs": [
+  {
+   "q": "What's the real difference between AEOeye and LLMrefs?",
+   "a": "AEOeye runs a free, instant audit and shows the actual answers each AI engine gives — whether it recommends your brand, where you rank, and which competitors win — with no keyword setup. LLMrefs is a keyword-first rank tracker that monitors mentions and citations across 11+ engines over time and aggregates them into a share-of-voice score. AEOeye answers 'where do I stand today?'; LLMrefs answers 'how is my keyword visibility trending?'"
+  },
+  {
+   "q": "Is AEOeye or LLMrefs cheaper to get started with?",
+   "a": "AEOeye is free to start and shows real per-engine answers before you pay anything, with no keyword cap. LLMrefs' free plan effectively tracks one keyword, so meaningful use means the $79/mo 'All in One' Pro plan (50 keywords, 500 prompts). That $79 price is publicly labeled 'limited time only,' so treat it as promotional rather than permanent."
+  },
+  {
+   "q": "Which tool covers more AI engines?",
+   "a": "LLMrefs covers more — 11+ engines including ChatGPT, ChatGPT Search, Google AI Overviews, Google AI Mode, Gemini, Perplexity, Claude, Grok, Copilot, Meta AI, and DeepSeek, plus geo-targeting across 20+ countries. AEOeye focuses on the core five buyers use most (ChatGPT, Perplexity, Google AI, Claude, Gemini) and shows the real answer from each, with deeper querying that activates with usage."
+  },
+  {
+   "q": "When is LLMrefs the better choice?",
+   "a": "Choose LLMrefs if you're an SEO pro, agency, or growth team that already works in keywords, needs ongoing rank tracking across many engines, and wants historical trend dashboards, share-of-voice scoring, and geo/language targeting at $79/mo. It's purpose-built for continuous, broad, keyword-level monitoring — an area where AEOeye, being newer, is lighter on long-term historical analytics."
+  },
+  {
+   "q": "Can I use both AEOeye and LLMrefs together?",
+   "a": "Yes, and they complement each other. Run AEOeye first for a free, instant, prompt-level snapshot of whether AI engines recommend you and which competitors win. Then add LLMrefs if you need continuous keyword-level rank tracking and trend history across 11+ engines. One tells you where you stand right now; the other tracks how it moves over time."
+  }
+ ],
+ "comparisonTable": {
+  "columns": [
+   "AEOeye",
+   "LLMrefs"
+  ],
+  "rows": [
+   {
+    "label": "Free tier",
+    "values": [
+     "Free instant audit with real per-engine answers; no keyword cap",
+     "Effectively 1 keyword (plus 7-day trial) — a test of the UI, not usable depth"
+    ]
+   },
+   {
+    "label": "Pricing",
+    "values": [
+     "Free to start; deeper multi-engine querying activates with usage",
+     "Single 'All in One' Pro plan at $79/mo (50 keywords, 500 prompts), labeled 'limited time only'"
+    ]
+   },
+   {
+    "label": "AI engines covered",
+    "values": [
+     "Core 5: ChatGPT, Perplexity, Google AI, Claude, Gemini (real answers shown per engine)",
+     "11+: ChatGPT, ChatGPT Search, Google AI Overviews/AI Mode, Gemini, Perplexity, Claude, Grok, Copilot, Meta AI, DeepSeek"
+    ]
+   },
+   {
+    "label": "Speed to first result",
+    "values": [
+     "Minutes — instant audit, no setup",
+     "Hours to days — configure keywords, then wait for the next scheduled refresh"
+    ]
+   },
+   {
+    "label": "Setup/learning curve",
+    "values": [
+     "None — no keyword strategy needed; built for non-experts",
+     "Keyword-native; easy for SEO teams, more setup for non-SEO users"
+    ]
+   },
+   {
+    "label": "Best for",
+    "values": [
+     "Founders and teams who want an honest, instant read on AI recommendations and competitors",
+     "SEO pros and agencies wanting ongoing, broad keyword-level rank tracking and trend history"
+    ]
+   },
+   {
+    "label": "Contract",
+    "values": [
+     "No contract, no sales call",
+     "Monthly subscription; promotional price flagged 'limited time only'"
+    ]
+   }
+  ]
+ },
+ "image": {
+  "url": "https://images.pexels.com/photos/8547191/pexels-photo-8547191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  "alt": "A focused woman working at her laptop in a bright, modern office setting.",
+  "photographer": "www.kaboompics.com",
+  "photographerUrl": "https://www.pexels.com/@karola-g"
+ }
+}

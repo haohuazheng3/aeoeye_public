@@ -1,0 +1,77 @@
+---
+title: "Structured Data Testing Tool: How to Validate Your Schema Markup"
+description: "A structured data testing tool checks whether your schema markup is valid before search and AI engines can use it. Here's how to test, fix, and validate it correctly."
+date: "2026-07-18"
+category: "Tools"
+readingTime: "7 min read"
+keywords: ["structured data testing tool", "schema markup validator", "rich results test", "schema.org validator", "validate structured data", "JSON-LD validator", "structured data errors"]
+faqs: [{"q": "What is a structured data testing tool?", "a": "A structured data testing tool reads the schema markup on a page \u2014 usually JSON-LD \u2014 and checks it against schema.org's vocabulary and any platform-specific requirements. It flags missing required fields, invalid types, and syntax errors, and tells you whether the markup qualifies for features like rich results before you publish."}, {"q": "Is Google's Structured Data Testing Tool still available?", "a": "No. Google retired the original Structured Data Testing Tool and replaced it with two separate tools: the Rich Results Test, which checks eligibility for Google's rich result types, and the independent schema.org validator, which checks general schema.org syntax for types the Rich Results Test doesn't cover. As of this writing, the old tool's URL no longer functions for most users."}, {"q": "How do I validate my schema markup?", "a": "Paste your page URL or raw JSON-LD code into the Rich Results Test or the schema.org validator. Review the results for errors, which block eligibility, versus warnings, which flag optional fields. Fix each issue in your source code or generator tool, then re-test until the report comes back clean."}, {"q": "Does invalid schema hurt my site?", "a": "Invalid schema doesn't trigger a direct search penalty on its own, but it forfeits the rich results or AI-visibility benefits you were trying to earn. Schema that contradicts your visible page content, like a fake discount or a rating no reviewer actually left, can trigger a manual action. Broken markup is wasted effort at best and risky at worst."}]
+image: {"url": "https://images.pexels.com/photos/5537527/pexels-photo-5537527.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Three people gathered around a laptop reviewing a tool together.", "photographer": "Zen Chung", "photographerUrl": "https://www.pexels.com/@zen-chung"}
+sources: []
+---
+
+## What is a structured data testing tool?
+
+A structured data testing tool checks whether the schema markup on your page is valid, complete, and free of errors before search or AI engines can use it. It reads your JSON-LD (or microdata) and compares it against schema.org's rules, flagging anything that would block eligibility for rich results.
+
+Google's original all-purpose validator — literally named the Structured Data Testing Tool — was retired. As of this writing, it has been replaced by two separate tools: the Rich Results Test, which checks whether your markup qualifies for a specific rich result type in Google Search, and the independent schema.org validator, which checks general schema.org syntax for markup types the Rich Results Test doesn't cover. If you're still searching for 'Google Structured Data Testing Tool,' that's exactly why: old bookmarks and tutorials point at a tool that no longer functions for most users. Bookmark the Rich Results Test and the schema.org validator instead.
+
+That split matters more than it sounds. If you're marking up a Product, FAQ, Recipe, or HowTo page and only care about Google's visual search features, the Rich Results Test is enough on its own. If you're using a schema type Google doesn't reward with rich results — Organization, Person, or a custom entity — you need the schema.org validator to confirm the markup itself is well-formed.
+
+## The main validators today
+
+Four tool categories cover almost every structured data testing scenario, and each checks something different. Picking the wrong one is the most common reason people assume their schema is broken when it simply hasn't been tested by the right tool yet.
+
+| Tool | What it checks | Best for |
+|---|---|---|
+| Google Rich Results Test | Eligibility for specific rich result types (FAQ, HowTo, Product, Review, and more), plus basic syntax errors | Confirming your markup will trigger Google's visual search features |
+| schema.org validator | General schema.org syntax and vocabulary correctness, for any type, not just the ones Google rewards with rich results | Full-coverage validation, including entity types outside Google's rich result list |
+| SEO-suite validators (site audit tools) | Site-wide structured data coverage, missing markup, and errors across every crawled page at once | Auditing an entire site instead of one URL at a time |
+| Browser extensions | Quick in-page inspection of the JSON-LD or microdata actually rendered on the page you're viewing | Fast spot-checks while you're already looking at a live page |
+
+Start with the Rich Results Test if Google's visual search features are the goal. Add the schema.org validator when your markup type falls outside that list, or when you want a stricter, platform-agnostic check. Site-wide suites earn their keep once you have more pages than you can reasonably paste in one at a time.
+
+## How to test your structured data
+
+Testing structured data is a four-step loop, not a one-time check.
+
+1. **Paste the URL or the raw code.** Most validators accept either a live page URL or a block of JSON-LD pasted directly. Code checks are faster before you publish; the URL check confirms what's actually live and rendered.
+2. **Read errors and warnings separately.** Errors mean required fields are missing or the syntax is invalid — these block rich result eligibility outright. Warnings flag optional-but-recommended fields; your markup still works without them, but adding them lets engines extract more detail. As a rule of thumb, any field schema.org or Google's documentation marks 'required' for that specific type causes an outright block if it's missing; anything marked 'recommended' only produces a warning.
+3. **Fix the source, not the report.** Update the JSON-LD in the CMS, template, or generator that produces it. A generator that outputs schema.org-compliant markup by default catches most of these problems before a validator ever sees them.
+4. **Re-test after every fix.** One correction often reveals a second, previously hidden error further down the same block. A page isn't done until the validator returns zero errors.
+
+Only errors block rich results — warnings don't. But a page with zero errors and a dozen warnings is still leaving detail on the table that fuller markup would surface. Treat validation as one recurring item on your [technical SEO checklist](/blog/technical-seo-checklist), not a single pass-fail gate you clear once and forget.
+
+
+![Close-up of a notebook with SEO terms and keywords, highlighting a checklist approach.](https://images.pexels.com/photos/942331/pexels-photo-942331.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## Common structured data errors
+
+Most structured data errors fall into four repeatable categories.
+
+- **Missing required fields.** Every schema type has fields schema.org marks as required — a Recipe needs ingredients and instructions, a Product needs a name and an offer. Skip one and the whole block can fail validation, even when everything else is correct.
+- **Wrong types.** Nesting a plain string where schema.org expects an object (or the reverse) is a common copy-paste error, especially when markup gets adapted from a template built for a different page type.
+- **Mismatched visible content.** Schema that states a price, rating, or availability different from what a user actually sees on the page violates Google's structured data guidelines, even when the markup itself validates cleanly. Validators check syntax, not truthfulness — that check is on you.
+- **Invalid nesting.** Structured data is hierarchical: an Offer belongs inside a Product, a Review belongs inside the entity it reviews. Flattening that hierarchy, or nesting a type inside the wrong parent, produces markup that technically validates while silently dropping the fields that got misplaced.
+
+None of these require advanced technical skill to fix — they require noticing them, which is the entire point of running a validator before you publish rather than after a rich result silently fails to appear. A [JSON-LD generator](/blog/json-ld-generator) that enforces the correct schema.org hierarchy by construction prevents most of these errors before you ever open a validator.
+
+## Why validation matters for AI, not just rich results
+
+Rich results are the visible reason to validate. Machine parsing by AI answer engines is the bigger one, and it's far less forgiving. When you use [structured data to help AI understand your content](/blog/structured-data-for-ai), you're feeding the same JSON-LD block to systems with no visual fallback: a search engine that fails to render a rich result just shows a plain blue link, but an AI engine that fails to parse your entity often skips citing you entirely. This isn't a hypothetical edge case — it's the default behavior of retrieval-based systems that quote or summarize whichever source they can parse with confidence.
+
+That's the case for treating validation as a floor, not a nice-to-have. Clean, valid schema tells an AI engine unambiguously what your entity is, what it does, and how it relates to everything else on the page. Malformed schema is arguably worse than no schema at all — it signals structure, then delivers a parsing failure, which is a worse outcome than an engine falling back to plain-text extraction from the start.
+
+If you're building markup from scratch rather than fixing existing errors, a [schema markup generator](/blog/schema-markup-generator) that outputs valid JSON-LD from the start removes the error-prone hand-coding step entirely.
+
+## Validation is necessary, not sufficient
+
+A green checkmark from a validator means your schema is readable. It doesn't mean anyone — human or AI — will choose to cite it.
+
+Passing validation confirms syntax, required fields, and structure are correct. It says nothing about whether your content is accurate, comprehensive, or more useful than a competitor's page covering the same entity. Search engines and AI engines both still weigh content quality and site authority heavily before deciding what to surface, no matter how clean the underlying markup is. Two competing pages can both pass validation with zero errors; the one with deeper, more specific content and stronger authority still wins the citation, not the one with marginally tidier markup.
+
+Think of validation the way you'd think of spell-check: skipping it guarantees embarrassing, avoidable mistakes, but running it guarantees nothing about whether the writing itself is any good. Valid schema removes a technical blocker. It doesn't replace the content and authority work that actually earns citations.
+
+## The next question: are AI engines actually citing you?
+
+Once your schema validates cleanly, the technical box is checked — but that only confirms your content is readable, not that it's being read. The real test is whether ChatGPT, Perplexity, Gemini, and Google's AI Overviews actually surface your brand when someone asks a buying question in your category. [AEOeye](/) audits that gap directly, checking whether AI engines recommend you or a competitor once your structured data is no longer the bottleneck.

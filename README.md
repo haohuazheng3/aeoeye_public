@@ -60,25 +60,66 @@ curl -X POST https://aeoeye.com/api/v1/reports \
   -d '{"input": "yourbrand.com"}'
 ```
 
-## What's in this repository
+## Run it yourself
 
-The four free tools above, exactly as they run on aeoeye.com — plus the type definition
-for the report the API returns.
+This is the full application — Next.js 14 (App Router), React 18, TypeScript,
+Postgres via Drizzle.
+
+```bash
+git clone https://github.com/haohuazheng3/aeoeye.com.git
+cd aeoeye.com
+npm install
+cp .env.example .env.local     # then fill it in
+npm run db:migrate
+npm run dev
+```
+
+### What you need to fill in
+
+Only one thing is strictly required to boot: `DATABASE_URL` (any Postgres; Neon works well).
+Beyond that, each capability switches on when its key is present and degrades honestly when
+it isn't — a missing key never fakes a result, it marks that engine as unavailable.
+
+| Key | Unlocks |
+|-----|---------|
+| `OPENAI_API` | Question generation, answer judging, synthesis — **and** the ChatGPT engine. Without it, no audit runs. |
+| `DATAFORSEO_B64` | The other four engines: Claude, Gemini, Google AI Overview, Perplexity |
+| `FIRECRAWL_API_KEY` | Crawling the audited site (feeds the 5-layer site audit) |
+| `CLERK_SECRET_KEY` + `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Accounts |
+| `STRIPE_SECRET_KEY` | Payments |
+| `PSI_API` | Real-user performance data (Chrome UX Report) |
+| `RESEND_API_KEY` | Emailing the report PDF |
+
+`.env.example` documents every variable; `lib/env.ts` is the authority (zod-validated).
+
+### Deploying
+
+Built for Vercel. The repo ships a GitHub Actions-free setup — bring your own pipeline,
+or connect the repo to Vercel and let it build.
+
+## How it's put together
 
 ```
-tools/
-  llms-txt-generator.tsx     Build a valid llms.txt for your site
-  ai-robots-generator.tsx    Choose which AI crawlers may access you
-  schema-generator.tsx       Generate Organization / FAQ / Article JSON-LD
-  seo-roi-calculator.tsx     Model the return on an SEO/AEO programme
-types/
-  report.ts                  The shape of an AEOeye report, field by field
+app/           Routes: marketing pages, the report view, API endpoints
+components/    UI — report modules, the four free tools, the API console
+lib/engine/    The audit itself: question prep, engines, judging, scoring, synthesis
+lib/           Cost ledger, auth, DB, PDF rendering, SEO helpers
+content/       Blog, comparisons, guides — the site's written surface
+drizzle/       Schema migrations
 ```
 
-They're plain React components — `react` and `lucide-react`, nothing else. Read them,
-lift them, adapt them. MIT.
+A few decisions worth knowing before you read the code:
 
-The audit engine itself (question generation, multi-engine querying, answer judging,
-the site-audit layers) stays closed — that's the product.
+- **Engines are queried at the free tier a real user gets.** Testing a $20/month tier would
+  flatter you with an answer most of your buyers never see.
+- **A failed engine is never scored as "it didn't recommend you."** No answer means no answer;
+  the report says so and excludes it.
+- **Level 1 of the ladder is only ever stated on direct evidence.** Some providers return only
+  the sources they cited, not the full result set — absence there is not proof of absence.
+
+## Not included
+
+The private repo keeps the operating record: SEO ledgers, audit rounds, internal notes and
+account material. None of it is needed to run the application.
 
 Questions: [contact@aeoeye.com](mailto:contact@aeoeye.com)

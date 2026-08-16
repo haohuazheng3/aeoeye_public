@@ -1,0 +1,70 @@
+---
+title: "How Does Claude Work? A Plain-English Breakdown"
+description: "How does Claude work? A plain-English look at pretraining, Constitutional AI, tool use, and web search — and what it means for your brand."
+date: "2026-07-17"
+category: "AI Search"
+readingTime: "7 min read"
+keywords: ["how does claude work", "what is claude ai", "how does claude ai work", "claude constitutional ai"]
+faqs: [{"q": "How does Claude AI work in simple terms?", "a": "Claude is a large language model that first learns language patterns from huge amounts of text, then gets further training \u2014 including Anthropic's Constitutional AI approach \u2014 to behave helpfully and safely. When you chat with it, it generates answers from that training, occasionally using tools or web search for current information."}, {"q": "What makes Claude different from ChatGPT?", "a": "Both are large language models refined with human feedback, but Claude also leans on Anthropic's Constitutional AI training, which checks responses against a written set of principles instead of relying purely on rater preferences. In practice, that tends to show up as a more cautious, deliberative tone and stronger citation habits when it searches."}, {"q": "Does Claude have access to the internet?", "a": "Not by default in every context, but Claude can search the web when a question needs current or verifiable information, and it typically cites what it finds rather than presenting it as memorized fact. Its usual instinct still leans toward generating an answer from training first and searching only when that's not enough."}, {"q": "Who makes Claude?", "a": "Claude is built by Anthropic, an AI safety-focused company that designed its training process \u2014 including the Constitutional AI method \u2014 around making the model helpful while staying honest and avoiding harmful outputs. Anthropic offers Claude through a consumer app, a developer API, and Claude Code for software and agentic tasks."}]
+image: {"url": "https://images.pexels.com/photos/27427258/pexels-photo-27427258.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Vibrant and engaging code displayed on a computer screen, showcasing programming concepts.", "photographer": "Seraphfim Gallery", "photographerUrl": "https://www.pexels.com/@seraphfim"}
+sources: [{"label": "Anthropic \u2014 Does Anthropic crawl data from the web?", "url": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"}]
+---
+
+Ask ten people how Claude works and eight will say some version of "it's a chatbot trained on the internet." That's not wrong, but it's not a useful answer either. Claude works in layers: a pretrained language model, additional training that shapes its behavior (what Anthropic calls Constitutional AI), and a serving layer that adds tools, search, and long-context handling on top. Here's what each layer actually does — without the parts nobody outside Anthropic can honestly claim to know.
+
+## How does Claude work?
+
+In short: Claude starts as a large language model pretrained on text, then goes through further training that steers it toward helpful and safe behavior, and finally runs inside a product layer that can call tools or search the web when a question needs it. Each stage changes what the model can do, not just how it sounds.
+
+1. **Pretraining.** Like other large language models, Claude learns statistical patterns across a broad range of text, which is what lets it draft, summarize, code, and hold a coherent conversation. On its own, that stage produces something fluent but unpredictable — the model says whatever sounds plausible, without much of a filter for accuracy or tone.
+2. **Alignment.** Additional training — including Constitutional AI-style methods, covered next — nudges the model toward specific behaviors: answering directly, declining harmful requests, flagging its own uncertainty instead of guessing confidently. This is where Anthropic's approach diverges most from a generic "trained on the internet" story, though, like every AI lab, Anthropic hasn't published every detail of the recipe.
+3. **Serving.** When you actually use Claude — through the app, the API, or Claude Code — the model can reach beyond its training: calling tools, running code, or searching the web, then folding what it finds back into an answer that still reads like a normal response rather than a raw search result.
+
+## What is Constitutional AI?
+
+Constitutional AI is Anthropic's method for training Claude against a written set of principles, instead of relying only on people rating individual responses one by one. Rather than a human grading thousands of outputs, the model is trained to critique and revise its own answers against those principles, and that self-corrected output becomes part of further training.
+
+Why does this matter more than it sounds? Because it changes where Claude's judgment comes from. A model trained purely on scattered human preference data can absorb the idiosyncrasies of whoever happened to be rating that day. A model trained partly against written principles is reasoning against something closer to a consistent policy — a meaningfully different design choice, not just a marketing line.
+
+We'd push back on treating this as a safety footnote. It's also a tone decision. Claude's habit of hedging, qualifying, and explaining its reasoning instead of asserting things confidently isn't an accident of personality — it's downstream of training the model against principles that reward exactly that kind of carefulness. Anthropic's own [research on Constitutional AI](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) is the primary source here, and it's worth reading directly for the technical version rather than relying on our summary.
+
+
+![Modern toy bot with eyes in pure water on pavement in daytime on blurred background](https://images.pexels.com/photos/5895405/pexels-photo-5895405.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+
+## What is Claude actually good at?
+
+Claude's reputation rests on three things: handling long documents without losing the thread, producing writing that reads like it was actually edited, and doing real coding and agentic work rather than just autocompleting snippets. None of that shows up as a single number worth quoting — it shows up in how the output holds together over a long task.
+
+Long-context handling is the most concrete of the three. Claude is built to work with large volumes of text in a single conversation — contracts, codebases, research papers — and to track details across that whole span instead of drifting after a few pages. That's a genuinely different use case than a quick question-and-answer chatbot.
+
+On writing, here's the pattern we notice, as a team that reads a lot of AI-generated content while auditing how brands show up in it: Claude tends to avoid the flattest, most generic phrasing more often than some competitors do. That's not infallible, and "better writing" is subjective enough that we won't pretend otherwise — but it's a defensible reputation, not just brand mythology.
+
+Coding and agentic work is the newer story, mainly through Claude Code, where Claude does more than answer questions about code. It can read a codebase, make changes, and run commands as part of finishing a task rather than leaving that step to you. If you're weighing it against other assistants for this kind of work, our [ChatGPT vs Claude comparison](/blog/chatgpt-vs-claude) breaks down where each one tends to pull ahead.
+
+## Does Claude search the web?
+
+Yes: Claude can search the web when a question calls for current or verifiable information, and when it does, it generally cites what it used instead of blending it in unmarked. Search isn't the default reflex for every question, though — Claude leans toward generating an answer from its training first and reaching for search when that's genuinely not enough.
+
+That distinction matters if you're trying to understand what Claude will say about a topic, including your brand. A generated answer draws on whatever Claude absorbed during training, which may be outdated or incomplete. A searched answer draws on what's actually live on the web, with a citation trail you can check yourself. We've written a full breakdown of [how and when Claude cites its sources](/answers/does-claude-cite-sources) if you want the mechanics in more depth.
+
+### Claude's default posture, at a glance
+
+| Dimension | Claude's posture |
+|---|---|
+| Default mode | Generates from training first; reaches for tools only when the question calls for it |
+| Long-context | Built to hold large documents and codebases in one conversation without losing track |
+| Citations | Cites sources when it searches the web, instead of presenting fetched information as memorized fact |
+| Tools & agents | Can call tools, run code, and work through multi-step tasks — most visibly through Claude Code |
+| Ecosystem | Available as a consumer app, a developer API, and Claude Code for software work |
+
+## Claude the product family
+
+Claude isn't one product — it's three surfaces built on the same underlying models. There's the consumer-facing app and web chat for everyday conversations, research, and writing help. There's the API, which is how most companies actually put Claude inside their own products, from customer support tools to internal search. And there's Claude Code, Anthropic's environment for agentic coding, where Claude works more like a collaborator inside your codebase than a chat window you paste snippets into. If you're deciding whether the paid tier is worth it for your own use, we've laid out the tradeoffs separately in our [Claude Pro breakdown](/blog/claude-pro-worth-it).
+
+## What Claude's design means for brands
+
+Here's the part most "how does Claude work" explainers skip entirely: this design has direct consequences if you care how your brand shows up in AI answers. A model trained to hedge, check itself against principles, and favor well-corroborated information isn't going to repeat a single flashy claim from your homepage. It's going to lean toward whatever is stated consistently across multiple credible sources.
+
+That means the brands Claude describes accurately tend to share a pattern: consistent facts across their own site, third-party coverage, and structured data — not just a persuasive tagline in one place. Vague or contradictory information across your web presence is exactly what a corroboration-leaning model treats with suspicion. We've written more about optimizing specifically for how Claude parses and weighs content in our [Claude SEO guide](/blog/claude-seo).
+
+The honest way to know where you stand is to check, not guess. That's the entire premise behind [AEOeye](/): we run structured audits of what Claude and other AI engines actually say when someone asks about your brand, so you're working from evidence instead of assumptions.

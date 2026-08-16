@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 1.1rem;
+  --paper: 246 247 251;
+  --ink: 12 14 22;
+}
+
+@layer base {
+  * {
+    @apply border-paper-dim;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply relative bg-paper text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    @apply bg-iris/20 text-ink;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  /* 聚焦可见性(a11y) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-iris ring-offset-2 ring-offset-paper;
+  }
+}
+
+@layer components {
+  .container-tight {
+    @apply mx-auto w-full max-w-[1100px] px-5 sm:px-6;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-iris;
+  }
+  /* 悬浮玻璃模块 —— 与顶栏 glass-bar 完全同配方:
+     纯 55% 白平色(无渐变涂层,背后模糊内容真实透出)+ blur-xl 磨砂 + 环绕淡黑浮影 */
+  .card {
+    @apply relative rounded-[1.75rem] border border-white/30 bg-white/30 shadow-float backdrop-blur-2xl backdrop-saturate-150;
+  }
+  .card::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    /* 轻顶部高光(液态),刻意很淡 —— 不能形成白涂层盖掉透明磨砂 */
+    background: linear-gradient(115deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 36%);
+  }
+  /* iOS 玻璃边缘高光环(rim light):受光不均 —— 左上最亮、中段暗、右下回光,3D 悬浮主力 */
+  .card::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0.25) 32%,
+      rgba(255, 255, 255, 0.08) 58%,
+      rgba(255, 255, 255, 0.6)
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+  .card-hover {
+    @apply transition duration-300 ease-out hover:-translate-y-1 hover:shadow-float-lg;
+  }
+  /* 墨色液态大模块(CTA / 解锁区)—— card 的深色孪生,承接 btn-primary 的墨色语言 */
+  .panel-dark {
+    @apply relative overflow-hidden rounded-[1.75rem] text-white;
+    background-image: linear-gradient(165deg, #242a40, #0c0e16 68%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 2px 6px rgba(12, 14, 22, 0.18),
+      0 24px 56px -20px rgba(12, 14, 22, 0.5);
+  }
+  .panel-dark::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 46%);
+  }
+  /* 悬浮玻璃子模块(重要展示专用:当前层级 / 证据面板 / 要点块)
+     与 glass-bar 同配方:纯白平色 + blur-xl,环绕浮影比 card 轻一档 */
+  .surface {
+    @apply relative rounded-[1.4rem] border border-white/30 bg-white/30 shadow-float backdrop-blur-2xl backdrop-saturate-150;
+  }
+  .surface::before {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    background: linear-gradient(115deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 34%);
+  }
+  .surface::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.2) 32%,
+      rgba(255, 255, 255, 0.06) 58%,
+      rgba(255, 255, 255, 0.5)
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+  /* 反光层是 absolute,普通流内容需自动提回其上(card 由使用处的 relative z-10 处理) */
+  .surface > * {
+    position: relative;
+    z-index: 1;
+  }
+  /* 主按钮 = 墨色液态模块(按钮本质也是模块) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white
+           transition duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-60 disabled:pointer-events-none;
+    background-image: linear-gradient(180deg, #242a40, #0c0e16 62%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px rgba(255, 255, 255, 0.08),
+      0 0 3px rgba(12, 14, 22, 0.14), 0 0 28px rgba(12, 14, 22, 0.26);
+  }
+  .btn-primary:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 1px rgba(255, 255, 255, 0.1),
+      0 0 4px rgba(12, 14, 22, 0.16), 0 0 36px rgba(12, 14, 22, 0.32);
+  }
+  /* 次按钮 = 玻璃模块 */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/70 bg-white/45 px-5 py-3
+           text-sm font-semibold text-ink transition duration-200 hover:-translate-y-0.5
+           hover:bg-white/90 active:scale-[0.98];
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+      0 0 1px rgba(12, 14, 22, 0.04), 0 0 24px rgba(12, 14, 22, 0.12);
+  }
+  /* 小玻璃胶囊(引擎名等) */
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/45 px-4 py-2 text-[13px]
+           font-medium text-ink/65;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+      0 0 1px rgba(12, 14, 22, 0.04), 0 0 20px rgba(12, 14, 22, 0.1);
+  }
+  /* 顶栏玻璃胶囊 */
+  .glass-bar {
+    @apply relative rounded-full border border-white/30 bg-white/30 shadow-float backdrop-blur-2xl backdrop-saturate-150;
+  }
+  .glass-bar::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.2) 32%,
+      rgba(255, 255, 255, 0.06) 58%,
+      rgba(255, 255, 255, 0.5)
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+  .link-underline {
+    @apply underline decoration-iris/40 underline-offset-4 transition hover:decoration-iris;
+  }
+}
+
+/* 网格背景(英雄区) */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* 扫描条 */
+.scan-line {
+  background: linear-gradient(180deg, transparent, rgba(109, 91, 246, 0.65), transparent);
+}
+
+/* 隐藏滚动条但保留滚动 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 轻量排版(博客 / 法律页) */
+.prose {
+  @apply text-[15px] leading-relaxed text-ink/80;
+}
+.prose > * + * { @apply mt-5; }
+.prose h2 {
+  @apply mt-12 font-display text-2xl font-semibold tracking-tight text-ink;
+}
+.prose h3 {
+  @apply mt-8 font-display text-xl font-semibold tracking-tight text-ink;
+}
+.prose h2 + p, .prose h3 + p { @apply mt-3; }
+.prose p { @apply text-ink/75; }
+.prose a { @apply font-medium text-iris underline decoration-iris/40 underline-offset-4 hover:decoration-iris; }
+.prose strong { @apply font-semibold text-ink; }
+.prose ul { @apply ml-5 list-disc space-y-2 marker:text-iris/50; }
+.prose ol { @apply ml-5 list-decimal space-y-2 marker:text-ink/40; }
+.prose li { @apply text-ink/75; }
+.prose blockquote {
+  @apply border-l-4 border-iris/40 pl-4 font-display text-lg italic text-ink/70;
+}
+.prose code {
+  @apply rounded bg-paper-soft px-1.5 py-0.5 font-mono text-[0.85em] text-ink;
+}
+.prose pre {
+  @apply overflow-x-auto rounded-xl bg-ink p-4 text-sm text-paper;
+}
+.prose pre code { @apply bg-transparent p-0 text-paper; }
+.prose hr { @apply my-10 border-paper-dim; }
+.prose table { @apply w-full text-sm; }
+.prose th { @apply border-b border-paper-dim py-2 text-left font-semibold; }
+.prose td { @apply border-b border-paper-dim/60 py-2 text-ink/75; }
+
+/* ============================================================
+   打印 / PDF 导出
+   玻璃模块靠半透明白渐变 + ::before 反光实现,PDF 渲染器不支持这类叠加时
+   会把它画成黑色斜切块(实测导出报告每张卡片都被劈黑)。打印时统一降级为
+   纯白卡片 + 浅描边,保证导出的报告干净可分享。
+   ============================================================ */
+@media print {
+  .card::before,
+  .panel-dark::before,
+  .surface::before,
+  .card::after,
+  .surface::after,
+  .glass-bar::after {
+    display: none !important;
+  }
+  .card,
+  .surface {
+    background-image: none !important;
+    background-color: #fff !important;
+    border: 1px solid #e2e6f0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .chip,
+  .btn-ghost,
+  .glass-bar {
+    background-image: none !important;
+    background-color: #fff !important;
+    border: 1px solid #e2e6f0 !important;
+    box-shadow: none !important;
+  }
+  .panel-dark,
+  .btn-primary {
+    background-image: none !important;
+    background-color: #0c0e16 !important;
+    box-shadow: none !important;
+  }
+  /* 背景光斑/装饰层不参与打印 */
+  .bg-grid,
+  [aria-hidden="true"].pointer-events-none.fixed {
+    display: none !important;
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "slug": "how-do-i-get-my-brand-into-ai-answers",
+  "type": "answer",
+  "title": "How Do I Get My Brand Into AI Answers? The 3 Pillars",
+  "metaTitle": "How to Get Your Brand Into AI Answers: 3 Pillars",
+  "metaDescription": "Getting into AI answers takes a clear entity, third-party consensus, and answer-ready content — and most of that work happens off your site.",
+  "primaryKeyword": "how to get your brand into ai answers",
+  "shortAnswer": "You get into AI answers by nailing three things: a clear, consistent entity — what you are, who you serve, and how you describe yourself everywhere; third-party consensus — reviews, listicles, comparison posts, and forum threads that independently describe you the same way; and answer-shaped content on your own site that directly answers the questions buyers ask. Here's the part most teams miss: roughly 90% of this work happens off your website, in what other people and publications say about you — not in your own copy.",
+  "intro": "Every founder asks this the same way: \"Why does ChatGPT recommend my competitor and not me?\" The honest answer is that AI answer engines don't work like search engines used to. They're not ranking your homepage — they're synthesizing an opinion about your brand from everything they've read about you, on your site and, mostly, everywhere else. If you've been treating this like a keyword problem, you've been solving the wrong problem. Below is the actual framework: three pillars, in the order they matter, plus the mistakes that keep most brands invisible.",
+  "sections": [
+    {
+      "heading": "How do I get my brand into AI answers?",
+      "body": "You get into AI answers with three things working together: a clear entity, consensus from other sources, and content that answers real questions. Miss any one pillar and the other two can't fully compensate — AI models cross-check what you say about yourself against what everyone else says.\n\nHere's the breakdown:\n\n1. **Entity clarity** — the AI needs to know unambiguously what you are, what category you belong to, and who you serve. This is the foundation of what's called [entity SEO](/glossary/entity-seo): making your brand a well-defined \"thing\" in the model's understanding of the world, not a vague collection of keywords.\n2. **Third-party consensus** — reviews, comparison articles, forum threads, and listicles that independently describe your brand the same way you describe yourself. This is the pillar most companies ignore, and it's the one that carries the most weight.\n3. **Answer-shaped content** — pages and posts on your own site that directly answer the specific questions your buyers type into AI tools, instead of pages built to rank for a keyword.\n\nNone of this is exotic. It's closer to old-school PR and category positioning than to technical SEO — which is exactly why most SEO teams get it wrong."
+    },
+    {
+      "heading": "Where to start",
+      "body": "Start with entity clarity, because everything else builds on it. Fix how you describe yourself before you chase mentions or write more content — inconsistent positioning undermines both.\n\nIf your own site, your LinkedIn, your G2 profile, and your press mentions all describe your business slightly differently, you're asking the AI to guess which version is true — and it will often guess wrong, or hedge and mention a competitor instead.\n\nThe order matters:\n\n1. **Fix your entity first.** Write one clear, boring, consistent description of what you do and who it's for. Use it everywhere — homepage, About page, social bios, directory listings. Boring and consistent beats clever and inconsistent every time.\n2. **Then go earn off-site consensus.** Get reviewed. Get included in comparison posts. Answer questions on the forums where your buyers actually hang out. This is slower than writing blog posts, but it's the part that actually moves the needle — see our full breakdown of [how to get your business recommended by AI](/blog/how-to-get-your-business-recommended-by-ai).\n3. **Only then, build on-site answer content.** Once your entity is clear and other sources agree on what you are, your own content becomes useful supporting evidence instead of the AI's only source.\n\nDo these out of order and you'll burn months writing content that an AI can't trust, because nothing else on the web backs it up."
+    },
+    {
+      "heading": "Common mistakes",
+      "body": "The single biggest mistake is treating this as an on-site SEO project — publishing more pages while ignoring what's said about you elsewhere. AI answer engines weigh outside sources heavily, precisely because a company's own website is the least objective source about itself.\n\nThe other repeat offenders:\n\n- **Only optimizing your own site.** More landing pages won't fix a consensus problem. If no third party has ever described your product, the AI has nothing independent to cite.\n- **Inconsistent naming and positioning.** Calling yourself a \"platform\" on your homepage, a \"tool\" on LinkedIn, and a \"solution\" in your latest press release fragments your entity. Pick one description and repeat it until it's boring.\n- **No third-party presence at all.** No reviews on G2, Capterra, or Trustpilot; no mentions in roundups; no presence in the communities your buyers ask questions in. If you want to understand why this specific gap gets punished, read [how AI assistants choose brands](/blog/how-ai-assistants-choose-brands) — it walks through the actual selection logic.\n\nEvery one of these is fixable. None of them are fixed by writing another 2,000-word blog post."
+    },
+    {
+      "heading": "How to see where you stand",
+      "body": "The only way to know where you actually stand is to ask the AI tools directly, across multiple engines, with real buyer questions — not your own guesses about what they'd say.\n\nManually, that means opening ChatGPT, Perplexity, Gemini, Google AI Overviews, and Claude, and running the exact questions your buyers ask before they choose a product in your category. Do it more than once — answers shift, and a single good result doesn't mean you're consistently recommended.\n\nThat's slow and easy to do wrong, which is the whole reason we built AEOeye: it runs your brand through the major AI answer engines at once, shows you whether you're being recommended, mentioned as an also-ran, or left out entirely, and flags which pillar — entity, consensus, or content — is most likely holding you back.\n\n[Run a free AI visibility audit](/#audit) and see exactly where your brand stands today, not where you assume it stands."
+    }
+  ],
+  "keyTakeaways": [
+    "Getting into AI answers rests on three pillars: entity clarity, third-party consensus, and answer-shaped content — in that order of priority.",
+    "Roughly 90% of the work happens off your website, in what other sources say about you, not in your own copy.",
+    "Fix inconsistent naming and positioning before doing anything else — a fragmented entity undermines every other effort.",
+    "Reviews, comparison posts, and forum mentions matter more to AI answer engines than most companies assume.",
+    "Publishing more on-site content cannot substitute for third-party consensus; it's the most common and most wasteful mistake.",
+    "The only reliable way to know where you stand is to audit your brand across multiple AI engines with real buyer questions — tools like AEOeye do this automatically."
+  ],
+  "faqs": [
+    {
+      "q": "How long does it take to get into AI answers?",
+      "a": "There's no fixed timeline, and anyone promising a specific number of weeks is guessing. Entity fixes — rewriting your positioning consistently across your site and profiles — can happen in days. Third-party consensus takes longer, realistically months, because you're waiting on other people and publications to write about you, and AI models need to crawl and process that content before it shows up in answers. Budget for months, not weeks, and treat quick wins as encouraging, not as the finish line."
+    },
+    {
+      "q": "Do I need a Wikipedia page?",
+      "a": "No, and for most brands it's not realistic anyway — Wikipedia's notability guidelines exclude the vast majority of companies. A Wikipedia page can help because it's a heavily trusted entity source, but it's one input among many, not a requirement. You can build strong entity clarity and consensus through review sites, industry publications, and comparison content without ever touching Wikipedia."
+    },
+    {
+      "q": "Why does AI recommend my competitors instead?",
+      "a": "Usually because your competitor has clearer, more consistent third-party consensus, not because their product is better. AI answer engines lean on what's independently said about a brand, and if your competitor has more reviews, more comparison mentions, and a more consistent entity description across the web, the model simply has more evidence to point to. It's rarely personal, and it's almost never about product quality alone — it's about who has the stronger evidence trail."
+    },
+    {
+      "q": "Can I pay to appear in AI answers?",
+      "a": "Not directly — there's no ad product today that guarantees a specific mention inside a ChatGPT or Perplexity answer the way search ads guarantee placement. What you can pay for is work that indirectly improves your odds: PR and outreach that earns third-party coverage, review-generation campaigns, and content production. Be skeptical of anyone selling guaranteed AI answer placement — as of now, that's not how these systems work."
+    }
+  ]
+}
