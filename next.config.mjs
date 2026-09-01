@@ -24,6 +24,14 @@ const nextConfig = {
         permanent: true,
       },
       { source: "/for/local-business", destination: "/for", permanent: true },
+      // Both pages targeted the same ChatGPT SEO tool(s) buying intent. GSC
+      // discovered the roundup while the singular variant remained unknown,
+      // so consolidate signals instead of asking Google to index duplicates.
+      {
+        source: "/blog/chatgpt-seo-tool-comparison",
+        destination: "/blog/chatgpt-seo-tools-roundup",
+        permanent: true,
+      },
     ];
   },
   async headers() {

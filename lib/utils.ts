@@ -152,6 +152,15 @@ export function gradeFor(score: number): "A" | "B" | "C" | "D" | "F" {
 }
 
 export function formatDate(d: Date | string | number): string {
-  const date = typeof d === "object" ? d : new Date(d);
-  return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  // Content metadata is stored as a calendar date (YYYY-MM-DD), not an instant.
+  // Parsing that form with new Date() treats it as UTC midnight, so a negative
+  // timezone renders the previous day in the browser and can break hydration.
+  const dateOnly = typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d);
+  const date = dateOnly ? new Date(`${d}T00:00:00Z`) : typeof d === "object" ? d : new Date(d);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    ...(dateOnly ? { timeZone: "UTC" } : {}),
+  });
 }

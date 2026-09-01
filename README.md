@@ -66,8 +66,8 @@ This is the full application — Next.js 14 (App Router), React 18, TypeScript,
 Postgres via Drizzle.
 
 ```bash
-git clone https://github.com/haohuazheng3/aeoeye.com.git
-cd aeoeye.com
+git clone https://github.com/haohuazheng3/aeoeye_public.git
+cd aeoeye_public
 npm install
 cp .env.example .env.local     # then fill it in
 npm run db:migrate

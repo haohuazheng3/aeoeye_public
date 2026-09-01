@@ -23,11 +23,13 @@ export function UnlockButton({
   children?: React.ReactNode;
 }) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // 匿名可买:直接开 Stripe checkout,不再先查登录态、不再拦去登录。
   // 保留 401+requiresAuth 分支作为兜底:后端若因任何原因要求登录,仍能回来续单。
   const go = useCallback(async () => {
     setLoading(true);
+    setError("");
     const params = new URLSearchParams(window.location.search);
     const coupon = params.get("coupon") || undefined;
     try {
@@ -46,8 +48,10 @@ export function UnlockButton({
         window.location.href = data.url;
         return;
       }
+      setError(data.error || "Couldn’t start checkout. Please try again.");
       setLoading(false);
     } catch {
+      setError("Couldn’t start checkout. Please try again.");
       setLoading(false);
     }
   }, [auditId, product]);
@@ -63,10 +67,13 @@ export function UnlockButton({
   }, [go]);
 
   return (
-    <button onClick={go} disabled={loading} className={className}>
-      {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-      {children || "Unlock full report"}
-    </button>
+    <span className="inline-flex max-w-full flex-col items-center gap-2">
+      <button onClick={go} disabled={loading} className={className}>
+        {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+        {children || "Unlock full report"}
+      </button>
+      {error && <span role="alert" className="max-w-xs text-center text-xs font-medium text-coral-deep">{error}</span>}
+    </span>
   );
 }
 

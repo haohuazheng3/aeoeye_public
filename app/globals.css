@@ -222,7 +222,7 @@
 }
 .prose pre code { @apply bg-transparent p-0 text-paper; }
 .prose hr { @apply my-10 border-paper-dim; }
-.prose table { @apply w-full text-sm; }
+.prose table { @apply block w-full max-w-full overflow-x-auto text-sm; }
 .prose th { @apply border-b border-paper-dim py-2 text-left font-semibold; }
 .prose td { @apply border-b border-paper-dim/60 py-2 text-ink/75; }
 

@@ -5,65 +5,125 @@
  "metaTitle": "AEO for Agencies: Sell AI Visibility as a Service",
  "metaDescription": "A practical playbook for agencies offering AEO: how to audit clients across ChatGPT, Perplexity & AI Overviews, package the service, price it, and prove ROI.",
  "primaryKeyword": "aeo for agencies",
- "shortAnswer": "AEO for agencies means selling AI visibility as a productized service: you audit how ChatGPT, Perplexity, Gemini, and Google AI Overviews answer your clients' buyer questions, find where competitors get named instead, and earn back those mentions through answer-shaped content, schema, and off-site presence. It's a natural high-margin add-on to SEO — start with a paid AI visibility audit, deliver a prioritized fix list, then retain the client on monthly monitoring that alerts you when their AI mentions change.",
+ "shortAnswer": "AEO for agencies means packaging AI visibility as a measurable service: audit how answer engines handle a client's buyer questions, identify where competitors are named or cited instead, and prioritize content, technical, and authority fixes. Start with a fixed-scope audit, follow with a remediation sprint, then schedule evidence-based checkpoints when the client needs ongoing measurement.",
  "intro": "Your SEO clients are asking the same question in different words: \"Why doesn't ChatGPT recommend us?\" Some have noticed traffic from a few money keywords flattening as AI Overviews eat the clicks. Others just asked Perplexity about their own category and watched a competitor get named. They're turning to you for an answer — and \"let's wait and see\" is not one your retainer can afford.\n\nAEO is the most defensible new line item an agency has added in years. The deliverables are concrete, the before/after is screenshot-able, and almost no one is doing it well yet. The hard part isn't the work. It's productizing it so it scales across a roster instead of eating your senior people one client at a time.",
  "sections": [
   {
-   "heading": "Why AEO is the easiest high-margin upsell on your menu right now",
-   "body": "Three things make AEO a uniquely good agency offer. First, the pain is fresh and acute — clients *feel* the shift the moment they prompt an assistant about their own brand, so you're not manufacturing demand. Second, the deliverable is brutally legible: \"You are named in 2 of 12 buyer prompts; here's who's named instead and the eight pages we'll fix.\" No client argues with that the way they argue about Domain Rating moving two points. Third, it bolts onto work you already do. Crawlability, topic clusters, schema, digital PR — your SEO muscle transfers directly; AEO just adds a second scoreboard.\n\nThe margins are good because the diagnosis is cheap and the strategy is expensive. An audit takes minutes to run with the right tooling but anchors a multi-month engagement. And it's sticky: AI answers drift constantly as models retrain and competitors publish, so a one-time audit naturally becomes a monitoring retainer. You're not selling a project. You're selling an early-warning system for a channel the client can't see without you."
+   "heading": "Why does AEO fit an agency's existing SEO service line?",
+   "body": "Three things make AEO a practical agency offer. First, the problem becomes concrete when a client asks an assistant a buyer question and sees another brand recommended. Second, the deliverable is legible: \"You appeared in 2 of 12 tracked prompts; here are the competing sources and the pages we should improve.\" Third, it builds on work a strong SEO team already does: crawlability, information architecture, useful content, structured data, and digital PR. Google explicitly says its established SEO fundamentals still apply to [AI Overviews and AI Mode](https://developers.google.com/search/docs/appearance/ai-features); AEO adds an answer-level measurement layer rather than replacing SEO.\n\nDo not promise guaranteed mentions or a fixed margin. The commercial advantage comes from repeatable diagnosis and senior judgment: standardize evidence collection, then spend expert time deciding which content, entity, or third-party source gap matters. A checkpoint can become recurring work when the client needs it, but scope and economics should follow the actual prompt set, markets, engines, and implementation burden."
   },
   {
    "heading": "What you're actually selling: the three layers of an AEO offer",
-   "body": "Don't sell \"AEO\" as a vague capability. Package it into three layers clients can buy in sequence:\n\n- **The audit (entry product).** Run your client's real buyer questions across ChatGPT, Perplexity, Gemini, and Google AI Overviews. Document where they're named, where they're invisible, who gets recommended instead, and *why* — the off-site sources the models are leaning on. This is your foot in the door and often a paid deliverable on its own.\n- **The remediation sprint (the project).** A prioritized fix list executed over 4–8 weeks: answer-shaped content rewrites, FAQ/Product/Organization schema, an `llms.txt` file, and an off-site push to get the client onto the listicles, review sites, and comparison pages the models cite.\n- **The monitoring retainer (the recurring revenue).** Re-audit on a schedule, track competitor movement, and alert the client the moment their AI mentions change. This is where the LTV lives.\n\nSelling them as a ladder lets a cautious client start small and upgrade once the first audit makes the gap undeniable."
+   "body": "Don't sell \"AEO\" as a vague capability. Package it into three layers clients can buy in sequence:\n\n- **The audit (entry product).** Follow a documented [AEO audit workflow](/guides/how-to-do-an-aeo-audit) against the client's real buyer questions. Record mentions, citations, competing brands, inaccurate claims, and the source pages visible in each answer.\n- **The remediation sprint (the project).** Turn the evidence into a prioritized backlog: improve pages that do not answer the intent, strengthen internal discovery, correct entity facts, and add only the schema that matches visible page content. Google's [structured data guidance](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data) says markup gives explicit clues about page meaning; it does not guarantee an AI citation. Check crawler policy too: OpenAI's [publisher guidance](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) separates OAI-SearchBot search inclusion from GPTBot training controls. After publishing a changed URL, [IndexNow](https://www.indexnow.org/documentation) can notify participating search engines of the update, but an accepted notification is not an indexing guarantee.\n- **The measurement checkpoint (repeatable service).** Re-run the same prompt set and compare mention rate, citation sources, framing, and competitor movement. Use this [brand-mention tracking workflow](/guides/how-to-track-brand-mentions-in-ai) so the comparison is reproducible rather than a collection of favorable screenshots.\n\nThe original [GEO research paper](https://arxiv.org/abs/2311.09735) provides an experimental foundation for testing content presentation, not a promise that one tactic will work for every client. Selling the service as a ladder lets a cautious client start with evidence and buy implementation or repeated measurement only when the scope supports it."
   },
   {
    "heading": "How to audit clients at scale without burning your senior team",
-   "body": "The trap is doing AEO audits by hand — opening four assistants in four tabs, typing prompts, screenshotting answers, pasting into a doc. It's fine for one logo. It collapses at ten. Manual prompting is also non-reproducible: you can't prove month-over-month improvement if last month's run lived in someone's browser history.\n\nStandardize instead. Build a **prompt set per vertical** — 10 to 20 buyer-intent questions a real prospect would ask (\"best [category] tool for [use case],\" \"alternatives to [competitor],\" \"is [client] good for [job]\"). Reuse it across every client in that vertical so results are comparable and onboarding a new account takes minutes, not a workshop.\n\nThen run it through a tool that hits all the engines at once and returns a structured report. AEOeye's free audit does exactly this — it runs buyer prompts across ChatGPT, Perplexity, Gemini, and AI Overviews and shows where a brand is named versus missing — so you can pull a same-day diagnostic into a sales call without a single manual prompt. For a roster, the Pro plan's *monitor multiple brands* and competitor tracking is the part that actually scales: one dashboard, every client, alerted on change."
+   "body": "The trap is doing every audit as an improvised session — opening assistants in separate tabs, changing the prompts between clients, and leaving the evidence in browser history. Manual review is valuable, but the protocol must be reproducible if you want to compare checkpoints.\n\nStandardize instead. Build a **prompt set per vertical** with buyer-intent questions such as \"best [category] tool for [use case]\" and \"alternatives to [competitor].\" Keep a versioned copy of the prompts, engines, date, locale, and scoring rules. Reuse the framework across clients while preserving brand-specific prompts and human review.\n\nAEOeye can provide a fast starting point: the product offers a free preview and a **$29 one-time full report**, with no Pro subscription or multi-brand dashboard. Review an [example report](/example) to understand the output, then check the current scope on the [pricing page](/pricing). Agencies still own client-by-client prompt design, evidence retention, prioritization, and any repeated measurement schedule."
   },
   {
    "heading": "Packaging and pricing AEO as a productized service",
-   "body": "Resist hourly billing — it caps your margin and makes the work feel like consulting roulette. Productize with fixed-scope tiers:\n\n- **AI Visibility Audit** — flat fee ($750–$2,500 depending on category breadth and number of competitors). One report, a 30-minute walkthrough, a prioritized fix list. Often sold as a paid pilot that converts.\n- **AEO Sprint** — fixed-scope remediation ($3k–$10k) covering content rewrites, schema, llms.txt, and an off-site mention push.\n- **AI Visibility Monitoring** — monthly retainer ($500–$2,000/mo per brand) for ongoing re-audits, competitor tracking, change alerts, and a short monthly report.\n\nYour tooling cost against that is trivial — a single Pro subscription monitoring multiple brands runs $39/mo. That's a >90% gross margin line on the monitoring tier alone. The audit's job isn't to make money; it's to make the gap so obvious that the sprint and retainer sell themselves. Lead with the cheap diagnosis, monetize the expensive cure."
+   "body": "Use fixed scope where the work is predictable, and quote custom scope where it is not. There is no defensible universal agency rate: the agency should set its own price from delivery inputs, not copy a published range.\n\n- **Audit scope:** number of brands, competitors, prompts, engines, locales, sample runs, source review, and stakeholder readout.\n- **Sprint scope:** number and type of pages, technical dependencies, schema validation, internal links, editorial review, and off-site outreach.\n- **Checkpoint scope:** cadence, prompt-set stability, rerun volume, manual quality review, change analysis, and reporting depth.\n\nPrice each package by estimated delivery effort, required expertise, third-party costs, risk, and the value of the decision it supports. State exclusions and change-order triggers in the proposal. AEOeye's tool price is separate from the agency's professional fee: it currently offers a free preview and a $29 one-time full report, as listed on [/pricing](/pricing). Do not imply that tool cost determines the agency's margin."
   },
   {
-   "heading": "Proving ROI so the retainer renews",
-   "body": "AI visibility has a measurement problem clients will press on: it doesn't show up in Search Console or GA the way rankings do. Get ahead of it by defining your scoreboard on day one and reporting it relentlessly.\n\nTrack and report:\n\n- **Mention rate** — % of your prompt set where the client is named in the answer. This is your headline number; moving it from 2/12 to 7/12 is a story anyone understands.\n- **Share of voice vs. named competitors** — who else shows up, and how often, on the same prompts.\n- **Citation sources** — which off-site pages the models pull from, so you can show *why* a mention was won or lost.\n- **Sentiment and accuracy** — is the model describing the client correctly, or repeating a stale or wrong claim you fixed?\n\nScreenshot the literal before/after answer. \"In March, ChatGPT recommended three competitors and not you. Today it names you first\" is the single most renewal-proof slide you will ever put in a deck. Tie it to pipeline where you can — assisted conversions, branded search lift, demo requests citing \"I asked ChatGPT.\""
+   "heading": "How should an agency measure progress and discuss ROI?",
+   "body": "AI visibility does not map neatly to a single traffic or ranking metric. Google's 2026 [generative AI performance reports](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports) add impressions and page visibility for eligible Search Console properties, but a prompt-level, cross-engine study still needs its own protocol. Define that scoreboard before implementation.\n\nTrack and report:\n\n- **Mention rate** — the percentage of sampled answers in the fixed prompt set that name the client.\n- **Share of voice vs. named competitors** — who else appears, and how often, on the same samples.\n- **Citation sources** — which pages are linked in the answer; describe this as observed evidence, not proof of a model's hidden reasoning.\n- **Framing and factual accuracy** — whether the answer describes the client correctly and consistently.\n\nKeep dated answer captures and compare like with like: same prompts, engines, locale, and sampling rule. Connect changes to qualified leads or assisted conversions only when the client's own analytics or sales records support that link; do not turn correlation into an ROI claim."
   },
   {
    "heading": "White-labeling and positioning against the agency next door",
-   "body": "You don't need to build tooling to look like you did. Run audits through a platform, then deliver findings in your own report template, your brand, your strategist's voice. The client buys *your* judgment about which fixes matter in their market — the engine that generated the raw data is plumbing, the same way you don't apologize for using a crawler or a rank tracker.\n\nPositioning-wise, get specific. \"We do AEO\" is already getting noisy. \"We get B2B SaaS companies recommended by ChatGPT and Perplexity in their buying-stage queries\" wins the call. Pick a vertical, build the prompt library for it, collect two or three before/after case studies, and you'll out-position generalist competitors who are still describing AEO as a buzzword. The agencies that win this aren't the ones who discovered AEO first — they're the ones who turned it into a repeatable, measurable, renewable product before everyone else did."
+   "body": "A tool can collect raw observations, but the agency must make its role transparent. Deliver the findings in a clear client report and distinguish platform output from your team's analysis, prioritization, and implementation. The client is paying for judgment about which fixes matter in its market, not for a claim that the agency built the underlying engine.\n\nPositioning should be specific without guaranteeing outcomes. \"We audit and improve AI visibility for B2B SaaS buying journeys\" is more credible than \"we will get you recommended by ChatGPT.\" If you are shaping a service, compare the delivery choices in [AI SEO services](/blog/ai-seo-services) and the operating model in this [GEO agency guide](/blog/geo-agency). Publish case studies only after you have permission and real before/after evidence; until then, sell the rigor of the method."
   }
  ],
  "keyTakeaways": [
-  "AEO is a high-margin SEO upsell: cheap to diagnose, expensive to fix, and sticky because AI answers drift constantly.",
-  "Sell it as a ladder — paid audit, fixed-scope remediation sprint, then a monthly monitoring retainer where the recurring revenue lives.",
-  "Standardize a per-vertical prompt set (10–20 buyer questions) so audits are reproducible and onboarding a new client takes minutes.",
-  "Audit at scale with a multi-engine tool instead of manual tab-juggling; monitoring multiple brands from one dashboard is what makes a roster profitable.",
-  "Productize with flat fees, not hours: ~$39/mo tooling against $500–$2,000/mo monitoring retainers is a >90% margin line.",
-  "Report mention rate, share of voice, and literal before/after answer screenshots — that's the renewal-proof scoreboard clients can't see without you."
+  "Package AEO as an evidence-led service that extends established SEO work; do not guarantee citations or recommendations.",
+  "Use a ladder of fixed-scope audit, remediation sprint, and optional measurement checkpoints.",
+  "Version the prompt set, engines, locale, sampling rule, and scoring criteria so comparisons are reproducible.",
+  "Let each agency quote from its real delivery scope; published rate bands and assumed margin claims are not a substitute for estimating effort and risk.",
+  "AEOeye currently offers a free preview and a $29 one-time full report, not a Pro subscription or multi-brand dashboard.",
+  "Report mention rate, competitor share, observed citations, and factual framing without overstating causation or ROI."
  ],
  "faqs": [
   {
    "q": "How do I start offering AEO to existing SEO clients?",
-   "a": "Run a free AI visibility audit on each client's brand and bring the result to your next check-in. When they see they're named in only 2 of 12 buyer prompts while a competitor is named in 9, the upsell makes itself. Lead with the diagnosis, not a pitch deck — the gap is the sales argument. From there, propose a fixed-scope audit-and-fix engagement followed by ongoing monitoring."
+   "a": "Start with a clearly defined prompt set and a baseline audit, then show the observed gaps and their limitations. Propose a fixed-scope remediation sprint only after you can tie each recommendation to evidence. If repeated measurement is useful, quote it as a separate checkpoint cadence rather than implying that every client needs a retainer."
   },
   {
    "q": "Can I white-label AEO audits for my clients?",
-   "a": "Yes. Run audits through a platform like AEOeye to generate the raw multi-engine data, then present the findings in your own branded report and strategic voice. Clients are buying your interpretation of what to fix in their specific market — the tooling that produced the data is infrastructure, just like a crawler or rank tracker. You add the strategy, prioritization, and execution on top."
+   "a": "You can use AEOeye observations inside your own client deliverable, but distinguish the platform output from your agency's analysis and do not imply product capabilities that are not available. AEOeye currently provides a free preview and a $29 one-time full report. The agency adds prompt design, verification, strategy, prioritization, and implementation."
   },
   {
    "q": "How should I price AEO services?",
-   "a": "Productize, don't bill hourly. A typical structure: a flat-fee AI Visibility Audit ($750–$2,500), a fixed-scope remediation Sprint ($3k–$10k), and a monthly Monitoring retainer ($500–$2,000 per brand). Your tooling cost is minor — one Pro plan monitoring multiple brands is around $39/mo — so the monitoring tier alone runs north of 90% gross margin."
+   "a": "Price from scope rather than copying a universal rate. For an audit, count brands, prompts, engines, locales, samples, source review, and the readout. For a sprint, estimate page work, technical dependencies, editorial review, and outreach. For checkpoints, define cadence and analysis depth. The agency sets its professional fee; AEOeye's separate tool price is listed on /pricing and currently consists of a free preview plus a $29 one-time full report."
   },
   {
    "q": "How do I audit many clients without it eating my team's time?",
-   "a": "Build a reusable prompt set per vertical (10–20 buyer-intent questions) and run it through a tool that queries ChatGPT, Perplexity, Gemini, and AI Overviews at once and returns a structured report. That turns onboarding a new account into a few minutes instead of a workshop, and a 'monitor multiple brands' plan lets you track your whole roster from one dashboard with change alerts."
+   "a": "Create a reusable vertical framework, then preserve client-specific prompts and version the exact engine, locale, sampling, and scoring setup. Use AEOeye for a free preview or one-time $29 report where it fits, and maintain your own client roster, evidence archive, rerun schedule, and quality review; AEOeye does not currently provide a multi-brand monitoring dashboard."
   },
   {
-   "q": "How do I prove AEO ROI when it doesn't show in GA or Search Console?",
-   "a": "Define the scoreboard upfront: mention rate (the % of your prompt set where the client is named), share of voice against named competitors, citation sources, and accuracy of how the model describes them. Report it monthly with literal before/after answer screenshots. 'ChatGPT used to recommend three competitors and not you; now it names you first' is the most renewal-proof slide you'll ever show."
+   "q": "How do I prove AEO ROI when standard analytics is incomplete?",
+   "a": "Define the scoreboard upfront: sampled mention rate, share of voice against named competitors, observed citation URLs, and factual framing. Preserve dated answer captures and compare the same prompt protocol at each checkpoint. Use Search Console's available generative-AI reporting and the client's own conversion records as supporting evidence, while labeling correlation honestly."
   }
  ],
- "comparisonTable": null,
+ "comparisonTable": {
+  "columns": [
+   "Service layer",
+   "Core deliverable",
+   "Primary scope drivers",
+   "Decision unlocked"
+  ],
+  "rows": [
+   {
+    "label": "Audit",
+    "values": [
+     "Baseline findings and prioritized gaps",
+     "Brands, prompts, engines, locales, samples, competitors",
+     "Whether and where remediation is justified"
+    ]
+   },
+   {
+    "label": "Remediation sprint",
+    "values": [
+     "Implemented content, internal-link, entity, and technical fixes",
+     "Pages, templates, dependencies, editorial review, outreach",
+     "Which changes can ship safely within a defined project"
+    ]
+   },
+   {
+    "label": "Measurement checkpoint",
+    "values": [
+     "Like-for-like rerun and change analysis",
+     "Cadence, sample volume, QA, evidence retention, reporting depth",
+     "Whether observed visibility or framing changed after the work"
+    ]
+   }
+  ]
+ },
+ "sources": [
+  {
+   "label": "Google Search Central — AI features and your website",
+   "url": "https://developers.google.com/search/docs/appearance/ai-features"
+  },
+  {
+   "label": "Google Search Central — Introduction to structured data markup",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+  },
+  {
+   "label": "Google Search Central — Generative AI performance reports in Search Console",
+   "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
+  },
+  {
+   "label": "OpenAI — Publishers and Developers FAQ",
+   "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq"
+  },
+  {
+   "label": "IndexNow — Protocol documentation",
+   "url": "https://www.indexnow.org/documentation"
+  },
+  {
+   "label": "arXiv — GEO: Generative Engine Optimization",
+   "url": "https://arxiv.org/abs/2311.09735"
+  }
+ ],
+ "updated": "2026-08-30",
  "image": {
   "url": "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
   "alt": "A diverse group working on marketing strategies with charts and laptops in an office setting.",

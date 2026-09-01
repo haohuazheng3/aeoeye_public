@@ -74,9 +74,9 @@ export function LlmsTxtGenerator() {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    <div className="grid min-w-0 gap-6 lg:grid-cols-2">
       {/* 输入 */}
-      <div className="space-y-5">
+      <div className="min-w-0 space-y-5">
         <Field label="Site / brand name" value={siteName} onChange={setSiteName} placeholder="Acme Analytics" />
         <Field
           label="One-line summary"
@@ -102,7 +102,7 @@ export function LlmsTxtGenerator() {
                 value={s.name}
                 onChange={(e) => setSections((prev) => prev.map((x, i) => (i === si ? { ...x, name: e.target.value } : x)))}
                 placeholder="Section (e.g. Docs, Guides, Products)"
-                className="flex-1 rounded-lg border border-paper-dim bg-white px-3 py-2 text-sm font-semibold outline-none focus:border-iris"
+                className="min-w-0 flex-1 rounded-lg border border-paper-dim bg-white px-3 py-2 text-sm font-semibold outline-none focus:border-iris"
               />
               <button onClick={() => removeSection(si)} className="text-ink/30 transition hover:text-coral" aria-label="Remove section">
                 <Trash2 className="h-4 w-4" />
@@ -110,9 +110,9 @@ export function LlmsTxtGenerator() {
             </div>
             <div className="space-y-2">
               {s.links.map((l, li) => (
-                <div key={li} className="grid grid-cols-[1fr_1fr_auto] gap-2">
-                  <input value={l.title} onChange={(e) => updateLink(si, li, "title", e.target.value)} placeholder="Page title" className="rounded-lg border border-paper-dim bg-white px-3 py-2 text-sm outline-none focus:border-iris" />
-                  <input value={l.url} onChange={(e) => updateLink(si, li, "url", e.target.value)} placeholder="https://…" className="rounded-lg border border-paper-dim bg-white px-3 py-2 text-sm outline-none focus:border-iris" />
+                <div key={li} className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
+                  <input value={l.title} onChange={(e) => updateLink(si, li, "title", e.target.value)} placeholder="Page title" className="col-span-2 min-w-0 rounded-lg border border-paper-dim bg-white px-3 py-2 text-sm outline-none focus:border-iris sm:col-span-1" />
+                  <input value={l.url} onChange={(e) => updateLink(si, li, "url", e.target.value)} placeholder="https://…" className="min-w-0 rounded-lg border border-paper-dim bg-white px-3 py-2 text-sm outline-none focus:border-iris" />
                   <button onClick={() => removeLink(si, li)} className="text-ink/30 transition hover:text-coral" aria-label="Remove link">
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -131,7 +131,7 @@ export function LlmsTxtGenerator() {
       </div>
 
       {/* 输出 */}
-      <div className="lg:sticky lg:top-24 lg:self-start">
+      <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
         <div className="flex items-center justify-between">
           <span className="font-mono text-xs font-semibold uppercase tracking-wide text-ink/45">llms.txt</span>
           <div className="flex gap-2">

@@ -61,7 +61,12 @@ async function seriousErrorCount(): Promise<{ configured: boolean; unresolvedSer
   try {
     // 错误收件箱表存在才查询;不存在则视为未配置(不判不健康)
     const rows = await db.execute(
-      sql`select count(*)::int as n from error_events where resolved = false and level = 'error' and source in ('server','edge')`
+      sql`select count(*)::int as n
+          from error_events
+          where resolved = false
+            and level = 'error'
+            and source in ('server', 'edge')
+            and last_seen_at >= now() - interval '48 hours'`
     );
     // drizzle neon-http: rows.rows[0].n
     const n = Number((rows as unknown as { rows?: Array<{ n: number }> }).rows?.[0]?.n ?? 0);

@@ -63,10 +63,28 @@ export async function POST(req: Request) {
   const cancelPath = body.auditId ? `/audit/${body.auditId}` : "/pricing";
 
   try {
-    // 优惠券与"允许手动输入促销码"互斥:传了 coupon 就直接套用,否则开放促销码输入框
-    const couponPart = body.coupon
-      ? { discounts: [{ coupon: body.coupon }] }
-      : { allow_promotion_codes: true as const };
+    // URL 里的 coupon 是用户可读的促销码(例如 haohua),不是 Stripe Coupon ID。
+    // 先按 code 查 Promotion Code,同时保留直接传 Coupon ID 的兼容性。
+    let couponPart: { discounts: Array<{ promotion_code: string } | { coupon: string }> } | { allow_promotion_codes: true };
+    if (body.coupon) {
+      const promotions = await stripe.promotionCodes.list({ code: body.coupon, active: true, limit: 1 });
+      if (promotions.data[0]) {
+        couponPart = { discounts: [{ promotion_code: promotions.data[0].id }] };
+      } else {
+        try {
+          const coupon = await stripe.coupons.retrieve(body.coupon);
+          if (!coupon.valid) {
+            return NextResponse.json({ error: "That promotion code is no longer valid." }, { status: 400 });
+          }
+          couponPart = { discounts: [{ coupon: coupon.id }] };
+        } catch {
+          return NextResponse.json({ error: "That promotion code could not be found." }, { status: 400 });
+        }
+      }
+    } else {
+      // 无预填码时保留 Stripe 付款页的手动输入能力。
+      couponPart = { allow_promotion_codes: true as const };
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: sub ? "subscription" : "payment",

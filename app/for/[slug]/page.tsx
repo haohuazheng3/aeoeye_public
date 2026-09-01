@@ -25,7 +25,12 @@ export default function ForPage({ params }: { params: { slug: string } }) {
       <ContentPageView page={page} type="for" related={related} />
       <JsonLd
         data={[
-          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/for/${page.slug}`, date: "2026-06-25" }),
+          articleJsonLd({
+            title: page.title,
+            description: page.metaDescription,
+            path: `/for/${page.slug}`,
+            date: page.updated || "2026-06-25",
+          }),
           breadcrumbJsonLd([{ name: "Solutions", path: "/for" }, { name: page.title, path: `/for/${page.slug}` }]),
           ...(page.faqs.length ? [faqJsonLd(page.faqs)] : []),
         ]}

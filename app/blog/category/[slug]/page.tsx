@@ -98,13 +98,23 @@ export async function generateStaticParams() {
   return getCategories().map((c) => ({ slug: c.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { page?: string };
+}): Promise<Metadata> {
   const cat = getCategories().find((c) => c.slug === params.slug);
   if (!cat) return {};
+  const pageCount = Math.max(1, Math.ceil(cat.count / HUB_PAGE_SIZE));
+  const page = Math.min(Math.max(1, Number(searchParams?.page) || 1), pageCount);
+  const pageSuffix = page > 1 ? ` — Page ${page}` : "";
+  const path = page > 1 ? `/blog/category/${cat.slug}?page=${page}` : `/blog/category/${cat.slug}`;
   return pageMeta({
-    title: `${cat.name} — AI Visibility & AEO Guides`,
-    description: `${cat.count} in-depth ${cat.name.toLowerCase()} guides on getting recommended by ChatGPT, Claude, Perplexity, Gemini and Google AI — with the trade-offs left in.`,
-    path: `/blog/category/${cat.slug}`,
+    title: `${cat.name} — AI Visibility & AEO Guides${pageSuffix}`,
+    description: `${page > 1 ? `Page ${page} of ${pageCount}. ` : ""}${cat.count} in-depth ${cat.name.toLowerCase()} guides on getting recommended by ChatGPT, Claude, Perplexity, Gemini and Google AI — with the trade-offs left in.`,
+    path,
   });
 }
 
@@ -122,6 +132,8 @@ export default function CategoryHub({
   const pageCount = Math.max(1, Math.ceil(all.length / HUB_PAGE_SIZE));
   const page = Math.min(Math.max(1, Number(searchParams?.page) || 1), pageCount);
   const posts = all.slice((page - 1) * HUB_PAGE_SIZE, page * HUB_PAGE_SIZE);
+  const pagePath = page > 1 ? `/blog/category/${cat.slug}?page=${page}` : `/blog/category/${cat.slug}`;
+  const pageName = page > 1 ? `${cat.name} — Page ${page}` : cat.name;
   const intro = INTROS[params.slug] ?? {
     lead: `Everything we've published on ${cat.name.toLowerCase()}.`,
     frame: [],
@@ -140,7 +152,9 @@ export default function CategoryHub({
       </nav>
 
       <header className="mt-6 max-w-2xl">
-        <p className="eyebrow">{cat.count} guides</p>
+        <p className="eyebrow">
+          {cat.count} guides{page > 1 ? ` · Page ${page} of ${pageCount}` : ""}
+        </p>
         <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">{cat.name}</h1>
         <p className="mt-4 leading-relaxed text-ink/70">{intro.lead}</p>
       </header>
@@ -229,7 +243,7 @@ export default function CategoryHub({
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
             { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
-            { "@type": "ListItem", position: 3, name: cat.name, item: `${siteUrl}/blog/category/${cat.slug}` },
+            { "@type": "ListItem", position: 3, name: pageName, item: `${siteUrl}${pagePath}` },
           ],
         }}
       />
@@ -237,8 +251,8 @@ export default function CategoryHub({
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `${cat.name} — AI Visibility & AEO Guides`,
-          url: `${siteUrl}/blog/category/${cat.slug}`,
+          name: `${cat.name} — AI Visibility & AEO Guides${page > 1 ? ` — Page ${page}` : ""}`,
+          url: `${siteUrl}${pagePath}`,
           hasPart: posts.map((p) => ({
             "@type": "Article",
             headline: p.title,

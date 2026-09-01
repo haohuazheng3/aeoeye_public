@@ -6,7 +6,7 @@
  "metaDescription": "A practical 2026 playbook to track brand mentions in AI search across ChatGPT, Perplexity, Google AI, Claude and Gemini at scale, with a repeatable workflow.",
  "primaryKeyword": "how to track brand mentions in ai search",
  "shortAnswer": "To track brand mentions in AI search, run a fixed set of buyer-intent prompts across ChatGPT, Perplexity, Google AI, Claude and Gemini on a repeating schedule, sampling each prompt several times. Log whether your brand appears, its position, sentiment and whether it's cited, then trend the numbers weekly to catch movement.",
- "intro": "Your brand is being recommended, ignored, or quietly misdescribed inside ChatGPT, Perplexity and Google AI Overviews right now, and your analytics dashboard shows none of it. AI answers don't generate a clean clickstream the way a blue link does, so the old playbook of \"watch organic traffic\" is blind to most of what's happening.\n\nThis guide is the workflow I actually use to monitor AI brand mentions at scale. It's prompt-based, repeatable, and built around the one thing most people miss: AI answers are non-deterministic, so a single check tells you almost nothing. You have to sample.",
+ "intro": "Your brand may be recommended, ignored, or misdescribed inside ChatGPT, Perplexity and Google AI features while standard web analytics capture only the visits that click through. Google has begun rolling out dedicated generative-AI visibility reporting in Search Console, but prompt-level, cross-engine mentions still require direct observation.\n\nThis guide gives you a prompt-based, repeatable workflow built around the point most teams miss: AI answers can vary between runs, so a single check is not a reliable trend. You have to sample.",
  "sections": [
   {
    "heading": "Why can't you just track this in Google Analytics?",
@@ -14,7 +14,7 @@
   },
   {
    "heading": "What exactly should you be tracking?",
-   "body": "Track four things on every prompt: whether your brand is mentioned at all, where it ranks in the answer, how it's framed (sentiment), and whether your domain is cited as a source. Everything else is a derivative of these four.\n\n- **Mention rate (share of voice):** across all your tracked prompts, what percentage name your brand? This is your headline metric.\n- **Position:** named first in a ranked list beats named in passing at the bottom. Order signals priority to the reader.\n- **Sentiment / framing:** \"X is the budget option with limited support\" is a mention you do not want winning.\n- **Citation:** is your URL the source the model leans on, or is a competitor's comparison page doing the talking for you?\n\nThe reason these four matter more than raw traffic: AI is now the front door. ChatGPT hit [900 million weekly active users in early 2026](https://technologychecker.io/blog/chatgpt-statistics), and it converts referral visits at roughly 7.1% — second only to paid search. Being the named brand in the answer is the new page-one ranking."
+   "body": "Track four things on every prompt: whether your brand is mentioned at all, where it appears in the answer, how it is framed, and whether your domain is cited as a source. These fields can be rolled up without pretending that an observed citation reveals the model's hidden reasoning.\n\n- **Mention rate (share of voice):** across all sampled answers in your fixed prompt set, what percentage name your brand? Use this as the headline metric and keep the denominator visible. For a deeper metric design, see this [share-of-voice guide](/blog/share-of-voice-tool).\n- **Position:** named first in a ranked list is more prominent than a passing mention at the bottom.\n- **Sentiment / framing:** \"X is the budget option with limited support\" is a mention that needs investigation, not celebration.\n- **Citation:** record the linked URL and page, then verify what that source actually says.\n\nGoogle's official [AI features guidance](https://developers.google.com/search/docs/appearance/ai-features) says AI Overview and AI Mode traffic is included in Search Console's Web performance data. Its newer [generative AI performance reports](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports) add dedicated impression and page views for eligible properties. Use those first-party signals alongside prompt samples, but do not substitute an unsupported audience or conversion statistic for your own measurement."
   },
   {
    "heading": "Why one check is worthless: the sampling problem",
@@ -26,11 +26,11 @@
   },
   {
    "heading": "Manual tracking vs. a dedicated tool: which do you need?",
-   "body": "Start manual to learn what \"good\" looks like, then automate once you're running more than ~20 prompts across five engines — that's the point where doing it by hand each week stops being realistic. The math is simple: 20 prompts x 5 engines x 4 samples is 400 queries per cycle, and nobody sustains that in a spreadsheet.\n\nManual gives you ground truth and forces you to actually read the answers, which surfaces sentiment and hallucination issues a dashboard can flatten into a green checkmark. A tool gives you scale, scheduling, and history. Most serious teams in 2026 do both: automated tracking for breadth, plus manual spot-checks on the prompts that matter most.\n\nIf you just want to know where you stand today without wiring anything up, AEOeye runs a free AI visibility audit across ChatGPT, Perplexity, Google AI, Claude and Gemini in one pass — a fast way to get a baseline before you commit to a tracking cadence."
+   "body": "Start manual to learn what \"good\" looks like, then automate when the query volume exceeds what your team can review consistently. For example, 20 prompts across five engines with four samples each creates 400 observations per cycle; the relevant threshold is whether you can preserve the same protocol and perform quality review.\n\nManual review forces you to read the answers, which surfaces framing and factual errors a dashboard can flatten into a green checkmark. A dedicated [AI brand monitoring tool](/blog/ai-brand-monitoring-tools) can add scheduling and history, but manual spot-checks still matter on high-value prompts. OpenAI also documents separate controls for OAI-SearchBot and GPTBot in its [publisher guidance](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq), so crawler access should be verified rather than assumed.\n\nFor a current baseline, AEOeye offers a free preview and a **$29 one-time full report**, not a monitoring subscription. Review an [example report](/example) and the exact current scope on [/pricing](/pricing), then keep your own fixed prompt set and cadence for ongoing tracking."
   },
   {
    "heading": "Turning tracking into action",
-   "body": "Tracking is pointless if nothing changes downstream, so close the loop: every cycle, convert the report into a list of prompts where you're absent or framed badly, and treat each as a content brief. Don't admire the dashboard — work the gaps.\n\nThe pattern that moves mention rate fastest:\n\n- **Where a competitor's comparison page is the cited source,** publish your own honest, specific comparison so the model has your version to pull from.\n- **Where the model is wrong about you,** the fix is supply-side: clear, structured, frequently-stated facts on your site and in third-party sources the model trusts (Wikipedia, Reddit and YouTube are among the most-cited).\n- **Where you're absent in a category prompt,** you usually lack a definitive, well-structured page on that exact topic.\n\nThen re-measure next cycle. AI search is moving fast — ChatGPT's share of AI referrals [fell from ~89% to ~63%](https://higoodie.com/blog/ai-search-traffic-report-2026/) as Gemini, Claude and Perplexity grew — so a brand you can ignore on one engine may be where your buyers are on another. The only way to know is to keep the measurement running."
+   "body": "Tracking is pointless if nothing changes downstream, so close the loop: every cycle, convert the report into a list of prompts where you are absent, weakly sourced, or framed inaccurately. Validate the pattern with a fuller [AEO audit](/guides/how-to-do-an-aeo-audit) before turning it into implementation work.\n\nUse the evidence this way:\n\n- **Where a competitor's comparison page is cited,** inspect why that page satisfies the query, then publish a genuinely useful and fair comparison only if you can add first-hand product facts.\n- **Where the model is wrong about you,** make the correct fact clear and consistent on the relevant first-party page, then correct conflicting third-party listings where you control them.\n- **Where you are absent in a category prompt,** audit whether you have a crawlable, indexed, intent-matched page before assuming that more content is the answer.\n\nThen re-measure with the same prompts, engines, locale, and sampling rule. Cross-engine behavior can differ, so weight engines using your own audience and conversion evidence rather than an unverified market-share claim."
   }
  ],
  "keyTakeaways": [
@@ -39,7 +39,7 @@
   "AI engines are non-deterministic; the same prompt can return different answers ~25% of the time even at low temperature. Sample each prompt 3–5 times per engine or your data is noise.",
   "Build your prompt set from unbranded, high-intent buyer questions across category, problem, and comparison buckets — not flattering branded queries.",
   "Start manual to learn, automate past ~20 prompts across five engines, and always close the loop by turning gaps into content fixes.",
-  "Monitor all major engines: ChatGPT's share of AI referrals fell from ~89% to ~63% as Gemini, Claude and Perplexity grew, so single-engine tracking misses where buyers actually are."
+  "Track the engines that matter to your audience and preserve engine-level results; cross-engine behavior can differ, and your own audience evidence should determine weighting."
  ],
  "faqs": [
   {
@@ -52,7 +52,7 @@
   },
   {
    "q": "Can I track AI brand mentions for free?",
-   "a": "Yes, partially. You can run prompts manually across the engines and log results in a spreadsheet at no cost, and tools like AEOeye offer a free AI visibility audit that checks your brand across ChatGPT, Perplexity, Google AI, Claude and Gemini in one pass. Free is great for a baseline; scheduled, multi-engine, sampled tracking at scale is where paid tools earn their keep."
+   "a": "Yes, partially. You can run prompts manually and log results in a spreadsheet at no cost. AEOeye offers a free preview, with a $29 one-time full report when you need the complete snapshot. Ongoing scheduled tracking still requires your own repeatable workflow or a separate monitoring tool."
   },
   {
    "q": "What's the difference between tracking mentions and tracking citations?",
@@ -60,7 +60,7 @@
   },
   {
    "q": "Which AI engines should I prioritize tracking?",
-   "a": "Track all of the major ones, but weight by where your buyers are. ChatGPT still leads on volume, but its share of AI referrals has dropped sharply as Gemini, Claude and Perplexity grow. For B2B, Claude and Perplexity over-index; for consumer and informational queries, Google AI Overviews and Gemini matter enormously given Google's reach."
+   "a": "Start with the engines your buyers actually use, then keep engine-level results separate so one platform cannot hide movement on another. If you lack audience evidence, use a broad baseline across major answer engines and narrow only after referral, sales, or customer-research data supports the weighting."
   }
  ],
  "comparisonTable": {
@@ -84,10 +84,10 @@
    {
     "label": "Free AI visibility audit (e.g. AEOeye)",
     "values": [
-     "Fast cross-engine baseline",
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "Snapshot, not continuous",
-     "Free"
+     "Fast initial preview",
+     "Current AEOeye report scope; verify on pricing",
+     "Preview or one-time snapshot, not continuous",
+     "Free preview; full report is $29 one time"
     ]
    },
    {
@@ -124,12 +124,16 @@
    "url": "https://www.searchenginejournal.com/ai-prompt-intent-keywords-peec-spa/576201/"
   },
   {
-   "label": "Goodie — 2026 AI Search Traffic Report",
-   "url": "https://higoodie.com/blog/ai-search-traffic-report-2026/"
+   "label": "Google Search Central — AI features and your website",
+   "url": "https://developers.google.com/search/docs/appearance/ai-features"
   },
   {
-   "label": "TechnologyChecker — ChatGPT Statistics 2026",
-   "url": "https://technologychecker.io/blog/chatgpt-statistics"
+   "label": "Google Search Central — Generative AI performance reports in Search Console",
+   "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports"
+  },
+  {
+   "label": "OpenAI — Publishers and Developers FAQ",
+   "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq"
   }
  ],
  "definitions": [
@@ -168,7 +172,7 @@
   },
   {
    "name": "Run a baseline audit",
-   "text": "Execute the full prompt set once to establish a starting score per engine and per prompt bucket. Run AEOeye's free AI visibility audit for a fast cross-engine baseline, or run the prompts manually and record results in a sheet."
+   "text": "Execute the full prompt set once to establish a starting score per engine and per prompt bucket. Use AEOeye's free preview as a starting point, purchase the $29 one-time full report if its scope fits, or run the prompts manually and record results in a sheet."
   },
   {
    "name": "Automate on a weekly schedule",
@@ -183,7 +187,7 @@
    "text": "Each cycle, turn every prompt where you're absent or poorly framed into a content brief: a comparison page, a corrected fact, or a definitive topic page. Re-measure the next cycle to confirm the fix moved your mention rate."
   }
  ],
- "updated": "2026-06-26",
+ "updated": "2026-08-30",
  "image": {
   "url": "https://images.pexels.com/photos/5716016/pexels-photo-5716016.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
   "alt": "Business professional analyzing stock market data on a laptop for investment insights.",
