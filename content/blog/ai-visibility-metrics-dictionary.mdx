@@ -1,0 +1,108 @@
+---
+title: "AI Visibility Metrics Dictionary: 18 Terms With Formulas"
+description: "A practical, citation-ready dictionary of 18 AI visibility metrics, with formulas, a worked example, reporting minimums, and clear measurement limits."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI visibility metrics", "mention rate formula", "citation rate", "share of voice AI", "AI search measurement", "prompt coverage", "citation correctness"]
+faqs: [{"q":"Is there a universal standard for AI visibility metrics?","a":"No. There is no universal industry standard for the terms or weights in AI visibility reporting. This page is an operational dictionary: a transparent set of definitions AEOeye uses so teams can reproduce and compare their own measurements over time."}, {"q":"How many prompts do I need to measure AI visibility?","a":"There is no magic number. Use a deliberately sampled set of buyer-intent prompts, report the sample size and observation window, and attach uncertainty to rates. More prompts help only when they represent real intents rather than repeated paraphrases."}, {"q":"What is the difference between mention rate and citation rate?","a":"Mention rate asks whether the brand appears in an answer. Citation rate asks whether a source is linked or otherwise cited for the answer, usually with the brand or its supporting page as the source. A brand can be mentioned without receiving a citation."}, {"q":"Can AI visibility metrics predict sales?","a":"They are leading indicators, not sales forecasts. Conversion rate connects measured AI referrals to outcomes, but attribution is incomplete when users switch devices, search directly, or never click a cited source. Use visibility metrics alongside analytics and qualified pipeline data."}]
+image: {"url":"https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analytics dashboard on a laptop, representing AI visibility measurement.","photographer":"Lukas","photographerUrl":"https://www.pexels.com/@gouletmatisse"}
+sources: [{"label":"AEOeye AI Visibility Score Methodology","url":"https://aeoeye.com/blog/ai-visibility-score-methodology"}, {"label":"FActScore: Fine-grained Atomic Evaluation of Factuality","url":"https://arxiv.org/abs/2305.14251"}, {"label":"ALCE: Enabling Large Language Models to Generate Text with Citations","url":"https://arxiv.org/abs/2305.14627"}, {"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}, {"label":"Google Analytics traffic-source dimensions","url":"https://support.google.com/analytics/answer/15612152?hl=en"}]
+---
+
+AI visibility measurement has a vocabulary problem: different tools use the same words for different calculations. The answer is not to pretend a universal standard exists. It does not. This is an **operational dictionary**—a compact, reproducible set of definitions for teams measuring whether a brand appears, is recommended, and is supported by sources in AI answers.
+
+## Table of contents
+
+- [How to read the formulas](#how-to-read-the-formulas)
+- [The 18-metric dictionary](#the-18-metric-dictionary)
+- [Worked example](#worked-example)
+- [Minimum reporting standard](#minimum-reporting-standard)
+- [Limitations](#limitations)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## How to read the formulas
+
+Let **N** be the number of valid prompt-engine observations in a reporting window. An observation is one prompt sent to one engine at a recorded time. Define a brand mention, rank, citation, and conversion before collecting results; otherwise, the denominator moves while the report is being written. AEOeye's published methodology is one concrete example of making these choices explicit.[AEOeye methodology](https://aeoeye.com/blog/ai-visibility-score-methodology)
+
+## The 18-metric dictionary
+
+The table is designed to be copied into a measurement plan. “Count” means count observations, not unique prompts, unless the formula says otherwise.
+
+| Metric | Exact operational definition | Formula |
+|---|---|---|
+| **Mention rate** | Share of observations in which the brand is named or clearly identified in the answer. | `mentions / N × 100` |
+| **Citation rate** | Share of observations containing at least one attributable citation or source link that supports the answer. | `cited observations / N × 100` |
+| **Share of model** | The brand's share of all observed brand mentions in a defined prompt set and engine. | `brand mentions / all tracked-brand mentions × 100` |
+| **Share of voice** | The brand's share of recommendation appearances, counting each brand once per observation to avoid long lists dominating. | `observations recommending brand / observations recommending any tracked brand × 100` |
+| **Average rank** | Mean ordinal position when the brand appears in a ranked list; unmentioned observations are excluded. | `Σ observed ranks / mentioned observations` |
+| **Weighted visibility** | A position-adjusted presence score where earlier recommendations receive more weight. Publish the weight function. | `Σ position weight(r) × sentiment weight / N × 100` |
+| **Sentiment distribution** | The percentage of mentioned observations classified as positive, neutral, or negative under a fixed rubric. | `sentiment class count / mentioned observations × 100` |
+| **Prompt coverage** | The share of distinct tracked prompts where the brand appears at least once across selected engines. | `prompts with ≥1 mention / distinct prompts × 100` |
+| **Engine coverage** | The share of tested engines that mention the brand at least once in the window. | `engines with ≥1 mention / engines tested × 100` |
+| **Competitor win rate** | Among head-to-head observations, the share where the brand is recommended and the named competitor is not, or ranks lower under the pre-set rule. | `brand wins / head-to-head observations × 100` |
+| **Source diversity** | The number of unique source domains (or a normalized diversity index) cited across observations. State which version you use. | `unique cited domains` (or `1 − Σ share(domain)²`) |
+| **Citation correctness** | The share of audited citations that actually support the claim they are attached to. | `supporting citations / citations audited × 100` |
+| **Citation completeness** | The share of material, externally checkable claims that have an adequate citation. | `material claims with adequate citation / material claims audited × 100` |
+| **Answer volatility** | How often the measured result changes across repeated runs of the same prompt and engine. | `changed runs / repeat runs × 100` |
+| **Confidence interval** | A range expressing sampling uncertainty around a rate; report the method and confidence level. | For a proportion, `p ± z × √(p(1−p)/N)` (approximate 95% when `z=1.96`) |
+| **Sample size** | The number of valid observations contributing to a metric after exclusions and retries. | `N = valid prompt × engine observations` |
+| **Observation window** | The fixed time span during which observations are collected, including timezone and run schedule. | `start timestamp → end timestamp` |
+| **Conversion rate** | The share of defined AI-attributed sessions or users completing a chosen conversion event. | `conversions / AI-attributed sessions (or users) × 100` |
+
+“Citation” should mean an inspectable source, not merely a confident sentence. FActScore evaluates factuality at the atomic-claim level, while ALCE focuses on generating answers with citations; those are useful anchors for correctness and completeness, but neither paper creates an industry-wide business KPI.[FActScore](https://arxiv.org/abs/2305.14251) [ALCE](https://arxiv.org/abs/2305.14627)
+
+![A team reviewing charts and notes during a measurement session.](https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Worked example
+
+The following values are explicitly hypothetical. Suppose a team tests **40 prompts across 4 engines**, producing `N = 160` observations during one week. The brand appears in 52 answers, receives a supporting citation in 31, and appears in 35 distinct prompts. It is recommended in 70 observations where any tracked brand is recommended; tracked brands receive 140 total recommendation appearances under the one-per-observation rule.
+
+- Mention rate: `52 / 160 × 100 = 32.5%`.
+- Citation rate: `31 / 160 × 100 = 19.4%`.
+- Prompt coverage: `35 / 40 × 100 = 87.5%`.
+- Share of model: if all tracked-brand mentions total 208, then `52 / 208 × 100 = 25%`.
+- Share of voice: `70 / 140 × 100 = 50%`.
+
+For a rough 95% interval around the mention rate, `p=.325` and `N=160` gives approximately `32.5% ± 7.2 percentage points`, or about 25.3%–39.7%. This approximation assumes independent observations; repeated prompts, correlated engines, and changing model behavior can make the effective sample smaller. Report the calculation as a guide, not a guarantee.
+
+## Minimum reporting standard
+
+A credible dashboard should show the metric definition beside the number. At minimum, publish:
+
+1. The exact prompt list or a versioned sampling description, including buyer intent and locale.
+2. Engines, model/version when available, run timestamps, timezone, and observation window.
+3. Sample size, exclusions, retries, and whether each denominator is prompt-, engine-, answer-, session-, or user-based.
+4. The rank, sentiment, citation-support rubric, and competitor tie-breaking rules.
+5. Point estimates plus uncertainty or a plainly stated reason uncertainty is unavailable.
+6. Raw answer captures or stable hashes so another reviewer can audit classifications.
+
+For conversion rate, keep AI visibility data separate from analytics attribution. Google Analytics documents traffic-source dimensions such as source, medium, and campaign; map those fields to a clearly named AI source rather than claiming every direct visit was caused by an AI answer. [Google Analytics dimensions](https://support.google.com/analytics/answer/15612152?hl=en)
+
+## Limitations
+
+AI answers are stochastic and may vary by account, location, personalization, tool settings, retrieval state, and time. A single run is a snapshot. Volatility is itself a result worth reporting, not noise to silently discard.
+
+Metrics also encode judgment. “Mentioned,” “supports,” “positive,” and “wins” need annotation rules and periodic quality checks. A high share of voice can coexist with poor factual accuracy; a high citation rate can coexist with weak or outdated sources. NIST's AI Risk Management Framework emphasizes measuring, documenting, and managing context-specific risks—use that mindset when deciding what a metric may and may not support.[NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
+
+Finally, do not compare scores from different tools unless their prompts, engines, definitions, weights, and windows are aligned. Trend your own series first. If you want a transparent starting dataset, run an AEOeye audit and inspect the underlying prompt-level evidence.
+
+## Frequently asked questions
+
+### Is share of model the same as share of voice?
+
+No. Share of model counts brand mentions; share of voice counts recommendation appearances under a stated rule. Keep both when answers contain discussion that is not an endorsement.
+
+### Should unmentioned answers count in average rank?
+
+Usually no: average rank describes placement conditional on appearing. Report mention rate beside it so a brand with one top placement cannot look equivalent to a consistently visible brand.
+
+### What makes a citation “correct”?
+
+The cited page must support the specific claim, in the relevant context, at the time audited. A related domain or a page that merely repeats the keyword is not enough.
+
+### How often should metrics be refreshed?
+
+Use a fixed cadence appropriate to decision speed—weekly for active experiments is a reasonable starting point—and preserve each window so changes can be compared. Re-run after major model, site, or campaign changes.
+
+Measurement becomes useful when its definitions are boringly clear. Save the prompt set, publish the denominator, show the uncertainty, and let the trend—not a mysterious composite score—guide the next AEO decision. [Run a free AEOeye audit](/#audit) to turn this dictionary into a prompt-level baseline.

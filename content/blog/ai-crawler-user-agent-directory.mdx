@@ -1,0 +1,126 @@
+---
+title: "AI Crawler User-Agent Directory: Search, Training, and User Fetchers"
+description: "A practical directory of AI crawler user-agent tokens, what each one does, and how publishers can verify requests without confusing search, training, and user-triggered fetchers."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI crawler user agent", "AI bots robots.txt", "GPTBot OAI-SearchBot", "ClaudeBot", "PerplexityBot"]
+faqs: [{"q":"What is the difference between GPTBot and OAI-SearchBot?","a":"GPTBot is OpenAI's crawler for potential model training use, while OAI-SearchBot supports crawling for ChatGPT search results. They are separate tokens and can receive separate robots.txt rules."},{"q":"Does blocking an AI bot remove content from a model?","a":"No. A robots.txt rule is an access signal for a crawler; it is not a guarantee of training deletion, retroactive removal, or ranking changes."},{"q":"Can I identify an AI crawler from its user-agent string alone?","a":"Use the user-agent as a first filter, then verify request patterns and published ownership guidance. A string can be spoofed, so it is not proof of identity by itself."},{"q":"Should every AI crawler be blocked?","a":"No. Decide by purpose and business goal. A publisher may allow search fetchers while disallowing training crawlers, or allow both for discoverability, subject to its legal and commercial requirements."}]
+image: {"url":"https://images.pexels.com/photos/7119258/pexels-photo-7119258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"SEO letter tiles representing a directory of search and AI crawler identities.","photographer":"FreeBoilerGrants","photographerUrl":"https://www.pexels.com/@freeboilergrants-1659859"}
+sources: [{"label":"OpenAI Publisher FAQs","url":"https://help.openai.com/en/articles/12627856-publishers-and-developers-faq"},{"label":"OpenAI — ChatGPT Search","url":"https://help.openai.com/en/articles/9237897-chatgpt-search"},{"label":"Anthropic crawlers","url":"https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"},{"label":"Perplexity crawlers","url":"https://docs.perplexity.ai/docs/resources/perplexity-crawlers"},{"label":"Google common crawlers","url":"https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers"},{"label":"Microsoft — How Bing delivers search results","url":"https://support.microsoft.com/en-us/bing/how-bing-delivers-search-results"},{"label":"Common Crawl — CCBot","url":"https://commoncrawl.org/ccbot"},{"label":"RFC 9309: Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309"}]
+---
+
+An AI crawler user-agent directory is useful because “the AI bot” is not one thing. Publishers need to distinguish a training crawler from a search-indexing crawler and from a fetcher acting because a person asked an assistant to open a URL. The token in the request is the first clue; the owner’s documentation and your access logs complete the picture.
+
+This directory compares documented tokens that matter for publisher decisions. It is a reference, not a permission oracle: user-agent strings can be copied, robots rules are voluntary signals, and a block does not guarantee training deletion or a ranking change.
+
+## Table of contents
+
+- [Which AI crawler tokens do publishers need to know?](#which-ai-crawler-tokens-do-publishers-need-to-know)
+- [How should you read the comparison?](#how-should-you-read-the-comparison)
+- [What robots.txt patterns are safe starting points?](#what-robotstxt-patterns-are-safe-starting-points)
+- [How do you verify a crawler in server logs?](#how-do-you-verify-a-crawler-in-server-logs)
+- [What are the directory’s limits and update policy?](#what-are-the-directorys-limits-and-update-policy)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## Which AI crawler tokens do publishers need to know?
+
+The practical split is purpose: training and research collection, search discovery, or a user-triggered page fetch. The same company can operate more than one token, so a broad `Disallow` for one owner can accidentally block a useful search pathway while leaving another pathway unchanged.
+
+| User-agent token | Owner | Primary purpose | Robots behavior caveat | Verify with the owner |
+|---|---|---|---|---|
+| `GPTBot` | OpenAI | Crawling that may be used for model training | A rule for `GPTBot` is separate from search and user-fetch tokens | [OpenAI Publisher FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) |
+| `OAI-SearchBot` | OpenAI | Discovering and retrieving pages for ChatGPT search | Allowing it supports eligibility; placement is not guaranteed | [ChatGPT search guidance](https://help.openai.com/en/articles/9237897-chatgpt-search) |
+| `ChatGPT-User` | OpenAI | Fetching a page in response to a user request | A user-triggered fetch is not the same signal as training collection | [OpenAI Publisher FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) |
+| `ClaudeBot` | Anthropic | Anthropic’s general web crawler | Follow Anthropic’s published grouping; do not infer training outcomes from a block | [Anthropic crawler help](https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) |
+| `Claude-SearchBot` | Anthropic | Search-oriented crawling for Claude experiences | Search access and model-development preferences are distinct decisions | [Anthropic crawler help](https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) |
+| `Claude-User` | Anthropic | Fetching content after a Claude user request | User fetches can be occasional and should be evaluated separately from scheduled crawling | [Anthropic crawler help](https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) |
+| `PerplexityBot` | Perplexity | Crawling for Perplexity search and answer experiences | A robots rule expresses your preference; it does not promise citation or ranking | [Perplexity crawlers](https://docs.perplexity.ai/docs/resources/perplexity-crawlers) |
+| `Perplexity-User` | Perplexity | Retrieving a URL because a user requested it | Treat it as user-context fetching, not evidence of a training crawl | [Perplexity crawlers](https://docs.perplexity.ai/docs/resources/perplexity-crawlers) |
+| `Googlebot` | Google | Google Search crawling and indexing | Blocking crawling can prevent discovery and indexing; it is not an AI-training control | [Google common crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers) |
+| `Google-Extended` | Google | A product token for controlling certain generative-AI uses | It does not control Google Search crawling or ranking | [Google common crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers) |
+| `GoogleOther` | Google | General-purpose crawler for research and product development | Do not assume it is interchangeable with `Googlebot` or `Google-Extended` | [Google common crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers) |
+| `Google-CloudVertexBot` | Google | Fetching for Google Cloud Vertex AI services | Published product behavior can change; verify against Google’s current list | [Google common crawlers](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers) |
+| `bingbot` | Microsoft Bing | Bing web search crawling | Blocking it affects Bing discovery; Microsoft’s search documentation does not make it an AI-training deletion switch | [How Bing delivers results](https://support.microsoft.com/en-us/bing/how-bing-delivers-search-results) |
+| `CCBot` | Common Crawl | Open web crawl used to build Common Crawl datasets | Dataset collection and downstream model use are separate questions | [CCBot documentation](https://commoncrawl.org/ccbot) |
+
+The key operational rule is token specificity. `GPTBot`, `OAI-SearchBot`, and `ChatGPT-User` should not be collapsed into “OpenAI.” The same applies to Anthropic and Perplexity. `Google-Extended` is not a replacement name for `Googlebot`.
+
+![Server logs and a browser window illustrating verification of crawler requests.](https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How should you read the comparison?
+
+Start with the outcome you want. If you want a page eligible for ChatGPT search, OpenAI says to allow `OAI-SearchBot` and ensure your host or CDN permits OpenAI’s published searchbot traffic. That makes a page eligible, not guaranteed to appear or rank; OpenAI describes ranking as using multiple factors.
+
+If you want to express a preference about possible training collection, use the training-oriented token documented by that provider. OpenAI’s Publisher FAQ specifically distinguishes `GPTBot` from `OAI-SearchBot`. Google similarly documents `Google-Extended` as a product token rather than as the Google Search crawler. These distinctions are why a single blanket rule is usually a poor first edit.
+
+Search systems can also fetch a page after a person asks a question. A user-fetch token may appear rarely and request a URL that was not previously visited. Its presence does not prove that the page is entering a training dataset.
+
+## What robots.txt patterns are safe starting points?
+
+Robots Exclusion Protocol rules are path-based access signals. RFC 9309 defines user-agent groups, `Allow`, and `Disallow`; it also says robots.txt is not a substitute for authentication or other application-layer security. Never put confidential URLs in robots.txt expecting them to become secret.
+
+For a publisher that wants search discovery but prefers to exclude a documented training crawler, a narrowly scoped starting point might look like this:
+
+```text
+User-agent: GPTBot
+Disallow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: *
+Allow: /
+```
+
+If you want the same preference for multiple tokens, verify the provider’s documentation and list each exact token. Do not type a guessed alias. A rule for `GPTBot` does not govern `OAI-SearchBot` or `ChatGPT-User`.
+
+Before publishing an edit, check three things:
+
+1. The file is served at the lowercase top-level path `/robots.txt` with the intended status and content.
+2. The most specific matching group expresses the policy you actually mean.
+3. Important search crawlers, assets, and sitemap paths remain accessible when discovery is part of the goal.
+
+Robots directives do not erase copies already collected, compel a provider to forget a page, or guarantee that an answer engine will stop mentioning a brand. For removal, use the provider’s documented controls and applicable legal or contractual process; do not promise yourself a result that robots.txt cannot deliver.
+
+## How do you verify a crawler in server logs?
+
+Log verification should answer “what happened on my server?” rather than trusting a header. Join the user-agent, timestamp, path, status, rate, and network evidence.
+
+Use this checklist for a sample of requests:
+
+- Record the exact `User-Agent` value, preserving capitalization and punctuation.
+- Check the requested URL, method, status code, bytes sent, and response time.
+- Group requests by token and look for cadence: a scheduled crawl behaves differently from one-off user fetches.
+- Compare the source network information with the owner’s current verification guidance where available.
+- Confirm that the request first fetched `/robots.txt`, or record that it did not; do not infer compliance from one request.
+- Test a representative allowed and disallowed path after any robots change.
+- Keep a dated copy of the provider documentation used for your decision.
+
+User-agent matching is not authentication: a malicious client can send `Googlebot` or `GPTBot` as plain text. Rate limiting, bot management, published IP or reverse-DNS checks, and application security belong in separate controls. A 403 proves your server denied that request; it does not prove every provider has stopped using older copies.
+
+## What are the directory’s limits and update policy?
+
+This directory records tokens and purposes in the linked official documentation, checked on September 4, 2026. Provider names, infrastructure, and product behavior can change. The source links are the authority; use this page as a comparison layer, not a permanent contract.
+
+When a provider adds a token or changes a purpose, update the table, examples, sources, and checklist together. Preserve the review date and note ambiguity. “AI crawler” without a token is not precise enough for an access policy.
+
+For a visibility audit, [AEOeye can show](/#audit) how answer engines describe and cite a brand across buyer-style prompts. Use that evidence alongside server logs and provider documentation—not as a substitute for either.
+
+## Frequently asked questions
+
+### What is the difference between GPTBot and OAI-SearchBot?
+
+`GPTBot` is OpenAI’s documented training-oriented crawler, while `OAI-SearchBot` supports ChatGPT search discovery. They are separate tokens and can receive separate robots rules.
+
+### Does blocking an AI bot remove content from a model?
+
+No. Robots.txt is an access signal for future crawling. It does not guarantee deletion, retroactive removal, or a ranking change.
+
+### Can a user-agent string prove who made a request?
+
+No. It is a useful classification clue, but strings can be spoofed. Combine it with provider guidance and request/network evidence.
+
+### Should every AI crawler be blocked?
+
+No. Choose based on search visibility, licensing, privacy, traffic, and legal requirements. A precise, token-by-token policy is easier to test and revise.

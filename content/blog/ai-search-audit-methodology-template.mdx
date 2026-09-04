@@ -1,0 +1,133 @@
+---
+title: "AI Search Audit Methodology Template: A Reproducible Protocol"
+description: "A copyable, citation-ready protocol for researching AI search visibility with transparent prompts, labels, denominators, uncertainty, and disclosure."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["ai search audit methodology", "ai visibility research methodology", "ai search audit template", "ai citation study", "generative engine evaluation", "ai search measurement", "reproducible ai research"]
+faqs: [{"q":"What is an AI search audit methodology?","a":"It is a documented procedure for sampling prompts, recording AI answers, labeling mentions and citations, and reporting results with enough context for another team to repeat the study. It is a research protocol, not a universal industry standard."},{"q":"How many prompts should an AI search audit use?","a":"There is no universally correct number. Use a scope large enough to cover your defined buyer questions and report the exact prompt count, sampling rule, and exclusions. A smaller, transparent sample is more useful than a large undisclosed one."},{"q":"Can an audit prove that AI search caused sales?","a":"No. An audit can describe observed answers, mentions, citations, rankings, and changes between runs. It cannot by itself prove causality, market share, traffic, revenue, or what every user sees."},{"q":"Should teams publish raw AI responses?","a":"Preserve the raw responses and identifiers internally, and publish representative excerpts or a safe, redacted sample when rights and privacy allow. At minimum, disclose how responses were timestamped, stored, and checked for drift."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher reviewing a reproducible AI search audit protocol on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"AEOeye — AI visibility score methodology","url":"https://aeoeye.com/blog/ai-visibility-score-methodology"},{"label":"NIST — AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"ALCE — Answering with Language Models aided by Citation Extraction","url":"https://arxiv.org/abs/2305.14627"},{"label":"FActScore — Fine-grained Atomic Evaluation of Factuality","url":"https://arxiv.org/abs/2305.14251"},{"label":"GEO — Generative Engine Optimization","url":"https://arxiv.org/abs/2311.09735"},{"label":"RFC 9309 — Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309"}]
+---
+
+An AI search audit is credible when another team can understand exactly what was asked, what was observed, and what the numbers do—and do not—mean. Use the protocol below as a starting template: adapt it to your research question, name every operational choice, and preserve enough evidence to rerun the work.
+
+This is a research method, not an industry standard. AEOeye publishes its own operational methodology, but that approach should not be treated as universal. The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) is useful governance context; it does not prescribe a brand-visibility score.
+
+## Table of contents
+
+- [What should the protocol record?](#what-should-the-protocol-record)
+- [The 10-step reproducible method](#the-10-step-reproducible-method)
+- [Copyable disclosure block](#copyable-disclosure-block)
+- [Hypothetical example](#hypothetical-example)
+- [Limitations: what the data cannot support](#limitations-what-the-data-cannot-support)
+- [FAQs](#faqs)
+
+## What should the protocol record?
+
+The minimum useful record connects a research question to a fixed scope, a captured answer, a coding decision, and a denominator. Put these fields in a study log before collecting results.
+
+| Protocol field | Minimum disclosure |
+|---|---|
+| Research question | The exact question and intended audience |
+| Brand/query scope | Brand, category, competitors, geographies, and query families |
+| Prompt sample | Prompt list or sampling frame, selection rule, and exclusions |
+| Runtime context | Engine, model/version if exposed, date/time zone, locale, device, account state, and search/browse setting |
+| Observation | Full response, links, citations, screenshots or IDs, and capture timestamp |
+| Labels | Mention, citation, rank, sentiment, and ambiguity rules |
+| Review | Independent coders, disagreement process, and final adjudicator |
+| Reporting | Numerators, denominators, missingness, uncertainty, and rerun version |
+
+![A team comparing documented research observations on a wall of notes.](https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Second image: Pexels photo by fauxels, [Pexels profile](https://www.pexels.com/@fauxels).*
+
+## The 10-step reproducible method
+
+### 1. State the research question
+
+Write one answerable question, such as: “When a US buyer asks category questions, how often does Brand A appear and receive a source link?” Define whether the unit is a prompt, answer, citation, or session. Avoid mixing brand discovery, factuality, and conversion into one outcome.
+
+### 2. Define brand and query scope
+
+List the canonical brand name, aliases, products, competitors, category terms, and locations. Separate navigational prompts containing the brand from non-branded discovery prompts. Record language, market, date range, and whether you are studying recommendations, factual answers, or both.
+
+### 3. Build and sample prompts
+
+Create a sampling frame from real customer questions, support logs, keyword research, or a declared synthetic design. Stratify by intent—for example, best-of, comparison, problem-solving, and alternatives—then publish the counts in each stratum. Do not silently replace difficult prompts or discard answers that do not mention a target.
+
+### 4. Record engine, model, and runtime context
+
+For every run, record the engine, exposed model or model family, interface/API, timestamp, time zone, locale, device type, account state, personalization state, and whether web search or browsing was enabled. AI systems change; “ChatGPT” or “Google AI” alone is not a reproducible runtime description.
+
+### 5. Preserve the observation
+
+Store the complete answer and every visible source link, plus a screenshot or stable response ID where permitted. Hash or version the prompt file, keep raw JSON when an API provides it, and redact personal information. Citation-focused research should distinguish a model naming a source from a source merely appearing in a link list; work such as [ALCE](https://arxiv.org/abs/2305.14627) shows why citation extraction deserves explicit treatment.
+
+### 6. Apply explicit labels
+
+Define labels before coding. A practical schema is: **mention** (brand appears), **citation** (a source link or reference is attributed), **rank** (ordered recommendation position, if the answer supplies one), and **sentiment** (positive, neutral, negative, or unclear). Add “not applicable” when a label cannot logically be assigned. For factual claims, consider atomic-claim review rather than a vague overall accuracy judgment; [FActScore](https://arxiv.org/abs/2305.14251) is a useful conceptual anchor.
+
+### 7. Use double review
+
+Have two reviewers code a defined subset—or every answer when the study is small—independently. Resolve disagreements with a written rule and record the adjudication. Report the agreement measure you chose, but do not imply that agreement proves validity: two reviewers can consistently apply a flawed label definition.
+
+### 8. Report denominators and uncertainty
+
+Always show the numerator and denominator: “Brand mentioned in 18 of 60 eligible answers (30%),” not simply “30% visibility.” State excluded, failed, duplicate, and unavailable runs. For proportions, provide an uncertainty interval or clearly label the result as descriptive for this sample; do not manufacture population-level precision from a convenience sample.
+
+### 9. Version, rerun, and compare carefully
+
+Assign a study version, prompt-set hash, codebook version, and rerun date. When comparing waves, preserve the stable panel and label additions separately. A changed model, interface, locale, prompt wording, or browsing setting is a measurement change—not automatically a brand improvement or decline.
+
+### 10. Publish claims with boundaries
+
+Tie every conclusion to the observed sample and context. A generative-engine optimization study such as [GEO](https://arxiv.org/abs/2311.09735) can motivate hypotheses about visibility, but it does not turn one audit into a universal ranking law. Also document crawler assumptions separately: [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309) standardizes the Robots Exclusion Protocol, not whether an AI engine will cite a page.
+
+## Copyable disclosure block
+
+Paste and complete this block at the top of a report or research appendix:
+
+> **AI search audit disclosure**  
+> Research question: [exact question]  
+> Population and scope: [market, language, brand set, query families]  
+> Sample: [n prompts; strata; selection rule; collection dates]  
+> Runtime: [engines, models/versions, interface/API, locale, device, account and browsing state]  
+> Observation policy: [what was captured, stored, redacted, and retained]  
+> Coding: [mention, citation, rank, sentiment, factuality definitions]  
+> Review: [number of reviewers; disagreement and adjudication rule]  
+> Results: [numerators/denominators; exclusions; uncertainty method]  
+> Version: [prompt/codebook/software versions; rerun date]  
+> Limits: [claims this design cannot support]
+
+## Hypothetical example
+
+Suppose a team studies “Which project-management tools suit a 20-person nonprofit?” It samples 40 prompts across four intent strata, runs them on two named engines on one date, and captures 80 answers. Brand A appears in 24 answers, is linked as a source in 11, and is ranked first in 6 answers that provide ordered recommendations. The report should say “24 of 80 captured answers (30%)” and separately “11 of 80 (13.75%) contained a source link,” while explaining that citation attribution was coded only when the answer connected the link to a claim.
+
+That result does not establish that Brand A is preferred by all nonprofit buyers. It describes this prompt panel, runtime, and coding scheme. A rerun with changed prompts or model settings is a new observation that may still be useful, provided the change is disclosed.
+
+## Limitations: what the data cannot support
+
+An audit is an observation instrument, not a crystal ball. Unless the design includes additional evidence, it cannot support claims about total market share, every user’s experience, organic traffic, revenue, conversion rate, causal lift from a content change, or the intrinsic truth of an answer. It also cannot make different engines directly comparable when their interfaces expose different retrieval, personalization, or citation behavior.
+
+Be especially cautious with rankings. A visible “first” recommendation may be generated from a short list, while another answer may use prose with no rank at all. Treat “unranked” as missing or not applicable, not as last place. Document ties, duplicate brands, ambiguous aliases, and unavailable responses rather than forcing them into neat numbers.
+
+## FAQs
+
+### Is there one correct AI visibility score?
+
+No. Scores depend on the question set, labels, engines, weighting, and time. Publish the protocol so readers can interpret the number and, where possible, reproduce the underlying observations.
+
+### Should prompts be identical across engines?
+
+Usually yes for a controlled comparison, with the exact text preserved. If an interface requires adaptations, log each adaptation and avoid treating adapted runs as perfectly equivalent.
+
+### How should teams handle model updates?
+
+Record the exposed model/version and date, freeze a comparable panel, and start a new version when the runtime changes materially. Interpret breaks in the time series as possible measurement discontinuities.
+
+### Where does AEOeye fit?
+
+AEOeye can provide a practical starting point for an AI visibility audit, but its operational choices are AEOeye’s choices. Use the [published AEOeye methodology](https://aeoeye.com/blog/ai-visibility-score-methodology) as a named implementation example, then disclose your own scope and codebook.
+
+If you want a baseline before designing a larger study, [run a free AEOeye audit](/#audit) and keep the prompt, date, and engine context alongside your own research log.

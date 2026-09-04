@@ -1,0 +1,110 @@
+---
+title: "AI Referral Traffic Measurement Glossary: GA4 Terms and Formulas"
+description: "A practical GA4 glossary for measuring visits, engagement, key events, conversions, and revenue from ChatGPT, Gemini, Copilot, Perplexity, and other AI referrers."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI referral traffic", "GA4 AI Assistant", "ChatGPT referral traffic", "AI traffic measurement", "AI search analytics", "GA4 source medium", "AI referral conversion rate"]
+faqs: [{"q":"How does GA4 classify ChatGPT and Gemini traffic?","a":"GA4's current default channel group includes AI Assistant for traffic from sources such as ChatGPT, Gemini, Copilot, and similar assistants. Google says AI Overviews and AI Mode are excluded from AI Assistant and included in Organic Search."},{"q":"Why is some AI traffic reported as direct?","a":"If the browser does not pass a referrer and the link has no usable UTM parameters, GA4 cannot identify the source. It may report the session as (direct) / (none), which means the source is unclear, not that the user definitely typed the URL."},{"q":"Should I add utm_source=chatgpt to every AI link?","a":"Do not rewrite links you do not control. For links in your own assistant prompts, partner pages, or campaigns, consistent UTMs can improve campaign reporting. Preserve the original referrer and document your tagging convention."},{"q":"Can GA4 prove that an AI answer caused a purchase?","a":"GA4 can connect an attributed session with engagement, key events, and revenue under its collection and attribution rules. It cannot observe impressions or citations inside an AI product, so it measures visits and downstream outcomes rather than total AI influence."}]
+image: {"url": "https://images.pexels.com/photos/669613/pexels-photo-669613.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Laptop, charts, and notebook on a desk for analyzing AI referral traffic.", "photographer": "Lukas Blazek", "photographerUrl": "https://www.pexels.com/@goumbik"}
+sources: [{"label":"Google Analytics — Traffic-source dimensions","url":"https://support.google.com/analytics/answer/15612152?hl=en"},{"label":"Google Analytics — Default channel group","url":"https://support.google.com/analytics/answer/9756891?hl=en"},{"label":"Google Analytics — Understand (direct) / (none) traffic","url":"https://support.google.com/analytics/answer/15258820?hl=en"},{"label":"Google Analytics — Identify unwanted referrals","url":"https://support.google.com/analytics/answer/10327750?hl=en"},{"label":"Google Analytics — Traffic acquisition report","url":"https://support.google.com/analytics/answer/12923437?hl=en"},{"label":"OpenAI — Publishers and Developers FAQ","url":"https://help.openai.com/en/articles/12627856-publishers-and-developers-faq"}]
+---
+
+AI referral measurement answers a narrow but valuable question: **which visits and outcomes reached your site after someone clicked from ChatGPT, Gemini, Copilot, Perplexity, or another assistant?** GA4 can report the session source, channel, landing page, engagement, key events, and revenue. It cannot see every recommendation or impression inside an AI product. Treat the numbers as observed site activity, not a census of AI influence.
+
+## Table of contents
+
+- [The essential AI referral glossary](#the-essential-ai-referral-glossary)
+- [GA4 terms and formulas](#ga4-terms-and-formulas)
+- [A practical GA4 workflow](#a-practical-ga4-workflow)
+- [Why referrers and UTMs are incomplete](#why-referrers-and-utms-are-incomplete)
+- [Bot filtering and privacy](#bot-filtering-and-privacy)
+- [The minimum useful report](#the-minimum-useful-report)
+- [FAQs](#faqs)
+
+## The essential AI referral glossary
+
+Keep three layers separate: raw origin, session classification, and business outcome. Google defines source and medium as traffic-source dimensions, while channel groups are rule-based summaries. See [Google's traffic-source documentation](https://support.google.com/analytics/answer/15612152?hl=en).
+
+![Analytics dashboard and notebook beside a phone, representing a multi-source acquisition report.](https://images.pexels.com/photos/6476589/pexels-photo-6476589.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=800)
+
+| Term | Precise meaning for AI referral analysis |
+|---|---|
+| **Source** | The platform, site, app, or online location that sent the visitor, such as `chatgpt.com` or `perplexity.ai`. |
+| **Medium** | The traffic method, such as `referral`, `organic`, `email`, or `none`. It describes how the visit arrived, not whether the user was persuaded. |
+| **Source / medium** | The paired reporting value, for example `chatgpt.com / referral`; inspect both parts because either can be missing or rewritten. |
+| **Session source / medium** | The source and medium associated with the user's current session. This is the practical starting point in the Traffic acquisition report. |
+| **First-user source** | The source associated with the user's first recorded arrival. It answers “where did we first acquire this user?” rather than “what brought back this session?” |
+| **AI Assistant** | GA4's current default channel for traffic from assistants such as ChatGPT, Gemini, Copilot, DeepSeek, Grok, and similar sources. |
+| **Referral** | Non-ad traffic arriving through a link on another site or app. An AI product may be classified here when its source is recognized but does not match the AI Assistant rule. |
+| **Direct / (none)** | GA4's label for traffic without a clear referral source. It includes true direct visits and visits whose attribution information was lost. |
+| **Landing page** | The first page viewed in a session. Pair it with AI source to learn which pages assistants actually send people to. |
+| **Engaged session** | A session meeting GA4's engagement definition, such as lasting more than 10 seconds, having a key event, or having multiple page/screen views. |
+| **Key event** | An event your property has marked as important, such as `sign_up`, `generate_lead`, `begin_checkout`, or `purchase`. |
+
+Google's current default-channel documentation explicitly says AI Assistant **excludes Google AI Overviews and Google AI Mode**; those surfaces are included in Organic Search instead. A missing referrer can still fall into Direct, even when the visitor came from an assistant.
+
+## GA4 terms and formulas
+
+Use formulas that expose denominators. “AI traffic grew” is not enough; report the sessions, engaged sessions, key events, revenue, and the rule used to attribute them. The formulas below are simple, reproducible, and useful in a weekly exploration.
+
+| Metric | Formula | What it tells you |
+|---|---|---|
+| **Engagement rate** | `engaged sessions ÷ sessions × 100` | The share of AI-attributed sessions that met GA4's engagement definition. |
+| **Key-event rate** | `key-event sessions ÷ sessions × 100` | The share of sessions that produced at least one selected outcome. If using event counts, label it separately. |
+| **Conversion rate** | `conversions ÷ sessions × 100` | A business-defined rate; name the conversion event so readers know what “conversion” means. |
+| **Revenue per session** | `total revenue ÷ sessions` | Average recorded revenue associated with the selected sessions. It is not customer lifetime value. |
+| **AI share of sessions** | `AI Assistant sessions ÷ all sessions × 100` | The observed session share classified by GA4 as AI Assistant. |
+| **AI share of revenue** | `AI-attributed revenue ÷ all revenue × 100` | The observed revenue share under your chosen attribution and reporting scope. |
+
+Do not compare a session-scoped source with a user-scoped first-user source as if they were interchangeable. A customer may first arrive through organic search and later return from ChatGPT. GA4's [Traffic acquisition report](https://support.google.com/analytics/answer/12923437?hl=en) is designed for session sources; User acquisition is for first-user questions.
+
+## A practical GA4 workflow
+
+Start with a defined date range and a saved comparison or exploration. Filter the default channel group to **AI Assistant**, then add Session source / medium, Landing page + query string, Sessions, Engaged sessions, Engagement rate, Key events, and Total revenue. Google documents the report path as **Reports → Acquisition → Traffic acquisition**.
+
+Next, break AI Assistant into source values. Look for ChatGPT, Gemini, Copilot, Perplexity, and other recognized assistants, but retain a row for `(direct) / (none)` as a diagnostic rather than silently assigning it to AI. If you control campaign links, use a consistent UTM convention.
+
+Then inspect landing pages. A high-volume page with low engagement may answer an assistant's question completely; that is not automatically a failure. Conversely, a modest-volume page with strong key-event rate may deserve better internal links, clearer calls to action, or a focused AEO audit. Segment by device and geography only when privacy thresholds and business need justify it.
+
+Finally, export a snapshot with the query date, property, attribution setting, filters, and source definition. GA4 rules can evolve, so a saved screenshot or CSV makes future comparisons interpretable.
+
+## Why referrers and UTMs are incomplete
+
+Referrer data is controlled by the browser, linking product, redirects, security policies, and user settings. AI applications may open links in an in-app browser, suppress referrer information, or hand off through a redirect. Google says missing UTMs, redirects, offline documents, and ad blockers can all contribute to `(direct) / (none)`.
+
+UTMs solve only the links you own. Use lowercase, documented values such as `utm_source=partner_ai`, `utm_medium=referral`, and `utm_campaign=launch_2026`; do not overwrite an existing campaign accidentally. UTMs describe a naming choice, not proof that an AI model recommended the page. OpenAI's [publisher FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) helps distinguish crawler controls from click analytics.
+
+If payment, login, or checkout happens on another domain, configure cross-domain measurement and review unwanted referrals. Google allows up to 50 unwanted-referral conditions per web data stream; excluding a payment processor prevents a return visit from looking like a new referral. Do not blanket-ignore assistant domains: setting `ignore_referrer` everywhere can erase useful acquisition evidence. See [Identify unwanted referrals](https://support.google.com/analytics/answer/10327750?hl=en).
+
+## Bot filtering and privacy
+
+Do not count crawler requests as human AI referrals. GA4 reporting is based on tagged events, while server logs and security tools may show automated fetches separately. Keep bot and human datasets separate and never turn a crawl count into a visit estimate.
+
+Respect consent mode, regional privacy rules, retention settings, and minimum reporting thresholds. Avoid putting email addresses, prompt text containing personal data, order details, or customer identifiers into URLs or custom dimensions. Aggregate results when small cells could identify a person. A smaller, defensible report is more useful than a detailed report built from data you were not entitled to collect.
+
+## The minimum useful report
+
+For a monthly AI referral readout, publish one table with: date range, GA4 property, channel rule, sessions, engaged sessions, engagement rate, key events, conversion rate, revenue, revenue per session, source / medium, and top landing pages. Add an explicit note: **AI Assistant excludes Google AI Overviews and AI Mode; unrecognized or missing referrers may be reported as Direct / (none).**
+
+That note prevents the most common overclaim. Your report measures observable visits and outcomes from recognized or tagged sources. It does not measure unclicked mentions or offline purchases. For broader visibility, pair GA4 with controlled AEO testing and a dated prompt set.
+
+To connect these measurements to a visibility baseline, [run an AEOeye audit](/) and keep its date, engine, question, and GA4 window separate.
+
+## FAQs
+
+### How does GA4 classify ChatGPT and Gemini traffic?
+
+GA4's current default channel group includes AI Assistant for recognized sources including ChatGPT and Gemini. Google says Google AI Overviews and AI Mode are excluded from AI Assistant and classified in Organic Search.
+
+### Why is some AI traffic reported as direct?
+
+`(direct) / (none)` means GA4 has no clear referral source. Typed URLs are one cause, but missing UTMs, redirects, offline links, privacy tools, and suppressed referrers can produce the same label.
+
+### Should I add UTM tags to every AI link?
+
+Only tag links you control, such as partner campaigns or your own distribution. Use a stable naming convention and preserve the distinction between a tagged campaign and an organically passed referrer.
+
+### Can GA4 prove an AI answer caused a purchase?
+
+It can report a purchase associated with an attributed session under GA4's rules. It cannot observe unclicked AI impressions or establish that an answer was the sole cause of a purchase.

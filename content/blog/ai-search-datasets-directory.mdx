@@ -1,0 +1,117 @@
+---
+title: "AI Search Datasets Directory: Retrieval, Citations, Freshness, and Browsing"
+description: "A citation-ready directory of public AI search datasets and benchmarks, organized by retrieval, citations, freshness, browsing, and factuality tasks."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search datasets", "retrieval benchmarks", "citation datasets", "RAG evaluation datasets", "freshness benchmarks"]
+faqs: [{"q":"Which dataset should I use to evaluate citations?","a":"Start with ALCE when you need end-to-end answer-and-citation evaluation, then add FActScore for atomic factual precision and RAGTruth for hallucination analysis."},{"q":"What is the best benchmark for fresh information?","a":"FreshQA is the clearest starting point for changing-world questions. LiveNewsBench is more appropriate when the system must search and answer from newly curated news."},{"q":"Are these datasets all free to use?","a":"No single licensing rule applies. Papers may link code, data, mirrors, or evaluation scripts under different terms; check the current repository and license before downloading or redistributing anything."},{"q":"How can I avoid benchmark contamination?","a":"Pin the dataset version and retrieval snapshot, keep evaluation questions private where possible, and test on a later or newly authored holdout rather than reporting one public benchmark alone."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Researcher reviewing charts and notes beside a laptop, representing dataset evaluation.","photographer":"Kindel Media","photographerUrl":"https://www.pexels.com/@kindelmedia"}
+sources: [{"label":"ALCE: Enabling Large Language Models to Generate Text with Citations","url":"https://arxiv.org/abs/2305.14627"},{"label":"FreshLLMs and FreshQA","url":"https://arxiv.org/abs/2310.03214"},{"label":"BRIGHT retrieval benchmark","url":"https://arxiv.org/abs/2407.12883"},{"label":"WebArena","url":"https://arxiv.org/abs/2307.13854"},{"label":"GAIA benchmark","url":"https://arxiv.org/abs/2311.12983"},{"label":"RAGTruth","url":"https://arxiv.org/abs/2401.00396"},{"label":"FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"LiveNewsBench","url":"https://arxiv.org/abs/2602.13543"},{"label":"Pexels image by Kindel Media","url":"https://www.pexels.com/@kindelmedia"},{"label":"Pexels image by fauxels","url":"https://www.pexels.com/@fauxels"}]
+---
+
+The right AI-search dataset depends on the failure you need to measure. Use ALCE for answer-plus-citation quality, FreshQA or LiveNewsBench for changing facts, BRIGHT for reasoning-heavy retrieval, WebArena or GAIA for browsing and tool use, and RAGTruth or FActScore for factuality diagnostics.
+
+This directory is a selection aid, mapping each benchmark to its unit, task, access path, time sensitivity, and limitation. Treat every row as a starting point: repositories change, and a paper’s release does not guarantee every asset is redistributable.
+
+**On this page:** [choose a dataset](#how-should-you-choose-an-ai-search-dataset) · [comparison table](#ai-search-dataset-comparison-table) · [citations](#which-datasets-evaluate-citations-and-evidence) · [freshness](#which-datasets-test-freshness-and-current-information) · [browsing](#which-datasets-test-retrieval-and-browsing) · [reproducibility](#how-do-you-prevent-contamination-and-version-drift)
+
+## How should you choose an AI search dataset?
+
+Choose the dataset whose unit of failure matches your product. A citation-heavy answer engine needs evidence attribution; a web agent needs successful interaction traces; a news assistant needs a dated, changing information environment.
+
+Use this quick order:
+
+1. Define the observable outcome: retrieve, cite, browse, answer freshly, or remain factually grounded.
+2. Select one primary benchmark and one diagnostic benchmark from a different family.
+3. Pin the paper version, repository commit, data snapshot, prompt, and evaluator.
+4. Add a private or newly authored holdout before making a launch decision.
+
+![Analyst working with a laptop and printed research notes for benchmark selection.](https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## AI search dataset comparison table
+
+The table is the citation hook: it gives a researcher a compact, quotable map before the deeper notes. “Access” describes the paper’s linked project or repository, not a promise that all files are currently downloadable.
+
+| Dataset or benchmark | Unit | Primary task | Access | Time sensitivity | Main limitation |
+|---|---|---|---|---|---|
+| ALCE: ASQA | Question and long-form answer | Generate an answer with supporting citations | Project/repository linked from paper | Mostly static | Citation support and answer quality are benchmark-specific |
+| ALCE: QAMPARI | Question with list-style answer | Retrieve evidence and cite multiple items | Project/repository linked from paper | Mostly static | List coverage can reward retrieval breadth differently from synthesis |
+| ALCE: ELI5 | Question and explanatory answer | Long-form explanation with citations | Project/repository linked from paper | Mostly static | Broad questions make complete support difficult to diagnose |
+| FreshQA / FreshLLMs | Dynamic question and answer | Answer current-world and false-premise questions | FreshQA project linked from paper | High; designed to change | A dated release can age quickly |
+| BRIGHT | Query and relevance judgments | Reasoning-intensive text retrieval | Project/repository linked from paper | Mostly static | Small, challenging benchmark is not a proxy for every domain |
+| WebArena | Browser task and environment state | Complete realistic web tasks | Project/repository linked from paper | Environment-dependent | Reproducing sites, accounts, and state can be costly |
+| GAIA | Assistant question with required tools | General assistant reasoning and tool use | Project/repository linked from paper | Mixed | Tool access and task interpretation affect comparability |
+| RAGTruth | Response, evidence, and hallucination annotation | Detect and analyze RAG hallucinations | Project/repository linked from paper | Mostly static | Annotation categories do not cover every grounding failure |
+| FActScore | Generated biography-style response and atomic claims | Score factual precision claim by claim | Project/repository linked from paper | Depends on evidence source | Atomic scoring is not the same as citation usefulness |
+| LiveNewsBench | Fresh news question and retrieved evidence | Evaluate web search and current-news answers | Project/repository linked from paper | Very high | News coverage, geography, and update timing can bias results |
+
+## Which datasets evaluate citations and evidence?
+
+ALCE (Automatic LLMs’ Citation Evaluation) is the best first choice when your system must produce an answer and point readers to supporting sources. Its ASQA, QAMPARI, and ELI5 settings exercise different answer shapes: long-form synthesis, list-style coverage, and explanatory responses. Read the [ALCE paper](https://arxiv.org/abs/2305.14627) for the benchmark design and metrics, then inspect the linked project before reproducing it.
+
+ALCE is not a generic “truth score.” A system can write fluent prose yet miss a needed citation or cite only partial evidence. Report answer and citation quality separately, preserving the retrieved passages used by your evaluator.
+
+FActScore complements this when the concern is factual precision inside a long response. It decomposes text into atomic claims and checks support from a knowledge source. That helps regression diagnosis, but does not tell you whether a user can click and understand a citation; pair it with ALCE or link-level checks.
+
+RAGTruth focuses on hallucination in retrieval-augmented generation. Its annotations classify unsupported or misleading spans when a model overstates what context proves. Check the current [RAGTruth repository and license](https://arxiv.org/abs/2401.00396) before commercial use.
+
+## Which datasets test freshness and current information?
+
+FreshQA was created for questions whose answers can change, including prompts with false premises. The [FreshLLMs paper](https://arxiv.org/abs/2310.03214) describes a benchmark and a search-augmented evaluation setup, and notes that the release is intended to be updated. That update policy is a feature: record which release you used, because a score without a date is incomplete.
+
+LiveNewsBench targets a related but narrower operational question: can an assistant search for and answer from freshly curated news? Use it when source recency and answer timing matter. A newsroom assistant and a support bot may both need “freshness,” but should not share an assumption about acceptable source age.
+
+## Which datasets test retrieval and browsing?
+
+BRIGHT is designed for retrieval questions that require reasoning beyond surface matching. The [BRIGHT paper](https://arxiv.org/abs/2407.12883) describes real-world queries across several domains and emphasizes that strong general retrieval models can still struggle. It is a sharp stress test for query understanding and reranking, not a complete estimate of production search quality.
+
+WebArena evaluates agents completing tasks in realistic web environments. Use it when the system must navigate, click, fill, and verify—not merely return a passage. Reproduction depends on environment state, site versions, credentials, and task setup; read the [WebArena project](https://arxiv.org/abs/2307.13854) and document your environment.
+
+GAIA evaluates assistants on questions requiring reasoning and, in many cases, tools. It can expose failures a text-only set misses when the assistant combines browsing, files, or computation. Report model, tool permissions, and stop conditions alongside any score.
+
+## What are the licensing and access caveats?
+
+“Publicly described” does not mean “universally reusable.” A paper may link code but not every underlying document; a repository may add terms, gated downloads, or third-party content restrictions after publication.
+
+Before use, check the current repository, data card, and license. Confirm whether commercial evaluation, redistribution, derived annotations, and hosted API testing are permitted. Keep a manifest with download date, version or commit, URL, and access conditions. If a license is unclear, use the benchmark internally until the maintainers clarify it.
+
+## How do you prevent contamination and version drift?
+
+Benchmark contamination is a measurement problem, not merely a model-training problem. Public questions can enter pretraining, retrieval indexes, prompt libraries, or evaluator examples, making a high score difficult to interpret.
+
+Use a contamination-aware protocol:
+
+- Keep benchmark prompts out of few-shot examples and system demonstrations.
+- Separate public benchmark reporting from a private, post-cutoff holdout.
+- Pin repository commits and record corpus, browser, and search-index versions.
+- Never silently mix refreshed questions with an older baseline.
+- Re-run a small manually reviewed sample when the evaluator or parser changes.
+
+For changing benchmarks, “latest” is not a reproducible version. Write the release date and as-of timestamp into every result row. If maintainers update a set regularly, preserve old snapshots where the license allows it and label them clearly.
+
+## What should your update policy look like?
+
+Refresh the benchmark when its world changes, not just when your model changes. Static citation and retrieval sets can support quarterly regression checks; dynamic QA and news sets need a dated cadence tied to the product’s freshness promise.
+
+An honest report includes dataset version, access date, model and retrieval settings, evaluator version, missing sources, and known domain blind spots. Do not compare incompatible snapshots as one continuous leaderboard.
+
+For a practical second opinion, run production buyer prompts through an [AEOeye AI visibility audit](/#audit). It complements a research benchmark by showing whether answer engines mention, recommend, and cite your brand.
+
+## Frequently asked questions
+
+### Which dataset should I use to evaluate citations?
+
+Start with ALCE for end-to-end answer-and-citation evaluation. Add FActScore for atomic factual precision and RAGTruth for groundedness and hallucination analysis.
+
+### What is the best benchmark for fresh information?
+
+FreshQA is the clearest starting point for changing-world questions. Choose LiveNewsBench when the system must search and answer from newly curated news.
+
+### Are these datasets all free to use?
+
+No. Check the current repository, data card, and license for download, commercial use, redistribution, and third-party-content restrictions.
+
+### How can I avoid benchmark contamination?
+
+Pin every version and retrieval snapshot, keep benchmark examples out of prompts, and evaluate a private or newly authored holdout as well as the public set.

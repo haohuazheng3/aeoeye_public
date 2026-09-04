@@ -1,0 +1,115 @@
+---
+title: "LLM Freshness Benchmarks: A Research Directory for Time-Sensitive Answers"
+description: "A citation-ready directory of LLM freshness benchmarks, from knowledge cutoffs and temporal validity to live web search and continuously refreshed evaluation."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["LLM freshness benchmarks", "LLM knowledge cutoff benchmark", "temporal QA benchmark", "AI answer freshness", "live search evaluation"]
+faqs: [{"q":"What is an LLM freshness benchmark?","a":"It is an evaluation set designed to test whether a model knows facts at the relevant time, can use current evidence, or can answer questions whose truth changes with time."},{"q":"Does a knowledge-cutoff benchmark measure live ChatGPT or Gemini quality?","a":"No. A benchmark may test a model or system under documented conditions, but its result is not a current product-quality score for ChatGPT, Gemini, or another commercial service."},{"q":"Which benchmark should I use for web-search agents?","a":"Use LiveNewsBench for freshly curated, multi-hop news-search tasks, then add manual checks for source quality, citation correctness, and answer date."},{"q":"How often should a freshness evaluation be updated?","a":"Update the test set when the underlying facts or news cycle move, preserve prior snapshots for regression, and publish the collection date, answer date, and evaluation conditions."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop displaying a data analytics graph for researching time-sensitive AI answers.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"FreshLLMs / FreshQA","url":"https://arxiv.org/abs/2310.03214"},{"label":"StreamingQA","url":"https://arxiv.org/abs/2205.11388"},{"label":"SituatedQA","url":"https://arxiv.org/abs/2109.06157"},{"label":"TempLAMA","url":"https://arxiv.org/abs/2106.15110"},{"label":"LiveNewsBench","url":"https://arxiv.org/abs/2602.13543"},{"label":"LLMLagBench","url":"https://arxiv.org/abs/2511.12116"},{"label":"LiveNewsBench project","url":"https://livenewsbench.com/"}]
+---
+
+An LLM freshness benchmark answers a narrower question than “Is this model smart?” It asks whether a model knows the right fact for the relevant time, can use updated evidence, or can recognize that an answer has changed. That distinction matters whenever an AI answer may be cited, acted on, or compared with a live search result.
+
+This directory separates five ideas that are often collapsed into one vague claim about “freshness”: the model’s knowledge cutoff, retrieval freshness, temporal validity, answer staleness, and continuously refreshed evaluation. Use the table first, then choose a benchmark that matches the failure mode you need to measure.
+
+## Table of contents
+
+- [What does freshness mean?](#what-does-freshness-mean)
+- [Benchmark comparison](#which-benchmark-measures-what)
+- [How to evaluate a time-sensitive answer](#how-should-you-run-an-evaluation)
+- [Limitations and update policy](#what-can-these-benchmarks-not-prove)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What does freshness mean?
+
+Freshness is not a single model attribute. A system can have old internal knowledge but retrieve a current page; it can retrieve a current page but select an obsolete passage; or it can know a recent fact while answering a question whose date and location were never specified.
+
+Use these terms precisely:
+
+- **Knowledge cutoff:** the latest point in time represented in a model’s parametric training data. It is a property of a model version or training process, not a guarantee about a product’s live behavior.
+- **Retrieval freshness:** how current the evidence made available at answer time is. Search indexes, feeds, caches, and page timestamps can all differ.
+- **Temporal validity:** whether the answer is correct for the date, place, or other context in the question. A fact can be true in 2020 and false today.
+- **Answer staleness:** the gap between the answer’s claimed or implied time and the time at which its supporting fact was valid.
+- **Continuously refreshed evaluation:** a benchmark process that adds or rotates examples as the world changes, while retaining dated snapshots for comparison.
+
+The practical rule is simple: record the question date, evidence date, model or system version, retrieval setting, and evaluator version. Without those fields, a “freshness score” is difficult to reproduce.
+
+## Which benchmark measures what?
+
+The most useful citation hook is this map. Each benchmark tests a real dimension of time-sensitive answering, and each has a boundary that prevents overclaiming.
+
+| Benchmark | What it measures | What it cannot prove |
+|---|---|---|
+| [FreshLLMs / FreshQA](https://arxiv.org/abs/2310.03214) | Current-world factuality, fast-changing knowledge, and false-premise handling, including search-augmented prompting | That a commercial assistant will behave the same way today, or that retrieval always fixes a wrong answer |
+| [StreamingQA](https://arxiv.org/abs/2205.11388) | Adaptation to new knowledge over time using dated news questions and a growing evidence stream | Live web-search quality or performance outside its dataset and update protocol |
+| [SituatedQA](https://arxiv.org/abs/2109.06157) | Whether answers change with temporal or geographical context | A model’s general knowledge cutoff, browsing ability, or current product ranking |
+| [TempLAMA](https://arxiv.org/abs/2106.15110) | Temporal factual knowledge and whether language models can represent facts that expire or change | That a model has a usable live clock, current sources, or reliable event retrieval |
+| [LiveNewsBench](https://arxiv.org/abs/2602.13543) | Agentic web-search ability on freshly curated, multi-hop news questions requiring page visits and reasoning | Broad everyday freshness, citation quality in every domain, or stable scores for a changing web |
+| [LLMLagBench](https://arxiv.org/abs/2511.12116) | Probable temporal boundaries of training data by probing knowledge of recent events | The exact private training cutoff, live retrieval behavior, or an official product specification |
+
+This table also explains why benchmark names should travel with their dates and conditions. [FreshLLMs](https://arxiv.org/abs/2310.03214) describes FreshQA as a dynamic QA benchmark and reports human judgments; [StreamingQA](https://arxiv.org/abs/2205.11388) uses time-stamped news over a long period. Those are valuable research designs, not permanent labels for every deployed model.
+
+![Researcher comparing dated evidence and model answers on a laptop.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Lukas Blazek](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com/).*
+
+## How should you run an evaluation?
+
+Start with the decision your answer must support, then select the smallest benchmark family that isolates the risk. A newsroom may prioritize current-event retrieval; a product team may care about expired prices; a global support system may need date and location conditioning.
+
+### 1. Define the temporal contract
+
+Write down what “correct” means before looking at outputs. Specify the reference date, time zone, geography, acceptable source types, and whether a no-answer response is preferable to an unsupported guess. For an event question, the answer date may be part of the label; for a product fact, the validity interval may be more important.
+
+### 2. Separate closed-book and retrieval modes
+
+Run the same items with retrieval disabled and enabled when the research question allows it. Closed-book results expose parametric knowledge and likely cutoff effects. Retrieval results test the complete path: query formulation, ranking, page access, evidence selection, synthesis, and citation. A higher retrieval score does not identify which component caused the improvement.
+
+### 3. Score more than exact match
+
+Exact match is useful for short, unambiguous labels, but time-sensitive answers need additional fields:
+
+1. **Temporal correctness:** Is the claim true for the specified date?
+2. **Context correctness:** Does it fit the stated place, entity, and scope?
+3. **Evidence support:** Does the cited source actually support the claim?
+4. **Freshness disclosure:** Does the answer state uncertainty when evidence is old or conflicting?
+5. **Abstention quality:** Did the system avoid confidently inventing an answer?
+
+For a research log, preserve the raw answer, retrieved URLs, page timestamps when available, evaluator decision, and reason for failure. The log is often more valuable than a single aggregate number because it shows whether staleness came from memory, retrieval, or interpretation.
+
+### 4. Keep dated snapshots
+
+A rotating benchmark should never erase its past. Store each release with a collection date and an immutable item list, then publish a new release when facts, news, or source availability changes. This is the difference between measuring improvement and merely replacing easy old questions with new ones.
+
+## What can these benchmarks not prove?
+
+No benchmark in this directory describes the live quality of ChatGPT, Gemini, Perplexity, or another commercial product unless that product, version, prompt, tools, and date were explicitly evaluated and documented. Research papers commonly test named models, controlled pipelines, or released datasets; do not convert those findings into a current product leaderboard.
+
+Benchmarks also cannot reveal a private training corpus or prove the exact cutoff of a proprietary system. LLMLagBench estimates a probable temporal boundary from observed answers; that is evidence about behavior, not an internal training-data audit. Likewise, a benchmark can show that a retriever found a recent page without proving that every user will receive the same page.
+
+Treat scores as scoped measurements. Report the benchmark version, sample construction, date, model or system, tools enabled, and evaluator. If any of those are missing, label the result as incomplete rather than filling the gap with a guess.
+
+## Update policy
+
+This directory is dated **September 4, 2026**. AEOeye will review it when a listed benchmark releases a materially different version, a project changes its evaluation protocol, or a new primary benchmark better separates internal knowledge from live retrieval. Historical links and claims should remain visible so readers can see what was known at publication time.
+
+If you are auditing your own brand’s AI visibility, freshness is one layer of the problem. [AEOeye can help you inspect](/#audit) whether answer engines mention, recommend, and cite your brand for buyer questions; use that report alongside a dated research benchmark rather than treating either as a universal quality score.
+
+## Frequently asked questions
+
+### What is an LLM freshness benchmark?
+
+It is a dated evaluation designed to test current facts, changing facts, time or location context, or the ability to retrieve new evidence. Its scope depends on the dataset and protocol.
+
+### Does a knowledge-cutoff benchmark measure live ChatGPT or Gemini quality?
+
+No. It measures the tested model or system under stated conditions. Product behavior can change with model routing, search, safety layers, indexes, and interface updates.
+
+### Which benchmark is best for web-search agents?
+
+LiveNewsBench is the closest fit among this directory because it focuses on fresh news, multi-hop queries, page visits, and reasoning. Add domain-specific and manual citation checks before making a deployment decision.
+
+### How often should a freshness evaluation be updated?
+
+Rotate or add items as facts change, but preserve dated releases. Publish the collection date, answer date, sources, system configuration, and scoring rubric with every release.

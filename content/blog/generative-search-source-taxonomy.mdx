@@ -1,0 +1,114 @@
+---
+title: "Generative Search Source Taxonomy: 12 Evidence Types Explained"
+description: "A practical 12-type taxonomy for labeling the evidence behind AI search answers, with examples, selection rules, and audit caveats."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["generative search sources", "AI citation taxonomy", "AI search audit", "source evidence classification"]
+faqs: [{"q":"What is a source taxonomy in generative search?","a":"It is a consistent classification for the evidence an AI answer may retrieve or cite, such as an official page, dataset, news report, or community post. The taxonomy helps auditors describe what was found without pretending every source has the same authority."},{"q":"Is an official source always better than a community source?","a":"Not always. An official source is usually strongest for its own policy, product, or stated facts, while a community source may reveal current user experience or an edge case. Label both accurately and match the source type to the claim being tested."},{"q":"How should auditors label snippets?","a":"Label a search-result snippet or secondary aggregator as type 12, record the visible text and retrieval date, and follow the link to find the underlying source. Do not treat a snippet as independent confirmation when it merely summarizes another page."},{"q":"Can this taxonomy reveal how an AI engine ranks sources?","a":"No. It describes observed evidence, not undocumented ranking logic. Engines can use retrieval, model memory, tools, freshness signals, and other systems differently. Report the citation and context you can reproduce, then state what remains unknown."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher reviewing source documents and notes beside a laptop.","photographer":"Sora Shimazaki","photographerUrl":"https://www.pexels.com/@sora-shimazaki"}
+sources: [{"label":"Google Cloud — Grounding with Google Search","url":"https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/ground-with-google-search"},{"label":"Google Cloud — GenerateContentResponse grounding metadata","url":"https://cloud.google.com/vertex-ai/generative-ai/docs/reference/rest/v1/GenerateContentResponse"},{"label":"OpenAI Help — Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-chatgpt-search"},{"label":"WebGPT paper","url":"https://arxiv.org/abs/2112.09332"},{"label":"ALCE paper","url":"https://arxiv.org/abs/2305.14627"},{"label":"Schema.org — sameAs","url":"https://schema.org/sameAs"}]
+---
+
+Generative search answers can draw on very different evidence, from a government rule to a product listing or a two-line forum comment. This 12-type taxonomy gives auditors a shared label for each source, so a citation report can say what was observed without implying a universal authority ladder or undocumented engine preference.
+
+## Table of Contents
+
+- [Why classify evidence?](#why-classify-evidence)
+- [The 12 source types](#the-12-source-types)
+- [How do you select a label?](#how-do-you-select-a-label)
+- [What does the hierarchy not mean?](#what-does-the-hierarchy-not-mean)
+- [How to make labels reproducible](#how-to-make-labels-reproducible)
+- [Limitations and audit notes](#limitations-and-audit-notes)
+- [FAQ](#faq)
+
+## Why classify evidence?
+
+Source labels turn a vague question—“Why did the model say that?”—into an inspectable record. Google exposes grounding support and metadata for some Gemini workflows, and OpenAI explains that ChatGPT Search can search the web and return linked sources ([Google grounding documentation](https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/ground-with-google-search), [ChatGPT Search help](https://help.openai.com/en/articles/9237897-chatgpt-search)).
+
+For an audit, record the claim, source URL, source type, retrieval time, and whether the source directly supports the claim. This separates “the answer cited a retailer” from “the retailer is authoritative.” Research systems such as WebGPT and ALCE also make the distinction between generated text and cited evidence central to evaluation ([WebGPT](https://arxiv.org/abs/2112.09332), [ALCE](https://arxiv.org/abs/2305.14627)).
+
+## The 12 source types
+
+The table is a classification, not a ranking. A source can be valuable or weak depending on the question, its date, and whether the cited passage actually entails the answer.
+
+| # | Evidence type | Definition | Typical example |
+|---:|---|---|---|
+| 1 | Primary official page | First-party page published by the entity making the claim. | A manufacturer’s current specifications page. |
+| 2 | Regulation or standard | A rule, statute, technical standard, or official public guidance. | An agency regulation or W3C recommendation. |
+| 3 | Peer-reviewed paper | Scholarly work reviewed through an academic publication process. | A journal article reporting an information-retrieval result. |
+| 4 | Preprint | Research manuscript shared before formal peer review. | An arXiv paper describing a new benchmark. |
+| 5 | Public dataset | Downloadable or queryable data released for public use with provenance. | A census table or an open benchmark dataset. |
+| 6 | First-party telemetry | Measurements generated by the subject’s own product or service. | A platform’s status dashboard or documented analytics export. |
+| 7 | News report | Journalistic reporting that attributes facts to sources and events. | A dated report about a company launch. |
+| 8 | Expert commentary | Analysis from a named practitioner or specialist outside the primary record. | A technical explainer by a recognized engineer. |
+| 9 | Community or UGC | User-generated discussion, review, question, or experience report. | A Reddit troubleshooting thread or customer review. |
+| 10 | Product catalog | A structured commercial listing describing an item, price, or availability. | A retailer product page or marketplace feed. |
+| 11 | Knowledge graph or entity record | A structured entity profile connecting names, identifiers, and relationships. | A Wikidata item or a knowledge panel record. |
+| 12 | Retrieved snippet or secondary aggregator | A search snippet, directory, comparison page, or other intermediary summary. | A SERP excerpt or an aggregator’s copied rating. |
+
+Type 1 is usually the right label for a brand’s own claims, while type 2 is more appropriate for legal obligations. A paper may explain a method but cannot prove that a vendor currently offers a feature. A catalog can establish a listed price at a moment in time, but not proof of delivery or quality. Label the evidence next to the claim, not in a generic “trusted sources” bucket.
+
+![Analyst comparing a printed report with a laptop dashboard during source review.](https://images.pexels.com/photos/669610/pexels-photo-669610.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Lukas](https://www.pexels.com/@gouletloucas) on [Pexels](https://www.pexels.com/)*
+
+## How do you select a label?
+
+Use the source’s origin and function, not its visual design or domain extension. Apply this flow to every cited URL:
+
+1. **Who published it?** If the subject of the claim published it, use type 1 or type 6; if a public authority issued a binding rule or standard, use type 2.
+2. **What is the evidence object?** A research publication is type 3 or 4; data itself is type 5; an entity record is type 11.
+3. **Is it an account of events or an interpretation?** Reported events are type 7; analysis or opinion is type 8; personal experience is type 9.
+4. **Is it transactional?** A listing with item, price, or availability is type 10, even when the seller is the manufacturer.
+5. **Did you only see an intermediary?** Use type 12 until you open and classify the underlying page. Keep the snippet as a separate observation, not as a second source.
+
+When two labels seem plausible, choose the more specific one and add a note. For example, a government dataset can be type 5; the dataset format matters more than calling every government artifact a regulation. A company status page is type 6 because it reports telemetry, even though it is also official.
+
+## What does the hierarchy not mean?
+
+There is no universal evidence hierarchy that predicts every generative engine’s retrieval or citation behavior. Fresh local information may make a community report more useful than an old official page; a product catalog may be the only source with a current price; and a preprint may contain the newest result while peer review is pending.
+
+Do not infer hidden ranking rules from one answer. Google’s grounding response schema can expose grounding-related fields in supported responses, but those fields are not a complete explanation of model selection. Likewise, OpenAI’s Search documentation describes product behavior without publishing a universal source-scoring formula. Report observed links, snippets, dates, and claim fit instead of reverse-engineering a ranking system you cannot see.
+
+Entity records need special care. A `sameAs` link in Schema.org indicates that a page refers to the same entity as another authoritative identifier; it does not certify every statement on either page ([Schema.org sameAs](https://schema.org/sameAs)). Treat identity resolution and factual support as separate checks.
+
+## How to make labels reproducible
+
+A useful audit row should be replayable by another analyst. Store:
+
+- the exact question and answer text;
+- the citation text, URL, and final destination after redirects;
+- one taxonomy label, publisher, and publication or update date when available;
+- retrieval timestamp, locale, device or mode, and engine/model surface;
+- a short support judgment: direct, partial, contradictory, or unsupported;
+- a screenshot or archived capture where policy and permissions allow it.
+
+Use stable IDs such as `run-2026-09-04-014/source-03`. If a page changes, create a new observation rather than silently replacing the old one. For snippets, preserve the visible wording and query because snippets can change independently of the destination. For UGC, capture the post date, author handle as displayed, and whether it is firsthand; do not upgrade an anonymous claim to expert commentary.
+
+For quality control, have a second reviewer classify a sample without seeing the first label. Resolve disagreements by pointing to publisher, object, and claim fit. Track agreement, but do not turn agreement into proof of truth. The goal is consistent description of evidence.
+
+## Limitations and audit notes
+
+This taxonomy cannot recover sources an engine used privately, distinguish model memory from retrieval when no citation is shown, or establish causal influence from a citation alone. Pages can be personalized, geo-specific, deleted, or altered after capture. A linked source may support only one clause of a long answer.
+
+Use the taxonomy as a disciplined observation layer in AEOeye audits: identify what was cited, check whether it supports the claim, and prioritize improvements such as clearer first-party facts, durable identifiers, and updated evidence. Never promise that adding one source type guarantees recommendation or citation.
+
+## FAQ
+
+### Should every answer have a type-1 source?
+
+No. Match the source to the claim. A regulation, dataset, or user experience may be the better evidence, while a company page is best for the company’s own current policy.
+
+### Can one URL receive two labels?
+
+Yes, when it contains distinct evidence objects, but label each cited passage separately. A page may host a downloadable dataset and an editorial explanation; record the dataset as type 5 and the commentary as type 8 if both are used.
+
+### How many sources should an audit sample?
+
+Use a fixed protocol—such as the first five cited sources per question or every visible citation in a defined test set—and disclose it. Consistency is more valuable than an arbitrary large number.
+
+### What should a brand do with a weak source?
+
+Correct the underlying gap, not just the citation. Publish a precise first-party page, maintain dates and identifiers, and make the claim easy to verify. Then rerun the same question and record whether the evidence changed.
+
+Want to see which source types appear when buyers ask about your brand? Run a free [AEOeye AI visibility audit](/) and use the evidence labels as a starting point for your next content experiment.

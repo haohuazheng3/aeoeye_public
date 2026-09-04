@@ -1,0 +1,110 @@
+---
+title: "AI Search Citation Evaluation Metrics: A Practical Reference"
+description: "A practical, reproducible reference for measuring citation correctness, completeness, source quality, attribution, and human agreement in AI search answers."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search citation evaluation metrics", "citation correctness", "citation completeness", "RAG evaluation", "AI answer auditing"]
+faqs: [{"q":"What is citation correctness in AI search?","a":"Citation correctness asks whether a cited source actually supports the claim attached to it. It is an entailment judgment, not merely a check that the URL exists."},{"q":"How is citation completeness different from correctness?","a":"Correctness evaluates the citations that are present. Completeness evaluates how much of the answer's externally checkable content has adequate citation support, including claims with no citation."},{"q":"What is the best metric for a production citation audit?","a":"Use a small metric set together: claim-level correctness, citation coverage, source quality, attribution, and a human-reviewed sample. No single score captures all failure modes."},{"q":"Can AEOeye measure these metrics automatically?","a":"AEOeye can help audit how AI engines mention, recommend, and cite a brand. Treat any product score as an operational signal, then inspect representative answers and sources with the protocol below."}]
+image: {"url":"https://images.pexels.com/photos/7119258/pexels-photo-7119258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Researcher reviewing AI search citation evidence on a laptop.","photographer":"FreeBoilerGrants","photographerUrl":"https://www.pexels.com/@freeboilergrants-1659859"}
+sources: [{"label":"ALCE","url":"https://arxiv.org/abs/2305.14627"},{"label":"FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"RAGTruth","url":"https://arxiv.org/abs/2401.00396"},{"label":"WebGPT","url":"https://arxiv.org/abs/2112.09332"},{"label":"ARES","url":"https://arxiv.org/abs/2311.09476"},{"label":"Evaluating Correctness and Faithfulness of Instruction-Following Models","url":"https://aclanthology.org/2023.emnlp-main.866/"},{"label":"Citation Correctness Without Entailment","url":"https://aclanthology.org/2024.findings-emnlp.678/"}]
+---
+
+AI search citation evaluation is the disciplined measurement of whether an answer’s claims are supported by the sources it cites. A useful audit separates five questions: Is the claim entailed? Did the answer cite all important claims? Is the source trustworthy? Is attribution attached to the right text? Would a careful reviewer agree?
+
+This distinction matters because a polished answer can contain a real URL that does not support the sentence beside it. Research benchmarks such as [ALCE](https://arxiv.org/abs/2305.14627) frame citation evaluation around correctness and citation quality, while [FActScore](https://arxiv.org/abs/2305.14251) shows why mixed answers should be decomposed into atomic facts instead of receiving one binary label.
+
+## Table of contents
+
+- [What should a citation audit measure?](#what-should-a-citation-audit-measure)
+- [How do the core metrics differ?](#how-do-the-core-metrics-differ)
+- [What does citation correctness or entailment mean?](#what-does-citation-correctness-or-entailment-mean)
+- [How do coverage, precision, and recall work?](#how-do-coverage-precision-and-recall-work)
+- [How should source quality and attribution be scored?](#how-should-source-quality-and-attribution-be-scored)
+- [What is a reproducible six-step protocol?](#what-is-a-reproducible-six-step-protocol)
+- [Where do automated metrics fail?](#where-do-automated-metrics-fail)
+
+## What should a citation audit measure?
+
+Measure claims, citations, and sources as separate objects. The unit of analysis is usually an answer claim—not the whole response, the domain, or the citation count.
+
+Start by preserving the exact prompt, answer, citation markers, retrieved pages, timestamp, engine, model label when available, and locale. AI search results change. Without this record, a later reviewer cannot reproduce the judgment or tell whether a score changed because the system changed or the web page changed.
+
+Research metrics and product behavior must also stay distinct. ALCE, FActScore, [RAGTruth](https://arxiv.org/abs/2401.00396), [WebGPT](https://arxiv.org/abs/2112.09332), and [ARES](https://arxiv.org/abs/2311.09476) are research artifacts with particular datasets, annotations, prompts, and assumptions. A product dashboard may expose a “citation score,” but that label is not automatically equivalent to any published benchmark.
+
+## How do the core metrics differ?
+
+The compact reference below prevents a common mistake: treating every citation-related number as factual accuracy.
+
+| Metric | Question it answers | Basic calculation or label | What it does not prove |
+|---|---|---|---|
+| Correctness / entailment | Does the source support the attached claim? | Supported, contradicted, or insufficient; optionally a claim-level rate | That every important claim was cited |
+| Completeness / coverage | How much checkable content has support? | Supported claim weight ÷ total claim weight | That sources are authoritative |
+| Source quality | Is the cited source appropriate and reliable for this claim? | Rubric by provenance, expertise, freshness, and directness | That the answer interpreted it correctly |
+| Claim granularity | Are claims split finely enough to judge? | Atomic claims, with each fact independently labeled | That atomic claims are equally important |
+| Attribution | Is the citation attached to the right proposition? | Correct span, wrong span, or ambiguous | That the cited page is high quality |
+| Precision / recall | How much of the citation set is useful, and how much needed support was found? | Useful citations ÷ cited citations; supported needed claims ÷ needed claims | A universal ground truth for open-web answers |
+| Human review | Would trained reviewers make the same judgment? | Agreement plus adjudicated labels | Cheap, instant, or fully objective measurement |
+
+The table is a measurement map, not a standards claim. Teams should publish their rubric, claim weights, and treatment of “insufficient evidence.”
+
+## What does citation correctness or entailment mean?
+
+Correctness asks whether the cited passage entails the claim as written. A source can be topically related yet fail entailment when it omits a qualifier, reports a different date, or supports only one half of a compound sentence.
+
+Split the answer into atomic claims. “AEOeye audits ChatGPT and costs $29” contains at least two claims: product scope and price. Each needs its own evidence. FActScore’s central idea—breaking generations into atomic facts and measuring the supported percentage—provides a useful mental model, but its reported values belong to its own study setting, not to every AI search product.
+
+Use three practical labels:
+
+- **Supported:** the source directly states the claim or clearly entails it.
+- **Contradicted:** the source states the opposite or makes the claim untenable.
+- **Insufficient:** the source is related, but the evidence is missing, vague, or too indirect.
+
+For a weighted correctness rate, give each claim an importance weight and calculate supported weight divided by reviewed claim weight. Report contradicted and insufficient rates separately; merging them hides different remediation tasks.
+
+## How do coverage, precision, and recall work?
+
+Completeness measures missing support, while precision measures whether the citations supplied are useful. Together they reveal the difference between an answer that cites too little and one that cites indiscriminately.
+
+Define the denominator before scoring. Coverage can be claim coverage (the share of important claims with at least one adequate citation) or token/span coverage (the share of answer text that is citation-supported). Claim coverage is usually easier to explain; span coverage can expose long uncited passages.
+
+Citation precision is useful citations divided by all cited citations. Citation recall is supported, citation-needed claims divided by all citation-needed claims. These terms are borrowed from information retrieval, so document whether your team counts a citation supporting multiple claims once per claim or once per URL.
+
+Do not reward citation volume by itself. Ten loosely related links can have lower precision than two direct, authoritative sources. Conversely, a short answer can have high precision and poor recall if it simply leaves important claims unsupported.
+
+## How should source quality and attribution be scored?
+
+Score source quality against the claim’s needs, not against a universal domain ranking. An official regulator may be strongest for a rule; a peer-reviewed paper may be strongest for a research finding; a first-party product page may be strongest for current pricing.
+
+Use a transparent rubric with four dimensions: provenance, topical expertise, freshness, and directness. Record a reason for each rating. “Official” is not synonymous with “supports this exact sentence,” and a high-authority page can still be stale or misapplied.
+
+Attribution checks placement. The citation should be adjacent to the proposition it supports, and a reader should not have to guess whether it applies to one sentence, a paragraph, or a list. Mark attribution as correct, wrong-span, or ambiguous. This is especially important when a response places one citation after several claims.
+
+![Analyst comparing source quality and claim-level evidence in an AI search audit.](https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## What is a reproducible six-step protocol?
+
+Run the same six steps for every engine, prompt set, and reporting period. The protocol is intentionally small enough for a team to repeat.
+
+1. **Freeze the observation.** Save prompt, answer, citation URLs, screenshots or HTML, engine, locale, device, timestamp, and any visible model information.
+2. **Normalize the answer.** Remove navigation noise, resolve redirects, and preserve citation markers. Do not silently rewrite the answer.
+3. **Atomize claims.** Split factual, comparative, numerical, temporal, and recommendation statements. Assign importance and mark which claims require external support.
+4. **Verify evidence.** Open the cited passage, label entailment, contradiction, or insufficiency, and record the exact supporting excerpt or page location. Avoid inventing a quote when the page is unavailable.
+5. **Score the set.** Calculate correctness, claim coverage, source-quality rubric results, attribution errors, citation precision, and citation recall. Show denominators and exclusions.
+6. **Review and report.** Have a second reviewer label a sample, adjudicate disagreements, publish examples of failures, and separate research-style metrics from product-specific behavior.
+
+The reproducible output is a claim ledger, not just a score: claim ID, text, weight, citation ID, source URL, evidence note, labels, reviewer, and adjudication status. That ledger turns a monthly AI visibility check into a comparable audit.
+
+## Where do automated metrics fail?
+
+Automated judges are useful for triage, but they can miss negation, temporal qualifiers, table context, source accessibility, and disagreements about what counts as a claim. [ARES](https://arxiv.org/abs/2311.09476) demonstrates an automated framework for retrieval-augmented generation evaluation; it should be read as a research method with defined components, not as a universal certification.
+
+Open-web truth is also unsettled. Two credible sources can disagree, a source can change after collection, and recommendations include judgment beyond factual entailment. For high-stakes claims, require human review and retain the evidence snapshot. Never convert a missing page into a “supported” label merely because the URL looks reputable.
+
+Research papers can guide metric design, but they do not define how a commercial engine must behave. A product report should say exactly what was observed, which prompts were used, how claims were weighted, and which limitations remain.
+
+## How can you turn these metrics into an AEO workflow?
+
+Use the audit to find repairable patterns: unsupported product claims, stale pricing, citations attached to the wrong sentence, weak third-party sources, or important buyer questions left uncovered. Then rerun the same prompt set after updates and compare claim-level evidence, not only mention counts.
+
+AEOeye can help you inspect how AI engines mention, recommend, and cite a brand across buyer-oriented prompts. [Start with a free audit](/#audit), use the protocol above to validate answers, and treat the resulting report as a practical visibility signal—not a substitute for your own evidence ledger.

@@ -1,0 +1,116 @@
+---
+title: "AI Answer Factuality Evaluation: Metrics, Rubric, and Test Protocol"
+description: "A citation-ready method for evaluating factual precision, atomic-fact support, retrieval faithfulness, contradictions, abstention, calibration, and citation accuracy in AI answers."
+date: "2026-09-04"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI answer factuality evaluation", "AI answer evaluation rubric", "RAG factuality", "citation accuracy", "LLM evaluation"]
+faqs: [{"q":"What is AI answer factuality evaluation?","a":"It is a structured review of whether an AI answer’s claims are true, supported by its retrieved context, appropriately cited, and honest about uncertainty. It evaluates claims rather than rewarding fluent prose."},{"q":"Is factual precision the same as faithfulness?","a":"No. Factual precision asks whether a claim is correct in the world or against a trusted reference. Faithfulness asks whether the answer is supported by the context supplied to the model. A claim can be faithful to bad context."},{"q":"What is the smallest useful evaluation set?","a":"Use a stratified sample of prompts, preserve the exact answer and context, split answers into atomic claims, and have two reviewers score a shared subset. The right size depends on risk and answer volume; there is no universal certification threshold."},{"q":"Can AEOeye evaluate AI answer factuality?","a":"AEOeye can help inspect whether answer engines mention, recommend, and cite a brand. Use the rubric here to review representative answers and distinguish visibility signals from factuality or safety claims."}]
+image: {"url":"https://images.pexels.com/photos/7119258/pexels-photo-7119258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Researcher reviewing evidence and AI answer evaluation notes on a laptop.","photographer":"FreeBoilerGrants","photographerUrl":"https://www.pexels.com/@freeboilergrants-1659859"}
+sources: [{"label":"FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"RAGTruth","url":"https://arxiv.org/abs/2401.00396"},{"label":"TruthfulQA","url":"https://arxiv.org/abs/2109.07958"},{"label":"SelfCheckGPT","url":"https://arxiv.org/abs/2303.08896"},{"label":"ALCE","url":"https://arxiv.org/abs/2305.14627"},{"label":"NIST AI RMF","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+AI answer factuality evaluation is a claim-level test of whether an answer is correct, supported by its supplied evidence, honest about uncertainty, and accurately cited. A defensible audit separates factual precision, atomic-fact support, retrieval faithfulness, contradiction, abstention, calibration, and citation accuracy instead of collapsing them into one “accuracy” number.
+
+## Table of contents
+
+- [What should factuality evaluation measure?](#what-should-factuality-evaluation-measure)
+- [How do the metrics differ?](#how-do-the-metrics-differ)
+- [What scoring rubric can a team reuse?](#what-scoring-rubric-can-a-team-reuse)
+- [What is the seven-step test protocol?](#what-is-the-seven-step-test-protocol)
+- [How should human agreement and limitations be handled?](#how-should-human-agreement-and-limitations-be-handled)
+- [FAQ](#faq)
+
+## What should factuality evaluation measure?
+
+Evaluate the answer at three levels: the individual claim, the answer’s relationship to retrieved context, and the decision to answer or abstain. This keeps a fluent but unsupported response from passing merely because it sounds confident.
+
+Preserve the exact prompt, model and settings when available, retrieved passages, citations, timestamp, locale, and answer. AI search pages and source documents change. The record is part of the test, not administrative overhead.
+
+Research datasets illustrate different slices of the problem. [FActScore](https://arxiv.org/abs/2305.14251) decomposes generations into atomic facts. [RAGTruth](https://arxiv.org/abs/2401.00396) focuses on hallucination in retrieval-augmented generation. [TruthfulQA](https://arxiv.org/abs/2109.07958) probes whether models repeat common misconceptions. These anchors are useful, but their labels and tasks are not interchangeable with a production dashboard.
+
+![Analyst comparing retrieved passages with an AI-generated answer.](https://images.pexels.com/photos/7947837/pexels-photo-7947837.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Pexels image by [RDNE Stock project](https://www.pexels.com/@rdne), used as an illustration; it is not evaluation evidence.*
+
+## How do the metrics differ?
+
+Use separate labels because each catches a different failure. Precision can be high while important claims are omitted; faithfulness can be high while the retrieved document itself is wrong or stale.
+
+| Metric | Core question | Reusable operational label | Does not establish |
+|---|---|---|---|
+| Factual precision | Is the claim true against a trusted reference? | Supported, false, or unverifiable | That the model used its context |
+| Atomic-fact support | What share of weighted facts is supported? | Supported atomic facts ÷ all atomic facts | That every fact matters equally |
+| Faithfulness | Is the answer entailed by retrieved context? | Entailed, partially entailed, or unsupported | That retrieval was correct |
+| Contradiction | Does evidence conflict with the claim? | No conflict, direct conflict, or unresolved conflict | That absence of conflict means truth |
+| Abstention | Did the model decline when evidence was inadequate? | Appropriate, unnecessary, or missing abstention | That refusal is helpful in every case |
+| Calibration | Does confidence track correctness? | Confidence band compared with observed labels | A universal confidence scale across models |
+| Citation accuracy | Does each citation support the span it marks? | Correct, incomplete, misplaced, or broken | Source authority by itself |
+
+The distinction between truth and context support is essential. A model can faithfully quote a retrieved page that contains an outdated price. Conversely, a correct answer may be unfaithful if the supplied context does not support it. [ALCE](https://arxiv.org/abs/2305.14627) is a useful anchor for evaluating answer citation quality, while [SelfCheckGPT](https://arxiv.org/abs/2303.08896) demonstrates a consistency-based approach that can flag suspicious claims without assuming a single external reference is always available.
+
+## What scoring rubric can a team reuse?
+
+Score each atomic claim from 0–2 on each dimension, then report the distribution and weighted means; do not turn the result into a universal pass/fail certification. Weight claims by decision impact before aggregating: a wrong dosage, deadline, or price deserves more attention than a decorative adjective.
+
+| Dimension | 0 | 1 | 2 |
+|---|---|---|---|
+| Factual precision | False or contradicted by trusted evidence | Unverifiable, ambiguous, or missing a material qualifier | Correct and adequately qualified |
+| Context faithfulness | Not supported by retrieved context | Partly supported or requires an unstated inference | Directly entailed by context |
+| Citation accuracy | No citation where one is needed, or citation contradicts claim | Citation is relevant but incomplete, indirect, or attached to the wrong span | Citation directly supports the exact claim |
+| Calibration / uncertainty | Confident despite weak evidence | Some uncertainty, but confidence is poorly matched | Confidence or caveat matches evidence strength |
+| Abstention behavior | Should have abstained but answered, or refused without reason | Borderline case | Answers when supported or abstains when evidence is insufficient |
+
+Record contradiction separately even when the final label is “unverifiable.” A source conflict is a useful production signal: route it for review, identify which source is authoritative, and preserve both versions. The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) is a helpful governance anchor for documenting context, intended use, risks, and controls; it is not a factuality benchmark.
+
+## What is the seven-step test protocol?
+
+Run the same seven steps for each sampled answer so another reviewer can reproduce the judgment. The protocol is deliberately small enough for routine audits and explicit enough to expose where a score came from.
+
+1. **Define the task and risk.** Write the question, intended audience, acceptable freshness window, and what counts as a consequential error. Decide whether the reference should be an official document, a dated primary source, or a curated set.
+2. **Freeze the observation.** Save prompt, answer, retrieved context, citation URLs and spans, model metadata, timestamp, and locale. Hash or archive the source text where policy permits.
+3. **Segment into atomic claims.** Split compound sentences until each proposition can receive one evidence judgment. Preserve quantities, dates, conditions, and negations; qualifiers are not optional decoration.
+4. **Assign evidence.** Link each claim to the exact supporting passage, a trusted reference, both, or neither. Mark source conflicts rather than silently selecting the convenient page.
+5. **Apply the rubric.** Score precision, faithfulness, citation accuracy, calibration, and abstention. Add a short reason and label the error type: fabrication, omission, stale fact, contradiction, scope error, or citation mismatch.
+6. **Aggregate transparently.** Report claim counts, weighted scores, contradiction count, abstention cases, and confidence bands. Include denominators and unresolved claims; never report a bare accuracy percentage.
+7. **Review and improve.** Sample failures for root cause: retrieval, ranking, prompting, generation, citation placement, or policy. Re-run a fixed regression set after a change, and add newly discovered failure modes.
+
+### Worked example: a hypothetical product answer
+
+Suppose an answer says, “Product X launched in 2024, supports three export formats, and costs $29 per month,” with one citation to a product page. This is explicitly hypothetical; it is not a claim about Product X or a real AEOeye plan.
+
+Split it into three atomic claims. If the page confirms the launch year but lists only two formats, claim one scores precision 2 and claim two scores 0 or 1 depending on the page’s wording. If the page has no price, claim three is unverifiable and the answer should have qualified or omitted it. One citation cannot inherit support for all three propositions merely because it appears at the end of the sentence.
+
+## How should human agreement and limitations be handled?
+
+Have two trained reviewers independently label an overlapping subset, discuss disagreements only after recording first judgments, and adjudicate with a written rule. Report agreement by dimension and the number of overlapping items; a single blended agreement figure hides whether citation placement or truth judgments are causing disagreement.
+
+Agreement is not proof of truth. Reviewers can share the same mistaken reference, and open-web questions may have multiple valid answers. Automated entailment judges can also miss negation, temporal qualifiers, tables, or domain-specific terminology. Use model-based grading as triage, not as an invisible replacement for evidence review.
+
+Limitations should be visible in every report:
+
+- Ground truth may be unavailable, disputed, or time-sensitive.
+- Retrieval faithfulness cannot certify that context is authoritative.
+- Abstention quality depends on the user’s cost of delay and the task’s risk.
+- Confidence scores are not calibrated across providers by default.
+- Citation presence does not prove citation entailment, completeness, or source quality.
+
+## FAQ
+
+### Is a factuality score enough to compare models?
+
+No. Compare the same prompts, context, freshness rules, claim weights, and adjudication process. Publish the rubric and error distribution alongside any aggregate.
+
+### Should unsupported claims always be counted as false?
+
+No. “False,” “unverifiable,” and “unsupported by retrieved context” answer different questions. Keep them separate unless your documented use case requires a conservative roll-up.
+
+### How often should an AI answer audit run?
+
+Run a fixed regression set after model, retrieval, prompt, or citation changes; sample live traffic on a cadence matched to risk and content volatility. High-change commercial facts need tighter review than stable explanatory content.
+
+### Can this protocol certify an AI system as safe?
+
+No. It is a factuality and citation test protocol, not a universal safety certification. Pair it with privacy, security, bias, misuse, and human-oversight controls appropriate to the application.
+
+If you want to see how an answer engine represents and cites your brand in real buyer questions, [start with an AEOeye audit](/#audit), then use this rubric to inspect the claims that matter most.
