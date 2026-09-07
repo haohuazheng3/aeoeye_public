@@ -88,6 +88,9 @@ export async function POST(req: Request) {
 
     const session = await stripe.checkout.sessions.create({
       mode: sub ? "subscription" : "payment",
+      // AEOeye is an English-language product; keep Stripe's hosted checkout
+      // aligned with the surrounding copy instead of inheriting the browser locale.
+      locale: "en",
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: absoluteUrl(successPath) + (successPath.includes("?") ? "&" : "?") + "session_id={CHECKOUT_SESSION_ID}",
       cancel_url: absoluteUrl(cancelPath),
