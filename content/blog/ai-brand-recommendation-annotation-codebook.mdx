@@ -1,0 +1,197 @@
+---
+title: "AI Brand Recommendation Annotation Codebook: Labels and Examples"
+description: "A practical, reproducible codebook for labeling brand recommendations, mentions, evidence, rank, and ambiguity in AI search answers."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "8 min read"
+keywords:
+  [
+    "AI brand recommendation annotation",
+    "AI search annotation codebook",
+    "AI visibility labels",
+    "brand recommendation rubric",
+    "AI answer evaluation",
+    "AEO research",
+  ]
+faqs:
+  [
+    {
+      "q": "What is an AI brand recommendation annotation codebook?",
+      "a": "It is a written set of labels and decision rules for coding how a brand appears in an AI answer: recommended, qualified, neutral, negative, excluded, or absent, along with rank, sentiment, citation, and evidence fields. It makes a study repeatable; it does not reveal an engine's internal ranking system.",
+    },
+    {
+      "q": "Can one AI answer receive more than one brand label?",
+      "a": "Yes. Code each target brand separately at the answer level, then preserve the brand's exact spans and any list position. A single answer can recommend one brand, mention a competitor neutrally, and exclude another under a stated condition.",
+    },
+    {
+      "q": "How should reviewers label an unverified AI claim?",
+      "a": "Record the recommendation label separately from evidence status. If the answer recommends a fictional brand but provides no usable support, keep the observed recommendation and mark evidence as unsupported or unverified rather than silently changing the recommendation label.",
+    },
+    {
+      "q": "Is this codebook an industry standard?",
+      "a": "No. These are AEOeye's recommended operational labels, informed by published evaluation and measurement guidance. Teams should version the codebook, train reviewers, report disagreements, and disclose adaptations before comparing results.",
+    },
+  ]
+image:
+  {
+    "url": "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "Researcher reviewing a structured AI brand recommendation annotation codebook on a laptop.",
+    "photographer": "ThisIsEngineering",
+    "photographerUrl": "https://www.pexels.com/@thisisengineering",
+  }
+sources:
+  [
+    {
+      "label": "AEOeye — AI visibility score methodology",
+      "url": "https://aeoeye.com/blog/ai-visibility-score-methodology",
+    },
+    {
+      "label": "AEOeye — AI search audit methodology template",
+      "url": "https://aeoeye.com/blog/ai-search-audit-methodology-template",
+    },
+    {
+      "label": "FActScore — Fine-grained Atomic Evaluation of Factual Precision",
+      "url": "https://arxiv.org/abs/2305.14251",
+    },
+    {
+      "label": "NIST — AI measurement and evaluation",
+      "url": "https://www.nist.gov/ai-measurement-and-evaluation",
+    },
+    {
+      "label": "NIST — AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+    },
+    {
+      "label": "ALCE — Answering with Language Models aided by Citation Extraction",
+      "url": "https://arxiv.org/abs/2305.14627",
+    },
+  ]
+---
+
+An AI brand recommendation study is only as reproducible as its labels. This codebook records whether an answer recommends, qualifies, mentions, criticizes, excludes, or omits a brand, while keeping evidence visible.
+
+These labels are AEOeye's operational proposal, not a universal industry standard or a product's internal scoring system. Version the rules, preserve the raw answer, and disclose adaptations. The [AEOeye audit methodology template](https://aeoeye.com/blog/ai-search-audit-methodology-template) provides wider protocol context.
+
+## Table of contents
+
+- [What is the unit of annotation?](#what-is-the-unit-of-annotation)
+- [Which primary labels should reviewers apply?](#which-primary-labels-should-reviewers-apply)
+- [How should rank and sentiment be recorded?](#how-should-rank-and-sentiment-be-recorded)
+- [How should citations and evidence be coded?](#how-should-citations-and-evidence-be-coded)
+- [How do difficult answer structures change the label?](#how-do-difficult-answer-structures-change-the-label)
+- [How should teams adjudicate disagreements?](#how-should-teams-adjudicate-disagreements)
+- [What can this codebook not prove?](#what-can-this-codebook-not-prove)
+- [What are the common questions?](#what-are-the-common-questions)
+
+## What is the unit of annotation?
+
+The atomic unit is one target brand in one captured answer to one prompt, at one recorded runtime. Store the prompt, answer, engine or interface, timestamp, locale, model label when exposed, and response identifier before coding.
+
+Do not use a screenshot alone as the dataset. Preserve response text and visible links, then mark the exact brand span and the sentence or list item that gives it meaning. This follows the evidence-first logic in citation-focused work such as [ALCE](https://arxiv.org/abs/2305.14627).
+
+One answer can therefore produce several rows:
+
+| Field           | Example                           |
+| --------------- | --------------------------------- |
+| answer_id       | `ans-0042`                        |
+| target_brand    | Northstar Notes                   |
+| span            | “Northstar Notes is my pick for…” |
+| primary_label   | qualified_recommendation          |
+| rank            | 1                                 |
+| evidence_status | partial_support                   |
+| reviewer        | R2                                |
+
+The row describes what was observed, not why the engine produced it. Do not infer hidden ranking factors.
+
+![Researchers comparing answer excerpts and brand labels on a shared research board.](https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+_Second image: Pexels photo by fauxels, [Pexels profile](https://www.pexels.com/@fauxels)._
+
+## Which primary labels should reviewers apply?
+
+Apply exactly one primary label to each target brand per answer. The label describes the answer's stance toward that brand, not whether the underlying product is objectively good.
+
+| Label                    | Definition                                                                                      | Recognition test                                                       | Fictional example                                         |
+| ------------------------ | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------- |
+| explicit_recommendation  | The answer directly advises choosing the brand.                                                 | Could a reader reasonably act on “choose this”?                        | “Choose Northstar Notes for a small research team.”       |
+| qualified_recommendation | The answer recommends the brand, but only under a stated condition, trade-off, or audience fit. | Is there a clear “if,” “for,” or limiting caveat?                      | “Northstar Notes is best if offline access matters most.” |
+| neutral_mention          | The brand is named without a clear positive or negative choice signal.                          | Does the text inform or list without advising?                         | “Other options include Northstar Notes and PineLedger.”   |
+| negative_mention         | The answer discourages, criticizes, or warns against the brand.                                 | Does it state a meaningful drawback or advise avoiding it?             | “Avoid Northstar Notes if you need SSO.”                  |
+| exclusion                | The answer explicitly says the brand does not meet the stated need or condition.                | Is the brand ruled out for this prompt, rather than merely criticized? | “Northstar Notes is not suitable for regulated archives.” |
+| competitor_only          | The answer recommends or discusses alternatives while the target brand is absent.               | Is the target absent but at least one competitor present?              | “Try PineLedger or AtlasMemo.”                            |
+| no_answer                | The response is empty, refuses, or cannot answer the request.                                   | Is there no usable brand stance to code?                               | “I can’t help with product recommendations.”              |
+| ambiguous                | The wording or entity match cannot be resolved reliably.                                        | Would reasonable trained reviewers need more context?                  | “Northstar” could refer to two unrelated products.        |
+
+Use `competitor_only` only when the target was in the study's defined set but did not appear. It is not a negative statement about the missing brand. A nonexistent brand name belongs in an entity-status field, not a recommendation.
+
+## How should rank and sentiment be recorded?
+
+Rank is the position the answer visibly assigns; sentiment is the tone toward the target. Keep both separate from the primary label because a qualified first-place recommendation and a neutral third-place mention are materially different observations.
+
+Record an integer rank only when the answer supplies an ordered list or explicit ordering such as “my first choice.” Use `unranked` for prose, and `not_applicable` for refusals or absent brands. Ties receive the same rank and a `tie=true` flag; do not break a tie by guessing order.
+
+Use four sentiment values: `positive`, `neutral`, `negative`, and `unclear`. Do not convert “best for X, weak for Y” into a universal verdict; record the qualifier in notes.
+
+For example, “AtlasMemo is second, but its export controls are limited” is `qualified_recommendation`, rank 2, and `negative` only if sentiment is defined as overall evaluative tone. Otherwise use `mixed` as a declared extension. Never add a fifth value mid-study.
+
+## How should citations and evidence be coded?
+
+Evidence status answers whether the observed recommendation is supported by an accessible source, not whether the recommendation is true. This distinction matters because [FActScore](https://arxiv.org/abs/2305.14251) evaluates fine-grained factual claims, while an annotation study first needs to preserve what the answer actually said.
+
+Use these fields:
+
+- `citation_present`: yes, no, or unclear.
+- `citation_attributed`: yes when a link is connected to the target claim, otherwise no.
+- `evidence_status`: supported, partial_support, contradicted, inaccessible, unsupported, or not_applicable.
+- `evidence_url`: the raw visible URL, plus a resolved URL if redirects are followed.
+- `evidence_note`: the claim span and the reason for the status.
+
+“Northstar Notes supports SSO [link]” is supported only if the linked page actually establishes that capability. A relevant pricing page does not entail a security claim. If the link returns an error, mark `inaccessible`, not `unsupported`; if no usable source exists, mark `unsupported`. Keep the recommendation label unchanged.
+
+This prevents citation laundering: a nearby link is not automatically evidence for every sentence. [NIST AI measurement guidance](https://www.nist.gov/ai-measurement-and-evaluation) supports documenting design and limits, not treating proximity as proof.
+
+## How do difficult answer structures change the label?
+
+Review the complete answer and nearby turns. Tables, bullets, negation, conditionals, follow-ups, duplicate mentions, and hallucinated entities can change a short brand span's meaning.
+
+For multi-brand tables, code each row independently and preserve column headers. “Best for price” is a qualified recommendation, not a universal winner. For unordered prose lists, use `unranked`.
+
+Negation controls the label: “Northstar is not a bad option” is not an explicit recommendation. If the answer says “I would not choose Northstar unless offline mode is essential,” code a qualified recommendation only when the conditional choice is clear; otherwise use `negative_mention` with the exact span in notes.
+
+Follow-up turns share a session but retain separate answer IDs. If a later answer corrects an earlier one, annotate both and link them with `supersedes_answer_id`. Duplicate mentions count once for presence; distinct claim spans can have separate evidence notes.
+
+If the model names a brand that the study cannot verify, retain the observed text and set `entity_verified=false`. Do not replace it with “no answer.” Hallucinated or ambiguous entities are findings about the observation and should be escalated for adjudication.
+
+## How should teams adjudicate disagreements?
+
+Train reviewers on a small shared set, then have at least two reviewers independently code a defined sample. Disagreements should be resolved against the written rule, with an adjudicator recording the final label and the reason for changing either reviewer's decision.
+
+Keep a versioned decision log for edge cases: conditional tables, aliases, ties, and inaccessible citations. Report double-coded items, disagreements by field, and the adjudication rule. Agreement is a process diagnostic, not proof of validity.
+
+The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) is governance context, not a label prescription. AEOeye's [visibility score methodology](https://aeoeye.com/blog/ai-visibility-score-methodology) is likewise an implementation example.
+
+## What can this codebook not prove?
+
+This codebook describes observed answer behavior for a declared prompt panel and runtime. It cannot prove market share, sales impact, causal lift from a content change, every user's experience, or the factual truth of every recommendation. It also cannot make two engines directly comparable when their interfaces expose different retrieval, personalization, or citation behavior.
+
+Treat the output as an operational dataset: useful for consistent review, trend tracking, and follow-up investigation. Publish the prompt scope, exclusions, version, denominators, and missingness. If you change the labels or sampling frame, start a new codebook version rather than silently breaking the time series.
+
+## What are the common questions?
+
+### Should every recommendation have a citation?
+
+No. Citation presence and recommendation stance are separate fields. An uncited recommendation can still be coded as observed, with evidence marked unsupported or not applicable.
+
+### Is a first-listed brand always ranked first?
+
+No. Code rank only when the wording or structure establishes order. A prose paragraph or unordered table can mention a brand without assigning rank.
+
+### How should a tie be scored?
+
+Assign the same rank to tied brands and record the tie. Never invent a deterministic order from visual placement alone.
+
+### Can AEOeye's labels be used in another study?
+
+Yes, as a named operational starting point. Copy the version, preserve the definitions, disclose adaptations, and do not describe the codebook as an ISO, NIST, or engine-standard taxonomy.
+
+For a baseline of how your brand appears in buyer questions, [run a free AEOeye audit](/#audit). Keep its prompt, date, engine context, and answer evidence alongside any researcher-coded dataset.

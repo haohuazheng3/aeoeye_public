@@ -1,0 +1,106 @@
+---
+title: "AI Answer Citation Failure Taxonomy: 16 Errors to Label"
+description: "A practical annotation reference for diagnosing retrieval, entailment, attribution, source-quality, freshness, and presentation failures in AI answer citations."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI citation failure taxonomy", "citation errors", "AI answer auditing", "RAG evaluation", "citation correctness"]
+faqs: [{"q":"What is an AI answer citation failure taxonomy?","a":"It is a claim-level codebook for labeling why a citation does not adequately support an AI-generated answer, from a missing URL to an unsupported synthesis."},{"q":"Is a relevant source automatically a correct citation?","a":"No. Topical relevance means a page concerns the subject; entailment means the page supports the specific proposition, qualifiers, and scope stated in the answer."},{"q":"What should reviewers do when a cited URL cannot be opened?","a":"Separate an inaccessible URL from a nonexistent URL. Record the access failure, preserve the raw citation, and mark support unverified unless an independent evidence snapshot is available."},{"q":"Is this taxonomy an ISO or NIST standard?","a":"No. The 16 labels are AEOeye's operational codebook, informed by published evaluation research, and should be adapted and disclosed for each audit."}]
+image: {"url":"https://images.pexels.com/photos/7119258/pexels-photo-7119258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Researcher reviewing AI answer citations and evidence on a laptop.","photographer":"FreeBoilerGrants","photographerUrl":"https://www.pexels.com/@freeboilergrants-1659859"}
+sources: [{"label":"ALCE","url":"https://arxiv.org/abs/2305.14627"},{"label":"FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"RAGTruth","url":"https://arxiv.org/abs/2401.00396"},{"label":"AEE","url":"https://arxiv.org/abs/2410.22349"},{"label":"Citation Correctness Without Entailment","url":"https://aclanthology.org/2024.findings-emnlp.678/"}]
+---
+
+An AI answer can display a real-looking source and still fail citation review. The reliable unit is the claim: preserve the answer, inspect the cited evidence, and label the exact failure rather than awarding a vague “bad citation” score.
+
+This 16-label taxonomy is AEOeye's operational annotation codebook, informed by work such as [ALCE](https://arxiv.org/abs/2305.14627), [FActScore](https://arxiv.org/abs/2305.14251), and [RAGTruth](https://arxiv.org/abs/2401.00396). It is not an ISO, NIST, or other universal standard.
+
+## Table of contents
+
+- [What should a citation failure label describe?](#what-should-a-citation-failure-label-describe)
+- [Which 16 citation failures should reviewers label?](#which-16-citation-failures-should-reviewers-label)
+- [How do reviewers separate relevance from entailment?](#how-do-reviewers-separate-relevance-from-entailment)
+- [How should URL and attribution failures be handled?](#how-should-url-and-attribution-failures-be-handled)
+- [How can a team annotate answers consistently?](#how-can-a-team-annotate-answers-consistently)
+- [How should failure labels appear in a report?](#how-should-failure-labels-appear-in-a-report)
+- [What can this taxonomy not prove?](#what-can-this-taxonomy-not-prove)
+
+## What should a citation failure label describe?
+
+A useful label explains the broken link between an answer claim and its evidence. It should tell a researcher whether to repair retrieval, rewrite the claim, replace the source, fix citation placement, or escalate for human review.
+
+Start with an atomic claim, not a whole paragraph. A sentence containing a date, comparison, and recommendation may need three separate judgments. [FActScore](https://arxiv.org/abs/2305.14251) is a helpful reference for decomposing generations into factual units; its study results should not be treated as measurements of every commercial search product.
+
+Record the prompt, answer text, raw citation, resolved URL, collection time, and evidence snapshot. A page can change after an answer is collected, so “currently visible” is not necessarily “what supported the original answer.”
+
+## Which 16 citation failures should reviewers label?
+
+Use one primary label per claim and add a secondary note when two failures interact. The recognition test is intentionally short; reviewers should retain the excerpt or page location that justifies their decision.
+
+| Label | Short definition | Recognition test | Remediation |
+|---|---|---|---|
+| Nonexistent URL | The cited address does not identify a retrievable resource. | DNS, response, or archive checks cannot locate it. | Preserve the raw string; remove or replace the citation. |
+| Inaccessible URL | A resource may exist, but the reviewer cannot access it. | Login, robots, outage, or network block prevents inspection. | Mark support unverified; seek an authorized snapshot. |
+| Topical-only relevance | The source discusses the subject but not the claim. | Search the page and find no proposition matching the claim. | Retrieve a direct, claim-level passage. |
+| Entailment gap | The source is available but does not logically support the wording. | Qualifiers, scope, or implication exceed the passage. | Narrow the claim or find stronger evidence. |
+| Partial support | Only one part of a compound claim is supported. | Split the sentence; one atomic unit lacks evidence. | Atomize and cite each supported unit. |
+| Contradiction | The source conflicts with the answer claim. | The passage states an incompatible fact, date, or condition. | Correct the answer and record the conflict. |
+| Wrong-span attribution | A citation is attached to the wrong sentence or clause. | A reader cannot tell which proposition it supports, or it supports another span. | Move the marker beside the supported claim. |
+| Stale support | Evidence may once have fit but is outdated for the claim's time. | Date, version, price, or policy has changed. | Add a time boundary and collect current evidence. |
+| Circular sourcing | Multiple citations repeat one originating claim. | Sources cite each other or trace to one unverified source. | Identify the origin and seek independent evidence. |
+| Citation laundering | A weak or unsupported claim gains authority by passing through a cited intermediary. | The cited page repeats a claim without its own evidence. | Trace provenance; label the underlying support. |
+| Primary-source displacement | A secondary summary is cited while a relevant first-party source exists. | The summary omits scope, method, or qualification in the primary. | Prefer the original study, regulator, or publisher. |
+| Duplicate citations | Repeated links inflate citation count without adding evidence. | URLs resolve to the same document or claim. | Deduplicate IDs while preserving occurrence positions. |
+| Unsupported synthesis | Several sources support pieces, but not the combined conclusion. | No source entails the relationship, ranking, or causal leap. | Cite the inference as analysis or soften it. |
+| Missing citation | A checkable claim has no source marker. | A reviewer cannot identify evidence for a factual proposition. | Add a direct citation or remove the claim. |
+| Overbroad citation scope | One marker appears to support too much text. | The source supports one clause, not the surrounding paragraph/list. | Place citations at claim boundaries. |
+| Presentation loss | Formatting hides, truncates, or misrenders the evidence link. | The visible marker is broken, ambiguous, or not clickable. | Test rendered output and retain a machine-readable URL. |
+
+The table distinguishes failures that are often collapsed together. In particular, nonexistent and inaccessible URLs require different remediation, while topical relevance and entailment answer different questions.
+
+## How do reviewers separate relevance from entailment?
+
+Relevance asks, “Is this about the same topic?” Entailment asks, “Does this evidence support the exact proposition, including its qualifiers, comparison direction, and time period?” A highly relevant page can still fail entailment.
+
+Use three core evidence outcomes: supported, contradicted, and insufficient. Then apply the taxonomy label that explains an insufficient or misleading outcome. The [Citation Correctness Without Entailment](https://aclanthology.org/2024.findings-emnlp.678/) research is a reminder that citation correctness needs more than surface overlap or a plausible-looking URL.
+
+Pay special attention to negation and scope. “The policy permits X” is not equivalent to “the policy discusses X,” and “up to 30 days” is not equivalent to “30 days.” When a sentence contains multiple claims, split it before scoring.
+
+![Reviewer comparing an AI answer with source passages in a citation audit.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How should URL and attribution failures be handled?
+
+Treat URL validity as a retrieval observation, not proof of factual support. A nonexistent URL is an integrity failure in the citation record; an inaccessible URL is an evidence-availability failure whose truth status remains unresolved.
+
+Keep raw, resolved, and normalized URLs separately. Do not silently replace an inaccessible page with a convenient mirror, and do not infer that a familiar domain supports the claim. If an archived snapshot is used, record its date and relationship to the answer timestamp.
+
+Attribution is also local. A citation after a paragraph may support one sentence while leaving the rest unsupported. Mark wrong-span or overbroad scope, then move the marker or split the paragraph. [RAGTruth](https://arxiv.org/abs/2401.00396) offers a useful research context for analyzing unsupported generation, but this codebook applies the idea specifically to citation evidence.
+
+## How can a team annotate answers consistently?
+
+A repeatable workflow is more valuable than a sophisticated score. Use the same sequence for every engine, prompt, locale, and reporting period:
+
+1. Freeze the prompt, answer, citation display, timestamp, engine surface, and available model label.
+2. Atomize factual, numerical, temporal, comparative, and recommendation claims.
+3. Open each citation, record access status, and save the supporting passage or an explicit inability note.
+4. Assign the evidence outcome, primary failure label, confidence, and remediation.
+5. Have a second reviewer label a sample; adjudicate disagreements and revise the rubric only through a versioned change.
+
+Publish denominators and exclusions. A percentage based only on accessible citations hides inaccessible evidence and missing citations. For deeper evaluation context, [AEE](https://arxiv.org/abs/2410.22349) illustrates why end-to-end answer evaluation involves more than checking whether a source link exists.
+
+For a practical audit, maintain a claim ledger with claim ID, answer span, citation ID, raw URL, resolved URL, access result, evidence note, label, reviewer, and adjudication status. Link the ledger to your [AI search audit methodology](/blog/ai-search-audit-methodology-template) and [AI visibility metrics dictionary](/blog/ai-visibility-metrics-dictionary) so operational scores remain traceable to examples.
+
+## How should failure labels appear in a report?
+
+Report examples alongside rates. A reader should be able to move from “wrong-span attribution” to the original answer span, cited URL, evidence note, and remediation.
+
+Disclose the observation window, access rules, denominator, reviewer process, and codebook version. Separate missing citations from failed citations, and inaccessible evidence from contradicted evidence; combining them weakens the repair queue.
+
+For comparisons over time, freeze label definitions or version changes. A lower failure rate after a rubric change may reflect different annotation, not better answer quality. Keep adjudicated examples so reviewers calibrate against the same edge cases.
+
+## What can this taxonomy not prove?
+
+These labels diagnose citation behavior; they do not establish that an answer is globally true, that a source is unbiased, or that one engine ranks brands fairly. A citation can be correctly attributed and still preserve a flawed premise. Source quality is claim-dependent, and a primary source can be wrong, incomplete, or changed later.
+
+The taxonomy is AEOeye's proposed operational codebook, not a certification scheme or hidden ranking-factor model. Teams should publish their label definitions, access policy, time window, reviewer training, and disagreement process. Do not compare scores across studies that use different denominators or silently merge inaccessible evidence with unsupported evidence.
+
+Use the labels to find concrete repairs: retrieve a missing primary source, split a compound sentence, update stale support, remove circular citations, or make an inference explicit. [Start an AEOeye audit](/#audit) to inspect how AI engines mention and cite a brand, then validate representative answers with this ledger rather than relying on a single summary score.

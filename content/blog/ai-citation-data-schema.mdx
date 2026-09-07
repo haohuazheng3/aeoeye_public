@@ -1,0 +1,147 @@
+---
+title: "AI Citation Data Schema: A Field Dictionary for Auditable Studies"
+description: "A vendor-neutral field dictionary and copyable CSV and JSON schema for recording AI search citation evidence, claims, reviews, and uncertainty."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI citation data schema", "AI search audit dataset", "citation evidence schema", "AEO research methods"]
+faqs: [{"q":"What is an AI citation data schema?","a":"It is a structured way to record a prompt, answer, claim, citation, source snapshot, review decision, and uncertainty so another person can audit the same observation."},{"q":"Should raw and normalized URLs both be stored?","a":"Yes. Keep the raw citation, resolved URL, and any normalized or canonical URL as separate fields so analytics never erase the original evidence."},{"q":"Is this schema a formal standard?","a":"No. This is AEOeye's vendor-neutral implementation proposal. It borrows useful concepts from provenance, URI, timestamp, and citation-evaluation research without claiming registration or universal adoption."},{"q":"How many runs are enough for an AI search study?","a":"There is no universal number. Define the sampling frame, repeat conditions, exclusions, and uncertainty note, then report the denominator instead of presenting one observation as a stability result."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Research notes and a laptop showing a structured AI citation dataset.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"RFC 3339","url":"https://www.rfc-editor.org/rfc/rfc3339"},{"label":"RFC 3986","url":"https://www.rfc-editor.org/rfc/rfc3986"},{"label":"ALCE","url":"https://arxiv.org/abs/2305.14627"},{"label":"FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"NIST AI RMF","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An auditable AI citation study needs more than a spreadsheet of links. It needs stable identifiers connecting the study, run, prompt, answer, claim, citation, source snapshot, reviewer, and uncertainty note. This proposed schema gives each object a durable place while preserving what was actually observed.
+
+The design is vendor-neutral and intentionally modest. It draws on provenance modeling in [W3C PROV-O](https://www.w3.org/TR/prov-o/), timestamp syntax in [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339), URI rules in [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986), and claim-level evaluation ideas from [ALCE](https://arxiv.org/abs/2305.14627) and [FActScore](https://arxiv.org/abs/2305.14251). It is AEOeye's operational proposal, not a registered standard.
+
+## Table of contents
+
+- [What should the schema preserve?](#what-should-the-schema-preserve)
+- [Which records belong in one study?](#which-records-belong-in-one-study)
+- [What fields make an observation reproducible?](#what-fields-make-an-observation-reproducible)
+- [How should citations and source snapshots be modeled?](#how-should-citations-and-source-snapshots-be-modeled)
+- [How do CSV and JSON examples work?](#how-do-csv-and-json-examples-work)
+- [How should reviewers record support and uncertainty?](#how-should-reviewers-record-support-and-uncertainty)
+- [What are the schema's limits?](#what-are-the-schemas-limits)
+
+## What should the schema preserve?
+
+Preserve the observation before interpreting it: exact prompt text, answer text, citation marker, collection time, product surface, visible model label, locale, and the evidence available at review time. A later score is only as reproducible as this underlying record.
+
+Use stable IDs rather than row numbers. A `study_id` can contain many `run_id` values; a run points to one prompt and one answer; a claim can point to zero or more citation markers; a citation points to a source snapshot. This makes joins explicit and lets one source support several claims without duplicating its identity.
+
+The provenance relationship is useful here: PROV-O describes entities, activities, and agents that can be connected and specialized for a domain. This schema uses simpler application fields, but the same separation helps distinguish an answer from the activity that collected it and the reviewer who judged it.
+
+## Which records belong in one study?
+
+Keep nine record types, even if they live in one relational table at first: `study`, `run`, `prompt`, `answer`, `claim`, `citation`, `source_snapshot`, `annotation`, and `reviewer`. An optional `adjudication` record captures disagreements without overwriting the original labels.
+
+| Record | Purpose | Minimum identity fields |
+|---|---|---|
+| Study | Defines question, scope, and version | `study_id`, `schema_version` |
+| Run | One observed engine interaction | `run_id`, `study_id`, `collected_at` |
+| Prompt | Exact input plus lineage | `prompt_id`, `prompt_text`, `parent_prompt_id` |
+| Answer | Raw and display-normalized output | `answer_id`, `run_id`, `raw_text_hash` |
+| Claim | Atomic proposition being checked | `claim_id`, `answer_id`, `claim_text` |
+| Citation | Marker and URL as presented | `citation_id`, `marker`, `raw_url` |
+| Source snapshot | Fetch and archive evidence | `source_id`, `resolved_url`, `http_status` |
+| Annotation | Support and quality judgment | `annotation_id`, `claim_id`, `support_label` |
+| Reviewer | Person or controlled reviewer identity | `reviewer_id`, `reviewer_label` |
+
+Do not collapse prompt lineage into a note. A follow-up prompt should reference its parent, because a recommendation in turn two may depend on context from turn one. Record whether a prompt is branded, unbranded, comparative, or otherwise sampled by your study; those categories are local metadata, not hidden engine labels.
+
+## What fields make an observation reproducible?
+
+The following dictionary is a practical minimum. Required means required for a complete record of that object, not necessarily for every export view.
+
+| Field | Type | Required | Definition and rule |
+|---|---|---:|---|
+| `study_id` | string | Yes | Stable study identifier; never reuse it for a changed protocol. |
+| `run_id` | string | Yes | Stable interaction identifier within a study. |
+| `prompt_id` | string | Yes | Exact prompt record; use `parent_prompt_id` for follow-ups. |
+| `prompt_text` | string | Yes | Text sent to the product, including relevant casing and punctuation. |
+| `engine_surface` | string | Yes | Product surface observed, such as a web search interface or API. |
+| `model_label` | string/null | No | Model name only when visibly supplied; do not infer it. |
+| `search_enabled` | boolean/null | Yes | Whether the observed surface indicated web search or retrieval was enabled. |
+| `locale` | string | Yes | Locale used for the observation, such as `en-US`. |
+| `collected_at` | timestamp | Yes | RFC 3339 timestamp with timezone offset or `Z`. |
+| `raw_text_hash` | string | Yes | Hash of preserved answer text; document algorithm separately. |
+| `citation_marker` | string | No | Exact marker, footnote, number, or inline link label shown in the answer. |
+| `raw_url` | URI | No | URL exactly as captured, before redirects or cleanup. |
+| `resolved_url` | URI/null | No | Final URL observed after following an allowed redirect. |
+| `canonical_url` | URI/null | No | Page-declared canonical, if present; it is not a replacement for raw evidence. |
+| `http_status` | integer/null | No | Status observed when the evidence was fetched; retain null when not fetched. |
+| `archived_evidence_ref` | string/null | No | Internal pointer to an allowed snapshot, screenshot, or saved response. |
+| `claim_support_label` | enum | Yes | `supported`, `contradicted`, or `insufficient`; define rubric in study metadata. |
+| `reviewer_id` | string | Yes | Controlled reviewer identifier, not an invented biography. |
+| `uncertainty_note` | string | Yes | Plain-language ambiguity, missing page, sampling caveat, or disagreement. |
+
+Store raw, resolved, and canonical URLs separately because URI normalization is an analytical operation. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) defines generic URI syntax; it does not tell an auditor which redirect, query parameter, or canonical declaration should be treated as the same evidence.
+
+## How should citations and source snapshots be modeled?
+
+A citation is the answer's pointer; a source snapshot is the page or response inspected later. Keeping them separate records citation placement and source accessibility without pretending that a URL alone proves support.
+
+For each citation, record `citation_id`, `answer_id`, `marker`, `raw_url`, `claim_ids`, and `position_hint`. For each snapshot, record `source_id`, `resolved_url`, `canonical_url`, `http_status`, `retrieved_at`, `content_hash`, and `archived_evidence_ref`. If fetching fails, preserve the failure and explain it in `uncertainty_note`; never upgrade an inaccessible page to “supported.”
+
+This structure also supports claim-level checks. ALCE evaluates generated text with citations, while FActScore motivates atomic factual units. Neither source dictates this exact database design; they support the practical choice to connect evidence to individual claims rather than awarding a whole-answer label.
+
+![Researcher checking a citation ledger and archived source evidence.](https://images.pexels.com/photos/669610/pexels-photo-669610.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How do CSV and JSON examples work?
+
+These compact examples are hypothetical fixtures, not observations. The CSV keeps one claim-citation relationship per row, which is easy to import into a spreadsheet or warehouse.
+
+```csv
+study_id,run_id,prompt_id,engine_surface,model_label,search_enabled,locale,collected_at,raw_text_hash,claim_id,citation_marker,raw_url,resolved_url,http_status,claim_support_label,reviewer_id,uncertainty_note
+study_demo,run_001,prompt_001,web_ui,,true,en-US,2026-09-07T14:30:00Z,sha256:example,claim_001,[1],https://example.org/a,https://example.org/a,200,supported,reviewer_01,"Snapshot retained; model label not visible"
+```
+
+JSON is better when one answer has nested claims and citations. The URL below is deliberately an example fixture; replace it with the captured evidence in a real study.
+
+```json
+{
+  "study_id": "study_demo",
+  "schema_version": "0.1",
+  "run": {
+    "run_id": "run_001",
+    "prompt_id": "prompt_001",
+    "engine_surface": "web_ui",
+    "model_label": null,
+    "search_enabled": true,
+    "locale": "en-US",
+    "collected_at": "2026-09-07T14:30:00Z",
+    "raw_text_hash": "sha256:example"
+  },
+  "claims": [{
+    "claim_id": "claim_001",
+    "claim_text": "Example claim for a fixture.",
+    "citations": [{
+      "citation_id": "cite_001",
+      "citation_marker": "[1]",
+      "raw_url": "https://example.org/a",
+      "resolved_url": "https://example.org/a",
+      "canonical_url": null,
+      "http_status": 200,
+      "archived_evidence_ref": "archive://study_demo/source_001"
+    }],
+    "claim_support_label": "supported",
+    "reviewer_id": "reviewer_01",
+    "uncertainty_note": "Fixture only; replace with reviewed evidence."
+  }]
+}
+```
+
+## How should reviewers record support and uncertainty?
+
+Reviewers should label the claim-source relationship, not the apparent prestige of a domain. Use `supported` when the inspected evidence entails the claim, `contradicted` when it conflicts, and `insufficient` when it is related but does not establish the proposition. Keep a free-text note for qualifiers, date mismatch, missing context, or inaccessible evidence.
+
+Add `annotation_id`, `claim_id`, `source_id`, `support_label`, `source_quality_note`, `reviewer_id`, and `reviewed_at`. If two reviewers disagree, retain both annotations and create an adjudication record with `decision`, `adjudicator_id`, and `decision_note`. NIST's [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) emphasizes documenting context, risks, and limitations; this ledger makes those reporting habits concrete without claiming NIST endorses this schema.
+
+## What are the schema's limits?
+
+This schema cannot make an answer true, guarantee that an archive is complete, identify a hidden model, or prove that a citation influenced generation. HTTP status is not source quality, a canonical URL is not factual validation, and a hash proves sameness of captured bytes—not authorship or correctness.
+
+The proposal also does not define a universal sample size, label policy, confidence interval, or threshold for “good” citation behavior. Publish those choices with the study, preserve excluded runs, and report uncertainty. Product interfaces, APIs, locales, and web conditions can differ even when prompts look identical.
+
+Treat the schema as a durable evidence contract: preserve first, normalize transparently, atomize claims, review disagreements, and cite the limitations. When you are ready to test buyer questions against a live brand, [run an AEOeye audit](/#audit) and export the observations into a ledger shaped like this one.

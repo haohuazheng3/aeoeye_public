@@ -1,0 +1,137 @@
+---
+title: "AI Search Experiment Reporting Checklist: 24 Fields to Publish"
+description: "A practical 24-field checklist for publishing reproducible AI search experiments with prompts, runtime context, evidence, coding, uncertainty, and limits."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["ai search experiment checklist", "ai search reporting checklist", "generative search research", "ai visibility study", "ai search methodology", "reproducible ai experiment"]
+faqs: [{"q":"What is an AI search experiment reporting checklist?","a":"It is a disclosure template for recording the question, sample, runtime, collection method, coding decisions, evidence, uncertainty, and limits of an AI search study. This version is AEOeye's operational template, not a certification or universal standard."},{"q":"Is a screenshot enough evidence for an AI search study?","a":"Usually not. A screenshot preserves visible context, but a reusable dataset also needs the prompt, timestamp, product surface, response text or identifier, source URLs, coding labels, and exclusions. Store the screenshot as one evidence layer."},{"q":"Can one run prove that an AI answer is stable?","a":"No. One run describes one observation under one runtime context. Stability requires repeated runs, a declared sampling design, and a comparison rule that records changes in answers, mentions, citations, or recommendations."},{"q":"Are API and product UI results interchangeable?","a":"No. An API and a consumer product can differ in model routing, retrieval, tools, personalization, limits, and citation presentation. Report them as different modalities unless you have evidence that they are equivalent for your study."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher documenting an AI search experiment on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"NIST — AI measurement and evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"NIST — Best practices for automated benchmark evaluations","url":"https://www.nist.gov/news-events/news/2026/01/towards-best-practices-automated-benchmark-evaluations"},{"label":"NIST — AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"GEO — Generative Engine Optimization","url":"https://arxiv.org/abs/2311.09735"},{"label":"AEE — Search Engines in an AI Era","url":"https://arxiv.org/abs/2410.22349"},{"label":"AEOeye — AI search audit methodology template","url":"https://aeoeye.com/blog/ai-search-audit-methodology-template"}]
+---
+
+An AI search experiment is publishable when another researcher can reconstruct what was asked, where it ran, what was captured, how it was labeled, and what the result cannot establish. This 24-field checklist is a copyable disclosure block for that purpose.
+
+The checklist is AEOeye's operational reporting template, not an ISO, NIST, or platform standard. NIST describes measurement as context-dependent and emphasizes documenting methods and limitations; use its [AI measurement and evaluation](https://www.nist.gov/ai-measurement-and-evaluation) work as governance context, not as a prescribed visibility score.
+
+## Table of contents
+
+- [What should an AI search experiment disclose?](#what-should-an-ai-search-experiment-disclose)
+- [Why are product UI and API different modalities?](#why-are-product-ui-and-api-different-modalities)
+- [How should the 24 fields be recorded?](#how-should-the-24-fields-be-recorded)
+- [What evidence makes results auditable?](#what-evidence-makes-results-auditable)
+- [How should results and uncertainty be reported?](#how-should-results-and-uncertainty-be-reported)
+- [What limitations should every report state?](#what-limitations-should-every-report-state)
+- [What are the frequently asked questions?](#what-are-the-frequently-asked-questions)
+
+## What should an AI search experiment disclose?
+
+Publish the fields that connect the research question to a defined sample, a captured answer, a coding decision, and a denominator. The table below is deliberately concrete: replace bracketed values, retain “not applicable” where appropriate, and never silently omit failed or unavailable observations.
+
+| # | Field to publish | Minimum disclosure |
+|---:|---|---|
+| 1 | Research question | Exact question, hypothesis, audience, and decision the study informs |
+| 2 | Sampling frame | Population, market, language, query families, and eligibility rule |
+| 3 | Prompt set | Exact prompts, prompt IDs, version or hash, and sampling method |
+| 4 | Engine | Provider and product name, not a vague “AI search” label |
+| 5 | Product surface | Web app, mobile app, search mode, API, or embedded experience |
+| 6 | Model label | Exposed model/version; record “not shown” when unavailable |
+| 7 | Search setting | Browsing, web search, tools, retrieval, or other toggles enabled |
+| 8 | Locale | Country/region, language, timezone, and localization settings |
+| 9 | Device | Desktop/mobile, operating system, browser or app version |
+| 10 | Date and time | Start/end timestamps with timezone and collection date |
+| 11 | Account context | Signed-in state, plan, personalization, and relevant history state |
+| 12 | Repeated runs | Replication count, order, spacing, and seed or randomization rule |
+| 13 | Collection method | Human observation, API client, browser automation, or hybrid procedure |
+| 14 | Capture payload | Full response, visible links, metadata, IDs, screenshots, or raw JSON |
+| 15 | Exclusions | Failed, duplicate, unsafe, unavailable, or out-of-scope runs and reasons |
+| 16 | Annotation unit | Prompt, answer, claim, brand mention, citation, session, or other unit |
+| 17 | Codebook | Label definitions, examples, negation rules, and “unclear” handling |
+| 18 | Reviewers | Reviewer count, independence, training, and blinding if used |
+| 19 | Adjudication | Disagreement rule, adjudicator, and changes to the codebook |
+| 20 | Denominators | Eligible, captured, excluded, and missing counts for every metric |
+| 21 | Uncertainty | Interval, sensitivity analysis, qualitative uncertainty, or rationale |
+| 22 | Source snapshots | Resolved URLs, capture times, archived references, and access status |
+| 23 | Privacy and ethics | Redaction, consent, retention, access controls, and risk review |
+| 24 | Conflicts and limits | Funding, tooling or commercial conflicts, claims withheld, and limitations |
+
+This field list follows the spirit of transparent AI evaluation: NIST emphasizes that metrics and methods depend on context, while its [automated benchmark guidance](https://www.nist.gov/news-events/news/2026/01/towards-best-practices-automated-benchmark-evaluations) highlights reproducibility and careful interpretation. It does not make a small convenience sample representative.
+
+![Researchers comparing AI search observations and experiment notes.](https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Second image: Pexels photo by fauxels, [Pexels profile](https://www.pexels.com/@fauxels).*
+
+## Why are product UI and API different modalities?
+
+An API call and a product UI are different measurement modalities because they may expose different model routing, retrieval tools, personalization, safety behavior, rate limits, and citation rendering. Identical prompt text does not make the observations interchangeable.
+
+Report the surface precisely: “consumer web interface with search enabled” and “provider API endpoint” are different study conditions. If a product hides the model label or changes its interface during collection, record that fact instead of inferring a model from answer style.
+
+The same caution applies across engines. The [GEO paper](https://arxiv.org/abs/2311.09735) studies generative-engine responses under a defined experimental setup; it does not establish that every commercial answer surface uses the same retrieval or ranking process.
+
+## How should the 24 fields be recorded?
+
+Record protocol metadata before collecting answers, then append observations without overwriting raw values. A compact disclosure block can sit at the top of a report:
+
+> **AI search experiment disclosure**
+>
+> Question: [exact question and hypothesis]
+>
+> Sample: [population, prompts, selection, exclusions]
+>
+> Runtime: [engine, surface, model label, search setting, locale, device, account]
+>
+> Collection: [dates, timezone, repetitions, method]
+>
+> Evidence: [response, links, IDs, screenshots, source snapshots]
+>
+> Coding: [unit, codebook, reviewers, adjudication]
+>
+> Reporting: [denominators, uncertainty, missingness]
+>
+> Governance: [privacy, conflicts, retention]
+> Limits: [claims this design cannot support]
+
+Use stable IDs so a reader can connect a prompt to every run, response, source, annotation, and revision. Keep raw text or structured payloads separate from derived labels; this lets a later reviewer audit a coding change without treating the current spreadsheet as the original observation.
+
+## What evidence makes results auditable?
+
+Screenshots are useful visual evidence, but screenshots alone are not a dataset. They can omit hidden links, full answer text, timestamps, interaction state, accessibility text, or the exact prompt; they also make systematic analysis difficult.
+
+Preserve the prompt, response, visible citations, collection timestamp, product surface, and a stable observation ID when permitted. Resolve each cited URL and store its raw URL, final URL, access status, and a snapshot or hash according to your rights and retention policy. If a page is inaccessible later, say so; do not reconstruct it from memory.
+
+For citation research, distinguish a link displayed near an answer from a source explicitly supporting a claim. The [AEE study](https://arxiv.org/abs/2410.22349) is a useful reminder that source-cited answers can still require separate checks for factuality and verifiability. Evidence preservation supports review; it does not prove that a source is correct.
+
+## How should results and uncertainty be reported?
+
+Report counts before percentages: “Brand mentioned in 18 of 60 eligible answers (30%)” is interpretable, while “30% visibility” hides the denominator. Separate eligible, captured, failed, duplicate, and excluded runs, and explain whether missing observations could change the result.
+
+One run is not a stability study. Repeated runs are needed to describe answer, recommendation, or citation changes, but repetition alone does not control changing indexes, model updates, personalization, or prompt order. State whether the design is a fixed panel, a rolling sample, or a one-time descriptive snapshot.
+
+Choose uncertainty methods that match the design and label them. A convenience sample can have a mathematically computed interval without supporting population-level generalization. Use sensitivity checks for ambiguous labels, changed prompts, and exclusion rules; report both the primary result and the plausible alternative when the decision matters.
+
+## What limitations should every report state?
+
+State that the checklist documents a study; it does not certify quality, prove causality, or reveal hidden ranking factors. It cannot establish total market share, every user's experience, traffic, revenue, conversion lift, or the intrinsic truth of an answer without additional evidence.
+
+Also disclose platform access limits, model updates, locale coverage, account effects, unavailable pages, automation failures, copyright or privacy constraints, and any manual judgment. A study that cannot publish raw responses may still be useful, but it should publish a redacted sample or observation manifest where lawful and explain what readers cannot independently inspect.
+
+NIST's [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) provides a broader risk-management lens; it does not validate this checklist. For a practical starting measurement, [run a free AEOeye audit](/#audit), then keep the resulting prompt and runtime context in your own research log.
+
+## What are the frequently asked questions?
+
+### Should every experiment publish raw AI responses?
+
+Publish what rights, privacy, and platform terms allow. Preserve full responses internally when possible, and provide redacted excerpts, hashes, IDs, or an evidence manifest when raw publication would expose personal data or restricted content.
+
+### How many repeated runs are enough?
+
+There is no universal number. Choose a replication rule tied to the question, report it before collection, and explain why it can detect the change you care about. Do not call a single run stable.
+
+### Can I compare two engines with the same prompts?
+
+Yes, as a controlled comparison of the declared surfaces—not as proof that their internal systems are equivalent. Keep wording, locale, timing, account state, and coding rules aligned, and report any unavoidable adaptation.
+
+### Is this an official NIST reporting standard?
+
+No. This is AEOeye's reusable disclosure template, informed by primary research and public guidance. It is a practical starting point, not a certification, benchmark leaderboard, or claim about hidden platform rules.

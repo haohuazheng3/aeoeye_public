@@ -1,0 +1,136 @@
+---
+title: "AI Citation Freshness Metrics: Age, Lag, and Update Responsiveness"
+description: "A practical glossary of AI citation freshness metrics, including source age, evidence lag, stale-citation rate, and update responsiveness."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI citation freshness metrics", "citation age", "stale citations", "AI search freshness", "update responsiveness"]
+faqs: [{"q":"What is an AI citation freshness metric?","a":"It is a time-aware measurement that compares a cited source, the claim it supports, and the moment an answer was collected. It should describe a defined study window, not imply that newer sources are always better."},{"q":"What is the difference between publication date and update date?","a":"Publication date marks when a document first appeared. An update date is meaningful only when the changed content is known or verified; a template timestamp alone is not evidence of a substantive update."},{"q":"How do I calculate stale-citation rate?","a":"Choose a claim-dependent staleness threshold, count citations older than that threshold at answer time, and divide by all eligible citations. Report the threshold, denominator, and treatment of undated pages."},{"q":"Does a fresh citation prove an AI answer is correct?","a":"No. Freshness describes temporal proximity, while correctness requires checking entailment, source quality, and the claim's validity for the relevant date and context."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop displaying a data analytics graph for researching time-sensitive AI answers.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"FreshLLMs / FreshQA","url":"https://arxiv.org/abs/2310.03214"},{"label":"FreshQA dataset","url":"https://github.com/freshllms/freshqa"},{"label":"RFC 3339","url":"https://www.rfc-editor.org/rfc/rfc3339"},{"label":"NIST AI Measurement and Evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"LLM Freshness Benchmarks directory","url":"https://aeoeye.com/blog/llm-freshness-benchmarks"}]
+---
+
+AI citation freshness is not one number. It is a set of measurements describing how far a cited source, its supporting evidence, and the underlying claim are from the time an answer was collected. The useful unit is therefore **claim plus context plus timestamp**, not a page's visible “updated” label.
+
+## Table of contents
+
+- [What does citation freshness actually measure?](#what-does-citation-freshness-actually-measure)
+- [Which dates should you record?](#which-dates-should-you-record)
+- [How do you calculate the core metrics?](#how-do-you-calculate-the-core-metrics)
+- [How should freshness be weighted by claim risk?](#how-should-freshness-be-weighted-by-claim-risk)
+- [What edge cases break naive freshness metrics?](#what-edge-cases-break-naive-freshness-metrics)
+- [How can you design a repeatable study?](#how-can-you-design-a-repeatable-study)
+- [What can freshness metrics not prove?](#what-can-freshness-metrics-not-prove)
+- [What questions come up most often?](#what-questions-come-up-most-often)
+
+## What does citation freshness actually measure?
+
+Freshness measures temporal proximity and update behavior; it does not measure truth by itself. A current page can make a false claim, while an older primary source can remain the best evidence for a stable fact.
+
+For an AI answer, separate four objects:
+
+- **Claim:** the proposition being asserted.
+- **Evidence:** the passage or data supporting that proposition.
+- **Source:** the document or URL containing the evidence.
+- **Collection moment:** when the answer and citation were observed.
+
+This decomposition follows the practical lesson of [FreshLLMs and FreshQA](https://arxiv.org/abs/2310.03214): time-sensitive evaluation needs changing facts, temporal context, and a protocol for judging current-world factuality. A freshness score should tell a researcher whether a source was recent enough for the claim under test, not reward recency indiscriminately.
+
+## Which dates should you record?
+
+Record every date that can change the interpretation: publication, meaningful update, crawl or index observation, answer collection, and the event or validity date. Store timestamps with an explicit offset or UTC representation; [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339) defines a machine-readable format for this purpose.
+
+The dates answer different questions:
+
+| Date | Meaning | What it can and cannot tell you |
+|---|---|---|
+| `published_at` | First known publication | Document age; not current evidence quality |
+| `updated_at` | Verified substantive revision | Update activity, if the changed passage is recorded |
+| `observed_at` | Crawl, fetch, or index observation | When a collector saw a representation |
+| `answered_at` | AI answer collection time | The denominator for age and lag |
+| `event_at` | Time the claim became true or false | Temporal validity of the claim |
+
+Do not silently substitute one field for another. A page published years ago may contain a current policy table; a page with today’s timestamp may have only changed navigation. Preserve raw metadata, your verification note, and the fetched page snapshot where permitted.
+
+![Analyst comparing dated web sources and an AI answer on a monitor.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Lukas Blazek](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com/).*
+
+## How do you calculate the core metrics?
+
+Use a defined time unit, such as hours or days, and state how missing dates are handled. The following formulas are AEOeye’s operational proposal, not a universal standard.
+
+| Metric | Formula | Interpretation |
+|---|---|---|
+| Source age | `answered_at − published_at` | Age of the document, useful for baseline comparison |
+| Evidence age | `answered_at − evidence_updated_at` | Age of the specific supporting passage when verified |
+| Publication-to-answer lag | `answered_at − published_at` | How long after publication the answer cited the source |
+| Event-to-answer lag | `answered_at − event_at` | Delay between a real-world change and the answer |
+| Stale-citation rate | `stale eligible citations ÷ all eligible citations` | Share exceeding a predeclared, claim-specific threshold |
+| Freshness-weighted coverage | `Σ(support weight × freshness weight) ÷ Σ(support weight)` | Supported claim coverage discounted by age |
+| Update responsiveness | `median(answered_at − updated_at)` after verified updates | How quickly a system reflects a changed source |
+| Citation half-life | Time until citation probability falls to 50% of its baseline | A descriptive decay estimate, not a ranking law |
+
+One simple freshness weight is `w = exp(−λ × age)`, where `λ` is chosen before analysis. Another is a step function: full credit inside the threshold, zero outside. Neither is inherently correct. Use the function that matches the decision and publish it with the dataset.
+
+**Hypothetical example, not observed data:** suppose four eligible citations were collected 10 days after their relevant evidence dates. If two exceed a seven-day staleness threshold, stale-citation rate is `2 ÷ 4 = 50%`. That result says nothing about factual correctness until each claim is checked for entailment and temporal validity.
+
+## How should freshness be weighted by claim risk?
+
+Freshness is claim-dependent: the acceptable age for a tax filing deadline, product price, security advisory, or election result is not the acceptable age for a historical definition. “Newest wins” is therefore an unsafe scoring rule.
+
+Define a temporal contract before collecting answers:
+
+1. State the reference date, geography, and time zone.
+2. Classify the claim as event-driven, policy-driven, market-driven, or evergreen.
+3. Set a review threshold and an escalation rule for conflicting dates.
+4. Give more weight to the exact evidence span than to a page-wide timestamp.
+
+For a current price, event-to-answer lag may dominate. For a stable technical concept, evidence age can be long while still appropriate. [NIST’s AI measurement guidance](https://www.nist.gov/ai-measurement-and-evaluation) supports treating evaluation as a measurement design problem: define the construct, the conditions, and the limits before interpreting a score.
+
+## What edge cases break naive freshness metrics?
+
+Undated pages, evergreen references, silently changed URLs, and syndicated copies can all make a simple age calculation misleading. Record an explicit status instead of inventing a date.
+
+- **Evergreen source:** mark the claim as stable only after a reviewer checks the passage. Do not convert “no change needed” into a current update date.
+- **Undated page:** retain `date_status = unknown`; report it separately from stale pages. Unknown is not fresh.
+- **Silent revision:** compare a stored hash or snapshot when allowed. A changed URL without a visible date supports “content changed,” not a precise update timestamp.
+- **Redirect or canonical swap:** preserve raw, resolved, and canonical URLs. The destination may have a different publication history.
+- **Syndicated copy:** count ownership and document identity separately. Five mirrors can represent one editorial source.
+- **Future-dated or impossible metadata:** flag it for review; never repair it by guessing.
+- **Conflicting dates:** keep all observations and apply the predeclared hierarchy, such as verified evidence date before page-template date.
+
+The [FreshQA dataset](https://github.com/freshllms/freshqa) is a useful reminder that freshness evaluation needs dated examples and a maintained collection process. It does not make any single threshold portable to every domain.
+
+## How can you design a repeatable study?
+
+Repeatability comes from snapshots and disclosure, not from running one prompt once. Keep a fixed prompt set for regression, plus a rolling set for newly changing claims; label which set produced each score.
+
+For every run, preserve the prompt, product surface, model label if visible, locale, collection timestamp, raw answer, citation marker, resolved URL, relevant date fields, evidence snapshot reference, and reviewer decision. Run after known source updates when measuring responsiveness, and record failed fetches rather than dropping them.
+
+Compare systems only when their retrieval settings and observation windows are comparable. A result from a live web interface is not automatically comparable with a static API response or a benchmark release. [FreshLLMs](https://arxiv.org/abs/2310.03214) and AEOeye’s [freshness benchmark directory](/blog/llm-freshness-benchmarks) provide useful research context, but neither is a current product leaderboard.
+
+## What can freshness metrics not prove?
+
+Freshness metrics cannot prove that an answer is correct, that a source is authoritative, or that a model used the newest available page. They also cannot reveal a proprietary system’s private index, training corpus, or exact update schedule.
+
+Treat freshness as one axis beside entailment, source quality, coverage, and answer stability. Publish denominators, thresholds, missing-date handling, and collection conditions. If the claim’s valid time window is unknown, say so; a precise-looking age number can create false confidence.
+
+If you want to see how your own brand is cited across buyer questions, use AEOeye’s [AI visibility audit](/#audit) as a dated observation, then inspect individual claims and sources rather than treating one score as a permanent ranking.
+
+## What questions come up most often?
+
+### What is an AI citation freshness metric?
+
+It compares a cited source or evidence span with the answer’s collection time under a defined claim context. The metric is meaningful only when its date fields, threshold, and denominator are disclosed.
+
+### What is the difference between publication date and update date?
+
+Publication date marks first appearance. Update date should represent a verified substantive change; a refreshed template label alone is not enough.
+
+### How do I calculate stale-citation rate?
+
+Choose a threshold tied to the claim, count eligible citations older than it, and divide by all eligible citations. Keep undated citations in a separately reported unknown bucket.
+
+### Does a fresh citation prove an AI answer is correct?
+
+No. A fresh source can still be irrelevant, contradictory, or wrong. Check temporal validity, entailment, and source quality separately.

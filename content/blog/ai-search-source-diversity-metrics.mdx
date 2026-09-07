@@ -1,0 +1,109 @@
+---
+title: "AI Search Source Diversity Metrics: Domains, Concentration, and Coverage"
+description: "A practical reference for measuring source diversity in AI search answers, from unique domains and HHI to entropy, coverage, and cross-engine overlap."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "7 min read"
+keywords: ["AI search source diversity", "citation diversity metrics", "Herfindahl-Hirschman Index AI", "source concentration", "AI citation analysis", "cross-engine overlap"]
+faqs: [{"q":"What is the simplest AI source-diversity metric?","a":"Count unique cited domains in a defined set of answers, then publish the denominator and URL-normalization rule. It is easy to explain, but it treats every domain as equally independent and says nothing about source quality."}, {"q":"Why is HHI useful for AI citations?","a":"HHI summarizes concentration: square each domain's share of citations and add the results. A high value means citations cluster among fewer domains, while a low value indicates a more distributed citation set."}, {"q":"Does source diversity prove an AI answer is correct?","a":"No. Diversity measures distribution, not truth. An answer can cite many independent-looking domains that repeat an error, fail to entail the claim, or provide weak evidence."}, {"q":"Should I compare diversity across AI engines?","a":"Yes, if prompts, collection windows, citation rules, and denominators are aligned. Report cross-engine overlap alongside each engine's own distribution because coverage and concentration answer different questions."}]
+image: {"url":"https://images.pexels.com/photos/7119258/pexels-photo-7119258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Researcher reviewing charts and source diversity evidence for an AI search study.","photographer":"FreeBoilerGrants","photographerUrl":"https://www.pexels.com/@freeboilergrants-1659859"}
+sources: [{"label":"U.S. Department of Justice: Herfindahl-Hirschman Index","url":"https://www.justice.gov/atr/herfindahl-hirschman-index"}, {"label":"ALCE: Enabling Large Language Models to Generate Text with Citations","url":"https://arxiv.org/abs/2305.14627"}, {"label":"Answer Bubbles: Citation concentration in generative search","url":"https://arxiv.org/abs/2603.16138"}, {"label":"AEE: Evaluating Attribution in AI-generated Answers","url":"https://arxiv.org/abs/2410.22349"}, {"label":"AEOeye generative-search source taxonomy","url":"https://aeoeye.com/blog/generative-search-source-taxonomy"}, {"label":"AEOeye AI citation evaluation metrics","url":"https://aeoeye.com/blog/ai-search-citation-evaluation-metrics"}]
+---
+
+Source diversity asks a narrow but important question: **how distributed are the sources behind AI search answers?** Count the domains, measure concentration, and compare coverage across engines—but do not mistake a varied citation list for a trustworthy answer. This is an operational metrics reference, not a universal ranking standard.
+
+## Table of contents
+
+- [What does source diversity measure?](#what-does-source-diversity-measure)
+- [Which metrics should you report?](#which-metrics-should-you-report)
+- [How do you calculate concentration and entropy?](#how-do-you-calculate-concentration-and-entropy)
+- [How do you measure category coverage and overlap?](#how-do-you-measure-category-coverage-and-overlap)
+- [What does a five-citation calculation look like?](#what-does-a-five-citation-calculation-look-like)
+- [How should ownership and syndication change interpretation?](#how-should-ownership-and-syndication-change-interpretation)
+- [What are the limits of source diversity metrics?](#what-are-the-limits-of-source-diversity-metrics)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What does source diversity measure?
+
+Source diversity measures the distribution of citations, not whether those citations are accurate. Start by defining the unit: a citation occurrence, a unique URL, a normalized domain, or an ownership group. ALCE treats citation-supported generation as an inspectable task, while AEE studies attribution quality; both support keeping source distribution separate from support judgments.[ALCE](https://arxiv.org/abs/2305.14627) [AEE](https://arxiv.org/abs/2410.22349)
+
+For a reproducible report, preserve each raw URL, resolved URL, canonical URL, answer ID, claim ID, engine, prompt, and collection timestamp. Then state whether repeated links in one answer count once or multiple times. A page that cites five URLs from one publisher is five citation occurrences but may be one editorial source.
+
+## Which metrics should you report?
+
+Use a small bundle: unique-domain count for reach, share and HHI for concentration, entropy or effective number for comparison, category coverage for breadth, and overlap for engine agreement. The formulas below are established mathematics applied here as AEOeye's operational proposal—not a universal AI-search standard.
+
+| Metric | Formula | Interpretation | Main caveat |
+|---|---|---|---|
+| Unique-domain count | `D = number of distinct normalized domains` | How many domains appear | One owner may control many domains |
+| Domain share | `sᵢ = citations from domain i / all citation occurrences` | Each domain's contribution | Depends on counting rule |
+| HHI | `HHI = Σ sᵢ²` | Concentration from 0 toward 1 | Sensitive to dominant domains |
+| Normalized HHI | `(HHI − 1/D) / (1 − 1/D)` | Adjusts for the observed number of domains | Unstable when D is small |
+| Shannon entropy | `H = −Σ sᵢ ln(sᵢ)` | Distributional diversity | Harder to explain to non-analysts |
+| Effective number | `Nₑ = exp(H)` | “Equivalent equally shared domains” | Still not independent ownership |
+| Category coverage | `categories represented / categories in taxonomy` | Breadth across source types | Taxonomy choices affect result |
+| Cross-engine overlap | `|A ∩ B| / |A ∪ B|` | Jaccard similarity of domain sets | Ignores citation frequency |
+
+Domain shares must sum to 1 within the selected denominator. If you report percentages, retain unrounded shares for calculation and round only the displayed result. The U.S. Department of Justice explains HHI as a concentration measure based on squared market shares; this article adapts that arithmetic to citation occurrences, not market power.[DOJ HHI explanation](https://www.justice.gov/atr/herfindahl-hirschman-index)
+
+![A researcher comparing multiple charts on a laptop.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630)
+
+## How do you calculate concentration and entropy?
+
+Convert citation counts into shares before calculating. For domain counts `c₁ … cₖ`, let `C = Σcᵢ` and `sᵢ = cᵢ/C`. HHI squares each share, so a domain with half the citations contributes `0.5² = 0.25`; this makes concentration visible even when the raw domain count looks large.
+
+Entropy weights every share by its information contribution. A balanced five-domain set has higher entropy than a five-domain set dominated by one publisher. Effective number `exp(H)` translates that result back into an intuitive scale: the number of equally represented domains that would produce the same entropy.
+
+Use normalized HHI only when the comparison has a meaningful `D`. It corrects for the mathematical minimum HHI at the observed domain count, but it does not correct ownership, quality, topical relevance, or unequal opportunity to be cited. A small sample can make every concentration estimate noisy.
+
+## How do you measure category coverage and overlap?
+
+Category coverage asks whether the answer draws from different source roles, such as official documentation, research, journalism, community discussion, directories, or first-party pages. Apply one versioned taxonomy consistently; AEOeye's source taxonomy is a practical classification aid, not a claim that these categories exhaust the web.[AEOeye source taxonomy](https://aeoeye.com/blog/generative-search-source-taxonomy)
+
+Cross-engine overlap compares normalized domain sets. For engine A and B, Jaccard overlap is `|A ∩ B| / |A ∪ B|`. Also report directional coverage: `|A ∩ B| / |A|` tells you what proportion of A's domains also appeared in B. Two engines may have identical domain sets but radically different shares, or low overlap because each found different but equally relevant evidence.
+
+Keep URL-level and domain-level results side by side. URL diversity reveals document variety; domain diversity reveals host variety. Neither reveals ownership variety unless you add a reviewed ownership-group field. If a citation redirects, retain the originally displayed link and the resolved host so the evidence trail remains auditable.
+
+## What does a five-citation calculation look like?
+
+The following is a **hypothetical worked example**, not observed AEOeye or industry data. Imagine one answer contains five citation occurrences: two from `alpha.example`, two from `beta.example`, and one from `gamma.example`. Treat each occurrence as one count, and assume the three domains are distinct ownership groups for this toy calculation.
+
+Counts are `(2, 2, 1)`, total `C = 5`, and shares are `(0.40, 0.40, 0.20)`. Therefore:
+
+- Unique-domain count: `D = 3`.
+- HHI: `0.40² + 0.40² + 0.20² = 0.36`.
+- Normalized HHI: `(0.36 − 1/3) / (1 − 1/3) ≈ 0.04`.
+- Shannon entropy: `−(0.40 ln 0.40 + 0.40 ln 0.40 + 0.20 ln 0.20) ≈ 1.055`.
+- Effective number: `exp(1.055) ≈ 2.87` equally shared domains.
+
+The result is moderately distributed across three domains, but it is not evidence that the answer is correct. If `alpha.example` and `beta.example` are actually sister companies, ownership-adjusted diversity collapses. If all five links support one claim poorly, the distribution remains diverse while the evidence remains weak.
+
+## How should ownership and syndication change interpretation?
+
+Many URLs can represent one source owner because publishers operate subdomains, brands, subsidiaries, press-release wires, or syndicated copies. Deduplicate obvious mirrors for an ownership view, but never delete the raw evidence: report both document/domain counts and an ownership-group count with a documented mapping rule.
+
+Syndication also creates citation laundering risk: an AI answer may appear to have independent corroboration when several pages copied the same sentence. Add a `source lineage` note where provenance is known, and distinguish independent reporting from repeated text. AEOeye's citation-evaluation metrics provide a related separation between citation presence and citation support.[AEOeye citation metrics](https://aeoeye.com/blog/ai-search-citation-evaluation-metrics)
+
+## What are the limits of source diversity metrics?
+
+**Diversity does not prove quality, correctness, entailment, freshness, or independence.** A high-entropy answer can cite irrelevant pages, mutually copied errors, outdated material, or sources that do not support the claim. Conversely, a low-diversity answer can be appropriate when a single authoritative primary source is the right evidence.
+
+Pair diversity with claim-level support, source quality, recency, and ownership review. Report the prompt, engine, answer, citation denominator, URL normalization, taxonomy version, and collection window. Do not compare scores from studies with different sampling frames or counting rules. The useful conclusion is conditional: “this answer's citations are concentrated under this definition,” not “this answer is reliable.”
+
+## Frequently asked questions
+
+### Should every URL count as a separate source?
+
+Not for every question. Count URLs for document variety, domains for host variety, and ownership groups for editorial independence. Publish all three where the distinction affects the decision.
+
+### Is a high HHI good or bad?
+
+Neither by itself. High HHI means concentration; it may signal dependence on one publisher or correctly reflect a primary-source answer. Interpret it against claim type and source quality.
+
+### Can category coverage replace domain diversity?
+
+No. Categories describe source roles, while domains describe hosts. A single domain can cover multiple roles, and many domains can belong to one category or owner.
+
+### What should a dashboard show first?
+
+Show citation count, unique domains, top-domain shares, HHI, ownership-adjusted count, category coverage, and overlap with other engines—each with its denominator and collection window. [Run a free AEOeye audit](/#audit) to establish a prompt-level baseline before comparing trends.

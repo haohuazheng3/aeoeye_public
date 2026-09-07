@@ -1,0 +1,124 @@
+---
+title: "AI Citation URL Normalization Rules: Deduplicate Sources Without Losing Evidence"
+description: "A deterministic, evidence-preserving method for comparing AI citations, redirects, canonical links, mirrors, syndication, and archive snapshots."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI citation URL normalization", "canonical URLs", "citation deduplication", "AI search auditing", "URL normalization rules"]
+faqs: [{"q":"Why keep raw, resolved, and normalized URLs separately?","a":"The raw URL records what the AI answer exposed, the resolved URL records where retrieval ended after redirects, and the normalized URL supports cautious comparison. Combining them can erase evidence about redirects, tracking, or the exact citation shown."},{"q":"Should every tracking parameter be removed?","a":"No. Remove a parameter only when your documented policy identifies it as non-document identity metadata. Some query parameters select a product, date, language, page state, or file, so deleting them can merge different documents."},{"q":"Does a canonical link prove that two pages are identical?","a":"No. A canonical link is a publisher or site signal about a preferred URL. It is evidence to record and evaluate, not permission to discard the cited page or assume content equivalence."},{"q":"Is this URL policy a web standard?","a":"No. The syntax and processing references are standards or official guidance, but the keep, drop, and merge rules here are AEOeye's operational policy for auditable AI citation studies."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst organizing web source records for an AI citation audit.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"RFC 3986 URI Generic Syntax","url":"https://www.rfc-editor.org/rfc/rfc3986"},{"label":"WHATWG URL Standard","url":"https://url.spec.whatwg.org/"},{"label":"RFC 6596 Canonical Link Relation","url":"https://www.rfc-editor.org/rfc/rfc6596"},{"label":"Google Search Central canonical guidance","url":"https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"}]
+---
+
+AI citation deduplication should make comparisons repeatable without rewriting the evidence an engine actually displayed. The safe pattern is to store three values: the **raw URL** exactly as shown, the **resolved URL** after retrieval and redirects, and an **operationally normalized URL** used for cautious grouping. A normalized match is a comparison aid, not proof that two documents are the same.
+
+The syntax layer comes from [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) and the [WHATWG URL Standard](https://url.spec.whatwg.org/). The policy below is AEOeye's operational proposal, not a universal standard.
+
+## Table of contents
+
+- [Why are three URL representations necessary?](#why-are-three-url-representations-necessary)
+- [What deterministic normalization sequence should you run?](#what-deterministic-normalization-sequence-should-you-run)
+- [Which URL differences are safe to collapse?](#which-url-differences-are-safe-to-collapse)
+- [When should query parameters, mirrors, or archives stay separate?](#when-should-query-parameters-mirrors-or-archives-stay-separate)
+- [How should redirects and canonical links affect evidence?](#how-should-redirects-and-canonical-links-affect-evidence)
+- [What keep-or-drop decision table can reviewers apply?](#what-keep-or-drop-decision-table-can-reviewers-apply)
+- [How do you document limitations and test the policy?](#how-do-you-document-limitations-and-test-the-policy)
+
+## Why are three URL representations necessary?
+
+Three representations preserve provenance while allowing comparison. Raw records the citation artifact, resolved records the retrieval path, and normalized records the comparison key.
+
+For example, an answer may show `HTTP://Example.com:80/guide#pricing`. A browser may redirect it to a secure URL, while the page may declare a canonical link to a different path. Those are distinct observations. [W3C PROV-O](https://www.w3.org/TR/prov-o/) provides a useful provenance model: record entities, activities, and their relationships rather than flattening a chain into one string.
+
+Use fields like these:
+
+- `raw_url`: exact text exposed by the answer, including case, fragment, and query string.
+- `resolved_url`: final URL observed after permitted HTTP navigation, with redirect history and status retained separately.
+- `normalized_url`: deterministic comparison key, generated only by documented rules.
+- `canonical_url`: page-declared or platform-reported canonical, never silently substituted for evidence.
+- `snapshot_ref`: local capture, archive reference, or content hash when available.
+
+Never overwrite `raw_url` with a cleaned value. A redirect, fragment, or query can explain what the answer actually cited. Losing those details makes later adjudication impossible.
+
+## What deterministic normalization sequence should you run?
+
+Run the same ordered sequence for every record and log each transformation. Decoding too early or dropping a query before resolving a redirect can change the resource identified.
+
+1. Parse the raw reference using the applicable URL parser; reject malformed input rather than guessing.
+2. Resolve relative references against the captured page base, if a base is known. RFC 3986 defines reference resolution and URI components; it does not make every resulting URL reachable.
+3. Lowercase the scheme and host. Host case is not a useful distinction for ordinary DNS names, while path and query case may be meaningful.
+4. Remove default ports only for schemes where the port is demonstrably default in your policy. Keep non-default ports.
+5. Apply syntax-safe dot-segment removal to paths. Do not remove arbitrary repeated segments or infer a missing directory.
+6. Preserve percent-encoding semantics. Decode only unreserved characters when your parser and policy support it; do not decode reserved delimiters into new structure.
+7. Remove the fragment from the fetch identity, but retain it in a separate `raw_fragment` or evidence-location field. Fragments are client-side references and can still matter for attribution.
+8. Handle the query with an allowlist or named rules, not a blanket “remove everything after `?`” instruction.
+9. Record redirects, canonical declarations, mirrors, syndication, and archive captures as relationships. They are not automatic merges.
+
+This sequence follows RFC 3986's syntax-based and scheme or protocol-based distinction. Pin parser behavior and test it after upgrades.
+
+## Which URL differences are safe to collapse?
+
+Collapse only differences that your policy can defend as identifier-level equivalence. A match means “group for review,” not “same evidence.”
+
+| Difference | Operational treatment | Evidence warning |
+|---|---|---|
+| `HTTP` versus `http` scheme case | Lowercase scheme | Do not change an actual HTTP-to-HTTPS redirect into a fake original URL |
+| Host case | Lowercase host | Preserve user information and unusual host syntax for security review |
+| Default port (`:80` for HTTP, `:443` for HTTPS) | Remove only when scheme default is explicit | A non-default port can identify a different service |
+| Dot segments such as `/a/../b` | Resolve by parser rules | Do not apply to opaque or non-hierarchical schemes |
+| Fragment such as `#section` | Exclude from document grouping; retain separately | It may locate the evidence span shown to a reviewer |
+| Trailing slash | Keep by default; optionally compare with a documented server-aware rule | `/docs` and `/docs/` can return different resources |
+| Percent-encoding | Normalize only safe, unreserved equivalences | Decoding reserved characters can alter path or query meaning |
+| Query parameter | Drop only named tracking keys; preserve functional keys | `?lang=en`, `?page=2`, and `?file=report.pdf` may select different content |
+
+The table is intentionally conservative: a clean-looking dashboard should not claim more deduplication than the evidence supports.
+
+## When should query parameters, mirrors, or archives stay separate?
+
+Keep a URL separate whenever a parameter can select content, state, audience, or time. Tracking names such as `utm_source` may be removable, but `id`, `page`, `version`, or `output` needs inspection. Unknown parameters should stay until classified.
+
+AMP, print, mobile, PDF, and reader mirrors are separate observations even when they reproduce much of the same text. Group them under a relationship such as `format_of` or `mirror_of`, then compare content hashes, titles, dates, and the cited passage. A mirror can omit a disclaimer or update at a different time.
+
+Syndicated copies should remain separate source entities. Matching text does not establish common ownership, timing, or editorial authority. Report URL counts and any ownership grouping separately.
+
+Archive snapshots preserve a historical observation. Store live URL, snapshot URL, capture time, and content evidence separately. An archive is not automatically the page the engine retrieved.
+
+![Reviewer comparing live, redirected, and archived citation records.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How should redirects and canonical links affect evidence?
+
+A redirect describes a retrieval transition; a canonical link describes a preferred representation signal. Neither permits replacing the raw citation or asserting factual equivalence.
+
+Record every hop when practical: status, source URL, destination URL, timestamp, and whether navigation crossed a host. A same-host redirect from an old path may be a strong duplicate clue, while a cross-host redirect deserves review for ownership and trust changes.
+
+Canonical links require the same caution. [RFC 6596](https://www.rfc-editor.org/rfc/rfc6596) defines the canonical link relation, and [Google's canonical guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls) explains canonicalization as a signal among several, not a guarantee that crawlers will select or treat every page identically. Save the declaration as observed. Use it to annotate a possible preferred URL, not to rewrite the source cited by an AI answer.
+
+## What keep-or-drop decision table can reviewers apply?
+
+Apply the narrowest rule that answers the comparison question. The decision table below is an AEOeye codebook, not a universal adjudication authority.
+
+| Observation | Keep raw and resolved? | Normalized action | Merge decision |
+|---|---:|---|---|
+| Scheme or host case differs only | Yes | Lowercase the comparison key | Candidate merge |
+| Default port differs | Yes | Remove only documented default | Candidate merge |
+| Redirect ends at same URL | Yes | Link with `redirected_to` | Review, then possible merge |
+| Page declares a canonical | Yes | Store `canonical_url` separately | Never automatic |
+| Tracking key only, verified non-functional | Yes | Drop named key | Candidate merge |
+| Unknown or functional query key | Yes | Preserve query | Keep separate |
+| Fragment differs | Yes | Remove from document key; retain fragment | Same document candidate, evidence locations distinct |
+| AMP, print, mobile, or PDF mirror | Yes | Add `mirror_of` relationship | Keep source entities separate |
+| Syndicated copy | Yes | Add `syndicated_from` only if evidenced | Keep separate unless study defines ownership grouping |
+| Archive snapshot | Yes | Key by snapshot and capture time | Keep separate from live page |
+| Same host, different path | Yes | No path collapsing | Keep separate |
+
+For safe worked examples, `https://example.test/report?utm_source=chat#summary` may normalize to `https://example.test/report` for a *tracking-only* grouping, while preserving the raw fragment and query. `https://example.test/report?lang=fr` stays separate if language changes the text. `https://example.test/a/../report` can normalize to `/report` only after parsing, not by broad text replacement.
+
+## How do you document limitations and test the policy?
+
+Publish the policy version, parser version, parameter allowlist, redirect limit, timestamp convention, and merge rationale with every dataset. This makes a future change auditable instead of silently changing historical counts.
+
+Test adversarial fixtures: encoded delimiters, mixed-case hosts, ports, fragments, repeated slashes, query order, Unicode hostnames, redirects, canonical conflicts, mirrors, and archive timestamps. Assert both the normalized key and the preserved evidence fields. Add human review for security-sensitive or cross-host cases.
+
+This policy has explicit limits. URL normalization cannot prove two pages have identical claims, authorship, freshness, ownership, or factual correctness. Canonicalization for analytics is not the same as rewriting original evidence. No single normalization policy is universally correct across schemes, products, languages, or research questions.
+
+If you need to see which sources an AI engine cites for your buyer questions, [start a free AEOeye audit](/#audit). Keep the raw, resolved, and normalized records behind the report so every deduplicated count remains explainable.

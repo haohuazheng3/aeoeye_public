@@ -1,0 +1,111 @@
+---
+title: "AI Content Provenance Standards Directory: What Each Signal Proves"
+description: "A practical directory comparing C2PA, IPTC metadata, Schema.org, robots.txt, canonical links, and hashes—plus the limits of every provenance signal."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI content provenance", "C2PA Content Credentials", "IPTC metadata", "content authenticity", "robots.txt canonical URL"]
+faqs: [{"q":"Does C2PA prove that content is true?","a":"No. C2PA can make signed provenance assertions and their binding to an asset tamper-evident. It does not independently verify whether a claim, caption, or event description is factually correct."},{"q":"Is IPTC metadata a cryptographic provenance record?","a":"IPTC photo metadata is a structured metadata standard for describing and managing image information. By itself, it is not a cryptographic signature and can be removed or changed."},{"q":"Do robots.txt or canonical links tell an AI system what to cite?","a":"No. Robots.txt communicates a crawler access preference, while a canonical link identifies a preferred URL for duplicate content. Neither guarantees crawling, ranking, citation, or factual accuracy."},{"q":"What should a publisher implement first?","a":"Preserve the original asset and its raw metadata, publish clear page-level identity and source links, use canonical and robots directives deliberately, and add signed provenance where the workflow can validate and maintain it."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Digital document provenance and verification workflow on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"C2PA Technical Specification 2.2","url":"https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html"},{"label":"IPTC Photo Metadata","url":"https://iptc.org/standards/photo-metadata/"},{"label":"Schema.org CreativeWork","url":"https://schema.org/CreativeWork"},{"label":"RFC 9309: Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309"},{"label":"RFC 6596: Canonical Link Relation","url":"https://www.rfc-editor.org/rfc/rfc6596"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"}]
+---
+
+Provenance signals answer different questions. A signed C2PA manifest can bind assertions to a file; IPTC metadata can describe a photograph; Schema.org can expose a page’s declared creative-work fields; `robots.txt` communicates a crawler preference; a canonical link identifies a preferred URL; and a cryptographic hash can detect whether bytes changed. None of these, alone, proves that content is true or that an AI system will cite it.
+
+This directory is a practical comparison reference, checked against the linked specifications and documentation on September 7, 2026. “Standard” here means a published specification or vocabulary, not a promise of universal implementation.
+
+## Table of contents
+
+- [What does provenance actually prove?](#what-does-provenance-actually-prove)
+- [How do the main signals compare?](#how-do-the-main-signals-compare)
+- [What does C2PA prove about an asset?](#what-does-c2pa-prove-about-an-asset)
+- [How do metadata and page vocabularies help?](#how-do-metadata-and-page-vocabularies-help)
+- [What do robots.txt and canonical links control?](#what-do-robotstxt-and-canonical-links-control)
+- [When should you use a cryptographic hash?](#when-should-you-use-a-cryptographic-hash)
+- [What are the practical limits for AI search?](#what-are-the-practical-limits-for-ai-search)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What does provenance actually prove?
+
+Provenance is evidence about an asset’s history, actors, or transformations; authenticity is evidence that bound data has not been altered. Factual correctness asks whether a proposition is true in the world. These are separate dimensions, as the C2PA specification’s definitions of provenance and authenticity make clear ([C2PA](https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html)).
+
+Keep five questions separate in an audit:
+
+- **Provenance:** what was created, changed, combined, or supplied?
+- **Authenticity:** do the bound bytes or assertions validate against a signature or hash?
+- **Authorship:** which person or organization claims responsibility?
+- **Access preference:** may a crawler fetch a resource?
+- **Factual correctness:** does the content support the claim being made?
+
+A publisher can have excellent chain-of-custody evidence for an inaccurate chart. Conversely, a well-sourced article may have no signed manifest. Treat each signal as a layer in an evidence stack, not as a trust badge.
+
+## How do the main signals compare?
+
+The table below states the narrowest defensible use for each signal. “Discoverability” means a consumer can find or interpret the signal; it does not mean a search engine must use it.
+
+| Signal | Layer and scope | Tamper evidence | Discoverability | What it can support | What it cannot prove |
+|---|---|---|---|---|---|
+| C2PA Content Credentials | Asset-level assertions, actions, ingredients, signer, and bindings | Cryptographic signatures and hashes when valid | Embedded or externally stored manifest, depending on implementation | A verifiable record of declared creation/edit history and binding | Truth of assertions, honest identity, universal display, or AI citation |
+| IPTC Photo Metadata | Image description, rights, creator, location, and management fields | Not inherently cryptographic | Read by compatible photo and publishing tools | Structured context and rights/workflow information | That metadata was not edited, or that the image depicts the captioned event |
+| Schema.org `CreativeWork` | Page-level structured vocabulary for a creative work and related properties | No signature by the vocabulary itself | HTML/JSON-LD consumers that parse the page | Machine-readable declarations about title, creator, dates, or relationships | Editorial truth, authorship verification, indexing, or citation |
+| `robots.txt` (RFC 9309) | Host/path crawler access preference | None | Fetchable at `/robots.txt` | A published rule for compliant crawlers to interpret | Authentication, secrecy, deletion, ranking, or future model behavior |
+| Canonical link (RFC 6596) | Page-level preferred identifier among representations | None | HTML link relation or HTTP metadata | A publisher’s preferred URI for duplicate or equivalent content | That a crawler will select it, merge all copies, or cite it |
+| Cryptographic hash | Exact byte-level fingerprint of a selected object | Yes, if the trusted reference hash is protected | Requires a distribution channel or registry | Detecting whether the compared bytes differ | Who created the file, whether it is true, or what changed semantically |
+
+This is an AEOeye operational comparison, not a universal scoring rubric. A reviewer should record the raw signal, its validation result, the date collected, and the claim or asset to which it applies.
+
+![A researcher comparing signed metadata, page markup, and source records.](https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## What does C2PA prove about an asset?
+
+C2PA provides a model for cryptographically verifiable provenance data: assertions are assembled into a claim, signed, and bound to an asset through mechanisms such as hashes. Its specification explicitly frames these as indicators that help a consumer assess trustworthiness, not as value judgments about whether the assertions are good or bad ([C2PA specification](https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html)).
+
+In practice, inspect the signer identity, certificate or trust context, validation state, content binding, ingredients, actions, and timestamps. A valid signature can show that the signed statement and bound asset have not been altered after signing under the relevant trust model. It does not establish that the signer witnessed the event, described it honestly, or owns every ingredient.
+
+The chain can also be incomplete. A derivative may lose embedded metadata, an external manifest may be unavailable, a credential may be revoked, or a workflow may omit an earlier transformation. Report “manifest found and valid,” “manifest found with warnings,” or “no verifiable manifest,” rather than converting presence into a binary truth label.
+
+## How do metadata and page vocabularies help?
+
+IPTC Photo Metadata is a descriptive and rights-management layer for photographs; its value is interoperability and context, not signatures. Fields can tell a newsroom or archive who is credited, what a caption says, or how rights are managed, but a downstream system still needs to assess whether those fields are accurate and intact ([IPTC](https://iptc.org/standards/photo-metadata/)).
+
+Schema.org’s `CreativeWork` vocabulary offers a shared way to describe a work and properties such as creator, date, headline, and publisher in machine-readable page markup ([Schema.org](https://schema.org/CreativeWork)). It is a declaration published by a site. Use it to make relationships explicit and easier to parse, while checking visible page content and authoritative sources before treating a declaration as evidence.
+
+A useful implementation stores both representations: human-visible attribution and structured metadata. Preserve the raw JSON-LD or IPTC block in your evidence record, but do not call it independently verified. Metadata improves context; it does not manufacture accountability.
+
+## What do robots.txt and canonical links control?
+
+`robots.txt` is an access-control preference for crawlers that choose to follow the Robots Exclusion Protocol. RFC 9309 describes user-agent groups and `Allow`/`Disallow` rules, while warning that robots rules are not a substitute for authorization or application security ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309)). A disallow can reduce compliant crawling; it does not make a URL secret, erase old copies, or guarantee that an answer engine will stop mentioning a page.
+
+A canonical link is a publisher-declared preferred URI for a resource among potentially duplicate representations. RFC 6596 defines the canonical relation; it does not turn the declaration into a command that every consumer must obey ([RFC 6596](https://www.rfc-editor.org/rfc/rfc6596)). Keep the original URL, resolved URL, and canonical declaration in your audit record. A canonical hint cannot repair contradictory content or prove ownership.
+
+These controls affect access and identity, not factual support. If an AI answer cites a page, evaluate the cited passage against the answer claim separately.
+
+## When should you use a cryptographic hash?
+
+Use a cryptographic hash when you need a compact fingerprint for exact bytes: a downloaded source snapshot, an image rendition, a PDF, or an exported dataset. Hash the object after retrieval, record the algorithm and timestamp, and protect the reference value in a system with controlled access.
+
+Hash comparison answers “are these bytes the same as my reference?” It does not answer “who made them?” or “is the content accurate?” It is also sensitive to harmless re-encoding, whitespace, metadata changes, and URL variants. For semantic identity, pair the hash with the source URL, content type, response headers, visible title, and a human-readable snapshot.
+
+## What are the practical limits for AI search?
+
+AI systems may ignore, fail to fetch, or fail to display any of these signals. A crawler may not support a manifest; a model may see a page without parsing its JSON-LD; a user may quote an asset after its metadata is stripped. Citation is a retrieval and answer-generation behavior, not a reward automatically granted to provenance-aware publishers.
+
+For an auditable workflow, preserve the prompt, answer, cited URL, fetched content, timestamp, and the applicable provenance records. Then ask two independent questions: does the signal validate for this asset or URL, and does the cited source entail the answer’s claim? [AEOeye’s audit](/#audit) can help you inspect how answer engines mention and cite a brand; it cannot replace source validation or fact checking.
+
+## Frequently asked questions
+
+### Does C2PA prove that content is true?
+
+No. It can make signed provenance assertions and their asset binding tamper-evident. It does not independently verify factual claims, event context, or the honesty of a signer.
+
+### Is IPTC metadata a cryptographic provenance record?
+
+No. IPTC metadata is structured descriptive and rights information. It can be changed or removed unless another system protects it.
+
+### Do robots.txt or canonical links tell an AI system what to cite?
+
+No. Robots communicates a crawler preference; canonical identifies a preferred URI. Neither guarantees crawling, ranking, citation, or correctness.
+
+### What should a publisher implement first?
+
+Preserve original assets and raw metadata, publish clear identity and source links, use robots and canonical directives deliberately, and add signed provenance when your workflow can validate and maintain it.

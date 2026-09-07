@@ -1,0 +1,116 @@
+---
+title: "AI Search Prompt Taxonomy: 24 Buyer Questions to Test"
+description: "A practical AEOeye framework for sampling branded, unbranded, comparison, risk, implementation, and post-purchase questions in AI search audits."
+date: "2026-09-07"
+category: "AI Search"
+readingTime: "7 min read"
+keywords: ["ai search prompt taxonomy", "buyer questions for ai search", "ai visibility prompts", "generative search audit", "answer engine optimization", "ai search research"]
+faqs: [{"q":"What is an AI search prompt taxonomy?","a":"It is a structured way to group buyer questions before testing them in AI search. Grouping prompts by intent makes an audit easier to sample, compare, and explain; it does not reveal an engine's hidden ranking formula."},{"q":"Are these 24 prompt classes exhaustive?","a":"No. They are AEOeye's practical sampling framework for common buyer journeys. Add or remove classes when your market, product, geography, or research question requires it, and disclose the change."},{"q":"Should an audit use branded and unbranded prompts?","a":"Usually yes. Branded prompts test whether an engine recognizes and describes a known entity, while unbranded prompts test category discovery and competitive inclusion. Report the two panels separately."},{"q":"How many times should each prompt be run?","a":"There is no universal repeat count. Preserve the exact prompt, runtime context, and collection time, then repeat enough to study the stability question you have defined. One run is an observation, not a volatility estimate."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher organizing buyer questions for an AI search visibility study.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"AEOeye — AI search audit methodology template","url":"https://aeoeye.com/blog/ai-search-audit-methodology-template"},{"label":"NIST — AI measurement and evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"GEO — Generative Engine Optimization","url":"https://arxiv.org/abs/2311.09735"},{"label":"OpenAI Help — Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-chatgpt-search"},{"label":"Google Search Central — Helpful, reliable, people-first content","url":"https://developers.google.com/search/docs/fundamentals/creating-helpful-content"},{"label":"AEOeye — AI visibility metrics dictionary","url":"https://aeoeye.com/blog/ai-visibility-metrics-dictionary"}]
+---
+
+An AI search audit is only as useful as the questions it asks. This taxonomy gives teams a repeatable starting panel: 24 buyer-question classes across discovery, comparison, validation, risk, implementation, and post-purchase. It is an AEOeye sampling framework—not a universal standard or a claim about hidden ranking factors.
+
+## Table of contents
+
+- [Why classify buyer questions before testing?](#why-classify-buyer-questions-before-testing)
+- [What are the 24 prompt classes?](#what-are-the-24-prompt-classes)
+- [How should branded and unbranded prompts differ?](#how-should-branded-and-unbranded-prompts-differ)
+- [How do you sample prompts without fooling yourself?](#how-do-you-sample-prompts-without-fooling-yourself)
+- [How should follow-ups and runtime context be recorded?](#how-should-follow-ups-and-runtime-context-be-recorded)
+- [What can this taxonomy measure—and what can it not?](#what-can-this-taxonomy-measureand-what-can-it-not)
+- [FAQs](#faqs)
+
+## Why classify buyer questions before testing?
+
+Classification separates “does the engine know this brand?” from “would it recommend this option for my situation?” Those are different observations with different denominators. NIST describes AI measurement as context-dependent, which is a useful reminder to define the task before choosing a metric ([NIST](https://www.nist.gov/ai-measurement-and-evaluation)).
+
+Without intent labels, a panel can overrepresent easy branded queries or turn a product-comparison study into an accidental factuality study. A taxonomy also exposes coverage gaps: a brand may appear in discovery but disappear when buyers ask about price, integration, or risk.
+
+## What are the 24 prompt classes?
+
+The table below uses neutral templates so a researcher can insert a category, use case, brand, market, or date. “Visibility signal” names the observation to code; it is not a score by itself.
+
+| Group and class | Neutral prompt template | Visibility signal to code |
+|---|---|---|
+| Discovery — category | “What are the leading [category] options?” | Unbranded inclusion and list position |
+| Discovery — use case | “What [category] works for [use case]?” | Use-case fit and recommendation |
+| Discovery — problem | “How can I solve [problem] with software?” | Problem-to-category association |
+| Discovery — local | “Who offers [category] in [location]?” | Geographic availability and local sources |
+| Discovery — recency | “What is current for [category] in [month/year]?” | Freshness handling and dated evidence |
+| Comparison — alternatives | “What are alternatives to [brand]?” | Competitor set and substitution framing |
+| Comparison — pairwise | “[Brand A] vs [Brand B]: which is better for [use case]?” | Pairwise preference and reasons |
+| Comparison — best-of | “What is the best [category] for [constraint]?” | Constraint matching and rank |
+| Comparison — price | “What does [category] typically cost?” | Price visibility and qualification |
+| Comparison — value | “Which [category] offers the best value for [audience]?” | Value logic, not just lowest price |
+| Validation — branded | “What is [brand], and what does it offer?” | Entity recognition and description |
+| Validation — proof | “What evidence supports [brand]’s [claim]?” | Supporting citations and entailment |
+| Validation — reviews | “What do customers say about [brand]?” | Review synthesis and source diversity |
+| Validation — trust | “Is [brand] trustworthy for [sensitive use case]?” | Trust signals, caveats, and attribution |
+| Risk — safety | “What safety or privacy risks should I consider with [category]?” | Risk coverage and qualified language |
+| Risk — failure | “When is [category] a poor choice?” | Negative evidence and abstention |
+| Risk — compliance | “What compliance questions apply to [category]?” | Jurisdiction, standards, and limitations |
+| Risk — competitor | “What are the drawbacks of [brand] compared with [alternative]?” | Balanced criticism and comparison fairness |
+| Implementation — integration | “Does [brand] integrate with [system]?” | Integration facts and source links |
+| Implementation — setup | “How do I get started with [category]?” | Procedural usefulness and prerequisites |
+| Implementation — migration | “How can I move from [old tool] to [brand]?” | Migration guidance and dependency awareness |
+| Implementation — location | “How is [brand] used by teams in [location]?” | Regional fit beyond mere availability |
+| Post-purchase — support | “What support should I expect after buying [brand]?” | Service claims and evidence quality |
+| Post-purchase — renewal | “What should I check before renewing [brand]?” | Retention, price changes, and caveats |
+
+This coverage is intentionally broad, not exhaustive. Extend it for regulated claims, procurement, accessibility, industry terminology, or a specific product funnel. Keep the class label beside every captured answer so later analysis can compare like with like.
+
+![Research notes grouped by discovery, comparison, validation, risk, implementation, and post-purchase intent.](https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Second image: Pexels photo by fauxels, [Pexels profile](https://www.pexels.com/@fauxels).*
+
+## How should branded and unbranded prompts differ?
+
+Branded prompts contain the target entity; unbranded prompts do not. Treat them as separate strata, because a known-brand question tests recognition and description while a category or use-case question tests discovery and competitive inclusion.
+
+Within each stratum, preserve intent distinctions. “Alternatives to A” is not the same as “A vs B”: the first asks an engine to construct a substitute set, while the second supplies the comparison set. “Price” asks for a monetary or plan answer; “value” asks the engine to weigh outcomes, constraints, and trade-offs. Mixing them can make a visibility change impossible to interpret.
+
+Trust and safety questions deserve their own labels. A cautious answer with limitations may be more useful than an unqualified recommendation, so code mention, recommendation, caveat, and cited support separately. Do not treat positive tone as proof of factual correctness; [FActScore](https://arxiv.org/abs/2305.14251) illustrates why fine-grained claim evaluation is a distinct task.
+
+## How do you sample prompts without fooling yourself?
+
+Start with the research question, then allocate a declared number of prompts to each class that matters. A practical panel can combine customer language, support tickets, sales objections, search query research, and carefully documented synthetic variants. Avoid silently replacing prompts that produce no mention: absence is part of the observation.
+
+Use a stable core panel for repeat waves and a rotating panel for new questions. Record the exact wording, class, brand status, language, market, and selection reason. The [AEOeye audit methodology template](https://aeoeye.com/blog/ai-search-audit-methodology-template) provides a disclosure pattern for prompts, runtime, labels, denominators, and exclusions.
+
+Sample across constraints rather than only “best” questions. Include at least one category, use-case, comparison, price/value, trust or safety, integration, location, recency, and follow-up-dependent path when those topics are relevant to the product. These are sampling recommendations, not a required universal quota.
+
+## How should follow-ups and runtime context be recorded?
+
+A follow-up prompt is a new observation with conversation history, not an independent first-turn query. Record the parent prompt, the follow-up text, and whether the brand entered the answer only after context was supplied. This reveals dependence on clarification rather than pretending every answer began from the same state.
+
+For every run, capture engine and product surface, visible model label, search or browsing state, locale, device, account context where relevant, timestamp, prompt version, and the complete answer with links. OpenAI documents ChatGPT Search as a product surface with its own search behavior and controls; do not collapse that context into a generic “ChatGPT” label ([OpenAI Help](https://help.openai.com/en/articles/9237897-chatgpt-search)).
+
+Generative engines synthesize from multiple sources, and research such as [GEO](https://arxiv.org/abs/2311.09735) evaluates visibility under defined query and engine conditions. That supports disciplined experimentation, not a claim that one prompt panel predicts every user or exposes a ranking recipe. Keep the prompt file and codebook versioned.
+
+## What can this taxonomy measure—and what can it not?
+
+It can organize observations of mention, recommendation, relative position when stated, citation presence, source domains, caveats, and follow-up dependence. It can help identify which buyer intents are underrepresented in a brand’s visible answers and which classes merit deeper factual or citation review.
+
+It cannot prove traffic, conversions, market share, causality, or universal ranking behavior. It cannot make two engines equivalent when their interfaces, retrieval settings, personalization, or citation affordances differ. Google’s people-first guidance emphasizes useful, reliable content for people; it does not promise placement in an AI answer ([Google Search Central](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)).
+
+The 24 labels are AEOeye’s operational proposal. They are not an ISO, NIST, OpenAI, Google, or industry taxonomy. Change them when the research question demands it, report the change, and keep raw answers available for audit. For a baseline, [run a free AEOeye audit](/#audit) and retain the prompt class, date, engine context, and response alongside your study log.
+
+## FAQs
+
+### Is an unbranded prompt always better?
+
+No. Unbranded prompts are useful for discovery, but branded prompts test entity understanding and validation. A credible panel needs both when both questions matter to buyers.
+
+### Should every class have the same number of prompts?
+
+Not necessarily. Allocate by business relevance and research purpose, then disclose the allocation. Equal quotas are simple, but they can overemphasize low-volume intents or underrepresent high-risk questions.
+
+### Can one answer belong to multiple classes?
+
+Yes, if the prompt explicitly combines intents. Preserve a primary class for reporting and add secondary tags rather than forcing a complex question into a misleading single bucket.
+
+### How should a no-answer result be labeled?
+
+Keep it as an observed outcome, with the runtime and failure reason if known. Do not convert an unavailable, refused, or empty response into a negative recommendation without evidence.
