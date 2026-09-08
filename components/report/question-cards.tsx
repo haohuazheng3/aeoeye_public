@@ -87,7 +87,7 @@ export function QnaCard({
   // 引擎原文在落库时最多保留 6000 字符。达到上限说明用户看到的可能不是完整回答,
   // 不能再静默把半截单词/句子当成完整研究结果。
   const answerWasTrimmed = Boolean(full && full.length >= 6000);
-  const displayText = answerWasTrimmed ? stripMarkdown(fullText) : fullText;
+  const displayText = answerWasTrimmed ? stripMarkdown(fullText).replace(/[*_`~]+/g, "") : fullText;
   const teaser = firstSentences(excerpt || fullText);
 
   const card = (
