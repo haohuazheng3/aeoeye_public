@@ -1,0 +1,160 @@
+---
+title: 'Together AI Pricing: Serverless Tokens or Dedicated Throughput?'
+description: >-
+  Compare Together AI serverless and dedicated inference using tokens,
+  caching, utilization, latency SLOs, rate limits, Batch, and live quotes.
+date: '2026-09-07'
+category: Reviews
+readingTime: 8 min read
+keywords: [together ai pricing, Together AI cost]
+faqs:
+  - q: Are Together AI free credits available?
+    a: Check current account and pricing pages; eligibility and expiration can change.
+  - q: Is serverless better than dedicated inference?
+    a: Serverless fits variable demand; dedicated fits sustained throughput or stricter isolation and latency needs.
+  - q: Does cached input have a lower price?
+    a: It may for eligible models; verify the current live matrix and cache rules.
+  - q: How can I estimate my monthly Together AI bill?
+    a: Model input, cached input, output, retries, evaluations, Batch, and growth across low, expected, and high scenarios.
+image:
+  url: 'https://images.pexels.com/photos/12969403/pexels-photo-12969403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+  alt: Infrastructure team comparing Together AI serverless and dedicated cost.
+  photographer: AlphaTradeZone
+  photographerUrl: 'https://www.pexels.com/@alphatradezone'
+sources:
+  - label: Together AI pricing
+    url: 'https://www.together.ai/pricing'
+  - label: Together AI inference overview
+    url: 'https://docs.together.ai/docs/inference/overview'
+  - label: Together AI rate limits
+    url: 'https://docs.together.ai/docs/rate-limits'
+  - label: Together AI dedicated inference
+    url: 'https://docs.together.ai/docs/dedicated-inference'
+  - label: Together AI Batch inference
+    url: 'https://docs.together.ai/docs/batch-inference'
+---
+
+Together AI pricing is easiest to choose by workload shape, not the lowest visible token rate. Serverless fits variable traffic because cost follows usage; dedicated inference fits predictable, sustained throughput when reserved capacity, latency control, or isolation matters more than elasticity.
+
+Estimate monthly input and output, cached-token eligibility, latency, and rate-limit needs, then compare serverless spend with a dedicated quote using identical traffic assumptions. Low per-token pricing is not automatically cheaper for intermittent work, while dedicated capacity wastes money at low utilization.
+
+## Table of Contents
+
+- [What does Together AI pricing include?](#what-does-together-ai-pricing-include)
+- [How should you read the serverless pricing matrix?](#how-should-you-read-the-serverless-pricing-matrix)
+- [When does serverless make more sense?](#when-does-serverless-make-more-sense)
+- [How do cached tokens change the estimate?](#how-do-cached-tokens-change-the-estimate)
+- [What formula estimates monthly cost?](#what-formula-estimates-monthly-cost)
+- [When does dedicated throughput break even?](#when-does-dedicated-throughput-break-even)
+- [Could Batch inference lower cost?](#could-batch-inference-lower-cost)
+- [Which option should procurement approve?](#which-option-should-procurement-approve)
+- [Frequently Asked Questions](#frequently-asked-questions)
+
+## What does Together AI pricing include?
+
+Together AI separates usage-based serverless models from capacity-based dedicated inference. The [pricing page](https://www.together.ai/pricing) is the current source for rates and options; treat displayed prices as live data rather than permanent constants.
+
+Serverless billing generally depends on model, input, output, cached input where supported, and endpoint-specific units. Cost follows consumption, so it suits prototypes, uneven demand, user-generated workloads, and products still discovering traffic.
+
+Dedicated inference provisions reserved serving capacity under quote-specific terms. The [dedicated documentation](https://docs.together.ai/docs/dedicated-inference) explains its deployment model. Do not assume a universal hourly rate: use a live quote for the selected model, hardware, region, and commitment.
+
+## How should you read the serverless pricing matrix?
+
+Map each displayed rate to your real token mix. A low input rate can still be costly for generation-heavy work, while a higher output rate may be economical when answers are concise.
+
+| Field | Record | Why |
+|---|---|---|
+| Model | Exact identifier | Rates and behavior vary |
+| Input | Price per billed unit | Context and history drive it |
+| Output | Price per billed unit | Response length drives it |
+| Cached input | Eligibility and price | Stable prefixes may cost less |
+| Context | Published limits | Large prompts affect routing and cost |
+| Performance | Throughput and latency | Cheap tokens may miss the SLO |
+| Availability | Endpoint status and terms | Production fit comes first |
+
+Copy exact identifiers from the live page. Together’s [inference overview](https://docs.together.ai/docs/inference/overview) explains the available serverless path. Normalize input and output separately when comparing [OpenAI API pricing](/blog/openai-api-pricing), [Anthropic API pricing](/blog/anthropic-api-pricing), or [Gemini API pricing](/blog/gemini-api-pricing).
+
+## When does serverless make more sense?
+
+Serverless is the default when demand is variable, early-stage, or hard to forecast. It also makes model experiments and uneven bursts simpler.
+
+- Traffic has large peaks and valleys.
+- Product-market fit is still being tested.
+- Multiple models need evaluation.
+- Work can queue or run asynchronously.
+- Volume cannot keep dedicated capacity occupied.
+- Procurement favors usage-based billing.
+
+Serverless is not unlimited burst capacity. Review [rate limits](https://docs.together.ai/docs/rate-limits) before promising request rates. Design queues, bounded retries, concurrency caps, and user-facing fallbacks.
+
+![A variable serverless workload plotted against traffic peaks and valleys.](https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+*Photo by [Lukas](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com)*
+
+## How do cached tokens change the estimate?
+
+Cached input can change repeated-prompt economics. When a stable system instruction, policy, tool schema, or document prefix repeats, verify whether the selected model supports cached input and which live rate applies.
+
+Separate a stable prefix, changing user/retrieval suffix, and generated output. Do not assume every repeated string is cached or apply a cached price to ineligible tokens.
+
+Show both cases: no cache, with all input at the standard rate; and eligible cache, with stable tokens at the published cached-input rate. This range is more honest than an optimistic single forecast.
+
+## What formula estimates monthly cost?
+
+Start with token volume rather than request count. Let `R` be requests, `I` uncached input per request, `C` eligible cached input, `O` output, and `Pi`, `Pc`, `Po` the current rates.
+
+`monthly cost = R × ((I × Pi) + (C × Pc) + (O × Po))`
+
+Use the unit conversion shown on the live table. If prices are per million tokens, divide token volumes by 1,000,000 first.
+
+Build low, expected, and high scenarios. Add retries, failed processing, evaluation traffic, batch jobs, and prompt-history growth. One unsupported “average request” hides the risk procurement needs to see.
+
+## When does dedicated throughput break even?
+
+Dedicated inference becomes attractive when workload is sustained and operational requirements are strict. Compare a live capacity quote with the same serverless traffic and latency target.
+
+`dedicated monthly cost = quoted capacity price × billable capacity time + deployment fees`
+
+`serverless monthly cost = input + cached input + output + retry overhead`
+
+`break-even utilization = dedicated monthly cost ÷ serverless cost at comparable full utilization`
+
+Keep the dedicated price as a quote variable. Ask for model, hardware, minimum term, billing granularity, scaling, and support. Dedicated fits predictable throughput, stable latency, isolation, or contractual SLOs; it fits poorly when deployments sit idle.
+
+## Could Batch inference lower cost?
+
+Batch inference fits work that does not need immediate results: offline classification, enrichment, extraction, evaluation sets, and overnight processing. Together documents the workflow in its [Batch guide](https://docs.together.ai/docs/batch-inference).
+
+Confirm model support, input/output handling, completion window, retry safety, and monitoring for submitted, completed, and failed work. Batch changes latency—not the need to control tokens and failures. Apply current published Batch terms rather than assuming a universal discount.
+
+![Dedicated capacity and batch queues compared in an infrastructure plan.](https://images.pexels.com/photos/34804017/pexels-photo-34804017.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+*Photo by [Mizuno K](https://www.pexels.com/@mizunokozuki) on [Pexels](https://www.pexels.com)*
+
+## Which option should procurement approve?
+
+Begin with serverless, instrument real token and latency data, test caching, then revisit dedicated inference once utilization and SLO requirements stabilize. Procurement should record workload, traffic shape, SLO, cost categories, dedicated idle time, limits, security, and an exit plan.
+
+Use exact rates and quote dates. Document model and prompt portability, cancellation terms, data handling, retention, access, and escalation. The broader [AI model comparison](/blog/ai-model-comparison) helps frame capability; Together’s official pages govern commercial numbers. Keep total stack costs visible through [AEOeye pricing](/pricing).
+
+Require a pilot before a dedicated commitment. Measure throughput, p50 and p95 latency, error rate, token mix, and the share of time reserved capacity would sit idle. Repeat during a realistic traffic burst. A quote is decision-ready only when these observations use the same model, region, prompts, and service target as the serverless baseline.
+
+Assign an owner for rate-limit changes and capacity reviews. Without ownership, traffic can outgrow serverless limits or leave hardware underused. Revisit the choice when traffic shape, model, latency promise, or prompt size changes—not merely at annual renewal.
+
+Keep the decision reversible where possible. Define the telemetry, prompt assets, evaluation set, and routing boundary so a team can retest serverless, dedicated, or another model without rebuilding the whole application. Portability has an option value: it reduces the pressure to accept a poor renewal quote or tolerate an endpoint that no longer meets the service target.
+
+## Frequently Asked Questions
+
+### Are Together AI free credits available?
+
+Check current account and pricing pages. Promotional credits, eligibility, expiry, and products change, so exclude them from long-term forecasts unless confirmed.
+
+### Is serverless better than dedicated inference?
+
+Serverless fits variable demand. Dedicated fits predictable throughput or stricter latency and isolation requirements. Compare utilization and SLOs.
+
+### Does cached input have a lower price?
+
+It may for eligible models. Confirm current rules and the live cached-input rate, then separate stable and changing tokens.
+
+### How can I estimate my monthly Together AI bill?
+
+Model input, cached input, output, retries, evaluation, growth, and Batch across low, expected, and high scenarios.

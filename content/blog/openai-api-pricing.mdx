@@ -1,0 +1,165 @@
+---
+title: 'OpenAI API Pricing: Estimate the Workload, Not One Token Rate'
+description: >-
+  Estimate OpenAI API cost from input, output, caching, Batch, retries,
+  evaluation traffic, and calls per completed business task.
+date: '2026-09-07'
+category: Reviews
+readingTime: 8 min read
+keywords: [openai api pricing, OpenAI API cost]
+faqs:
+  - q: Are there free credits for the OpenAI API?
+    a: Eligibility and promotions vary. Check your API billing account and treat any credit as temporary.
+  - q: Does a ChatGPT subscription include API usage?
+    a: No. ChatGPT subscriptions and API billing are separate products.
+  - q: How much can the Batch API save?
+    a: OpenAI documents a 50% discount for eligible Batch work with a 24-hour completion window.
+  - q: How can I estimate my monthly API bill?
+    a: Measure completed tasks, calls per task, token categories, cache share, retries, evaluations, and current model rates.
+image:
+  url: 'https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+  alt: Analytics screen used to estimate OpenAI API workload cost.
+  photographer: Lukas
+  photographerUrl: 'https://www.pexels.com/@goumbik'
+sources:
+  - label: OpenAI API pricing
+    url: 'https://platform.openai.com/docs/pricing'
+  - label: OpenAI Batch API
+    url: 'https://platform.openai.com/docs/api-reference/batch/object?api-mode=responses'
+  - label: OpenAI prompt caching
+    url: 'https://openai.com/index/api-prompt-caching/'
+  - label: OpenAI endpoint data controls
+    url: 'https://platform.openai.com/docs/models/default-usage-policies-by-endpoint'
+---
+
+OpenAI API pricing is not a single number you can multiply by users. A reliable estimate starts with workload: input tokens, output tokens, cached input, model selection, tool calls, retries, concurrency, and evaluation traffic.
+
+Treat the published per-million-token price as a unit cost, not as your budget. Your budget is measured usage multiplied by current rates, plus the operational work required to produce a dependable application.
+
+## Table of Contents
+
+- [How does OpenAI API billing work?](#how-does-openai-api-billing-work)
+- [Where can you find the current model rates?](#where-can-you-find-the-current-model-rates)
+- [How do you calculate an OpenAI API cost estimate?](#how-do-you-calculate-an-openai-api-cost-estimate)
+- [How does prompt caching change the estimate?](#how-does-prompt-caching-change-the-estimate)
+- [When should you use the Batch API?](#when-should-you-use-the-batch-api)
+- [What hidden workload costs should you include?](#what-hidden-workload-costs-should-you-include)
+- [Which controls keep API spending predictable?](#which-controls-keep-api-spending-predictable)
+- [Frequently Asked Questions](#frequently-asked-questions)
+
+## How does OpenAI API billing work?
+
+OpenAI API billing is usage-based, and the amount depends on the model, token category, and endpoint behavior. Input tokens, output tokens, and cached input can have different prices, so a single “tokens per request” assumption is incomplete.
+
+- **Input tokens:** system instructions, prompts, history, retrieved documents, and tool results.
+- **Output tokens:** the model’s completion or structured response.
+- **Cached input tokens:** eligible repeated prompt content recognized by caching.
+- **Workflow traffic:** calls for retrieval, routing, validation, formatting, or tools.
+
+The current rate card is the source of truth. Check [OpenAI’s live pricing documentation](https://platform.openai.com/docs/pricing) before approving a budget because model availability and rates change.
+
+A single user question can trigger a classifier, retrieval, answer generation, citation validation, and a formatting retry. Budgeting only the final answer hides most of the workload.
+
+## Where can you find the current model rates?
+
+Use the live OpenAI pricing page for every estimate, and record the date and model snapshot used. Avoid copying a rate from an old article, spreadsheet, or code comment into a procurement decision.
+
+1. List the exact models the production path may call.
+2. Separate input, cached-input, and output prices.
+3. Identify endpoint or feature-specific processing terms.
+4. Record the model fallback path.
+5. Recalculate after changing models, prompts, context, or traffic.
+
+The cheapest listed model is not automatically the cheapest production choice. A lower unit rate can be offset by longer prompts, more retries, weaker structured-output reliability, or correction calls.
+
+For normalized comparisons, use [AI model comparison](/blog/ai-model-comparison), [Anthropic API pricing](/blog/anthropic-api-pricing), [Gemini API pricing](/blog/gemini-api-pricing), and [Together AI pricing](/blog/together-ai-pricing).
+
+![Token categories and model calls mapped in an API cost workflow.](https://images.pexels.com/photos/12969403/pexels-photo-12969403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+*Photo by [AlphaTradeZone](https://www.pexels.com/@alphatradezone) on [Pexels](https://www.pexels.com)*
+
+## How do you calculate an OpenAI API cost estimate?
+
+Multiply each token category by its current rate, then add every model call required by the workflow. The formula must be explicit enough for someone else to audit.
+
+`request cost = (input tokens × input rate) + (cached input tokens × cached-input rate) + (output tokens × output rate)`
+
+`monthly workload cost = request cost × production requests + evaluation requests + retries + background jobs`
+
+| Cost component | Measurement | Why it matters |
+|---|---|---|
+| Input tokens | Tokens sent per call | Long instructions and context raise spend |
+| Cached input | Eligible repeated tokens | Cache hits can reduce effective input cost |
+| Output tokens | Tokens generated | Verbose answers can dominate cost |
+| Calls per task | Router, generator, validator, tools | One action may trigger many calls |
+| Retry rate | Failed or repeated calls | Reliability problems become billable |
+| Evaluation traffic | Test and review requests | Quality work consumes API capacity |
+
+Calculate multiple models separately. For branching workflows, use a weighted average based on observed percentages. The useful unit is cost per completed business task—not cost per prompt.
+
+For support, define monthly conversations `U`, calls per conversation `C`, average input/output tokens `I` and `O`, and live rates `rI` and `rO`: `U × C × ((I × rI) + (O × rO))`. Add the observed retry factor.
+
+For document extraction, separate extraction, summary, and validation calls. For a brand-visibility audit, model audits × questions × model calls × retry/validation multiplier. These examples expose the workload without inventing a current rate.
+
+## How does prompt caching change the estimate?
+
+Prompt caching can lower the effective cost of repeated input, but only when request structure creates reusable prefixes and the workload produces cache hits. Measure cached-token telemetry instead of assuming every repeated instruction is discounted.
+
+Caching is relevant for stable system instructions, schemas, policy text, tool definitions, and reused reference material. Put variable content after the stable prefix where possible; a changing timestamp or request ID at the beginning can reduce reuse.
+
+OpenAI explains caching and cached-token accounting in its [prompt caching documentation](https://openai.com/index/api-prompt-caching/). Track total input tokens, cached tokens, hit ratio, and cost per completed task. Cache performance is an observed workload property, not a promised blanket discount.
+
+## When should you use the Batch API?
+
+Use Batch for asynchronous work that can wait within the documented processing window. OpenAI documents a 50% discount and a 24-hour completion window in the [Batch API reference](https://platform.openai.com/docs/api-reference/batch/object?api-mode=responses).
+
+Good fits include nightly evaluations, bulk classification, historical backfills, content enrichment, offline scoring, and periodic reports. It is a poor fit for checkout, live support, or any experience where the user is waiting.
+
+Model the discount against job tracking, partial-failure handling, result matching, and reprocessing. Cheaper processing can still produce an expensive system if reconciliation is fragile.
+
+## What hidden workload costs should you include?
+
+Count routing, retrieval, tool use, validation, retries, evaluation, and background traffic—not just visible user requests. Those surrounding calls often explain the gap between a spreadsheet estimate and the invoice.
+
+- Router calls choosing a model or workflow.
+- Retrieval calls compressing context.
+- Tool-result parsing and confirmation.
+- Structured-output repair.
+- Retries after timeouts.
+- Human-review samples and regression tests.
+- Development prompt experiments.
+- Index or report refresh jobs.
+
+Conversation history and retrieved pages also grow input over time. Review OpenAI’s [endpoint data controls](https://platform.openai.com/docs/models/default-usage-policies-by-endpoint) alongside cost, because data governance belongs in procurement rather than as a post-launch surprise.
+
+![An engineer reviewing hidden calls, retries, and API spending controls.](https://images.pexels.com/photos/34804017/pexels-photo-34804017.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+*Photo by [Mizuno K](https://www.pexels.com/@mizunokozuki) on [Pexels](https://www.pexels.com)*
+
+## Which controls keep API spending predictable?
+
+Predictable spending comes from measurement and limits: log token categories, cap output length, monitor retries, and separate production from experiments. A total monthly spend chart arrives too late to explain what changed.
+
+- **Request:** maximum output, timeouts, idempotency, bounded tool loops.
+- **Workflow:** maximum calls, retry budgets, fallback rules, context limits.
+- **Organization:** project budgets, alerts, model allowlists, scheduled evaluations.
+
+Track cost per completed task, token categories, calls per task, retry rate, cache-hit rate, evaluation spend, and fallback share. When cost rises, isolate whether traffic, prompt length, output, cache behavior, routing, retries, or a background process changed.
+
+For the business outcome behind the calculation, see [how AI assistants choose brands](/blog/how-ai-assistants-choose-brands). Spend is useful only when it produces a measurable result.
+
+## Frequently Asked Questions
+
+### Are there free credits for the OpenAI API?
+
+Credits, promotions, and eligibility vary. Check billing in your API platform account rather than assuming a ChatGPT offer applies. Treat any credit as temporary in a recurring budget.
+
+### Does a ChatGPT subscription include API usage?
+
+No. A ChatGPT plan and API billing are separate products. API use is billed through the platform under the applicable pricing and account settings.
+
+### How much can the Batch API save?
+
+OpenAI documents a 50% discount for eligible Batch processing with a 24-hour window. Actual savings depend on whether work can be asynchronous and whether reconciliation costs offset part of the discount.
+
+### How can I estimate my monthly API bill?
+
+Start with monthly completed tasks, calls per task, token categories, cached share, retries, evaluations, and current model rates. Calculate each workflow separately and revisit it whenever orchestration changes.
