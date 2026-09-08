@@ -1,6 +1,7 @@
 "use client";
 
 import { Trophy, AlertTriangle, CheckCircle2, XCircle, Minus } from "lucide-react";
+import Markdown from "markdown-to-jsx";
 import type { CompetitorStat } from "@/lib/engine/types";
 import { HighlightedText } from "./highlight";
 import { Lightbox, MoreAffordance, firstSentences, useLightbox } from "./lightbox";
@@ -82,6 +83,9 @@ export function QnaCard({
   // 灯箱里放最完整的那份;卡片上只留 1-2 句。折叠态出现整段原文是站长指出的问题。
   const fullText = (full || excerpt || "").trim();
   const hasMore = fullText.length > 0;
+  // 引擎原文在落库时最多保留 6000 字符。达到上限说明用户看到的可能不是完整回答,
+  // 不能再静默把半截单词/句子当成完整研究结果。
+  const answerWasTrimmed = Boolean(full && full.length >= 6000);
   const teaser = firstSentences(excerpt || fullText);
 
   const card = (
@@ -138,14 +142,24 @@ export function QnaCard({
       </button>
 
       <Lightbox open={open} onClose={hide} eyebrow={mentioned ? "Mentioned" : "Absent"} title={question}>
-        {/* 段落原样保留 —— 这是 AI 的原话,重排会改变它的语气 */}
-        <div className="space-y-3 text-[15px] leading-relaxed text-ink/75">
-          {fullText.split(/\n{2,}/).map((para, i) => (
-            <p key={i} className="whitespace-pre-wrap">
-              <HighlightedText text={para} brand={brand} competitors={competitors} />
-            </p>
-          ))}
+        {/* 原文中的标题、表格、链接必须按 Markdown 语义呈现,不能把模型标记直接倒给用户。 */}
+        <div className="overflow-x-auto text-[15px] leading-relaxed text-ink/75 [&_a]:text-iris [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:font-display [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ol]:space-y-1 [&_p]:mb-3 [&_table]:min-w-full [&_table]:border-collapse [&_td]:border [&_td]:border-ink/10 [&_td]:p-2 [&_th]:border [&_th]:border-ink/10 [&_th]:bg-ink/[0.03] [&_th]:p-2 [&_ul]:mb-3 [&_ul]:space-y-1">
+          <Markdown
+            options={{
+              forceBlock: true,
+              overrides: {
+                a: { props: { rel: "noopener noreferrer", target: "_blank" } },
+              },
+            }}
+          >
+            {fullText}
+          </Markdown>
         </div>
+        {answerWasTrimmed && (
+          <p role="note" className="mt-5 border-t border-amber-500/20 pt-4 text-sm leading-relaxed text-amber-700">
+            This answer was shortened for display because the source response exceeded the report limit.
+          </p>
+        )}
         {note && (
           <p className="mt-5 border-t border-ink/[0.06] pt-4 text-sm text-ink/50">{note}</p>
         )}
