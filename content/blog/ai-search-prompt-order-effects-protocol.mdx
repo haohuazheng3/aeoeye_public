@@ -1,0 +1,115 @@
+---
+title: "AI Search Prompt Order Effects: A Balanced Testing Protocol"
+description: "A practical protocol for testing whether prompt order changes AI-search answers, with balanced permutations, seeded randomization, duplicate checks, and honest aggregation."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search prompt order", "prompt order effects", "LLM prompt sensitivity", "AI search testing protocol", "permutation testing"]
+faqs: [{"q":"What are AI search prompt order effects?","a":"They are changes in an AI-search answer that occur when the same prompt components, examples, or questions appear in a different sequence. This protocol tests the effect operationally; it does not assume that every engine or query has an effect."},{"q":"How should I test prompt order fairly?","a":"Keep wording, engine, model settings, locale, and retrieval conditions fixed; create balanced permutations; randomize run order with a recorded seed; block runs across time; and report every exclusion and duplicate."},{"q":"Can prompt order testing prove that an engine prefers my brand?","a":"No. It can describe differences in a defined prompt panel and runtime. It cannot prove a universal preference, causal sales lift, or what all users see, especially when search indexes and interfaces change."},{"q":"What should I report from a prompt-order experiment?","a":"Report the prompt components, permutations, seed, blocks, runtime, duplicate rule, outcome coding, per-permutation counts, aggregation method, missing runs, and limitations. Preserve raw answers so another reviewer can audit the result."}]
+image: {"url":"https://images.pexels.com/photos/771317/pexels-photo-771317.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop and notebook representing a controlled AI search prompt test.","photographer":"Min An","photographerUrl":"https://www.pexels.com/@minan1398"}
+sources: [{"label":"NIST/SEMATECH e-Handbook — Completely randomized designs","url":"https://www.itl.nist.gov/div898/handbook/pri/section3/pri331.htm"},{"label":"ACL 2022 — Fantastically Ordered Prompts and Where to Find Them","url":"https://aclanthology.org/2022.acl-long.556/"},{"label":"EMNLP 2025 — Flaw or Artifact? Rethinking Prompt Sensitivity in Evaluating LLMs","url":"https://aclanthology.org/2025.emnlp-main.1006/"},{"label":"NAACL 2025 — What Did I Do Wrong? Quantifying LLMs’ Sensitivity and Consistency","url":"https://aclanthology.org/2025.naacl-long.73/"},{"label":"Findings of EMNLP 2024 — POSIX: A Prompt Sensitivity Index","url":"https://aclanthology.org/2024.findings-emnlp.852/"}]
+---
+
+Prompt order can change an AI-search observation, but one surprising answer is not evidence of a general rule. A credible test is a balanced, seeded comparison in which the same components appear in multiple orders and runtime choices are visible.
+
+This is AEOeye’s operational protocol, not an official standard. It adapts experimental-design ideas to answer engines, where retrieval, personalization, model updates, and interface behavior add noise. Use it to make a narrow claim inspectable, not to promise a universal effect size.
+
+## Table of contents
+
+- [What exactly is being tested?](#what-exactly-is-being-tested)
+- [Why does order need a balanced design?](#why-does-order-need-a-balanced-design)
+- [How do you build the run plan?](#how-do-you-build-the-run-plan)
+- [How do you detect duplicates and carryover?](#how-do-you-detect-duplicates-and-carryover)
+- [How should results be aggregated?](#how-should-results-be-aggregated)
+- [Copyable run sheet](#copyable-run-sheet)
+- [Hypothetical example](#hypothetical-example)
+- [What are the limitations?](#what-are-the-limitations)
+- [FAQs](#faqs)
+
+![A laptop displaying a structured analysis workspace for testing AI-search responses.](https://images.pexels.com/photos/7864382/pexels-photo-7864382.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [Min An](https://www.pexels.com/@minan1398) on [Pexels](https://www.pexels.com).* 
+
+## What exactly is being tested?
+
+The treatment is sequence, not “prompt quality.” Define the fixed components first: for example, a role instruction, three toy evidence snippets, a buyer question, and an output format. A permutation is one ordered arrangement of those components. The outcome might be brand mention, cited URL, recommendation position, answer completeness, or a predeclared quality label.
+
+Keep the estimand small: “Within this engine, locale, date, and prompt panel, how does outcome Y differ across component orders?” Do not change wording, temperature, search toggle, account state, or model between orders. The [AI search audit methodology template](/blog/ai-search-audit-methodology-template) helps record runtime fields.
+
+Research gives a reason to test rather than assume. The ACL study [Fantastically Ordered Prompts](https://aclanthology.org/2022.acl-long.556/) reports that few-shot example order affected classification performance and that a good permutation was not reliably transferable across models. That result is not a prediction about your search experiment.
+
+## Why does order need a balanced design?
+
+Balance prevents one order from being confounded with repetition, time, or a particular prompt family. NIST’s guidance on completely randomized designs defines equal replication across factor levels and recommends random run sequences; those principles map cleanly to permutation testing.
+
+For *k* components, all *k!* permutations may be too expensive. Choose a declared balanced subset: each component should occupy each position equally often when feasible, and each selected permutation should receive the same replicates. With four components and eight runs, this gives positions comparable exposure; it does not remove all interactions.
+
+Use blocks when conditions can drift. A block may be a collection window, browser session, locale, or engine account. Put every permutation into each block, or use a balanced incomplete design when cost prevents that. Compare orders within blocks before pooling across them. A block label is not a nuisance to hide; it is part of the evidence.
+
+## How do you build the run plan?
+
+Build the plan in this order:
+
+1. **Freeze the question and codebook.** Define what counts as a mention, citation, rank, refusal, missing response, and duplicate. Decide whether “not applicable” is distinct from zero.
+2. **Create candidate permutations.** Generate every permutation for small *k*, or sample a balanced subset for larger *k*. Store a canonical component ID, not only rendered text.
+3. **Assign a random seed.** Use a deterministic random-number generator, record the seed and software version, then shuffle the run list. NIST notes that computer randomization is typical; reproducibility requires preserving the input list and seed too.
+4. **Replicate and block.** Give each permutation the same planned replication count. Distribute runs across blocks and avoid putting all copies of one order back-to-back.
+5. **Capture the runtime.** Save engine, exposed model, URL or API, timestamp, timezone, locale, device, account state, search setting, prompt hash, response, visible citations, and screenshot or response ID where allowed.
+
+Randomization is not a license to improvise. If a request is retried, preserve the failure, reason, and whether the replacement inherited the same order. If the engine changes mid-block, flag the block rather than quietly merging it.
+
+The 2025 NAACL paper [What Did I Do Wrong?](https://aclanthology.org/2025.naacl-long.73/) distinguishes sensitivity—prediction changes across rephrasings—from consistency within related items. Borrow the distinction: an order contrast is sensitivity evidence; consistency asks whether equivalent prompt families behave similarly.
+
+## How do you detect duplicates and carryover?
+
+Duplicate detection protects the denominator. Normalize whitespace and URLs, retain the raw answer, and compute a fingerprint for exact or near-exact responses. Flag identical prompt hashes, repeated response IDs, copied citation lists, and accidental reruns. A duplicate is diagnostic, but should not count as fresh evidence unless your protocol defines the unit as a cached response.
+
+Carryover is different: it is dependence caused by sequence. A persistent session may retain conversation context, cookies, retrieval cache, or a prior answer. Prefer a fresh session when independence is the goal. If a fresh session is impossible, alternate orders, log session IDs, insert a declared reset, and treat session as a block or covariate. Never describe sequential responses as independent merely because they have different timestamps.
+
+For each response, record `session_id`, `block_id`, `run_index`, `permutation_id`, and `duplicate_of`. The run index lets reviewers inspect whether an apparent order effect is really “the first few calls looked different.”
+
+## How should results be aggregated?
+
+Aggregate at the permutation level first, then summarize across blocks. For a binary outcome, report successes and eligible runs for every order. For a rank, preserve ties and “unranked” as not applicable; do not turn missing rank into last place. For answer text, use a predeclared rubric or blinded coding where practical.
+
+A simple descriptive contrast is the difference between two order-specific proportions. For more than two orders, show the full table and a global comparison only if the design and sample support it. Block-aware summaries can report each block’s contrast plus a pooled estimate weighted by eligible runs. Include missingness and duplicate exclusions beside every denominator.
+
+Do not hunt through outcomes until one looks impressive. Predeclare a primary outcome, label secondary outcomes, and report all tested permutations. The 2025 EMNLP study [Flaw or Artifact?](https://aclanthology.org/2025.emnlp-main.1006/) warns that rigid scoring can exaggerate sensitivity when equivalent answers are marked different. Model-assisted judging may reduce that artifact, but introduces rubric and reviewer risks.
+
+The [POSIX study](https://aclanthology.org/2024.findings-emnlp.852/) treats sensitivity as measurable and notes that template changes and paraphrases can affect task types differently. For AI search, separate template order from wording changes: otherwise your “order” treatment is contaminated. Use the [AI answer claim taxonomy](/blog/ai-answer-claim-type-taxonomy) to keep outcome labels consistent. For context, pair it with [how to measure AI visibility](/blog/measuring-ai-visibility).
+
+## Copyable run sheet
+
+Paste this block into a research issue before collection:
+
+```text
+Question: [one sentence; audience, engine, and outcome]
+Components: [IDs and exact rendered text]
+Candidate orders: [all permutations or balanced subset rule]
+Replicates per order: [n]
+Blocks: [definition and assignment rule]
+Randomization: [PRNG, seed, software version]
+Runtime: [engine/model, interface, locale, device, account, search state]
+Session policy: [fresh session/reset/carryover handling]
+Duplicate rule: [fingerprint, response ID, prompt hash, exclusion policy]
+Primary outcome: [coding rule and eligible denominator]
+Secondary outcomes: [list, if any]
+Missing/failure policy: [retry and exclusion rules]
+Aggregation: [per-order, per-block, pooled summary]
+Disclosure: [what this design cannot establish]
+```
+
+## Hypothetical example
+
+Imagine four toy components—role, two fictional product snippets, and an output format—tested in six selected orders. A team assigns two replicates per order across three blocks, shuffles with seed `20260910`, and captures 36 planned responses. It codes whether “Northstar” appears and whether a source link is attached.
+
+The report might say: “In this 36-run panel, order P3 produced 7 mentions among 6 eligible runs” only if the denominator is corrected—seven successes out of six is impossible. The safe version is “P3 produced 4 of 6 mentions; P1 produced 2 of 6.” Then show each block, exclusions, duplicate flags, and raw-answer references. This toy example demonstrates bookkeeping, not an expected effect size or a claim about any real brand.
+
+## What are the limitations?
+
+This protocol cannot establish a universal prompt-order law, a model’s internal mechanism, a ranking factor, causal conversion, or every buyer’s experience. Search indexes, retrieval candidates, safety systems, personalization, rate limits, and model versions may change during collection. Balance reduces confounding; it does not turn a changing service into a laboratory instrument.
+
+Small samples can miss variation, while large samples can make trivial differences sound important. Report the exact panel, context, uncertainty approach, and evidence level. Repeat on a frozen panel before claiming change, and label a new prompt set as a new study version. For a baseline, [run a free AEOeye audit](/#audit), then keep its date and engine context beside this run sheet.
+
+## FAQs
+
+The four answers in the frontmatter are exposed as structured FAQ data. They describe a transparent operational test, not an official standard or a guarantee that an answer engine will select a particular brand.

@@ -1,0 +1,111 @@
+---
+title: "AI Citation Accessibility Status Codebook: What Reviewers Can Actually Open"
+description: "A practical, citation-first codebook for recording whether reviewers can open, read, and verify AI-cited sources without confusing HTTP status with evidence quality."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI citation accessibility", "citation status codebook", "AI search audit evidence", "source accessibility", "AEO review"]
+faqs: [{"q":"Does a 403 mean an AI-cited source does not exist?","a":"No. A 403 means the server understood the request but refused to authorize it. The resource may exist; record the refusal and do not infer that the content is absent."},{"q":"Does a 200 status prove that a citation supports an answer?","a":"No. A 200 only describes a successful response at the protocol layer. Reviewers still need readable, relevant evidence that entails the answer's claim."},{"q":"Should reviewers bypass a paywall or access control?","a":"No. Do not bypass authentication, paywalls, robots policies, rate limits, or other controls. Preserve the URL, observed state, and permitted metadata, then label the evidence accordingly."},{"q":"Is this accessibility codebook an official standard?","a":"No. It is AEOeye's operational vocabulary, informed by linked HTTP, robots, accessibility, paywall, and web-archiving references. Teams should document their own thresholds and adaptations."}]
+image: {"url":"https://images.pexels.com/photos/8439082/pexels-photo-8439082.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Reviewer inspecting whether a digital source is accessible and readable on a laptop.","photographer":"Pavel Danilyuk","photographerUrl":"https://www.pexels.com/@pavel-danilyuk"}
+sources: [{"label":"RFC 9110: HTTP Semantics","url":"https://www.rfc-editor.org/rfc/rfc9110"},{"label":"RFC 6585: Additional HTTP Status Codes","url":"https://www.rfc-editor.org/rfc/rfc6585"},{"label":"RFC 9309: Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309.html"},{"label":"Google: Paywalled Content","url":"https://developers.google.com/search/docs/appearance/structured-data/paywalled-content"},{"label":"W3C WCAG 2.2","url":"https://www.w3.org/TR/WCAG22/"},{"label":"RFC 7089: HTTP-Based Time-Based Access","url":"https://www.rfc-editor.org/rfc/rfc7089"}]
+---
+
+An AI citation is accessible only when a permitted reviewer can reach the cited representation, read the relevant content, and connect that content to the answer's claim. A status code is a clue, not a verdict: `403` does not mean nonexistent, and `200` does not prove evidence support. This codebook gives AEOeye teams a consistent operational label for what they can actually inspect.
+
+It is an implementation aid, not an official standard. HTTP semantics in [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), supplementary statuses in [RFC 6585](https://www.rfc-editor.org/rfc/rfc6585), the [Robots Exclusion Protocol](https://www.rfc-editor.org/rfc/rfc9309.html), [Google's paywalled-content guidance](https://developers.google.com/search/docs/appearance/structured-data/paywalled-content), [WCAG 2.2](https://www.w3.org/TR/WCAG22/), and [Memento](https://www.rfc-editor.org/rfc/rfc7089) inform the vocabulary. None of those documents defines an AI-citation review grade.
+
+## Table of contents
+
+- [What does “accessible evidence” mean?](#what-does-accessible-evidence-mean)
+- [Which status should a reviewer assign?](#which-status-should-a-reviewer-assign)
+- [How do authentication and paywalls differ?](#how-do-authentication-and-paywalls-differ)
+- [What happens when JavaScript hides the evidence?](#what-happens-when-javascript-hides-the-evidence)
+- [How should robots, geography, and rate limits be recorded?](#how-should-robots-geography-and-rate-limits-be-recorded)
+- [How should redirects, timeouts, and soft errors be handled?](#how-should-redirects-timeouts-and-soft-errors-be-handled)
+- [What should a readable evidence note contain?](#what-should-a-readable-evidence-note-contain)
+
+## What does “accessible evidence” mean?
+
+Readable evidence is the smallest permitted representation that lets a reviewer test the cited claim. It can be visible page text, an authorized API response, a transcript, a screenshot with meaningful context, or a time-specific archive reference; a URL and green browser icon alone are not evidence.
+
+Use three separate judgments:
+
+1. **Reachability:** could the reviewer request or open the cited location under the stated conditions?
+2. **Readability:** was the relevant text or equivalent meaningful content available, including content exposed after allowed rendering?
+3. **Support:** does that content actually entail, qualify, or contradict the answer's claim?
+
+This separation prevents a transport result from becoming a factual conclusion. The [AI citation data schema](/blog/ai-citation-data-schema) is useful for storing raw URL, resolved URL, status, evidence reference, and support label as different fields.
+
+![Reviewer comparing a rendered web page with the claim an AI answer cited.](https://images.pexels.com/photos/9572404/pexels-photo-9572404.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Which status should a reviewer assign?
+
+Assign one primary code after recording the observation, then add a short reason. The code describes review conditions, not the publisher's quality or intent.
+
+| Code | Use when | Minimum evidence note |
+|---|---|---|
+| `READABLE` | Relevant content is reachable and reviewable | URL, final URL, time, excerpt or capture reference, support judgment |
+| `AUTH_REQUIRED` | Login, subscription identity, or session is required | Status or UI prompt, public/private boundary, no credential sharing |
+| `PAYWALL` | Payment or metered access blocks the relevant content | Paywall state, visible preview if any, permitted metadata |
+| `JS_REQUIRED` | Initial response lacks the content but allowed browser rendering reveals it | Request mode, rendered state, relevant text or screenshot |
+| `GEO_RESTRICTED` | Content varies by region or is refused in the reviewer's location | Locale/region, observed message or status, time |
+| `ROBOTS_POLICY` | Robots rules or publisher instructions limit the permitted fetch | Rules location, agent context, requested URL; do not infer absence |
+| `RATE_LIMITED` | Server throttles or rejects requests after frequency or quota limits | Status such as 429, `Retry-After` if present, request timing |
+| `TIMEOUT` | No usable response arrived within the declared limit | Timeout threshold, attempt count, network context |
+| `REDIRECTED` | The cited URL resolves elsewhere before review | Full redirect chain, final URL, whether claim was checked there |
+| `SOFT_ERROR` | A nominal response contains an error page, empty shell, consent wall, or unrelated content | Status, page title/text, why it is not usable evidence |
+| `UNREADABLE` | A response exists but relevant content cannot be meaningfully read | Media/rendering issue, available alternative, uncertainty |
+| `NOT_CHECKED` | Review was not attempted or was outside scope | Explicit reason; never present as inaccessible |
+
+The first applicable blocker is not always the most informative label. For example, a page can be `AUTH_REQUIRED` and also return 200. Record the transport facts separately, choose the blocker that explains why claim review stopped, and preserve the uncertainty. The [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provides a capture sequence for this purpose.
+
+## How do authentication and paywalls differ?
+
+Authentication asks “who are you?”; a paywall asks whether the account or transaction is entitled to the content. A login form, session cookie, or 401/403 response supports `AUTH_REQUIRED`; a subscription prompt, meter, or purchase gate supports `PAYWALL`. A publisher can use both.
+
+Do not test with someone else's account, guess credentials, evade a meter, or use a workaround intended to defeat a control. Instead, record what an ordinary permitted reviewer sees. If a public abstract supports only part of the claim, label the accessible abstract as evidence and the blocked full text as unavailable; do not promote the citation to fully supported.
+
+Google's structured-data guidance distinguishes paywalled content from hidden content and describes how publishers can identify subscription sections. That guidance helps interpret page markup, but its presence does not make blocked text readable to your reviewer.
+
+## What happens when JavaScript hides the evidence?
+
+`JS_REQUIRED` means the content was not present in the initial representation but became readable after normal, permitted client-side execution. It does not mean “JavaScript is bad,” and it does not authorize automation that defeats a challenge, login, or publisher control.
+
+Record the browser or API mode, whether scripts were enabled, the final rendered text, and any consent or interaction required. If rendering produces only a spinner, empty shell, or generic error, use `SOFT_ERROR` or `UNREADABLE`, not `READABLE`. WCAG 2.2 is a useful accessibility reference for perceivable, operable, understandable, and robust content, but WCAG conformance is not the same as citation support.
+
+## How should robots, geography, and rate limits be recorded?
+
+Robots policy, regional restriction, and throttling are different causes with different implications. RFC 9309 describes how crawlers interpret a robots file; it does not declare that a page is nonexistent, nor does it require a reviewer to bypass a publisher's policy. Store the rules URL, user-agent context, and time checked.
+
+For `GEO_RESTRICTED`, preserve the review locale and the message or status observed. Do not silently switch regions and call the result equivalent. For `RATE_LIMITED`, record 429 or another server signal, `Retry-After` when supplied, and the request cadence. Stop or follow the stated retry guidance; do not increase concurrency to force access.
+
+## How should redirects, timeouts, and soft errors be handled?
+
+A redirect is a path, not proof that the destination is equivalent. Preserve the original cited URL and every allowed hop, then review the final representation. If the destination changes topic, language, date, or access conditions, mark the evidence accordingly and explain the mismatch.
+
+A timeout means the declared observation window ended without usable evidence. It is not evidence that the server was down or that the source lacked the claim. A soft error is trickier: a 200 page can be a “not found” template, bot-check screen, consent overlay, or empty JavaScript shell. Read the body and title before assigning `READABLE`.
+
+For time-sensitive review, an archive or Memento response can identify a representation around a datetime under RFC 7089. Record the archive reference and retrieval time; an archive pointer still needs a readable, relevant representation.
+
+## What should a readable evidence note contain?
+
+Write notes so another reviewer can reproduce the decision without guessing. Keep raw observations separate from interpretation, and connect the note to the exact answer claim.
+
+```text
+ACCESSIBILITY_REVIEW v1.0
+source_url: https://example.org/article
+resolved_url: https://example.org/article
+reviewed_at: 2026-09-10T14:30:00Z
+locale: en-US
+transport_status: 200
+primary_code: READABLE
+render_mode: browser, scripts enabled
+evidence_ref: screenshot-or-authorized-export-id
+claim_review: insufficient — page discusses the topic but does not establish the quoted number
+uncertainty: page may change; no archive captured
+controls_respected: yes
+```
+
+A `READABLE` code should still be paired with `supported`, `contradicted`, or `insufficient`. The [AI answer citation failure taxonomy](/blog/ai-answer-citation-failure-taxonomy) helps name a mismatch without hiding it. For a live audit, [run an AEOeye audit](/#audit) and retain the source status next to each engine observation.
+
+The practical rule is simple: report what a permitted reviewer could open and read, then separately report what that evidence supports. That discipline makes AI citation audits more honest, comparable, and useful.

@@ -1,0 +1,113 @@
+---
+title: "AI Search Sample Size Planning: Prompts, Repeats, and Confidence"
+description: "A practical, citation-first guide to planning AI search audits with clear sampling units, proportion margin of error, repeat controls, and honest confidence claims."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI search sample size", "AI search audit sampling", "AEO confidence interval", "prompt repeatability", "AI visibility measurement", "margin of error for proportions", "AI search methodology"]
+faqs: [{"q":"What is the right sample size for an AI search audit?","a":"There is no universal minimum. The right size depends on the estimand, expected proportion, desired margin of error, confidence level, number of engines, prompt coverage, and how much dependence exists between repeats."},{"q":"Should I sample prompts, brands, or engine responses?","a":"Plan each unit separately. Prompts define intent coverage, brands define organizational coverage, engines define surface coverage, and repeats reveal volatility. A response-level count alone can overstate precision when observations share prompts or brands."},{"q":"How do I calculate a proportion margin of error?","a":"For a simple random sample, use MOE = z × √[p(1−p)/n]. Use the desired confidence critical value z, an expected proportion p, and the number of independent observations n; when p is unknown, 0.50 is the conservative planning value."},{"q":"Can repeated AI answers be treated as independent?","a":"Not automatically. Repeats from the same prompt, brand, engine, model, or time window may be correlated or clustered. Report the repeat design, analyze within-cluster variation, and avoid presenting a naive binomial interval as definitive."}]
+image: {"url":"https://images.pexels.com/photos/7989092/pexels-photo-7989092.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst planning sample sizes and confidence targets on a whiteboard.","photographer":"Mikhail Nilov","photographerUrl":"https://www.pexels.com/@mikhail-nilov"}
+sources: [{"label":"NIST Engineering Statistics Handbook — Confidence Intervals for Proportions","url":"https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm"},{"label":"NIST Engineering Statistics Handbook — Confidence Limits for Proportions","url":"https://www.itl.nist.gov/div898/handbook/prc/section2/prc242.htm"},{"label":"NIST Engineering Statistics Handbook — Basic Definitions and Concepts","url":"https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm"},{"label":"NIST Engineering Statistics Handbook — Bootstrap Confidence Intervals","url":"https://www.itl.nist.gov/div898/handbook/prc/section2/prc264.htm"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+AI search sample size planning is the design decision that connects an audit result to a defensible claim. There is no single minimum number of prompts, brands, engines, or repeats that makes an AI visibility estimate “statistically valid”; choose the sample around the question you want answered, then disclose the dependence and selection rules that limit confidence.
+
+## Table of contents
+
+- [What exactly are you sampling?](#what-exactly-are-you-sampling)
+- [Which question should the sample answer?](#which-question-should-the-sample-answer)
+- [How does the proportion margin of error work?](#how-does-the-proportion-margin-of-error-work)
+- [What does a practical plan look like?](#what-does-a-practical-plan-look-like)
+- [How should repeats be designed?](#how-should-repeats-be-designed)
+- [What limitations belong in the report?](#what-limitations-belong-in-the-report)
+- [How can a team document the plan?](#how-can-a-team-document-the-plan)
+
+## What exactly are you sampling?
+
+Start by naming the observation unit. An “AI answer” is an output record, but it is not always an independent observation: ten answers can share one prompt, brand, engine, model, and time window. The sampling frame is the defined set from which those records could have been selected; NIST distinguishes that design foundation from the later calculation of an interval ([NIST definitions](https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm)).
+
+| Unit | What it represents | Example planning question | Common mistake |
+|---|---|---|---|
+| Prompts | Buyer intents or query wording | Which intents are covered? | Treating near-duplicate prompts as new demand |
+| Brands | Organizations or domains | How broadly does the finding generalize? | Counting repeat audits as new brands |
+| Engines | AI answer surfaces or providers | Does visibility differ by engine? | Pooling engines with different behavior |
+| Repeats | Variation across runs or times | How volatile is this answer? | Treating repeats as independent brands |
+
+The units can be crossed: 12 brands × 20 prompts × 4 engines × 3 repeats creates 2,880 planned answer records. That is a workload description, not automatically an effective sample size. Decide which dimension is the primary sample and which dimensions are strata, clusters, or repeated measures.
+
+![Analyst comparing prompt cohorts and repeat runs on a laptop dashboard.](https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200)
+
+## Which question should the sample answer?
+
+Write the estimand—the quantity you intend to estimate—in one sentence before choosing n. For example: “the proportion of eligible buyer prompts in which a brand is cited by a specified engine during a defined week.” That sentence fixes the denominator and prevents a convenient answer count from becoming an ambiguous “visibility rate.”
+
+Useful estimands include:
+
+- **Mention or citation proportion:** the share of answer records meeting a predeclared rule.
+- **Top-k placement proportion:** the share placing a brand within a defined recommendation position.
+- **Prompt coverage:** the share of intent categories represented by at least one prompt.
+- **Repeat stability:** the share of repeated runs producing the same classification.
+
+Map intent before sampling. The [AI search prompt taxonomy](/blog/ai-search-prompt-taxonomy) can help separate discovery, comparison, problem-solving, and purchase prompts. Stratifying by intent is usually more informative than drawing a large convenience set of prompts that all ask the same thing.
+
+## How does the proportion margin of error work?
+
+For a simple random sample of independent binary observations, the familiar planning formula is:
+
+**MOE = z × √[p(1 − p) / n]**
+
+Here, **MOE** is the half-width of the approximate confidence interval, **z** is the critical value for the selected confidence level (about 1.96 for 95%), **p** is the anticipated proportion, and **n** is the number of independent observations. NIST describes interval construction for a binomial proportion and notes that exact or adjusted methods can be preferable when counts are small ([proportion intervals](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm), [confidence limits](https://www.itl.nist.gov/div898/handbook/prc/section2/prc242.htm)).
+
+If p is unknown, planning with **p = 0.50** produces the largest variance and therefore a conservative n. Rearranging gives **n = z² × p(1 − p) / MOE²**. Always round upward, and remember that this calculation describes a simple random-sampling scenario—not a guarantee for nonrandom prompt sets or correlated AI outputs.
+
+**Hypothetical example 1:** Suppose a team wants a 95% interval with ±5 percentage points and has no prior estimate. Using p = 0.50: n = 1.96² × 0.25 / 0.05² = 384.16, so the plan rounds up to **385 independent observations**. If those are 385 answer records generated by only 20 repeated prompts, the nominal calculation overstates independent evidence.
+
+**Hypothetical example 2:** Suppose prior, relevant work suggests p ≈ 0.20 and the team accepts ±7 points at 95%. n = 1.96² × 0.20 × 0.80 / 0.07² ≈ 126.4, so plan for **127 independent observations** under the same simple assumptions. This is hypothetical planning arithmetic, not a measured AI search result.
+
+For small samples or proportions near 0 or 1, use a method designed for binomial proportions rather than relying on a symmetric normal approximation. A bootstrap can be useful for complex statistics, but resampling individual rows does not solve clustered prompts or brands; resample at the meaningful cluster level when that matches the design ([NIST bootstrap guidance](https://www.itl.nist.gov/div898/handbook/prc/section2/prc264.htm)).
+
+## What does a practical plan look like?
+
+A defensible plan balances coverage, cost, and repeatability. Suppose the goal is a directional comparison across four engines for one brand: choose 24 prompts across six intent categories, run each prompt twice per engine, and predeclare the mention rule. The resulting 192 answer records provide structured coverage and a volatility check. They do not support a claim about all brands or all possible prompts.
+
+Use the following worksheet before execution:
+
+```text
+Primary decision / estimand:
+Population or sampling frame:
+Eligible brands and selection rule:
+Intent strata and prompts per stratum:
+Engines, models, and settings:
+Repeats per prompt × engine:
+Primary unit of analysis:
+Binary outcome definition (yes/no):
+Expected p (or 0.50 if unknown):
+Confidence target and MOE target:
+Planned nominal n:
+Clusters / design-effect adjustment:
+Exclusions and missing-output rule:
+Field dates and stopping rule:
+Versioned prompt and analysis files:
+```
+
+If you track more than one engine, show each numerator and denominator separately. The [AI visibility metrics dictionary](/blog/ai-visibility-metrics-dictionary) helps keep “mention,” “citation,” “rank,” and “share of voice” from silently changing meaning between reports. For operational fields, use the [AI citation data schema](/blog/ai-citation-data-schema) so every answer retains engine, prompt, timestamp, source, and classification metadata.
+
+## How should repeats be designed?
+
+Repeats answer a different question from breadth. A second run estimates observed volatility under the chosen conditions; it does not double the number of unique buyer intents. Space repeats across time when freshness matters, and record model, region, account state, search setting, and timestamp because those conditions can change the output.
+
+Use a balanced design when comparing engines: the same prompt strata, comparable repeat counts, and an identical classification rubric. Randomize run order where practical to reduce time-order confounding. Report both the pooled result and within-prompt agreement or change rate. If the business decision is about persistence, make repeat stability a primary outcome instead of hiding it inside a larger answer count.
+
+## What limitations belong in the report?
+
+Confidence intervals quantify sampling uncertainty under assumptions; they do not correct a biased frame. AI search audits commonly use nonrandom prompts, selected brands, unequal engine availability, and clustered repeats. Outputs may also change with retrieval freshness, personalization, model updates, and hidden system conditions.
+
+Treat brands and prompts as clusters when many rows share them. A simple design-effect approximation is **DEFF ≈ 1 + (m − 1)ρ**, where m is average cluster size and ρ is an intracluster correlation; if ρ is unknown, present this as a sensitivity analysis rather than inventing a correction. When clusters are few, uncertainty estimates can be unstable. State the limitation plainly and avoid one universal “confidence score.”
+
+The [AI search audit methodology template](/blog/ai-search-audit-methodology-template) provides a useful structure for documenting frame, prompts, engines, coding, and exclusions. Align the governance language with the [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework): identify the intended use, measure what matters, document uncertainty, and make limitations visible to decision-makers.
+
+## How can a team document the plan?
+
+Publish the prompt list or a version identifier, selection rules, dates, engine conditions, repeat schedule, outcome rubric, missing-data policy, and exact denominators. Keep hypothetical planning examples labeled as hypothetical, and never replace absent observations with an assumed result. A useful report lets another analyst reproduce the design even when the observed answers will naturally differ.
+
+The central discipline is simple: sample for the claim, not for an impressive row count. Separate prompt coverage from brand coverage, engine comparison from repeat volatility, and nominal n from effective independent n. Then report the estimate with its formula, design assumptions, and boundaries attached.

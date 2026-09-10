@@ -1,0 +1,113 @@
+---
+title: "AI Search Locale Testing Matrix: Language, Region, and Market"
+description: "A reproducible AI search locale testing matrix for separating language, script, interface, account, location, market, time, engine, model, and prompt effects."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search locale testing", "AI search localization", "multilingual AEO", "regional AI visibility", "AI search testing matrix"]
+faqs: [{"q":"What is an AI search locale testing matrix?","a":"It is an operational protocol for repeating the same AI-search test while changing one locale variable at a time, such as language, market, interface, or observed location. It is not an official standard."},{"q":"Is locale the same as GPS location?","a":"No. Locale is a bundle of language, script, region, and formatting preferences. Observed location is a separate test input, and a location signal does not prove that an engine used GPS."},{"q":"Which locale variables should an AI visibility test record?","a":"Record language and script, interface language, account settings, observed location, market, timestamp and time zone, engine and model, prompt variant, URL, answer, citations, and whether the brand was mentioned or recommended."},{"q":"How many locale tests should a team run?","a":"Use a balanced grid that covers the markets and languages that matter to the business, with repeated baseline runs and one-variable changes. The correct sample is determined by decision risk and coverage, not a universal number."}]
+image: {"url":"https://images.pexels.com/photos/8877104/pexels-photo-8877104.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher reviewing an AI search locale testing matrix on a laptop.","photographer":"cottonbro studio","photographerUrl":"https://www.pexels.com/@cottonbro"}
+sources: [{"label":"RFC 5646 — Language Tags","url":"https://www.rfc-editor.org/info/rfc5646"},{"label":"RFC 4647 — Matching of Language Tags","url":"https://www.rfc-editor.org/rfc/rfc4647.html"},{"label":"Unicode CLDR","url":"https://cldr.unicode.org/"},{"label":"Google — Localized versions","url":"https://developers.google.com/search/docs/specialty/international/localized-versions"},{"label":"Schema.org — inLanguage","url":"https://schema.org/inLanguage"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An AI search locale test should change one meaningful variable at a time and record the rest. Language, script, interface, account, observed location, market, time, engine, model, and prompt wording can all alter what a buyer sees; collapsing them into a single “country” label makes the result difficult to reproduce.
+
+This matrix is an operational protocol for AI visibility work, not an official standard. It uses language-tag guidance from [RFC 5646](https://www.rfc-editor.org/info/rfc5646), matching concepts from [RFC 4647](https://www.rfc-editor.org/rfc/rfc4647.html), locale data from [Unicode CLDR](https://cldr.unicode.org/), and search localization guidance from [Google](https://developers.google.com/search/docs/specialty/international/localized-versions). It does not claim that any engine exposes or uses every signal in the same way.
+
+## Table of contents
+
+- [Why does locale matter in AI search testing?](#why-does-locale-matter-in-ai-search-testing)
+- [Which variables belong in the matrix?](#which-variables-belong-in-the-matrix)
+- [How do you build a reproducible locale grid?](#how-do-you-build-a-reproducible-locale-grid)
+- [What should each test record?](#what-should-each-test-record)
+- [How do you interpret differences safely?](#how-do-you-interpret-differences-safely)
+- [How does locale testing improve AEO work?](#how-does-locale-testing-improve-aeo-work)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## Why does locale matter in AI search testing?
+
+Locale matters because the same buyer question can request different evidence in different language and market contexts. A French prompt may retrieve French sources; a Japanese prompt may require a different script; and a market-specific question may imply different products, currency, availability, or regulation.
+
+The distinction is practical. A language tag describes language and possibly script or region; it does not certify a person’s physical location. RFC 5646 defines language tags, while RFC 4647 explains how tags can be matched. Use those documents for identifiers, not as evidence about an AI engine’s undisclosed ranking mechanics.
+
+Localization also includes presentation. [Unicode CLDR](https://cldr.unicode.org/) supplies locale data used for conventions such as dates, numbers, currencies, and names. Those conventions can expose a parsing or display problem even when the answer’s language looks correct. Treat formatting as an observation, not proof that a particular backend locale was selected.
+
+![A multilingual research workspace used to compare regional AI search answers.](https://images.pexels.com/photos/139387/pexels-photo-139387.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [Pixabay](https://www.pexels.com/@pixabay) on [Pexels](https://www.pexels.com)*
+
+## Which variables belong in the matrix?
+
+The matrix should separate ten inputs that teams often accidentally merge. Define each input before testing so another analyst can recreate the setup.
+
+| Variable | Example value | What it describes | What it does not prove |
+|---|---|---|---|
+| Language | `fr` | The language requested or detected | The user’s location |
+| Script | `Latn`, `Arab`, `Hans` | Writing system, when relevant | A distinct market by itself |
+| Region | `fr-FR`, `fr-CA` | A language tag’s regional distinction | Exact IP or GPS |
+| Interface language | English UI | Product menus and controls | The answer language in every turn |
+| Account setting | Saved language/market | A persistent preference in the account | That it overrode every retrieval signal |
+| Observed location | Test city or network region | The location context visible to the test | That GPS was used or available |
+| Market | France, Canada, Japan | The commercial or audience context | A guaranteed regional result |
+| Time | UTC timestamp and time zone | When the query ran | Why a result changed |
+| Engine/model | Product and displayed model | The system and model label tested | Internal routing details not disclosed |
+| Prompt variant | Translated, native, or bilingual wording | The exact question form | Equivalent intent without review |
+
+Use valid, explicit language tags where possible. [Schema.org’s `inLanguage`](https://schema.org/inLanguage) is useful when describing a page’s language in structured data, but it does not tell an AI engine which market to serve. Keep page metadata, test inputs, and observations as separate fields.
+
+## How do you build a reproducible locale grid?
+
+Build the grid around decisions, then use a baseline-plus-change design. Start with one canonical prompt, engine, model, account state, market, and time window. Change one column per comparison; otherwise a language change and a location change could be jointly responsible for the observed difference.
+
+Here is a compact grid for a brand selling in two markets and two languages:
+
+| Run | Language/script | Interface | Account | Observed location | Market | Engine/model | Prompt |
+|---|---|---|---|---|---|---|---|
+| B0 | en-Latn-US | English | Default | US test region | United States | Engine A / displayed model | Canonical English |
+| B1 | en-Latn-US | English | Default | US test region | United States | Engine A / displayed model | Canonical English, repeat |
+| L1 | fr-Latn-FR | French | Default | US test region | France | Engine A / displayed model | Native French |
+| I1 | en-Latn-US | French | Default | US test region | United States | Engine A / displayed model | Canonical English |
+| A1 | en-Latn-US | English | French preference | US test region | United States | Engine A / displayed model | Canonical English |
+| O1 | en-Latn-US | English | Default | France test region | United States | Engine A / displayed model | Canonical English |
+| M1 | en-Latn-US | English | Default | US test region | France | Engine A / displayed model | Canonical English |
+| P1 | en-Latn-US | English | Default | US test region | United States | Engine A / displayed model | Translated or reformulated |
+
+Repeat the baseline before attributing a change. Run the same grid on each engine you actually care about, and record the displayed model or model choice exactly. If the interface does not disclose a model, write “not disclosed”; do not infer one from answer style.
+
+For multilingual markets, add script as its own row or column. For example, compare Simplified Chinese and Traditional Chinese without assuming that the script alone represents mainland China, Taiwan, Hong Kong, or a user’s physical position. Market, region, and script are related but not interchangeable.
+
+## What should each test record?
+
+A useful record lets a second person reproduce the query and distinguish an answer difference from a setup difference. Save the exact prompt, not a paraphrase, plus the date, UTC time, local time zone, browser or app surface, signed-in state, and visible settings.
+
+Capture the answer and its citations as returned. Mark whether the brand was absent, mentioned, cited, recommended, compared, or misidentified. Preserve the result URL or screenshot where permitted, and note transient conditions such as an error, personalization notice, or unavailable model. Do not edit the answer before analysis.
+
+Use a small observation schema:
+
+```text
+run_id | variables_changed | prompt | answer_url | brand_status | cited_sources
+timestamp_utc | timezone | engine | displayed_model | account_state | notes
+```
+
+For quality control, have one reviewer check that each claimed difference is visible in the saved outputs. A visibility audit should say “observed under this setup,” not “the engine always does this.” That language matters because repeated retrieval, experiments, product updates, and personalization can change outcomes.
+
+## How do you interpret differences safely?
+
+Interpret a locale difference as a test observation first and a causal hypothesis second. If the French run cites different pages, check whether the prompt translated the product category, whether those pages use French metadata, and whether the market changed at the same time.
+
+Do not conflate locale with GPS. A browser permission, network region, account setting, or explicitly selected market may affect what you can observe, but a test cannot establish that an engine read GPS unless the product documents that behavior and the setup provides evidence. Record “observed location context” rather than claiming hidden implementation details.
+
+Likewise, do not treat a language tag as a guarantee of matching. RFC 4647 describes matching schemes; it does not prescribe how an AI answer engine retrieves, ranks, summarizes, or cites content. Google’s localized-version guidance is useful for organizing language and regional page relationships, but it is not a promise about ChatGPT, Gemini, Perplexity, or another engine.
+
+When findings affect launch, compliance, or customer claims, use a documented review process informed by the [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework). State the scope, test date, limitations, and confidence. A small, reproducible sample with honest boundaries is more useful than a large untracked screenshot collection.
+
+## How does locale testing improve AEO work?
+
+Locale testing turns “AI visibility” into a set of answer experiences that a team can inspect. It can reveal that an English page is cited while a native-language page is absent, that a market-specific product name is ambiguous, or that a translated prompt changes the category being evaluated.
+
+Use the findings to improve the underlying page: make language and regional intent explicit, connect genuinely localized versions, define product names consistently, and answer market-specific questions directly. Then rerun the same grid after publication. AEOeye’s [AI visibility audit](/) can establish a baseline, while the [AI search engines guide](/blog/best-ai-search-engines), [LLM SEO definition](/blog/what-is-llm-seo), and [how to optimize for AI search](/blog/how-to-optimize-for-ai-search) provide adjacent workflow context.
+
+The goal is not to manufacture a favorable screenshot. It is to learn which buyer questions your brand can answer clearly in each market, with evidence that another person can inspect and repeat.
+
+## Frequently asked questions
+
+The four FAQs in this article’s frontmatter provide concise, machine-readable answers for readers and answer engines. They should be kept synchronized with the protocol above whenever the matrix is revised.

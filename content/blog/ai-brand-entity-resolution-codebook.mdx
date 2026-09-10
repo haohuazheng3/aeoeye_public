@@ -1,0 +1,101 @@
+---
+title: "AI Brand Entity Resolution: A Codebook for Ambiguous Names"
+description: "An operational codebook for reconciling AI brand names with canonical domains, legal entities, social IDs, and knowledge identifiers without overstating certainty."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI brand entity resolution", "brand entity matching", "sameAs schema", "Wikidata identifiers", "AEO research"]
+faqs: [{"q":"What is AI brand entity resolution?","a":"It is the documented process of deciding whether a name in an AI answer refers to the same real-world brand as the entity in your audit. The process compares names, domains, legal records, social IDs, and knowledge identifiers while preserving uncertainty."},{"q":"Does sameAs guarantee that an AI engine will recognize a brand?","a":"No. sameAs expresses an identity relationship for structured data, but schema markup does not guarantee crawling, indexing, disambiguation, or recognition in an AI answer."},{"q":"When should a match be labeled uncertain?","a":"Use uncertain when evidence is compatible but not conclusive, such as a shared name with no canonical domain, an unverified social account, or a knowledge identifier whose description is incomplete."},{"q":"Is this an official entity-resolution standard?","a":"No. This is AEOeye's operational codebook for audit work, not an official standard or taxonomy endorsed by Google, Schema.org, Wikidata, NIST, or an AI provider."}]
+image: {"url":"https://images.pexels.com/photos/7109243/pexels-photo-7109243.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher organizing brand identity records on a laptop.","photographer":"Tiger Lily","photographerUrl":"https://www.pexels.com/@tiger-lily"}
+sources: [{"label":"Google Search Central — Organization structured data","url":"https://developers.google.com/search/docs/appearance/structured-data/organization"},{"label":"Schema.org — sameAs property","url":"https://schema.org/sameAs"},{"label":"W3C WebSchemas — sameAs","url":"https://www.w3.org/wiki/WebSchemas/sameAs"},{"label":"Wikidata — Identifiers help","url":"https://www.wikidata.org/wiki/Help:Identifiers"},{"label":"NIST — AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An AI brand answer is only useful when you know which real-world entity its name denotes. **Entity resolution is the evidence-led decision that connects an observed brand mention to the correct organization, domain, social profile, or knowledge record.** It prevents an audit from merging unrelated businesses or splitting one brand into phantom competitors.
+
+This is AEOeye's operational codebook, not an official standard. It uses identity signals described by [Google's Organization structured-data guidance](https://developers.google.com/search/docs/appearance/structured-data/organization), the [`sameAs` property](https://schema.org/sameAs), W3C WebSchemas guidance, and [Wikidata's identifier documentation](https://www.wikidata.org/wiki/Help:Identifiers). Schema markup can clarify a publisher's intended relationships, but it does not guarantee that an AI system will recognize, retrieve, or recommend the entity.
+
+## Table of contents
+
+- [What exactly are you resolving?](#what-exactly-are-you-resolving)
+- [Which identity signals should you collect?](#which-identity-signals-should-you-collect)
+- [How should a reviewer label a match?](#how-should-a-reviewer-label-a-match)
+- [What is the reconciliation workflow?](#what-is-the-reconciliation-workflow)
+- [How can teams use a copyable table?](#how-can-teams-use-a-copyable-table)
+- [How should uncertainty be reported?](#how-should-uncertainty-be-reported)
+- [What can this codebook not establish?](#what-can-this-codebook-not-establish)
+
+## What exactly are you resolving?
+
+Resolve one observed name in one answer against one target entity in a declared study. The target should have a stable `entity_id`, a preferred brand name, a canonical domain, and a note describing the scope: company, product, nonprofit, publication, or another organization.
+
+For preserving the raw answer and its evidence, pair this codebook with [AEOeye's AI citation data schema](/blog/ai-citation-data-schema).
+
+## Which identity signals should you collect?
+
+Collect several independent signals, then record where each came from. A name alone is a discovery hint; a corroborated domain, legal entity, social profile, and knowledge identifier can support a stronger decision.
+
+| Signal | What to capture | What it can and cannot show |
+|---|---|---|
+| Name variants | Preferred name, former name, abbreviation, product name, spelling variants | Finds candidates; does not prove they are the same entity. |
+| Canonical domain | Primary HTTPS domain and relevant subdomain | Connects a public web presence; domain ownership still needs verification. |
+| Legal entity | Registered organization name, jurisdiction, and source URL | Distinguishes formal entities; a brand and its parent may not be identical. |
+| Social IDs | Platform, stable handle or profile URL, and verification evidence | Links a claimed account; usernames can be recycled or unofficial. |
+| Knowledge identifiers | Wikidata Q-ID or another declared identifier and description | Provides a machine-readable reference; an identifier can be wrong or incomplete. |
+| Same-as links | URLs explicitly declared as representing the same entity | Expresses a relationship; it is not a guarantee of external recognition. |
+
+Google recommends Organization markup for details such as name, URL, logo, and identifiers, and identifies `sameAs` as a way to point to pages that unambiguously represent the organization. Read that as a publishing practice, not as proof that every linked page is authentic. The [Schema.org definition of `sameAs`](https://schema.org/sameAs) describes an unambiguous identity relationship; the [W3C WebSchemas note](https://www.w3.org/wiki/WebSchemas/sameAs) provides related context for representing equivalence on the Web.
+
+## How should a reviewer label a match?
+
+Apply exactly one resolution label per observation: `match`, `no-match`, or `uncertain`. The label describes the available evidence at review time, not the model's confidence or the entity's commercial quality.
+
+| Label | Use when | Do not use when |
+|---|---|---|
+| `match` | At least two strong, consistent signals identify the same entity, with no meaningful contradiction. | You have only a similar name or an unverified profile. |
+| `no-match` | Evidence identifies a different entity, or the observed context clearly conflicts with the target. | Evidence is merely missing or incomplete. |
+| `uncertain` | Signals are compatible but insufficient, conflicting, or impossible to verify. | You want a convenient default for a difficult review. |
+
+Strong signals include a canonical site linking to the same social profile, a legal name that clearly owns the brand domain, or a knowledge record whose description and official links align. Weak signals include a shared logo, a generic name, search-result proximity, or an AI answer's unsupported assertion. Never upgrade weak signals because the brand is familiar.
+
+## What is the reconciliation workflow?
+
+Use a fixed sequence so reviewers do not unconsciously change the threshold from case to case.
+
+1. **Freeze the observation.** Save the exact name span, surrounding sentence, visible link, answer ID, prompt, date, locale, and engine surface.
+2. **Generate candidates.** Search the declared target set and collect name variants, abbreviations, products, parents, and similarly named organizations.
+3. **Check the canonical domain.** Open the candidate's primary site and record redirects, displayed organization name, contact or legal page, and links to official profiles. Preserve raw and resolved URLs separately.
+4. **Check legal identity.** Record the legal entity and jurisdiction only when a reliable public record or the organization's own disclosure supports it. A parent company relationship is not automatically an entity match.
+5. **Check social IDs.** Capture stable profile URLs or handles, platform, and whether the account links back to the canonical domain. Treat an account as unverified when that loop is absent.
+6. **Check knowledge identifiers.** Compare the identifier's label, description, aliases, and external links. [Wikidata's identifiers guide](https://www.wikidata.org/wiki/Help:Identifiers) explains the role of identifiers; it does not make a candidate correct merely because a Q-ID exists.
+7. **Reconcile contradictions.** Note collisions such as two companies using the same name, an expired domain, or a social profile pointing to a different jurisdiction.
+8. **Assign one label.** Apply `match`, `no-match`, or `uncertain`, cite each supporting source, and write a short reason another reviewer can audit.
+
+![Analyst comparing domain, social, and knowledge-graph identifiers for one brand.](https://images.pexels.com/photos/15635243/pexels-photo-15635243.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## How can teams use a copyable table?
+
+Copy this table into a spreadsheet or annotation form. One row represents one observed brand span in one answer; do not silently combine repeated observations.
+
+| answer_id | observed_name | target_entity_id | canonical_domain | legal_entity | social_ids | knowledge_ids | label | evidence_urls | reviewer_note |
+|---|---|---|---|---|---|---|---|---|---|
+| ans-0042 | Northstar | org-017 | https://northstar.example | Northstar Labs, Inc. | linkedin.com/company/northstar-labs | wikidata:Q123 | match | domain; legal filing; profile | Name is broad, but three signals align. |
+| ans-0043 | North Star AI | org-017 | https://northstar.example | — | unverified handle | — | uncertain | answer URL only | Variant is plausible; ownership is unverified. |
+| ans-0044 | Northstar | org-031 | https://northstar.example.uk | Northstar Marine Ltd. | linkedin.com/company/northstar-marine | wikidata:Q456 | no-match | legal page; domain | Different sector and jurisdiction. |
+
+Replace the illustrative domains and identifiers with captured evidence. A blank field means “not observed,” not “false.” Include a `source_captured_at` timestamp when records can change, and retain an audit trail when a later reviewer changes the label.
+
+## How should uncertainty be reported?
+
+Uncertainty should be explicit, local, and reversible. Write what is unknown, which signal conflicts, what check was attempted, and what evidence would change the label. Avoid a single unexplained confidence percentage that hides the reason for doubt.
+
+Useful notes include: “canonical site names a subsidiary, while target is parent”; “social handle is similar but does not link back”; or “AI answer gives no URL, so candidate selection relies on context only.” Preserve rejected candidates when name collisions could recur.
+
+The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) emphasizes documenting context, risks, and limitations. This codebook applies that governance instinct to entity decisions; it does not claim NIST defines these labels or endorses AEOeye's implementation. For broader measurement context, compare the [AEOeye visibility score methodology](/blog/ai-visibility-score-methodology) and [AI search audit methodology template](/blog/ai-search-audit-methodology-template).
+
+## What can this codebook not establish?
+
+It cannot prove that an AI provider used your structured data, that a `sameAs` link was crawled, that a knowledge graph entry is complete, or that a resolved entity will be recommended. It cannot establish legal ownership from a social username.
+
+Schema markup is a communication layer, not a recognition guarantee. Keep the raw answer, the decision rule, the evidence URLs, and the unresolved alternatives. When you change the target definition or evidence threshold, version the codebook and report the change instead of rewriting history.
+
+Use this codebook before calculating brand presence or recommendation rate. Then [run a free AEOeye audit](/#audit) and retain its raw answers alongside your reconciled entity table.

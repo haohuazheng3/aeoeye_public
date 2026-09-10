@@ -1,0 +1,110 @@
+---
+title: "AI Citation Evidence Preservation: A Reproducible Capture Protocol"
+description: "A practical, citation-first protocol for capturing AI answers, source pages, timestamps, provenance, hashes, and uncertainty so an AI search audit can be reviewed later."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI citation evidence", "AI search evidence preservation", "reproducible AI audit", "citation capture protocol", "AEO research methods"]
+faqs: [{"q":"What is AI citation evidence preservation?","a":"It is the disciplined capture of an AI answer, its citation pointers, the referenced source state, collection context, and integrity metadata so another reviewer can inspect the same observation."},{"q":"Does a hash prove that a citation is true?","a":"No. A hash can show that a retained file has not changed since hashing. It does not prove that the answer is accurate, that the source supports the claim, or that the archive is complete."},{"q":"Should I archive every page I visit?","a":"No. Preserve only evidence needed for the stated study, respect terms and access controls, and prefer permitted links, screenshots, metadata, or institutional archives when copying full content is not appropriate."},{"q":"Can an archived AI answer be reproduced exactly?","a":"Not always. Interfaces, retrieval indexes, models, personalization, and availability change. A careful bundle makes the observation inspectable and its limits explicit; it cannot recreate an unavailable system state."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher preserving source records, timestamps, and evidence beside a laptop.","photographer":"Sora Shimazaki","photographerUrl":"https://www.pexels.com/@sora-shimazaki"}
+sources: [{"label":"RFC 7089: Memento","url":"https://www.rfc-editor.org/rfc/rfc7089"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"W3C PROV Primer","url":"https://www.w3.org/TR/prov-primer/"},{"label":"ISO 28500 WARC","url":"https://www.iso.org/standard/68004.html"},{"label":"RFC 9530: HTTP Digest Fields","url":"https://www.rfc-editor.org/rfc/rfc9530.html"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An AI citation is only auditable when the observation and its surrounding evidence are preserved together. Capture the exact answer, prompt, product surface, citation markers, source URLs, retrieval time, permitted page evidence, and a plain-language uncertainty note; then link those records with stable IDs and integrity hashes. This protocol is a practical AEOeye reference design, not a claim that any one archive can recreate a changing AI system.
+
+## Table of contents
+
+- [What exactly should an evidence bundle preserve?](#what-exactly-should-an-evidence-bundle-preserve)
+- [Which fields belong in the bundle?](#which-fields-belong-in-the-bundle)
+- [How can you capture one observation reproducibly?](#how-can-you-capture-one-observation-reproducibly)
+- [How should provenance and versions be recorded?](#how-should-provenance-and-versions-be-recorded)
+- [What do hashes prove, and what do they not prove?](#what-do-hashes-prove-and-what-do-they-not-prove)
+- [How should privacy and ethics shape capture?](#how-should-privacy-and-ethics-shape-capture)
+- [What are the limits of this protocol?](#what-are-the-limits-of-this-protocol)
+
+## What exactly should an evidence bundle preserve?
+
+Preserve the observation before interpretation. The bundle should let a reviewer answer: what was asked, where was it asked, what did the system display, which citation pointed to which claim, what source state was inspected, and who or what collected it?
+
+Keep raw material distinct from derived analysis. Raw answer text, a screenshot, and the unmodified URL are evidence. A normalized URL, “supported” label, rank, or visibility score is a later transformation that should point back to that evidence rather than replace it.
+
+This separation follows the spirit of the [W3C PROV-O](https://www.w3.org/TR/prov-o/) model: entities, activities, and agents can be related without being collapsed into one ambiguous note. The [W3C PROV Primer](https://www.w3.org/TR/prov-primer/) offers orientation for designing those relationships.
+
+## Which fields belong in the bundle?
+
+Use stable identifiers and explicit nulls. A missing model label is different from an inferred model label, and a failed fetch is different from a page that was never requested.
+
+| Evidence object | Minimum fields | Why it matters |
+|---|---|---|
+| Study | `study_id`, `protocol_version`, scope, inclusion rules | Defines the question and prevents protocol drift. |
+| Run | `run_id`, `study_id`, `collected_at`, timezone, operator | Identifies one interaction and its conditions. |
+| Prompt | `prompt_id`, exact text, parent prompt, locale | Preserves wording and conversational lineage. |
+| Answer | `answer_id`, raw text, visible model label, UI/API surface | Separates what appeared from later cleanup. |
+| Citation | `citation_id`, marker, raw URL, answer position, claim IDs | Shows which pointer was actually presented. |
+| Source | `source_id`, resolved URL, status, retrieved-at, content reference | Records the inspected source state and fetch result. |
+| Review | `review_id`, rubric version, label, reviewer, uncertainty | Makes judgments reproducible without erasing disagreement. |
+| Integrity | file name, byte size, media type, hash algorithm, digest | Detects accidental changes to retained artifacts. |
+
+Store raw, resolved, and canonical URLs separately. URL normalization rules can change the analytical grouping, so link this bundle to AEOeye’s [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules) rather than silently rewriting the source record. A structured field dictionary is available in the [AI citation data schema](/blog/ai-citation-data-schema).
+
+## How can you capture one observation reproducibly?
+
+Use this copyable protocol for every sampled answer. Adapt the storage commands to your environment, but keep the order and field meanings stable.
+
+```text
+CAPTURE_PROTOCOL v1.0
+1. Create study_id and run_id; record protocol_version, operator, locale, timezone, and collection window.
+2. Record the exact prompt, including punctuation, attachments, conversation parent, and any system-visible search setting.
+3. Record product surface and visible model label; use null when the interface does not provide one.
+4. Save the displayed answer as raw text or an allowed export. Take a screenshot when layout, citation markers, or answer state matters.
+5. For every citation, copy the marker and raw URL exactly as displayed. Do not normalize in place.
+6. Resolve each URL only through an allowed request. Record redirect chain, final URL, status, retrieved_at, and media type.
+7. Preserve permitted source evidence: response headers, text excerpt, screenshot, or archive reference. Record a failed fetch as a failed fetch.
+8. Generate hashes for each retained file; record algorithm, digest, byte size, and creation time in a manifest.
+9. Review claims with a versioned rubric. Store supported, contradicted, or insufficient plus the evidence reference and uncertainty note.
+10. Freeze the bundle as read-only, record its bundle version, and run a second-person or second-pass completeness check.
+```
+
+For time-aware web evidence, [RFC 7089](https://www.rfc-editor.org/rfc/rfc7089) describes Memento requests for representations around a datetime. Record a time negotiation or archive reference when available, but remember that a timestamp does not guarantee later recovery.
+
+![Analyst comparing a captured AI response with source records and review notes.](https://images.pexels.com/photos/5303591/pexels-photo-5303591.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+## How should provenance and versions be recorded?
+
+Version the protocol, schema, rubric, and bundle independently. `protocol_version` answers how the observation was collected; `schema_version` answers how fields were represented; `rubric_version` answers how a reviewer made a support decision. A new version should never overwrite the old definition.
+
+Give each artifact a relationship such as `wasGeneratedBy`, `wasDerivedFrom`, or `wasAssociatedWith` in plain application fields, even if you do not serialize formal PROV. Record capture software, browser or API client, relevant configuration, and whether a human edited a display copy. Keep raw and redacted derivatives under different names.
+
+For web archives, the [ISO 28500 WARC page](https://www.iso.org/standard/68004.html) is the authoritative reference point for the Web ARChive file format. A WARC can be a strong container for captured web responses, but it does not make a response authoritative or complete. Store the archive identifier and access conditions alongside—not instead of—the source URL.
+
+Use a manifest such as:
+
+```json
+{"bundle_id":"study_demo/run_001","bundle_version":"1.0","artifacts":[{"path":"answer.txt","media_type":"text/plain","bytes":2481,"hash_alg":"sha-256","digest":"..."}],"created_at":"2026-09-10T14:30:00Z"}
+```
+
+When a bundle is corrected, append a new version and explain the change. Never regenerate a digest over a silently edited file and call it the same artifact.
+
+## What do hashes prove, and what do they not prove?
+
+Hash the exact bytes you retain, not a visually similar reconstruction. [RFC 9530](https://www.rfc-editor.org/rfc/rfc9530.html) defines HTTP Digest Fields and discusses digest integrity metadata for HTTP representations; use an agreed algorithm and record the digest format unambiguously.
+
+A hash proves integrity relative to the bytes and algorithm you hashed: it can reveal that a file changed. It does not prove truth, authorship, publication date, semantic correctness, claim support, or absence of a malicious original. A screenshot hash proves screenshot bytes were retained, not that the UI was genuine or complete. Pair hashes with provenance, access logs, and human review.
+
+Use the [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) when turning bundles into findings, and use the [AI answer citation failure taxonomy](/blog/ai-answer-citation-failure-taxonomy) to name failure modes without hiding uncertainty.
+
+## How should privacy and ethics shape capture?
+
+Minimize collection. Do not place secrets, private customer data, personal identifiers, or confidential prompts into an AI system merely to make a test realistic. Redact exports where possible, restrict bundle access, encrypt sensitive material, and define deletion or retention dates before collecting it.
+
+Respect robots directives, terms of service, authentication boundaries, rate limits, copyright, and archive policies. If a source cannot be copied lawfully or ethically, preserve its URL, metadata, a short necessary excerpt, screenshot, or authorized archive pointer. Do not bypass access controls, impersonate users, or publish private model responses.
+
+Threat-model the bundle: it may contain personal data, prompt injection text, malicious links, or credentials accidentally echoed by a system. Treat captured content as untrusted input. [NIST’s AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) offers a useful governance lens for documenting risks, controls, and residual uncertainty.
+
+## What are the limits of this protocol?
+
+This protocol improves reviewability; it cannot make a volatile system deterministic. Models, retrieval indexes, ranking, UI treatments, personalization, localization, and source pages change. An API response may differ from a web interface, and a screenshot may omit hidden state or interactions.
+
+Archives can be incomplete, unavailable, blocked, or missing assets. Redirects can change. A source may support a claim today and not tomorrow, or the answer may cite a page that never supported it. Report the denominator, failed captures, missing fields, and access date. A reproducible bundle is evidence of what was observed under stated conditions—not proof that the observation is universal.
+
+For an end-to-end study plan, start with AEOeye’s [AI search audit methodology template](/blog/ai-search-audit-methodology-template), then preserve bundle IDs in reported tables and conclusions.

@@ -1,0 +1,96 @@
+---
+title: "AI Answer Refusal and No-Answer Taxonomy: 14 Outcomes to Label"
+description: "A practical AEOeye codebook for separating policy refusals, uncertainty, retrieval gaps, outages, access blocks, partial answers, and safe redirections in AI answer audits."
+date: "2026-09-10"
+category: "AEO Operations"
+readingTime: "9 min read"
+keywords: ["AI answer refusal", "AI no answer", "AI answer taxonomy", "AI visibility audit", "AEO measurement"]
+faqs: [{"q":"Is this an official AI refusal standard?","a":"No. This is AEOeye's operational proposal for labeling observable answer outcomes consistently across AI visibility audits. It is a practical codebook, not an industry, provider, or government standard."},{"q":"What is the difference between refusal and abstention?","a":"A refusal declines because a policy or safety boundary applies. An uncertainty abstention says the system lacks enough confidence or evidence. Both may look like no answer to a buyer, but they require different remediation."},{"q":"Should a timeout count as a failed citation?","a":"Label a timeout as an infrastructure outcome first, not as evidence that your content was ignored. Track it separately, retry under a controlled protocol, and only score visibility after a valid answer is returned."},{"q":"How can a brand use this taxonomy?","a":"Run fixed buyer questions across engines, preserve the raw response and timestamp, assign one primary outcome from the codebook, and report rates by engine, locale, query, and source evidence. Fix the operational cause before optimizing copy."}]
+image: {"url":"https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"A person working at a laptop beside a glowing digital network, representing AI answer operations.","photographer":"Tara Winstead","photographerUrl":"https://www.pexels.com/@tara-winstead"}
+sources: [{"label":"NIST AI 600-1 — Generative AI Profile","url":"https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"TruthfulQA — Measuring How Models Mimic Human Falsehoods","url":"https://aclanthology.org/2022.acl-long.229/"},{"label":"RAGTruth — A Hallucination Corpus for Trustworthy Retrieval-Augmented Language Models","url":"https://arxiv.org/abs/2401.00396"},{"label":"ALCE — Answering with Language Models aided by Citation Extraction","url":"https://arxiv.org/abs/2305.14627"}]
+---
+
+An AI answer that says “I can’t help with that” is not the same event as an answer that never found your page. Treating every blank, refusal, and error as one “not mentioned” metric makes an AEO program nearly impossible to debug. AEOeye’s operational proposal is a 14-outcome codebook for labeling what actually happened: policy, evidence, retrieval, infrastructure, access, locale, and answer-completeness states.
+
+This distinction matters because the remedy follows the cause. A safety refusal is not fixed by adding keywords; a blocked crawler is not fixed by rewriting a paragraph; a partial answer may need better entity clarity rather than a server change. NIST’s AI Risk Management Framework recommends documenting context, measurement, and risk responses, while its Generative AI Profile describes failure modes that make output evaluation especially important. See our [AI search audit methodology template](/blog/ai-search-audit-methodology-template) for the surrounding test protocol.
+
+## Table of Contents
+
+- [What does this taxonomy label?](#what-does-this-taxonomy-label)
+- [What are the 14 outcomes?](#what-are-the-14-outcomes)
+- [How should you assign one label?](#how-should-you-assign-one-label)
+- [How do labels change an AEO decision?](#how-do-labels-change-an-aeo-decision)
+- [What should you report?](#what-should-you-report)
+
+![A laptop displaying a technical workflow beside a notebook, representing answer testing and incident review.](https://images.pexels.com/photos/14553720/pexels-photo-14553720.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Operational image: Pexels photo used as a visual reference for answer testing workflows.*
+
+## What does this taxonomy label?
+
+The unit is one observed engine run for one fixed prompt, locale, identity state, and timestamp. The label describes why a buyer did not receive a normal, complete, evidence-backed answer—not whether the brand is good or bad.
+
+Keep three things separate: the model’s words, the system’s event metadata, and your visibility score. A response can be “partial answer” while still mentioning the brand; a “timeout” has no valid answer to score; a “policy refusal” can be perfectly correct behavior. Citation research such as ALCE also treats answer quality and citation quality as related but distinct evaluation problems.
+
+This is explicitly AEOeye’s operational proposal, not an official standard adopted by NIST, OpenAI, Google, Anthropic, or another provider. Teams may add provider-specific subcodes while preserving these 14 stable top-level outcomes.
+
+## What are the 14 outcomes?
+
+The following table is the codebook. Assign exactly one primary label per run, then optionally record secondary evidence such as HTTP status, retrieved URLs, or policy category.
+
+| Code | Outcome | Operational definition | First remediation question |
+|---|---|---|---|
+| R1 | Policy refusal | The system declines because the request falls under a safety, privacy, legal, or use-policy boundary. | Was the refusal appropriate for the prompt? |
+| R2 | Uncertainty abstention | The system says it lacks confidence, current knowledge, or sufficient evidence and declines to assert an answer. | Can the question be narrowed or supplied with authoritative evidence? |
+| R3 | No retrieval | Retrieval was expected, but no usable search or source-retrieval step occurred. | Did the engine have browsing/retrieval enabled? |
+| R4 | Empty retrieval result | Retrieval ran and returned zero relevant documents or passages. | Is the entity discoverable and the query mapped to the right terminology? |
+| R5 | Unsupported claim avoidance | The system answers cautiously or omits a claim because available sources do not support it. | Is there a clear, independently verifiable source for the claim? |
+| R6 | Tool failure | A search, browser, connector, or function returned an error, malformed payload, or failed execution. | What tool error and retry policy were recorded? |
+| R7 | Timeout | The run exceeded the defined latency budget before a valid answer completed. | Is the timeout reproducible at the same step? |
+| R8 | Locale unavailable | The requested language, country, region, or market is unsupported or has no configured data path. | Is the locale explicit and available in the test setup? |
+| R9 | Access block | Robots rules, authentication, paywall, network policy, rate limit, or other permission control prevented source access. | Which URL or boundary blocked access, and was it intentional? |
+| R10 | Empty answer | The run completed, but the final response contained no meaningful answer text. | Did a renderer, truncation rule, or post-processor discard content? |
+| R11 | Irrelevant answer | The system produced fluent text, but it did not address the user’s stated question or entity. | Is the query ambiguous, or did retrieval drift off-topic? |
+| R12 | Partial answer | The response addresses only some requested facts, constraints, or subquestions. | Which atomic requirement was omitted? |
+| R13 | Safe redirection | The system declines the requested path but offers a permitted, relevant alternative or next step. | Does the redirect preserve useful intent without implying compliance? |
+| R14 | Complete answer, no citation | The answer addresses the question, but provides no source or a source that cannot be validated. | Can the answer be tied to a retrievable, attributable source? |
+
+These boundaries prevent category collapse. “No retrieval” means retrieval did not happen; “empty retrieval result” means it happened and found nothing. “Tool failure” is a mechanism error; “timeout” is a latency-budget outcome. “Unsupported claim avoidance” is evidence-based omission, while “uncertainty abstention” is a broader confidence limitation.
+
+## How should you assign one label?
+
+Label from observable evidence in a fixed order: first determine whether the run completed, then inspect policy and answer state, then inspect retrieval and citation evidence. Do not infer a hidden model reason from tone alone. Preserve the raw transcript, tool trace where available, request ID, locale, model, and timestamp.
+
+Use this decision sequence:
+
+1. Did the run exceed the latency budget or throw a tool error? Assign R7 or R6.
+2. Was source access denied or unavailable? Assign R9 or R8.
+3. Did a completed response explicitly invoke a boundary? Assign R1 or R13, depending on whether it provided a useful permitted alternative.
+4. Did it abstain for confidence or evidence? Assign R2 or R5; use R5 when the observable behavior specifically avoids an unsupported claim.
+5. Did retrieval run? If not, R3; if it returned no relevant material, R4.
+6. For returned text, check completeness and relevance: R10, R11, R12, or R14.
+
+If two labels seem plausible, choose the earliest causal failure and record the other as a secondary note. For example, a blocked page followed by an uncertain answer is primarily R9. A timeout after a failed connector is primarily R6 if the trace shows the connector error caused the run to stop.
+
+## How do labels change an AEO decision?
+
+The label tells you where to spend effort. R1 and R13 usually call for prompt and policy interpretation, not content changes. R3–R9 are delivery, retrieval, access, or infrastructure work. R11–R14 are answer-quality and evidence work. A visibility dashboard that merges these into one denominator can punish a content team for an outage or reward a page whose claims cannot be cited.
+
+For content teams, R4 and R14 are especially actionable. Improve entity naming, page structure, and source corroboration when the engine cannot find the right passage or cannot validate it. Our [what makes content quotable by AI](/answers/what-makes-content-quotable-by-ai) guide explains how to make claims extractable without pretending that formatting guarantees a citation.
+
+For measurement teams, report both outcome counts and valid-answer rates. A “brand absent” rate should include only runs that produced a valid, relevant answer under the agreed protocol. This follows the spirit of risk management frameworks: define the measurement context before interpreting the number. Compare the result with [AI visibility score methodology](/blog/ai-visibility-score-methodology), and use [AEO audit tools](/tools) to repeat the same prompts over time.
+
+## What should you report?
+
+An audit report should show all 14 labels by engine, model, locale, prompt family, and date. Include the denominator, exclusions, retry rule, and evidence quality. Never call an R7 timeout a zero citation or an R1 refusal a content failure.
+
+At minimum, retain:
+
+- the exact prompt and expected atomic requirements;
+- raw answer text and tool/retrieval trace;
+- outcome code, secondary note, and scorer identity;
+- source URLs, citation validity, and access result;
+- latency, retry count, model, locale, and test timestamp.
+
+This record makes changes diagnosable. A sudden rise in R9 after a robots change is a different incident from a rise in R12 after a prompt update. The codebook is useful precisely because it keeps those stories apart.
+
+The goal is not to make every answer look positive. It is to make each outcome explainable, reproducible, and connected to the right next action. That is how an AI visibility audit becomes an operating instrument rather than a mysterious mention count.

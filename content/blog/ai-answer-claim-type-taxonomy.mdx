@@ -1,0 +1,87 @@
+---
+title: "AI Answer Claim Type Taxonomy: 12 Claims That Need Different Evidence"
+description: "An operational codebook for classifying claims in AI answers and matching numerical, temporal, causal, comparative, and other claims to the evidence they require."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI answer claim taxonomy", "claim decomposition", "AI answer evidence", "AEO fact checking", "citation quality"]
+faqs: [{"q":"What is an AI answer claim type taxonomy?","a":"It is an operational codebook for labeling the kind of proposition an AI answer makes, then selecting evidence and review steps that fit that proposition."},{"q":"Is this an official fact-checking standard?","a":"No. AEOeye publishes this as a practical classification for AI search audits. It is informed by research and standards, but it is not an official taxonomy or certification scheme."},{"q":"Why decompose a claim before checking it?","a":"A long sentence can contain several independently checkable propositions. Decomposition exposes which part is supported, missing, outdated, or contradicted instead of forcing one label onto the whole sentence."},{"q":"What evidence should a recommendation claim use?","a":"Use criteria tied to the user’s context, current primary product or policy information, and transparent alternatives. A recommendation needs a reasoned fit, not merely a citation that a product exists."}]
+image: {"url":"https://images.pexels.com/photos/8463143/pexels-photo-8463143.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher mapping AI answer claims to evidence on a laptop and notebook.","photographer":"Kampus Production","photographerUrl":"https://www.pexels.com/@kampus"}
+sources: [{"label":"FActScore: Fine-grained Atomic Evaluation of Factual Precision","url":"https://arxiv.org/abs/2305.14251"},{"label":"FactLens: Benchmarking Fine-Grained Fact Verification","url":"https://aclanthology.org/2025.findings-acl.929/"},{"label":"FIRE: Fact-checking with Iterative Retrieval and Verification","url":"https://aclanthology.org/2025.findings-naacl.158/"},{"label":"A Closer Look at Claim Decomposition","url":"https://aclanthology.org/2024.starsem-1.13/"},{"label":"Schema.org ClaimReview","url":"https://schema.org/ClaimReview"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An AI answer is not one claim. It is usually a bundle of propositions with different truth conditions, time horizons, and evidence burdens. Classify each proposition before reviewing it: a price needs a current source, a causal explanation needs more than correlation, and a recommendation needs explicit criteria.
+
+This is AEOeye’s **operational taxonomy**, not an official standard. It is a practical codebook for AI search audits, editorial review, and citation design. It builds on atomic-fact evaluation in [FActScore](https://arxiv.org/abs/2305.14251), fine-grained verification in [FactLens](https://aclanthology.org/2025.findings-acl.929/), and decomposition research in [A Closer Look at Claim Decomposition](https://aclanthology.org/2024.starsem-1.13/).
+
+## How should you use this claim taxonomy?
+
+Start with the smallest proposition that can be independently judged. Label its dominant type, identify the evidence that would change your mind, and record scope, source date, and uncertainty. If a sentence contains multiple types, split it into linked atomic claims rather than awarding the whole sentence one “supported” label.
+
+### Table of contents
+
+- [How should you use this claim taxonomy?](#how-should-you-use-this-claim-taxonomy)
+- [What are the 12 claim types and their evidence burdens?](#what-are-the-12-claim-types-and-their-evidence-burdens)
+- [How do you decompose a mixed claim?](#how-do-you-decompose-a-mixed-claim)
+- [How should an audit record the result?](#how-should-an-audit-record-the-result)
+
+## What are the 12 claim types and their evidence burdens?
+
+The table is the quick reference. “Evidence burden” means the minimum review posture, not a promise that one source can settle every case. Prefer authoritative, relevant, accessible sources and preserve the exact answer and source state, as described in AEOeye’s [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol).
+
+| Type | Example in an AI answer | Evidence burden |
+|---|---|---|
+| **Numerical** | “The plan costs $29 per month.” | A primary price, metric definition, unit, denominator, and retrieval date. Recalculate rather than trust a rounded total. |
+| **Temporal** | “The feature launched in 2025.” | A dated primary announcement, changelog, filing, or archive; test whether the date refers to launch, availability, or an update. |
+| **Comparative** | “Tool A is faster than Tool B.” | Like-for-like measurements, identical conditions, comparison metric, sample, and date. “Better” requires named criteria. |
+| **Causal** | “This change increased conversions.” | A mechanism plus design that can separate cause from coincidence: experiment, quasi-experiment, or carefully bounded analysis. |
+| **Definitional** | “AEO means optimizing for AI answers.” | A stable definition from a recognized source or an explicitly labeled working definition; distinguish terms that are often conflated. |
+| **Procedural** | “Connect Search Console, then export queries.” | Current first-party instructions, prerequisites, permissions, sequence, and expected result. Recheck after interface changes. |
+| **Predictive** | “Traffic will rise next quarter.” | A model or forecast method, assumptions, horizon, baseline, uncertainty range, and evidence that the signal is predictive rather than merely historical. |
+| **Recommendation** | “Use Tool A for a small agency.” | User-fit criteria, current product facts, meaningful alternatives, trade-offs, and a reason the recommendation follows. |
+| **Negative / existence** | “The company has no API.” | A defined search scope and current primary documentation; absence claims need coverage, not one silent page. State “not found” when “does not exist” is unproven. |
+| **Attributed** | “NIST says teams should document risk.” | The original document, exact attribution, surrounding context, and quote or faithful paraphrase. Do not turn guidance into a legal requirement. |
+| **Opinion** | “This is the most trustworthy approach.” | Label it as judgment, disclose criteria and perspective, and provide the factual premises separately. Opinion is not made objective by a citation. |
+| **Mixed / compound** | “Because A launched in 2025, it is cheaper and therefore best.” | Decompose into atomic claims, then apply every relevant burden. One unsupported link in the chain weakens the conclusion. |
+
+The types are intentionally about what the sentence asserts, not what the source looks like. An official page can support a procedure but be poor evidence for a market comparison. A peer-reviewed paper can define a method while saying nothing about today’s price. Match source and proposition.
+
+![Reviewer separating factual, temporal, and recommendation claims in an AI answer.](https://images.pexels.com/photos/35118208/pexels-photo-35118208.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## How do you decompose a mixed claim?
+
+Decomposition makes hidden dependencies visible. [FactLens](https://aclanthology.org/2025.findings-acl.929/) emphasizes that complex claims can conceal nuanced errors, while [FIRE](https://aclanthology.org/2025.findings-naacl.158/) treats retrieval and verification as iterative decisions. In practice, rewrite one sentence as a numbered set of propositions without changing its meaning.
+
+Consider: “Because Product A launched in 2025, it is 30% cheaper than Product B and is the best choice for startups.” Split it as follows:
+
+1. **Temporal:** Product A launched in 2025.
+2. **Numerical:** Product A is 30% cheaper than Product B.
+3. **Comparative:** The comparison uses the same plan, currency, billing period, and feature scope.
+4. **Recommendation:** Product A is the best choice for startups.
+5. **Causal (implicit):** The launch date or price advantage explains the recommendation.
+
+Each item can now fail independently. The launch date might be documented, while the 30% figure compares annual billing with monthly billing. The recommendation might be sensible for a budget-constrained startup but poor for a regulated team needing an audit log. Preserve the parent sentence, child IDs, and rationale for every split; do not silently simplify away qualifiers.
+
+Use a conservative rule: if changing one clause would change the truth of another, record the dependency. “Cheaper” depends on a comparison basis; “best” depends on a user profile. If a claim contains “all,” “never,” “only,” “will,” or “because,” pause for scope and burden review.
+
+## How should an audit record the result?
+
+Record claim type, text span, scope, evidence references, status, and uncertainty as separate fields. A useful status vocabulary is **supported**, **contradicted**, **insufficient evidence**, and **not assessed**. “Insufficient evidence” is often the most accurate result for a broad negative, a forecast without assumptions, or an opinion presented as fact.
+
+`ClaimReview` on [Schema.org](https://schema.org/ClaimReview) can help publish structured fact-check context, but schema markup does not validate a claim by itself. Keep the underlying evidence bundle, review rubric, and source timestamps. For governance, the [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) is a useful reference for documenting context, risks, controls, and residual uncertainty.
+
+For AEO work, use the taxonomy when sampling [AI visibility audits](/blog/ai-visibility-score-methodology), checking [citation URL normalization](/blog/ai-citation-url-normalization-rules), or reviewing a [brand recommendation benchmark](/blog/ai-brand-recommendation-benchmark-2026). The goal is not to make every answer academic. It is to make the evidence proportionate to what the answer actually promises.
+
+### A compact claim-review record
+
+Use a small record that keeps observation separate from judgment. This makes a later correction additive: you can revise a status or source without rewriting the original answer.
+
+```json
+{"claim_id":"a-17","parent_id":"answer-4","text":"Product A costs $29/month","type":"numerical","scope":"public US pricing page","source_urls":["https://example.com/pricing"],"observed_at":"2026-09-10","status":"supported","uncertainty":"annual billing and taxes excluded"}
+```
+
+Before closing a review, check five fields: exact text span, dominant type, scope, evidence pointer, and uncertainty. Add a second evidence pointer when the claim is consequential, disputed, or likely to change. Keep “not assessed” for work you did not perform; it is more informative than an inferred green label.
+
+When labels overlap, choose the type that creates the strictest immediate test, then retain secondary labels. For example, “the fastest tool” is comparative first and numerical if a measured time is supplied; “will save money” is predictive first and numerical if a savings estimate is stated. This precedence rule keeps the codebook usable without pretending that natural language fits one box.
+
+For a repeatable handoff, add the reviewer’s search path and stopping rule to the record. List which primary pages were checked, the query or navigation route used, and why the evidence was sufficient for the stated scope. If two credible sources disagree, preserve both, compare their publication dates and definitions, and mark the conflict instead of averaging it away. A second reviewer should be able to reproduce the decision from the record without relying on private context. Reopen a claim when its source changes, its scope expands, or a new answer adds a qualifier that alters the proposition.

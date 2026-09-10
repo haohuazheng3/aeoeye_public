@@ -1,0 +1,112 @@
+---
+title: "AI Search Inter-Rater Reliability: A Practical Agreement Guide"
+description: "A practical guide to measuring reviewer agreement in AI search audits with raw agreement, Cohen's kappa, Fleiss' kappa, and Krippendorff's alpha."
+date: "2026-09-10"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search inter-rater reliability", "inter-rater agreement", "Cohen's kappa", "Fleiss kappa", "Krippendorff alpha", "AI answer annotation", "AI search evaluation"]
+faqs: [{"q":"What is inter-rater reliability in AI search evaluation?","a":"It is the degree to which independent reviewers assign the same labels to the same AI answer, citation, or recommendation case under a shared codebook."},{"q":"Is Cohen's kappa always the best agreement metric?","a":"No. Cohen's kappa is designed for two raters and categorical labels. Fleiss' kappa handles multiple raters, while Krippendorff's alpha supports multiple raters, missing labels, and several data levels."},{"q":"What is a good kappa score for an AI search audit?","a":"There is no universal cutoff that fits every task. Interpret agreement with the label prevalence, codebook, sampling design, uncertainty, and disagreement examples; treat any AEOeye operating bands as proposed recommendations, not standards."},{"q":"How can AEOeye help with reviewer agreement?","a":"AEOeye can organize repeatable AI visibility audits and evidence records. Use its audit outputs with a versioned codebook, calibration set, and human adjudication log rather than treating an automated score as ground truth."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Two reviewers calibrating an AI search annotation guide at a whiteboard.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Artstein & Poesio (2008), Survey Article: Inter-Coder Agreement for Computational Linguistics","url":"https://aclanthology.org/J08-4004/"},{"label":"Wich, Al Kuwatly & Groh (2020), Investigating Annotator Bias with a Graph-Based Approach","url":"https://aclanthology.org/2020.alw-1.22/"},{"label":"Wanner et al. (2024), A Closer Look at Claim Decomposition","url":"https://aclanthology.org/2024.starsem-1.13/"},{"label":"Factcheck-Bench (2024), Findings of EMNLP","url":"https://aclanthology.org/2024.findings-emnlp.830/"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+Inter-rater reliability is the evidence that two or more reviewers can apply the same AI-search codebook consistently. In practice, calculate raw agreement first, then choose a chance-corrected statistic that matches the number of raters, label type, missingness, and weighting. The score is only useful when paired with the codebook version, sample definition, disagreement examples, and an adjudication rule.
+
+For AI search, the unit might be “does this answer recommend the brand?”, “does this citation support the claim?”, or “is this source first-party?” Those judgments are not interchangeable. A reliable team agrees on the same unit and label definitions before it debates which formula to use. [AEOeye’s AI search audit methodology template](/blog/ai-search-audit-methodology-template) is a useful place to record those decisions.
+
+## Table of contents
+
+- [What does inter-rater reliability measure?](#what-does-inter-rater-reliability-measure)
+- [Which agreement statistic should you choose?](#which-agreement-statistic-should-you-choose)
+- [How should you calibrate reviewers?](#how-should-you-calibrate-reviewers)
+- [How do you interpret a disagreement?](#how-do-you-interpret-a-disagreement)
+- [What limitations should you report?](#what-limitations-should-you-report)
+- [How does reliability fit an AI risk process?](#how-does-reliability-fit-an-ai-risk-process)
+
+## What does inter-rater reliability measure?
+
+Inter-rater reliability measures reproducibility between independent judgments; it does not prove that a label is true. A pair of reviewers can agree perfectly on an ambiguous rule, or disagree because the source itself is unavailable. Reliability therefore complements validity, evidence review, and adjudication.
+
+Artstein and Poesio’s survey explains why agreement statistics must be selected and reported with care: different coefficients make different assumptions about chance agreement, category structure, and the relationship between coders. For an AI answer audit, preserve the raw labels before consensus changes them. Otherwise the final dataset can look clean while hiding the uncertainty that produced it.
+
+Separate three layers:
+
+- **Agreement:** whether reviewers assigned the same label.
+- **Validity:** whether the label reflects the construct you intended to measure.
+- **Process reliability:** whether the prompt, evidence snapshot, and instructions were stable enough to repeat.
+
+This is why a citation correctness review should use atomic claims. [A closer look at claim decomposition](https://aclanthology.org/2024.starsem-1.13/) studies how generated text can be broken into subclaims for support evaluation; the same discipline prevents one compound AI-search sentence from receiving an unjustly simple label.
+
+## Which agreement statistic should you choose?
+
+Choose the simplest statistic that matches the design, and always show raw agreement beside it. Kappa or alpha can reveal agreement beyond what label prevalence would produce, but they cannot repair a vague codebook or biased sample.
+
+| Statistic | Best fit | What it summarizes | Important cautions |
+|---|---|---|---|
+| Raw agreement | Any number of raters | Proportion of items receiving the same label | Does not adjust for chance or prevalence |
+| Cohen’s kappa | Exactly two raters, nominal or selected weighted categories | Agreement beyond an expected chance baseline | Sensitive to prevalence; weighted variants require justified distances |
+| Fleiss’ kappa | Three or more raters using the same categorical scheme | Multi-rater categorical agreement | Assumes a common label set and complete ratings for the analyzed items |
+| Krippendorff’s alpha | Two or more raters, including incomplete data | Agreement using a distance function for nominal, ordinal, interval, or ratio data | The distance function and missing-data treatment must be reported |
+
+For binary recommendation labels from exactly two reviewers, report raw agreement and Cohen’s kappa. With three or more reviewers applying one nominal codebook, Fleiss’ kappa may be appropriate. If reviewers skip items, labels are ordinal, or different levels of disagreement matter, Krippendorff’s alpha can express those choices more flexibly. Do not report all four merely to find the most flattering number.
+
+Chance-corrected statistics are not interchangeable. They can diverge when “not recommended” dominates, when one category is rare, or when reviewers use different label distributions. Artstein and Poesio document these interpretation problems; the practical response is to publish the confusion matrix or label counts, not just a coefficient.
+
+![Two analysts comparing AI answer labels and source evidence during a calibration review.](https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+## How should you calibrate reviewers?
+
+Calibration should happen before production labels and again whenever the codebook changes. The goal is not to force identical intuition; it is to expose where the written rule fails to distinguish close cases.
+
+Copy and adapt this proposed AEOeye operating protocol:
+
+```text
+REVIEWER CALIBRATION PROTOCOL (PROPOSED)
+1. Freeze codebook version, task unit, label definitions, evidence window, and escalation owner.
+2. Select a calibration set that includes clear positives, clear negatives, borderline cases,
+   missing citations, contradictory sources, and ambiguous recommendations.
+3. Have each reviewer label independently. No discussion, shared spreadsheet edits, or consensus
+   before the first pass. Record rationale and the evidence location for every non-obvious item.
+4. Compare raw labels and calculate the pre-specified agreement statistic plus label counts.
+5. Review every disagreement. Classify it as codebook ambiguity, evidence ambiguity, reviewer
+   error, interface issue, or genuinely unresolved case.
+6. Revise wording only when the team can state the rule precisely. Version the change; do not
+   silently rewrite prior labels.
+7. Re-label the affected calibration items, then begin production with a locked codebook.
+8. Sample production items for a second review and adjudicate disagreements using the logged rule.
+```
+
+The protocol is an operational recommendation, not a published standard. A codebook should define the unit, inclusion and exclusion rules, evidence window, “insufficient evidence” behavior, and examples for every label. For a citation audit, connect it to a claim ledger such as the fields described in [AEOeye’s citation data schema](/blog/ai-citation-data-schema). For a recommendation audit, the [brand recommendation annotation codebook](/blog/ai-brand-recommendation-annotation-codebook) can provide the starting vocabulary.
+
+## How do you interpret a disagreement?
+
+Treat disagreements as diagnostic data, not as noise to delete. First ask whether the reviewers saw the same answer, citation target, timestamp, locale, and source snapshot. A changed search result can create an apparent reviewer disagreement that is actually a versioning failure.
+
+Next inspect the label pair and the evidence. “Supported” versus “insufficient” often means the evidence threshold is underspecified; “positive recommendation” versus “neutral mention” may mean the codebook has not separated sentiment from prominence. Wich, Al Kuwatly, and Groh show why annotator bias can arise from differences in knowledge and subjective perception. In AI search, record reviewer background and recurring label patterns when fairness or high-impact decisions are involved.
+
+When adjudicating, keep the independent labels and add a third field for the resolved label. If the evidence cannot settle the case, retain “uncertain” or “insufficient” rather than manufacturing certainty. [AEOeye’s citation failure taxonomy](/blog/ai-answer-citation-failure-taxonomy) helps turn recurring failures into specific remediation categories.
+
+Avoid universal kappa thresholds. A score such as “good above X” is not a law of annotation, and it can be misleading when one label is rare or the cost of a false positive differs from a false negative. AEOeye’s proposed practice is to set a project-specific review trigger, publish the rationale, and examine item-level disagreements before accepting a release.
+
+## What limitations should you report?
+
+Every reliability report should state what the statistic cannot establish. At minimum, disclose:
+
+- the number of raters and whether all items received all labels;
+- the sampling frame, time window, engine, model, locale, and answer version;
+- the exact codebook and label prevalence;
+- the statistic, missing-data treatment, weighting or distance function;
+- confidence intervals or uncertainty methods, when computed;
+- excluded items, unresolved cases, and the adjudication policy.
+
+Small or homogeneous samples can make coefficients unstable. A high raw agreement can coexist with weak information about a rare positive label. A low coefficient can reflect prevalence effects rather than widespread practical disagreement. Automated judges introduce another rater-like layer: they may be consistent while systematically missing negation, temporal qualifiers, or source scope. The Factcheck-Bench work illustrates the value of fine-grained fact-checking evaluation, but its benchmark design should not be presented as a universal threshold for production AI search audits.
+
+Reliability also depends on the construct. Reviewers may agree that a source is official while disagreeing about whether it supports the answer’s exact claim. That is a validity and entailment problem, not something a larger kappa can solve. Report both the agreement result and representative examples.
+
+## How does reliability fit an AI risk process?
+
+Reliability is one control in a broader measurement and governance loop. NIST’s [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) emphasizes managing risk through documented, repeatable practices; an annotation reliability record supplies evidence for the measurement part of that loop.
+
+For a recurring AEOeye audit, freeze the observation, label independently, calculate the pre-registered statistic, inspect disagreements, and preserve the evidence snapshot. Then compare periods only when the codebook and sampling conditions are comparable. Pair agreement with [AI search citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics), because a team can agree reliably on a metric that still fails to capture citation support.
+
+The practical takeaway is modest but powerful: agreement is a property of a task, a codebook, a sample, and a time-bound evidence record. Publish the raw labels, explain the coefficient, show the hard cases, and call operational recommendations what they are—proposed recommendations, not standards.
