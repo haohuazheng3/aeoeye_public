@@ -1,0 +1,163 @@
+---
+title: "Lovable Pricing: Price the Iterations, Not the Subscription"
+description: "Lovable pricing explained through shared build, Cloud, and AI credits, real change examples, workspace economics, and a measurable product pilot."
+date: "2026-09-11"
+category: "Reviews"
+readingTime: "8 min read"
+keywords: ["lovable pricing","Lovable cost"]
+faqs: [{"q":"Is Lovable free to use?","a":"Yes. Free includes 5 daily build credits capped at 30 per month, 20 Cloud credits per month, and 4 AI credits per month. That supports workflow testing, not unlimited app development."},{"q":"Do Lovable credits expire?","a":"Check the current official billing terms for expiration and rollover details. Rules can change, so do not rely on an old review or assumed renewal behavior."},{"q":"Does Lovable charge per seat?","a":"Paid workspace credits are shared across unlimited members instead of assigned as separate paid allowances per member. The workspace still has a finite balance, so additional collaborators can increase demand."},{"q":"Does a live Lovable app cost extra?","a":"Cloud and in-app AI usage can consume credits in addition to build work. Budget live-app activity separately because deploying a prototype does not make future Cloud or AI usage free."}]
+image: {"url":"https://images.pexels.com/photos/30547568/pexels-photo-30547568.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Connected application modules representing Lovable build credits.","photographer":"Pachon in Motion","photographerUrl":"https://www.pexels.com/@pachon-in-motion-426015731"}
+sources: [{"label":"lovable.dev official source","url":"https://lovable.dev/pricing"},{"label":"lovable.dev official source","url":"https://lovable.dev/blog/simplifying-billing"},{"label":"docs.lovable.dev official source","url":"https://docs.lovable.dev/features/plan-mode"},{"label":"docs.lovable.dev official source","url":"https://docs.lovable.dev/features/workspace"}]
+---
+Lovable pricing is best understood as an iteration budget, not simply a monthly subscription. The visible plan is admission; your practical cost depends on how many changes you make, how much Cloud capacity your live app uses, and how often in-app AI runs. Since June 2026, Lovable has used one shared credit balance across building, Cloud, and in-app AI, without changing plan prices. The useful question is not “Which plan is cheapest?” but “How much product change will this workspace produce?”
+
+## Table of Contents
+
+- [How does Lovable pricing work now?](#how-does-lovable-pricing-work-now)
+- [What is a credit?](#what-is-a-credit)
+- [What is included on Free and paid plans?](#what-is-included-on-free-and-paid-plans)
+- [How much does a real change consume?](#how-much-does-a-real-change-consume)
+- [When do Cloud and AI add cost?](#when-do-cloud-and-ai-add-cost)
+- [How do shared workspace credits change team economics?](#how-do-shared-workspace-credits-change-team-economics)
+- [What should a pilot measure?](#what-should-a-pilot-measure)
+- [Which plan should you choose?](#which-plan-should-you-choose)
+- [Frequently Asked Questions](#frequently-asked-questions)
+
+## How does Lovable pricing work now?
+
+Lovable combines several types of usage into a credit system. Building changes, Cloud usage, and in-app AI can draw from one broader balance, so the subscription is only the starting constraint. Your actual cost follows the complexity and volume of work.
+
+The June 2026 billing update unified the balance without changing plan prices. A small application can consume credits through repeated UI revisions, authentication, generated images, database-backed features, and use of the deployed app.
+
+See [Lovable pricing](https://lovable.dev/pricing) and [Simplifying billing](https://lovable.dev/blog/simplifying-billing) for current terms. The model described here was checked on September 11, 2026.
+
+![Team planning app iterations and shared credit use.](https://images.pexels.com/photos/7693103/pexels-photo-7693103.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## What is a credit?
+
+A credit is a unit of Lovable usage, but it does not represent a fixed amount of work in every plan or task. Credits differ in value by plan, and consumption depends on what Lovable must do.
+
+A color adjustment is different from changing data models, authentication, several screens, and generated assets. A narrowly scoped request can therefore cost less than a broad “redesign the whole app” prompt, even if both produce visible changes.
+
+Lovable’s [Plan Mode documentation](https://docs.lovable.dev/features/plan-mode) states that Plan Mode costs 1 credit per message. That can be useful before an architectural or permission change, because clarifying the implementation may reduce wasteful iterations. Planning is still metered.
+
+Treat credits as a production resource:
+
+- Small changes consume fractions of a credit.
+- Larger features consume more.
+- Planning messages have a stated cost.
+- Cloud and AI usage can draw from the shared balance.
+- Credits have different value across plans.
+
+## What is included on Free and paid plans?
+
+The Free plan includes 5 daily build credits, capped at 30 build credits per month, plus 20 Cloud credits per month and 4 AI credits per month. That is useful for testing Lovable’s workflow, but it is not a promise that a complete production app can be built without payment.
+
+A few substantial iterations can consume the monthly build allocation. Cloud and AI introduce additional practical limits, even when the initial prototype is small.
+
+Paid workspaces provide larger allowances under their published terms. Their important team characteristic is that workspace credits are shared across unlimited members. “Unlimited members” does not mean unlimited usage: everyone draws from one finite balance.
+
+| Usage area | Free allowance | Main consideration |
+|---|---:|---|
+| Build credits | 5 daily, capped at 30/month | Feature and UI iterations |
+| Cloud credits | 20/month | Live-app infrastructure and activity |
+| AI credits | 4/month | In-app AI usage |
+| Paid workspace members | Unlimited members share credits | Team demand uses one pool |
+
+Compare the current details on [Lovable’s pricing page](https://lovable.dev/pricing), rather than relying on an old sticker price.
+
+## How much does a real change consume?
+
+Lovable’s official examples show why iteration count matters. Changing a button color costs 0.50 credits. Removing a footer costs 0.90 credits. Adding authentication costs 1.20 credits. Creating a landing page with three generated images costs 1.70 credits.
+
+These are benchmarks, not a guaranteed calculator. The result can vary with scope and project state. Recoloring one component differs from changing an entire design system; authentication may involve screens and configuration beyond the first request.
+
+Use the examples as rough categories:
+
+- **Micro-change:** similar to a button color adjustment.
+- **Small cleanup:** similar to removing a footer.
+- **Foundational feature:** similar to adding authentication.
+- **Multi-asset page:** similar to a landing page with three generated images.
+
+The practical lesson is to price the number of iterations, not just the number of months. Ten small corrections after every review are part of the budget. A broad first prompt followed by repeated repairs may cost more than a slower, better-scoped build.
+
+## When do Cloud and AI add cost?
+
+Cloud and in-app AI matter when a Lovable project becomes a live product rather than a static prototype. Cloud usage relates to the deployed application’s infrastructure and activity. In-app AI consumes its allowance when builders or users invoke AI features inside the application.
+
+The unified balance makes this interaction easy to miss. A team may budget only for code generation, then find that live-app use competes for the same broader resource. A modest prototype may use little Cloud capacity while consuming many build credits, or the reverse.
+
+Track these categories separately:
+
+- Build credits used to create or modify the app.
+- Cloud credits used by the live app.
+- AI credits consumed by in-app AI.
+- Planning credits used before implementation.
+- Rework caused by unclear or oversized requests.
+
+Deployment is not necessarily the end of usage. A successful live application can continue consuming Cloud and AI capacity after the prototype is finished.
+
+![Dashboard used to track live application usage.](https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How do shared workspace credits change team economics?
+
+Shared paid-workspace credits avoid calculating a separate allowance for every collaborator. That can suit small teams, agencies, and cross-functional groups where several people contribute occasionally.
+
+It also creates a shared-pool risk. One person’s large experiment can reduce the capacity available to everyone else. An unlimited-member workspace means unlimited access to a common pool, not unlimited independent budgets.
+
+Set simple operating rules:
+
+- Assign an owner to watch the remaining balance.
+- Separate experiments from production work.
+- Use Plan Mode for architectural or permission changes.
+- Review large multi-screen requests before execution.
+- Track Cloud and AI alongside build usage.
+
+Compared with conventional per-seat pricing, a shared-credit model can be efficient when usage is uneven. It requires someone to manage the pool.
+
+## What should a pilot measure?
+
+A two-week or one-month pilot should measure completed outcomes, not prompts sent. Record the starting balance, major requests, credits consumed, rework, and whether each result reached a usable state.
+
+Track:
+
+1. Credits per accepted feature.
+2. Credits spent on rework.
+3. Build, Cloud, and AI usage separately.
+4. Time from request to deployed result.
+5. Collaborators drawing from the workspace.
+6. Remaining balance at the period’s end.
+
+This shows whether Lovable fits your real workflow. A team that produces a working feature in two focused iterations may get strong value. A team that repeatedly requests broad redesigns may consume credits without equivalent progress.
+
+Compare accepted features, not raw credit totals. An inexpensive but unusable change is not efficient, while an expensive authentication feature may be good value if it prevents substantial manual work.
+
+## Which plan should you choose?
+
+Choose Free when you are testing Lovable’s interaction model, building a small proof of concept, or evaluating how clearly your team can describe changes. Its 30-build-credit monthly cap makes it a trial environment, not a dependable production budget.
+
+Choose a paid plan when the workspace needs sustained iteration, multiple collaborators, or meaningful Cloud and AI usage. The right choice depends on published allowances and measured consumption, not on a generic “best” plan.
+
+For adjacent comparisons, see [Base44 pricing](/blog/base44-pricing), [Base44 review](/blog/base44-review), [AI agent builder](/blog/ai-agent-builder), and [best AI assistant guide](/blog/best-ai-assistant). Keep the comparison fair: Lovable pricing centers on a shared usage pool and the cost of changing a live product.
+
+Estimate accepted changes, add a rework allowance, and include live-app and AI usage. Choose the smallest plan that supports the pilot, then upgrade when evidence requires it.
+
+Test buyer-answer visibility with [AEOeye](/).
+
+## Frequently Asked Questions
+
+### Is Lovable free to use?
+
+Yes. Free includes 5 daily build credits capped at 30 per month, 20 Cloud credits per month, and 4 AI credits per month. That supports workflow testing, not unlimited app development.
+
+### Do Lovable credits expire?
+
+Check the current official billing terms for expiration and rollover details. Rules can change, so do not rely on an old review or assumed renewal behavior.
+
+### Does Lovable charge per seat?
+
+Paid workspace credits are shared across unlimited members instead of assigned as separate paid allowances per member. The workspace still has a finite balance, so additional collaborators can increase demand.
+
+### Does a live Lovable app cost extra?
+
+Cloud and in-app AI usage can consume credits in addition to build work. Budget live-app activity separately because deploying a prototype does not make future Cloud or AI usage free.
