@@ -5,11 +5,6 @@ import { GLOSSARY } from "@/lib/content/glossary";
 import { TOOLS } from "@/lib/content/tools";
 import { getPages } from "@/lib/content/pages";
 
-// Redirected duplicates must stay out of the sitemap. Listing a URL that can
-// never return its own indexable document wastes crawl budget and sends Google
-// conflicting consolidation signals.
-const REDIRECTED_POST_SLUGS = new Set(["chatgpt-seo-tool-comparison"]);
-
 export default function sitemap(): MetadataRoute.Sitemap {
   /*
    * ⚠️ 不要给"没有真实修改日期"的条目写 lastModified。
@@ -60,9 +55,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
   });
 
-  const posts = getAllPosts()
-    .filter((p) => !REDIRECTED_POST_SLUGS.has(p.slug))
-    .map((p) => ({
+  // getAllPosts() already excludes permanently redirected duplicates so the
+  // sitemap, blog hubs, and related-post links share one canonical inventory.
+  const posts = getAllPosts().map((p) => ({
       url: `${siteUrl}/blog/${p.slug}`,
       lastModified: new Date(p.date),
       changeFrequency: "monthly" as const,

@@ -32,6 +32,14 @@ const nextConfig = {
         destination: "/blog/chatgpt-seo-tools-roundup",
         permanent: true,
       },
+      // These two pages targeted the same SEO-vs-GEO comparison intent.
+      // Keep the older URL that already belongs to the GEO pillar topology,
+      // and consolidate the later blog duplicate into it.
+      {
+        source: "/blog/seo-vs-geo",
+        destination: "/compare/geo-vs-seo",
+        permanent: true,
+      },
     ];
   },
   async headers() {

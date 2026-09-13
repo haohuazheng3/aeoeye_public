@@ -23,9 +23,17 @@ export type Post = { meta: PostMeta; content: string };
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+// Redirected duplicates remain in the repository for history, but must not
+// appear in blog listings, related-post rings, static params, or the sitemap.
+// Their permanent redirects in next.config.mjs consolidate external signals.
+const REDIRECTED_POST_SLUGS = new Set(["chatgpt-seo-tool-comparison", "seo-vs-geo"]);
+
 function readDir(): string[] {
   try {
-    return fs.readdirSync(BLOG_DIR).filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
+    return fs
+      .readdirSync(BLOG_DIR)
+      .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
+      .filter((f) => !REDIRECTED_POST_SLUGS.has(f.replace(/\.mdx?$/, "")));
   } catch {
     return [];
   }
