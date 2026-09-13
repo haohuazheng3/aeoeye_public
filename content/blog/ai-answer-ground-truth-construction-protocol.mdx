@@ -1,0 +1,150 @@
+---
+title: "AI Answer Ground-Truth Construction: A Protocol for Time-Bound Claims"
+description: "A seven-step reference-packet protocol for evaluating time-sensitive AI answers with atomic claims, scoped sources, reviewer disagreement, versioning, and expiry."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI answer ground truth", "reference packet", "time-bound claims", "AI answer evaluation", "FActScore", "ALCE", "NIST AI RMF"]
+faqs: [{"q":"What is ground truth for a time-sensitive AI answer?","a":"It is a scoped, versioned evidence packet that supports or contests individual claims for a defined jurisdiction and date window. It is not a permanent label detached from context."},{"q":"Why should an answer be split into atomic claims?","a":"Atomic claims let reviewers connect each factual unit to the evidence that supports it, contests it, or fails to resolve it. A single answer can contain both supported and unsupported statements."},{"q":"What should happen when authoritative sources disagree?","a":"Preserve the disagreement, record each source’s scope and publication date, and label the claim contested or unresolved until a pre-defined adjudication rule makes the status clear."},{"q":"Is this seven-step protocol an evaluation standard?","a":"No. It is a proposed AEOeye operating protocol for auditable AI search work. The cited research and NIST framework inform the design, but they do not mandate these labels or thresholds."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researchers organizing evidence for a time-bound AI answer evaluation.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Min et al. (2023), FActScore, EMNLP","url":"https://aclanthology.org/2023.emnlp-main.741/"},{"label":"Gao et al. (2023), ALCE, EMNLP","url":"https://aclanthology.org/2023.emnlp-main.398/"},{"label":"Lin et al. (2022), TruthfulQA, ACL","url":"https://aclanthology.org/2022.acl-long.229/"},{"label":"NIST AI RMF 1.0","url":"https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10"},{"label":"NIST Generative AI Profile","url":"https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"},{"label":"RFC 3339 Date and Time on the Internet","url":"https://www.rfc-editor.org/rfc/rfc3339"}]
+---
+
+An AI answer has no permanent ground truth when it makes claims about a changing world. The defensible substitute is a **time-bound reference packet**: atomic claims linked to authoritative evidence, jurisdiction, observation date, reviewer decisions, and an expiry rule. This protocol gives teams seven steps for producing that packet without turning uncertainty into a false binary.
+The distinction matters in AI search audits. A source can support a claim today but not after a policy change, product release, election, recall, or court decision. [AEOeye’s citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provides the capture mindset; this article defines how to decide what the captured evidence means.
+
+## Table of contents
+
+- [Why can’t open-web claims have permanent ground truth?](#why-cant-open-web-claims-have-permanent-ground-truth)
+- [What is the seven-step reference-packet protocol?](#what-is-the-seven-step-reference-packet-protocol)
+- [How should you label truth status?](#how-should-you-label-truth-status)
+- [What schema should a reference packet use?](#what-schema-should-a-reference-packet-use)
+- [How should disagreement and expiry be handled?](#how-should-disagreement-and-expiry-be-handled)
+- [What are the protocol’s limitations?](#what-are-the-protocols-limitations)
+- [What should you do next?](#what-should-you-do-next)
+
+## Why can’t open-web claims have permanent ground truth?
+
+Open-web truth is often conditional on time, place, source authority, and the question’s wording. “Who is the current CEO?” and “What is the return policy?” can change without the earlier answer having been irrational; the observation window changed.
+
+Evaluation research points toward this granularity. [FActScore](https://aclanthology.org/2023.emnlp-main.741/) decomposes long-form generations into atomic facts and measures the share supported by a reliable knowledge source. One answer can mix supported and unsupported pieces, so a holistic verdict hides useful structure.
+
+Citation quality is also multidimensional. [ALCE](https://aclanthology.org/2023.emnlp-main.398/) evaluates generated answers across fluency, correctness, and citation quality, rather than treating the presence of a link as proof. A reference packet should therefore preserve both the claim and the evidence relationship.
+
+[TruthfulQA](https://aclanthology.org/2022.acl-long.229/) tests whether models reproduce common misconceptions; plausible answers are not enough.
+
+## What is the seven-step reference-packet protocol?
+
+Use these seven steps for every sample. This is a proposed AEOeye operating protocol, not a universal standard.
+
+### 1. What exactly is the atomic claim?
+
+Split the answer into the smallest factual units that can be independently supported or contested. Keep qualifiers attached: dates, quantities, comparisons, negations, conditions, and “as of” language are part of the claim.
+
+Example: “Acme offers free returns in the US through June 30, 2026” contains a provider, policy, geography, benefit, and expiry date. Do not reduce it to “Acme has free returns.” The shorter version changes what must be proven.
+
+### 2. Which sources are authoritative for this claim?
+
+Choose sources by claim type, not convenience. A regulator, court, company policy page, product documentation page, or original research paper may be authoritative for different questions. Record why a source fits.
+
+Prefer primary material and preserve the exact passage, document title, publisher, URL, publication or update date, and capture timestamp. A search snippet is a discovery aid, not a substitute for the underlying source. Use [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules) to retain raw and resolved URLs separately.
+
+### 3. What jurisdiction and date window apply?
+
+Write scope as data, not prose alone. At minimum capture country or market, state or province when relevant, language, currency, audience, “valid from,” “valid through,” source publication date, and retrieval timestamp. Use an unambiguous timestamp format; [RFC 3339](https://www.rfc-editor.org/rfc/rfc3339) defines a common Internet date-time representation.
+
+If the question has no stated jurisdiction, mark the missing scope; do not silently default to the reviewer’s location. A national policy page may not answer a city-level question.
+
+### 4. How should independent reviewers inspect the packet?
+
+Have two reviewers label claims independently before discussion when the decision matters. They should see the same answer text, captures, scope, and codebook version, but record separate rationales.
+
+Measure agreement where useful, while remembering that agreement is not validity. [AEOeye’s inter-rater reliability guide](/blog/ai-search-inter-rater-reliability-guide) explains why raw agreement and chance-corrected statistics answer different questions. Preserve disagreements; consensus must not erase the original labels.
+
+### 5. What counts as contested truth?
+
+Do not force a winner when credible sources disagree within the same scope. Record the competing propositions, source dates, conflict, and adjudication rule. A newer source may supersede an older one for “current status,” but not for a historical question.
+
+If the disagreement is about values or forecasts rather than a verifiable event, state that the packet is evaluating evidence alignment, not discovering a single objective answer. [AI answer claim-type taxonomy](/blog/ai-answer-claim-type-taxonomy) can help separate factual, comparative, predictive, and normative claims.
+
+### 6. How should the packet be versioned?
+
+Assign a packet ID, codebook version, source snapshot identifiers, and revision history. Never edit a prior verdict in place. Create a new version when evidence, rules, jurisdiction, or claim status changes.
+
+The answer itself also needs an identity: engine, model if exposed, prompt, locale, run timestamp, and raw output. This makes a later comparison about changed answers rather than an unexplained mixture of changed inputs.
+
+### 7. When should the claim expire?
+
+Set expiry from the claim’s volatility and consequence. A live service-status claim may need rechecking quickly; a historical fact may have no operational expiry but still needs a fixed “true as of” date. If no defensible interval can be chosen, label the item unresolved or require manual review on reuse.
+
+Expiry is a control, not a prediction. When a packet expires, mark it stale and open revalidation. NIST’s [AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) frames trustworthy AI work as continuous risk management, while its generative-AI profile emphasizes context-specific risks.
+
+![Reviewers comparing dated source captures before assigning a truth-status label.](https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [RDNE Stock project](https://www.pexels.com/@rdne) on [Pexels](https://www.pexels.com).*
+
+## How should you label truth status?
+
+Use labels that describe evidence state, not the model’s confidence. The following four-label codebook is a proposed AEOeye operating choice.
+
+| Label | Meaning | Minimum record | Allowed reuse |
+|---|---|---|---|
+| **Gold** | Atomic claim is supported by sufficient in-scope evidence under the current rule | Source passage, scope, date, reviewer rationale | Until expiry or supersession |
+| **Silver** | Plausible support exists, but evidence is secondary, partial, or below the project’s gold threshold | Gap note and supporting sources | Cautious display with limitation |
+| **Unresolved** | Evidence is missing, ambiguous, stale, or genuinely conflicting | Competing evidence or missing-field reason | Do not present as settled |
+| **Out of scope** | The packet cannot answer the claim because its jurisdiction, date, task, or source class is excluded | Explicit exclusion reason | No factual verdict |
+
+“Silver” is not “probably true” unless a project explicitly defines that phrase. “Gold” means the packet passed its stated rule; it does not make the claim timeless.
+
+## What schema should a reference packet use?
+
+Use a machine-readable record plus human-readable evidence notes. This template is reusable across AI answer audits:
+
+```yaml
+packet_id: "rp-2026-09-13-0001"
+packet_version: 1
+claim_id: "c-003"
+claim_text: "Exact atomic claim with qualifiers"
+answer_context:
+  engine: "engine-name"
+  model: "model-if-known"
+  prompt: "verbatim prompt"
+  locale: "en-US"
+  observed_at: "2026-09-13T14:20:00Z"
+scope:
+  jurisdiction: "country/state or global"
+  valid_from: "YYYY-MM-DD or null"
+  valid_through: "YYYY-MM-DD or null"
+evidence:
+  - url: "https://example.com/source"
+    captured_at: "2026-09-13T14:30:00Z"
+    publisher: "Source owner"
+    passage: "Exact supporting or conflicting passage"
+    relationship: "supports | contests | context"
+status: "gold | silver | unresolved | out_of_scope"
+review:
+  codebook_version: "ground-truth-v1"
+  independent_labels: ["gold", "gold"]
+  adjudication: "none | rule-or-rationale"
+expires_at: "2026-10-13T00:00:00Z"
+limitations: ["Known missing context"]
+```
+
+The formula for a packet-level settled rate should be explicit: `settled rate = gold claims / (gold + silver + unresolved claims)`. Exclude out-of-scope claims from the denominator, and publish counts beside the rate. This is a reporting formula, not a benchmark.
+
+## How should disagreement and expiry be handled?
+
+Treat uncertainty as a first-class output. Report label counts, disagreement, contested sources, stale packets, and exclusions beside any aggregate score. A high settled rate can mislead if difficult claims were routinely moved out of scope.
+
+When an AI answer cites only part of a sentence, split the claim and score relationships separately. If a source is inaccessible, preserve the URL and mark evidence unavailable; do not infer its contents. Retain raw and resolved versions; [AI citation data schema](/blog/ai-citation-data-schema) offers an adjacent data model.
+
+## What are the protocol’s limitations?
+
+This protocol cannot guarantee truth. It depends on source availability, reviewer competence, capture fidelity, and a task-fit codebook. “Authoritative” is context-dependent, and primary sources can be incomplete, delayed, mistaken, or jurisdiction-specific.
+
+It also cannot make changing facts comparable without assumptions. Two packets with different dates or scopes should not be ranked as if they measured the same proposition. Research benchmarks such as FActScore, ALCE, and TruthfulQA illuminate important evaluation problems, but none supplies a universal ground-truth label set for every live-web question.
+
+## What should you do next?
+
+Start with a small calibration set: split representative answers into atomic claims, attach scoped evidence, and label independently. Review disagreements before expanding the sample. To see how your brand appears in current AI answers, [start a free AEOeye audit](/#audit), then preserve the answer and citations in a versioned packet.
+
+The durable principle is simple: ground truth for open-web AI evaluation is not a timeless stamp. It is a dated, scoped, reviewable evidence record with an honest expiry date.

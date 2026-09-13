@@ -1,0 +1,123 @@
+---
+title: "AI Citation Snippet-Support Rubric: Does the Passage Prove the Claim?"
+description: "A practical rubric for judging whether an AI citation passage entails a claim, supports it with qualifications, needs context, contradicts it, or cannot be evaluated."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI citation support", "citation correctness", "claim entailment", "citation rubric", "AI search audit", "citation evaluation"]
+faqs: [{"q":"What does citation snippet support mean?","a":"It means the cited passage, read with the necessary surrounding context, provides enough evidence for the exact atomic claim being made. A relevant or authoritative source is not automatically supporting evidence."},{"q":"Why should claims be atomic?","a":"An atomic claim contains one independently checkable proposition. Splitting compound sentences prevents one citation from appearing to support details that its passage never addresses."},{"q":"Is this rubric a research standard?","a":"No. It is a proposed AEOeye operating rubric informed by citation-evaluation research. Teams should version it, calibrate reviewers, and report where their decisions remain uncertain."},{"q":"Does a high-quality source prove a claim?","a":"No. Source quality and entailment are separate dimensions. An official page can be cited for a claim it does not make, while a lower-quality page can still directly state a proposition; record both judgments."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Reviewers examining cited passages for an AI search audit.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Gao et al. (2023), Enabling Large Language Models to Generate Text with Citations (ALCE)","url":"https://aclanthology.org/2023.emnlp-main.398/"},{"label":"Liu et al. (2023), Evaluating Verifiability in Generative Search Engines","url":"https://aclanthology.org/2023.findings-emnlp.467/"},{"label":"Zhang et al. (2024), Towards Fine-Grained Citation Evaluation in Generated Text","url":"https://aclanthology.org/2024.inlg-main.35/"},{"label":"Wanner et al. (2024), A Closer Look at Claim Decomposition","url":"https://aclanthology.org/2024.starsem-1.13/"},{"label":"NIST, Artificial Intelligence Risk Management Framework (AI RMF 1.0)","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"NIST, AI RMF Playbook","url":"https://airc.nist.gov/airmf-resources/playbook/"}]
+---
+
+An AI citation supports a claim only when the cited passage entails the claim at the level it is written. Start with an atomic claim, capture the exact cited span and enough surrounding context, then assign a support label before judging source quality. Relevance, authority, and entailment are different questions.
+
+This matters because a fluent answer can attach a link to a sentence the source does not prove. Generative-search research separates citation precision—whether a citation supports its statement—from citation recall—whether statements have support. [ALCE](https://aclanthology.org/2023.emnlp-main.398/) treats correctness and quality as distinct.
+
+## Table of contents
+
+- [What exactly should a reviewer judge?](#what-exactly-should-a-reviewer-judge)
+- [How do the seven support labels differ?](#how-do-the-seven-support-labels-differ)
+- [What evidence record should you require?](#what-evidence-record-should-you-require)
+- [How do you separate entailment from source quality?](#how-do-you-separate-entailment-from-source-quality)
+- [What reusable codebook can a team apply?](#what-reusable-codebook-can-a-team-apply)
+- [Which edge cases need context?](#which-edge-cases-need-context)
+- [What limitations should you report?](#what-limitations-should-you-report)
+
+## What exactly should a reviewer judge?
+
+Judge whether a passage proves one proposition, not whether the whole page feels related. The review unit is a claim, source, exact span, context, and observation time.
+
+First decompose the answer. “AEOeye offers a free preview and a $29 complete report” contains separate preview and price claims; a citation confirming one does not automatically support the other. [Claim-decomposition research](https://aclanthology.org/2024.starsem-1.13/) shows that evaluation can change with the split, so document it.
+
+Write each unit so a reviewer could mark true, false, or unresolved. Preserve qualifiers such as “up to,” “in the United States,” “may,” and “according to customers.” Removing one can turn support into an overclaim.
+
+The cited span should be the smallest passage carrying evidence, usually a sentence, table row, list item, or caption. Save adjacent text when it changes scope, exceptions, definitions, negation, or time. A URL alone is not a snippet.
+
+## How do the seven support labels differ?
+
+Use labels describing the relationship between claim and passage. Do not let source reputation upgrade weak entailment.
+
+| Label | Meaning | Typical reviewer test |
+|---|---|---|
+| **Fully supports** | The passage entails every part of the atomic claim, with no missing material qualifier. | Would a careful reader reach the same proposition from the span and necessary context? |
+| **Supports with qualifier** | The passage supports the core proposition, but the answer is missing or weakening a material condition, scope, date, or uncertainty. | What qualifier must be restored for the claim to be faithful? |
+| **Partially supports** | The passage entails only a stated component of the claim, leaving another independently checkable component unsupported. | Which subclaim is supported, and which is not? |
+| **Context required** | The isolated span is ambiguous, but nearby source context could determine support. | Does the preceding or following text define the subject, comparison, exception, or timeframe? |
+| **Contradicts** | The passage explicitly conflicts with the claim, including through negation, exclusion, or a different value. | Does the source say the opposite or rule out the answer’s proposition? |
+| **Inaccessible** | The reviewer cannot inspect the relevant source or a trustworthy captured copy. | Is the failure caused by a paywall, error, robots restriction, missing archive, or expired link? |
+| **Unrelated** | The passage concerns the topic or entity but does not bear on the claim. | Is it merely co-mentioned, adjacent, or about a different product, population, or question? |
+
+"Context required" is an evidence-location state to resolve where possible. "Inaccessible" is not "unsupported": the claim may be true, but this review has no inspectable evidence.
+
+## What evidence record should you require?
+
+Require an evidence record that lets a second reviewer reproduce the decision. It is more useful than a single support score detached from its passage.
+
+Use a ledger with these fields:
+
+```text
+claim_id | atomic_claim | source_url | retrieved_at | exact_span | context_span
+label | missing_or_conflicting_detail | source_quality | reviewer | codebook_version
+```
+
+Record the claim verbatim as displayed, then normalize it only if needed. Keep the raw URL, redirect path, page title, publication date, and snapshot or hash when available. The [citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) explains why provenance should survive URL changes.
+
+For exact spans, include page or section identifiers and offsets when available. If the answer cites a whole page but highlights no passage, mark the span “not exposed,” distinct from a reviewer-selected passage.
+
+## How do you separate entailment from source quality?
+
+Score entailment and source quality on separate axes because they answer different audit questions. Entailment asks “does this passage support the proposition?” Quality asks “how trustworthy, current, independent, and fit-for-purpose is this source?”
+
+A first-party pricing page may fully support a price claim while being poor evidence for an independent performance comparison. A government report may be excellent evidence about its own measurements but unrelated to a vendor’s feature list. Record both without averaging them into one grade.
+
+An operational AEOeye proposal is to use a simple quality codebook: **high**, **medium**, **low**, and **not assessed**, with written reasons covering provenance, recency, methodology, editorial independence, and scope. This is a proposal for audit operations, not a universal standard. The [AI answer claim-type taxonomy](/blog/ai-answer-claim-type-taxonomy) can help reviewers choose the relevant quality questions for prices, capabilities, outcomes, definitions, and comparisons.
+
+The research picture supports this separation. [Fine-grained citation evaluation](https://aclanthology.org/2024.inlg-main.35/) evaluates full, partial, and no support, while [generative-search verifiability research](https://aclanthology.org/2023.findings-emnlp.467/) distinguishes sentence support from citation support.
+
+## What reusable codebook can a team apply?
+
+Apply this proposed sequence and preserve the reason for every non-obvious label.
+
+1. Split the answer sentence into atomic claims. Keep dates, populations, modalities, and comparisons.
+2. Identify the exact citation associated with each claim. Do not borrow a nearby citation silently.
+3. Capture the exact cited span and inspect the surrounding context.
+4. Ask whether the passage entails all parts of the claim.
+5. Assign one support label from the table.
+6. Separately assign source quality and explain the dimensions used.
+7. Record uncertainty, inaccessible material, and any adjudication change.
+
+If multiple citations are attached to one claim, evaluate each independently first, then state whether the set jointly supports it. Two partial passages can cover complementary parts, but show that composition rather than awarding full support to each citation.
+
+For inter-rater work, freeze the codebook before production, double-review a calibration sample, and retain raw labels before consensus. [AEOeye’s AI search audit methodology template](/blog/ai-search-audit-methodology-template) is a useful place to record the sampling frame, engine, locale, prompt, and evidence window.
+
+## Which edge cases need context?
+
+The following cases are deliberately hypothetical. They illustrate how the rubric behaves; they are not claims about any real provider, product, or benchmark.
+
+**Hypothetical case 1: the missing “may.”** An answer says, “Product X prevents data loss,” citing a vendor page that says, “Product X may reduce the risk of data loss when configured with backups.” The label is **supports with qualifier**: the passage supports a narrower risk-reduction statement, not guaranteed prevention.
+
+**Hypothetical case 2: the table row without its heading.** An answer says, “The plan includes export,” citing a row that says “Export — available,” but the table heading specifies “Enterprise plan only.” If the captured span excludes that heading, assign **context required** until the heading is inspected. With the heading, the original broad claim becomes **supports with qualifier** or **partially supports**, depending on the answer’s intended scope.
+
+**Hypothetical case 3: the familiar topic, opposite finding.** An answer says, “Study Y found a positive effect,” citing an abstract whose conclusion says the effect was not statistically distinguishable from zero. The label is **contradicts**, even if the paper is authoritative and clearly about the same topic. Source quality is a separate judgment.
+
+These examples show why polarity, modality, scope, and unit of analysis belong in the claim record. Keyword matching cannot expose every difference.
+
+## What limitations should you report?
+
+Report the rubric’s boundaries: citation support is a time-bound observation, not a permanent property of a URL. Pages change, links expire, and search systems may expose different snippets by locale or date.
+
+Disclose at least the following:
+
+- the answer, prompt, model or engine, locale, timestamp, and citation rendering;
+- the claim-decomposition rule and whether claims were split manually or automatically;
+- the exact span policy, context window, capture method, and inaccessible-source treatment;
+- reviewer count, calibration process, disagreements, and adjudication policy;
+- label counts, unresolved cases, and whether multiple citations were assessed jointly;
+- source-quality dimensions and any proposed operational thresholds.
+
+Do not turn the labels into a universal benchmark without validation. A reviewer can apply a codebook consistently and still err; an automated judge can miss negation or qualifiers. NIST’s [AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) and [AI RMF Playbook](https://airc.nist.gov/airmf-resources/playbook/) guide documentation of risks and measurement choices, but do not prescribe this taxonomy.
+
+The practical standard is traceability: every “fully supports” decision should point to an inspectable span, weaker labels should say what is missing, and inaccessible or contradictory cases should remain visible. Pair the rubric with [AI search citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics) after preserving item-level records.
+
+![Analyst marking claim-support labels beside source excerpts in an AI citation review.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)

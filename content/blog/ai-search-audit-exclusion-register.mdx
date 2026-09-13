@@ -1,0 +1,163 @@
+---
+title: "AI Search Audit Exclusion Register: Predeclare Every Dropped Run"
+description: "A practical exclusion register for AI search audits: predeclare eligibility, separate retries from analytic exclusions, preserve evidence, and show denominator effects."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI search audit exclusions", "exclusion register", "AI audit methodology", "audit attrition flow", "AEO measurement", "predeclared exclusions"]
+faqs: [{"q":"What is an exclusion register in an AI search audit?","a":"It is a versioned log of every sampled run that was dropped, withheld, or moved out of an analysis, including the eligibility rule, observed failure, owner, evidence, and effect on the denominator."},{"q":"Should a technical retry count as an analytic exclusion?","a":"No. A retry is an operational attempt to recover a run that should still be eligible. An analytic exclusion removes an eligible observation from a stated analysis and must be visible with its reason and denominator effect."},{"q":"Can exclusions be decided after seeing the results?","a":"Sometimes a new failure is discovered after collection, but it should be labeled post hoc, justified with retained evidence, and included in sensitivity analysis whenever it could change the conclusion."},{"q":"Is this AEOeye register a universal research standard?","a":"No. It is a proposed AEOeye operating template inspired by transparent reporting and risk-management principles. Adapt the fields, thresholds, and ownership rules to the study question and document the adaptation."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher preserving source records, timestamps, and evidence beside a laptop.","photographer":"Sora Shimazaki","photographerUrl":"https://www.pexels.com/@sora-shimazaki"}
+sources: [{"label":"PRISMA 2020 statement (BMJ)","url":"https://www.bmj.com/content/372/bmj.n71"},{"label":"PRISMA 2020 explanation and elaboration (BMJ)","url":"https://www.bmj.com/content/372/bmj.n160"},{"label":"CONSORT 2010 statement (PMC)","url":"https://pmc.ncbi.nlm.nih.gov/articles/2844940/"},{"label":"OSF registrations and preregistrations guidance","url":"https://help.osf.io/article/330-welcome-to-registrations"},{"label":"OSF preregistration process guidance","url":"https://help.osf.io/article/626-simplifying-the-preregistration-process"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An AI search audit should not show only the runs that survived collection. A defensible report keeps an exclusion register: predeclare eligibility rules, log every dropped run, separate technical retries from analytic exclusions, and show how each decision changes the denominator. If an exclusion was discovered after results were visible, label it post hoc and run the result with and without that exclusion.
+
+This is a proposed AEOeye operating template, not a universal standard. It borrows a transparent reporting habit from [PRISMA 2020](https://www.bmj.com/content/372/bmj.n71), [CONSORT](https://pmc.ncbi.nlm.nih.gov/articles/2844940/), OSF, and the [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework): make the path from intended sample to analyzed sample inspectable.
+
+## Table of contents
+
+- [Why does an audit need an exclusion register?](#why-does-an-audit-need-an-exclusion-register)
+- [What should be predeclared before collection?](#what-should-be-predeclared-before-collection)
+- [Which fields belong in the register?](#which-fields-belong-in-the-register)
+- [How do retries differ from analytic exclusions?](#how-do-retries-differ-from-analytic-exclusions)
+- [How should you show attrition and denominator effects?](#how-should-you-show-attrition-and-denominator-effects)
+- [How do you handle post-hoc exclusions?](#how-do-you-handle-post-hoc-exclusions)
+- [What limitations should the report disclose?](#what-limitations-should-the-report-disclose)
+- [What is the practical checklist?](#what-is-the-practical-checklist)
+
+## Why does an audit need an exclusion register?
+
+An exclusion register prevents a clean-looking AI visibility score from hiding collection reality. If 100 planned prompts become 72 analyzed runs, readers need to know whether 28 were duplicates, failed requests, ineligible locales, or observations removed after outcome review.
+
+The denominator carries meaning. “Brand recommended in 18 of 72 eligible answers” is not interchangeable with “18 of 100 planned prompts.” A failed fetch may be a measurement limitation; removing a valid negative answer may be an analytic decision. Neither should disappear.
+
+PRISMA 2020 recommends reporting records through identification, screening, eligibility, and inclusion, with reasons for exclusions; its [explanation and elaboration](https://www.bmj.com/content/372/bmj.n160) gives the reporting detail. CONSORT similarly asks authors to report losses and exclusions with reasons. An AI search audit is not a clinical trial or systematic review; these are transparency analogies, not compliance claims.
+
+Pair this register with [AEOeye’s AI search audit methodology template](/blog/ai-search-audit-methodology-template).
+
+## What should be predeclared before collection?
+
+Predeclare anything knowable before running the audit: unit of analysis, eligible engines, prompt set, locale, collection window, retry policy, evidence minimum, duplicate rule, and primary denominator. [OSF registration guidance](https://help.osf.io/article/330-welcome-to-registrations) describes preregistration as a time-stamped study plan posted before data collection or analysis; its [process guidance](https://help.osf.io/article/626-simplifying-the-preregistration-process) explains how to acknowledge changes. Use that idea to anchor the protocol.
+
+Write rules that can be applied without looking at the outcome. Examples include:
+
+- Exclude a run only when the engine response is not attributable to the requested product surface.
+- Mark a run technically failed when the request timed out, then retry up to a stated limit.
+- Treat locale mismatch as ineligible only when locale is part of the declared study question.
+- Deduplicate repeated captures using a declared run identity, not the result.
+
+Predeclare the decision owner and escalation path. A reviewer who labels the answer should not quietly rewrite eligibility after seeing the brand outcome. If the study has no independent reviewer, record that limitation rather than implying a safeguard that does not exist.
+
+## Which fields belong in the register?
+
+Every exclusion row should connect a decision to an item, rule, evidence object, and denominator. This codebook is a proposed AEOeye template, not a requirement imposed by the cited frameworks.
+
+| Field | What to record | Example |
+|---|---|---|
+| `item_id` | Stable prompt/run identifier | `P07-R02` |
+| `eligibility_rule` | Versioned rule tested | `ELIG-03: US English only` |
+| `observed_failure` | What actually happened | `Response locale was fr-FR` |
+| `decision_owner` | Person or role accountable | `Audit lead` |
+| `timestamp` | Decision time with timezone | `2026-09-13T14:22:00-04:00` |
+| `retained_evidence` | Screenshot, raw answer, log, or hash | `bundle/P07-R02/answer.txt` |
+| `denominator_effect` | Counts before and after | `eligible 100 → 99` |
+| `sensitivity_flag` | Whether alternate handling is tested | `YES: include in alternate` |
+| `timing` | Predeclared or post hoc | `PRE` / `POST` |
+| `status` | Retry, retained, excluded, unresolved | `EXCLUDED` |
+
+Do not use “bad result” or “low quality” as a standalone reason. Translate it into an observable condition and cite the relevant rule. Preserve the original answer even when the final decision is exclusion. The [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) describes a useful separation between raw artifacts and later judgments.
+
+![Analyst reviewing a versioned exclusion register beside preserved source evidence.](https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+## How do retries differ from analytic exclusions?
+
+A technical retry is an operational action; an analytic exclusion is a change to the analysis set. A timeout, transient server error, browser crash, or incomplete network response can trigger a retry while the item remains eligible. The successful retry—not the failed attempt—may become the analyzed observation, but the attempt history should remain available.
+
+An analytic exclusion applies when the collected item fails a stated eligibility or evidence rule. For example, a run may be excluded from a US-English comparison because the interface served another locale. It should not be excluded merely because the answer contained no recommendation if “no recommendation” is one of the outcomes being measured.
+
+Use separate IDs for attempts and analytic units:
+
+```text
+analytic_item_id = prompt_id + declared_context
+attempt_id       = analytic_item_id + attempt_number
+retry_status     = RETRYABLE | TERMINAL_FAILURE | SUCCESS
+analysis_status  = RETAINED | EXCLUDED | UNRESOLVED
+```
+
+If every retry fails, report the terminal failure and its effect on the reachable sample. If a retry changes the answer, retain both timestamps and explain which response is primary; never select silently. See the [inter-rater reliability guide](/blog/ai-search-inter-rater-reliability-guide) when reviewers decide usability.
+
+## How should you show attrition and denominator effects?
+
+Show attrition as counts at each stage and reconcile the labels. A compact flow might look like this:
+
+```text
+Planned prompt-context pairs                         120
+  − duplicate item IDs                                5
+Unique planned items                                115
+  − never requested / scheduling failure              3
+Collection attempts                                112
+  − terminal technical failures                       4
+Observed responses                                  108
+  − predeclared ineligible locale or surface          6
+Eligible responses                                  102
+  − post-hoc exclusions                               2
+Primary analysis set                                100
+```
+
+The numbers above are illustrative, not a benchmark or reported AEOeye result. Reconcile every row to the flow. If one item contributes multiple answers, state whether the denominator is prompts, runs, answers, citations, or prompt-engine pairs; never switch units between flow and headline metric.
+
+Publish the primary denominator and an alternate denominator when an exclusion could plausibly change interpretation:
+
+| Analysis | Included | Recommendation rate |
+|---|---:|---:|
+| Primary, predeclared rules | 100 | 22/100 |
+| Include post-hoc exclusions | 102 | 24/102 |
+| Exclude unresolved technical cases | 98 | 22/98 |
+
+These values are placeholders. Show actual numerators, denominators, and contributing rows. For citation-level work, keep URL grouping visible through the [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules).
+
+## How do you handle post-hoc exclusions?
+
+Post-hoc exclusions are not automatically invalid, but they deserve more disclosure. Mark the row `POST`, record discovery time, state whether results were inspected, and explain why the protocol did not cover it. Add a sensitivity flag when alternate handling could change the conclusion.
+
+A reasonable review sequence is:
+
+1. Freeze the raw artifact and append the exclusion row; do not delete the answer.
+2. Ask whether a predeclared rule already resolves the case.
+3. If not, document the new rule, owner, timestamp, and evidence.
+4. Recalculate the primary and alternate analyses.
+5. Report the decision and its denominator effect in the methods and results.
+
+OSF allows plans to change while asking researchers to acknowledge deviations. Apply that discipline here: a protocol amendment is more credible when its history is visible. NIST’s AI RMF emphasizes governance, measurement, documentation, and communicating limitations; this register supports those aims without claiming NIST prescribes this schema.
+
+## What limitations should the report disclose?
+
+An exclusion register improves accountability but cannot repair biased sampling or unavailable evidence. A team may still miss prompts that fail before logging, overrepresent one locale, or use retries that change system state. State what the register cannot observe.
+
+Disclose at least:
+
+- whether exclusions were decided before or after outcome review;
+- whether one person or multiple reviewers made decisions;
+- whether retries used the same prompt, session, model, and locale;
+- how unresolved cases were handled;
+- which denominator supports each score;
+- whether the alternate analysis changed the conclusion.
+
+An exclusion is not evidence that the answer was wrong, and retention is not proof it is valid. A missing source or ambiguous recommendation may need “insufficient evidence,” not forced inclusion or exclusion. Use [AI search citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics) to separate outcomes from data availability.
+
+## What is the practical checklist?
+
+Before publishing, check that every dropped item traces to evidence and a rule version. Ask whether a skeptical reader could reproduce the denominator from the register and flow.
+
+The minimum release checklist is:
+
+- Freeze the protocol, eligibility rules, retry limit, and primary denominator.
+- Export all item IDs, including retained, retried, unresolved, and excluded rows.
+- Preserve raw answers, timestamps, request logs, and permitted source evidence.
+- Label each exclusion `PRE` or `POST` and distinguish technical from analytic status.
+- Reconcile register counts to the attrition flow.
+- Run and report sensitivity analysis for flagged rows.
+- Explain ownership, disagreement handling, and unresolved cases.
+- Link every headline metric to its exact numerator and denominator.
+
+The strongest audit is not the one with the fewest exclusions. It is the one where every dropped run has a reason, every reason has evidence, every denominator is explicit, and post-hoc judgment is visible.

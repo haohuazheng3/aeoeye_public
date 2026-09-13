@@ -1,0 +1,136 @@
+---
+title: "AI Citation Date Verification: Published, Modified, Effective, or Merely Crawled?"
+description: "A practical evidence hierarchy and worksheet for verifying publication, revision, effective, crawl, archive, and access dates in AI citation audits."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI citation date verification", "publication date verification", "dateModified", "AI search citations", "content freshness audit"]
+faqs: [{"q":"Is a visible date proof of publication?","a":"No. A visible date is useful evidence only when its label and meaning are clear. It may describe publication, revision, an event, or a template display, so retain the label and corroborate it."},{"q":"Can a sitemap lastmod date replace datePublished?","a":"No. Sitemap lastmod describes a URL's last modification signal for crawling. It does not establish when the work was first published, and it should be recorded as a separate observation."},{"q":"Does Last-Modified prove that the article substantively changed?","a":"No. It describes a representation's modification time as reported by the server. It can change for a rebuild, metadata edit, or other implementation reason, so inspect the content diff when substantive revision matters."},{"q":"What should I do when two dates conflict?","a":"Keep both dates, label each source and meaning, and mark the conflict for review. Never turn a crawl or access timestamp into a publication date merely to resolve the disagreement."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Research notes and a laptop showing a structured AI citation dataset.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"Schema.org datePublished","url":"https://schema.org/datePublished"},{"label":"Schema.org dateModified","url":"https://schema.org/dateModified"},{"label":"Google Search Central — Influence your byline dates","url":"https://developers.google.com/search/docs/appearance/publication-dates"},{"label":"Crossref REST API documentation","url":"https://www.crossref.org/documentation/retrieve-metadata/rest-api/"},{"label":"RFC 9110 — HTTP Semantics","url":"https://www.rfc-editor.org/rfc/rfc9110"},{"label":"Sitemaps protocol","url":"https://www.sitemaps.org/protocol.html"},{"label":"Internet Archive Wayback CDX Server","url":"https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server"}]
+---
+
+An AI citation audit should never collapse every timestamp into “published.” A visible date, `datePublished`, `dateModified`, `Last-Modified`, sitemap `lastmod`, DOI metadata, an event date, an archive capture, a crawl time, and your own access time answer different questions. The defensible result is a dated evidence record with conflicts intact.
+
+## Table of contents
+
+- [What does each date actually mean?](#what-does-each-date-actually-mean)
+- [Which date evidence deserves the most weight?](#which-date-evidence-deserves-the-most-weight)
+- [How should you verify visible dates and structured data?](#how-should-you-verify-visible-dates-and-structured-data)
+- [What can headers, sitemaps, and DOI metadata prove?](#what-can-headers-sitemaps-and-doi-metadata-prove)
+- [How should you use archives, event dates, and access dates?](#how-should-you-use-archives-event-dates-and-access-dates)
+- [What conflict codebook should reviewers apply?](#what-conflict-codebook-should-reviewers-apply)
+- [How do you complete a verification worksheet?](#how-do-you-complete-a-verification-worksheet)
+- [What limitations should you report?](#what-limitations-should-you-report)
+
+## What does each date actually mean?
+
+The first task is semantic, not technical: name the event before comparing its timestamp. “Published” means first public release of the work; “modified” means a later change; “effective” means when a policy, price, or rule applies; “crawled” means a system fetched it; and “accessed” means your reviewer fetched it.
+
+Use this vocabulary in a claim ledger:
+
+| Label | Question answered | Typical evidence | What it cannot prove |
+|---|---|---|---|
+| Published | When was this work first released? | Explicit page label, publisher record, DOI publication date | That the current text existed then |
+| Modified | When did the current representation or substantive content change? | Revision note, content diff, `dateModified`, `Last-Modified` | Why it changed or how much changed |
+| Effective | When did the described thing begin applying? | Policy, contract, release, or event language | When the page itself was published |
+| Crawled | When did a bot or indexer fetch it? | Search console, crawler log, archive capture | Publication or revision |
+| Accessed | When did your audit retrieve it? | UTC request timestamp and URL | Any earlier page state |
+
+Schema.org gives `datePublished` the meaning “date of first publication or broadcast,” while `dateModified` describes the most recent modification. Those properties are valuable semantic signals, but markup is still a publisher-supplied assertion. Record the value, the property, the page URL, and the time you observed it; do not promote it to independently proven fact.
+
+## Which date evidence deserves the most weight?
+
+Use an evidence hierarchy based on directness and meaning. A clearly labeled publisher record that identifies first publication is generally stronger for publication timing than an unlabeled template date; a crawl timestamp is strong evidence of access by that crawler but has no publication meaning.
+
+This proposed AEOeye review order is an operating rule, not a universal standard:
+
+1. **Explicit first-publication evidence:** an editorial history, dated release record, publisher archive, or page label that unambiguously says published.
+2. **Independent persistent metadata:** a DOI or Crossref record with an applicable online, print, posted, or issued date. Match the DOI and work identity first.
+3. **Visible page evidence:** a byline date, “updated” label, revision history, or changelog, preserving its exact wording.
+4. **Structured data:** `datePublished`, `dateModified`, `dateCreated`, or a more specific property, with the JSON-LD or markup snapshot.
+5. **Representation and discovery signals:** HTTP headers, sitemap `lastmod`, search-result dates, and archive captures.
+6. **Audit timestamps:** crawler time and reviewer access time, which establish observation windows only.
+
+The question controls the ordering: an official instrument leads for a regulation’s effective date, while a capture window may lead for retrievability.
+
+## How should you verify visible dates and structured data?
+
+Capture the page as observed, including its surrounding label. A bare “2025” can mean publication, copyright, season, data coverage, or an event year. Store the exact text, location or screenshot reference, timezone if shown, and whether it appears beside “published,” “updated,” “effective,” or no label.
+
+If the same publisher emits a visible date, Open Graph date, and JSON-LD date, that is three representations of one source assertion—not three independent witnesses. Check whether `datePublished` and `dateModified` align with the page’s visible history and whether a new date coincides with a substantive change.
+
+Google describes displayed byline dates as estimates and warns against making unchanged content appear fresh. Treat a result date as a search observation, not publication proof.
+
+![Reviewer comparing live, redirected, and archived citation records.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## What can headers, sitemaps, and DOI metadata prove?
+
+Each technical source has a narrower meaning than its name suggests. RFC 9110 defines `Last-Modified` as a date associated with the selected representation; it helps with conditional requests and caching. It does not say “this article was substantively edited,” and a server can update a representation for reasons unrelated to prose.
+
+The Sitemap protocol’s `<lastmod>` value describes when the page was last modified, but the protocol leaves search engines to determine how to use it. Treat it as a submitted site signal. Preserve the sitemap URL, retrieval time, and raw value, then compare it with a page revision record or content diff.
+
+Crossref’s REST API distinguishes fields such as `published-online`, `published-print`, `issued`, `accepted`, `deposited`, and `indexed`. Map the field to the question: deposit and index dates describe metadata maintenance, not necessarily public release. Record the DOI, matched title, field name, date precision, and retrieval time; a year-only record cannot support a day-level claim.
+
+## How should you use archives, event dates, and access dates?
+
+An archive capture proves that an archive recorded a representation at a timestamp. The Wayback CDX Server documentation supports querying capture records; the timestamp identifies the capture, not necessarily the page’s publication or modification moment. A first capture is a lower bound on public availability only when the capture truly contains the relevant page and no earlier evidence is known.
+
+Keep event and page dates separate: a June 4 conference date does not establish when its page was published.
+
+Access time is indispensable for reproducibility. Save UTC timestamp, request URL, final URL, status, response headers, locale, and a content hash when possible. Your access date tells another reviewer when you saw a state; it cannot backfill an unknown publication date. Keep URL provenance beside the dates using [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules), and preserve snapshots using the fields in [AEOeye’s citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol).
+
+## What conflict codebook should reviewers apply?
+
+Do not resolve a conflict by averaging dates or choosing the newest timestamp. Code the conflict, preserve every observation, and identify the next evidence needed.
+
+| Code | Pattern | Reviewer action | Safe conclusion |
+|---|---|---|---|
+| D1 | Visible “published” and `datePublished` agree | Store both as same-source evidence | Publisher asserts first publication on that date |
+| D2 | Visible “updated” differs from `dateModified` | Capture both and inspect revision history | Modification signals conflict |
+| D3 | `Last-Modified` is newer than substantive revision | Check headers, builds, and content diff | Representation changed; substantive change unproven |
+| D4 | Sitemap `lastmod` is newer than page dates | Retain sitemap value and fetch time | Site submitted a newer modification signal |
+| D5 | Crossref online and print dates differ | Use the format relevant to the question | Work had distinct publication manifestations |
+| D6 | Archive capture predates claimed publication | Verify URL, capture content, and timezone | Potential contradiction requiring review |
+| D7 | Search-result date differs from publisher date | Label it as search observation | Google estimated or selected a different date |
+| D8 | Only crawl or access date exists | Do not infer publication | Availability observed by that system at that time |
+
+For triage, use this AEOeye proposal: **date confidence = evidence specificity × source independence × content match**. Define each factor on a documented 0–2 scale and report the components. It is not a research-standard metric and cannot convert a missing date into a fabricated one.
+
+## How do you complete a verification worksheet?
+
+Copy this worksheet for each cited URL. One row is one observation, not one “final date.”
+
+```text
+CITATION DATE VERIFICATION WORKSHEET (PROPOSED)
+Record ID / raw cited URL:
+Resolved URL / DOI / title match:
+Study question: first published | last substantively revised | effective | available by
+Observation UTC:
+
+Evidence rows:
+1. Source type / exact label or field:
+   Value / precision / timezone:
+   Capture reference (HTML, JSON-LD, header, XML, API, archive):
+   Meaning claimed by source:
+   Content match or revision evidence:
+2. Source type / exact label or field:
+   Value / precision / timezone:
+   Capture reference:
+   Meaning claimed by source:
+   Content match or revision evidence:
+
+Conflict code(s):
+Publication conclusion: confirmed | supported | unknown | contradicted
+Modification conclusion: confirmed | supported | unknown | contradicted
+What remains unproven:
+Reviewer / codebook version / next check:
+```
+
+Use the worksheet alongside the [AI citation data schema](/blog/ai-citation-data-schema), then connect date findings to a broader [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist). If a date changes an AI visibility comparison, preserve the answer, citation, model, locale, and prompt with it; a date without its observation context is easy to misread.
+
+## What limitations should you report?
+
+Dynamic rendering, timezones, caches, templates, missing history, partial DOI dates, inaccessible archives, and metadata errors limit what date verification can establish. A template timestamp is not proof of substantive revision.
+
+Report the page state, evidence sources, precision, conflicts, unavailable checks, and your conclusion’s scope. Say “the page exposed a published date of…” when that is all you know. Say “the article was first published on…” only when the evidence supports that stronger claim. Most importantly, never substitute a crawl or access date for publication date. That single discipline keeps AI citation histories honest and makes later audits explainable.

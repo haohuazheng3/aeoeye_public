@@ -1,0 +1,121 @@
+---
+title: "AI Search Evidence Grading: A Claim-Level Scale for Research and Audits"
+description: "A claim-level evidence scale for AI search research, with separate axes for claim fit, time relevance, method transparency, provenance, and conflicts of interest."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI search evidence grading", "claim-level evidence", "AI search research", "evidence audit", "source provenance", "AEO research"]
+faqs: [{"q":"What is claim-level evidence grading?","a":"It is a structured way to rate how well a specific piece of evidence supports a specific claim, while recording freshness, method transparency, provenance, and conflicts separately."},{"q":"Is the AEOeye evidence scale a formal research standard?","a":"No. It is an AEOeye operational proposal for AI search research and audits. GRADE, Cochrane, NIST, and W3C documents remain separate standards or methodological resources with their own scopes."},{"q":"Does a prestigious publisher automatically make evidence strong?","a":"No. Grade claim-evidence fit first. A prestigious source can be indirect, stale, poorly matched, or opaque for the question being audited; a direct primary observation may fit better for a narrow claim."},{"q":"How should an AI search audit report uncertainty?","a":"Keep the claim, evidence excerpt, source URL, timestamp, method, provenance, conflict disclosure, grade, and downgrade reasons together. Use cautious language when evidence is indirect, time-sensitive, disputed, or not independently replicated."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Two reviewers calibrating an AI search evidence grading guide at a whiteboard.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"GRADE Working Group, official GRADE guidance","url":"https://www.gradeworkinggroup.org/"},{"label":"Cochrane Handbook, Chapter 14: certainty of evidence","url":"https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-14"},{"label":"NIST AI Risk Management Framework 1.0","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"NIST Generative AI Profile: provenance data tracking","url":"https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"},{"label":"W3C PROV-O provenance ontology","url":"https://www.w3.org/TR/prov-o/"},{"label":"W3C PROV-AQ provenance access and query","url":"https://www.w3.org/TR/prov-aq/"},{"label":"Cochrane Handbook, Chapter 7: bias and conflicts of interest","url":"https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-07"}]
+---
+
+Strong AI search research does not begin by asking whether a publisher “looks authoritative.” It begins with a narrower question: does this evidence support this exact claim, in this context, at this time? This AEOeye operational proposal grades the claim-evidence fit first, then records time relevance, method transparency, provenance, replication, and conflicts as separate facts.
+
+The scale is inspired by the discipline of [GRADE](https://www.gradeworkinggroup.org/) and the [Cochrane Handbook](https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-14), but it is not a modified GRADE system or a universal research standard. It is a practical codebook for AI visibility studies, citation audits, and research notes.
+
+## Table of contents
+
+- [Why grade claims instead of publishers?](#why-grade-claims-instead-of-publishers)
+- [What are the seven evidence levels?](#what-are-the-seven-evidence-levels)
+- [How should you score claim-evidence fit?](#how-should-you-score-claim-evidence-fit)
+- [Which factors upgrade or downgrade a grade?](#which-factors-upgrade-or-downgrade-a-grade)
+- [How do time, method, provenance, and conflicts stay separate?](#how-do-time-method-provenance-and-conflicts-stay-separate)
+- [How should an audit report the result?](#how-should-an-audit-report-the-result)
+- [What are the limitations of this scale?](#what-are-the-limitations-of-this-scale)
+
+## Why grade claims instead of publishers?
+
+Grade the relationship between a claim and its evidence, not the prestige of the outlet hosting it. A government page may be highly direct for an official product specification, but indirect for whether buyers recommend that product; a small primary dataset may be more direct for a narrowly defined observation.
+
+AI search audits routinely mix different claim types: “the answer cited this URL,” “the source supports the answer,” “the brand was recommended,” and “visibility increased after a change.” Each needs different evidence. A citation URL proves an observed citation artifact; it does not, by itself, prove entailment or causality. Use a claim ledger such as [AEOeye’s citation data schema](/blog/ai-citation-data-schema) to keep those units separate.
+
+The distinction also prevents citation counting from becoming a false authority score. A secondary article that repeats an unsourced assertion may be easy to find but weak for the underlying proposition. Conversely, a timestamped primary observation can be strong for “what appeared in this test” while remaining weak for “what normally happens across engines.”
+
+## What are the seven evidence levels?
+
+The following seven levels are an AEOeye operational proposal. They describe the strongest available evidence for a particular claim, not the value of a person, publisher, or research field.
+
+| Level | Evidence type | What it can support | Typical caution |
+|---|---|---|---|
+| 1 | Direct primary observation | A precisely recorded event, output, or document state | Narrow scope; may not generalize |
+| 2 | Independent replication | The same claim observed again by a separate reviewer, run, or source | Replications may share prompts, tools, or sampling bias |
+| 3 | Systematic synthesis | A transparent review that combines relevant evidence using a stated method | Quality depends on inclusion, heterogeneity, and synthesis choices |
+| 4 | Secondary reporting | A credible report accurately describing identifiable primary evidence | Check the original; summaries can omit limits or qualifiers |
+| 5 | Single-source interpretation | An expert or analyst’s reasoned interpretation of evidence | Distinguish analysis from the underlying observation |
+| 6 | Anecdote | An individual experience or isolated example | Useful for hypothesis generation, weak for prevalence or causality |
+| 7 | Unverifiable assertion | A claim without inspectable evidence, method, or provenance | Do not treat as audit evidence |
+
+“Higher” is not always better for every question. Level 1 is often the best fit for the claim “this answer displayed this citation at 14:05 UTC.” Level 3 may be more useful for a broader claim about a body of research, provided the synthesis is transparent and relevant. [Cochrane’s guidance](https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-14) makes a similar methodological point in its own domain: certainty is judged for an outcome and body of evidence, with explicit domains, not by a simplistic hierarchy alone.
+
+## How should you score claim-evidence fit?
+
+Start with a one-sentence claim that names the subject, action, context, and time window. Then ask whether the evidence answers that sentence without an unstated leap. A useful fit test is: **same entity, same property, same population or query, same time boundary, and sufficient detail to inspect the conclusion**.
+
+Use this reusable claim card before assigning a level:
+
+```text
+CLAIM CARD (AEOEYE OPERATIONAL PROPOSAL)
+Claim: [one atomic proposition]
+Evidence excerpt or artifact: [quote, screenshot, response, dataset row]
+Source and provenance: [URL, owner, capture time, transformation history]
+Fit: direct / partially direct / indirect / contradictory
+Evidence level: 1–7
+Time relevance: current / bounded / stale / unknown
+Method transparency: reproducible / partial / opaque
+Conflicts or incentives: disclosed / plausible / unknown
+Decision language: supported / qualified / unresolved / unsupported
+```
+
+An atomic claim should not combine “engine X recommends brand Y because it has feature Z.” That is at least three claims: recommendation, stated reason, and feature verification. Split them, grade each, and link them through the same audit run. The [claim decomposition research](https://aclanthology.org/2024.starsem-1.13/) linked in AEOeye’s reliability guidance is a useful reminder that compound statements hide different support requirements.
+
+## Which factors upgrade or downgrade a grade?
+
+An evidence level is a starting classification; fit and risk factors determine the language you can responsibly use. Upgrade only when a factor adds information that directly reduces uncertainty. Never upgrade merely because a result is surprising, popular, or published by a recognizable name.
+
+Potential upgrades include:
+
+- independent replication with a different reviewer, run, or data collection path;
+- a pre-specified method, complete denominator, and preserved raw outputs;
+- convergence across relevant sources that do not share the same origin;
+- a clear temporal match between the evidence and the decision being made;
+- a transparent explanation of missing data, exclusions, and contradictory cases.
+
+Potential downgrades include:
+
+- indirect population, query, engine, locale, or outcome;
+- selective examples, missing failures, or an unknown denominator;
+- an opaque prompt, transformation, model version, or sampling process;
+- stale evidence where the claim can change quickly;
+- unresolved contradiction, suspected measurement error, or undisclosed incentive.
+
+These factors echo, but do not replace, GRADE’s domains of risk of bias, inconsistency, indirectness, imprecision, and publication bias. [The GRADE Working Group](https://www.gradeworkinggroup.org/) defines its own categories and uses; this article borrows the discipline of explicit judgments rather than importing its healthcare ratings into AI search.
+
+![Reviewer comparing a primary AI answer, source page, and provenance record.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How do time, method, provenance, and conflicts stay separate?
+
+Keep these axes separate because they answer different questions. Fresh evidence can be methodologically opaque; a beautifully documented study can be obsolete; a direct observation can have incomplete provenance; and a conflicted source can still report a verifiable fact.
+
+- **Time relevance:** When was the claim true, and how fast can it change? Record capture time, effective date, model or engine version, locale, and the target decision date.
+- **Method transparency:** Could another reviewer reproduce the collection and interpretation? Record prompts, sampling frame, exclusions, tools, transformations, and uncertainty handling.
+- **Provenance:** Can you trace the artifact from origin through collection and modification? [W3C PROV-O](https://www.w3.org/TR/prov-o/) provides a vocabulary for representing provenance, while [PROV-AQ](https://www.w3.org/TR/prov-aq/) addresses access and querying of provenance information.
+- **Conflicts:** Who benefits if the claim is accepted? Disclose ownership, sponsorship, affiliate relationships, vendor incentives, and whether the reviewer or source had a stake in the result.
+
+[NIST’s AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) treats measurement as an ongoing, documented activity and notes the value of independent review. Its [Generative AI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf) also describes provenance metadata such as creation time, modifications, and sources. Those are governance and documentation resources, not a proof that any particular AI-search claim is true.
+
+## How should an audit report the result?
+
+Report the claim and its uncertainty in the same row, not in a distant methodology footnote. A concise record might say: “In one US-English ChatGPT run captured on 2026-09-13, the answer named Brand A and linked URL B; Level 1, direct for observed output, not evidence of typical recommendation frequency.”
+
+For recurring work, publish the codebook version, raw response, source snapshot, reviewer identity or role, adjudication status, and changes since the prior run. [AEOeye’s AI search audit methodology template](/blog/ai-search-audit-methodology-template) and [citation evaluation metrics guide](/blog/ai-search-citation-evaluation-metrics) can hold the surrounding sampling and measurement decisions.
+
+Use bounded verbs: “observed,” “matches,” “is consistent with,” and “does not establish.” Reserve “caused,” “always,” “best,” or “proves” for designs that genuinely support those stronger conclusions. If evidence is contradictory, keep both records and mark the claim unresolved; do not average away the conflict.
+
+## What are the limitations of this scale?
+
+This scale cannot turn weak evidence into strong evidence, establish causality from an observational AI answer, or predict how an engine will respond outside the tested prompt, account, locale, model version, and time. It is not a substitute for domain-specific systematic review methods, statistical inference, legal review, or safety assessment.
+
+Grades also contain judgment. Two reviewers may disagree about whether a source is direct or partially direct, especially when the claim is compound. Resolve that disagreement with a versioned codebook, preserve both initial judgments, and record the reason for adjudication. For practical reviewer controls, see [AEOeye’s inter-rater reliability guide](/blog/ai-search-inter-rater-reliability-guide).
+
+The useful outcome is not a single shiny score. It is a traceable claim record that lets a reader see what was observed, what was inferred, what remains unknown, and what would raise or lower confidence next.

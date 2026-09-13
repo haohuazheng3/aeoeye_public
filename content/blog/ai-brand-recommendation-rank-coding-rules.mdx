@@ -1,0 +1,117 @@
+---
+title: "AI Brand-Recommendation Rank Coding: Rules for Lists, Prose, and Ties"
+description: "A deterministic codebook for coding AI brand recommendations across numbered lists, bullets, prose, grouped options, ties, repeats, sponsored blocks, and unordered answers."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI brand recommendation rank", "AI search rank coding", "recommendation prominence", "mean reciprocal rank", "top-k AI visibility", "AI answer annotation"]
+faqs: [{"q":"What counts as a brand recommendation in an AI answer?","a":"Code a recommendation only when the answer uses an evaluative or action-oriented signal that presents the brand as suitable for the user’s stated need. A bare name mention is not automatically a recommendation."},{"q":"Can I calculate MRR when an answer has bullets?","a":"Only when the bullets or another answer structure establish an observable order. If the output is explicitly unordered, code presence and recommendation separately and leave rank-based metrics undefined."},{"q":"How should ties be represented?","a":"Preserve the shared displayed position and assign the same competition rank to tied items. Do not invent a hidden order from alphabetical order, visual width, or the order in which a parser happened to read the text."},{"q":"Is this coding scheme an industry standard?","a":"No. The retrieval metrics and measurement references are established technical sources, but this AEOeye codebook is a proposed operational policy for reproducible AI search audits."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Two reviewers calibrating an AI search annotation guide at a whiteboard.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Manning, Raghavan & Schütze, Introduction to Information Retrieval: Evaluation of Ranked Retrieval Results","url":"https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html"},{"label":"Manning, Raghavan & Schütze, Introduction to Information Retrieval: Evaluation of Unranked Retrieval Sets","url":"https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-unranked-retrieval-sets-1.html"},{"label":"TREC/NIST English Relevance Judgements","url":"https://trec.nist.gov/data/reljudge_eng.html"},{"label":"NIST AI Measurement and Evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"NIST AI 800-3: Expanding the AI Evaluation Toolbox with Statistical Models","url":"https://www.nist.gov/publications/expanding-ai-evaluation-toolbox-statistical-models"},{"label":"NIST Guidelines for Evaluating and Expressing Measurement Uncertainty","url":"https://www.nist.gov/document/tn1297spdf"}]
+---
+
+An AI answer can mention a brand without recommending it, recommend several brands without ranking them, or place two brands in a tie. Code those distinctions explicitly, preserving the observed answer before adding structured fields.
+
+This article proposes an AEOeye operating codebook, not a universal standard. Its metric vocabulary follows information-retrieval practice: precision and recall apply to sets, while rank-aware measures require an ordered list. [Stanford’s Information Retrieval text explains the distinction](https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html).
+
+## Table of contents
+
+- [What exactly should a reviewer code?](#what-exactly-should-a-reviewer-code)
+- [How do you preserve answer structure and raw order?](#how-do-you-preserve-answer-structure-and-raw-order)
+- [How should numbered lists and bullets become ranks?](#how-should-numbered-lists-and-bullets-become-ranks)
+- [How do you code prose, groups, repeats, and variants?](#how-do-you-code-prose-groups-repeats-and-variants)
+- [How should ties and unordered answers be handled?](#how-should-ties-and-unordered-answers-be-handled)
+- [What about sponsored or separately labeled blocks?](#what-about-sponsored-or-separately-labeled-blocks)
+- [When are MRR and top-k metrics valid?](#when-are-mrr-and-top-k-metrics-valid)
+- [What should the audit report disclose?](#what-should-the-audit-report-disclose)
+- [What are the limitations of rank coding?](#what-are-the-limitations-of-rank-coding)
+
+## What exactly should a reviewer code?
+
+Use separate fields because “rank” often collapses different questions. A brand may be visible but not endorsed, or endorsed without an explicit position.
+
+| Field | Code when | Do not infer |
+|---|---|---|
+| `mention` | The brand appears as a name, link, logo, or unmistakable variant | Positive sentiment or suitability |
+| `recommendation` | The answer evaluates, suggests, selects, or directs the user toward the brand | A recommendation from mere inclusion |
+| `prominence` | The answer gives the brand visual or rhetorical emphasis | A numeric rank unless structure supplies one |
+| `display_position` | The answer exposes an observable sequence position | Relevance, quality, or preference |
+| `competition_rank` | The position after applying the documented tie rule | A hidden ordering inside a group |
+
+“Other tools include AEOeye and three alternatives” is a mention. “AEOeye is a strong choice” is a recommendation. “Top pick: AEOeye” is both. Record the supporting span and timestamp.
+
+## How do you preserve answer structure and raw order?
+
+Start with an immutable observation: prompt, engine, model if exposed, locale, timestamp, answer text, rendered structure, and sponsored or citation metadata. Never sort extracted brands alphabetically. Retain the raw answer and a reviewer-confirmed sequence.
+
+Use a stable identifier for each occurrence. A practical record contains `occurrence_id`, `brand_surface`, `canonical_brand`, `block_type`, `raw_index`, `display_position`, `recommendation`, `prominence`, `tie_group`, and `evidence_span`. Canonical identity supports aggregation; occurrence identity preserves repeats.
+
+NIST describes AI evaluation as context-dependent and emphasizes defining the measurement target and method; [NIST AI measurement guidance](https://www.nist.gov/ai-measurement-and-evaluation) supports documenting what was measured rather than treating an output number as self-explanatory. If the page changes after capture, store the representation used for adjudication.
+
+## How should numbered lists and bullets become ranks?
+
+Numbered lists usually provide an explicit displayed position. Code “1.” as position 1, “2.” as position 2, and so on, unless the text clearly labels the list as unordered or groups entries under a shared heading.
+
+Bullets need a structural decision. If the answer says “in order of recommendation” or uses language such as “best to least suitable,” the bullet sequence is ranked. If it says “options include,” “examples,” or “you could consider,” treat the sequence as displayed order only unless evaluative language establishes preference. A bullet’s location is evidence of prominence, not proof of recommendation.
+
+Nested lists inherit their parent block but do not automatically compete with sibling top-level items. Code a nested brand as a sub-item, with `parent_id`, and calculate rank within its own explicitly ordered scope. Do not compare a sub-item at “1a” with a top-level “2” unless the answer itself makes that comparison.
+
+A heading such as “Best for teams” creates a semantic group, not necessarily a rank. Preserve order and recommendation independently. “First choice” or “runner-up” supplies stronger position evidence than visual placement alone.
+
+## How do you code prose, groups, repeats, and variants?
+
+Prose mentions have no rank unless the sentence provides an order signal. “AEOeye, followed by Brand B” yields positions 1 and 2. “AEOeye and Brand B are both suitable” yields recommendations without a numeric order. “AEOeye is one option among several” yields a mention and perhaps a weak prominence signal, but not a recommendation.
+
+Grouped options are a common trap. “AEOeye, Brand B, and Brand C are good alternatives” is a group recommendation. Code each occurrence as recommended when the grammatical scope applies to all, then set `order_status: unordered` unless the sentence orders them. The group may be prominent even though its members have no individual rank.
+
+Repeats are separate occurrences first and an aggregate second. If AEOeye appears in a numbered list at 1 and later in a “more options” paragraph, preserve both. For a brand summary, report first displayed position, occurrence count, and whether any occurrence was recommended. Do not let a later repeat overwrite the initial position.
+
+Variants require an identity rule. Map spelling, punctuation, legal-suffix, or URL variants to one canonical brand only when documented and defensible. A parent company, product, reseller, marketplace listing, or similarly named competitor may be a different entity. [AEOeye’s citation URL normalization rules](/blog/ai-citation-url-normalization-rules) offer the parallel principle: normalize for comparison while retaining original evidence.
+
+![Reviewer comparing live, redirected, and archived citation records.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How should ties and unordered answers be handled?
+
+A tie exists when the answer explicitly assigns equal status or when multiple items occupy one stated position. Use a `tie_group` and shared competition rank; never break the tie with alphabetic order, token order, visual width, or DOM order.
+
+For a competition-rank convention, positions “1, 1, 3” mean two items share rank 1 and the next is rank 3. For dense rank, the same display becomes “1, 1, 2.” Pick one convention before analysis and name it in the report. Displayed position remains separate either way.
+
+An answer can be prominent but unordered. “Recommended options: AEOeye, Brand B, Brand C” has a recommendation group and perhaps high prominence, but no defensible individual rank. Set `order_status: unordered`, leave `competition_rank` null, and use set-based measures. [Stanford’s unranked-retrieval chapter](https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-unranked-retrieval-sets-1.html) is the relevant conceptual reference.
+
+## What about sponsored or separately labeled blocks?
+
+Keep sponsored, paid, promoted, or “featured” blocks separate from editorial recommendations unless the research question explicitly combines them. Record the label, block boundary, and position. A sponsored placement can be prominent without expressing the model’s organic recommendation.
+
+If an answer contains “Sponsored” followed by “Recommended,” do not merge those lists into one top-k sequence. Report block presence and within-block order. If sponsorship is only suspected from styling, code it as unknown.
+
+## When are MRR and top-k metrics valid?
+
+Use MRR only for observations with a valid ordered competition list and a pre-declared relevance or recommendation rule. For query (q), reciprocal rank is (1/r_q), where (r_q) is the first relevant recommended item’s rank; if no relevant item appears, the contribution is 0. Mean reciprocal rank averages those query-level values. The metric is not defined by a prose answer that has no order.
+
+Top-k reporting has the same condition. `recommendation@1` can answer whether a recommended brand is the first displayed item; `recommendation@3` can answer whether it appears within the first three valid positions. Do not count a third bullet as rank 3 when the bullets are explicitly unordered. In that case report set presence, such as “recommended brand present,” and describe prominence separately.
+
+For changing answers, report the denominator and exclusions: ordered, unordered, tied, missing, and truncated cases. [TREC/NIST relevance-judgment guidance](https://trec.nist.gov/data/reljudge_eng.html) ties judgments to a defined collection and task; do not transfer a rank metric to another design.
+
+## What should the audit report disclose?
+
+Make the coding scheme inspectable. A reusable proposed AEOeye codebook template is:
+
+```text
+OBSERVATION: prompt | engine | model | locale | timestamp | answer_hash
+ENTITY: occurrence_id | surface_form | canonical_brand | identity_rule
+MEANING: mention=yes/no | recommendation=yes/no/uncertain | evidence_span
+STRUCTURE: block_type | parent_id | raw_index | displayed_position | order_status
+RANK: tie_group | tie_convention | competition_rank | rank_eligible=yes/no
+CONTEXT: sponsored_label | citation_present | truncation | reviewer_note
+DECISION: adjudicated_label | codebook_version | reviewer_id | rationale
+```
+
+Before publishing, include the codebook version, sampling frame, capture method, identity mapping, tie convention, missing-data policy, and disagreement examples. NIST’s [AI 800-3 report](https://www.nist.gov/publications/expanding-ai-evaluation-toolbox-statistical-models) distinguishes fixed-benchmark performance from broader generalization; similarly distinguish “this captured answer” from claims about future answers.
+
+## What are the limitations of rank coding?
+
+Rank coding cannot reveal private reasoning or prove a recommendation factually correct. It measures observable behavior under a particular prompt, time, locale, engine configuration, and identity policy. Omission does not imply rejection, and repetition does not prove preference.
+
+Metrics carry uncertainty. Sampling prompts, unstable outputs, reviewer disagreement, incomplete capture, and ambiguous identity all affect the result. [NIST’s measurement-uncertainty guidance](https://www.nist.gov/document/tn1297spdf) supports reporting those conditions rather than presenting a bare number as exact.
+
+The practical rule: preserve the displayed answer, separate recommendation from visibility, and calculate rank metrics only where order is observable. For a broader workflow, connect this codebook to [AEOeye’s brand recommendation annotation codebook](/blog/ai-brand-recommendation-annotation-codebook), [AI search citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics), [the AI search audit methodology template](/blog/ai-search-audit-methodology-template), and [AEOeye’s citation data schema](/blog/ai-citation-data-schema). When order is absent, use an honest null.

@@ -1,0 +1,128 @@
+---
+title: "AI Search Engine Agreement Metrics: Compare Lists Without Hiding Disagreement"
+description: "A practical metric selection guide for comparing AI search outputs by set overlap, top-k overlap, rank order, and per-brand coverage without confusing agreement with truth."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI search agreement metrics", "Jaccard overlap", "rank-biased overlap", "AI engine comparison", "top-k agreement"]
+faqs: [{"q":"What is the best metric for comparing AI search result lists?","a":"There is no single best metric. Use exact-set or Jaccard overlap for membership, top-k overlap for visible recommendations, rank-biased overlap for incomplete ranked lists, and Kendall or Spearman only for shared items with defensible ranks."},{"q":"Does high agreement mean an AI answer is correct?","a":"No. Agreement describes how similarly engines produced outputs. Engines can agree on an unsupported claim, and they can disagree while one answer is better supported. Factual correctness needs a separate evidence and entailment review."},{"q":"How should missing brands be treated?","a":"Decide before scoring whether absence means not mentioned, not retrieved, not applicable, or unobserved. Keep those states separate when possible; converting every absence into a zero can make the metric answer a different question."},{"q":"Can I compare ranked and unordered AI answers?","a":"Only after defining a representation policy. Preserve unordered answers as sets, and do not invent ranks from prose position unless the study explicitly treats that position as prominence. Rank metrics require an observed or defensible order."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst organizing web source records for an AI citation audit.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"Webber, Moffat, and Zobel, A Similarity Measure for Indefinite Rankings","url":"https://dl.acm.org/doi/10.1145/1852102.1852106"},{"label":"Kendall, A New Measure of Rank Correlation","url":"https://doi.org/10.1093/biomet/30.1-2.81"},{"label":"Spearman, The Proof and Measurement of Association between Two Things","url":"https://doi.org/10.2307/1412159"},{"label":"NIST TREC 2021 Overview","url":"https://trec.nist.gov/pubs/trec30/papers/Overview-2021.pdf"},{"label":"NIST trec_eval evaluation software","url":"https://github.com/usnistgov/trec_eval"},{"label":"NIST Text Retrieval Conference","url":"https://trec.nist.gov/"}]
+---
+
+AI search agreement is a measurement problem, not a leaderboard shortcut. Compare the outputs engines actually produced, preserve disagreement, and choose a metric that matches the shape of the observation: set membership, visible top-k presence, rank order, or brand-level coverage. None of these metrics establishes factual correctness, reviewer reliability, causation, or user satisfaction.
+
+## Table of contents
+
+- [What does output agreement measure?](#what-does-output-agreement-measure)
+- [Which metric should you choose?](#which-metric-should-you-choose)
+- [How do exact-set and Jaccard overlap differ?](#how-do-exact-set-and-jaccard-overlap-differ)
+- [When is top-k overlap the right comparison?](#when-is-top-k-overlap-the-right-comparison)
+- [What does rank-biased overlap add?](#what-does-rank-biased-overlap-add)
+- [When can Kendall or Spearman compare ranks?](#when-can-kendall-or-spearman-compare-ranks)
+- [How should per-brand coverage be reported?](#how-should-per-brand-coverage-be-reported)
+- [What universe, tie, and absence policies are required?](#what-universe-tie-and-absence-policies-are-required)
+- [What limitations should accompany the numbers?](#what-limitations-should-accompany-the-numbers)
+
+## What does output agreement measure?
+
+Output agreement asks whether two engines surfaced the same entities, in the same visible positions, under the same prompt and observation conditions. It is a property of a pair of captured outputs and a coding policy, not a property of “the AI” in general.
+
+For an AI search audit, first save the prompt, timestamp, locale, logged-in state, model label if exposed, answer text, cited URLs, and any displayed ordering. A later re-run is a new observation. [AEOeye’s citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) is a useful companion for retaining that raw record.
+
+Do not call this inter-rater reliability. Reviewers agreeing on labels is a different construct; see [AI search inter-rater reliability](/blog/ai-search-inter-rater-reliability-guide). Do not call it factual accuracy either. A correctness study needs claim-level evidence, source scope, and an adjudication rule, such as the distinctions in [AEOeye’s citation failure taxonomy](/blog/ai-answer-citation-failure-taxonomy).
+
+## Which metric should you choose?
+
+Choose the smallest metric that answers the decision you actually have. The matrix below is an operational proposal from AEOeye, not a universal standard.
+
+| Question | Metric | Input | What it tells you | Main risk |
+|---|---|---|---|---|
+| Are two complete sets identical? | Exact-set agreement | Two sets | Whether membership matches perfectly | Hides partial similarity |
+| How much membership is shared? | Jaccard overlap | Two sets | Intersection divided by union | Treats every item equally |
+| Do engines show the same visible options? | Top-k overlap | Two ranked lists and k | Shared membership in first k | Sensitive to chosen k |
+| Do incomplete lists agree more at the top? | Rank-biased overlap (RBO) | Ranked lists | Depth-weighted overlap | Needs a persistence parameter |
+| Do shared items appear in similar order? | Kendall or Spearman | Shared items with ranks | Rank association | Drops or distorts absent items |
+| Which brands receive visibility? | Per-brand coverage | Many outputs | Fraction of observations naming a brand | Not a quality or truth score |
+
+NIST’s TREC materials distinguish cut-off levels from whole ranked runs and report precision or recall at explicit depths. That is the right habit here: state the depth and denominator rather than presenting a naked percentage. The [TREC evaluation software](https://github.com/usnistgov/trec_eval) also illustrates how evaluation tools expose parameterized measures instead of one context-free score.
+
+## How do exact-set and Jaccard overlap differ?
+
+Exact-set agreement is one when the two coded sets are identical and zero otherwise:
+
+```text
+ExactSet(A, B) = 1 if A = B; otherwise 0
+Jaccard(A, B) = |A ∩ B| / |A ∪ B|
+```
+
+Exact-set agreement is easy to explain and useful as a strict gate: “Did both engines name precisely the same brands?” It becomes harsh when one engine includes one additional relevant option, so pair it with Jaccard when partial overlap matters.
+
+Jaccard ignores order and counts each unique entity once. That is valuable for unordered prose or citation sets, but it means a first-position recommendation and a tenth-position mention contribute equally. Deduplicate only after applying a documented entity-resolution policy; [AEOeye’s brand entity-resolution codebook](/blog/ai-brand-entity-resolution-codebook) can serve as a starting point.
+
+Here is an explicitly hypothetical calculation. Suppose Engine A names `{Alpha, Beta, Gamma}` and Engine B names `{Beta, Gamma, Delta, Epsilon}` after the study’s entity policy. Their intersection has two items and their union has five, so Jaccard overlap is `2 / 5 = 0.40`. This hypothetical 0.40 says nothing about which list is correct or whether any named brand deserves recommendation.
+
+## When is top-k overlap the right comparison?
+
+Top-k overlap measures membership within a declared visible window, such as the first three brands or first five cited domains. Use it when user attention or product placement makes the first positions materially different from the tail.
+
+The simplest form is:
+
+```text
+TopKOverlap@k(A, B) = |TopK(A, k) ∩ TopK(B, k)| / k
+```
+
+If one list contains fewer than k usable items, predefine whether the denominator is k, the smaller list length, or the number of observed positions. Each choice answers a different question. Report the chosen k and list-length distribution.
+
+Do not confuse top-k overlap with relevance precision. TREC’s cut-off language concerns retrieval evaluation against judgments; here the compared objects may be AI-generated recommendations or citations with no gold relevance set. If you need judged relevance, add a separate relevance layer rather than borrowing the name “precision.”
+
+## What does rank-biased overlap add?
+
+Rank-biased overlap was introduced by Webber, Moffat, and Zobel for comparing incomplete rankings, including lists that are not the same length. Their [ACM paper](https://dl.acm.org/doi/10.1145/1852102.1852106) describes a persistence parameter that controls how strongly the comparison emphasizes early ranks.
+
+RBO is useful when an engine’s first answer matters more than a long tail and when lists may be non-conjoint. It evaluates overlap at successive depths and weights those depths, so disagreement at the top can matter more than disagreement far down the list.
+
+Record the parameter, truncation depth, treatment of ties, and whether you use a finite-depth estimate or an extrapolated form. Do not compare RBO values from studies using different parameters as though they share one scale. If an answer is genuinely unordered, preserve it as unordered; RBO cannot repair a fabricated ranking.
+
+![Reviewer comparing live, redirected, and archived citation records.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## When can Kendall or Spearman compare ranks?
+
+Kendall and Spearman are rank-association measures, so use them only when both outputs contain the same analyzable items or when the missing-item policy is explicit. Kendall’s original [rank-correlation paper](https://doi.org/10.1093/biomet/30.1-2.81) is based on concordant and discordant ordering; [Spearman’s work](https://doi.org/10.2307/1412159) established a correlation approach based on ranks.
+
+For shared items, create paired ranks without silently changing the observed order. Kendall is often easier to explain as pairwise order agreement. Spearman is convenient when you have paired numeric ranks, but ties and small shared samples require a declared variant and careful interpretation.
+
+The phrase “on shared items” is crucial. If Engine A lists Alpha, Beta, Gamma and Engine B lists Beta, Gamma, Delta, a rank correlation on Beta and Gamma can be computed only for those two shared items; it does not summarize the missing Alpha and Delta. Report the overlap metric beside the rank metric.
+
+## How should per-brand coverage be reported?
+
+Per-brand coverage answers a different question: across prompts, runs, engines, or time windows, how often was a specified brand present in the coded output?
+
+```text
+Coverage(brand) = observations where brand is present / eligible observations
+```
+
+Publish the denominator and strata. “Present” might mean any mention, a recommendation, a cited source, or a first-three placement; those are not interchangeable. For example, calculate separate columns for mention, recommendation, citation, and top-3 presence rather than one blended visibility score.
+
+Coverage is especially useful for comparing consistency across engines, but it is not market share, probability of purchase, or proof of prominence. A brand can have high citation coverage because it is frequently used as a source while receiving few recommendations. Keep the event definition narrow and link it to the annotation codebook.
+
+## What universe, tie, and absence policies are required?
+
+Metric results become fragile when the universe is implicit. Before collection, define:
+
+- **Universe:** the entity identity space, including brand aliases, parent companies, product variants, domains, and duplicate URLs.
+- **Unit:** one prompt-run, one engine response, one citation, or one brand opportunity.
+- **Tie policy:** preserve ties as ties; if a metric cannot accept ties, state the tie-breaking rule and sensitivity-check it.
+- **Absence policy:** distinguish not mentioned, not retrieved, not applicable, truncated, and unobserved.
+- **Order policy:** use numbered or clearly ordered output only; do not infer rank from paragraph position without a pre-registered rule.
+- **Aggregation:** report per-prompt values before averaging across prompts or engines.
+
+These choices should remain in the dataset, not only in prose. A reusable record can include `prompt_id`, `engine`, `run_id`, `entity_id`, `raw_position`, `set_member`, `tie_group`, `absence_state`, `source_url`, and `codebook_version`.
+
+## What limitations should accompany the numbers?
+
+Agreement metrics are descriptive and conditional. They do not establish truth, source quality, recommendation suitability, reviewer reliability, causation, or stability beyond the sampled prompts and time window.
+
+Disagreement can come from model sampling, retrieval changes, prompt ambiguity, localization, personalization, entity-resolution errors, truncation, or a real difference in ranking. Agreement can also be inflated by a narrow universe, duplicated boilerplate, or a dominant brand. Show raw examples and distributions, not only a mean.
+
+Finally, label every AEOeye-specific threshold, tie rule, and interpretation as a proposed operating rule. Preserve the raw outputs, publish the metric parameters, and pair output agreement with evidence review. That combination tells stakeholders both what engines said and how much confidence the underlying claims deserve. For a practical next step, [run an AEOeye audit](/#audit) and retain the captured report alongside the comparison dataset.

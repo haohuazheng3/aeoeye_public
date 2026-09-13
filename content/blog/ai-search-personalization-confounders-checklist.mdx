@@ -1,0 +1,125 @@
+---
+title: "AI Search Personalization Confounders: A 20-Field Testing Checklist"
+description: "A reproducible 20-field capture checklist for testing AI-search results across accounts, memory, location, devices, models, modes, connectors, and experiment order."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search personalization", "AI search testing checklist", "search result reproducibility", "AI visibility audit", "personalization confounders"]
+faqs: [{"q":"Does a different AI answer prove personalization?","a":"No. A changed answer may result from time, retrieval, model routing, prompt history, location, or other conditions. Capture the relevant fields and rerun controlled comparisons before attributing the difference to personalization."},{"q":"Should I test with a logged-in or logged-out account?","a":"Use both when the product permits it, but treat them as different strata rather than mixing them. Record account state, plan, memory, history, and any connected data for every run."},{"q":"What should I randomize in an AI search experiment?","a":"Randomize or counterbalance run order when order could affect results, especially repeated prompts in the same session. Keep the question, target brand, capture window, and other declared controls fixed."},{"q":"Is this 20-field checklist an industry standard?","a":"No. It is a proposed AEOeye operating checklist informed by provider documentation and measurement guidance. Adapt it to the provider, study question, privacy constraints, and evidence you can actually capture."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst organizing web source records for an AI citation audit.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"OpenAI, Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897"},{"label":"OpenAI, Memory FAQ","url":"https://help.openai.com/en/articles/8590148-memory-faq"},{"label":"Google, Why your Search results differ from others","url":"https://support.google.com/websearch/answer/12412910"},{"label":"Google, Gemini personalization with memory of past chats","url":"https://support.google.com/gemini/answer/16598469"},{"label":"Google, About personalization with Connected Apps","url":"https://support.google.com/gemini/answer/16836988"},{"label":"Perplexity, Account & Settings","url":"https://www.perplexity.ai/help-center/en/articles/10352990-account-settings"},{"label":"NIST TN 1297, repeatability and reproducibility terminology","url":"https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology"}]
+---
+
+Different AI answers do not, by themselves, demonstrate personalization. A defensible test records the account, context, product mode, model, retrieval conditions, and run order that could have changed the answer. This 20-field checklist is a proposed AEOeye operating method, not a universal standard.
+
+## Table of contents
+
+- [What counts as a personalization confounder?](#what-counts-as-a-personalization-confounder)
+- [Which 20 fields should you capture?](#which-20-fields-should-you-capture)
+- [How should you hold fixed, randomize, or stratify?](#how-should-you-hold-fixed-randomize-or-stratify)
+- [What run header can you copy?](#what-run-header-can-you-copy)
+- [How should you interpret a difference?](#how-should-you-interpret-a-difference)
+- [What are the limitations?](#what-are-the-limitations)
+
+## What counts as a personalization confounder?
+
+A confounder is a condition that changes between runs and offers an alternative explanation for an observed answer or citation difference. Personalization is only one hypothesis. Fresh retrieval, a new model route, a changed prompt context, or a location-sensitive result can produce the same visible symptom.
+
+Provider documentation makes several of these variables concrete. OpenAI documents ChatGPT web search and location use; its Memory FAQ distinguishes saved memories from chat history and describes Temporary Chat. Google documents that Search results can vary with time, location, language, device, recent searches, and account personalization. Gemini documents memory-based personalization and Connected Apps. Perplexity documents profile, language, location, model, plan, connectors, and incognito controls.
+
+NIST defines repeatability as agreement under the same conditions and reproducibility as agreement when specified conditions change. That distinction is useful here: decide which conditions are controls, which are experimental factors, and which are strata before collecting results.
+
+## Which 20 fields should you capture?
+
+Capture the value, evidence source, and decision for every field. “Unknown” is a valid value; silently assuming “off” is not.
+
+| # | Field to capture | Default treatment | What to record |
+|---:|---|---|---|
+| 1 | Account identity/state | Stratify | Signed out, account ID hash, workspace type, or anonymous session; never store raw personal identifiers. |
+| 2 | Subscription/plan | Stratify | Free, paid, team, enterprise, or unknown; record the displayed plan, not an assumption. |
+| 3 | Saved memory | Hold fixed or stratify | On, off, unavailable, and the control screen or product state used. |
+| 4 | Chat history/reference | Hold fixed or stratify | Whether prior conversations can be referenced; include Temporary Chat or incognito state. |
+| 5 | Account profile/instructions | Hold fixed | Custom instructions, profile, preferred response style, and relevant personalization text. |
+| 6 | Location | Stratify | Country/region, city or coordinates only at necessary precision, permission state, VPN/proxy, and provider-reported location. |
+| 7 | Language | Hold fixed or stratify | Prompt language, interface language, preferred response language, and browser/device language. |
+| 8 | Locale/region format | Hold fixed or stratify | Locale, time zone, currency, date format, and regional product setting. |
+| 9 | Device class | Stratify | Desktop, mobile, tablet, operating system, viewport class, and app versus web. |
+| 10 | Browser/app version | Hold fixed | Browser or native app name/version, extensions relevant to the test, and private-mode status. |
+| 11 | Cookies/storage | Hold fixed or stratify | First-party cookies, local storage, cleared profile, consent state, and whether a fresh profile was used. |
+| 12 | Model | Hold fixed | Exact visible model or automatic routing label; record unavailable rather than guessing a backend model. |
+| 13 | Search/browse mode | Hold fixed | Web search, deep research, quick search, AI mode, browse off, or product-specific equivalent. |
+| 14 | Connectors/tools | Hold fixed or stratify | Connected apps, files, plugins, browser tools, and permission state. |
+| 15 | Time and capture window | Hold fixed or block | Start/end timestamp, time zone, and whether runs were interleaved or sequential. |
+| 16 | Prompt history | Hold fixed | New chat, prior turns, system-visible context, uploaded files, and copied answer text. |
+| 17 | Prompt wording/version | Hold fixed | Exact prompt, whitespace-sensitive template, target entities, and codebook version. |
+| 18 | Experiment order | Randomize | Run sequence, arm assignment, and whether the same account saw another arm first. |
+| 19 | Retrieval/result state | Record, not assume | Search sources, citations, answer ID, cache indicator if exposed, and capture screenshot or export. |
+| 20 | Outcome and uncertainty | Hold definition fixed | Recommendation/citation labels, missingness, reviewer, adjudication status, and evidence link. |
+
+The table separates product facts from study choices. For example, Google says context such as location, language, device, and recent searches can affect Search; that does not establish that every AI assistant uses each variable. Record provider statements as documented behavior, and test any broader claim.
+
+![Analysts comparing controlled research conditions on a whiteboard.](https://images.pexels.com/photos/7869303/pexels-photo-7869303.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Pavel Danilyuk](https://www.pexels.com/@pavel-danilyuk) on [Pexels](https://www.pexels.com).*
+
+## How should you hold fixed, randomize, or stratify?
+
+Hold fixed a variable when it is part of the question you are measuring. Randomize or counterbalance order when earlier runs could influence later runs. Stratify when you want separate estimates for meaningful states such as logged-in versus anonymous, mobile versus desktop, or Free versus Pro.
+
+Use a simple design matrix before testing:
+
+```text
+ARM A: account=anonymous | memory=off | model=declared | mode=web-search
+ARM B: account=signed-in  | memory=on  | model=declared | mode=web-search
+FIXED: exact prompt, target, language, locale, capture window, outcome codebook
+RANDOMIZE: A/B order per block; record sequence in every run header
+STRATIFY: provider, plan, device class, and location when the question requires it
+```
+
+Do not change five variables and call the result a memory test. If the study question is “does account state matter?”, keep model, mode, prompt, location, language, device, and timing fixed as far as practical. If a provider makes a control unavailable, mark it unknown and narrow the claim.
+
+For a fuller evidence trail, connect each run to an [AI search audit methodology template](/blog/ai-search-audit-methodology-template), retain raw citations using the [citation data schema](/blog/ai-citation-data-schema), and apply the [URL normalization rules](/blog/ai-citation-url-normalization-rules) only after preserving the displayed URL.
+
+## What run header can you copy?
+
+Start every capture with a machine-readable header. This makes a rerun possible without relying on memory or a screenshot filename.
+
+```yaml
+study_id: "brand-recommendation-2026-09"
+run_id: "provider-arm-sequence"
+captured_at_utc: "2026-09-13T00:00:00Z"
+provider: "provider-name"
+account_state: "anonymous|signed_in|workspace|unknown"
+plan: "free|paid|team|enterprise|unknown"
+memory: "on|off|unavailable|unknown"
+history: "on|off|temporary|incognito|unknown"
+profile_or_instructions: "version-or-none"
+location: "country/region; precision policy"
+language_locale: "prompt=en; ui=en-US; tz=America/Detroit"
+device_browser: "desktop; browser/version; app-or-web"
+cookies_storage: "fresh-profile|persistent|cleared|unknown"
+model_and_mode: "visible-model; search-mode"
+connectors: "none|names-and-permissions"
+prompt_version: "v1"
+experiment_arm: "A|B"
+sequence_index: 1
+answer_ref: "provider-id-or-screenshot-path"
+outcome: "label; uncertain=yes/no"
+```
+
+Never put email addresses, access tokens, private connector content, or full account identifiers in a shared run header. Hash or pseudonymize the account field, and keep sensitive mappings outside the article dataset.
+
+## How should you interpret a difference?
+
+Treat a difference as an observation first and an explanation second. Compare raw answer text, citations, retrieval timestamps, model labels, and run headers before using the word “personalized.” A result that changes only after turning on memory is suggestive, not conclusive, if prompt history or account profile also changed.
+
+Use a difference log with four labels: documented provider behavior, controlled study contrast, plausible alternative explanation, and unresolved. Preserve negative findings too. If two runs match, that does not prove personalization is absent; it may mean the tested prompt did not expose it.
+
+For reviewer consistency, preserve independent labels and adjudication notes as described in the [AI search inter-rater reliability guide](/blog/ai-search-inter-rater-reliability-guide). For the product-side question—whether a brand appears in buyer questions—[start an AEOeye audit](/#audit), then retain the run conditions alongside the report.
+
+## What are the limitations?
+
+This checklist cannot reveal hidden server-side routing, undocumented ranking signals, transient caches, provider experiments, or all data used by an account. Provider interfaces and controls change, and a displayed model name may not expose every backend component. A clean header improves reproducibility; it does not create identical infrastructure.
+
+Location, language, device, and time can be correlated. A VPN can alter network location while leaving account history untouched. A fresh browser can remove cookies while changing login state. These are design facts to document, not reasons to infer a mechanism.
+
+Finally, privacy and consent limit what should be captured. Minimize personal data, use test accounts where permitted, and delete exports on a defined schedule. Report the exact conditions changed, the conditions held fixed, missing fields, and the evidence supporting every personalization claim.

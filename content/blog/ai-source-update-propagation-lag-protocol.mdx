@@ -1,0 +1,152 @@
+---
+title: "AI Source Update Propagation Lag: A Repeatable Measurement Protocol"
+description: "Measure the time from a verified source change to first detection, first citation, and first correct AI answer without pretending an unknown timestamp is exact."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI source update lag", "AI citation freshness", "source propagation measurement", "interval censoring", "AI search monitoring", "crawl lag", "answer lag"]
+faqs: [{"q":"What is AI source update propagation lag?","a":"It is the elapsed time between a verified change to a source and a defined downstream observation, such as a crawler seeing it, an engine retrieving it, citing it, or producing a correct answer from it."},{"q":"Can I know the exact time a search engine noticed my update?","a":"Usually not. If server logs, crawler records, or provider telemetry do not expose an exact event time, report an interval bounded by observations rather than inventing a point timestamp."},{"q":"How long should an AI source-lag observation window be?","a":"Use a window justified by the source, query, provider, and decision need. A proposed AEOeye default is daily checks for 30 days, with shorter intervals for time-sensitive changes and longer follow-up for evergreen content."},{"q":"Does a first citation prove that an AI answer is correct?","a":"No. Citation presence and answer correctness are separate outcomes. Verify whether the cited version supports the answer’s exact claim, scope, and date, and record uncertainty when it does not."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst measuring source changes and AI search observations on a whiteboard.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Google Search Central: Ask Google to recrawl your URLs","url":"https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl"},{"label":"Google Crawling Infrastructure: About crawling","url":"https://developers.google.com/crawling/docs/about-crawling"},{"label":"Google Search Central: Overview of crawling and indexing","url":"https://developers.google.com/search/docs/crawling-indexing"},{"label":"OpenAI Help: Searching the web with ChatGPT","url":"https://help.openai.com/en/articles/9237897-chatgpt-search"},{"label":"Turnbull (1976): The empirical distribution function with arbitrarily grouped, censored and truncated data","url":"https://academic.oup.com/jrsssb/article/38/3/290/7027379"},{"label":"Change rate estimation and optimal freshness in web page crawling","url":"https://arxiv.org/abs/2004.02167"}]
+---
+
+When a source changes, ask: what is the earliest defensible time at which each observable stage reflected it? Measure separate milestones: crawl, retrieval, citation, and answer correctness. If the event falls between checks, keep it interval-censored.
+
+This protocol is an AEOeye operating proposal, not a universal provider standard. Monitor the same URL, query set, locale, and provider configuration, using [AEOeye’s AI search audit methodology template](/blog/ai-search-audit-methodology-template) to preserve raw evidence.
+
+## Table of contents
+
+- [What exactly are you measuring?](#what-exactly-are-you-measuring)
+- [How do you establish the source-change window?](#how-do-you-establish-the-source-change-window)
+- [How should crawl, retrieval, citation, and answer lag be separated?](#how-should-crawl-retrieval-citation-and-answer-lag-be-separated)
+- [How do you run the observation protocol?](#how-do-you-run-the-observation-protocol)
+- [How do you handle interval censoring?](#how-do-you-handle-interval-censoring)
+- [What should the observation log contain?](#what-should-the-observation-log-contain)
+- [What limitations should you report?](#what-limitations-should-you-report)
+- [How do you turn lag into an operational decision?](#how-do-you-turn-lag-into-an-operational-decision)
+
+## What exactly are you measuring?
+
+Propagation lag is not one number. A source can be recrawled before an engine’s retrieval layer can select the new passage, and a retrieved passage can appear in a citation without producing a correct answer. Define the event before collecting data.
+
+Let (C) be the source-change time, (K) the first observed crawl or fetch of the changed representation, (R) the first retrieval observation containing the changed content, (I) the first citation observation, and (A) the first answer that is both relevant and correct under your codebook.
+
+The stage lags are:
+
+```text
+crawl_lag     = K - C
+retrieval_lag = R - C
+citation_lag  = I - C
+answer_lag    = A - C
+
+conditional citation lag = I - R, when R is observed
+conditional answer lag   = A - I, when I is observed
+```
+
+These definitions describe observations, not hidden provider internals. “Crawl” may mean a server-log request or inspection result. “Retrieval” requires changed text in the provider response or source panel; index presence is not enough.
+
+For citation and answer outcomes, use a fixed query and rubric. A citation is an event only after you define the exact URL, normalized source identity, page version, and whether it attaches to the relevant claim. [AEOeye’s citation data schema](/blog/ai-citation-data-schema) preserves the raw URL, resolved URL, evidence span, and timestamp.
+
+## How do you establish the source-change window?
+
+Start with the strongest evidence of what changed, then state its precision. A controlled deployment may provide an application timestamp and content hash; a third-party page may provide only “old” and “new” snapshots. Do not label the midpoint as the change time.
+
+Record at minimum:
+
+- `change_lower`: the last observation that still showed the old version;
+- `change_upper`: the first observation that showed the new version;
+- `change_method`: deploy log, content hash, version history, HTTP response, or snapshot;
+- `change_scope`: the exact claim, paragraph, field, or asset that changed;
+- `content_hash_old` and `content_hash_new`, when available.
+
+If a deployment log says the new response became available at 14:03:12 UTC, (C) may be a point for that origin. If checks at 09:00 and 15:00 see the change only at 15:00, report (C in (09{:}00,15{:}00]).
+
+## How should crawl, retrieval, citation, and answer lag be separated?
+
+Use four gates because each answers a different operational question. Conflating them can make a reachable URL look like a propagated update.
+
+| Stage | Observable event | What it supports | What it does not prove |
+|---|---|---|---|
+| Crawl | A named crawler or inspection path observes the new bytes | The source was fetched or inspected | That the new text entered every index or answer system |
+| Retrieval | A provider test returns the new passage or page version | The test’s retrieval path exposed the update | That users will receive the same result |
+| Citation | The answer cites the changed source under the rubric | The source was used as an attributed reference | That the cited claim is supported |
+| Answer | The answer states the target fact correctly and within scope | The observed answer passed the codebook | That all future answers will do so |
+
+Google distinguishes crawling from indexing and search appearance. OpenAI documents that ChatGPT can search and cite sources, while warning that results and citations can be incomplete or incorrect. Neither provider publishes a fixed lag between these layers.
+
+## How do you run the observation protocol?
+
+Freeze the test before the source changes: target, query wording, locale, device context, provider/model label, access mode, and answer rubric. Changing one mid-window creates a new experiment.
+
+Use this proposed sequence:
+
+1. Capture the old source response, rendered text, URL, timestamp, headers, and content hash.
+2. Make or detect the source change and record its point timestamp or bounded window.
+3. Check the source on a fixed cadence; retain response metadata and a compact evidence excerpt.
+4. Run the same provider queries at the same cadence. Save answer text, citations, query, locale, and model or product label when exposed.
+5. Label retrieval, citation, and answer correctness independently. Do not upgrade a citation to “correct” merely because it is present.
+6. Stop at the pre-registered horizon, or extend it as a new window version. Record non-detection as right-censoring, not source failure.
+
+For Google observations, use available Search Console or crawl evidence; Google recommends logs and URL Inspection for different questions. For ChatGPT Search, retain the visible source panel and a screenshot or export when permitted.
+
+![Analyst comparing timestamped source snapshots with AI answer evidence.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How do you handle interval censoring?
+
+Interval censoring means the event time is known only to lie between an observation before the event and one at or after it. It is the honest representation for scheduled checks, and it prevents false precision in medians, percentiles, and provider comparisons.
+
+For an event (E), store ((L_E,U_E]): the last negative observation (L_E) and first positive observation (U_E). If the event is never observed before the study ends, store ((L_E,infty)) as right-censored. If the first check is already positive, the event is left-censored relative to the window.
+
+The simple reporting rule is:
+
+```text
+event_time ∈ (last_negative_check, first_positive_check]
+lag interval ∈ (first_positive_check - change_upper,
+                 first_positive_check - change_lower]
+```
+
+With exact (C), the lag interval narrows to ((U_E-C]). With uncertain (C), carry both uncertainties forward. Never subtract an invented midpoint and publish a false exact lag.
+
+For a group, report detection intervals and censoring counts. If you estimate a distribution, use a method intended for interval-censored data. Turnbull’s paper gives a nonparametric approach for grouped and censored observations; it does not make the resulting curve universal.
+
+## What should the observation log contain?
+
+Use one row per source-provider-query observation, plus a stable change ID. This reusable codebook is an AEOeye proposal.
+
+| Field | Required value |
+|---|---|
+| `change_id` | Stable ID for one source update |
+| `source_url` | Raw URL and normalized comparison URL kept separately |
+| `change_window` | Exact timestamp or `(lower, upper]` |
+| `check_at` | UTC timestamp of this observation |
+| `stage` | `crawl`, `retrieval`, `citation`, or `answer` |
+| `result` | `positive`, `negative`, `uncertain`, or `blocked` |
+| `provider_context` | Product, model, locale, device, access mode |
+| `query_hash` | Stable query ID plus readable query in protected evidence |
+| `evidence_ref` | Snapshot, response, screenshot, or log reference |
+| `version_signal` | Hash, excerpt, date, or other observed marker |
+| `answer_label` | Correct, incorrect, partial, or not-applicable |
+| `reviewer_note` | Reason for borderline or failed classification |
+
+Keep raw and normalized URLs distinct; [AEOeye’s URL normalization rules](/blog/ai-citation-url-normalization-rules) explains why a clean comparison key must not erase the URL shown by the engine. For answer correctness, use atomic claims and preserve disagreement examples as described in [AEOeye’s inter-rater reliability guide](/blog/ai-search-inter-rater-reliability-guide).
+
+## What limitations should you report?
+
+This protocol measures observed propagation under a test design; it does not reveal private caches, hidden indexes, ranking systems, or model memory. Results may vary by user, region, query rewrite, time, availability, or experiment bucket.
+
+Other limits matter just as much:
+
+- A source may change gradually, or only one rendered variant may change; a crawler hit may return an intermediate response.
+- A citation may point to a page that now differs from the retrieved snapshot.
+- A correct answer can occur without a citation, while a citation can be present but not entail the answer.
+- Sparse checks widen intervals and can hide short-lived detections; repeated queries can affect provider behavior.
+
+Do not claim that freshness caused a citation unless the design supports that inference. Research on change-rate estimation motivates modeling update frequency, but does not supply a universal AI-citation half-life. Report sample, cadence, horizon, censoring, and provider context.
+
+## How do you turn lag into an operational decision?
+
+Use lag as a monitoring signal, not a promise. Set a proposed review trigger after observing your own distribution—for example, flag a source when its answer-lag interval exceeds the project’s decision window or when citation detection remains right-censored at the horizon. Label the trigger as a team policy, not a provider guarantee.
+
+The useful deliverable is the chain: old version, change window, schedule, first positive interval for each stage, correctness labels, and unresolved censoring. It reveals which layer has not reflected the update.
+
+For citation quality, connect this protocol to [AI search citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics). Define the event, observe on schedule, preserve the interval, and separate citation presence from answer truth.

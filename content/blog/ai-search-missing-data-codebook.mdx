@@ -1,0 +1,128 @@
+---
+title: "AI Search Missing-Data Codebook: 12 Statuses That Protect Your Denominator"
+description: "A deterministic 12-code codebook for AI search audits that separates missing observations from negative findings and keeps every denominator explainable."
+date: "2026-09-13"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI search missing data", "AI visibility audit denominator", "missing-data codebook", "AI search measurement", "citation audit methodology"]
+faqs: [{"q":"Why is missing data dangerous in an AI search audit?","a":"If unavailable, timed-out, or unparsed answers are silently treated as negative results, the audit understates observed visibility and makes its denominator impossible to reproduce. A status code keeps absence of evidence separate from evidence of absence."},{"q":"Should a timeout count as a negative recommendation?","a":"No. A timeout is an operational failure, not an answer that failed to recommend the brand. Report it as missing, retain the request and error evidence, and state whether it is excluded from the primary denominator."},{"q":"Can I use this 12-code system as an industry standard?","a":"No. This is a proposed AEOeye operating codebook. Teams should adapt and preregister their definitions, then disclose changes, exclusions, and sensitivity results rather than presenting the codes as a universal standard."},{"q":"How can AEOeye help with missing-data review?","a":"AEOeye can organize recurring AI visibility audits and their evidence records. Use the report with a versioned codebook, raw outputs, status counts, and a sensitivity analysis so readers can inspect what each score includes."}]
+image: {"url":"https://images.pexels.com/photos/1181528/pexels-photo-1181528.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst documenting an AI search measurement codebook on a whiteboard.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"NIST AI Risk Management Framework 1.0","url":"https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"},{"label":"NIST AI RMF Generative AI Profile","url":"https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"},{"label":"AAPOR Disclosure Standards","url":"https://aapor.org/standards-and-ethics/disclosure-standards/"},{"label":"TARMOS framework for missing data","url":"https://doi.org/10.1016/j.jclinepi.2022.08.016"},{"label":"STROBE Statement checklist","url":"https://www.strobe-statement.org/checklists/"},{"label":"W3C PROV-O provenance ontology","url":"https://www.w3.org/TR/prov-o/"}]
+---
+
+An AI search audit needs two kinds of honesty: what the engine answered, and what the measurement system failed to observe. The safest rule is simple: **never convert an unavailable, unparsed, or out-of-scope case into a negative finding**. Assign one deterministic status, preserve the raw evidence, and publish the numerator and denominator that status actually affects.
+
+This proposed AEOeye operating codebook uses 12 statuses. It is an operational proposal, not a universal standard. The design is compatible with NIST’s emphasis on documented measurement and risk management in the [AI Risk Management Framework](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf) and its [Generative AI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf).
+
+## Table of contents
+
+- [Why must missing differ from negative?](#why-must-missing-differ-from-negative)
+- [What are the 12 deterministic status codes?](#what-are-the-12-deterministic-status-codes)
+- [How should each code affect the denominator?](#how-should-each-code-affect-the-denominator)
+- [What evidence should every row retain?](#what-evidence-should-every-row-retain)
+- [How do you run a sensitivity analysis?](#how-do-you-run-a-sensitivity-analysis)
+- [What are the limitations of this codebook?](#what-are-the-limitations-of-this-codebook)
+- [What should a transparent report disclose?](#what-should-a-transparent-report-disclose)
+
+## Why must missing differ from negative?
+
+Missing means the audit did not obtain a valid, in-scope observation. Negative means it obtained an interpretable observation and the defined target behavior was absent. A provider outage and a clean answer saying “I would not recommend this brand” are not the same event.
+
+Collapsing the two can bias a visibility rate downward and hide whether a low score reflects the AI system, network, parser, sampling frame, or brand presence. NIST’s risk-management materials call for documented, repeatable measurement; an explicit status is the smallest useful unit.
+
+Define the unit before collection. One row might mean one prompt × provider × model × locale × timestamp. If the question is recommendation visibility, the outcome should be evaluated only after the answer is captured and parsed under a versioned rule. [AEOeye’s AI search audit methodology template](/blog/ai-search-audit-methodology-template) can hold those scope decisions.
+
+## What are the 12 deterministic status codes?
+
+Use one primary status per expected observation. Apply the first matching rule in the table and record a secondary diagnostic when useful.
+
+| Code | Status | Deterministic definition | Finding? |
+|---|---|---|---|
+| M01 | Not run | The expected case was scheduled but execution never started. | No |
+| M02 | Provider unavailable | The named provider or endpoint was unavailable before an answer could be collected. | No |
+| M03 | Timeout | The request exceeded the prespecified time limit without a complete answer. | No |
+| M04 | Refusal | The system returned a refusal or policy message instead of an answer eligible for this task. | No |
+| M05 | Access blocked | Robots, authentication, rate limiting, geography, network policy, or another access control prevented the required observation. | No |
+| M06 | Empty answer | A successful response contained no substantive text or structured answer under the parsing rule. | No |
+| M07 | Parse failure | Raw output exists, but the parser could not reliably extract the fields needed for the outcome. | No |
+| M08 | Citation absent | The answer was captured and parsed, but the specific citation field under study was absent. | Yes, for citation presence |
+| M09 | Not applicable | The prespecified task does not apply to this case, such as a product category outside the query’s eligibility rule. | Excluded |
+| M10 | Duplicate | The row repeats an already retained observation under the declared deduplication key. | Excluded |
+| M11 | Excluded-by-rule | A documented inclusion rule removes the row for a reason other than applicability or duplication. | Excluded |
+| M12 | Unresolved | Evidence exists, but the available record cannot resolve the label after the stated review and adjudication steps. | No |
+
+The table separates technical non-observation from a substantive “citation absent” outcome. M08 is a valid zero for citation presence, while the same answer may be a valid positive or negative for recommendation. Status is relative to the outcome measured.
+
+## How should each code affect the denominator?
+
+Start with the **eligible expected set**, not the number of rows that happen to contain text. Let `E` be all prespecified cases, `X` be explicit exclusions (M09–M11), `O` be valid observed outcomes, and `U` be missing or unresolved outcomes (M01–M07 and M12).
+
+```text
+E = O + U + X
+Primary observed denominator D = O
+Observed rate R = positive outcomes / D
+Coverage C = O / (E - X)
+```
+
+This formula is a reporting template, not a universal requirement. Publish both rate and coverage: 40% over 10 observed cases differs from 40% over 100 eligible cases with 90 missing.
+
+For M01–M07 and M12, do not increment a numerator or `D`; keep them in eligible-case accounting. For citation presence, M08 increments `D` and assigns zero to the citation numerator; other metrics use their own evidence.
+
+For M09–M11, remove the row from both numerator and denominator only when the exclusion was defined before looking at its outcome, or when a transparent data-quality correction is documented. A post hoc exclusion that improves the score is not neutral cleanup. AAPOR’s [Disclosure Standards](https://aapor.org/standards-and-ethics/disclosure-standards/) support reporting sample definition, processing, quality procedures, and limitations, including unavailable information.
+
+## What evidence should every row retain?
+
+A status without provenance is only an assertion. Preserve the request, response, transformation, and decision trail so another reviewer can distinguish missing, negative, and misclassified cases. [W3C PROV-O](https://www.w3.org/TR/prov-o/) models this separation.
+
+At minimum, retain:
+
+- stable case ID and deduplication key;
+- prompt, provider, model, locale, device or interface, and collection timestamp;
+- request ID, HTTP status, elapsed time, retry count, and error text where safe;
+- raw answer or a protected pointer to it, plus a content hash;
+- parser version, codebook version, reviewer, and adjudication note;
+- primary status, secondary diagnostic, and evidence location;
+- inclusion decision and the denominator treatment.
+
+Do not replace a raw refusal with “negative,” or overwrite a timeout with a blank answer. Redact secrets and personal data, but record that redaction occurred. See the [AI citation data schema](/blog/ai-citation-data-schema) and [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules) for adjacent evidence-field patterns.
+
+![Reviewer comparing raw AI responses with status-code evidence during an audit.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## How do you apply the codebook to a worked row?
+
+Consider this hypothetical row: prompt `best payroll software for a 25-person nonprofit`; provider `Example AI`; model `Example-1`; locale `en-US`; collection time `2026-09-13T14:00Z`. The request returns HTTP 200, the answer contains 184 words, the parser extracts a recommendation list, and the target brand is not listed.
+
+That row is **valid negative for recommendation visibility**, not M07 parse failure and not M08 citation absent. If the audit also measures citation presence and the answer contains no citation field, the same captured response can have an outcome-specific citation result of zero. Keep separate metric fields; do not force every question into one global label.
+
+An empty citation section receives M08 while recommendation may remain valid. A request that times out before an answer is M03 for both metrics; `D` does not increase and coverage falls.
+
+## How do you run a sensitivity analysis?
+
+Sensitivity analysis shows whether a conclusion depends on how unresolved cases are treated. Guidance such as the [TARMOS framework](https://doi.org/10.1016/j.jclinepi.2022.08.016) stresses that missing-data assumptions should be made explicit and examined, rather than hidden inside a complete-case result.
+
+Report three views when missingness is material:
+
+1. **Observed-only:** `positive / D`, excluding M01–M07 and M12 from `D`.
+2. **Conservative bounds:** treat every unresolved eligible case as non-positive for the lower rate; treat every unresolved case as positive for the upper rate. Label both as scenarios, not facts.
+3. **Code-specific view:** exclude technical failures, refusals, or access blocks in turn, and show how coverage changes.
+
+```text
+lower rate = positive / (D + unresolved eligible cases)
+upper rate = (positive + unresolved eligible cases) / (D + unresolved eligible cases)
+```
+
+Do not impute an AI answer that was never observed. Bounds are scenarios, not reconstructed provider behavior. If missingness clusters by provider, geography, prompt type, or time, show those strata separately; an overall rate can conceal a concentrated outage. State the assumptions and whether the sensitivity plan was written before results were inspected.
+
+## What are the limitations of this codebook?
+
+Twelve labels improve traceability, but they do not solve validity. A parser can extract the wrong field; a refusal can contain useful partial information; an “empty answer” threshold can vary across interfaces. Version definitions and retain examples rather than treating labels as objective facts.
+
+The codebook cannot establish why a provider was unavailable, whether an access block was justified, or whether a negative answer is correct. It cannot correct sampling bias, prompt drift, model updates, locale effects, or interface changes; weekly comparisons need comparable collection conditions and codebook versions.
+
+## What should a transparent report disclose?
+
+Publish expected cases, exclusions, all 12 status counts, denominator, coverage, numerator definition, codebook version, collection window, and sensitivity scenarios. Include anonymized examples for high-impact statuses and explain reclassification.
+
+That reporting discipline follows the spirit of NIST measurement documentation and the disclosure practices in [AAPOR’s Transparency Initiative](https://aapor.org/standards-and-ethics/transparency-initiative/). It also aligns with the goal of [STROBE’s reporting checklist](https://www.strobe-statement.org/checklists/): make the study population, data handling, and limitations visible enough for readers to interpret the result.
+
+The practical rule is memorable: **missing is not negative, excluded is not missing, and a denominator is a claim that needs an audit trail**. Use a deterministic status, preserve raw evidence, publish coverage beside visibility, and compare the result with [AI search citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics). This is a proposed AEOeye operating method that teams should adapt and disclose.
