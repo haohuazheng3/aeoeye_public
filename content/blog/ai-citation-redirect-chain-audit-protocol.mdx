@@ -1,0 +1,144 @@
+---
+title: "AI Citation Redirect Chains: An Audit Protocol for Moving Evidence"
+description: "A hop-by-hop worksheet for testing whether an AI-cited URL still identifies the same evidence after redirects, canonical hints, and ownership changes."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI citation redirect chains", "redirect audit", "citation evidence", "URL provenance", "AI search auditing"]
+author: "AEOeye"
+faqs: [{"q":"Why preserve the URL an AI answer originally showed?","a":"The raw URL is the citation artifact. Replacing it with a final or canonical URL can hide a redirect, a changed host, a removed path, or the fact that the cited page is no longer reachable."},{"q":"Is a 301 redirect proof that two documents are the same?","a":"No. A 301 records a permanent relocation instruction at the transport layer. The destination may be an updated, replaced, or unrelated document, so compare content, title, ownership, and evidence span."},{"q":"Should a canonical URL replace the cited URL in a report?","a":"No. Store the canonical as a separate page-declared signal. It can support a relationship hypothesis, but it does not prove identity or authorize deleting the original citation."},{"q":"Is this redirect worksheet a web standard?","a":"No. HTTP and URI specifications define protocol and syntax concepts. The fields, review gates, and merge decisions in this protocol are AEOeye operating proposals for reproducible audits."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst reviewing web evidence and redirect records","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"RFC 9110: HTTP Semantics","url":"https://www.rfc-editor.org/rfc/rfc9110"},{"label":"RFC 3986: URI Generic Syntax","url":"https://www.rfc-editor.org/rfc/rfc3986"},{"label":"RFC 6596: Canonical Link Relation","url":"https://www.rfc-editor.org/rfc/rfc6596"},{"label":"Google: Redirects and Search","url":"https://developers.google.com/search/docs/crawling-indexing/301-redirects"},{"label":"Google: Canonicalization","url":"https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"}]
+---
+
+When an AI answer cites a URL, the citation is an observation—not a promise that the same document will remain there. A redirect-chain audit preserves that observation, records every transport hop, and tests whether the final destination supports the cited claim. Never overwrite the raw cited URL.
+
+This protocol combines HTTP semantics from [RFC 9110](https://www.rfc-editor.org/rfc/rfc9110), URI syntax from [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986), canonical-link semantics from [RFC 6596](https://www.rfc-editor.org/rfc/rfc6596), and provenance thinking from [W3C PROV-O](https://www.w3.org/TR/prov-o/). The worksheet is an AEOeye operating proposal, not a web standard.
+
+## Table of contents
+
+- [Why does a redirect chain matter for an AI citation?](#why-does-a-redirect-chain-matter-for-an-ai-citation)
+- [What must be recorded at every hop?](#what-must-be-recorded-at-every-hop)
+- [How do transport redirects differ from canonical hints?](#how-do-transport-redirects-differ-from-canonical-hints)
+- [How can you decide whether the destination is the same document?](#how-can-you-decide-whether-the-destination-is-the-same-document)
+- [What is the hop-by-hop redirect audit worksheet?](#what-is-the-hop-by-hop-redirect-audit-worksheet)
+- [How should temporary, permanent, and failed access be reported?](#how-should-temporary-permanent-and-failed-access-be-reported)
+- [What limitations should accompany the result?](#what-limitations-should-accompany-the-result)
+- [FAQs](#faqs)
+
+## Why does a redirect chain matter for an AI citation?
+
+A redirect can preserve a document’s identity, point to a revised document, or substitute an entirely different resource. Counting only the final URL hides which address the engine exposed and can turn a moving citation into a false claim of continuity.
+
+Preserve three layers:
+
+- **Raw cited URL:** exact text or target exposed in the AI answer, including query, case, and fragment.
+- **Transport path:** each HTTP response status and `Location` target, in order.
+- **Evidence endpoint:** the final fetched URL, page metadata, content fingerprint, and the passage used for support.
+
+A provenance record should connect the citation observation, retrieval activity, and fetched document rather than flattening them into one string. This leaves reviewers a trail when a site changes.
+
+## What must be recorded at every hop?
+
+Record enough detail for another reviewer to replay the decision without guessing. A timestamp alone is not enough: the response status, location, access conditions, and document comparison all affect the interpretation.
+
+At minimum, capture:
+
+1. `citation_id` and the answer snapshot or run identifier.
+2. `raw_cited_url`, exactly as displayed; retain `raw_fragment` separately if a parser drops it.
+3. `hop_number`, `request_url`, `response_status`, and the literal `Location` value.
+4. `resolved_url`, after resolving a relative `Location` against the request URL.
+5. Request timestamp, timezone, method, and whether a browser, crawler, or API performed retrieval.
+6. Final URL, title, HTTP content type, canonical declaration, and a content fingerprint made from the captured body.
+7. Hostname and publisher/owner observed at the original and final endpoints.
+8. Access result: success, blocked, timeout, authentication required, robots restriction, or other reproducible code.
+9. Evidence impact: unchanged support, narrowed support, expanded/changed claim, missing passage, or unable to compare.
+
+Do not infer a redirect from a canonical tag, a JavaScript navigation, or a similar-looking page. Label each as a different relationship. Keep response headers and a compact body capture where policy and rights permit.
+
+## How do transport redirects differ from canonical hints?
+
+A transport redirect is an HTTP response that instructs a client to navigate to another URI; a canonical hint is metadata saying which representation a publisher prefers. They answer different questions and must be stored in different fields.
+
+HTTP status codes carry method and caching semantics defined by RFC 9110. Classify the observed response code; do not reduce every 3xx response to “moved.” A `Location` chain is evidence of what the client was told to do. A `rel="canonical"` link is metadata about a publisher’s preferred representation, covered by RFC 6596 and discussed in [Google’s canonicalization guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls). Google’s [redirect documentation](https://developers.google.com/search/docs/crawling-indexing/301-redirects) concerns search indexing, not proof of an AI engine’s retrieval behavior.
+
+The same URL can therefore have both relationships: `/old` may redirect to `/new`, while `/new` declares `/preferred`. Report the chain and canonical separately. A canonical mismatch is a review flag, not an automatic replacement.
+
+## How can you decide whether the destination is the same document?
+
+Identity requires comparison, not status-code optimism. Treat “same document” as a supported conclusion only when the cited passage, title or subject, publisher context, and material content remain consistent enough for the study’s claim.
+
+Use a review ladder:
+
+1. **Exact endpoint check:** Does the final response succeed, and is its media type the expected one (HTML, PDF, or another cited type)?
+2. **Content check:** Compare a body fingerprint, extracted title, publication/update date, and the cited passage. A changed hash is a prompt for review, not automatic proof of change in meaning.
+3. **Ownership check:** Note hostname, visible publisher, structured `publisher`, and any apparent ownership change. A cross-host hop requires explicit review.
+4. **Scope check:** Decide whether the destination answers the same question, language, audience, version, and time frame.
+5. **Disposition:** mark `same_document`, `revised_document`, `substituted_document`, `unreachable`, or `undetermined`, with a reason.
+
+![Researcher tracing a sequence of web records across screens.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+*Photo: [Pexels, photo 5905445](https://www.pexels.com/photo/5905445/).*
+
+The fingerprint is a comparison aid, not a truth oracle. Dynamic pages can change bytes without changing evidence—or keep bytes similar while changing authority.
+
+## What is the hop-by-hop redirect audit worksheet?
+
+Use one worksheet row for the citation and one row for every observed transition. The following template is deliberately verbose so the audit preserves decisions instead of only the final link.
+
+| Field | Citation row | Hop rows / final review |
+|---|---|---|
+| Run and time | run ID; UTC timestamp | timestamp per request |
+| Original evidence | raw cited URL; answer text; cited passage | repeat citation ID, never replace raw |
+| Navigation | — | hop number; request URL; method; status; `Location` |
+| Resolution | parser/base URI used | resolved destination; next request URL |
+| Endpoint | — | final URL; content type; response length |
+| Document test | expected title/topic | title/date; fingerprint; passage match |
+| Signals | canonical, if available | canonical target and retrieval source |
+| Ownership | original host/publisher | final host/publisher; change flag |
+| Access | answer availability | success, block, timeout, auth, or error |
+| Evidence impact | claim supported by citation | unchanged, narrowed, changed, missing, unknown |
+| Disposition | pending | same, revised, substituted, unreachable, undetermined |
+| Evidence refs | answer capture ID | headers/body hash/screenshot or archive ref |
+
+For reproducibility, document redirect limits, user-agent policy, cookie/login state, timeout, and whether JavaScript was enabled. Record failures as results; do not silently retry until a convenient endpoint appears. If you normalize URLs for grouping, retain the raw and every intermediate URL alongside the normalized key. See AEOeye’s [URL normalization rules](/blog/ai-citation-url-normalization-rules) and [evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol).
+
+## How should temporary, permanent, and failed access be reported?
+
+Status class and evidence disposition are separate fields. A temporary redirect does not prove a future location, and a permanent redirect does not prove that the destination preserves the cited claim.
+
+Report at least:
+
+- **Temporary:** the server requested a temporary move; preserve the observed destination and date, and avoid asserting durable relocation.
+- **Permanent:** the server represented a durable move; compare the destination before grouping evidence.
+- **Success without redirect:** the cited endpoint still resolves; it can still have changed content or ownership.
+- **Failure:** timeout, DNS/TLS error, access block, authentication wall, or unsupported content. State what could not be tested.
+- **Substitution:** the chain reaches a page with a different subject, publisher, language, version, or claim scope. Count it as a new evidence entity unless your predeclared study says otherwise.
+
+When measuring persistence, publish denominators: citations tested, chains completed, inaccessible endpoints, and records needing adjudication. This prevents a rate from hiding failures.
+
+## What limitations should accompany the result?
+
+This protocol cannot reconstruct an AI engine’s private cache, link resolver, or retrieval timestamp. A researcher’s request may differ because of headers, geolocation, login state, JavaScript, rate limits, or robots policy. A later fetch cannot prove what the engine saw.
+
+Fingerprints do not establish semantic identity; canonical links do not establish ownership; redirects do not establish factual continuity. Cross-host ownership is often uncertain, and a page can be legally or technically inaccessible to the auditor. Mark those cases `undetermined`, retain the supporting artifacts, and avoid converting missing evidence into a negative finding.
+
+For a broader audit, connect this worksheet to AEOeye’s [citation data schema](/blog/ai-citation-data-schema), [accessibility status codebook](/blog/ai-citation-accessibility-status-codebook), and [source independence audit](/blog/ai-search-source-independence-audit). To observe which sources engines recommend for buyer questions, [run an AEOeye audit](/#audit).
+
+## FAQs
+
+### Why preserve the URL an AI answer originally showed?
+
+The raw URL records the engine’s visible citation artifact. It may reveal a redirect, campaign parameter, removed path, or host change that the final URL conceals.
+
+### Is a 301 redirect proof that two documents are the same?
+
+No. It is a transport-layer relocation signal. Compare the destination’s passage, subject, date, publisher, and scope before deciding identity.
+
+### Should a canonical URL replace the cited URL?
+
+No. Store it as a separate page-declared signal. It can support review, never erase the original observation.
+
+### Is this worksheet a web standard?
+
+No. The cited RFCs and W3C model are primary references; the worksheet’s fields and dispositions are AEOeye operating proposals.

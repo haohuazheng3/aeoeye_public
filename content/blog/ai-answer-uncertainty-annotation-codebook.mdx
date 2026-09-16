@@ -1,0 +1,100 @@
+---
+title: "AI Answer Uncertainty Codebook: 10 Labels for What the Model Does Not Know"
+description: "A citation-first AEOeye proposal for annotating uncertainty language, evidence gaps, source conflict, and overconfidence in AI answers."
+date: "2026-09-16"
+category: "AEO Operations"
+readingTime: "9 min read"
+keywords: ["AI answer uncertainty", "uncertainty annotation", "AI answer codebook", "AI visibility audit", "AEO measurement"]
+faqs: [{"q":"Is this an official uncertainty standard?","a":"No. This is AEOeye's operational proposal for making observable AI-answer uncertainty easier to annotate and compare. It is not a standard issued by NIST, the IPCC, or any AI provider."},{"q":"Is an uncertain answer automatically wrong?","a":"No. Uncertainty is a property of expression or evidence state, while factual error is a claim that conflicts with the best available evidence. Annotate both dimensions separately."},{"q":"Should reviewers score the model's confidence?","a":"Reviewers should record the model's expressed uncertainty and their own evidence-based confidence as separate fields. Do not treat a confident tone as proof, or a hedge as proof of error."},{"q":"How should a team use this codebook?","a":"Preserve the exact answer span, assign one primary uncertainty label, record reviewer confidence and evidence links, then report results by engine, prompt, locale, and date. Keep fictional test examples separate from production observations."}]
+image: {"url":"https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop displaying charts beside notes for an AI answer uncertainty review.","photographer":"Lukas Blazek","photographerUrl":"https://www.pexels.com/@goumbik"}
+sources: [{"label":"NIST AI 600-1 — Generative AI Profile","url":"https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"IPCC AR6 WGI Chapter 1 — Uncertainty Guidance","url":"https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-1/"},{"label":"Ho et al. — Improving Communication of Uncertainty","url":"https://journals.sagepub.com/doi/10.1177/237946151500100206"},{"label":"Kadavath et al. — Language Models (Mostly) Know What They Know","url":"https://arxiv.org/abs/2207.05221"},{"label":"ALCE — Answering with Language Models aided by Citation Extraction","url":"https://arxiv.org/abs/2305.14627"},{"label":"RAGTruth — A Hallucination Corpus for Retrieval-Augmented Language Models","url":"https://arxiv.org/abs/2401.00396"}]
+---
+
+An AI answer can sound cautious, decisive, or polished while its evidence state remains unknown. The practical fix is to annotate the observable uncertainty separately from factual correctness: preserve the exact span, name the uncertainty pattern, and let a reviewer record confidence against cited evidence. This AEOeye operating proposal supplies ten labels for that job; it is not an industry or provider standard.
+
+Uncertainty matters in an AI visibility audit because “not sure,” “probably,” and an unsupported definite statement lead to different decisions. NIST’s AI Risk Management Framework asks teams to define context, measure risks, and document limitations; its Generative AI Profile also emphasizes that evaluation must account for the distinctive risks of generated content ([NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [NIST AI 600-1](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf)).
+
+## Table of Contents
+
+- [What exactly should an uncertainty annotation capture?](#what-exactly-should-an-uncertainty-annotation-capture)
+- [What are the 10 uncertainty labels?](#what-are-the-10-uncertainty-labels)
+- [How can reviewers separate uncertainty from factual error?](#how-can-reviewers-separate-uncertainty-from-factual-error)
+- [How should a team report uncertainty in an AI audit?](#how-should-a-team-report-uncertainty-in-an-ai-audit)
+- [What are the limitations of this codebook?](#what-are-the-limitations-of-this-codebook)
+- [Frequently asked questions](#frequently-asked-questions)
+
+![A team reviewing a documented workflow on a laptop, representing evidence review and annotation. Photo by Yan Krukau on Pexels.](https://images.pexels.com/photos/7698706/pexels-photo-7698706.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [Yan Krukau on Pexels](https://www.pexels.com/@yankrukov); used as an editorial visual for research workflow.*
+
+## What exactly should an uncertainty annotation capture?
+
+Capture four separate fields: the exact answer span, the model’s expressed uncertainty, the reviewer’s evidence-based confidence, and the factual verdict. A single label should describe the dominant uncertainty pattern in that span, not the reviewer’s emotional reaction to its tone.
+
+Use a record such as: `answer_span`, `label`, `reviewer_confidence`, `evidence_urls`, `factual_status`, `scope`, `timestamp`, and `notes`. Copy the answer verbatim, including qualifiers such as “may,” “typically,” or “I cannot verify.” The [AI citation data schema](/blog/ai-citation-data-schema) and [evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provide useful surrounding fields for keeping the record auditable.
+
+The distinction between expression and truth is essential. Research on linguistic calibration studies whether expressed doubt tracks correctness, while citation-evaluation work shows that a cited answer still needs claim-level support ([Kadavath et al.](https://arxiv.org/abs/2207.05221); [ALCE](https://arxiv.org/abs/2305.14627)). A hedge may accompany a true statement; a confident sentence may be false.
+
+## What are the 10 uncertainty labels?
+
+The following ten labels are AEOeye’s proposed top-level codebook. Examples are fictional and hypothetical; they are not claims about any named model, company, or product. Assign one primary label per span and add a note when another label is also plausible.
+
+| Code | Label | Operational definition | Fictional example |
+|---|---|---|---|
+| U1 | Explicit uncertainty | The answer directly states doubt, lack of confidence, or inability to verify. | “I’m not certain whether Northstar Widget launched in May.” |
+| U2 | Probability or range | The answer expresses uncertainty numerically or with a bounded interval, without asserting that the estimate is a measured fact. | “There is a 40–60% chance the fictional launch occurred in May.” |
+| U3 | Source conflict | The answer identifies materially inconsistent sources or claims and does not silently choose one. | “Record A says April; record B says June, so the date is disputed.” |
+| U4 | Temporal uncertainty | The answer signals that a fact may have changed, is stale, or cannot be dated confidently. | “The fictional store’s current hours may differ from this older listing.” |
+| U5 | Scope limitation | The answer limits a claim to a population, place, dataset, version, or condition instead of generalizing it. | “This fictional result applies only to the three stores in the sample.” |
+| U6 | Conditional answer | The answer depends on an explicit assumption, scenario, or missing condition. | “If the fictional plan includes shipping, the total is higher.” |
+| U7 | Insufficient evidence | The answer says the available material is not enough to support a conclusion, without necessarily expressing personal doubt. | “The supplied fictional records do not establish which vendor caused the delay.” |
+| U8 | Refusal or abstention | The system declines to answer, or abstains, because it cannot safely or responsibly make the requested claim. | “I can’t identify the fictional person from that private description.” |
+| U9 | Unmarked uncertainty | The reviewer finds an uncertainty-bearing claim—such as a forecast, estimate, or disputed proposition—expressed without a qualifier that would help a reader interpret it. | “Northstar will certainly dominate the fictional market next quarter.” |
+| U10 | False certainty | The answer uses definite, high-confidence language that conflicts with available evidence or omits a material unresolved limitation. | “Northstar launched on May 3,” when the fictional records explicitly disagree. |
+
+U1–U8 describe visible qualifications or evidence states. U9 and U10 are reviewer flags for missing calibration or overstatement; they should not be assigned merely because a claim later turns out to be wrong. The IPCC’s uncertainty guidance demonstrates why calibrated terms need shared meanings and explicit context, while research on communicating uncertainty cautions that readers can interpret the same word differently ([IPCC AR6 WGI Chapter 1](https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-1/); [Ho et al.](https://journals.sagepub.com/doi/10.1177/237946151500100206)).
+
+## How can reviewers separate uncertainty from factual error?
+
+First label what the answer says about its own knowledge; then check the proposition against evidence. Record both fields. For example, “I may be wrong, but the fictional date is June” can be U1 plus `factual_status: supported`, contradicted, or unresolved. Conversely, an unqualified statement can be `factual_status: supported` without becoming well-calibrated.
+
+Use a three-pass review:
+
+1. **Span pass:** mark the smallest complete clause carrying uncertainty or certainty. Preserve nearby qualifiers and the claim it modifies.
+2. **Evidence pass:** follow each citation, compare the claim with the source, and note whether the source is accessible and in scope. The [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules) help prevent a changed URL from being mistaken for changed evidence.
+3. **Calibration pass:** compare language with the evidence state. Do not convert reviewer confidence into a claim about the model’s hidden probabilities.
+
+If sources disagree, use U3 even when one source seems more authoritative, then record the adjudication rationale. If a source is inaccessible, mark that access limitation rather than guessing that the claim is false. Citation research such as RAGTruth treats unsupported or contradicted spans as annotation problems requiring explicit evidence, not as tone judgments ([RAGTruth](https://arxiv.org/abs/2401.00396)).
+
+## How should a team report uncertainty in an AI audit?
+
+Report label counts alongside valid-answer and factuality measures, never as one blended “confidence score.” Break results down by engine, model label, prompt family, locale, retrieval condition, and collection date; include the denominator and missing-data rule. The [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) is a good companion for that protocol.
+
+An audit row might say: `U4 | temporal uncertainty | reviewer confidence: high | factual status: unresolved | evidence: two dated pages | collected: 2026-09-16`. At aggregate level, publish the number of annotated spans and the number of independently reviewed spans. If two reviewers disagree, retain both decisions and an adjudicated result instead of overwriting the disagreement.
+
+For AEOeye, a proposed dashboard convention is to show U1–U8 as expression/evidence states and U9–U10 as calibration-risk flags. This is an operating choice, not a standard. Teams may rename or split labels, but should version the guide and preserve historical annotations; the [AI search audit methodology template](/blog/ai-search-audit-methodology-template) can hold those protocol details.
+
+## What are the limitations of this codebook?
+
+This codebook cannot reveal hidden model confidence, prove that a hedge was causally generated by uncertainty, or guarantee that a cited source supports every clause. It is designed for observable text and available trace evidence. Provider interfaces, retrieval access, languages, and answer formats can change, so labels require a dated protocol.
+
+The ten labels also do not replace domain review. Medical, legal, financial, safety, and identity questions may need specialist adjudication and stricter escalation. A reviewer should mark `unresolved` rather than force a verdict when the evidence set is incomplete. Calibration language can reduce overstatement without making the conclusion accurate; conversely, a correct conclusion can be expressed too confidently.
+
+Finally, fictional examples are training aids only. Before using production data, define privacy handling, redaction, reviewer access, and retention rules. Keep the raw answer and source snapshots under the team’s approved governance process, then use [AEOeye’s audit](/#audit) to test repeatable buyer questions with those limits visible.
+
+## Frequently asked questions
+
+### Is U9 the same as a hallucination?
+
+No. U9 flags missing uncertainty language around a claim whose uncertainty matters. Factuality requires a separate evidence check; the claim may be true, false, or unresolved.
+
+### Can one span receive two labels?
+
+Use one primary label for consistent counting, then record secondary labels in notes. For example, a conditional answer can also contain a temporal limitation.
+
+### Why preserve the exact wording?
+
+Small qualifiers change meaning. Retaining the exact span lets another reviewer inspect whether “may,” “likely,” or “cannot verify” was present and what it modified.
+
+### Should probabilities be treated as facts?
+
+No. A probability or range is an expressed estimate. Record its label, assumptions, method, and evidence separately; do not invent calibration data that the answer does not provide.

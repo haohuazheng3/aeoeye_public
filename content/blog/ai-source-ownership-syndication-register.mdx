@@ -1,0 +1,128 @@
+---
+title: "AI Source Ownership Register: Map Syndication Before Counting Diversity"
+description: "A practical register for tracing AI-search citations through URLs, publishers, owners, canonical sources, and syndication relationships before claiming source diversity."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI source ownership", "content syndication register", "AI citation provenance", "source diversity audit", "publisher ownership"]
+author: "AEOeye"
+faqs: [{"q": "What is an AI source ownership register?", "a": "It is a review table that connects each cited URL to its hostname, publication brand, legal publisher, parent owner, byline or source, canonical item, and syndication relationship. It is an operational research utility, not an official standard."}, {"q": "Does a different domain count as a different source?", "a": "Not automatically. A different hostname may publish the same wire story, press release, data feed, or corporate material. Count domains separately from publishers, owners, and independent origins."}, {"q": "Can schema markup prove who owns a page?", "a": "No. Publisher, isPartOf, and citation properties describe relationships in structured data, but the values still need verification against the page, organization records, copyright notices, and publishing history."}, {"q": "How should uncertain ownership be recorded?", "a": "Keep the row and label the relationship unknown or unresolved. Record the evidence checked, the date, and the reason for uncertainty instead of inferring ownership from design, wording, or a shared technology platform."}]
+image: {"url": "https://images.pexels.com/photos/7947837/pexels-photo-7947837.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Person examining information on a laptop, representing an AI search source ownership audit.", "photographer": "RDNE Stock project", "photographerUrl": "https://www.pexels.com/@rdne"}
+sources: [{"label": "W3C PROV-O — The PROV Ontology", "url": "https://www.w3.org/TR/prov-o/"}, {"label": "Schema.org — publisher", "url": "https://schema.org/publisher"}, {"label": "Schema.org — isPartOf", "url": "https://schema.org/isPartOf"}, {"label": "Schema.org — citation", "url": "https://schema.org/citation"}, {"label": "Google Search Central — Canonicalization", "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"}, {"label": "IPTC Photo Metadata Standard", "url": "https://iptc.org/standards/photo-metadata/iptc-standard/"}, {"label": "Microsoft Research — Result Diversification in Search and Recommendation", "url": "https://www.microsoft.com/en-us/research/publication/result-diversification-in-search-and-recommendation-a-survey/"}]
+---
+
+When an AI answer cites eight URLs, you still do not know whether it found eight sources. Those URLs may be eight outlets carrying one wire story, one product feed, or one company announcement. An ownership and syndication register makes that hidden structure explicit before a team reports “diverse coverage.”
+
+This is a citation-first utility for AEO and research teams. It is not a search-engine rule or a claim that any provider uses this classification. Preserve every URL while separating domain, publisher, owner, and independent-origin totals.
+
+## Table of contents
+
+- [What should an AI source ownership register measure?](#what-should-an-ai-source-ownership-register-measure)
+- [How do provenance and structured-data relationships fit together?](#how-do-provenance-and-structured-data-relationships-fit-together)
+- [How can you distinguish syndication from independent reporting?](#how-can-you-distinguish-syndication-from-independent-reporting)
+- [What fields belong in a source ownership register?](#what-fields-belong-in-a-source-ownership-register)
+- [How do you score independence without guessing ownership?](#how-do-you-score-independence-without-guessing-ownership)
+- [How should a team use the register in an AI-search audit?](#how-should-a-team-use-the-register-in-an-ai-search-audit)
+- [What are the limitations of this register?](#what-are-the-limitations-of-this-register)
+- [FAQs](#faqs)
+
+![Researcher reviewing documents and notes on a laptop, illustrating source ownership tracing.](https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [RDNE Stock project](https://www.pexels.com/@rdne) on [Pexels](https://www.pexels.com).*
+
+## What should an AI source ownership register measure?
+
+The register should preserve the raw citation and add progressively more cautious identity fields. A useful report distinguishes at least five denominators:
+
+1. **URL count:** every cited or retrieved URL, including redirects, print views, and duplicates.
+2. **Hostname or domain count:** normalized web hosts, recorded separately from ownership.
+3. **Publication-brand count:** the names readers see, such as a newspaper, journal, newsroom, or product site.
+4. **Owner count:** the legal company, institution, nonprofit, or parent group responsible for the publication, where verified.
+5. **Independent-origin count:** distinct upstream documents, datasets, interviews, tests, or observations that add evidence.
+
+These are different measurements, not interchangeable synonyms. A [result-diversification survey from Microsoft Research](https://www.microsoft.com/en-us/research/publication/result-diversification-in-search-and-recommendation-a-survey/) frames diversity as a family of retrieval metrics; it does not establish a universal “independent source” formula. Treat your denominator as a declared research choice and link it to the [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist).
+
+## How do provenance and structured-data relationships fit together?
+
+Provenance describes how an item came to exist; ownership describes responsibility; structured data exposes relationship claims that still require checking. The [W3C PROV-O recommendation](https://www.w3.org/TR/prov-o/) models entities, activities, and agents, with relations such as derivation, attribution, generation, and quotation. That vocabulary is a good mental model for a row: a page is an entity, publishing or republishing is an activity, and an organization can be an agent.
+
+Schema.org gives complementary page-level properties. [`publisher`](https://schema.org/publisher) means the publisher of the article; [`isPartOf`](https://schema.org/isPartOf) indicates that a creative work is part of another work or series; [`citation`](https://schema.org/citation) identifies a reference to another creative work. These properties help machines parse declared relationships, but they do not certify legal title, factual accuracy, or independence. Compare markup with visible credits, about pages, notices, and the upstream item.
+
+## How can you distinguish syndication from independent reporting?
+
+Syndication is a distribution relationship: substantially the same material appears through another outlet, often with a credit, feed, license, or “originally published” note. Independent reporting adds a separate observation, method, interview, dataset, or calculation—even when it reaches the same conclusion.
+
+Use a four-part check:
+
+- **Text lineage:** compare unusual phrases, sequence of facts, examples, mistakes, and quoted passages. Similar topic or headline alone is weak evidence.
+- **Attribution trail:** inspect “via,” “republished,” wire credits, author notes, references, and embedded source links.
+- **Canonical and redirect signals:** Google explains that redirects and `rel="canonical"` are signals used to consolidate duplicate or very similar URLs, while a sitemap is a weaker signal. A canonical signal is evidence about indexing preference, not proof of ownership or copying.
+- **Evidence contribution:** identify what the later page measured, witnessed, calculated, or documented itself. If it contributes no new evidence, classify it as derivative or “independence unknown,” not independent.
+
+Do not infer a parent company from identical templates, analytics vendors, CDN infrastructure, or shared newsroom style. Those clues can prompt research; they cannot close the relationship. Retain the raw cited URL and pair it with the [AI citation URL normalization rules](/blog/ai-citation-url-normalization-rules).
+
+## What fields belong in a source ownership register?
+
+The following worksheet is intentionally redundant. Redundancy protects the audit when a page changes or a relationship remains uncertain.
+
+| Field | What to record | Evidence standard |
+|---|---|---|
+| Citation ID | Stable row ID and collection date | Audit log or export |
+| Raw cited URL | Exact URL returned or displayed | Original answer capture |
+| Final URL | Redirect destination, if any | HTTP trace or browser check |
+| Hostname | Lowercase host, with subdomain retained | URL parser |
+| Publication brand | Reader-facing title or masthead | Page and about page |
+| Legal publisher | Named entity responsible for publication | Imprint, terms, filing, or explicit notice |
+| Parent owner | Verified controlling organization, if applicable | Corporate or institutional source |
+| Byline/source | Author, wire, interviewee, dataset, or “not stated” | Visible credit and references |
+| Canonical/original item | URL of the claimed original, if found | Canonical, redirect, credit, or upstream page |
+| Relationship | Original, revision, quotation, syndication, translation, derivative, or unknown | Evidence note |
+| Evidence added? | New method, data, observation, or none | Claim comparison |
+| Independence decision | Independent, shared origin, or unresolved | Reviewer rationale |
+| Confidence and checked date | High/medium/low plus date | Reproducible notes |
+
+This is a register, not a leaderboard. Keep one row per URL even when many rows map to one upstream item. Link claim-level evidence to the [AI citation data schema](/blog/ai-citation-data-schema), and preserve snapshots under the [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol).
+
+## How do you score independence without guessing ownership?
+
+Use a categorical decision before any aggregate score. A proposed AEOeye operating rubric is:
+
+- **Independent:** a separately attributable actor contributes a distinct firsthand source, method, sample, dataset, or reproducible test.
+- **Shared origin:** the page is demonstrably derived from the same release, wire item, feed, or upstream document as another row.
+- **Unresolved:** the relationship is plausible but evidence is incomplete.
+- **Not comparable:** the pages address different claims, scopes, dates, or units.
+
+These labels are AEOeye proposals for consistent review, not standards. If a page names a primary source but adds a new calculation, record both links and describe the boundary: the observation may be derivative while the calculation is new. If ownership cannot be verified, leave it unknown; uncertainty is a data value.
+
+For images and other media, inspect rights and creator metadata when available. The [IPTC Photo Metadata Standard](https://iptc.org/standards/photo-metadata/iptc-standard/) defines descriptive, administrative, and rights-related fields, including creator, source, dates, and rights information. Metadata supports tracing and rights review; its presence does not prove that every page displaying the asset is independently owned.
+
+## How should a team use the register in an AI-search audit?
+
+Capture the prompt, answer, engine surface, cited URLs, retrieval time, and page snapshots together. Normalize URLs, then fill ownership and lineage fields before calculating diversity. Report both the broad URL/domain view and the stricter publisher/owner/origin view so a reader can see where duplication changes the conclusion.
+
+For a practical run, sample claims that matter commercially—capabilities, prices, dates, benchmarks, and comparisons—then review the first few cited pages manually. Use the [AI search source independence audit](/blog/ai-search-source-independence-audit) for claim tracing, and compare the resulting origin clusters with [AI search source diversity metrics](/blog/ai-search-source-diversity-metrics). If the question is whether your brand appears at all, [run an AEOeye audit](/#audit) and save the report ID alongside the register.
+
+A clearly labeled hypothetical output might say: “12 URLs, 9 hostnames, 6 publication brands, 4 verified owners, 3 independent origins, and 2 unresolved relationships.” That sentence is more useful than “12 sources” because it tells the reader exactly what was counted and where the evidence converges.
+
+## What are the limitations of this register?
+
+Ownership can be hidden behind licenses, holding companies, franchises, private agreements, or changing mastheads. A canonical tag can be wrong or omitted; a redirect can be temporary; a page can paraphrase a source without linking it. Search answers can also cite a cached, localized, or access-controlled version that a reviewer cannot reproduce.
+
+This register cannot establish legal ownership, prove what an AI system used internally, or determine that two organizations are independent in every economic or editorial sense. It records observable evidence and bounded judgments at a stated time. Recheck high-value rows after material page, ownership, or URL changes, and mark corrections instead of silently rewriting history.
+
+## FAQs
+
+### What is an AI source ownership register?
+
+It connects cited URLs to publication, ownership, provenance, and syndication fields so source diversity can be counted transparently.
+
+### Does a different domain prove independence?
+
+No. Distinct domains can carry one upstream item. Independence requires separate evidence or method, not merely a different hostname.
+
+### Can schema markup prove ownership?
+
+No. Schema properties expose declared relationships; verify them against page-level and organizational evidence.
+
+### What if the relationship is unclear?
+
+Keep the row, label it unresolved, record what you checked, and avoid converting uncertainty into an ownership claim.

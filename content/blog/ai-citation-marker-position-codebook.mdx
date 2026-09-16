@@ -1,0 +1,101 @@
+---
+title: "AI Citation Marker Codebook: Scope, Position, and Presentation"
+description: "A citation-first codebook for recording where AI answer markers appear, what text they scope, and whether the visible presentation is inspectable."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI citation markers", "citation position", "citation scope", "AI search audit", "citation codebook", "answer citations"]
+faqs: [{"q":"What is a citation marker in an AI answer?","a":"A citation marker is the visible or programmatically exposed reference attached to answer text, such as a numbered marker, source card, footnote, or linked title. This codebook records its presentation and scope; it does not assume that the marker proves the claim."},{"q":"Does a citation next to a sentence support the whole sentence?","a":"Not necessarily. Visual proximity is evidence about presentation, not entailment. A reviewer must inspect the linked source and decide whether the marker covers the whole sentence, one clause, a paragraph, or an unresolved span."},{"q":"Is this citation-marker taxonomy a standard?","a":"No. It is a proposed AEOeye operating codebook informed by citation-evaluation research, provider documentation, WCAG, and NIST measurement guidance. Version and calibrate it before using it for comparisons."},{"q":"How should inaccessible hover citations be coded?","a":"Record the marker as present if it is visibly rendered, then separately code its inspectability as inaccessible or unresolved when keyboard, screen-reader, replay, or source-opening checks cannot expose its target. Do not relabel presentation failure as citation absence."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Analyst reviewing source cards and citation markers on a laptop.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Gao et al. (2023), Enabling Large Language Models to Generate Text with Citations (ALCE)","url":"https://aclanthology.org/2023.emnlp-main.398/"},{"label":"Liu et al. (2023), Evaluating Verifiability in Generative Search Engines","url":"https://aclanthology.org/2023.findings-emnlp.467/"},{"label":"Zhang et al. (2024), Towards Fine-Grained Citation Evaluation in Generated Text","url":"https://aclanthology.org/2024.inlg-main.35/"},{"label":"OpenAI, Web Search tool guide","url":"https://platform.openai.com/docs/guides/tools-web-search"},{"label":"Microsoft Learn, Grounding with Bing Search","url":"https://learn.microsoft.com/en-ca/azure/ai-foundry/agents/how-to/tools/bing-grounding?view=foundry-classic"},{"label":"W3C, Web Content Accessibility Guidelines (WCAG) 2.2","url":"https://www.w3.org/TR/WCAG22/"},{"label":"NIST, Artificial Intelligence Risk Management Framework 1.0","url":"https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10"}]
+---
+
+Citation markers are interface evidence, not proof by themselves. This codebook lets an auditor record the marker’s form, visual position, logical scope, repetition, and inspectability before judging whether the linked source supports the answer. Keep “a marker exists” separate from “the cited passage entails the claim.”
+
+Generative-search research frames verifiability around citation precision and recall: whether statements have support and whether attached citations support the statements they accompany. [ALCE](https://aclanthology.org/2023.emnlp-main.398/) and [generative-search evaluation research](https://aclanthology.org/2023.findings-emnlp.467/) motivate that separation. The marker record below is the presentation layer that makes a later support review reproducible.
+
+## Table of contents
+
+- [What should this codebook record first?](#what-should-this-codebook-record-first)
+- [Which marker forms should you distinguish?](#which-marker-forms-should-you-distinguish)
+- [How do you code visual position and logical scope?](#how-do-you-code-visual-position-and-logical-scope)
+- [How should repeated and missing anchors be handled?](#how-should-repeated-and-missing-anchors-be-handled)
+- [How do you test presentation and accessibility?](#how-do-you-test-presentation-and-accessibility)
+- [What is the reusable codebook?](#what-is-the-reusable-codebook)
+- [What limitations belong in the report?](#what-limitations-belong-in-the-report)
+
+## What should this codebook record first?
+
+Record one answer observation, then one marker instance, before assigning any support label. The observation needs the prompt, answer text, engine or model label, locale, collection timestamp, session condition, and a stable capture of what the reviewer saw.
+
+The unit is not “one source.” A single source can appear in several cards, a single marker can point to several sources, and one paragraph can contain multiple independently checkable claims. The [AI citation data schema](/blog/ai-citation-data-schema) provides a useful companion record for claim, source, retrieval, and annotation fields.
+
+Preserve the raw citation token exactly as displayed—such as `[1]`, a superscript number, an icon, or a linked title. Also store a normalized marker ID for analysis. Never replace the raw token with an invented position or inferred URL.
+
+## Which marker forms should you distinguish?
+
+Code the user-facing form because form changes what can be inspected and what a reader can reasonably associate with a claim. Provider documentation demonstrates that implementations differ: OpenAI exposes web-search actions and source URLs through response annotations, while Microsoft’s Grounding with Bing documentation describes links and a Bing query reference in the model response. These are documented examples, not evidence that every product renders citations the same way.
+
+| Form code | Presentation | What to capture |
+|---|---|---|
+| `INLINE_NUM` | Number, bracket, or superscript in answer text | Raw token, character offset, target IDs |
+| `FOOTNOTE` | Marker leads to a note or reference list | Note number, note text, destination |
+| `SOURCE_CARD` | Clickable card with title, domain, or snippet | Card bounds/order, visible metadata |
+| `BARE_LINK` | A normal hyperlink embedded in prose | Link text, href, surrounding sentence |
+| `HOVER_CITE` | Citation details appear on hover or focus | Trigger, keyboard path, exposed target |
+| `PARA_GROUP` | One marker or group at paragraph end | Paragraph ID and all covered claims |
+| `ANSWER_BIB` | Sources listed only after the answer | Bibliography order and answer linkage |
+| `OTHER` | Any unclassified or mixed presentation | Screenshot, DOM/accessibility evidence |
+
+The [OpenAI web-search guide](https://platform.openai.com/docs/guides/tools-web-search) is useful when an API exposes source URLs separately from rendered text. Treat an API annotation and a visible marker as related records, not automatically identical records.
+
+## How do you code visual position and logical scope?
+
+Visual position answers “where did the marker appear?” Logical scope answers “which text does the marker purport to support?” Record both, because proximity is not a reliable substitute for an explicit association.
+
+Use these position codes: `CLAUSE_END` (after a clause), `SENTENCE_END`, `SENTENCE_MID`, `PARAGRAPH_END`, `LIST_ITEM_END`, `HEADING_OR_LABEL`, `ANSWER_END`, and `UNKNOWN`. Store a character offset, DOM selector, or bounding-box sequence when your capture method allows it. If responsive layout moves a card, retain the viewport and device width.
+
+Use these scope codes: `CLAUSE`, `SENTENCE`, `LIST_ITEM`, `PARAGRAPH`, `SECTION`, `ANSWER`, `MULTI_TARGET`, and `AMBIGUOUS`. A paragraph-end group should be marked `PARA_GROUP` for form and `PARAGRAPH` for scope only when the interface clearly communicates that relationship. Otherwise use `AMBIGUOUS` and explain why.
+
+An AEOeye proposal is to require a reviewer-selected `scope_basis` value—`explicit`, `layout`, `proximity`, `provider_metadata`, or `unknown`. This is an operating choice, not a standard. It makes a later entailment review honest: [fine-grained citation evaluation](https://aclanthology.org/2024.inlg-main.35/) can assess support, but cannot recover an association the interface never exposes.
+
+## How should repeated and missing anchors be handled?
+
+Count repeated presentation separately from repeated evidence. If marker `2` appears after two claims and resolves to the same URL, record two marker instances, one source target, and two claim-to-marker relationships. Do not inflate source diversity or citation recall because a source card was duplicated.
+
+Use `REPEAT_SAME_TARGET` when the same marker or source is intentionally reused; use `REPEAT_NEW_TARGET` when a repeated number or label resolves differently in context; use `DUPLICATE_UNRESOLVED` when replay cannot determine whether the target changed. The [source diversity metrics](/blog/ai-search-source-diversity-metrics) and [source independence audit](/blog/ai-search-source-independence-audit) should consume deduplicated source and ownership fields, not raw marker counts.
+
+Use `MISSING_ANCHOR` when answer text contains an explicit citation token or promised source but no usable target is present. Use `NO_MARKER` when no citation presentation is offered. Use `INACCESSIBLE_TARGET` when a visible marker exists but its target cannot be opened or exposed in the test condition. These codes describe the interface observation; none decides truth.
+
+## How do you test presentation and accessibility?
+
+Test the path a reader uses, not just the screenshot. Check pointer activation, keyboard focus, accessible name, target exposure, back navigation, and whether the source opens in the same or a new context. [WCAG 2.2’s link-purpose criterion](https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html) says link purpose should be determinable from link text or programmatically determined context; apply that as an accessibility check, not as a citation-support score.
+
+For a hover citation, record two outcomes: `visible_present = yes` and `keyboard_exposed = no`, for example, if keyboard users cannot reach the details. If the target is hidden behind a transient UI, save the interaction steps and mark inspectability unresolved until replay succeeds. A provider’s documented API annotation does not prove that a particular client rendered it accessibly.
+
+## What is the reusable codebook?
+
+Use one row per marker instance, with a separate relationship table when markers map to multiple claims or sources.
+
+```text
+observation_id | marker_id | raw_token | form_code | visual_position
+scope_code | scope_basis | claim_ids | target_ids | repeated_code
+visible_present | keyboard_exposed | target_opened | inspectability
+raw_capture | viewport | collected_at | reviewer | codebook_version | notes
+```
+
+Recommended controlled values are deliberately small: `yes`, `no`, or `unknown` for binary observations; the form, position, scope, repetition, and inspectability codes above; and free text only for evidence or exceptions. Keep screenshots, DOM extracts, API payloads, and source URLs as linked artifacts. The [citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) explains why a raw capture matters when a page or interface changes.
+
+Before production, an AEOeye proposal is to double-code a calibration set, compare disagreements by field, freeze a version, and retain pre-adjudication labels. Report marker presence, target accessibility, and claim support as separate columns. The [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) can hold the sampling, engine, locale, and timing context.
+
+## What limitations belong in the report?
+
+This codebook measures an observed presentation at a specific time and device state; it does not reveal hidden retrieval logic or prove that a source supports a claim. Interfaces can personalize, change after deployment, truncate source cards, or expose different targets through API and UI layers.
+
+Disclose the engine surface, account state, locale, viewport, prompt, timestamp, replay method, browser accessibility mode, and whether the source target was independently opened. Report unresolved scope, inaccessible hover states, missing anchors, duplicate targets, and any manual inference. Do not compare marker counts across products unless form, scope, and capture conditions are sufficiently aligned.
+
+The [NIST AI RMF](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) is voluntary guidance for managing AI risk; it does not validate this taxonomy. Research benchmarks such as ALCE and human verifiability studies evaluate related citation properties, but their metrics and datasets are not interchangeable with this codebook. Treat every threshold or composite score as an AEOeye proposal requiring calibration and version control.
+
+![Researcher inspecting citation presentation and accessibility states on a desktop screen.](https://images.pexels.com/photos/7864382/pexels-photo-7864382.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200)
+
+*Image: “Researcher inspecting citation presentation and accessibility states on a desktop screen,” by VAZHNIK on [Pexels](https://www.pexels.com/@vazhnik).*

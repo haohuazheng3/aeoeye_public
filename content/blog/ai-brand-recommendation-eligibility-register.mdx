@@ -1,0 +1,164 @@
+---
+title: "AI Brand Recommendation Eligibility: A Predeclared Register"
+description: "A citation-first register for defining which brands belong in an AI recommendation audit before collection, analysis, and reporting."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI brand recommendation eligibility", "brand universe register", "AI search audit sampling", "brand market availability", "AEO measurement", "predeclared eligibility"]
+faqs: [{"q":"What is an eligibility register for AI brand recommendations?","a":"It is a time-stamped record of which brand-market-time units may enter an audit, the rule and evidence supporting each decision, and how exclusions or uncertainty affect the denominator."},{"q":"Is an eligible brand guaranteed to be recommended?","a":"No. Eligibility only means the unit satisfies the study’s declared scope. An eligible brand can be absent, mentioned, or recommended; those are outcomes to measure, not reasons to remove it."},{"q":"Should category membership be based on quality?","a":"No. Category membership should use observable scope rules such as product type, market, and access conditions. Quality or suitability is a separate annotation and must not be used to curate favorable results."},{"q":"Is this register an industry standard?","a":"No. This is a proposed AEOeye operating template informed by transparent reporting and measurement guidance. The fields, thresholds, and review process should be adapted and documented for each study."}]
+image: {"url":"https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Research notes and a laptop used to define a brand research sample.","photographer":"Pixabay","photographerUrl":"https://www.pexels.com/@pixabay"}
+sources: [{"label":"PRISMA 2020 statement and checklist","url":"https://www.prisma-statement.org/prisma-2020"},{"label":"CONSORT 2010 statement (PMC)","url":"https://pmc.ncbi.nlm.nih.gov/articles/2844940/"},{"label":"OSF registrations and preregistrations guidance","url":"https://help.osf.io/article/330-welcome-to-registrations"},{"label":"NIST AI measurement and evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"W3C PROV-O recommendation","url":"https://www.w3.org/TR/prov-o/"}]
+---
+
+Before an AI search audit asks which brands are recommended, it must answer a quieter question: which brands were allowed into the comparison? A predeclared eligibility register fixes that boundary before results are visible. It records one brand-market-time unit, the evidence for its status, and any uncertainty without treating absence from an answer as disqualification.
+
+This is a proposed AEOeye operating template, not a universal standard. It adapts transparent selection and deviation-reporting ideas from [PRISMA 2020](https://www.prisma-statement.org/prisma-2020), [CONSORT](https://pmc.ncbi.nlm.nih.gov/articles/2844940/), [OSF preregistration guidance](https://help.osf.io/article/330-welcome-to-registrations), and [NIST AI measurement guidance](https://www.nist.gov/ai-measurement-and-evaluation).
+
+## Table of contents
+
+- [Why define eligibility before asking an AI?](#why-define-eligibility-before-asking-an-ai)
+- [What exactly is the unit of eligibility?](#what-exactly-is-the-unit-of-eligibility)
+- [Which rules should be predeclared?](#which-rules-should-be-predeclared)
+- [What belongs in the register?](#what-belongs-in-the-register)
+- [How do eligibility and recommendation differ?](#how-do-eligibility-and-recommendation-differ)
+- [How should exclusions and uncertainty be handled?](#how-should-exclusions-and-uncertainty-be-handled)
+- [What should the report disclose as a limitation?](#what-should-the-report-disclose-as-a-limitation)
+- [How can a team use the register?](#how-can-a-team-use-the-register)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## Why define eligibility before asking an AI?
+
+Eligibility is the study’s membership rule, not a prediction about performance. If a team removes brands after seeing a model’s answer, it can quietly change the denominator and make visibility look better than the original sample warrants.
+
+PRISMA’s flow-diagram guidance makes records identified, excluded, and included visible, with reasons. CONSORT likewise asks reports to account for participant flow and exclusions. An AI recommendation audit is not a clinical trial or systematic review; these are reporting analogies, not compliance claims. The useful transfer is simple: show how the intended universe became the analyzed universe.
+
+Predeclare the register version, freeze time, reviewer role, and amendment policy. [AEOeye’s audit methodology template](/blog/ai-search-audit-methodology-template) holds the broader protocol; this register answers who or what is in scope.
+
+## What exactly is the unit of eligibility?
+
+The unit should be a brand × market × time record, not a brand name floating free of context. “Acme” in the United States on 2026-09-16 is a different observation from “Acme” in Canada or the same market after a material availability change.
+
+Define the keys before collection:
+
+- `brand_id`: stable internal identifier plus normalized public name;
+- `market`: country or region, language, and any declared local surface;
+- `as_of`: date and timezone for the eligibility decision;
+- `category`: the product or service class tested;
+- `access_condition`: free, paid, invite-only, shipping-limited, or another declared constraint.
+
+Keep the brand universe separate from a prompt’s candidate set. A prompt may impose budget, delivery, or business-size constraints; join those to the eligibility key instead of silently editing the universe.
+
+## Which rules should be predeclared?
+
+Use observable rules that a second reviewer can apply without reading the recommendation outcome. Category membership, market availability, and access are eligibility questions; quality, rank, and “would I choose it?” are outcome or annotation questions.
+
+A proposed AEOeye rule sheet might state:
+
+1. Category: the brand offers the declared product or service on an official page.
+2. Market: the official page or support documentation indicates service in the target market.
+3. Time: evidence was accessible on or before the declared collection date.
+4. Access: the prompt’s stated price, plan, or shipping constraint can be evaluated from disclosed terms.
+5. Identity: aliases and parent/sub-brand relationships resolve to a stable `brand_id`.
+6. Evidence: each decision has a URL, capture timestamp, and short observation.
+
+These are proposals, not standards. Do not infer availability from search ranking, model wording, visual similarity, or an unverified directory. When official evidence conflicts, mark the record `UNCERTAIN` and preserve both observations. NIST emphasizes that measurement methods depend on context; a market-specific rule is a study choice, not a fact about every audit.
+
+## What belongs in the register?
+
+Each row should let a reader reconstruct the decision and its denominator effect. The following reusable register is intentionally compact; all example values are hypothetical.
+
+| Field | Record | Example value |
+|---|---|---|
+| `eligibility_id` | Stable unit key | `acme-US-en-2026-09-16` |
+| `brand_name` | Public name and alias | `Acme / Acme Cloud` |
+| `category_rule` | Versioned membership rule | `CAT-02 v1` |
+| `market_rule` | Geographic/language rule | `MKT-US-EN v1` |
+| `access_rule` | Price, plan, shipping constraint | `ACCESS-FREE v1` |
+| `status` | Eligible, ineligible, uncertain, pending | `ELIGIBLE` |
+| `evidence_url` | Primary evidence location | Official product page |
+| `captured_at` | Timestamp with timezone | `2026-09-16T10:30-04:00` |
+| `reviewer` | Role accountable | Audit reviewer |
+| `reason_code` | Decision explanation | `IN-SCOPE` |
+| `outcome_blind` | Decided before answer review? | `YES` |
+| `sensitivity_flag` | Alternate handling needed? | `YES` |
+
+Record the page title or short observation supporting the decision, but do not copy more text than the source license permits. Preserve a snapshot or permitted evidence pointer using the [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol). If URLs change, apply [citation URL normalization rules](/blog/ai-citation-url-normalization-rules) while retaining the original URL.
+
+![A checklist and spreadsheet beside a phone, representing market and access verification.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+Photo: [Sora Shimazaki on Pexels](https://www.pexels.com/@sora-shimazaki).
+
+## How do eligibility and recommendation differ?
+
+An eligible-but-not-mentioned brand is a valid negative or non-occurrence, depending on the study’s outcome definition. An ineligible brand is outside the denominator. Conflating those states is the central error this register prevents.
+
+Use separate fields for `eligibility_status`, `mention_status`, and `recommendation_status`. A brand can be `ELIGIBLE`, `NOT_MENTIONED`, and therefore not recommended in that answer; it must not be recoded `INELIGIBLE`. A bare mention is not automatically a recommendation. Apply the [AI brand recommendation annotation codebook](/blog/ai-brand-recommendation-annotation-codebook) and [rank coding rules](/blog/ai-brand-recommendation-rank-coding-rules) after eligibility is frozen.
+
+Do not use category membership as a quality screen. If a prompt asks for “best,” judge its recommendation signal using the annotation guide, then report the eligible denominator. Otherwise the audit measures a preferred shortlist rather than engine behavior over a declared universe.
+
+## How should exclusions and uncertainty be handled?
+
+Predeclared exclusions are part of the protocol; post-hoc removals are deviations that require a visible reason. OSF’s registration guidance supports recording changes to a plan rather than pretending the original plan never existed. Use `PRE` and `POST` timing fields, and never delete the original row.
+
+For an uncertain record, retain the evidence, identify the conflict, and run sensitivity analysis when status could change the headline result. Report both versions, such as “primary: uncertain excluded” and “alternate: uncertain included.” Numbers must come from the actual register; placeholders are not findings.
+
+A simple flow is:
+
+```text
+Declared brand-market-time universe
+  − duplicate identity records
+  − predeclared out-of-market or out-of-category records
+  = eligible register
+  − unresolved records (shown separately)
+  = primary analysis denominator
+```
+
+Use [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) to connect this flow to prompts, engines, and collection conditions. W3C [PROV-O](https://www.w3.org/TR/prov-o/) is a useful provenance vocabulary for relating an entity, its evidence, and the activity that produced a decision; it does not prescribe this register.
+
+## What should the report disclose as a limitation?
+
+The register cannot prove that a market page was visible to every user, that an official claim was accurate, or that a live AI system saw the same evidence. It cannot remove sampling bias caused by choosing only well-known brands or English-language surfaces.
+
+Disclose:
+
+- the date, timezone, locale, and access assumptions;
+- whether evidence came from official pages, structured feeds, or secondary sources;
+- how aliases, parent companies, and discontinued products were resolved;
+- whether reviewers were blind to model outcomes;
+- how disagreements and `UNCERTAIN` rows were adjudicated;
+- which denominator supports every recommendation rate;
+- whether sensitivity handling changed the conclusion.
+
+NIST’s [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) describes documentation, measurement, and communication of limitations as governance work. That supports disclosure discipline, not a claim that NIST has endorsed AEOeye’s fields.
+
+## How can a team use the register?
+
+Create the register before prompt execution, lock a version, then join each answer to exactly one eligibility key. A practical release check is:
+
+- every eligible row has evidence and a timestamp;
+- every excluded row has a rule and reason code;
+- uncertain rows are visible, not silently discarded;
+- outcome labels are stored separately from eligibility;
+- counts reconcile to the audit denominator;
+- amendments retain old and new values;
+- the report links the register version and sensitivity result.
+
+The point is not to maximize brands. It is to make the boundary stable enough that another reviewer can see what was measured, what was outside scope, and where judgment remains. AEOeye’s [audit entry point](/#audit) can then present outcomes against an inspectable universe.
+
+## Frequently asked questions
+
+### What is an eligibility register for AI brand recommendations?
+
+It is a time-stamped record of which brand-market-time units may enter an audit, the rule and evidence supporting each decision, and how exclusions or uncertainty affect the denominator.
+
+### Is an eligible brand guaranteed to be recommended?
+
+No. Eligibility only means the unit satisfies the study’s declared scope. An eligible brand can be absent, mentioned, or recommended; those are outcomes to measure, not reasons to remove it.
+
+### Should category membership be based on quality?
+
+No. Category membership should use observable scope rules such as product type, market, and access conditions. Quality or suitability is a separate annotation and must not be used to curate favorable results.
+
+### Is this register an industry standard?
+
+No. This is a proposed AEOeye operating template informed by transparent reporting and measurement guidance. The fields, thresholds, and review process should be adapted and documented for each study.

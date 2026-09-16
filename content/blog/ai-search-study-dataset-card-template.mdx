@@ -1,0 +1,146 @@
+---
+title: "AI Search Study Dataset Card: A Template for Auditable Results"
+description: "A copyable dataset-card template for documenting AI search studies, from sampling frame and prompts to provenance, licensing, bias, and intended use."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI search dataset card", "AI search study template", "dataset documentation", "AI visibility research", "auditable AI study"]
+faqs: [{"q":"What is a dataset card for an AI search study?","a":"It is a concise, structured record of what a study collected, why it collected it, how observations were transformed, who may reuse them, and where the evidence is limited. It makes the dataset understandable without pretending that documentation proves the findings."},{"q":"Is a dataset card the same as a methods section?","a":"No. A methods section explains how a particular study was conducted and interpreted. A dataset card is a reusable data-facing summary that emphasizes provenance, composition, access, stewardship, risks, and intended or out-of-scope uses; the two should link to each other."},{"q":"Can I publish raw AI answers with the dataset card?","a":"Only when rights, privacy, provider terms, and participant expectations permit it. A public card can describe restricted raw evidence, publish hashes or redacted excerpts, and explain access controls without claiming that a public release exists."},{"q":"Is this template an industry standard?","a":"No. This is a proposed AEOeye operating template informed by research and documentation frameworks. Adapt it to your study, predeclare material choices, and label local conventions instead of presenting them as universal requirements."}]
+image: {"url":"https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Research team reviewing an AI search study dataset card on a laptop.","photographer":"fauxels","photographerUrl":"https://www.pexels.com/@fauxels"}
+sources: [{"label":"Datasheets for Datasets","url":"https://arxiv.org/abs/1803.09010"},{"label":"Data Cards: Purposeful and Transparent Dataset Documentation","url":"https://arxiv.org/abs/2204.01075"},{"label":"NIST AI Risk Management Framework 1.0","url":"https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10"},{"label":"FAIR Guiding Principles","url":"https://www.gofair.foundation/fair-principles"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"RO-Crate specification","url":"https://www.researchobject.org/ro-crate/specification/1.1/"}]
+---
+
+An AI search dataset card answers a practical question before anyone trusts a chart: **what exactly was observed, under which conditions, and what can another person responsibly reuse?** The template below turns those answers into a compact, copyable record. It is a proposed AEOeye operating template, not a universal standard.
+
+The distinction matters because a methods section usually narrates a study, while a dataset card stays attached to the data as it moves between analysts, reviewers, and future releases. The [Datasheets for Datasets proposal](https://arxiv.org/abs/1803.09010) emphasizes motivation, composition, collection, and recommended use; [Data Cards research](https://arxiv.org/abs/2204.01075) similarly treats documentation as a human-facing product across a dataset’s lifecycle.
+
+## Table of contents
+
+- [What should a dataset card explain first?](#what-should-a-dataset-card-explain-first)
+- [How is a dataset card different from a methods section?](#how-is-a-dataset-card-different-from-a-methods-section)
+- [Which fields make an AI search dataset auditable?](#which-fields-make-an-ai-search-dataset-auditable)
+- [How should raw evidence and derived labels be separated?](#how-should-raw-evidence-and-derived-labels-be-separated)
+- [What should a copyable dataset-card template contain?](#what-should-a-copyable-dataset-card-template-contain)
+- [How do provenance, access, and licensing work?](#how-do-provenance-access-and-licensing-work)
+- [What limitations should the card disclose?](#what-limitations-should-the-card-disclose)
+- [What should a reader do with the card?](#what-should-a-reader-do-with-the-card)
+
+## What should a dataset card explain first?
+
+Start with purpose, scope, and the unit of observation. A reader should learn whether a row represents one prompt run, one answer, one citation, or an aggregation—and which question the dataset can actually answer.
+
+Write the purpose as a falsifiable use statement: “This dataset describes recommendation and citation observations for predeclared buyer prompts on named search surfaces during a defined window.” Add the decision the data may inform, then name decisions it cannot support. This prevents a visibility sample from quietly becoming a market-share claim.
+
+Record collection date separately from publication date. The former tells readers when the live system was observed; the latter tells them when the artifact was released. AI answers and linked pages can change between those dates, so preserve both in every release.
+
+## How is a dataset card different from a methods section?
+
+A methods section explains the researcher’s procedure and analysis; a dataset card explains the dataset’s identity, boundaries, stewardship, and reuse conditions. They overlap on sampling and collection, but they serve different readers and should not substitute for one another.
+
+For example, a paper may explain why a prompt was sampled and how a confidence interval was calculated. The card should additionally state the dataset identifier, file inventory, sensitive fields, license, retention policy, known bias, and out-of-scope uses. Link the card to the [AI search audit methodology template](/blog/ai-search-audit-methodology-template) and [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) so protocol and data documentation remain connected.
+
+## Which fields make an AI search dataset auditable?
+
+An auditable card lets a reviewer reconstruct the path from an eligible case to a reported label. At minimum, document:
+
+- purpose, research questions, and intended users;
+- unit of observation, sampling frame, inclusion rules, and sample size;
+- collection surface, provider or engine label, model label, interface, locale, device, and time window;
+- prompt version, randomization or ordering rules, retries, stopping rules, and environment;
+- raw-answer format, parser or annotation version, derived metrics, and missingness codes;
+- annotator roles, training, adjudication, and conflict handling;
+- sensitive fields, redaction, retention, access controls, and release status;
+- source licenses, third-party terms, checksums, known bias, and misuse risks;
+- intended uses, out-of-scope uses, maintenance owner, and change history.
+
+The [NIST AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) describes measurement as including documentation, uncertainty, and regular evaluation. That supports recording operational context rather than reporting a score without its observation conditions.
+
+## How should raw evidence and derived labels be separated?
+
+Raw evidence is what the study captured; a derived label is a later interpretation produced by a parser, annotator, or rule. Keep them in separate fields and version the transformation, because a changed label rule should not silently rewrite the underlying answer.
+
+For a citation study, raw evidence might include the response text, visible marker, cited URL, screenshot pointer, timestamp, and content hash. Derived fields might include `citation_present`, `support_level`, `normalized_url`, or `rank`. The [AI citation data schema](/blog/ai-citation-data-schema) and [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provide adjacent field-design patterns.
+
+![Researcher preserving raw AI answers and derived labels in separate evidence layers.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+*Photo: [Pexels, photo 5905445](https://www.pexels.com/photo/5905445/).*
+
+Do not treat a checksum as proof that an answer is true; it only helps detect file changes. Likewise, a normalized URL is a transformation, not the original citation. Preserve the raw cited URL alongside any canonical or normalized value.
+
+## What should a copyable dataset-card template contain?
+
+Copy this skeleton into a repository, release page, or study appendix. Replace bracketed text, keep “unknown” when a field is genuinely unknown, and link each claim to an evidence location.
+
+```markdown
+# Dataset card: [stable name] ([version or release date])
+
+## 1. Purpose and scope
+- Research question:
+- Intended decision or user:
+- Intended uses:
+- Out-of-scope uses:
+
+## 2. Composition and sampling
+- Unit of observation:
+- Population and sampling frame:
+- Inclusion and exclusion rules:
+- Expected cases / retained cases / excluded cases:
+- Prompt set and prompt version:
+
+## 3. Collection context
+- Collection surface and interface:
+- Provider and model labels (as displayed):
+- Locale, device, account state, and personalization conditions:
+- Collection start/end (timezone):
+- Publication date (separate from collection date):
+- Retries, ordering, stopping, and failure rules:
+
+## 4. Evidence and transformations
+- Raw files and formats:
+- Derived labels, metrics, and formulas:
+- Parser / annotation guide versions:
+- Missingness and unresolved-case handling:
+- Provenance links, hashes, screenshots, or restricted-evidence pointers:
+
+## 5. People, privacy, and governance
+- Annotator roles, training, and adjudication:
+- Sensitive fields and redaction:
+- Retention, access control, and incident contact:
+
+## 6. Rights and release
+- Dataset and source licenses:
+- Third-party terms or access restrictions:
+- Public, restricted, or private evidence status:
+- Reuse conditions and citation request:
+
+## 7. Quality, bias, and limitations
+- Known sampling, interface, language, time, or coverage bias:
+- Measurement uncertainty and missingness:
+- Validation and quality checks:
+- What this dataset cannot establish:
+
+## 8. Maintenance and change history
+- Steward / contact:
+- Identifier and repository:
+- Change log and comparability impact:
+```
+
+## How do provenance, access, and licensing work?
+
+Provenance is the chain connecting an observation to the activity and agent that produced or transformed it. The [W3C PROV-O ontology](https://www.w3.org/TR/prov-o/) offers a vocabulary for entities, activities, and agents; [RO-Crate’s specification](https://www.researchobject.org/ro-crate/specification/1.1/) shows how metadata can travel with a research object.
+
+In practice, record raw-answer IDs, request timestamps, tool versions, file hashes, transformations, reviewers, and release decisions. A public card does not imply public raw evidence. Mark each artifact as public, restricted, or private, state the access route, and explain whether redaction changes what can be independently checked.
+
+Licensing is also field-level, not merely a footer. A prompt file, screenshot, provider output, linked page, and annotation may have different rights or terms. The [FAIR Guiding Principles](https://www.gofair.foundation/fair-principles) emphasize findability, accessibility, interoperability, and reusability; those goals still require lawful access and honest statements about what is unavailable.
+
+## What limitations should the card disclose?
+
+The card should name limits that could change interpretation: live-web drift, model or interface updates, locale and account effects, prompt order, incomplete capture, parser error, annotator disagreement, and non-probability sampling. Say whether results generalize to other engines, dates, languages, or user accounts; do not let a clean table imply representativeness.
+
+Also disclose what the study cannot establish. An AI recommendation observation is not proof of product quality, market demand, or causal ranking influence. A citation count is not evidence that every cited source supports the claim. If raw answers are restricted, explain the resulting verification gap and provide the strongest lawful substitute, such as redacted excerpts, hashes, or an access-controlled review.
+
+## What should a reader do with the card?
+
+Use the card as a release companion, not as a substitute for reading the protocol and inspecting evidence. First check purpose, unit, dates, and eligibility. Then compare raw-versus-derived fields, missingness, access status, and version history before comparing metrics.
+
+For recurring work, connect each release to [AI search source diversity metrics](/blog/ai-search-source-diversity-metrics), the [AI search source independence audit](/blog/ai-search-source-independence-audit), or the [AI search prompt order-effects protocol](/blog/ai-search-prompt-order-effects-protocol) where relevant. A dataset card earns trust by making uncertainty and boundaries easy to see. This AEOeye proposal is deliberately adaptable: preserve the evidence trail, state the limits, and change the template openly when the study changes.

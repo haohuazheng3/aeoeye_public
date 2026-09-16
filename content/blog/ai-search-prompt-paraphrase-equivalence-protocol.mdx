@@ -1,0 +1,128 @@
+---
+title: "AI Search Prompt Paraphrases: A Protocol for Equivalent Test Sets"
+description: "A citation-first worksheet for building equivalent AI-search prompt variants without silently changing buyer intent, scope, constraints, or answer format."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI search prompt paraphrases", "prompt equivalence", "paraphrase testing", "semantic equivalence worksheet", "AI search audit protocol"]
+faqs: [{"q":"What is prompt-paraphrase equivalence?","a":"It is a predeclared judgment that two prompts ask for the same decision or information under the same entity, constraints, locale, time frame, and answer format. Similar wording alone is not enough."},{"q":"How many paraphrases should an AI-search test set contain?","a":"There is no universal number. Start with a small, reviewed set that covers natural lexical and syntactic variation, then replicate each variant equally and report the construction rule."},{"q":"Should adversarial prompt changes be mixed with natural paraphrases?","a":"No. Keep natural variants, adversarial perturbations, and changed-intent controls in separate strata. Mixing them makes a difference impossible to attribute to ordinary wording variation."},{"q":"Can semantic similarity software decide whether prompts are equivalent?","a":"Similarity scores can triage pairs, but they do not prove equivalent buyer intent. Use them as an aid alongside blind human review, explicit exclusion rules, and a preserved decision record."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher comparing prompt variants on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"PromptBench — Towards Evaluating Robustness of Large Language Models on Adversarial Prompts","url":"https://arxiv.org/abs/2306.04528"},{"label":"Sentence-BERT — Sentence Embeddings using Siamese BERT-Networks","url":"https://aclanthology.org/D19-1410/"},{"label":"ParaBART — Disentangling Semantics and Syntax in Sentence Embeddings","url":"https://aclanthology.org/2021.naacl-main.108/"},{"label":"NIST — Measurement Uncertainty","url":"https://www.nist.gov/itl/sed/topic-areas/measurement-uncertainty"},{"label":"OpenAI — Prompt engineering guide","url":"https://platform.openai.com/docs/guides/prompt-engineering"},{"label":"Anthropic — Prompt engineering overview","url":"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"},{"label":"Google — Prompt design strategies","url":"https://ai.google.dev/gemini-api/docs/prompting-strategies"}]
+---
+
+Equivalent-looking prompts can produce different AI-search answers, but a wording change is not automatically a fair replicate. The protocol below holds buyer intent, entity scope, constraints, locale, time frame, and answer format constant, then separates natural paraphrases from deliberate stress tests.
+
+This is an AEOeye operating proposal, not an industry standard. It is designed to make a narrow claim auditable: whether a defined engine and runtime respond differently to prompts judged equivalent by a recorded review process.
+
+![A team reviewing a structured prompt worksheet beside a computer.](https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [fauxels](https://www.pexels.com/@fauxels) on [Pexels](https://www.pexels.com).*
+
+## Table of contents
+
+- [What counts as an equivalent prompt?](#what-counts-as-an-equivalent-prompt)
+- [Which changes silently change intent?](#which-changes-silently-change-intent)
+- [How should you construct and review variants?](#how-should-you-construct-and-review-variants)
+- [How do you run a balanced collection?](#how-do-you-run-a-balanced-collection)
+- [What should the worksheet record?](#what-should-the-worksheet-record)
+- [How should results and uncertainty be reported?](#how-should-results-and-uncertainty-be-reported)
+- [What are the limitations?](#what-are-the-limitations)
+- [FAQs](#faqs)
+
+## What counts as an equivalent prompt?
+
+Two prompts are equivalent for this test only when they preserve the same requested decision, subject, eligibility rules, and output shape. “Which project-management tool is best for a 20-person nonprofit in Canada?” and “What is the best project-management tool for a Canadian nonprofit with 20 staff?” may qualify; “Which affordable tool should a startup buy?” does not, because audience and price constraint moved.
+
+Define the unit before writing variants. A useful equivalence record has these locked fields:
+
+- **Intent:** discover, compare, troubleshoot, purchase, or another single action.
+- **Entity scope:** exact brand, category, product set, or named market.
+- **Constraints:** budget, team size, platform, accessibility, compliance, and exclusions.
+- **Locale and time:** country, language, currency, and “as of” date.
+- **Answer format:** shortlist, ranked recommendation, steps, citations, or a fixed schema.
+
+The [AI search audit methodology template](/blog/ai-search-audit-methodology-template) is a useful companion for freezing engine, account, locale, and collection metadata. Semantic textual similarity research, including [Sentence-BERT](https://aclanthology.org/D19-1410/), treats paired-sentence similarity as a measurable task; that supports triage, not a magical equivalence threshold.
+
+## Which changes silently change intent?
+
+The most dangerous edits preserve vocabulary while changing the decision boundary. A paraphrase can add urgency (“right now”), change the superlative (“best” to “cheapest”), narrow eligibility (“for teams under 10”), alter evidence requirements (“with official citations”), or change the implied user (“I” to “a regulated bank”). Each is a treatment, not a replicate.
+
+Use three strata and never pool them by default:
+
+1. **Natural variants:** ordinary word order, active/passive voice, synonyms, contractions, and question forms that a buyer might genuinely use.
+2. **Changed-intent controls:** variants that intentionally alter one locked field, such as budget or geography, to prove the codebook detects drift.
+3. **Adversarial perturbations:** typos, misleading framing, instruction conflicts, or unusual token edits used to probe robustness.
+
+PromptBench’s [robustness benchmark](https://arxiv.org/abs/2306.04528) studies adversarial prompt behavior. Its purpose is different from estimating natural paraphrase variance, which is why the strata belong in separate analyses. Research on [syntax-guided paraphrasing](https://aclanthology.org/2021.naacl-main.108/) likewise reinforces the practical distinction between changing form and changing meaning.
+
+Exclusion rules should be mechanical where possible. Exclude a candidate if it introduces a new entity, adds or removes a material constraint, changes temporal reference, requests a different output type, contains an unresolved pronoun, or requires background context absent from the canonical prompt. Keep excluded text and the reason; do not silently delete inconvenient variants.
+
+## How should you construct and review variants?
+
+Start with one canonical prompt and a field-level lock sheet. Generate more candidates than needed, but do not let the generator approve its own paraphrases. A reviewer should see the canonical prompt and candidate in randomized order, with labels hidden, then answer: “Would the same buyer accept the same answer under the same conditions?”
+
+Use two independent reviewers for the first pass. Record `equivalent`, `not_equivalent`, or `uncertain`, plus the failed field. Resolve disagreements by applying the lock sheet, not by voting for a preferred wording. “Uncertain” belongs in an excluded or adjudication bucket until resolved. If automation is used, store the model name, prompt, version, and output alongside the human decision.
+
+The [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) can hold reviewer IDs, timestamps, and changes. AEOeye proposes a minimum agreement report—pair counts, agreement rate, adjudications, and exclusions—but this is an operating choice, not a validated cutoff.
+
+## How do you run a balanced collection?
+
+Balance makes variants comparable: assign every retained paraphrase the same planned replicates, randomize run order with a recorded seed, and distribute variants across time blocks. Keep engine surface, exposed model label, search setting, account state, locale, device, and answer-format instruction fixed. Provider documentation emphasizes that prompt structure and clarity affect model responses: see OpenAI’s [prompt engineering guide](https://platform.openai.com/docs/guides/prompt-engineering), Anthropic’s [prompting overview](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview), and Google’s [prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies). These are guidance documents, not evidence that any provider treats a given pair as equivalent.
+
+Create a fresh session when independence is the goal. Otherwise log session ID, reset method, run index, and any visible carryover. Preserve raw prompt text, normalized text, prompt hash, full response, citations, timestamp, and failure status. The [AI citation data schema](/blog/ai-citation-data-schema) helps keep response and citation records separable.
+
+## What should the worksheet record?
+
+Copy this protocol into an issue before collection:
+
+```text
+Study ID / version: [stable ID; date]
+Canonical prompt: [exact text]
+Intent: [one decision or information need]
+Entity scope: [entities, category, market]
+Locked constraints: [budget, audience, platform, compliance, exclusions]
+Locale / time frame: [language, country, currency, as-of date]
+Answer format: [required shape and citation rule]
+Variant ID / text: [one row per candidate]
+Stratum: [natural | changed-intent control | adversarial]
+Reviewer result: [equivalent | not_equivalent | uncertain]
+Failed field / rationale: [short, specific reason]
+Adjudication: [reviewer, date, final decision]
+Runtime: [engine, model label, interface, account, device, block]
+Randomization: [PRNG, seed, software version, run index]
+Outcome: [predeclared mention, citation, rank, or rubric code]
+Missing / duplicate: [status, reason, replacement policy]
+```
+
+Do not collapse “not mentioned” into “ineligible,” and do not treat a citation as proof that the underlying recommendation is correct. For brand-focused coding, pair this with the [AI brand recommendation annotation codebook](/blog/ai-brand-recommendation-annotation-codebook).
+
+## How should results and uncertainty be reported?
+
+Report each variant’s eligible runs, missing runs, duplicate flags, and outcome counts before giving an aggregate. For a binary outcome, show the proportion and a clearly labeled descriptive contrast against the canonical prompt. For ranked or free-text outcomes, preserve ties, unranked responses, and the rubric version; do not convert missing data into a last-place rank.
+
+NIST’s [measurement uncertainty guidance](https://www.nist.gov/itl/sed/topic-areas/measurement-uncertainty) is a reminder that a result needs a defined measurand and uncertainty story. In this setting, uncertainty includes sampling of paraphrases, reviewer disagreement, collection blocks, and changing retrieval. AEOeye proposes reporting block-level contrasts and a sensitivity analysis that removes uncertain pairs; it does not claim those summaries are universally optimal.
+
+Avoid selecting the most dramatic paraphrase after seeing outcomes. Freeze the primary outcome and variant set first, preserve all raw responses, and label exploratory findings. A difference across equivalent prompts is evidence of instability in this panel—not proof of an engine-wide ranking factor, a hidden preference, or conversion impact. For URL and evidence handling, the [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provides a compatible recordkeeping pattern.
+
+## What are the limitations?
+
+This protocol cannot prove that two prompts have identical meaning for every buyer, language, culture, or context. Reviewer judgments remain fallible; embedding similarity can miss negation and constraints; and a model-assisted judge can reproduce its own blind spots. Small panels miss variation, while very large panels can make trivial differences sound important.
+
+Answer engines also change models, retrieval indexes, safety behavior, rate limits, and personalization. A balanced worksheet reduces confounding but cannot freeze a hosted service. Treat each canonical prompt, engine surface, model label, and date as a defined study version. Re-run only when the comparison question is still the same, and disclose every changed field.
+
+## FAQs
+
+### What is prompt-paraphrase equivalence?
+
+It is a documented judgment that two prompts preserve the same intent and locked conditions. It is not a synonym count or a similarity score.
+
+### How many variants are enough?
+
+Enough to cover the natural variation you care about with equal replication. There is no universal quota; report the construction and stopping rule.
+
+### Should I mix natural and adversarial variants?
+
+No. Separate strata protect the interpretation of ordinary buyer-language variation.
+
+### Can this prove an AI engine prefers a brand?
+
+No. It measures a defined prompt panel and runtime. It cannot establish universal preference, causality, or sales lift.

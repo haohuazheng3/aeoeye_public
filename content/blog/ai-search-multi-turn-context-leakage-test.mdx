@@ -1,0 +1,119 @@
+---
+title: "AI Search Context Leakage: A Multi-Turn Test Protocol"
+description: "A citation-first protocol for separating intended conversation context from uncontrolled carryover in AI search tests, with clean-session and primed-session matrices."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI search context leakage", "multi-turn AI search testing", "AI search reproducibility", "conversation carryover", "AI visibility audit"]
+faqs: [{"q":"Does a different second-turn answer prove context leakage?","a":"No. It shows an observable difference, not its cause. Prompt wording, retrieval timing, model routing, account state, memory, and in-thread context can all change the result. Repeat the contrast with logged conditions before assigning a mechanism."},{"q":"What is the difference between memory and in-thread context?","a":"In-thread context is information still available inside the conversation being tested. Account memory or chat-history reference is information a provider says may be used across conversations. Treat them as separate factors and record the provider control or evidence for each."},{"q":"How long should a washout period be?","a":"There is no universal interval for an AI search test. Choose and predeclare a gap appropriate to the provider and question, then report it. A longer gap does not prove that server-side state, experiments, or retrieval caches have cleared."},{"q":"Is this protocol an industry standard?","a":"No. It is a proposed AEOeye operating protocol informed by provider documentation and research-design guidance. Adapt it to the provider, privacy constraints, and evidence your team can actually collect."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher reviewing a controlled AI search test on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"OpenAI — Memory FAQ","url":"https://help.openai.com/en/articles/8590148-memory-faq"},{"label":"OpenAI — Temporary Chat FAQ","url":"https://help.openai.com/en/articles/8914046-temporary-chat-faq"},{"label":"Google — Gemini personalization with memory of past chats","url":"https://support.google.com/gemini/answer/16598469?hl=en"},{"label":"Perplexity — Account & Settings","url":"https://www.perplexity.ai/help-center/en/articles/10352990-account-settings"},{"label":"NIST — Repeatability and reproducibility terminology","url":"https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology"},{"label":"CONSORT — Extension to randomized crossover trials","url":"https://pmc.ncbi.nlm.nih.gov/articles/PMC6667942/"},{"label":"Penn State — Cross-over repeated measure designs","url":"https://online.stat.psu.edu/stat502/Lesson12"}]
+---
+
+An AI search answer that changes after a prior turn is evidence of a changed observation, not proof of hidden memory. A defensible context-leakage test separates the information intentionally supplied in the thread from uncontrolled carryover, verifies the reset you can observe, counterbalances run order, and reports unanswered mechanism questions honestly.
+
+## Table of contents
+
+- [What exactly is context leakage?](#what-exactly-is-context-leakage)
+- [Which conditions should the test separate?](#which-conditions-should-the-test-separate)
+- [How should you run clean and primed sessions?](#how-should-you-run-clean-and-primed-sessions)
+- [What results matrix should you use?](#what-results-matrix-should-you-use)
+- [How should you code contamination and interpret differences?](#how-should-you-code-contamination-and-interpret-differences)
+- [What are the limitations?](#what-are-the-limitations)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What exactly is context leakage?
+
+Context leakage is an operational label for information from an earlier interaction affecting a later test when that information was not part of the later test condition. It is not a provider diagnosis. The same visible change can arise from intended conversational context, account-level memory, retrieval carryover, changed prompt wording, model routing, or a time-varying experiment.
+
+The key distinction is scope. In-thread context is text, files, tool output, or instructions still available inside one conversation. Account memory or chat-history reference is cross-conversation state that a provider documents as a feature or setting. OpenAI describes saved memories, reference to chat history, and Temporary Chat as separate controls ([Memory FAQ](https://help.openai.com/en/articles/8590148-memory-faq); [Temporary Chat FAQ](https://help.openai.com/en/articles/8914046-temporary-chat-faq)). Google likewise documents a Gemini feature that can use past chats for personalization, with eligibility and activity requirements ([Gemini help](https://support.google.com/gemini/answer/16598469?hl=en)). These pages document product behavior and controls; they do not establish what another provider does.
+
+## Which conditions should the test separate?
+
+Separate the conditions before collecting answers. At minimum, define a clean session, a deliberately primed session, and a reset check. A clean session begins with no intentional prior-turn clue about the target; a primed session contains a scripted prior turn that introduces a known fact or preference. The final question is identical in both arms.
+
+| Condition | Prior turns | Intended information | What it tests | Main risk |
+|---|---|---|---|---|
+| Clean | None, or a documented neutral opener | None about target | Baseline answer and citations | “Fresh” may be unverified |
+| Primed | Scripted, verbatim turns | Known target fact/preference | Intended within-thread carryover | Priming changes wording or tone |
+| Reset check | New chat/session or provider control | None, after priming | Whether the visible reset worked | Reset may not clear server state |
+| Account stratum | Same protocol, account state recorded | Memory/history on or off where available | Cross-conversation contrast | Login, plan, locale, and history co-vary |
+
+Google’s documentation says Gemini personalization can reference past chats and describes how to ask whether past chats were used. Perplexity documents that Incognito searches are not stored, while normal mode retains signed-in history ([Account & Settings](https://www.perplexity.ai/help-center/en/articles/10352990-account-settings)). Use such controls as declared test conditions, not as universal evidence that all retrieval or hidden state disappeared.
+
+![Research team comparing controlled conversation conditions and answer captures.](https://images.pexels.com/photos/7869303/pexels-photo-7869303.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Pavel Danilyuk](https://www.pexels.com/@pavel-danilyuk) on [Pexels](https://www.pexels.com).*
+
+## How should you run clean and primed sessions?
+
+Use a balanced, preregistered sequence. For each provider, prompt version, account stratum, and capture block, assign half the blocks Clean→Primed and half Primed→Clean when practical. A crossover design makes each block its own comparison, but order can create period and carryover effects. The CONSORT extension defines carryover as an earlier intervention persisting into a later period and recommends reporting sequence and washout considerations ([CONSORT crossover extension](https://pmc.ncbi.nlm.nih.gov/articles/PMC6667942/)). Penn State’s repeated-measures guidance similarly treats sequence as a variable when assessing carryover ([cross-over designs](https://online.stat.psu.edu/stat502/Lesson12)).
+
+1. Freeze the exact final prompt, whitespace, language, locale, device, model label, search mode, and answer format. Store the prompt as text, not a paraphrase.
+2. Write the priming script in advance. Use one factual cue at a time, such as “I am comparing vendors for a small nonprofit,” and do not improvise follow-ups.
+3. Capture the clean final answer, citations, visible model/mode, timestamp, and run ID.
+4. Start the primed arm, deliver the scripted turns verbatim, then submit the identical final prompt.
+5. Perform the provider-supported reset or start a new session. Record what was reset and what was not observable.
+6. Repeat enough blocks to expose instability; do not choose a sample size after looking at favorable answers. If a run fails, preserve it and code the failure.
+
+A useful run header is:
+
+```yaml
+study_id: "context-leakage-2026-09"
+run_id: "provider-block-sequence"
+captured_at_utc: "2026-09-16T00:00:00Z"
+provider: "declared-provider"
+account_stratum: "signed_out|signed_in|unknown"
+memory_history: "on|off|unavailable|unknown"
+session_arm: "clean|primed|reset_check"
+sequence: "CP|PC"
+prompt_version: "v1"
+final_prompt_sha256: "local-record-only"
+model_mode: "visible-label; search-mode"
+answer_ref: "screenshot-or-export"
+contamination_code: "none|prior-turn|account-state|retrieval|prompt|unknown"
+outcome: "same|changed|missing|uncodable"
+```
+
+## What results matrix should you use?
+
+Report observations by arm, sequence, and outcome—not just a single “leakage rate.” The matrix below is a proposed AEOeye reporting template. “Changed” means a prespecified outcome changed; it does not mean the mechanism is known.
+
+| Provider/block | Sequence | Clean result | Primed result | Reset-check result | Citation change | Contamination code | Interpretation |
+|---|---|---|---|---|---|---|---|
+| P1/B1 | CP | same/changed | same/changed | same/changed | added/removed/replaced/none | none/prior-turn/etc. | observation only |
+| P1/B2 | PC | same/changed | same/changed | same/changed | added/removed/replaced/none | none/prior-turn/etc. | order-sensitive? |
+| P2/B1 | CP | same/changed | same/changed | same/changed | added/removed/replaced/none | none/prior-turn/etc. | provider-specific |
+
+Add raw answer spans and displayed source URLs to each row. A citation replacement can matter even when the prose looks similar; preserve the original URL before applying any normalization, then link the row to the [citation data schema](/blog/ai-citation-data-schema) and [evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol). For an audit-wide method record, use the [experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist).
+
+## How should you code contamination and interpret differences?
+
+Code the nearest observable explanation, then keep uncertainty explicit. Suggested contamination codes are: `prior-turn` for an accidental extra turn; `account-state` for an unplanned login, memory, history, or connector change; `retrieval` for changed sources or search mode; `prompt` for a wording/template mismatch; `order` for a sequence or period concern; `reset-unknown` when reset success cannot be verified; and `none` only when the recorded controls match.
+
+NIST distinguishes repeatability—agreement under the same conditions—from reproducibility under changed, specified conditions ([NIST TN 1297](https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology)). Apply that discipline here: define which conditions were held fixed and which changed. If Clean and Primed differ in one block, call it an observed contrast. If the contrast repeats in both sequences while the scripted cue is the only declared change, it supports an intended-context hypothesis. It still does not prove hidden account memory, server routing, or a causal retrieval path.
+
+## What are the limitations?
+
+This protocol cannot inspect provider-side prompts, caches, ranking systems, experiments, or undocumented state. A new chat may clear visible thread context while leaving account-level settings, network signals, or time-dependent retrieval unchanged. A provider’s “memory off,” “Temporary,” or “Incognito” control has the documented scope of that provider’s interface; do not expand it into a claim that all state was erased.
+
+Results can also be contaminated by copied text, browser extensions, connectors, locale, model auto-routing, citation availability, and changing web pages. The protocol is sensitive to your outcome definition: recommendation, citation presence, source identity, rank, and wording are different measures. Report missing runs, reset failures, order imbalance, and any post-hoc exclusions. Treat AEOeye’s matrix, codes, and suggested washout as operating proposals, not standards.
+
+For a buyer-facing visibility question, pair this experiment with the [personalization confounders checklist](/blog/ai-search-personalization-confounders-checklist), the [prompt order-effects protocol](/blog/ai-search-prompt-order-effects-protocol), and a reproducible [AI search audit methodology template](/blog/ai-search-audit-methodology-template). Then link the observed answer evidence to the relevant [AEOeye audit](/#audit) rather than inferring a mechanism from one changed response.
+
+## Frequently asked questions
+
+### Does a different second-turn answer prove context leakage?
+
+No. It proves only that the observed answer differed. Test the same contrast across balanced sequences and record alternative explanations before assigning a cause.
+
+### What is the difference between memory and in-thread context?
+
+In-thread context remains in the conversation. Account memory or history reference is cross-conversation state documented by a provider. Record them as separate variables.
+
+### How long should a washout period be?
+
+There is no universal interval. Predeclare the gap, explain why it is practical, and report that it cannot verify undocumented server-side clearing.
+
+### Is this protocol an industry standard?
+
+No. It is a proposed AEOeye operating protocol informed by provider documentation and research-design guidance.

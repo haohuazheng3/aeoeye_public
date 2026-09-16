@@ -1,0 +1,137 @@
+---
+title: "AI Search Audit Versioning: A Change Log That Preserves Comparability"
+description: "A practical version ledger for documenting AI search audit changes, preserving provenance, and deciding when historical comparisons remain valid."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["ai search audit versioning", "ai audit change log", "ai search comparability", "reproducible ai research", "ai visibility methodology", "research version ledger"]
+faqs: [{"q":"Why does an AI search audit need versioning?","a":"Versioning records what changed in the dataset, prompts, engine surface, coding, or metric. Without it, a higher or lower score can mix a real observation change with a researcher change, making the comparison unsafe."},{"q":"Is Semantic Versioning an AI research standard?","a":"No. Semantic Versioning defines a convention for software public APIs. AEOeye may borrow its major/minor/patch vocabulary as an operating proposal, but it is not a research standard or a claim about provider behavior."},{"q":"When should I break the denominator?","a":"Break the denominator when eligibility, prompt units, engine coverage, or missingness rules change what counts as an observation. Publish the old result, the new result, and a bridge or sensitivity analysis instead of silently recomputing history."},{"q":"Can an engine update be corrected by changing the audit version?","a":"No. An engine or index update is an external runtime event, not automatically a researcher method change. Record the observed engine label and collection context, flag possible drift, and avoid attributing the shift to your protocol without evidence."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher documenting an AI search audit on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"Semantic Versioning 2.0.0","url":"https://semver.org/spec/v2.0.0.html"},{"label":"Zenodo DOI versioning FAQ","url":"https://zenodo.org/help/versioning"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"GO FAIR principles","url":"https://www.go-fair.org/fair-principles/"},{"label":"NIST automated benchmark evaluation practices","url":"https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.800-2.ipd.pdf"},{"label":"NIST AI measurement and evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"}]
+---
+
+An AI search audit is comparable only when a reader can tell whether the protocol stayed the same. A version and change log makes that distinction visible: it preserves each release, names the changed object, and states whether an old result can be compared with a new one.
+
+This ledger is AEOeye's operating proposal, not a certification, provider rule, or universal research standard. It adapts [Semantic Versioning](https://semver.org/spec/v2.0.0.html), provenance, FAIR practice, and NIST guidance to AI search audits.
+
+## Table of contents
+
+- [What should an AI search audit version record?](#what-should-an-ai-search-audit-version-record)
+- [How should a change be classified?](#how-should-a-change-be-classified)
+- [When does a change break comparability?](#when-does-a-change-break-comparability)
+- [How can provenance separate engine drift from researcher change?](#how-can-provenance-separate-engine-drift-from-researcher-change)
+- [What should a publishable ledger look like?](#what-should-a-publishable-ledger-look-like)
+- [What are the limitations of a change log?](#what-are-the-limitations-of-a-change-log)
+- [What are the frequently asked questions?](#what-are-the-frequently-asked-questions)
+
+## What should an AI search audit version record?
+
+Record every object that can alter an observation or denominator, not only the code commit. A release entry connects the question to prompts, runtime, evidence, annotation, metric, and publication.
+
+| Ledger field | Record this minimum | Why it matters |
+|---|---|---|
+| Release ID | Version, date, status, and immutable release link | Gives readers a stable target |
+| Dataset | Dataset ID, snapshot date, row count, and hash if available | Shows which observations were used |
+| Prompt | Prompt IDs, exact wording, order, locale, and prompt-set version | Separates wording changes from answer changes |
+| Engine surface | Provider, product surface, mode, exposed model label, and tools | UI and API observations are not interchangeable |
+| Collection | Start/end time, timezone, device, account state, and collection code | Makes runtime context inspectable |
+| Annotation | Unit, guide version, reviewers, adjudication, and exclusions | Makes labels and missingness auditable |
+| Metric | Formula, numerator, denominator, rounding, and uncertainty method | Prevents score meaning from drifting |
+| Schema | Fields added, renamed, deprecated, or removed | Distinguishes data compatibility from method change |
+| Impact | None, comparable, conditional, or not comparable, with rationale | Tells the reader how to use the release |
+| Provenance | Parent release, change owner, activity, evidence, and correction note | Preserves the chain of derivation |
+
+This structure follows [W3C PROV-O](https://www.w3.org/TR/prov-o/), which represents entities, activities, and agents involved in producing data. [NIST AI measurement guidance](https://www.nist.gov/ai-measurement-and-evaluation) likewise treats evaluation as context-dependent: a score without context is incomplete. For collection fields, use the [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist).
+
+![A team comparing research notes and audit records.](https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Second image: Pexels photo by fauxels, [Pexels profile](https://www.pexels.com/@fauxels).*
+
+## How should a change be classified?
+
+Classify the changed object before deciding whether to increment a version. The same edit can be harmless for one metric and disruptive for another, so the impact decision must follow the declared measurement, not a label alone.
+
+As an operating proposal, AEOeye uses three categories:
+
+1. **Patch correction:** A backward-compatible repair to an error that does not change the intended observation, eligible set, coding rule, or metric definition. Preserve the original release and publish the correction note.
+2. **Minor addition:** A backward-compatible field or evidence addition, such as storing a response hash, without changing existing rows or denominators. Old consumers can still read the prior fields.
+3. **Major method change:** A prompt rewrite, new eligibility rule, changed annotation unit, engine-surface switch, metric formula change, or exclusion rule that changes interpretation or the denominator.
+
+This vocabulary is inspired by SemVer's distinction between compatible fixes, additions, and incompatible changes; SemVer requires a declared public API and says released contents must not be modified silently. That is a software convention, not a research standard. [Zenodo's versioning guidance](https://zenodo.org/help/versioning) adds a useful research practice: cite the specific version so the cited files remain identifiable, while a concept DOI can represent the evolving family.
+
+## When does a change break comparability?
+
+Comparability breaks when releases no longer measure the same defined unit under aligned conditions. A changed number is not enough; compare protocol, denominator, runtime, and coding first.
+
+Use this decision rule for each pair of releases:
+
+| Change | Default impact | Required treatment |
+|---|---|---|
+| Typo fixed in a displayed label; raw observation unchanged | Comparable | Keep old release; link correction and hash |
+| New nullable field or additional screenshot | Comparable | Add field without recomputing prior metrics |
+| Re-coded ambiguous rows under the same guide | Conditional | Publish row IDs, disagreement rule, and before/after sensitivity |
+| Prompt wording, order, locale, or eligibility changed | Not comparable by default | Split the series or run an overlap bridge |
+| New engine mode, API surface, or model label | Conditional to not comparable | Report as a new surface; never merge silently |
+| Exclusion or denominator rule changed | Not comparable | Retain old denominator and publish both results |
+| Metric formula, rank window, or unit changed | Not comparable | Introduce a new metric ID and backfill only if justified |
+
+“Conditional” means the releases may be compared for a narrower question after a documented bridge, not that a conversion factor exists. [NIST automated benchmark guidance](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.800-2.ipd.pdf) emphasizes objectives, reproducibility, and valid interpretation; it does not prescribe this table.
+
+Keep the original release visible. Do not replace a historical percentage with a recalculated percentage just because the new code is cleaner. If a correction changes a published conclusion, mark the conclusion as corrected and show the old and new values with their denominators.
+
+## How can provenance separate engine drift from researcher change?
+
+Provenance cannot reveal a provider's hidden ranking process, but it can show whether the researcher changed the activity, inputs, or coding while the external runtime also changed. That separation is the minimum needed for an honest interpretation.
+
+Create one chain for each run: prompt → collection → response → cited-URL evidence → annotation → metric. Record the exposed model label, including “not shown”; do not infer a hidden model from writing style.
+
+Add external-event notes: product release, interface change, outage, index shift, or account-state change, with source and timestamp when available. A frequency change during a stable protocol is an observation associated with that runtime; it is not automatically evidence that the method changed.
+
+For citation work, pair this log with the [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) and [AI citation data schema](/blog/ai-citation-data-schema). If source URLs are normalized, retain both raw and resolved values using the [URL normalization rules](/blog/ai-citation-url-normalization-rules), so a transport change is not mistaken for a new source.
+
+## What should a publishable ledger look like?
+
+Publish a machine-readable row plus an explanation for every release; explain the judgment behind the comparability flag. The values below are hypothetical.
+
+```text
+release_id: 2026-09-16.audit.1.2.0
+parent_release: 2026-09-07.audit.1.1.0
+changed_objects: annotation_guide, nullable evidence_status
+collection_code: web-ui-v3
+metric_ids: mention_rate.v1, citation_rate.v1
+denominator: eligible_answers.v1 (unchanged)
+impact: conditional
+reason: ambiguous rows re-reviewed; no prompt or eligibility change
+evidence: manifest-2026-09-16.json; review-log-014.csv
+published_at: 2026-09-16T14:00:00Z
+```
+
+For each release, publish a “what changed / what did not / what can be compared” note. A FAIR-oriented workflow makes research objects findable, accessible, interoperable, and reusable; [GO FAIR's principles](https://www.go-fair.org/fair-principles/) are guidance, not a guarantee of validity. Use stable IDs and explicit missing values.
+
+If a report compares brand recommendations, keep the annotation and rank rules explicit with the [brand recommendation annotation codebook](/blog/ai-brand-recommendation-annotation-codebook) and [rank coding rules](/blog/ai-brand-recommendation-rank-coding-rules). To measure an initial snapshot, [run an AEOeye audit](/#audit) and preserve its prompt, runtime, and report version alongside the result.
+
+## What are the limitations of a change log?
+
+A ledger preserves decisions and evidence; it does not make a changing AI system stationary. It cannot establish that two provider surfaces share retrieval, model routing, personalization, safety, or ranking.
+
+It cannot repair missing responses, inaccessible citations, undocumented account history, or an unrecorded prompt change. A hash proves artifact identity, not truth. Small samples remain noisy, and a versioned convenience sample is still not a population estimate.
+
+State these limits beside the result, not only in an appendix. “Not comparable” can be the most honest output; it protects readers from a trend line built from incompatible releases.
+
+## What are the frequently asked questions?
+
+### Should a schema-only addition receive a new version?
+
+Yes, if the release itself is meant to be immutable and citable; classify a backward-compatible nullable field as a minor addition in AEOeye's proposal. Do not silently mutate a published artifact.
+
+### Is an engine update a major version?
+
+Not automatically. Treat it as an external runtime event first, record the exposed label and collection date, and assess comparability against the research question. A new product surface or changed prompt protocol is a researcher method change.
+
+### Can I publish only the latest ledger row?
+
+No, not for a reproducible series. Retain prior releases, parent links, correction notes, and the evidence manifest. [Zenodo recommends citing a specific version](https://zenodo.org/help/versioning) when exact reproducibility matters.
+
+### What should readers compare first?
+
+Compare the unit, eligibility rule, prompt set, engine surface, collection window, denominator, and metric formula. Only then interpret a change in mentions, citations, or recommendations.

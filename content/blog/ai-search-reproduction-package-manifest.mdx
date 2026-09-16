@@ -1,0 +1,150 @@
+---
+title: "AI Search Reproduction Package: A File-by-File Manifest"
+description: "A citation-first manifest for packaging AI search prompts, answers, source captures, annotations, code, checksums, and release metadata without overstating reproducibility."
+date: "2026-09-16"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI search reproduction package", "AI audit manifest", "reproducible AI search research", "AI citation evidence", "research file manifest"]
+faqs: [{"q":"What is an AI search reproduction package?","a":"It is a versioned collection of the instructions, inputs, environment records, raw observations, source evidence, analysis materials, and release metadata needed to inspect an AI search study."},{"q":"Does a reproduction package recreate the same live answer?","a":"No. It preserves the conditions and evidence of an observation. Live models, indexes, interfaces, personalization, and source pages can change, so identical output is not promised."},{"q":"Should raw AI answers be published?","a":"Publish them only when the interface terms, privacy expectations, copyright position, and study consent allow it. Otherwise publish redacted derivatives, metadata, hashes, and an access procedure."},{"q":"Do checksums prove that a finding is true?","a":"No. A checksum helps detect byte-level change in a retained artifact. It does not establish truth, authorship, completeness, source support, or the validity of an analysis."}]
+image: {"url":"https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop displaying charts beside notes for a reproducible research package.","photographer":"Lukas Blazek","photographerUrl":"https://www.pexels.com/@goumbik"}
+sources: [{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"RO-Crate 1.2 specification","url":"https://www.researchobject.org/ro-crate/specification/1.2/"},{"label":"RFC 8493 BagIt","url":"https://www.rfc-editor.org/rfc/rfc8493"},{"label":"FAIR Guiding Principles","url":"https://www.nature.com/articles/sdata201618"},{"label":"Zenodo versioning FAQ","url":"https://zenodo.org/help/versioning"},{"label":"NIST AI measurement and evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"NIST benchmark evaluation practices","url":"https://www.nist.gov/news-events/news/2026/01/towards-best-practices-automated-benchmark-evaluations"}]
+---
+
+An AI search result is reproducible enough to review only when its evidence travels with its method. Package the exact prompts, surface and model labels, raw answers, cited URLs, source captures, annotations, code, and integrity metadata; then explain what a later reader cannot recreate. This is an AEOeye research utility and operating proposal, not a universal standard.
+
+## Table of contents
+
+- [What should a reproduction package prove?](#what-should-a-reproduction-package-prove)
+- [Which files belong in the manifest?](#which-files-belong-in-the-manifest)
+- [How should the package be arranged?](#how-should-the-package-be-arranged)
+- [How do provenance and versions connect the files?](#how-do-provenance-and-versions-connect-the-files)
+- [What should checksums and licenses record?](#what-should-checksums-and-licenses-record)
+- [How should a reviewer reproduce the analysis?](#how-should-a-reviewer-reproduce-the-analysis)
+- [What are the limitations?](#what-are-the-limitations)
+- [FAQs](#faqs)
+
+## What should a reproduction package prove?
+
+The package should prove what was asked, what was observed, how it was transformed, and which files support each conclusion. It should not claim that a changed live system will emit the same answer. NIST describes AI evaluation as a measurement problem requiring meaningful data, metrics, and methods; its recent benchmark work also emphasizes validity, transparency, and reproducibility ([NIST measurement and evaluation](https://www.nist.gov/ai-measurement-and-evaluation), [NIST benchmark practices](https://www.nist.gov/news-events/news/2026/01/towards-best-practices-automated-benchmark-evaluations)).
+
+Treat “reproducible” as layered:
+
+1. **Computational:** the released code can rerun on the released inputs.
+2. **Analytic:** another reviewer can follow transformations from raw answer to metric.
+3. **Operational:** the prompt, surface, locale, time, and tool settings are documented.
+4. **Historical:** retained files show what the system returned at collection time.
+
+An observation may satisfy one layer and fail another. State that distinction in the README and report denominators for unavailable, blocked, or redacted evidence.
+
+![Research notes and a laptop used to organize study artifacts. Photo by Lukas Blazek on Pexels.](https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Photo by [Lukas Blazek](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com/).*
+
+## Which files belong in the manifest?
+
+The manifest is useful when every file has one job, one stable path, and one relationship to the study. The following is a reusable minimum; an AEOeye proposal can add fields when risk or scope requires them.
+
+| Path | Required contents | Review question |
+|---|---|---|
+| `README.md` | purpose, scope, quick start, exclusions, contact | Can a stranger orient themselves? |
+| `protocol.md` | hypotheses, sampling, prompts, stopping rules, dates | Was collection predeclared? |
+| `prompts/` | exact prompts, IDs, locale, turn context | Can wording be inspected? |
+| `environment.json` | surface, visible model label, client, versions, settings, timezone | What conditions shaped the run? |
+| `answers/raw/` | unmodified exports or text, answer IDs, timestamps | What did the system display? |
+| `sources/` | raw URLs, redirect records, snapshots or permitted excerpts | What evidence was available? |
+| `annotation-guide.md` | label definitions, examples, exclusions, version | How were judgments made? |
+| `adjudication.csv` | disagreements, decisions, reviewer IDs, rationale | Were conflicts visible? |
+| `analysis/` | scripts, dependency lockfile, configuration, outputs | Can transformations rerun? |
+| `checksums.txt` | path, byte size, algorithm, digest | Did retained bytes change? |
+| `LICENSES/` | code, data, image, and source-use terms | What may be reused? |
+| `CHANGELOG.md` | release, corrections, comparability impact | What changed between versions? |
+
+Keep raw and derived directories separate. A cleaned answer, normalized URL, or “supported” label must point back to the raw artifact; it must never silently replace it. The [AI citation data schema](/blog/ai-citation-data-schema) and [AI citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provide useful field-level precedents.
+
+## How should the package be arranged?
+
+Use predictable names and machine-readable metadata so a person and a tool can navigate the same release. A BagIt-style wrapper is a practical option: [RFC 8493](https://www.rfc-editor.org/rfc/rfc8493) defines a structure with payload files and manifests, but adopting BagIt is an AEOeye proposal, not a requirement of research reproducibility.
+
+```text
+reproduction-package-v1/
+├── README.md
+├── protocol.md
+├── prompts/0001.txt
+├── environment.json
+├── answers/raw/0001.json
+├── sources/0001/response.html
+├── annotation-guide.md
+├── adjudication.csv
+├── analysis/run.py
+├── analysis/requirements.lock
+├── checksums.txt
+├── LICENSES/
+└── CHANGELOG.md
+```
+
+RO-Crate offers a complementary model for describing a research object and its files with JSON-LD; consult the [RO-Crate 1.2 specification](https://www.researchobject.org/ro-crate/specification/1.2/) when machine-readable discovery matters. The package can reference RO-Crate concepts without pretending that metadata alone validates the underlying answer.
+
+## How do provenance and versions connect the files?
+
+Connect each claim to an answer, each answer to a run, and each run to its prompt and environment. [W3C PROV-O](https://www.w3.org/TR/prov-o/) models relationships among entities, activities, and agents; using simple fields such as `wasDerivedFrom`, `wasGeneratedBy`, and `wasAssociatedWith` keeps that lineage inspectable even without a full PROV serialization.
+
+Give protocol, schema, annotation guide, and package independent version identifiers. Record collection time in UTC plus the local timezone, and distinguish collection date from publication date. If a correction changes a label, append a new release and explain whether historical metrics remain comparable. The [Zenodo versioning guidance](https://zenodo.org/help/versioning) is a useful reminder that a concept DOI and a version DOI serve different retrieval purposes.
+
+For each run, retain:
+
+- `run_id`, `prompt_id`, `answer_id`, and `source_id`;
+- product surface, visible model label, account state, locale, and search setting;
+- client/tool version, commit or container identifier, and failure code;
+- reviewer and annotation-guide version;
+- links to the exact raw and derived artifacts.
+
+Do not infer hidden model, retrieval, or memory state. Mark unknowns as `null` and explain how that missingness affects interpretation. For comparability across prompt variants, use the [AI search prompt order effects protocol](/blog/ai-search-prompt-order-effects-protocol) and record any counterbalancing decision.
+
+![A team reviewing a documented workflow on a laptop. Photo by Yan Krukau on Pexels.](https://images.pexels.com/photos/7698706/pexels-photo-7698706.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Photo by [Yan Krukau](https://www.pexels.com/@yankrukov) on [Pexels](https://www.pexels.com/).*
+
+## What should checksums and licenses record?
+
+Hash the exact bytes that are released and list the algorithm, relative path, byte size, and digest. A checksum detects a changed file relative to the published digest; it does not prove truth, authorship, semantic correctness, source support, or completeness. Publish hashes as integrity metadata only.
+
+Record licenses at the smallest useful scope. Code, prompts, screenshots, source excerpts, and Pexels images may have different permissions. If raw answers contain personal data, credentials, private prompts, or copyrighted material, publish a redacted derivative and document the redaction rule, access restriction, and retention decision. Never bypass authentication, rate limits, robots directives, or terms of service to fill a missing file.
+
+An AEOeye proposal for `checksums.txt` is:
+
+```text
+sha256  2481  answers/raw/0001.json  8f3c...
+sha256  9312  sources/0001/response.html  4a91...
+```
+
+The ellipses are placeholders, not valid digests; a real release must contain complete values.
+
+## How should a reviewer reproduce the analysis?
+
+Start with the README, verify the package digest, inspect the protocol, and run analysis against immutable raw inputs. Compare generated outputs to the released outputs, then read the failure and missingness notes before interpreting a metric. Use the [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist) to report scope, and the [AI search source independence audit](/blog/ai-search-source-independence-audit) when counting distinct sources.
+
+If live reruns are permitted, label them **new observations**, not replacements for the historical run. Record the rerun date, changed model or index label, access result, and any output divergence. A source snapshot may be unavailable or legally unsuitable to redistribute; in that case, provide the original URL, retrieval metadata, a short necessary excerpt, or an authorized archive pointer.
+
+## What are the limitations?
+
+This manifest improves traceability but cannot freeze a live AI system, search index, user account, source page, or interface. Identical prompts can produce different outputs; a screenshot can omit hidden state; an archive can fail; and a citation can point to a page whose content later changes. A package also cannot establish causal attribution from correlation or turn a reviewer label into ground truth.
+
+Report blocked requests, redactions, missing model labels, unavailable snapshots, excluded prompts, and denominator changes. Preserve uncertainty rather than filling gaps with plausible guesses. For a complete audit design, begin with AEOeye’s [AI search audit methodology template](/blog/ai-search-audit-methodology-template) and link every reported result to its package and artifact IDs.
+
+## FAQs
+
+### What is the smallest useful package?
+
+At minimum: a README, protocol, exact prompt set, environment record, raw answers, source URL/evidence records, annotation guide, analysis code, checksums, licenses, and release notes. Explain every omitted item.
+
+### Can I publish only a Git commit?
+
+No. A commit identifies code state, not necessarily prompts, account conditions, raw answers, source snapshots, or external dependencies. Include those artifacts or a clear, reviewable access path.
+
+### Should a failed source fetch be deleted?
+
+No. Preserve the attempted URL, timestamp, request outcome, and failure code when permitted. A documented failure is part of the study’s evidence and denominator.
+
+### Is BagIt mandatory?
+
+No. BagIt is a documented packaging option. Choose it, RO-Crate, a repository archive, or a simpler directory when that choice is explained and the package remains inspectable.
