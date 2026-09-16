@@ -1,0 +1,153 @@
+---
+title: "n8n Pricing (2026): Plans, Execution Costs, and the Real Bill"
+description: "n8n pricing explained across Starter, Pro, Business, Enterprise, workflow executions, concurrency, AI credits, and the real cost of self-hosting."
+date: "2026-09-15"
+category: "Reviews"
+readingTime: "8 min read"
+keywords: ["n8n pricing","n8n cost"]
+faqs: [{"q":"Is n8n free?","a":"Yes. n8n offers a free Community Edition for self-hosting. You provide and operate the infrastructure, and some collaboration and governance capabilities differ from paid plans."},{"q":"Is n8n cheaper than Zapier?","a":"It can be, particularly for complex workflows or self-hosted deployments, because n8n counts a full workflow run as one execution regardless of step count. The cheaper option depends on volume, hosting, maintenance, and the providers your workflows use."},{"q":"What counts as one n8n execution?","a":"One complete workflow run counts as one execution, regardless of how many steps or nodes the workflow contains."},{"q":"Can n8n pricing change?","a":"Yes. These figures were checked on September 15, 2026, but n8n can change prices, limits, included credits, or plan features. Verify the current terms on the official pricing page before purchasing."}]
+image: {"url":"https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Automation dashboard used to estimate n8n workflow execution costs.","photographer":"Lukas Blazek","photographerUrl":"https://www.pexels.com/@goumbik"}
+sources: [{"label":"n8n.io official source","url":"https://n8n.io/pricing/"},{"label":"docs.n8n.io official source","url":"https://docs.n8n.io/hosting/community-edition-features/"}]
+---
+n8n pricing is straightforward only if you count the right thing: executions, not individual workflow steps. In 2026, the hosted Starter plan begins at €20 per month when billed annually, while serious teams may pay €50, €667, or a custom Enterprise price. The cheapest plan depends less on headline price than on how many complete workflow runs you actually need.
+
+## Table of Contents
+
+- [Quick verdict: what does n8n cost?](#quick-verdict-what-does-n8n-cost)
+- [What are the n8n plans and prices?](#what-are-the-n8n-plans-and-prices)
+- [How do executions create your n8n bill?](#how-do-executions-create-your-n8n-bill)
+- [What would 3,000, 12,000, or 50,000 runs cost?](#what-would-3000-12000-or-50000-runs-cost)
+- [Is n8n Cloud cheaper than self-hosting?](#is-n8n-cloud-cheaper-than-self-hosting)
+- [Who should choose each n8n plan?](#who-should-choose-each-n8n-plan)
+- [What hidden costs should you budget for?](#what-hidden-costs-should-you-budget-for)
+- [FAQ](#faq)
+
+## Quick verdict: what does n8n cost?
+
+For a small automation project, n8n pricing starts at €20 per month on the annual Starter plan. That includes 2,500 executions, five concurrent executions, and 2,300 AI credits.
+
+The important distinction is that n8n counts one complete workflow run as one execution, regardless of how many steps the workflow contains. A 20-step workflow that runs once consumes one execution, not 20. That makes n8n attractive for complex automations, but frequent triggers can still push you into a more expensive tier quickly.
+
+Our practical view: Starter is excellent for testing and modest production use, Pro is the sensible default for a growing operator, and Business is priced for organizations that need governance rather than merely more automations.
+
+![Operator mapping automation triggers before choosing an n8n plan.](https://images.pexels.com/photos/1181343/pexels-photo-1181343.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## What are the n8n plans and prices?
+
+The following figures reflect the published pricing checked on September 15, 2026. Prices and included limits can change, so confirm the current details on [n8n’s pricing page](https://n8n.io/pricing/) before purchasing.
+
+| Plan | Annual price | Included executions | Concurrency | AI credits / notable features |
+|---|---:|---:|---:|---|
+| Starter | €20/month | 2,500 | 5 | 2,300 AI credits |
+| Pro | €50/month | 10,000 | 20 | Up to 13,700 AI credits; 7 days of insights |
+| Business | €667/month | 40,000 | Not specified here | Self-hosted; SSO/SAML/LDAP; environments and version control |
+| Enterprise | Custom | Custom | Custom | Enterprise-specific terms and support |
+
+All paid plans allow unlimited users, workflows, and integrations. In other words, your bill is not based on how many people you invite or how many connectors you configure. Execution volume is the central usage variable for the plans shown above.
+
+There is also a genuinely free self-hosted route: Community Edition. It is not simply a limited trial of n8n Cloud. You run the software yourself and take responsibility for hosting, upgrades, security, backups, and availability. The [Community Edition feature documentation](https://docs.n8n.io/hosting/community-edition-features/) explains what is included and which collaboration features are reserved for paid offerings.
+
+## How do executions create your n8n bill?
+
+An execution is a full workflow run. Suppose a webhook triggers a workflow that validates a lead, enriches the record, sends an email, and writes to a CRM. Even if that workflow contains many nodes, the entire run counts as one execution.
+
+That model rewards thoughtful workflow design. A longer workflow does not automatically create a larger n8n bill. However, a workflow that runs once every minute creates roughly 43,200 runs in a 30-day month, even if each run has only two nodes.
+
+Three questions reveal your real n8n cost:
+
+1. How often does each trigger fire?
+2. How many separate workflows run independently?
+3. How much burst capacity do you need at the same time?
+
+Concurrency is especially important for launches, imports, and event spikes. A plan can have enough monthly executions but still queue work if too many runs arrive together.
+
+AI credits are a separate planning consideration. If your workflows use n8n’s AI capabilities, compare the included credit allowance with your expected usage instead of treating every AI-powered run as equivalent.
+
+## What would 3,000, 12,000, or 50,000 runs cost?
+
+These planning examples use the listed annual-billing prices.
+
+### What does 3,000 executions cost?
+
+Starter includes 2,500 executions for €20 per month, so a workload of 3,000 monthly executions exceeds the Starter allowance. Pro includes 10,000 executions for €50 per month and would cover this volume.
+
+That makes the practical cloud budget €50 per month at 3,000 runs, before taxes or separate infrastructure and third-party service costs.
+
+### What does 12,000 executions cost?
+
+Pro includes 10,000 executions, so 12,000 monthly runs exceed its included allowance. Business includes 40,000 executions at €667 per month and would cover 12,000 runs.
+
+This is where n8n’s pricing curve becomes less friendly for a small business. If you are only slightly above Pro, paying for Business may feel disproportionate. At that point, self-hosting becomes worth evaluating, especially if your team already operates servers and understands the maintenance burden.
+
+### What does 50,000 executions cost?
+
+Business includes 40,000 executions, so 50,000 monthly runs exceed that allowance. Enterprise is the listed tier for custom requirements beyond the published Business package.
+
+There is no honest universal Enterprise n8n cost because the price is custom. Request a quote with your execution volume, concurrency requirements, security controls, support expectations, and deployment model clearly stated.
+
+![Team reviewing automation governance and execution volume.](https://images.pexels.com/photos/7693103/pexels-photo-7693103.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+## Is n8n Cloud cheaper than self-hosting?
+
+n8n Cloud is easier to start because hosting, deployment, and much of the operational work are handled for you. You pay a predictable subscription and can focus on building workflows.
+
+Self-hosting can be cheaper in direct software spend, especially when you use Community Edition and already have suitable infrastructure. But “free” does not mean zero cost. Someone still has to manage a server, database, TLS, monitoring, backups, upgrades, access control, and incident recovery.
+
+Community Edition is a strong fit for a technically capable solo builder or engineering team with low operational complexity. It is a poor fit if a failed upgrade could interrupt revenue-generating automations and nobody owns recovery.
+
+The right comparison is not €20 versus €0. It is hosted subscription plus convenience versus infrastructure, engineering time, operational risk, and maintenance.
+
+For a broader workflow comparison, see [SEO automation tools](/blog/seo-automation-tools), [Bolt.new pricing](/blog/bolt-new-pricing), and [v0 pricing](/blog/v0-pricing). Their billing units and economics differ, so comparing only monthly sticker prices can produce a misleading conclusion.
+
+## Who should choose each n8n plan?
+
+### Who should choose Starter?
+
+Choose Starter if you are validating an idea, running a small number of dependable workflows, or operating below 2,500 executions per month. Five concurrent executions may be enough for ordinary low-volume automation.
+
+### Who should choose Pro?
+
+Choose Pro if automation is becoming part of daily operations and you need up to 10,000 executions, higher concurrency, and more AI capacity. For many small teams, Pro is the best balance between convenience and usable headroom.
+
+Do not wait until you hit the exact limit. If workload is growing steadily, budget for the next tier before failures or queued runs become urgent.
+
+### Who should choose Business?
+
+Choose Business when governance matters. Self-hosting, SSO/SAML/LDAP, environments, and version control can justify the €667 monthly price for an organization with multiple teams or stricter security requirements. Business is not merely “Pro with more runs.” It is a different operational category.
+
+### Who should choose Enterprise?
+
+Choose Enterprise when you need custom commercial terms, deployment expectations, support arrangements, or limits beyond the published plans. Bring a concrete usage forecast rather than asking for a quote with only “we need automation.”
+
+## What hidden costs should you budget for?
+
+The most common surprise is not an unexpected n8n line item. It is everything connected to the workflow:
+
+- API charges from AI, email, enrichment, storage, or CRM providers;
+- cloud hosting and database costs for self-hosting;
+- monitoring, backups, and alerting;
+- engineering time for failed runs and credential rotation;
+- security reviews and access-control work;
+- migration effort when a workflow depends on a changing third-party API.
+
+You should also estimate the cost of poor trigger design. Polling an API every minute may create tens of thousands of executions where a webhook would create a fraction of that volume.
+
+Before buying, export a month of trigger counts from your existing tools or estimate them from business events. If you are checking whether your company is visible in AI answers as part of that process, run the [AI Visibility Checker](/tools/ai-visibility-checker) alongside your automation planning.
+
+## Frequently Asked Questions
+
+### Is n8n free?
+
+Yes. n8n offers a free Community Edition for self-hosting. You provide and operate the infrastructure, and some collaboration and governance capabilities differ from paid plans.
+
+### Is n8n cheaper than Zapier?
+
+It can be, particularly for complex workflows or self-hosted deployments, because n8n counts a full workflow run as one execution regardless of step count. The cheaper option depends on volume, hosting, maintenance, and the providers your workflows use.
+
+### What counts as one n8n execution?
+
+One complete workflow run counts as one execution, regardless of how many steps or nodes the workflow contains.
+
+### Can n8n pricing change?
+
+Yes. These figures were checked on September 15, 2026, but n8n can change prices, limits, included credits, or plan features. Verify the current terms on the official pricing page before purchasing.
