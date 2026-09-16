@@ -89,7 +89,7 @@ export function AuditForm({ source, placeholder = "yourbrand.com or “Your Bran
             />
           </div>
           <button type="submit" className="btn-primary shrink-0 py-4 text-base sm:px-7">
-            {cta}
+            {state === "error" ? "Try again" : cta}
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

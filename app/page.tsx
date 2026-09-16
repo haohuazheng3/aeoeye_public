@@ -7,7 +7,7 @@ import { faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   description:
-    "Run a free AI visibility audit. See whether ChatGPT, Claude, Gemini, Google AI and Perplexity recommend your brand — or your competitors — when buyers ask. Get a score and a fix plan in under a minute.",
+    "Run a free AI visibility audit with live ChatGPT analysis. See your score, competitors, and fix plan; unlock a $29 report to check Claude, Gemini, Google AI and Perplexity.",
 };
 
 const ENGINES = ["ChatGPT", "Claude", "Gemini", "Google AI", "Perplexity"];
@@ -63,7 +63,7 @@ export default function HomePage() {
           ?
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-base text-ink/55 sm:text-lg">
-          One free audit across ChatGPT, Claude, Gemini, Google AI &amp; Perplexity.
+          One free audit starts with ChatGPT. Unlock the full report to check Claude, Gemini, Google AI &amp; Perplexity.
         </p>
 
         <div id="audit" className="mx-auto mt-9 max-w-xl scroll-mt-28">
