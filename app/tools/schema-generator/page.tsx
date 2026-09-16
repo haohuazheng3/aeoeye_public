@@ -14,7 +14,7 @@ const FAQS = [
 ];
 
 export const metadata: Metadata = pageMeta({
-  title: "Free AI Schema Generator (JSON-LD) for AEO",
+  title: "Free JSON-LD Schema Generator for AEO",
   description:
     "Generate valid JSON-LD structured data — Organization, Product, FAQPage — so AI assistants can extract and recommend your brand. Free schema markup generator, no signup.",
   path: "/tools/schema-generator",
@@ -28,7 +28,7 @@ export default function Page() {
       </nav>
 
       <header className="mt-4 max-w-2xl">
-        <h1 className="font-display text-4xl font-semibold">AI Schema Generator</h1>
+        <h1 className="font-display text-4xl font-semibold">AI Schema &amp; JSON-LD Generator</h1>
         <p className="mt-3 text-lg text-ink/65">
           Generate valid JSON-LD structured data that helps AI assistants understand exactly who you are and what you
           offer. Pick a type, fill the fields, copy the markup.
@@ -84,8 +84,8 @@ export default function Page() {
 
       <JsonLd
         data={[
-          { ...softwareJsonLd(), name: "AI Schema Generator", applicationCategory: "DeveloperApplication", url: absoluteUrl("/tools/schema-generator") },
-          breadcrumbJsonLd([{ name: "Tools", path: "/tools" }, { name: "AI Schema Generator", path: "/tools/schema-generator" }]),
+          { ...softwareJsonLd(), name: "AI Schema & JSON-LD Generator", applicationCategory: "DeveloperApplication", url: absoluteUrl("/tools/schema-generator") },
+          breadcrumbJsonLd([{ name: "Tools", path: "/tools" }, { name: "AI Schema & JSON-LD Generator", path: "/tools/schema-generator" }]),
           faqJsonLd(FAQS),
         ]}
       />

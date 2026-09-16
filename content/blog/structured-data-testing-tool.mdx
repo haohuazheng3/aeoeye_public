@@ -54,7 +54,7 @@ Most structured data errors fall into four repeatable categories.
 - **Mismatched visible content.** Schema that states a price, rating, or availability different from what a user actually sees on the page violates Google's structured data guidelines, even when the markup itself validates cleanly. Validators check syntax, not truthfulness — that check is on you.
 - **Invalid nesting.** Structured data is hierarchical: an Offer belongs inside a Product, a Review belongs inside the entity it reviews. Flattening that hierarchy, or nesting a type inside the wrong parent, produces markup that technically validates while silently dropping the fields that got misplaced.
 
-None of these require advanced technical skill to fix — they require noticing them, which is the entire point of running a validator before you publish rather than after a rich result silently fails to appear. A [JSON-LD generator](/blog/json-ld-generator) that enforces the correct schema.org hierarchy by construction prevents most of these errors before you ever open a validator.
+None of these require advanced technical skill to fix — they require noticing them, which is the entire point of running a validator before you publish rather than after a rich result silently fails to appear. A [JSON-LD generator](/tools/schema-generator) that enforces the correct schema.org hierarchy by construction prevents most of these errors before you ever open a validator.
 
 ## Why validation matters for AI, not just rich results
 

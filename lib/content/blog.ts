@@ -26,7 +26,12 @@ const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 // Redirected duplicates remain in the repository for history, but must not
 // appear in blog listings, related-post rings, static params, or the sitemap.
 // Their permanent redirects in next.config.mjs consolidate external signals.
-const REDIRECTED_POST_SLUGS = new Set(["chatgpt-seo-tool-comparison", "seo-vs-geo"]);
+const REDIRECTED_POST_SLUGS = new Set([
+  "ai-visibility-geo-software",
+  "chatgpt-seo-tool-comparison",
+  "json-ld-generator",
+  "seo-vs-geo",
+]);
 
 function readDir(): string[] {
   try {

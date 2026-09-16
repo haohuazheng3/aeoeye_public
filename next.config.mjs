@@ -40,6 +40,20 @@ const nextConfig = {
         destination: "/compare/geo-vs-seo",
         permanent: true,
       },
+      // This article and the established buyer's guide answer the same
+      // AI-visibility/GEO software-selection intent. Keep the indexed guide.
+      {
+        source: "/blog/ai-visibility-geo-software",
+        destination: "/blog/best-ai-visibility-tools",
+        permanent: true,
+      },
+      // Generator searches are better served by the indexed, interactive
+      // tool than by a second article that explains how generators work.
+      {
+        source: "/blog/json-ld-generator",
+        destination: "/tools/schema-generator",
+        permanent: true,
+      },
     ];
   },
   async headers() {
