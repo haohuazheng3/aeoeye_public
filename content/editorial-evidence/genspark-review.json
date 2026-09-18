@@ -1,0 +1,23 @@
+{
+  "contentSha256": "bbfc57eeb0c89ca5eac8de0d18e99d95a48c75612a1d787b35416494d154508a",
+  "reviewedAt": "2026-09-18",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Understand published agent credits and plan a representative purchase pilot.",
+    "connection": "Historical adjacent software article retained for existing readers and URL continuity; not a new AEOeye core-topic endorsement or quota item."
+  },
+  "assessment": "Removed the unsupported workflow-theater verdict and distinguished vendor credit/security claims from analysis. The article acknowledges documented usage tracking, daily free and monthly paid credit terms, and labels the seven-task pilot as unperformed rather than inventing results.",
+  "sources": [
+    {
+      "url": "https://www.genspark.ai/helpcenter/credits-guide",
+      "checkedAt": "2026-09-18",
+      "supports": "Public vendor capability and plan documentation; does not establish tested performance."
+    }
+  ],
+  "checks": [
+    "Checked the official credits and team-plan sources used by the writer.",
+    "Read opening and FAQ for consistent no-hands-on disclosure.",
+    "Removed unproven performance, opaque-spend and security conclusions."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "contentSha256": "24b8a63bf70c93f0ed07a96e18e271c63b26ac5cd63c40ceca6036af5445c45e",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Evaluate the published software offer and its actual purchasing limitations.",
+    "connection": "Retained historical adjacent article corrected for existing readers; does not authorize generic software topics in future AEOeye quotas."
+  },
+  "assessment": "Corrected an actual region/promotion mix-up: India-only Pro offers are no longer presented as ordinary US pricing, and the three-month Business discount is not treated as an annual rate. Rechecked actual annual/monthly tabs in a public US browser session and distinguished imported file count from imported minutes.",
+  "sources": [
+    {
+      "url": "https://otter.ai/pricing",
+      "checkedAt": "2026-09-18",
+      "supports": "Official USD tabs show Pro16.99 monthly or8.33 monthly-equivalent annual; Business19.99 annual-equivalent or30 monthly,24 only the initial three months. India-card offers8.49/4.17 are qualified separately. Recomputed two seats*(3*24+9*30)=684 over12 months; no rounded annual amount is guaranteed."
+    }
+  ],
+  "checks": [
+    "Reviewed real public annual and monthly browser captures without purchase.",
+    "Checked the promotion eligibility/length and FAQ match the visible table.",
+    "Distinguished unlimited imported file count from the6000-minute monthly limit."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD reference offers",
+    "billing": "Billing periods, regional exclusions and introductory conditions stated separately.",
+    "checkedAt": "2026-09-18",
+    "verification": "Official USD tabs show Pro16.99 monthly or8.33 monthly-equivalent annual; Business19.99 annual-equivalent or30 monthly,24 only the initial three months. India-card offers8.49/4.17 are qualified separately. Recomputed two seats*(3*24+9*30)=684 over12 months; no rounded annual amount is guaranteed."
+  }
+}

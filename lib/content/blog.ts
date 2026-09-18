@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import editorialFeatured from "@/content/editorial-featured.json";
 
 export type PostImage = { url: string; alt: string; photographer?: string; photographerUrl?: string } | null;
 
@@ -90,6 +91,16 @@ export function getAllPosts(): PostMeta[] {
 
 export function getPostSlugs(): string[] {
   return readDir().map((f) => f.replace(/\.mdx?$/, ""));
+}
+
+/** Curated AEO entry points; publication date alone must not set the site's focus.
+ * All other articles remain reachable through their existing category hubs. */
+export function getEditorialFeaturedPosts(posts: PostMeta[] = getAllPosts()): PostMeta[] {
+  const bySlug = new Map(posts.map((post) => [post.slug, post]));
+  return editorialFeatured.flatMap((slug) => {
+    const post = bySlug.get(slug);
+    return post ? [post] : [];
+  });
 }
 
 export function getPost(slug: string): Post | null {

@@ -1,0 +1,30 @@
+{
+  "contentSha256": "64dfe35dc9622bbf6d2800ce686f84a38d9e7778d4f3868d259ab882a42dc8ac",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Choose n8n cloud execution capacity without an unnecessary self-hosted upgrade.",
+    "connection": "Historical adjacent software article retained for existing readers and URL continuity; not a new AEOeye core-topic endorsement or quota item."
+  },
+  "assessment": "Corrected the false implication that 12000 runs require Business and that 50000 require Enterprise. The guide now includes official Cloud Pro-2 capacity, real public selector observations and a reproducible extra-execution example. EUR static offers and US browser dollar offers are clearly separated rather than silently converted.",
+  "sources": [
+    {
+      "url": "https://n8n.io/pricing/",
+      "checkedAt": "2026-09-18",
+      "supports": "Official support confirms Pro-2 50000 monthly executions. Read-only US browser selector showed $120/month annual-equivalent and $144 month-to-month. Monthly 60000-run example is 144+10*2=$164 before tax. Annual invoice, EUR Pro-2 checkout and actual purchased cost are not claimed."
+    }
+  ],
+  "checks": [
+    "Verified the official Pro-2 50000-run upgrade path and extra-execution terms.",
+    "Reviewed the writer's real selector screenshots and currency qualifications.",
+    "Recomputed 60000-run monthly example and checked Assistant credits are not executions."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "EUR published base rates and separately identified US/USD Pro-2 selector",
+    "billing": "Monthly and/or annual billing qualified in the visible article.",
+    "checkedAt": "2026-09-18",
+    "verification": "Official support confirms Pro-2 50000 monthly executions. Read-only US browser selector showed $120/month annual-equivalent and $144 month-to-month. Monthly 60000-run example is 144+10*2=$164 before tax. Annual invoice, EUR Pro-2 checkout and actual purchased cost are not claimed."
+  }
+}

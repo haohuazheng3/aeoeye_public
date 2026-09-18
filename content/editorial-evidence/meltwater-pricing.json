@@ -1,0 +1,30 @@
+{
+  "contentSha256": "662dabad60c3de35018ba8d394a2038f179e9131af74cb433a4906d8df5969cd",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Evaluate the published software offer and its actual purchasing limitations.",
+    "connection": "Retained historical adjacent article corrected for existing readers; does not authorize generic software topics in future AEOeye quotas."
+  },
+  "assessment": "Removed internal drafting notes and explicitly surfaced the official source's own pricing conflict. Enterprise is $130000/year in the main text but $120000 in the same guide FAQ; neither is asserted as a fixed quote. The historical URL and dated indicative pricing remain, without implying a tested implementation.",
+  "sources": [
+    {
+      "url": "https://www.meltwater.com/en/blog/meltwater-pricing",
+      "checkedAt": "2026-09-18",
+      "supports": "Reopened the official indicative price guide: Starter $10000/year and Pro $25000/year; Enterprise main text $130000 conflicts with FAQ $120000. Article table is attributed to main text, conflict disclosed and quote verification required. No negotiated offer, ROI or paid test is claimed."
+    }
+  ],
+  "checks": [
+    "Removed supplied-information language from body and FAQ.",
+    "Compared both Enterprise amounts within the same official source.",
+    "Confirmed indicative annual prices are clearly separated from scoped final quotes."
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "US / USD reference offers",
+    "billing": "Billing periods, regional exclusions and introductory conditions stated separately.",
+    "checkedAt": "2026-09-18",
+    "verification": "Reopened the official indicative price guide: Starter $10000/year and Pro $25000/year; Enterprise main text $130000 conflicts with FAQ $120000. Article table is attributed to main text, conflict disclosed and quote verification required. No negotiated offer, ROI or paid test is claimed."
+  }
+}

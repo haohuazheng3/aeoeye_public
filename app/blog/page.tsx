@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getAllPosts, getCategories } from "@/lib/content/blog";
+import { getAllPosts, getCategories, getEditorialFeaturedPosts } from "@/lib/content/blog";
 import { AuditForm } from "@/components/audit-form";
 import { pageMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMeta({
 
 export default function BlogIndex() {
   const posts = getAllPosts();
-  const [featured, ...others] = posts;
+  const [featured, ...others] = getEditorialFeaturedPosts(posts);
   // /blog 只做分类导航 + 少量精选:全量长列表会把内链权重摊薄、抓取预算分配变差,
   // 也白白浪费分类词的排名机会。深度浏览走 /blog/category/<slug>。
   const rest = others.slice(0, 9);

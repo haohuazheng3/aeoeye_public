@@ -1,0 +1,30 @@
+{
+  "contentSha256": "c24a8f44103b2a89ec7d555b25e1aea5e07f35926b1f9956eb76318ebba5d093",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Estimate a concrete annual Hootsuite seat and social-account budget.",
+    "connection": "Historical adjacent software article retained for existing readers and URL continuity; not a new AEOeye core-topic endorsement or quota item."
+  },
+  "assessment": "Replaced abstract price variables with verified USD annual-billing rates and restored the omitted Professional tier. The page now gives an immediate price answer and reproducible one-, three- and ten-seat totals, separates Enterprise quotes and trial limits, and avoids inventing a monthly checkout price.",
+  "sources": [
+    {
+      "url": "https://www.hootsuite.com/plans",
+      "checkedAt": "2026-09-18",
+      "supports": "Official plans FAQ and USD offer data support $99/$199/$399 per seat/month with annual billing. Checked 99*12=1188, 3*399*12=14364 and 10*399*12=47880 before tax. No negotiated discount or ordinary monthly checkout price is asserted."
+    }
+  ],
+  "checks": [
+    "Cross-checked current official FAQ prices and billing/currency evidence.",
+    "Recomputed every added annual seat example.",
+    "Checked Professional tier and trial restrictions are not omitted."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public reference offer; local checkout may differ",
+    "billing": "Monthly and/or annual billing qualified in the visible article.",
+    "checkedAt": "2026-09-18",
+    "verification": "Official plans FAQ and USD offer data support $99/$199/$399 per seat/month with annual billing. Checked 99*12=1188, 3*399*12=14364 and 10*399*12=47880 before tax. No negotiated discount or ordinary monthly checkout price is asserted."
+  }
+}

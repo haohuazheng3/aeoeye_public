@@ -1,0 +1,30 @@
+{
+  "contentSha256": "ec1b898e2140318dccfd4b76d77eb61a7cfe878f950083bb452986964db66683",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Budget Canva AI allowances and optional AI Pass separately from design seats.",
+    "connection": "Historical adjacent software article retained for existing readers and URL continuity; not a new AEOeye core-topic endorsement or quota item."
+  },
+  "assessment": "Filled the missing concrete price answer with the checked US annual base-plan offer and monthly AI Pass charge. Kept this page focused on AI capacity rather than duplicating the general Pro subscription intent. Shared Premium OR Ultra allowance is not represented as two additive quotas; cost-per-asset examples are explicitly hypothetical.",
+  "sources": [
+    {
+      "url": "https://www.canva.com/pricing/",
+      "checkedAt": "2026-09-18",
+      "supports": "Checked official US Pro $144/year, Business $250/person/year, AI Pass $100/person/month and eligibility. Recomputed 144 + 12*100 = 1344/year and 112/80 = 1.40 per assumed approved asset. No local checkout, tax or measured throughput is claimed."
+    }
+  ],
+  "checks": [
+    "Confirmed the AI allowance is shared and estimated, not guaranteed per-tool buckets.",
+    "Recomputed monthly-equivalent and annual add-on arithmetic.",
+    "Removed stock-image wording that implied an actual Canva test."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public reference offer; local checkout may differ",
+    "billing": "Monthly and/or annual billing qualified in the visible article.",
+    "checkedAt": "2026-09-18",
+    "verification": "Checked official US Pro $144/year, Business $250/person/year, AI Pass $100/person/month and eligibility. Recomputed 144 + 12*100 = 1344/year and 112/80 = 1.40 per assumed approved asset. No local checkout, tax or measured throughput is claimed."
+  }
+}

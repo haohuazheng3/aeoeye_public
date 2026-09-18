@@ -1,0 +1,30 @@
+{
+  "contentSha256": "e024d5cf45866fa9095c5217a66d6e82bad2c750454269e1d1e2056e1c6dfed7",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Budget actual hosts and distinguish public Zoom plan-limit discrepancies.",
+    "connection": "Historical adjacent software article retained for existing readers and URL continuity; not a new AEOeye core-topic endorsement or quota item."
+  },
+  "assessment": "Removed internal drafting notes and unsupported language implying AEOeye tested Zoom workflows. Corrected the Pro storage amount, disclosed conflicting official host-range displays, and limited multi-seat arithmetic so it cannot be mistaken for a valid 200-host Pro purchase.",
+  "sources": [
+    {
+      "url": "https://www.zoom.com/en/products/collaboration-tools/",
+      "checkedAt": "2026-09-18",
+      "supports": "Checked Zoom's official overview and Pro page: $15.99 monthly and 10GB cloud storage per license on the checked Pro offer. Official 1–99 versus 1–9 host displays are disclosed; arithmetic examples are not quotes and 200 hosts cannot be fitted into either advertised Pro range."
+    }
+  ],
+  "checks": [
+    "Compared the two official Zoom pages and retained the real discrepancy.",
+    "Checked host-count calculations do not imply an invalid 200-seat Pro offer.",
+    "Removed supplied-data wording and false AEOeye hands-on implications."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public reference offer; local checkout may differ",
+    "billing": "Monthly and/or annual billing qualified in the visible article.",
+    "checkedAt": "2026-09-18",
+    "verification": "Checked Zoom's official overview and Pro page: $15.99 monthly and 10GB cloud storage per license on the checked Pro offer. Official 1–99 versus 1–9 host displays are disclosed; arithmetic examples are not quotes and 200 hosts cannot be fitted into either advertised Pro range."
+  }
+}

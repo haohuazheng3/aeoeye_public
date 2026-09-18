@@ -1,0 +1,30 @@
+{
+  "contentSha256": "0ba7ae95ae7c985abab70454230369fd9cac2bb8893203cbe96d38b1b06de083",
+  "reviewedAt": "2026-09-18",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "legacy-adjacent",
+    "readerProblem": "Compare Dropbox recovery windows and equal-headcount team subscriptions.",
+    "connection": "Historical adjacent software article retained for existing readers and URL continuity; not a new AEOeye core-topic endorsement or quota item."
+  },
+  "assessment": "Corrected the misleading comparison that used incompatible headcounts for Standard and Advanced. The revised arithmetic uses matching users and distinguishes the Advanced three-user minimum. Removed the leaked internal evidence wording and fixed the scenario labels.",
+  "sources": [
+    {
+      "url": "https://www.dropbox.com/plans",
+      "checkedAt": "2026-09-18",
+      "supports": "Checked official Standard $15/user/month and Advanced $24/user/month on the shown annual-billing basis; three seats are $45 versus $72/month and five are $75 versus $120. Minimum seats and recovery/storage scope are specified; no bespoke quote is claimed."
+    }
+  ],
+  "checks": [
+    "Recomputed three-seat and five-seat examples on identical headcounts.",
+    "Checked actual plan minimums against the official plans page.",
+    "Removed internal notes and made scenario headings consecutive."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public reference offer; local checkout may differ",
+    "billing": "Monthly and/or annual billing qualified in the visible article.",
+    "checkedAt": "2026-09-18",
+    "verification": "Checked official Standard $15/user/month and Advanced $24/user/month on the shown annual-billing basis; three seats are $45 versus $72/month and five are $75 versus $120. Minimum seats and recovery/storage scope are specified; no bespoke quote is claimed."
+  }
+}
