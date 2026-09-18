@@ -1,0 +1,140 @@
+---
+title: "Mailgun Pricing: Calculate Sending, Validation, and Retention Cost"
+description: "Mailgun pricing modeled across included email volume, overages, validation, retention, Optimize, and production safeguards."
+date: "2026-09-17"
+category: "Reviews"
+readingTime: "8 min read"
+keywords: ["mailgun pricing","mailgun cost","mailgun email pricing"]
+faqs: [{"q":"Is Mailgun $15 per month?","a":"Mailgun lists a $15 starting package for 10,000 emails; extras can raise the total."},{"q":"What happens above the allowance?","a":"Additional usage is billed using the applicable overage schedule."},{"q":"How much does validation cost?","a":"Optimize Pilot is listed at $49 and Starter at $99 monthly after a free first month."},{"q":"Which price should I forecast?","a":"Use the authenticated dashboard as the final account-specific source."}]
+image: {"url":"https://images.pexels.com/photos/11700195/pexels-photo-11700195.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Developer budgeting transactional email volume and overages.","photographer":"Christina Morillo","photographerUrl":"https://www.pexels.com/@divinetechygirl"}
+sources: [{"label":"Mailgun pricing","url":"https://www.mailgun.com/pricing/"},{"label":"Mailgun email API","url":"https://www.mailgun.com/features/email-api/"},{"label":"Mailgun overages","url":"https://help.mailgun.com/hc/en-us/articles/6745531451547-What-happens-if-I-send-more-emails-than-my-monthly-plan-provides"},{"label":"Mailgun Optimize","url":"https://www.mailgun.com/pricing/optimize/"}]
+---
+Mailgun’s headline price is only the starting point. A realistic transactional-email budget should add three separate questions: how many messages your sending plan includes, what excess volume costs, and whether validation, retention, or dedicated infrastructure adds another recurring charge. Mailgun’s official API page lists a free allowance of 100 emails per day and paid packages from $15 per month; its pricing page says the $15 starting package covers 10,000 emails. Your final account dashboard remains the source of truth for the applicable allowance and overage rate.
+
+## Table of contents
+
+- [What does Mailgun really cost?](#what-does-mailgun-really-cost)
+- [How is Mailgun’s sending plan structured?](#how-is-mailguns-sending-plan-structured)
+- [How do you calculate volume and overage cost?](#how-do-you-calculate-volume-and-overage-cost)
+- [What do validation, retention, and dedicated IPs add?](#what-do-validation-retention-and-dedicated-ips-add)
+- [What do 10,000, 100,000, and 1 million emails cost?](#what-do-10000-100000-and-1-million-emails-cost)
+- [What guardrails should you use?](#what-guardrails-should-you-use)
+- [How should you evaluate Mailgun?](#how-should-you-evaluate-mailgun)
+- [What is the verdict?](#what-is-the-verdict)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What does Mailgun really cost?
+
+Mailgun’s practical cost is:
+
+**monthly sending-plan fee + excess-message charges + optional validation or retention services + any infrastructure-related charges shown in your account.**
+
+For a small application, the starting point is straightforward: $15 per month for 10,000 emails, according to Mailgun’s pricing page. That is not necessarily your all-in cost. If your application exceeds its allowance, Mailgun can charge for the additional usage; the help documentation says extra usage cannot be disabled.
+
+That matters for event-driven products. A password-reset flow, invoice notification, webhook alert, or onboarding sequence can generate traffic unevenly. Budgeting only against your average monthly count can hide a high-volume month.
+
+Mailgun is therefore best evaluated as a usage-based operating cost, not just a “10,000 emails for $15” offer. If you are comparing providers, map the entire delivery workflow alongside your email budget. Your [pricing](/pricing) page and a simple [AEO audit checklist](/blog/aeo-audit-checklist) can use the same discipline: identify the headline promise, then test the conditions underneath it.
+
+
+![Analyst reviewing software costs and usage data.](https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+*Photo by [cottonbro studio](https://www.pexels.com/@cottonbro) on [Pexels](https://www.pexels.com).*
+
+## How is Mailgun’s sending plan structured?
+
+Mailgun describes four sending plans, each with its own included allowance and overage schedule. The exact allowance depends on the plan selected, so the safest comparison is to record these fields from the current pricing page or your authenticated dashboard:
+
+| Cost field | Why it matters |
+|---|---|
+| Monthly plan fee | Your fixed baseline |
+| Included emails | Volume covered before overage |
+| Overage price | Marginal cost after the allowance |
+| Validation package | Separate list-quality spend |
+| Retention or log storage | Cost of keeping message data |
+| Dedicated infrastructure | Potential operational requirement |
+| Account-specific terms | Final pricing authority |
+
+The official [Mailgun pricing page](https://www.mailgun.com/pricing/) should be checked before purchase because plan allowances and displayed terms can change. The API product page separately states that Mailgun offers 100 free emails per day and paid packages starting at $15 per month. Treat that free allowance as a product-entry allowance, not as a substitute for modeling your production traffic.
+
+The important distinction is between a plan’s fixed fee and its variable usage fee. A low monthly fee can still produce a larger bill if your application regularly crosses the included volume.
+
+## How do you calculate volume and overage cost?
+
+Use this process before choosing a plan:
+
+1. Estimate monthly transactional messages by event type: authentication, billing, alerts, receipts, and support workflows.
+
+2. Add a realistic growth and incident buffer. Transactional systems rarely send at a perfectly stable rate.
+
+3. Match the total against each plan’s included allowance.
+
+4. Calculate excess usage as:
+
+   **excess emails = actual monthly emails − included emails**
+
+5. Convert excess volume into the provider’s billing units, then multiply by the account’s displayed overage rate.
+
+6. Add validation, retention, and infrastructure costs separately.
+
+Mailgun’s help article gives useful reference points for overage pricing. Basic overage is listed at $1.80 per 1,000 emails. Foundation pricing is listed at $1.30 per 1,000 at 50,000 emails and $1.10 per 1,000 at 100,000 or more. Scale pricing declines with volume.
+
+For example, if an account has a Basic overage rate of $1.80 per 1,000 and sends 2,000 messages above its allowance, the excess-message charge is $3.60. That is an illustration of the formula, not a guarantee that every account will receive that exact rate. The dashboard is the final account-specific source.
+
+## What do validation, retention, and dedicated IPs add?
+
+Sending is only one part of the email system. Validation helps assess whether addresses are deliverable before you send, which can reduce wasted volume and protect list quality. Mailgun offers Optimize as a separate product line: Pilot is $49 per month after a free first month, while Starter is $99 per month after a free first month, according to the official [Optimize pricing page](https://www.mailgun.com/pricing/optimize/).
+
+Those prices should be modeled independently from sending. A team might have a $15 sending package and a $49 Optimize subscription, creating a $64 fixed monthly subtotal before excess sending or other account-specific items. After the free first month, the recurring Optimize fee becomes material even when email volume is low.
+
+Retention and dedicated IP decisions are operational as well as financial. If you need longer access to message data, account-level retention terms matter. If you need dedicated sending infrastructure, include that requirement in vendor comparisons rather than treating it as an implementation detail.
+
+For context, compare the full workflow with alternatives such as [Mailchimp pricing](/blog/mailchimp-pricing) and [HubSpot pricing](/blog/hubspot-pricing). Their headline structures may not map directly to Mailgun’s usage model.
+
+## What do 10,000, 100,000, and 1 million emails cost?
+
+At 10,000 emails, the clearest reference case is the $15 starting package that Mailgun lists for 10,000 emails. Your cost may be higher if you add Optimize, validation, retention, or other account-specific services.
+
+At 100,000 emails, do not multiply the $15 entry price by ten and assume the result is valid. You must compare the appropriate plan allowance and the relevant overage schedule. Mailgun’s help documentation identifies a Foundation rate of $1.10 per 1,000 at 100,000 or more, but the full bill still depends on the plan and included volume.
+
+At 1 million emails, marginal pricing becomes the central question. Scale’s declining volume rates may matter more than the entry fee, while retention, deliverability controls, and infrastructure requirements can dominate the operational decision. Request or inspect the exact dashboard estimate before committing.
+
+
+![Research desk used to map plan limits and total cost.](https://images.pexels.com/photos/67112/pexels-photo-67112.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+*Photo by [Caio](https://www.pexels.com/@caio) on [Pexels](https://www.pexels.com).*
+
+## What guardrails should you use?
+
+Set a monthly volume alert before production launch. Track forecasted usage against the included allowance, not just total sends. Also monitor sudden spikes by event type, because one faulty retry loop can turn a predictable email budget into an overage event.
+
+Keep validation and sending metrics separate. A lower bounce rate may justify validation spend, but it should be evaluated against your own list quality and sending pattern.
+
+Finally, document who owns the billing alert, what threshold triggers investigation, and how quickly the team can disable the application workflow generating excess traffic. Mailgun’s help documentation says extra usage cannot be disabled, so application-level controls are essential.
+
+## How should you evaluate Mailgun?
+
+Mailgun is a strong fit when you want an API-first transactional email service and can manage usage as an operating variable. The starting package is easy to understand, but serious budgeting requires a plan-by-plan comparison and a separate line for Optimize or other optional capabilities.
+
+Use the same measurement mindset you would apply to an [AI visibility tracker](/blog/ai-visibility-tracker): define the baseline, identify the variable, and verify the result in the source dashboard.
+
+## What is the verdict?
+
+For 10,000 monthly emails, Mailgun’s published $15 starting package is a useful benchmark. For larger volumes, the real decision is driven by included allowance, declining overage rates, and optional services. Build your estimate from actual usage, keep validation and retention separate, and treat the authenticated dashboard as the final price authority.
+
+## Frequently asked questions
+
+### Is Mailgun really $15 per month?
+
+Mailgun lists a $15 starting package covering 10,000 emails. Your total can be higher if you exceed the allowance or add Optimize, validation, retention, or account-specific services.
+
+### What happens when I exceed my monthly allowance?
+
+Mailgun’s help documentation says additional usage is billed according to the applicable overage schedule, and extra usage cannot be disabled. Check your dashboard for the exact rate.
+
+### How much does Mailgun email validation cost?
+
+Mailgun’s Optimize pricing page lists Pilot at $49 per month after the first free month and Starter at $99 per month after the first free month. These are separate from sending-plan charges.
+
+### Which Mailgun price should I use for forecasting?
+
+Use the authenticated account dashboard as the final source. The public pricing page provides useful benchmarks, but your selected plan, allowance, overage tier, and optional services determine the actual bill.
+
+Checked September 17, 2026.
