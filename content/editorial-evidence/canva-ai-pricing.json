@@ -12,7 +12,17 @@
     {
       "url": "https://www.canva.com/pricing/",
       "checkedAt": "2026-09-18",
-      "supports": "Checked official US Pro $144/year, Business $250/person/year, AI Pass $100/person/month and eligibility. Recomputed 144 + 12*100 = 1344/year and 112/80 = 1.40 per assumed approved asset. No local checkout, tax or measured throughput is claimed."
+      "supports": "US annual base-plan offer: Pro $144/year and Business $250/person/year, before applicable taxes."
+    },
+    {
+      "url": "https://www.canva.com/help/ai-pass/",
+      "checkedAt": "2026-09-18",
+      "supports": "AI Pass $100/person/month, eligible subscription types and excluded payment/trial arrangements."
+    },
+    {
+      "url": "https://www.canva.com/help/ai-access/",
+      "checkedAt": "2026-09-18",
+      "supports": "Premium OR Ultra shared allowance estimates, reset timing and individual member balances."
     }
   ],
   "checks": [

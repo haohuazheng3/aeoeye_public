@@ -12,7 +12,12 @@
     {
       "url": "https://n8n.io/pricing/",
       "checkedAt": "2026-09-18",
-      "supports": "Official support confirms Pro-2 50000 monthly executions. Read-only US browser selector showed $120/month annual-equivalent and $144 month-to-month. Monthly 60000-run example is 144+10*2=$164 before tax. Annual invoice, EUR Pro-2 checkout and actual purchased cost are not claimed."
+      "supports": "EUR base cards and separately observed USD 50K Cloud Pro selector prices; not a checkout invoice."
+    },
+    {
+      "url": "https://support.n8n.io/article/can-i-add-more-executions",
+      "checkedAt": "2026-09-18",
+      "supports": "Pro-2 includes 50000 executions; monthly custom capacity adds 2 currency units per1000, annual upgrades need support."
     }
   ],
   "checks": [

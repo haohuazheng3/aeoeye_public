@@ -12,7 +12,12 @@
     {
       "url": "https://learn.chatgpt.com/docs/pricing",
       "checkedAt": "2026-09-18",
-      "supports": "Official plan docs checked: Free0, Go8, Plus20, Pro from100; Business20/user/month annual or25 monthly. Two annual seats480 versus600 across twelve monthly payments. Named GPT-5.3-Codex example 1M uncached input1.75 plus0.1M output1.40=$3.15; not a measured task bill."
+      "supports": "Official USD plan rates, Business billing terms, shared allowance and Pro options; starting price does not price all variants."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.3-codex",
+      "checkedAt": "2026-09-18",
+      "supports": "Named-model token rates used in the separate API arithmetic example, not a universal Codex task price."
     }
   ],
   "checks": [

@@ -12,7 +12,17 @@
     {
       "url": "https://base44.com/pricing",
       "checkedAt": "2026-09-18",
-      "supports": "Public vendor capability and plan documentation; does not establish tested performance."
+      "supports": "Vendor product and plan statements, not independent reliability or production test results."
+    },
+    {
+      "url": "https://docs.base44.com/Account-and-billing/Credits",
+      "checkedAt": "2026-09-18",
+      "supports": "Published distinction between message and integration credits and task-dependent consumption."
+    },
+    {
+      "url": "https://docs.base44.com/documentation/account-and-billing/new-plans-and-workspaces",
+      "checkedAt": "2026-09-18",
+      "supports": "Documented plan/workspace and GitHub integration conditions, not tested export success."
     }
   ],
   "checks": [

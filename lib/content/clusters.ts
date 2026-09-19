@@ -48,6 +48,7 @@ export const PILLARS: Pillar[] = [
       { href: "/answers/what-is-ai-citation-tracking", label: "AI citation tracking" },
       { href: "/answers/how-to-check-if-ai-mentions-your-brand", label: "Check if AI mentions you" },
       { href: "/guides/how-to-track-brand-mentions-in-ai", label: "Track brand mentions in AI" },
+      { href: "/blog/generative-search-source-taxonomy", label: "Classify AI answer sources" },
       { href: "/glossary/ai-visibility", label: "AI visibility — glossary" },
     ],
   },

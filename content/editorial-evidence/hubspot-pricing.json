@@ -10,9 +10,14 @@
   "assessment": "Corrected a unit error that treated a recurring monthly credit-capacity charge as a one-off yearly amount. Separated catalog and annual-payment-discount offers, stored contacts from marketing contacts, and the standalone AEO product from a compulsory full Marketing Hub purchase.",
   "sources": [
     {
-      "url": "https://www.hubspot.com/pricing",
+      "url": "https://www.hubspot.com/pricing/marketing",
       "checkedAt": "2026-09-18",
-      "supports": "Catalog $0.010/credit or $10/month per 1000 capacity makes 2000 extra per month $20/month=$240/year. $800*12+$3000+$240=$12840 first year. Discounted $9 offer is qualified separately; onboarding and commitment terms are not omitted."
+      "supports": "Marketing Hub base fees, contacts, onboarding, publicly displayed offers and standalone AEO pricing."
+    },
+    {
+      "url": "https://legal.hubspot.com/hubspot-product-and-services-catalog",
+      "checkedAt": "2026-09-18",
+      "supports": "Catalog credit unit/capacity prices, recurring billing basis and plan entitlements used in the corrected example."
     }
   ],
   "checks": [
