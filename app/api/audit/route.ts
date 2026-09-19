@@ -86,7 +86,7 @@ export async function POST(req: Request) {
         source: "server",
       });
       return NextResponse.json(
-        { error: "The audit service is temporarily unavailable. Your entry is still here — please try again in a few minutes. No payment was taken." },
+        { error: "The audit service is temporarily unavailable. Your entry is still here — please try again later. No payment was taken." },
         { status: 503 }
       );
     }
