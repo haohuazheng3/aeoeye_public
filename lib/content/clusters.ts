@@ -23,6 +23,7 @@ export const PILLARS: Pillar[] = [
       { href: "/answers/what-is-an-aeo-strategy", label: "What is an AEO strategy?" },
       { href: "/answers/can-you-do-seo-for-chatgpt", label: "Can you do SEO for ChatGPT?" },
       { href: "/guides/how-to-do-an-aeo-audit", label: "How to do an AEO audit" },
+      { href: "/blog/answer-engine-optimization-agency", label: "Choose an AEO agency" },
       { href: "/glossary/answer-engine-optimization", label: "AEO — glossary" },
     ],
   },
