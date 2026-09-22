@@ -1,0 +1,8 @@
+brand_a,brand_b,co_mention_count,answer_ids
+Aster,Beacon,3,a01;a02;a05
+Aster,Cedar,2,a01;a03
+Aster,Delta,2,a03;a05
+Aster,Echo,1,a08
+Beacon,Cedar,2,a01;a06
+Beacon,Delta,1,a05
+Cedar,Delta,2,a03;a04

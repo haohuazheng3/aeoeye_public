@@ -1,0 +1,31 @@
+{
+  "contentSha256": "ba99a5cce8b12d84fc8bb6ae0d928a1320aae595c5c3e660fae39e89d9b68804",
+  "reviewedAt": "2026-09-22",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Convert coded AI recommendation lists into a reviewable weighted network without double-counting a brand pair within one answer.",
+    "connection": "Co-mention structure shows which alternatives appear beside a brand in AI answers, complementing AEOeye mention and recommendation measurement."
+  },
+  "assessment": "The finished package produces both edges and nodes from populated synthetic rows, retains contributing answer IDs, and explains why isolated nodes require a separate file. The article consistently treats co-mention as a scoped observation rather than endorsement, competition, causality, or market share.",
+  "sources": [
+    {"url":"https://docs.python.org/3/library/csv.html","checkedAt":"2026-09-22","supports":"CSV reader and writer behavior used by the dependency-free generator."},
+    {"url":"https://docs.python.org/3/library/itertools.html#itertools.combinations","checkedAt":"2026-09-22","supports":"Unordered pair construction used after deduplicating each answer's brands."},
+    {"url":"https://networkx.org/documentation/stable/reference/classes/graph.html","checkedAt":"2026-09-22","supports":"Weighted undirected graph concepts and edge attributes referenced in interpretation."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-22","supports":"Provenance concepts supporting retention of answer IDs and collection context."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-09-22","supports":"Context, limitation, and measurement documentation principles."}
+  ],
+  "checks": [
+    "Ran the Python 3.9 generator on the populated answer-brand CSV and compared edges.csv and nodes.csv byte-for-byte with both checked expected files.",
+    "Manually recomputed the Aster-Beacon weight of three, the Aster-Echo weight of one, and Echo's two-answer node count including its isolated appearance.",
+    "Read the final article for scope, alias, denominator, causality, and market-share caveats and confirmed every source and resource link resolves."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-brand-co-mention-network/answer-brands.csv","description":"A populated synthetic answer-brand table with prompt, engine, run, position, and recommendation fields."},
+    {"path":"/resources/ai-brand-co-mention-network/generate_network.py","description":"A dependency-free Python 3.9 generator for weighted edge and node CSV files."},
+    {"path":"/resources/ai-brand-co-mention-network/expected-edges.csv","description":"The checked edge list with counts and contributing synthetic answer IDs."},
+    {"path":"/resources/ai-brand-co-mention-network/expected-nodes.csv","description":"The checked node table preserving answer, prompt, engine, and recommendation coverage."}
+  ],
+  "methodology": "Each answer is converted to a deduplicated brand set, each unordered pair is counted at most once per answer, and contributing answer IDs are retained. A separate node table preserves solo appearances. The fixture is synthetic and all expected counts were recomputed and regression-tested.",
+  "limitations": "Co-mention does not establish endorsement, competition, causality, market share, source independence, or population prevalence. Alias coding and sample design remain analyst responsibilities."
+}

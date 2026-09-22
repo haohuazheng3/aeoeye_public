@@ -1,0 +1,122 @@
+---
+title: "AI Search Metrics SQL Starter Kit: Compute Mentions and Citations Locally"
+description: "Run transparent SQLite queries against AI-search audit exports to separate answer availability, brand mentions, recommendations, and citation denominators."
+date: "2026-09-22"
+category: "AI Search"
+readingTime: "7 min read"
+keywords: ["AI search metrics SQL", "AI visibility measurement", "brand mention rate", "citation rate", "SQLite audit"]
+faqs: [{"q":"What does this SQL starter kit measure?","a":"It computes answer availability, brand mention rate, recommendation rate, citation presence, and brand-citation rates from coded AI-answer rows. The included dataset is synthetic, so its output demonstrates the method rather than reporting provider performance."},{"q":"Should a missing answer count as a zero mention?","a":"Not by default. The query pack excludes answer_available=no rows from answer-level denominators, while citation_count=0 on an available answer remains a measured zero. Choose another rule only when your study protocol says non-response is a zero."},{"q":"What is the difference between a mention and a recommendation?","a":"A mention records that the brand appears in an answer. A recommendation records that the answer presents it as a suitable choice for the question. A brand can be mentioned without being recommended, so keep both fields."},{"q":"Can I treat the sample output as an AI-search benchmark?","a":"No. The CSV is a small synthetic teaching sample. It contains no live provider benchmark, population estimate, causal claim, or statement about how often any engine recommends a brand. Replace it with your documented export before interpreting results."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst organizing web source records for a local AI search metrics workflow.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"SQLite, Aggregate Functions","url":"https://sqlite.org/lang_aggfunc.html"},{"label":"SQLite, The WITH Clause","url":"https://sqlite.org/lang_with.html"},{"label":"Python, csv module","url":"https://docs.python.org/3.9/library/csv.html"},{"label":"Python, sqlite3 module","url":"https://docs.python.org/3.9/library/sqlite3.html"},{"label":"W3C, PROV-O provenance ontology","url":"https://www.w3.org/TR/prov-o/"},{"label":"NIST, AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+If you have an export of AI answers, you can compute useful visibility metrics locally with SQLite and Python—without sending the rows to another dashboard. This starter kit gives you a populated synthetic CSV, a query pack, a dependency-free runner, and expected output you can inspect line by line. It is a reproducible method example, not a live benchmark.
+
+## Table of contents
+
+- [What does this starter kit measure?](#what-does-this-starter-kit-measure)
+- [How do you run the files?](#how-do-you-run-the-files)
+- [Which denominator should you use?](#which-denominator-should-you-use)
+- [How should you code mentions and recommendations?](#how-should-you-code-mentions-and-recommendations)
+- [What does the synthetic output show?](#what-does-the-synthetic-output-show)
+- [How can you adapt the kit to real audits?](#how-can-you-adapt-the-kit-to-real-audits)
+- [What are the limitations?](#what-are-the-limitations)
+- [Frequently asked questions](#frequently-asked-questions)
+
+![Analyst reviewing structured measurement records on a laptop.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Lukas](https://www.pexels.com/@lukas) on [Pexels](https://www.pexels.com).*
+
+## What does this starter kit measure?
+
+It measures four layers: whether an answer was available, whether the target brand was mentioned, whether it was recommended, and whether the answer contained citations. Keeping those layers separate prevents a tidy-looking percentage from hiding missing responses or a different denominator.
+
+The package is for an analyst who already has coded audit rows. It does not fetch ChatGPT, Perplexity, Gemini, Google AI, or another provider. It does not decide whether a recommendation is fair, whether a citation supports a claim, or whether a source is independent. Those are evidence and annotation tasks; the SQL makes declared labels reproducible.
+
+Download the [synthetic CSV](/resources/ai-search-metrics-sql/ai_search_audit_sample.csv), [SQLite query pack](/resources/ai-search-metrics-sql/queries.sql), [Python runner](/resources/ai-search-metrics-sql/runner.py), [expected output](/resources/ai-search-metrics-sql/expected_output.csv), and [README](/resources/ai-search-metrics-sql/README.md). The rows intentionally include both an unavailable answer and real zero citation counts.
+
+## How do you run the files?
+
+You need Python 3.9 or newer; the runner uses only the standard-library `csv`, `sqlite3`, and `argparse` modules. SQLite’s [WITH clause](https://sqlite.org/lang_with.html) makes each metric definition readable as a named common-table expression, while its [aggregate functions](https://sqlite.org/lang_aggfunc.html) provide the counts.
+
+From the resource directory, run:
+
+```bash
+python3 runner.py \
+  --csv ai_search_audit_sample.csv \
+  --sql queries.sql \
+  --output expected_output.csv
+```
+
+The runner imports the CSV into an in-memory table, executes the two named query sections, and writes 24 output rows. A clean run prints `wrote 24 rows`; compare your generated file with the checked-in expected output. This is intentionally boring: a reviewer should be able to run it on a laptop, inspect the SQL, and see how every numerator was produced.
+
+The input schema is small: `run_id`, `prompt_id`, `engine`, `answer_available`, `brand_mentioned`, `brand_recommended`, `citation_count`, `cited_brand_source`, and `citation_reviewable`. In a production export, add capture time, locale, model label, prompt version, answer evidence, and reviewer or adjudication fields rather than overwriting provenance.
+
+## Which denominator should you use?
+
+Use the denominator that matches the question, and print it beside every rate. The answer-level metrics use only rows where `answer_available=yes`. An unavailable answer is missing, not automatically a negative mention. A row with `citation_count=0` is different: an answer was available and no citation was coded, so it remains in the answer denominator.
+
+The kit reports both `brand_citation_rate_answer` and `brand_citation_rate_cited_answers`. The first asks, “What share of available answers had a citation to the brand?” The second asks, “Among answers that had at least one citation, what share cited the brand?” Those questions can produce very different numbers. Neither is inherently the universal “citation rate.”
+
+This follows a provenance mindset: the [W3C PROV-O model](https://www.w3.org/TR/prov-o/) treats entities, activities, and agents as connected evidence rather than one result. Preserve the answer run and source observations behind each metric. Pair this kit with AEOeye’s [AI search missing-data codebook](/blog/ai-search-missing-data-codebook), [citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol), and [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist).
+
+## How should you code mentions and recommendations?
+
+Code “mentioned” when the target brand appears in the captured answer under your predefined entity rules. Code “recommended” only when the answer makes a suitability, selection, or preference claim relevant to the buyer prompt. A passing name-drop, comparison, warning, or historical reference may be a mention without being a recommendation.
+
+Write the codebook before looking at the aggregate. Record ambiguous cases as `unknown` or route them to adjudication; do not silently turn uncertainty into `no`. The sample uses explicit `yes` and `no` labels to keep the SQL portable, but the README explains what to preserve when your real export has unavailable or undecidable fields.
+
+Citation fields require the same discipline. `citation_count=0` means no citation was observed in an available answer; it does not prove that the answer had no supporting source internally. `cited_brand_source=yes` means your reviewer applied a documented rule that the displayed source supports the brand observation. It is not a claim that the provider used that source to rank the brand.
+
+![Researcher checking source lineage and query results.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Mikhail Nilov](https://www.pexels.com/@mikhail-nilov) on [Pexels](https://www.pexels.com).*
+
+## What does the synthetic output show?
+
+The output demonstrates mechanics, not provider behavior. For example, the synthetic ChatGPT rows contain three available answers: two mention the brand, one recommends it, and two have at least one citation. That produces a mention rate of 0.6667, recommendation rate of 0.3333, and citation-present rate of 0.6667 for that toy slice.
+
+Those values are not findings about ChatGPT. They check that numerator and denominator are visible and that a zero can be distinguished from a missing answer. The same sample has four Perplexity answers, one Gemini answer missing, and one Google AI answer with zero citations; those differences let you inspect why denominators change by engine.
+
+Do not rank engines from this file, infer market share, or call the sample representative. Replace the CSV with a real, documented export and preserve its sampling frame: prompts, engines, time window, locale, account state, model or mode, and any exclusions. If the sample is self-selected or repeated, say so in the report.
+
+## How can you adapt the kit to real audits?
+
+Start with a frozen prompt set and a versioned annotation guide. Store one row per answer run, not one row per brand impression, so answer-level missingness remains visible. If you need citation-level analysis, create a second child table with one row per displayed source and a foreign key back to the answer; do not pretend `citation_count` alone proves source support.
+
+Then add QA checks before aggregation: required identifiers are present, counts are non-negative, `answer_available=no` rows do not carry invented zeros, and reviewer disagreements are retained. The [Python `csv` documentation](https://docs.python.org/3.9/library/csv.html) explains the standard reader used here; the [Python `sqlite3` documentation](https://docs.python.org/3.9/library/sqlite3.html) explains the embedded database interface.
+
+Use NIST’s [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) as a governance reference, not a scoring recipe. Define intended use, document uncertainty, and report limitations beside the rate. A metric is useful when another analyst can reconstruct rows, labels, denominator, and capture conditions—not when it has the most decimal places.
+
+For the business question—whether buyers can discover and trust your brand in AI answers—use these local metrics as an evidence layer. AEOeye’s [AI brand recommendation benchmark](/blog/ai-brand-recommendation-benchmark-2026) shows why sample definition matters, while the [AI visibility score methodology](/blog/ai-visibility-score-methodology) provides broader measurement context. The kit complements an audit; it does not replace the underlying answer captures.
+
+## What are the limitations?
+
+This starter kit cannot validate provider claims, retrieve hidden context, establish causal ranking factors, or determine whether a citation truly supports every sentence. A coded label is only as defensible as the capture and review process behind it. Synthetic rows are especially unsuitable for business decisions.
+
+Provider answers change with time, retrieval, model routing, account state, location, prompt order, and interface mode. A local SQLite result is reproducible for a fixed export, not proof that the next answer will match. Keep raw evidence, access dates, and the protocol that defines inclusion.
+
+### Frequently asked questions
+
+#### What does this SQL starter kit measure?
+
+It computes availability, mention, recommendation, citation-presence, and two citation-rate variants from coded rows. The included sample is synthetic.
+
+#### Should a missing answer count as a zero mention?
+
+No, unless your declared study protocol explicitly treats non-response as a zero. The default query excludes unavailable answers from answer-level denominators.
+
+#### What is the difference between a mention and a recommendation?
+
+A mention means the brand appears. A recommendation means the answer presents it as suitable for the buyer’s question; the two labels must remain separate.
+
+#### Can I treat the sample output as an AI-search benchmark?
+
+No. It is a runnable teaching fixture, not a live provider benchmark or population estimate. Use a documented real export for conclusions.
+
+## Sources
+
+1. [SQLite Aggregate Functions](https://sqlite.org/lang_aggfunc.html) — count and conditional aggregation reference.
+2. [SQLite WITH Clause](https://sqlite.org/lang_with.html) — common-table-expression reference.
+3. [Python 3.9 csv module](https://docs.python.org/3.9/library/csv.html) — CSV parsing semantics.
+4. [Python 3.9 sqlite3 module](https://docs.python.org/3.9/library/sqlite3.html) — embedded SQLite interface.
+5. [W3C PROV-O](https://www.w3.org/TR/prov-o/) — provenance vocabulary.
+6. [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) — risk and measurement governance context.

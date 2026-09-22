@@ -1,0 +1,98 @@
+---
+title: "AI Brand Co-Mention Network Generator: Build a Competitor Edge List"
+description: "Turn coded AI recommendation lists into a transparent, weighted co-mention network with a tested dependency-free Python utility and synthetic CSV fixture."
+date: "2026-09-22"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI brand co-mention network", "AI recommendation analysis", "competitor edge list", "AEO measurement"]
+faqs: [{"q":"What is an AI brand co-mention network?","a":"It is a graph in which each node is a brand and an edge records how often two brands appeared in the same coded AI answer. The edge is an observation about your sample, not an endorsement or market-share measure."},{"q":"How does the generator prevent double-counting?","a":"It converts each answer's brand rows to a set, sorts each unordered pair, and increments that pair once. A repeated brand row inside one answer therefore cannot inflate its co-mention count."},{"q":"Can co-mentions prove that two brands compete?","a":"No. They can reflect a comparison prompt, a shared source, a provider's formatting choice, or coding noise. Segment by prompt, engine, run, and source evidence before making a competitive interpretation."},{"q":"Is the included CSV a real benchmark?","a":"No. The included answer-brand CSV is a small synthetic fixture designed to make the calculations inspectable and reproducible. Replace it with your own coded exports and report the collection scope."}]
+image: {"url": "https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Researchers reviewing data on a laptop during an AI search analysis.", "photographer": "ThisIsEngineering", "photographerUrl": "https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"Python csv module documentation","url":"https://docs.python.org/3/library/csv.html"},{"label":"Python itertools combinations documentation","url":"https://docs.python.org/3/library/itertools.html#itertools.combinations"},{"label":"NetworkX weighted graph documentation","url":"https://networkx.org/documentation/stable/reference/classes/graph.html"},{"label":"W3C PROV-O provenance ontology","url":"https://www.w3.org/TR/prov-o/"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"AEOeye recommendation annotation codebook","url":"/blog/ai-brand-recommendation-annotation-codebook"}]
+---
+
+Two brands appearing in the same AI answer are connected observations, not proof that the model endorses both or that the companies compete. The tested utility in this guide turns coded answer rows into a weighted, undirected edge list and a node table while ensuring that one answer contributes at most once to any brand pair. Its included CSV is synthetic, so use it to verify the method—not to claim a benchmark.
+
+## Table of contents
+
+- [What does a co-mention network measure?](#what-does-a-co-mention-network-measure)
+- [How does the generator count a pair?](#how-does-the-generator-count-a-pair)
+- [What files can you download and run?](#what-files-can-you-download-and-run)
+- [How should you preserve answer scope?](#how-should-you-preserve-answer-scope)
+- [How do you interpret a weighted edge?](#how-do-you-interpret-a-weighted-edge)
+- [What are the limitations?](#what-are-the-limitations)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What does a co-mention network measure?
+
+A co-mention network measures which coded brands appeared together in the same answer, across a declared set of prompts, engines, runs, and dates. Brands are nodes; an edge joins two brands; the edge weight is the number of distinct answers containing both.
+
+This is a useful layer beyond asking whether one target brand appeared at all. A target may repeatedly appear beside the same alternatives, appear in broad lists, or appear alone. Those patterns can guide prompt segmentation and source review. They cannot establish preference, quality, conversion, market share, or a causal relationship between brands.
+
+The [W3C PROV-O provenance model](https://www.w3.org/TR/prov-o/) is a helpful discipline here: retain identifiers for the activity (the answer run), the entity (the coded row), and the agent or engine that produced it. A graph without provenance is hard to audit when a provider changes its interface.
+
+## How does the generator count a pair?
+
+The generator reads one row per brand coded in an answer, trims the identifiers, deduplicates brands within each `answer_id`, sorts each pair alphabetically, and increments it once. Python's standard-library [`csv`](https://docs.python.org/3/library/csv.html) and [`itertools.combinations`](https://docs.python.org/3/library/itertools.html#itertools.combinations) provide the parsing and pair construction; no third-party package is required.
+
+For example, an answer containing `Aster, Beacon, Aster` becomes the set `{Aster, Beacon}` and contributes one `Aster—Beacon` observation. The same pair in a second answer receives a second count. This rule prevents duplicate coding rows from silently changing the weight.
+
+The node table reports distinct answer count, prompt count, engine count, and count of answers coded as recommended. The last field is deliberately separate from co-mention: a brand can be mentioned without being recommended, and a recommendation label depends on your codebook. The [recommendation annotation codebook](/blog/ai-brand-recommendation-annotation-codebook) explains how to keep those labels consistent.
+
+![Analysts comparing structured records during a research workflow.](https://images.pexels.com/photos/7869303/pexels-photo-7869303.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Pavel Danilyuk](https://www.pexels.com/@pavel-danilyuk) on [Pexels](https://www.pexels.com).*
+
+## What files can you download and run?
+
+Download the [synthetic answer-brand CSV](/resources/ai-brand-co-mention-network/answer-brands.csv), [Python generator](/resources/ai-brand-co-mention-network/generate_network.py), [expected edge output](/resources/ai-brand-co-mention-network/expected-edges.csv), [expected node output](/resources/ai-brand-co-mention-network/expected-nodes.csv), and [README](/resources/ai-brand-co-mention-network/README.md). Save them in one folder, then run:
+
+```bash
+python3 generate_network.py answer-brands.csv /tmp/aeoeye-network-output
+```
+
+The command writes `edges.csv` and `nodes.csv`. Compare them byte-for-byte with the expected files after normalizing only the output directory path. The fixture was tested with Python 3.9 and uses UTF-8 CSV with a header. The expected edge list contains only observed pairs; zero-weight pairs are omitted because an edge should represent an observation.
+
+The input fields preserve `prompt_id`, `engine`, and `run_id` even though the default output aggregates them. That choice lets you rerun a narrower slice by filtering the input first, or extend the script with a declared grouping key rather than pretending all observations are interchangeable.
+
+## How should you preserve answer scope?
+
+Write the scope beside every export: prompt inventory, providers, visible model label, account state, locale, run window, inclusion rules, and whether an answer was complete. Then keep the same scope when comparing edge weights. An edge count of three across three prompts is not equivalent to three counts from one repeated prompt.
+
+Treat provider and prompt as strata when they represent different retrieval conditions. A comparison prompt may intentionally create co-mentions; an informational prompt may not. If you collapse both, the graph answers a less precise question. Preserve raw answer identifiers so a reviewer can inspect the exact membership behind any edge.
+
+For a wider audit, connect this artifact to the [AI search audit methodology](/blog/ai-search-audit-methodology-template), the [AI citation data schema](/blog/ai-citation-data-schema), and the [AI search monitoring guide](/blog/ai-search-monitoring). Those workflows help retain prompt wording, displayed citations, and outcome labels rather than reducing everything to a single score.
+
+## How do you interpret a weighted edge?
+
+Interpret a weighted edge as “these brands co-occurred in N coded answers under this sample design.” Start with the answer IDs, then split by prompt family, engine, date, and recommendation status. A high count may be useful for finding recurring comparison contexts, but it does not tell you why the pair occurred.
+
+The [NetworkX graph documentation](https://networkx.org/documentation/stable/reference/classes/graph.html) describes weighted graph structures, but this package intentionally stops at CSV so the calculation remains inspectable in a spreadsheet or SQL workflow. You can calculate degree or filter strong edges later, provided you disclose the denominator and avoid calling the result a ranking.
+
+The checked synthetic output also gives reviewers a quick hand calculation. `Aster—Beacon` has weight 3 because it occurs in answers `a01`, `a02`, and `a05`; `Aster—Echo` has weight 1 because it occurs only in `a08`. Echo still appears in two answers in the node table, because its solo appearance in `a07` adds to node coverage but cannot create an edge. These values are software fixtures, not market observations.
+
+That solo-node case matters. A plain edge list cannot represent an isolated brand, so the package publishes `nodes.csv` separately instead of inventing a self-loop. Keep both files together when importing the result into a graph tool. Also retain `answer_ids` on each edge: a weight without its contributing observations is much harder to review, correct, or segment later.
+
+NIST's [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) emphasizes documenting context, limitations, and measurement choices. Apply that principle here: write down the brand alias rules, duplicate handling, missing-answer policy, and recommendation codebook version. If two analysts disagree on whether a brand is present, preserve the disagreement rather than silently selecting the more convenient label.
+
+## What are the limitations?
+
+Co-mention is not endorsement, causality, market share, source independence, or a population estimate. The synthetic fixture contains no real provider benchmark. Even a production export can be affected by prompt wording, retrieval changes, personalization, model routing, answer truncation, brand aliases, and human coding decisions.
+
+The generator does not verify that a cited source independently supports a brand, infer competitors, normalize spelling variants, or deduplicate answers across providers. It also does not estimate confidence intervals. Use a documented codebook, retain raw captures where permitted, and report missingness and sampling boundaries with every graph.
+
+## Frequently asked questions
+
+### What is an AI brand co-mention network?
+
+It is a graph of brands appearing in the same coded AI answers. The edge weight counts distinct answers containing both brands, not the number of words, citations, or presumed endorsements.
+
+### How does the generator prevent double-counting?
+
+It turns the brands within each answer into a set and uses unordered combinations. A duplicated row or reversed pair therefore cannot add a second count for that same answer.
+
+### Can co-mentions prove that two brands compete?
+
+No. They can reflect the prompt, a shared source, provider formatting, or coding choices. Inspect answer IDs and segment the network before drawing a competitive conclusion.
+
+### Is the included CSV a real benchmark?
+
+No. It is a synthetic, hand-checkable fixture. Replace it with your own scoped export and label the collection date, engines, prompts, and coding rules.

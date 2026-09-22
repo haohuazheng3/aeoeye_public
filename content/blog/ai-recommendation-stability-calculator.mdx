@@ -1,0 +1,119 @@
+---
+title: "AI Recommendation Stability Calculator: Measure Repeat-Run Agreement"
+description: "Use a browser-only calculator to compare repeated AI brand recommendations with exact-set agreement, pairwise Jaccard, coverage, and a deterministic bootstrap interval."
+date: "2026-09-22"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI recommendation stability", "repeat-run agreement", "Jaccard similarity", "AI search measurement", "brand recommendation volatility", "AEO measurement"]
+faqs: [{"q":"What does recommendation stability measure?","a":"It measures how consistently the same prompt-and-condition setup produces the same recommended brand set across repeated runs. It describes observed repeatability, not whether a recommendation is correct or deserved."},{"q":"What is exact-set agreement?","a":"Exact-set agreement is the share of run pairs whose deduplicated brand sets are identical, regardless of order. One missing or extra brand makes a pair non-exact."},{"q":"Why use Jaccard instead of exact agreement?","a":"Jaccard gives partial credit when two runs overlap but are not identical: intersection divided by union. It is useful for seeing whether a small change or a completely different list is driving disagreement."},{"q":"Can this calculator prove an AI engine is stable?","a":"No. It summarizes the supplied sample. Repeated prompts may be correlated, settings may change, and a small or selected sample cannot support a population-wide stability claim."}]
+image: {"url":"https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst reviewing repeat-run data on a laptop and notebook.","photographer":"Lukas","photographerUrl":"https://www.pexels.com/@goumbik"}
+sources: [{"label":"NIST Engineering Statistics Handbook — Bootstrap Confidence Intervals","url":"https://www.itl.nist.gov/div898/handbook/prc/section2/prc264.htm"},{"label":"NIST Engineering Statistics Handbook — Basic Definitions","url":"https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"NIST AI Measurement and Evaluation","url":"https://www.nist.gov/ai-measurement-and-evaluation"},{"label":"Jaccard, ‘Distribution de la flore alpine’ (1901)","url":"https://doi.org/10.5169/seals-266440"},{"label":"AEOeye — AI Search Sample Size Planning","url":"/blog/ai-search-sample-size-planning"},{"label":"AEOeye — Measuring AI Visibility","url":"/blog/measuring-ai-visibility"}]
+---
+
+Repeated AI answers can look consistent until you ask the same buyer question several times. The [AI Recommendation Stability Calculator](/resources/ai-recommendation-stability-calculator/index.html) makes that variation visible: paste one row per run and it reports exact-set agreement, pairwise Jaccard overlap, per-brand coverage, and a deterministic bootstrap interval. It is a measurement aid, not a truth machine or a benchmark.
+
+## Table of contents
+
+- [What does recommendation stability answer?](#what-does-recommendation-stability-answer)
+- [How do you use the calculator?](#how-do-you-use-the-calculator)
+- [What is exact-set agreement?](#what-is-exact-set-agreement)
+- [How does pairwise Jaccard show partial overlap?](#how-does-pairwise-jaccard-show-partial-overlap)
+- [What does per-brand coverage add?](#what-does-per-brand-coverage-add)
+- [How is the bootstrap interval made?](#how-is-the-bootstrap-interval-made)
+- [How should you design repeat runs?](#how-should-you-design-repeat-runs)
+- [What can this sample not prove?](#what-can-this-sample-not-prove)
+- [Frequently asked questions](#frequently-asked-questions)
+
+## What does recommendation stability answer?
+
+Recommendation stability answers a narrow operational question: under the same declared conditions, does an AI answer repeatedly name the same brands? That is different from asking whether the list is accurate, useful, unbiased, or representative of a whole market.
+
+For an AEO analyst, this distinction matters. A single answer is a snapshot. If the same prompt produces three different competitor sets, a one-run “AI visibility” conclusion may be fragile. Conversely, a stable set can still be wrong, incomplete, or driven by a prompt that does not represent real buyer intent. Stability is evidence about persistence, not quality.
+
+The calculator expects a run identifier and a delimited set of brands. It removes duplicates and sorts names, so ordering does not affect comparison. Keep the prompt, engine, model, region, timestamp, and other conditions in your research log.
+
+![Researcher comparing repeated outputs on a laptop screen.](https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630 "Photo by fauxels on Pexels")
+
+## How do you use the calculator?
+
+Use the [standalone browser calculator](/resources/ai-recommendation-stability-calculator/index.html) with a small, inspectable export. It has no external runtime dependency and does not upload the pasted data.
+
+1. Run the same buyer prompt repeatedly under documented settings.
+2. Put one row in the form `run_id,brand one|brand two|brand three`.
+3. Leave a run’s brand field empty if the answer names no eligible brand; do not silently delete that run.
+4. Choose at least 100 bootstrap resamples; the default is 2,000 and the seed is fixed for reproducibility.
+5. Read the summary and per-brand table, then export a CSV for your audit record.
+
+The prefilled five-run example is explicitly synthetic. It exists to let a reader click Calculate and verify the behavior, not to imply that Atlas AI, BrightDesk, Cedar Cloud, or Delta Works are real measured recommendations. Replace it with your own coded observations before drawing a business conclusion.
+
+## What is exact-set agreement?
+
+Exact-set agreement is the proportion of unordered run pairs whose complete deduplicated sets are identical. If three runs are `{A, B}` and one is `{A, C}`, the first three agree with each other, while every pair involving the fourth run disagrees.
+
+The calculator evaluates every pair once. With five runs, that is 5 × 4 ÷ 2 = 10 pairs. Exact-set agreement is the number of equal pairs divided by the number of pairs. It is deliberately strict: adding one brand or omitting one brand changes the answer to “not exact.”
+
+This strictness helps when a team needs a reproducible shortlist. It is less informative when one borderline recommendation changes, so read exact agreement beside Jaccard overlap.
+
+## How does pairwise Jaccard show partial overlap?
+
+Pairwise Jaccard similarity is the size of the intersection divided by the size of the union: **J(A,B) = |A ∩ B| / |A ∪ B|**. The concept is associated with Paul Jaccard’s early work on comparing species distributions ([the 1901 publication](https://doi.org/10.5169/seals-266440)); today it is a standard set-similarity measure.
+
+Two identical non-empty sets score 1.00. `{A, B}` versus `{A, C}` scores 1 ÷ 3 = 0.33 because only A is shared. Disjoint non-empty sets score 0.00. For two empty sets, this tool reports 1.00 because both runs agree that no brand was present; document that convention if you use empty outputs.
+
+The calculator averages all pairwise Jaccard values: “how much do observed runs overlap?” It does not weight brands by revenue or rank, and a repeat is not a new independent buyer prompt. For sampling choices, see [AI search sample-size planning](/blog/ai-search-sample-size-planning).
+
+## What does per-brand coverage add?
+
+Per-brand coverage is the number of runs containing a brand divided by the number of runs. It shows persistence at the brand level even when whole-list agreement is low. A brand appearing in 4 of 5 runs has 80% observed coverage, while a brand appearing once has 20%.
+
+Coverage is not recommendation rank, share of voice, market share, or a probability that an arbitrary future answer will include the brand. It is conditional on your exact prompt, eligibility rule, engine, model, time window, and coding decisions. Keep spelling and entity normalization consistent before calculating; “Acme” and “Acme Inc.” should not accidentally become separate entities.
+
+Pair the table with a citation audit when the question is not merely “was the name present?” [AI visibility measurement](/blog/measuring-ai-visibility) and the [AI citation data schema](/blog/ai-citation-data-schema) provide the adjacent fields needed to distinguish a mention from a supported citation or a recommendation.
+
+## How is the bootstrap interval made?
+
+The interval is a deterministic percentile bootstrap over the observed pairwise Jaccard values. For each resample, the tool draws the same number of pair values with replacement, computes their mean, sorts all resampled means, and returns the 2.5th and 97.5th percentiles. The seeded pseudo-random generator makes the output repeatable for the same input and resample count.
+
+Bootstrap intervals communicate uncertainty when a simple formula is awkward; NIST describes methods in its [Engineering Statistics Handbook](https://www.itl.nist.gov/div898/handbook/prc/section2/prc264.htm) and treats evaluation as context-dependent in its [AI measurement program](https://www.nist.gov/ai-measurement-and-evaluation). This implementation is transparent and lightweight, not a correction for clustered prompts, selection bias, or changing conditions.
+
+If you rerun the same prompt 20 times, the 190 pair values are mathematically available, but they are not 190 independent buyer intents. The interval can therefore look more precise than the underlying research design deserves. Report the number of unique prompts and the repeat structure beside the interval, following the measurement and risk-documentation principles in the [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework).
+
+## How should you design repeat runs?
+
+Repeat runs should hold the question and relevant settings constant while recording the variables that might explain change. Capture at minimum:
+
+- exact prompt text and an intent or segment label;
+- provider, model, region, account state, and search settings;
+- run timestamp, response identifier, and any retrieval mode;
+- brand eligibility, normalization, and recommendation-coding rules;
+- missing, refused, timed-out, and no-brand outputs.
+
+Balance repeats across engines if the decision compares engines. Space runs across a declared time window if freshness is part of the question, but do not mix a time-change experiment with a stability claim. Predeclare whether punctuation, subsidiaries, and product names map to the same brand. A stable result from inconsistent coding is not stable evidence.
+
+## What can this sample not prove?
+
+This calculator cannot establish truth, answer quality, causality, market share, provider policy, or population-level stability. A convenience sample may overrepresent one prompt, geography, account, or moment. AI outputs can change with model updates, retrieval freshness, personalization, rate limits, or ordinary stochastic variation.
+
+Treat the synthetic example as a software test fixture, not a research result. For live work, preserve the raw answers and coding sheet so another analyst can audit the set construction. If the sample is small, say so plainly; do not turn a neat interval into a guarantee. NIST’s basic [definitions of statistical sampling](https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm) are a useful reminder that an interval calculation cannot repair a biased sampling frame.
+
+If the research question is agreement across different engines rather than repeatability within one fixed setup, use the separate [AI search engine agreement metrics](/blog/ai-search-engine-agreement-metrics) and declare the comparison universe. Mixing those two questions produces a metric whose denominator is hard to explain.
+
+## Frequently asked questions
+
+### What does recommendation stability measure?
+
+It measures observed consistency of the recommended brand set across repeated runs with declared conditions. It does not measure correctness, usefulness, or fairness.
+
+### What is exact-set agreement?
+
+It is the share of run pairs with identical deduplicated sets, ignoring order. Any extra or missing brand makes the pair non-exact.
+
+### Why use Jaccard instead of exact agreement?
+
+Jaccard preserves partial overlap. It distinguishes a one-brand change from two completely disjoint lists, which strict exact agreement cannot do.
+
+### Can this calculator prove an AI engine is stable?
+
+No. It summarizes the supplied sample only. Correlated repeats, changing settings, and small or selected samples limit what can be generalized.
+
+The practical takeaway is straightforward: repeat the buyer question, preserve the conditions, inspect both whole-list and brand-level results, and attach the limitations to every claim. Stability is most useful when it makes uncertainty visible rather than when it is presented as a score of AI truth.

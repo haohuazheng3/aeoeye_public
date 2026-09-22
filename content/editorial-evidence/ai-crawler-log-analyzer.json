@@ -1,0 +1,34 @@
+{
+  "contentSha256": "8e550823f88b5baf02273588e2e5b1880ca64b218fbb810cf9500a559a2b3763",
+  "reviewedAt": "2026-09-22",
+  "kind": "research-asset",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Classify AI-related access-log requests without mistaking a claimed user agent for verified provider identity or a crawl for indexing.",
+    "connection": "Crawler reachability is a technical input to AI-search discoverability, while the article preserves the separate evidence needed for indexing, citation, and recommendation."
+  },
+  "assessment": "The final package distinguishes search, training, and user-triggered tokens from OpenAI and Anthropic, plus Googlebot and unknown traffic. Editorial review corrected the original GPTBot misclassification, added the missing documented search/user tokens, removed a broken Bing source, and verified the no-CIDR and reserved-CIDR paths.",
+  "sources": [
+    {"url":"https://developers.openai.com/api/docs/bots","checkedAt":"2026-09-22","supports":"Official purposes and identifiers for GPTBot, OAI-SearchBot, and ChatGPT-User."},
+    {"url":"https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler","checkedAt":"2026-09-22","supports":"Official identifiers and stated purposes for ClaudeBot, Claude-SearchBot, and Claude-User."},
+    {"url":"https://developers.google.com/search/docs/crawling-indexing/googlebot","checkedAt":"2026-09-22","supports":"Googlebot user-agent and the boundary between crawling and indexing."},
+    {"url":"https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot","checkedAt":"2026-09-22","supports":"Official guidance for verifying Google crawler identity beyond the user-agent string."},
+    {"url":"https://www.rfc-editor.org/rfc/rfc9309.html","checkedAt":"2026-09-22","supports":"Robots Exclusion Protocol product-token and access-preference semantics."},
+    {"url":"https://docs.python.org/3/library/ipaddress.html","checkedAt":"2026-09-22","supports":"IP network parsing and membership used by the optional operator-supplied CIDR check."},
+    {"url":"https://docs.python.org/3/library/csv.html","checkedAt":"2026-09-22","supports":"CSV rule, CIDR, and deterministic summary handling in the analyzer."}
+  ],
+  "checks": [
+    "Opened the official OpenAI crawler documentation and corrected GPTBot to training while adding OAI-SearchBot search and ChatGPT-User user-triggered categories.",
+    "Checked Anthropic's official page for ClaudeBot, Claude-SearchBot, and Claude-User and aligned the fixture categories without inventing network ownership.",
+    "Ran the Python 3.9 analyzer without CIDRs and compared output byte-for-byte to expected-summary.csv; then ran the reserved-CIDR example and confirmed seven known token rows verify while unknowns remain not_checked."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-crawler-log-analyzer/access.log","description":"A populated synthetic combined access log using only RFC 5737 documentation addresses."},
+    {"path":"/resources/ai-crawler-log-analyzer/analyze_log.py","description":"A dependency-free Python 3.9 analyzer separating claimed token, local category, and optional IP verification."},
+    {"path":"/resources/ai-crawler-log-analyzer/provider-rules.csv","description":"Date-stamped search, training, user-triggered, and Google token rules linked to official sources."},
+    {"path":"/resources/ai-crawler-log-analyzer/provider-cidrs.example.csv","description":"A reserved-address CIDR fixture that tests the verification interface without asserting provider ownership."},
+    {"path":"/resources/ai-crawler-log-analyzer/expected-summary.csv","description":"The checked deterministic summary for the no-CIDR synthetic run."}
+  ],
+  "methodology": "The analyzer parses a standard combined log, matches reviewed user-agent tokens case-insensitively, groups claims by documented purpose, and optionally checks source IPs only against an operator-supplied CIDR file. Ten synthetic rows use RFC 5737 addresses; no real provider ranges are hardcoded or inferred.",
+  "limitations": "User-agent matching does not verify identity, reserved CIDRs are not provider ranges, and a logged request does not prove indexing, retrieval, citation, ranking, or recommendation."
+}

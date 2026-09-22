@@ -1,0 +1,116 @@
+---
+title: "AI Crawler Log Analyzer: Classify Search, Training, and User Fetchers"
+description: "A documentation-based guide to separating claimed AI crawler user agents from optional IP verification, with a tested, dependency-free log analyzer and synthetic fixture."
+date: "2026-09-22"
+category: "AI Search Visibility"
+readingTime: "9 min read"
+keywords: ["AI crawler log analyzer", "GPTBot logs", "ClaudeBot logs", "Googlebot verification", "AI crawler user agent", "AI search visibility"]
+faqs: [{"q":"Can a user-agent string prove that an AI provider crawled my site?","a":"No. A user-agent is a claim made by the requester. It is useful for classification, but identity requires a separate verification method such as a provider-published reverse-DNS workflow or a reviewed IP range. The included analyzer keeps those fields separate."},{"q":"Does a crawl mean my page was indexed or recommended by an AI engine?","a":"No. A request proves only that a server received a request. It does not prove indexing, retrieval for a specific answer, citation, ranking, or recommendation. Measure those outcomes separately."},{"q":"Why does the example use documentation IP addresses?","a":"The fixture uses RFC 5737 documentation ranges so it cannot be mistaken for provider traffic. Its counts are a test vector, not a benchmark or a claim about any network."},{"q":"How should I verify crawler IP addresses?","a":"Use the provider's current verification guidance and a reviewed, date-stamped CIDR file supplied by your team. Do not copy an unverified list into production. Pass your file with --cidrs and report mismatches rather than silently accepting a token."}]
+image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Developer reviewing code and technical logs on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"OpenAI — Crawler documentation","url":"https://developers.openai.com/api/docs/bots"},{"label":"Anthropic — Does Anthropic crawl data from the web?","url":"https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"},{"label":"Google Search Central — Googlebot","url":"https://developers.google.com/search/docs/crawling-indexing/googlebot"},{"label":"Google Search Central — Verify Googlebot","url":"https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot"},{"label":"RFC 9309 — Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309.html"},{"label":"Python — ipaddress library","url":"https://docs.python.org/3/library/ipaddress.html"},{"label":"Python — csv module","url":"https://docs.python.org/3/library/csv.html"}]
+---
+
+An access log can show that a requester fetched a URL, but it cannot by itself prove who operated that requester or what happened after the response. The practical answer is to keep three fields separate: the **claimed user-agent token**, a human-maintained **category**, and optional **IP verification**. This page explains that evidence boundary and links to a tested [dependency-free analyzer and synthetic fixture](/resources/ai-crawler-log-analyzer/README.md).
+
+This is a documentation-based guide, not a live crawl study. The log, counts, and reserved IP addresses in the downloadable package are synthetic test data. The provider descriptions below are limited to what the linked official documentation says; no crawler behavior is inferred beyond those sources.
+
+## Table of contents
+
+- [What can an access log prove about an AI crawler?](#what-can-an-access-log-prove-about-an-ai-crawler)
+- [How should you classify a claimed user agent?](#how-should-you-classify-a-claimed-user-agent)
+- [Why must claimed identity and IP verification stay separate?](#why-must-claimed-identity-and-ip-verification-stay-separate)
+- [What does the tested package contain?](#what-does-the-tested-package-contain)
+- [How do you run and check the analyzer?](#how-do-you-run-and-check-the-analyzer)
+- [Does crawling mean indexing, citation, or recommendation?](#does-crawling-mean-indexing-citation-or-recommendation)
+- [What are the limitations of this approach?](#what-are-the-limitations-of-this-approach)
+- [FAQ](#faq)
+
+## What can an access log prove about an AI crawler?
+
+An access log proves that an HTTP request reached your server, including a timestamp, path, status, response size, source address, and user-agent string when your server records them. It does not prove that the claimed software is genuine, that a page entered an index, or that an answer engine later cited or recommended the page.
+
+That distinction matters for [measuring AI visibility](/blog/measuring-ai-visibility). A log is an infrastructure signal. Mentions, citations, and recommendations are answer-level signals and need their own dated observations. Combining them into one “AI crawler score” would turn unlike evidence into a misleading number.
+
+![Developer examining a laptop log and code workspace.](https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [ThisIsEngineering](https://www.pexels.com/@thisisengineering) on [Pexels](https://www.pexels.com/).*
+
+## How should you classify a claimed user agent?
+
+Start with exact, reviewable tokens rather than guessing from words such as “AI” or “bot.” The package’s `provider-rules.csv` records a token, a broad category, the official source URL, and the date checked. The analyzer performs a case-insensitive token match and leaves everything else as `unknown`.
+
+The categories are intentionally modest. “Search” and “training_or_research” are local annotations based on documented purpose. A category is not a finding about the request’s business purpose: a token labeled search does not show that Google indexed this URL.
+
+OpenAI’s current bot documentation distinguishes GPTBot for training, OAI-SearchBot for search, and ChatGPT-User for user-triggered actions. Anthropic similarly documents ClaudeBot, Claude-SearchBot, and Claude-User for separate purposes. Google documents Googlebot verification separately from ordinary user-agent parsing. Read the linked pages before changing your local rules, because tokens and policies can change.
+
+## Why must claimed identity and IP verification stay separate?
+
+User-agent parsing is cheap and useful for triage, but it is self-reported. IP verification is a second test: does the source address fall inside a provider range that your team has reviewed and supplied? A mismatch is evidence that the claim and the address disagree; it is not proof of maliciousness.
+
+The analyzer therefore accepts an optional `provider,cidr` CSV through `--cidrs`. It does not hardcode real provider ranges. The included `provider-cidrs.example.csv` maps reserved documentation networks only to make the code path testable; it is explicitly not a network-ownership assertion. Use [Python’s `ipaddress` documentation](https://docs.python.org/3/library/ipaddress.html) to understand parsing and membership, then maintain your own dated review process.
+
+If no CIDR file is passed, the output says `not_checked`. That is more honest than converting an unverified token into a “verified crawler.” If a CIDR file is passed and the address falls outside the matching provider network, the output says `mismatch`; retain that row for investigation.
+
+## What does the tested package contain?
+
+The [resource directory](/resources/ai-crawler-log-analyzer/README.md) is a small, inspectable test package:
+
+- [`access.log`](/resources/ai-crawler-log-analyzer/access.log) contains ten synthetic combined-log rows using RFC 5737 documentation addresses.
+- [`analyze_log.py`](/resources/ai-crawler-log-analyzer/analyze_log.py) uses only Python’s standard library and writes a deterministic CSV.
+- [`provider-rules.csv`](/resources/ai-crawler-log-analyzer/provider-rules.csv) contains dated token rules and official source URLs.
+- [`provider-cidrs.example.csv`](/resources/ai-crawler-log-analyzer/provider-cidrs.example.csv) demonstrates the optional interface without claiming real ranges.
+- [`expected-summary.csv`](/resources/ai-crawler-log-analyzer/expected-summary.csv) is the checked output for the no-CIDR run.
+- [`README.md`](/resources/ai-crawler-log-analyzer/README.md) records the command and the evidence boundary.
+
+The fixture intentionally includes a browser, two unknown bot-like tokens, Googlebot, and three documented token classes from both OpenAI and Anthropic: search, training, and user-triggered. Unknown tokens remain unknown. The fixture does not claim that every request from a given provider uses one token, nor that every token is current forever.
+
+![A technical team collaborating around a monitor with data and code.](https://images.pexels.com/photos/3182773/pexels-photo-3182773.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [ fauxels](https://www.pexels.com/@fauxels) on [Pexels](https://www.pexels.com/).*
+
+## How do you run and check the analyzer?
+
+From the resource directory, run:
+
+```sh
+python3 analyze_log.py access.log --rules provider-rules.csv --out actual-summary.csv
+cmp actual-summary.csv expected-summary.csv
+```
+
+The output groups rows by claimed token, claimed category, and IP-verification state, then appends a malformed-line count. The checked fixture produces one request for each listed token and zero malformed lines. `cmp` is a deliberately simple assertion: if the output changes, inspect the fixture, rules, or parser rather than accepting a changed result silently. The script was tested with Python 3.9 and uses the standard [csv module](https://docs.python.org/3/library/csv.html).
+
+For production logs, first confirm the format. Variants add forwarded addresses, different quoting, IPv6, or a proxy address. Preserve the raw line, parser version, timezone, and rule-file hash. Do not use a failed parse as evidence that a provider did or did not crawl.
+
+## Does crawling mean indexing, citation, or recommendation?
+
+No. Crawling, indexing, citation, and recommendation are separate stages and can fail independently. A successful `200` response means your server returned content; it does not establish that a search system stored it, selected it for retrieval, quoted it, or recommended your brand to a buyer.
+
+The same caution applies to robots rules. [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html) standardizes the Robots Exclusion Protocol, but a robots file is an access preference, not a receipt or an index report. Use crawler logs to investigate reachability, then use answer tests and citation records for [AEO measurement](/blog/free-ai-visibility-checker). For conventional crawl diagnostics, pair this utility with a [free SEO audit workflow](/blog/free-seo-audit-tools).
+
+## What are the limitations of this approach?
+
+This utility is intentionally narrow. It does not resolve reverse DNS, fetch provider APIs, parse every web-server format, identify spoofed forwarded headers, or decide whether a request was authorized. It also cannot observe requests blocked before your application logs them, cache hits served upstream, or crawler activity outside your infrastructure.
+
+The categories are local annotations, not universal taxonomy. Provider documentation can change after the checked date. The reserved-address fixture is not a traffic sample, benchmark, prevalence estimate, or evidence of indexing. Treat the output as a reproducible starting point, attach source links and review dates, and make a new decision when your evidence changes.
+
+## Which primary sources were checked on 2026-09-22?
+
+The rules and explanations link to [OpenAI’s bot documentation](https://developers.openai.com/api/docs/bots), [Anthropic’s crawler guidance](https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler), [Google’s Googlebot documentation](https://developers.google.com/search/docs/crawling-indexing/googlebot) and [verification procedure](https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot), [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html), Python’s [`ipaddress`](https://docs.python.org/3/library/ipaddress.html) implementation, and Python’s [`csv`](https://docs.python.org/3/library/csv.html) implementation. These are sources for definitions and procedures, not evidence that the synthetic rows occurred.
+
+## FAQ
+
+### Can a user-agent string prove that an AI provider crawled my site?
+
+No. It is a claim. Keep it as a classification field and verify the address separately when current provider guidance supports that method.
+
+### Does a crawl mean my page was indexed or recommended?
+
+No. A request is not an index record, citation, ranking, or recommendation. Measure those outcomes with dated answer-level tests.
+
+### Why are the example IPs reserved?
+
+The fixture uses documentation ranges from [RFC 5737](https://www.rfc-editor.org/rfc/rfc5737) so readers cannot mistake synthetic rows for provider traffic.
+
+### How should I verify IP addresses?
+
+Use a reviewed, date-stamped CIDR file and the provider’s current official instructions. Pass it with `--cidrs`; report `mismatch` instead of silently trusting a token.
+
+For a broader explanation of how answer engines discover and represent entities, see [what is answer engine optimization](/blog/what-is-answer-engine-optimization). AEOeye uses these distinctions because better visibility work starts with evidence that says exactly what it can—and cannot—prove.

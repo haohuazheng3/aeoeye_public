@@ -1,0 +1,111 @@
+---
+title: "AI Citation Parser Test Corpus: 24 Synthetic Edge Cases With Expected Labels"
+description: "A small, inspectable JSONL corpus for testing AI citation extractors across numbered markers, footnotes, URLs, malformed syntax, and ambiguous claim scope."
+date: "2026-09-22"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI citation parser", "citation extraction test corpus", "AI search citations", "AEO citation auditing"]
+faqs: [{"q":"What is this AI citation parser corpus?","a":"It is a 24-case synthetic JSONL regression fixture covering common citation-marker and claim-scope patterns before a parser is used on live AI answers."},{"q":"Does a detected citation marker prove claim support?","a":"No. Marker detection only records that a pointer-like token was found. Claim support requires a separate review of the mapped source and claim."},{"q":"Can I use these cases as a benchmark?","a":"No. The corpus is a transparent regression fixture, not a benchmark, provider comparison, accuracy result, or population estimate."},{"q":"How should I run the validator?","a":"Run python3 validate.py from the resource directory. It checks that all 24 JSONL cases and expected CSV labels agree and exits nonzero when they drift."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop and notes beside a structured research workflow.","photographer":"Mikhail Nilov","photographerUrl":"https://www.pexels.com/@mikhail-nilov"}
+sources: [{"label":"ALCE paper","url":"https://arxiv.org/abs/2305.14627"},{"label":"W3C Web Annotation Data Model","url":"https://www.w3.org/TR/annotation-model/"},{"label":"RFC 3986 URI syntax","url":"https://www.rfc-editor.org/rfc/rfc3986"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"JSON Lines documentation","url":"https://jsonlines.org/"},{"label":"AEOeye citation marker codebook","url":"/blog/ai-citation-marker-position-codebook"}]
+---
+
+An AI citation parser should be tested on edge cases before it is trusted with live answer audits. This downloadable fixture contains 24 original synthetic cases, expected labels, and a Python 3.9 validator. It is designed to answer a narrow engineering question: did your extractor preserve the difference between finding a pointer and proving that a pointer supports a claim?
+
+The corpus is documentation-based and synthetic. It contains no copied provider answer text, no measured provider performance, and no benchmark claim. The sources below explain useful evaluation and annotation concepts; the fixture itself is an AEOeye regression utility.
+
+## Table of contents
+
+- [What does the corpus test?](#what-does-the-corpus-test)
+- [Why is marker detection separate from support?](#why-is-marker-detection-separate-from-support)
+- [How should you run the files?](#how-should-you-run-the-files)
+- [What labels and edge cases are included?](#what-labels-and-edge-cases-are-included)
+- [How should ambiguous scope be reviewed?](#how-should-ambiguous-scope-be-reviewed)
+- [What should you change before live data?](#what-should-you-change-before-live-data)
+- [Limitations](#limitations)
+- [FAQ](#faq)
+
+![Research desk with laptop and notes for checking structured evidence.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Lukas](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com/).*
+
+## What does the corpus test?
+
+The corpus tests extraction boundaries, not model quality. It includes inline numbered markers, grouped markers, repeated markers, Unicode and Markdown footnotes, source cards, bare URLs, malformed markers, uncited claims, and ambiguous scope. Every case has an answer string, claim records, source records, and an ambiguity note.
+
+This structure follows the practical lesson behind citation-aware answer evaluation: an answer, a claim, a citation pointer, and a source are related but different objects. The [ALCE paper](https://arxiv.org/abs/2305.14627) evaluates generated answers with citations; this fixture borrows the claim-level mindset without claiming to reproduce its task or score.
+
+Download the [24 synthetic JSONL cases](/resources/ai-citation-parser-test-corpus/cases.jsonl), [expected-result CSV](/resources/ai-citation-parser-test-corpus/expected-results.csv), [validator source](/resources/ai-citation-parser-test-corpus/validate.py), and [README](/resources/ai-citation-parser-test-corpus/README.md). The files are the artifact; this article explains how to interpret them.
+
+## Why is marker detection separate from support?
+
+Marker detection answers “did the text contain a pointer-like token?” Support answers “does the mapped source support this particular claim?” Those are different labels in every JSONL claim. A parser that turns every `[4]` into `supported` is not auditing citations; it is counting punctuation.
+
+The distinction also protects denominator quality. A repeated marker can be detected twice while resolving to one source. A grouped marker can resolve to three sources while leaving claim-to-source assignment unclear. A bare URL can be visible without having a defined claim scope. Keep the raw token and the review decision.
+
+The [W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/) is useful context for separating a body, target, and annotation. [W3C PROV-O](https://www.w3.org/TR/prov-o/) similarly encourages explicit relationships between entities and activities. Neither standard dictates this fixture's labels; they support the design principle of preserving relationships instead of flattening them.
+
+![Close-up of a person reviewing notes and a laptop for evidence extraction.](https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Ketut Subiyanto](https://www.pexels.com/@ketut-subiyanto) on [Pexels](https://www.pexels.com/).*
+
+## How should you run the files?
+
+Run the validator from the resource directory with `python3 validate.py`. It uses only the Python standard library, reads `cases.jsonl` and `expected-results.csv`, checks all 24 cases and 27 claim records, and exits with status 1 when IDs, categories, labels, source mappings, or ambiguity notes drift.
+
+The [JSON Lines specification](https://jsonlines.org/) makes one valid JSON value per line a convenient review format. It is easy to diff, stream, and load without introducing a package dependency. The validator intentionally checks declared structure rather than attempting to infer whether an external page truly supports a claim.
+
+For a regression test, run your parser over each `answer`, compare its marker and kind output to the case's claim metadata, then separately compare your review layer to `claim_support_label`. Keep failures as fixtures. Do not “fix” a parser by deleting the ambiguous case.
+
+Also run one deliberate mutation before adopting the corpus: change a secondary claim’s marker kind or source ID and confirm that validation fails. A green test only demonstrates useful coverage when the harness can detect a controlled error, including errors outside the first claim in a case.
+
+## What labels and edge cases are included?
+
+The cases are grouped into eight categories so a test report can show coverage rather than only a pass count:
+
+| Category | Cases | What it catches |
+|---|---:|---|
+| Inline numbered | 01–04 | Punctuation, repeats, and one marker touching two claims |
+| Grouped markers | 05–08 | Lists, ranges, disagreement, and source assignment |
+| Footnotes | 09–12 | Unicode notes, Markdown notes, missing resolution, and scope |
+| Source cards | 13–14 | Labeled links and URLs without numeric syntax |
+| Bare URLs | 15–16 | One URL versus multiple unscoped URLs |
+| Malformed markers | 17–20 | Unclosed brackets and invalid separators |
+| Uncited claims | 21–22 | Claims with no pointer at all |
+| Ambiguous scope | 23–24 | A pointer whose sentence or paragraph boundary is unclear |
+
+The expected CSV is deliberately compact but claim-complete. `marker_detected` is boolean; `marker_kind` describes syntax; `claim_support_label` is `supported`, `contradicted`, or `insufficient`; `source_count` describes resolved fixture records, not the number of tokens. Its 27 rows cover every claim in the 24 cases, so a secondary scope label cannot drift unnoticed. A repeated marker therefore does not inflate source count.
+
+## How should ambiguous scope be reviewed?
+
+Treat ambiguous scope as a review queue, not as automatic support. In case 23, the marker clearly attaches to the first sentence but may be read as covering the second. In case 24, a source card follows a paragraph and the pointer may refer to either the paragraph or the card. A human or a stricter annotation protocol must decide the boundary.
+
+Preserve both interpretations when the decision matters. The [AEOeye citation support rubric](/blog/ai-citation-snippet-support-rubric) and [citation evidence preservation protocol](/blog/ai-citation-evidence-preservation-protocol) provide adjacent operational guidance. The [AI answer claim taxonomy](/blog/ai-answer-claim-type-taxonomy) can help split a sentence into atomic claims before support review.
+
+## What should you change before live data?
+
+First, freeze your parser version and record the exact input surface, locale, collection time, and retention policy. Second, add cases from your own observed formatting without copying protected answer text. Third, define whether URL normalization, redirects, tracking parameters, and source-card metadata are separate evidence fields.
+
+Use [AEOeye's citation marker position codebook](/blog/ai-citation-marker-position-codebook) as a vocabulary reference, then document any local additions. For a wider audit workflow, connect parser output to an [AI citation checker](/blog/ai-citation-checker) or an [AI visibility audit](/#audit), but keep extraction and support review as separate stages.
+
+## Limitations
+
+This is a small synthetic regression corpus, not a representative sample and not a benchmark. It does not measure parser precision, recall, provider behavior, citation truth, retrieval quality, or recommendation visibility. The URLs are example domains; they are not evidence pages to fetch. The expected labels are explicit fixture decisions, and some cases intentionally remain `insufficient` because a marker alone cannot resolve claim scope.
+
+The Pexels photographs illustrate a research workflow; they are not test screenshots or evidence of a run. AEOeye is the sole author and entity for this page and the artifact. Before publishing a live result, retain raw evidence lawfully, disclose sampling and failure handling, and have a reviewer inspect support rather than relying on the validator.
+
+## FAQ
+
+### What is this AI citation parser corpus?
+
+It is a 24-case synthetic JSONL regression fixture covering common citation-marker and claim-scope patterns before a parser is used on live AI answers.
+
+### Does a detected citation marker prove claim support?
+
+No. Marker detection only records that a pointer-like token was found. Claim support requires a separate review of the mapped source and claim.
+
+### Can I use these cases as a benchmark?
+
+No. The corpus is a transparent regression fixture, not a benchmark, provider comparison, accuracy result, or population estimate.
+
+### How should I run the validator?
+
+Run `python3 validate.py` from the resource directory. It checks that all 24 JSONL cases and expected CSV labels agree and exits nonzero when they drift.

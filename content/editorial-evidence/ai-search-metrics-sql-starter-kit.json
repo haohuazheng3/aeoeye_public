@@ -1,0 +1,32 @@
+{
+  "contentSha256": "c2e325ad0c50f6d25f8efc92bb9e9358dd25bbe914ab54deafb083b33992842d",
+  "reviewedAt": "2026-09-22",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Compute transparent mention, recommendation, availability, and citation rates from an AI-answer audit export without hiding the denominator.",
+    "connection": "The package turns AI-search observations into inspectable metrics used to measure whether a brand is mentioned, recommended, and cited."
+  },
+  "assessment": "The article delivers a runnable local metric package rather than a blank template. It keeps missing answers separate from measured zeroes, exposes both citation denominators, labels every sample row synthetic, and does not present fixture output as provider performance.",
+  "sources": [
+    {"url":"https://sqlite.org/lang_aggfunc.html","checkedAt":"2026-09-22","supports":"SQLite aggregate-function behavior used for the numerator and denominator queries."},
+    {"url":"https://sqlite.org/lang_with.html","checkedAt":"2026-09-22","supports":"SQLite common-table-expression syntax used to make metric stages inspectable."},
+    {"url":"https://docs.python.org/3.9/library/csv.html","checkedAt":"2026-09-22","supports":"Standard-library CSV parsing and writing behavior used by the runner."},
+    {"url":"https://docs.python.org/3.9/library/sqlite3.html","checkedAt":"2026-09-22","supports":"Standard-library in-memory SQLite interface used by the runner."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-22","supports":"Provenance model supporting retention of entities, activities, and agents behind metrics."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-09-22","supports":"Context and limitation documentation for AI measurement and governance."}
+  ],
+  "checks": [
+    "Ran the Python 3.9 runner against the populated CSV and compared all 24 generated rows byte-for-byte with the expected output after fixing deterministic LF line endings.",
+    "Read the final article and verified that unavailable answers, zero citations, mentions, recommendations, and the two citation denominators are not conflated.",
+    "Opened every external source URL and confirmed HTTP 200, then checked all five internal article links and five downloadable resource links exist."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-search-metrics-sql/ai_search_audit_sample.csv","description":"A populated synthetic audit export containing missing answers and measured citation zeroes."},
+    {"path":"/resources/ai-search-metrics-sql/queries.sql","description":"A runnable SQLite query pack with explicit numerators and denominators for answer and citation metrics."},
+    {"path":"/resources/ai-search-metrics-sql/runner.py","description":"A dependency-free Python 3.9 CSV importer and SQLite query runner."},
+    {"path":"/resources/ai-search-metrics-sql/expected_output.csv","description":"The checked 24-row result used for byte-level regression comparison."}
+  ],
+  "methodology": "The package imports sixteen explicitly synthetic answer-level rows into an in-memory SQLite table, executes two named SQL sections, writes deterministic CSV, and compares the 24 output rows with a checked fixture. Editorial review recomputed the documented example rates from the source rows.",
+  "limitations": "The fixture is not live provider data or a benchmark. The package cannot judge source support, causal ranking, sampling quality, or whether a future answer will repeat."
+}

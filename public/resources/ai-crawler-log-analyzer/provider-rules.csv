@@ -1,0 +1,8 @@
+token,category,source_url,checked_at
+GPTBot,training,https://developers.openai.com/api/docs/bots,2026-09-22
+OAI-SearchBot,search,https://developers.openai.com/api/docs/bots,2026-09-22
+ChatGPT-User,user_triggered,https://developers.openai.com/api/docs/bots,2026-09-22
+ClaudeBot,training,https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler,2026-09-22
+Claude-SearchBot,search,https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler,2026-09-22
+Claude-User,user_triggered,https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler,2026-09-22
+Googlebot,search,https://developers.google.com/search/docs/crawling-indexing/googlebot,2026-09-22

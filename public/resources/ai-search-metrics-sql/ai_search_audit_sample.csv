@@ -1,0 +1,17 @@
+run_id,prompt_id,engine,answer_available,brand_mentioned,brand_recommended,citation_count,cited_brand_source,citation_reviewable
+r001,p01,chatgpt,yes,yes,yes,2,yes,yes
+r002,p02,chatgpt,yes,no,no,1,no,yes
+r003,p03,chatgpt,yes,yes,no,0,no,unknown
+r004,p04,chatgpt,no,,,,,
+r005,p01,perplexity,yes,yes,yes,3,yes,yes
+r006,p02,perplexity,yes,yes,no,1,no,yes
+r007,p03,perplexity,yes,no,no,0,no,yes
+r008,p04,perplexity,yes,yes,yes,2,yes,yes
+r009,p01,gemini,yes,no,no,0,no,yes
+r010,p02,gemini,yes,yes,no,2,no,no
+r011,p03,gemini,yes,yes,yes,1,yes,yes
+r012,p04,gemini,no,,,,,
+r013,p01,google-ai,yes,yes,no,4,yes,yes
+r014,p02,google-ai,yes,no,no,1,no,yes
+r015,p03,google-ai,yes,yes,yes,0,no,unknown
+r016,p04,google-ai,yes,yes,no,2,no,yes

@@ -1,0 +1,10 @@
+claimed_token,claimed_category,ip_verification,requests
+ChatGPT-User,user_triggered,not_checked,1
+Claude-SearchBot,search,not_checked,1
+Claude-User,user_triggered,not_checked,1
+ClaudeBot,training,not_checked,1
+GPTBot,training,not_checked,1
+Googlebot,search,not_checked,1
+OAI-SearchBot,search,not_checked,1
+unknown,unknown,not_checked,3
+_TOTAL,all,malformed_lines,0

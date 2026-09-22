@@ -1,0 +1,31 @@
+{
+  "contentSha256": "0b9851626b44883e7c1848bc3662d4c0c888dd9f76986dadb9e72a482af3584d",
+  "reviewedAt": "2026-09-22",
+  "kind": "research-asset",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "Regression-test citation extraction across marker styles and ambiguous claim scope before processing live AI answers.",
+    "connection": "Reliable citation capture is a prerequisite for measuring which sources support brand mentions and recommendations in AI answers."
+  },
+  "assessment": "The final artifact contains 24 original synthetic cases and 27 claim-level expected rows across eight required categories. Editorial review strengthened the validator so secondary claims, source IDs, support labels, and ambiguity metadata cannot drift unnoticed, while the article never treats marker detection as source support.",
+  "sources": [
+    {"url":"https://arxiv.org/abs/2305.14627","checkedAt":"2026-09-22","supports":"ALCE's separation of answer correctness and citation quality at evaluation time."},
+    {"url":"https://www.w3.org/TR/annotation-model/","checkedAt":"2026-09-22","supports":"Structured relationships between annotations, bodies, targets, and text selectors."},
+    {"url":"https://www.rfc-editor.org/rfc/rfc3986","checkedAt":"2026-09-22","supports":"URI syntax referenced for URL-shaped citation pointers."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-22","supports":"Explicit provenance relationships instead of flattened citation counts."},
+    {"url":"https://jsonlines.org/","checkedAt":"2026-09-22","supports":"One-valid-JSON-value-per-line format used by the corpus."}
+  ],
+  "checks": [
+    "Read all 24 JSONL cases and verified the eight categories include inline, grouped, footnote, source-card, bare-URL, malformed, uncited, and ambiguous-scope cases.",
+    "Ran the Python 3.9 validator after expanding the expected file to all 27 claims, then mutated a secondary claim and confirmed the validator exits nonzero.",
+    "Checked the final article and fixture for synthetic disclosure, marker-versus-support separation, original text, four FAQs, internal links, and working primary-source URLs."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-citation-parser-test-corpus/cases.jsonl","description":"Twenty-four populated synthetic citation cases with claim, marker, source, and ambiguity records."},
+    {"path":"/resources/ai-citation-parser-test-corpus/expected-results.csv","description":"Twenty-seven claim-level expected rows covering every primary and secondary claim in the corpus."},
+    {"path":"/resources/ai-citation-parser-test-corpus/validate.py","description":"A dependency-free Python 3.9 structural validator with source-ID and secondary-claim coverage."},
+    {"path":"/resources/ai-citation-parser-test-corpus/README.md","description":"Runnable instructions and the explicit boundary between extraction labels and factual support review."}
+  ],
+  "methodology": "AEOeye authored 24 synthetic answer snippets spanning eight parser edge-case categories, assigned explicit claim-level marker, source, support, and ambiguity labels, and stored one JSON object per line. A 27-row expected CSV and dependency-free validator enforce complete claim coverage; a deliberate secondary-claim mutation verified the failure path.",
+  "limitations": "This small synthetic regression corpus is not a representative benchmark and does not estimate parser precision, recall, provider behavior, factual truth, or citation retrieval quality."
+}

@@ -1,0 +1,28 @@
+{
+  "contentSha256": "37531405a434fa6a22d40570dc5f18d91dceead59c65be547da5c3b3412d9262",
+  "reviewedAt": "2026-09-22",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Measure how consistently a fixed AI buyer prompt returns the same recommended brand set across repeated runs.",
+    "connection": "The calculator adds repeatability evidence to AI-search brand recommendation audits instead of treating one answer as a stable ranking."
+  },
+  "assessment": "The standalone browser calculator delivers exact-set agreement, pairwise Jaccard, per-brand coverage, a deterministic percentile bootstrap interval, and CSV export. The page correctly separates repeat-run stability from truth, quality, market share, and cross-engine agreement.",
+  "sources": [
+    {"url":"https://www.itl.nist.gov/div898/handbook/prc/section2/prc264.htm","checkedAt":"2026-09-22","supports":"Bootstrap interval procedure and cautions referenced by the calculator explanation."},
+    {"url":"https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm","checkedAt":"2026-09-22","supports":"Confidence-interval and sampling interpretation used in the limitations."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-09-22","supports":"AI measurement context and documentation principles."},
+    {"url":"https://www.nist.gov/ai-measurement-and-evaluation","checkedAt":"2026-09-22","supports":"NIST's context-dependent AI measurement and evaluation program."},
+    {"url":"https://doi.org/10.5169/seals-266440","checkedAt":"2026-09-22","supports":"Accessible record of Jaccard's 1901 set-comparison work referenced for the similarity measure."}
+  ],
+  "checks": [
+    "Opened the standalone calculator in a real Chromium session and verified the synthetic fixture returns 5 runs, 10 pairs, 30.0% exact agreement, 65.0% mean Jaccard, and the documented brand coverage values.",
+    "Tested two empty brand sets and confirmed 100% agreement under the declared convention, then submitted a malformed row and confirmed an accessible error plus disabled export.",
+    "Read the final article and checked that bootstrap precision, correlated pairs, convenience sampling, and the difference between within-setup stability and cross-engine agreement are disclosed."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-recommendation-stability-calculator/index.html","description":"A dependency-free, accessible browser calculator with a populated synthetic fixture, deterministic bootstrap, tables, and CSV export."}
+  ],
+  "methodology": "The tool deduplicates and sorts each run's brand set, evaluates all unordered run pairs, computes strict set equality and Jaccard intersection over union, derives per-brand run coverage, and bootstraps the observed pairwise Jaccard means with a fixed seed. Browser checks reproduced the expected fixture arithmetic.",
+  "limitations": "Repeated-run pairs are correlated and a percentile interval cannot repair biased prompts, changing conditions, small samples, or convenience sampling. Stability is not correctness or future probability."
+}
