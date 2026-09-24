@@ -1,0 +1,31 @@
+{
+  "contentSha256": "84942be46da172bf4d0c71c20befa06b1036ff54abb221038e6cd8891379dcdd",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Resolve conflicting public Profound price configurations before budgeting an AI-search visibility monitoring program.",
+    "connection": "Directly supports an AEOeye buyer choosing how to measure recurring brand visibility across answer engines."
+  },
+  "assessment": "The final guide uses the current official self-serve plan cards: Starter US$99 and Growth US$399 per month, both billed yearly, with Enterprise custom. It separates prompt, engine and Agents-credit limits, and labels the US$3,990 calculation as a pre-tax planning total rather than a checkout invoice.",
+  "sources": [
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-09-23",
+      "supports": "Current official Starter, Growth and Enterprise prices, billing basis, prompt limits, engine coverage, Agents credits and Growth trial action."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references; regional tax and checkout terms can differ",
+    "billing": "Starter and Growth display monthly equivalents billed yearly; Growth advertises two months free. Enterprise is custom-priced.",
+    "checkedAt": "2026-09-23",
+    "verification": "Checked the live official pricing page: Starter US$99 monthly billed yearly with 50 prompts and one engine; Growth US$399 monthly billed yearly with 100 prompts and three engines. Recomputed Growth as US$399 × 10 = US$3,990 before tax."
+  }
+}

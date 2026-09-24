@@ -1,0 +1,36 @@
+{
+  "contentSha256": "826f561651398eeddd38852e1b51770364d284fa2242c15666c1380d3de70186",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Budget Knowatoa while its public pricing omits the numeric question allowance needed for cost-per-use math.",
+    "connection": "Directly supports an AEOeye buyer verifying engine coverage and repeatable monitoring limits before subscribing."
+  },
+  "assessment": "The final guide publishes the visible monthly prices while refusing to invent a per-question ratio because accessible official copy does not expose numeric question allowances. It also distinguishes the three named Starter surfaces from Growth’s incomplete public seven-service description.",
+  "sources": [
+    {
+      "url": "https://knowatoa.com/pricing",
+      "checkedAt": "2026-09-23",
+      "supports": "Official monthly plan prices, annual availability, cancellation statement and public service descriptions."
+    },
+    {
+      "url": "https://knowatoa.com/",
+      "checkedAt": "2026-09-23",
+      "supports": "Official product context used to interpret the AI-search visibility workflow."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public prices; regional and tax treatment not stated",
+    "billing": "Monthly Starter and Growth prices; annual billing is available but no numeric annual discount was used.",
+    "verification": "Checked both official surfaces. Recomputed twelve unchanged monthly payments as Starter US$708 and Growth US$2,388, a US$1,680 difference, while explicitly declining to calculate cost per question without a verified allowance.",
+    "checkedAt": "2026-09-23"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "contentSha256": "0d9cfc6be17ee33b1147f8ef3af8e04a1236fc2edc1e70959f5a3fdccb83a373",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Choose between Peec brand and agency plans while verifying prompt, model, project and checkout limits.",
+    "connection": "Directly supports an AEOeye buyer comparing recurring AI visibility workspaces and monitoring capacity."
+  },
+  "assessment": "The final guide attributes detailed prices to Peec’s official dated instructions because the interactive page did not expose every amount in accessible text. It distinguishes brand and agency packaging, qualifies the annual discount, and does not claim hands-on output validation.",
+  "sources": [
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-09-23",
+      "supports": "Current official brand pricing surface and checkout reference."
+    },
+    {
+      "url": "https://peec.ai/pricing-agencies",
+      "checkedAt": "2026-09-23",
+      "supports": "Current official agency offer and named agency tiers."
+    },
+    {
+      "url": "https://peec.ai/ai-instructions",
+      "checkedAt": "2026-09-23",
+      "supports": "Official dated plan amounts, prompt, model and project allowances used in the table."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public reference offer; taxes and checkout can differ",
+    "billing": "Monthly reference prices with an advertised 15% annual discount.",
+    "verification": "Checked the three official pages and retained the text-access limitation. Recomputed Pro annual planning cost as US$245 × 12 × 0.85 = US$2,499 before tax if the displayed discount applies.",
+    "checkedAt": "2026-09-23"
+  }
+}

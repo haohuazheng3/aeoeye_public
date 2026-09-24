@@ -1,0 +1,31 @@
+{
+  "contentSha256": "c66e29bab54e0727396dba1d124688c6fa2357eb4ea26a9e6a5a606dda849886",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Translate Rankscale credits, model actions, dashboards and audits into a realistic monthly AI visibility budget.",
+    "connection": "Directly supports an AEOeye buyer comparing the operating economics of answer-engine monitoring plans."
+  },
+  "assessment": "The final guide treats credits as the economic unit and preserves the ‘up to’ qualification on answer counts. It does not assume every model or action costs 0.25 credits and flags rollover, audit and refresh rules for current confirmation.",
+  "sources": [
+    {
+      "url": "https://rankscale.ai/pricing",
+      "checkedAt": "2026-09-23",
+      "supports": "Official plan prices, credits, dashboards, page audits, answer maximums and annual discount."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public prices",
+    "billing": "Monthly plan references; annual billing advertises 15% savings.",
+    "verification": "Checked the official pricing page. Recomputed Pro maximum as 1,200 / 0.25 = 4,800 standard answers and US$99 / 4,800 = US$0.020625 per answer only under the stated full-utilization assumptions.",
+    "checkedAt": "2026-09-23"
+  }
+}

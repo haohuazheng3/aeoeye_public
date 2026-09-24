@@ -1,0 +1,36 @@
+{
+  "contentSha256": "9bff594494425b636acfdd67892900519e56d11a41bebc250f361a0e8a502a30",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Calculate Otterly.AI plan and add-on cost without confusing prompts with engine coverage.",
+    "connection": "Directly supports selecting a recurring AI-search visibility tracker after defining an AEO prompt and engine scope."
+  },
+  "assessment": "The final guide separates base prompt capacity from optional engine coverage, lists tax-exclusive USD prices, and prevents the Standard-plus-Gemini calculation from being mistaken for more prompt capacity. It makes no claim about measured accuracy or account behavior.",
+  "sources": [
+    {
+      "url": "https://otterly.ai/pricing/",
+      "checkedAt": "2026-09-23",
+      "supports": "Current Lite, Standard and Premium prices, prompt allowances and annual discount."
+    },
+    {
+      "url": "https://help.otterly.ai/pricing-of-otterlyai",
+      "checkedAt": "2026-09-23",
+      "supports": "Current extra-prompt, Gemini and Claude add-on prices and tax qualification."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public prices, excluding tax",
+    "billing": "Monthly prices are shown; annual billing advertises 15% off.",
+    "verification": "Checked both official pricing sources. Recomputed Standard plus Gemini as US$189 + US$59 = US$248 monthly before tax, and the base prompt ratio as US$189 / 100 = US$1.89.",
+    "checkedAt": "2026-09-23"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "contentSha256": "1e42800a58a6ed8e805d76469f85a38091dc3fc77eb5edd34d1d402b0cb671a3",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Translate Qwairy’s EUR plans, workspaces and model-weighted credits into a repeatable monitoring budget.",
+    "connection": "Directly supports an AEOeye buyer selecting capacity for multi-engine AI-search visibility tracking."
+  },
+  "assessment": "The final guide separates prompts from model-weighted credits, retains EUR currency and workspace limits, and makes clear that premium models reduce the number of affordable sweeps. It uses the current official product-site offer of 100 free credits and does not infer missing free-tier prompt or workspace limits.",
+  "sources": [
+    {
+      "url": "https://www.qwairy.co/pricing/calculator",
+      "checkedAt": "2026-09-23",
+      "supports": "Official plan prices, allowances, engine credit weights and annual offer."
+    },
+    {
+      "url": "https://www.qwairy.co/",
+      "checkedAt": "2026-09-23",
+      "supports": "Official product context and current 100-free-credit, no-card offer."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "EUR public prices; tax treatment not stated",
+    "billing": "Monthly prices; annual billing is documented as two months free.",
+    "verification": "Checked both official sources. Recomputed Starter annual cost as €65 × 10 = €650 before tax, and compared a 100-prompt sweep at one credit (100 credits) with a six-credit premium model (600 credits). The free offer is recorded as 100 credits.",
+    "checkedAt": "2026-09-23"
+  }
+}

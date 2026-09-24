@@ -1,0 +1,36 @@
+{
+  "contentSha256": "d938b9529b022fe30b7cfd5ddc807d1722bbf351eff3cc630be0fbe19e333faa",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Reproduce a ZipTie configurator total without mixing preset prices, integrations, content contexts and UGC options.",
+    "connection": "Directly supports an AEOeye buyer budgeting a configurable AI-search visibility monitoring workflow."
+  },
+  "assessment": "The final guide presents ZipTie as a configurable usage offer rather than fixed like-for-like tiers. It keeps the annual discount limited to the prompt subtotal, excludes unselected UGC impact from the worked example, and requires buyers to preserve the exact configuration.",
+  "sources": [
+    {
+      "url": "https://ziptie.ai/pricing/",
+      "checkedAt": "2026-09-23",
+      "supports": "Official configurable presets, add-on prices, trial allowance and annual prompt discount."
+    },
+    {
+      "url": "https://ziptie.ai/terms/",
+      "checkedAt": "2026-09-23",
+      "supports": "Official commercial terms reference for the purchase decision."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public configurator; selection and date can change the total",
+    "billing": "Monthly preset references; annual prompt subtotal receives a documented 20% discount.",
+    "verification": "Checked both official pages. Recomputed the example as US$35.63 + US$10 API/MCP + US$20 for one content context = US$65.63 monthly before tax, without adding the unselected 80% UGC option.",
+    "checkedAt": "2026-09-23"
+  }
+}

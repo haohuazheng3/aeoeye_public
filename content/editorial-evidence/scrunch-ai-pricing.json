@@ -1,0 +1,36 @@
+{
+  "contentSha256": "170b5fb0f59cb754bfe2fd0cd727f0690b24e97f14d9b8420c8b34b9287e72d4",
+  "reviewedAt": "2026-09-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Determine whether Scrunch Core prompt, audit, workspace, user and engine limits fit a repeatable brand or agency workflow.",
+    "connection": "Directly supports an AEOeye buyer evaluating prompt monitoring plus site-audit capacity for AI-search visibility."
+  },
+  "assessment": "The final guide keeps Brands and Agencies pricing separate, explains the one-workspace boundary, and qualifies the nominal US$2 per prompt-month ratio as a utilization aid rather than a unit price. No accuracy, refresh or multi-client behavior is invented.",
+  "sources": [
+    {
+      "url": "https://scrunch.com/faqs/what-is-the-pricing-for-scrunch-plans",
+      "checkedAt": "2026-09-23",
+      "supports": "Official pricing FAQ for brand and agency prices, trial and Core allowances."
+    },
+    {
+      "url": "https://scrunch.com/pricing/",
+      "checkedAt": "2026-09-23",
+      "supports": "Official pricing surface used to cross-check the documented package."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
+    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
+    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public prices; tax and negotiated terms can differ",
+    "billing": "Monthly Core prices; Enterprise uses custom pricing.",
+    "verification": "Checked both official pricing sources. Recomputed Brands Core as US$250 × 12 = US$3,000, Agencies Core as US$500 × 12 = US$6,000, and the narrow US$250 / 125 = US$2 prompt-month ratio.",
+    "checkedAt": "2026-09-23"
+  }
+}
