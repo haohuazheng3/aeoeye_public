@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ContentLink } from "@/components/content-link";
 import Markdown from "markdown-to-jsx";
 import { ArrowLeft, BookOpen, ExternalLink } from "lucide-react";
 import { getPost, getPostSlugs, getAllPosts, extractHeadings, relatedPosts } from "@/lib/content/blog";
@@ -104,7 +105,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <TableOfContents items={toc} />
 
         <div className="prose mt-6">
-          <Markdown options={{ forceBlock: true, overrides: { h2: { component: H2 }, h3: { component: H3 }, a: { props: { rel: "noopener" } } } }}>
+          <Markdown options={{ forceBlock: true, overrides: { h2: { component: H2 }, h3: { component: H3 }, a: { component: ContentLink } } }}>
             {post.content}
           </Markdown>
         </div>

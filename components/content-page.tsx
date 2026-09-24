@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ContentLink } from "@/components/content-link";
 import Markdown from "markdown-to-jsx";
 import { Sparkles, Check, ArrowRight, ExternalLink, BookOpen } from "lucide-react";
 import type { ContentPage, PageType } from "@/lib/content/pages";
@@ -92,14 +93,14 @@ export function ContentPageView({
         <TableOfContents items={toc} />
 
         <div className="prose mt-8">
-          {page.intro && <Markdown options={{ forceBlock: true }}>{page.intro}</Markdown>}
+          {page.intro && <Markdown options={{ forceBlock: true, overrides: { a: { component: ContentLink } } }}>{page.intro}</Markdown>}
 
           {page.sections.map((s, i) => (
             <section key={i}>
               <h2 id={slugify(s.heading)} className="scroll-mt-24">
                 {s.heading}
               </h2>
-              <Markdown options={{ forceBlock: true }}>{s.body}</Markdown>
+              <Markdown options={{ forceBlock: true, overrides: { a: { component: ContentLink } } }}>{s.body}</Markdown>
             </section>
           ))}
         </div>

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import editorialFeatured from "@/content/editorial-featured.json";
+import { isRetiredSlug } from "./retired";
 
 export type PostImage = { url: string; alt: string; photographer?: string; photographerUrl?: string } | null;
 
@@ -24,22 +25,14 @@ export type Post = { meta: PostMeta; content: string };
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
-// Redirected duplicates remain in the repository for history, but must not
-// appear in blog listings, related-post rings, static params, or the sitemap.
-// Their permanent redirects in next.config.mjs consolidate external signals.
-const REDIRECTED_POST_SLUGS = new Set([
-  "ai-visibility-geo-software",
-  "chatgpt-seo-tool-comparison",
-  "json-ld-generator",
-  "seo-vs-geo",
-]);
-
+// 已下线(删除/合并)的 slug 不进列表、相关文章环、静态参数与 sitemap。
+// 文件本身已从仓库删除;这里再挡一道,防止定时管线把同名文件写回来时悄悄复活。
 function readDir(): string[] {
   try {
     return fs
       .readdirSync(BLOG_DIR)
       .filter((f) => f.endsWith(".mdx") || f.endsWith(".md"))
-      .filter((f) => !REDIRECTED_POST_SLUGS.has(f.replace(/\.mdx?$/, "")));
+      .filter((f) => !isRetiredSlug(f.replace(/\.mdx?$/, "")));
   } catch {
     return [];
   }
@@ -165,8 +158,11 @@ export function getCategories(): CategoryInfo[] {
  * 为什么是环不是哈希轮转:环上每个节点都被前 3 个节点指到,**分类内每篇
  * 恰好收到 3 条入链,零遗漏零堆积**(哈希起点实测会留下 9 篇零入链的空洞)。
  * 顺序用「日期倒序、同日按文件名」的既有稳定序 —— SSG 每次构建结果一致。
+ *
+ * 2026-09-24:3 → 6。GSC 显示内链前 10 全是页脚页、文章几乎拿不到入链,
+ * 环上每篇由收 3 条改为收 6 条,是不改正文就能翻倍文章间内链的最便宜手段。
  */
-export function relatedPosts(slug: string, category: string, n = 3): PostMeta[] {
+export function relatedPosts(slug: string, category: string, n = 6): PostMeta[] {
   const all = getAllPosts();
   const cat = canonicalCategory(category);
   const ring = all.filter((p) => canonicalCategory(p.category) === cat);

@@ -4,6 +4,36 @@ import crypto from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import matter from 'gray-matter';
 
+// 2026-09-24 清理后固化的选题边界。名单文件与 middleware(410)/next.config(301)共用。
+const RETIRED = JSON.parse(fs.readFileSync(new URL('../content/retired.json', import.meta.url), 'utf8'));
+export const RETIRED_SLUGS = new Set([...RETIRED.gone, ...Object.keys(RETIRED.merged)]);
+const seg = (re) => new RegExp(`(^|-)(?:${re})(-|$)`);
+// 只有这些 AI 可见度 / AEO 工具与服务,才允许出 pricing / review / alternatives / vs 页
+const AEO_SUBJECTS = seg('profound|peec|peec-ai|otterly|otterly-ai|athenahq|scrunch|scrunch-ai|llmrefs|trakkr|goodie|brandlight|evertune|nightwatch|quattr|knowatoa|promptwatch|qwairy|rankscale|waikay|ziptie|airops|aeo-grader|hubspot-aeo-grader|brand-radar|ahrefs-brand-radar|semrush-ai|semrush-ai-toolkit|similarweb-ai|aeo|geo|seo|aeo-tool|aeo-tools|geo-tool|geo-tools|ai-visibility|ai-visibility-tool|ai-visibility-tools|llm-visibility|chatgpt-rank-tracker|ai-rank-tracker|ai-search-optimization|generative-engine-optimization|answer-engine-optimization');
+// AI 助手/模型本身:允许写"它如何检索、引用、推荐品牌",不允许写它的套餐价格、功能教程、产品评测
+const AI_ASSISTANTS = seg('chatgpt|claude|gemini|copilot|perplexity|grok|deepseek|openai|anthropic|genspark|character-ai|notebooklm|manus|manus-ai|together-ai|mistral|llama|meta-ai|kimi|qwen');
+const SEARCH_SIDE = /perplexity|google|bing|ai-mode|ai-overview/;
+const PRODUCT_PAGE = /(^|-)(pricing|price|cost|review|reviews|alternatives?|projects|gems|spaces|operator|deep-research|custom-instructions|enterprise|codex|for-business|plus|pro|max|worth-it|browser|atlas)(-|$)|api-pricing|claude-code/;
+const GENERIC_SEO = /^(what-is-(a-)?(serp|crawling|indexing|alt-text|backlink|domain-authority|anchor-text|canonical-tag|meta-description|technical-seo|on-page-seo|off-page-seo|keyword-research|organic-traffic|link-building|featured-snippet|keyword-difficulty)|is-seo-(still-relevant|worth-it)|seo-(in-\d{4}|statistics|experiments|forecasting|vs-sem|vs-ppc|pricing|automation-tools|audit-checklist)|how-(long-does-seo-take|to-measure-seo|many-websites-are-there)|saas-seo(-agency)?|white-label-seo|programmatic-seo|parasite-seo|keyword-cannibalization|keyword-clustering-tool|informational-keywords|content-marketing-statistics|browser-market-share|technical-seo-checklist|(webflow|squarespace|wix|shopify|wordpress)-seo|best-(keyword-research-tools|rank-tracking-software|competitor-analysis-tools|enterprise-seo-tools|free-seo-reporting-tools|seo-tools-for-agencies)|free-seo-audit-tools)$/;
+const GENERIC_AI = /^(what-is-(fine-tuning|a-token-in-ai|an-ai-agent|an-ai-model|nlp|multimodal-ai|inference-in-ai|a-diffusion-model|a-foundation-model|a-chatbot|agentic-ai|prompt-engineering|generative-ai)|autonomous-ai-agents|best-ai-(agent|chatbot|assistant|for-research|for-writing|humanizer|browser)|ai-(agent-builder|seo-agent|content-writing|model-comparison)|prompt-engineer-salary|comet-vs-atlas)$/;
+
+/** 返回跑题原因;null = 允许。规则与 2026-09-24 的清理决策一致(docs/audit/2026-09-24-content-pruning.md)。 */
+export function offTopicReason(slug) {
+  if (RETIRED_SLUGS.has(slug)) return 'retired URL (content/retired.json) — must not be re-created';
+  if (GENERIC_SEO.test(slug)) return 'generic SEO fundamentals without an AI-visibility angle';
+  if (GENERIC_AI.test(slug)) return 'generic AI explainer / assistant roundup';
+  if (AEO_SUBJECTS.test(slug)) return null;
+  if (/-vs-/.test(slug)) {
+    if (AI_ASSISTANTS.test(slug) && !SEARCH_SIDE.test(slug)) return 'assistant-vs-assistant comparison with no search/citation angle';
+    if (!AI_ASSISTANTS.test(slug)) return 'comparison between products outside AI visibility';
+    return null;
+  }
+  if (PRODUCT_PAGE.test(slug)) {
+    return AI_ASSISTANTS.test(slug) ? 'AI product pricing/feature/review page (not about how it cites or recommends brands)' : 'third-party software pricing/review/alternatives page';
+  }
+  return null;
+}
+
 export const CORE_TOPICS = new Set([
   'ai-search-visibility', 'answer-engine-optimization', 'brand-citations',
   'ai-crawler-indexing', 'aeo-measurement', 'aeo-buyer-decisions',
@@ -41,6 +71,8 @@ export function checkPost({ file, raw, baselineHash, evidence, artifactExists = 
   if (!meaningful(topic.readerProblem) || !meaningful(topic.connection)) fail('explain the reader problem and actual AEOeye connection');
   const slug = path.basename(file).replace(/\.mdx?$/, '');
   if (isNew && GENERIC_PRICING.test(slug)) fail('generic software pricing cannot be used to fill an AEOeye quota');
+  if (RETIRED_SLUGS.has(slug)) fail('this URL was retired on 2026-09-24 (content/retired.json) and must not be re-created');
+  else if (isNew) { const offTopic = offTopicReason(slug); if (offTopic) fail(`off-topic for AEOeye (${offTopic}); only AI-visibility / AEO topics may be published`); }
   if (evidence.kind === 'documentation-guide') {
     if (/\breview\b/i.test(String(data.title))) fail('untested documentation guides must not be presented as hands-on reviews');
     const opening = content.slice(0, 2400);
@@ -105,6 +137,7 @@ export function verifyContent(root = process.cwd()) {
   for (const slug of featured) {
     if (!files.some((f) => f.replace(/\.mdx?$/, '') === slug)) errors.push(`featured page does not exist: ${slug}`);
     if (GENERIC_PRICING.test(slug)) errors.push(`generic software price guide cannot lead the AEO blog: ${slug}`);
+    if (RETIRED_SLUGS.has(slug)) errors.push(`retired page cannot be featured: ${slug}`);
   }
   return { pages: files.length, reviewed, legacyUnchanged: files.length - reviewed, errors };
 }

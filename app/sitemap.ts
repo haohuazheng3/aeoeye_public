@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site";
-import { getAllPosts, getCategories, categoryPageCount } from "@/lib/content/blog";
+import { getAllPosts, getCategories } from "@/lib/content/blog";
 import { GLOSSARY } from "@/lib/content/glossary";
 import { TOOLS } from "@/lib/content/tools";
 import { getPages } from "@/lib/content/pages";
@@ -45,15 +45,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r.priority,
   }));
 
-  // 分类枢纽页 + 其可抓取分页 —— 枢纽页自己是排名目标,必须进 sitemap
-  const hubs = getCategories().flatMap((c) => {
-    const pages = categoryPageCount(c.slug);
-    return Array.from({ length: pages }, (_, i) => ({
-      url: i === 0 ? `${siteUrl}/blog/category/${c.slug}` : `${siteUrl}/blog/category/${c.slug}?page=${i + 1}`,
-      changeFrequency: "weekly" as const,
-      priority: i === 0 ? 0.7 : 0.4,
-    }));
-  });
+  // 分类枢纽页进 sitemap;?page=N 分页不进 —— 它们仍可抓取(自 canonical、index,follow,
+  // 从枢纽页的分页链接可达),但 2026-09-23 GSC 抽样里未收录的 19 条有 6 条是分页页,
+  // 在抓取预算已经紧张(Discovery 只占 6%)时,不该让分页和文章抢同一份配额。
+  const hubs = getCategories().map((c) => ({
+    url: `${siteUrl}/blog/category/${c.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
 
   // getAllPosts() already excludes permanently redirected duplicates so the
   // sitemap, blog hubs, and related-post links share one canonical inventory.

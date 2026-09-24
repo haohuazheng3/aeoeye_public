@@ -1,3 +1,14 @@
+import { readFileSync } from "node:fs";
+
+// 已合并(同意图重复)的博客 URL → 301 到吸收页。名单在 content/retired.json,
+// 与 middleware 的 410 名单、内容门禁的"禁止重建"名单是同一个文件。
+const retired = JSON.parse(readFileSync(new URL("./content/retired.json", import.meta.url), "utf8"));
+const retiredRedirects = Object.entries(retired.merged).map(([from, to]) => ({
+  source: `/blog/${from}`,
+  destination: to.startsWith("/") ? to : `/blog/${to}`,
+  permanent: true,
+}));
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -24,36 +35,8 @@ const nextConfig = {
         permanent: true,
       },
       { source: "/for/local-business", destination: "/for", permanent: true },
-      // Both pages targeted the same ChatGPT SEO tool(s) buying intent. GSC
-      // discovered the roundup while the singular variant remained unknown,
-      // so consolidate signals instead of asking Google to index duplicates.
-      {
-        source: "/blog/chatgpt-seo-tool-comparison",
-        destination: "/blog/chatgpt-seo-tools-roundup",
-        permanent: true,
-      },
-      // These two pages targeted the same SEO-vs-GEO comparison intent.
-      // Keep the older URL that already belongs to the GEO pillar topology,
-      // and consolidate the later blog duplicate into it.
-      {
-        source: "/blog/seo-vs-geo",
-        destination: "/compare/geo-vs-seo",
-        permanent: true,
-      },
-      // This article and the established buyer's guide answer the same
-      // AI-visibility/GEO software-selection intent. Keep the indexed guide.
-      {
-        source: "/blog/ai-visibility-geo-software",
-        destination: "/blog/best-ai-visibility-tools",
-        permanent: true,
-      },
-      // Generator searches are better served by the indexed, interactive
-      // tool than by a second article that explains how generators work.
-      {
-        source: "/blog/json-ld-generator",
-        destination: "/tools/schema-generator",
-        permanent: true,
-      },
+      // 博客同意图重复页的合并(2026-09-24 起统一由 content/retired.json 驱动)
+      ...retiredRedirects,
     ];
   },
   async headers() {

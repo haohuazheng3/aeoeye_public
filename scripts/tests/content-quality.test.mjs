@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
-import { checkPost } from '../verify-content-quality.mjs';
+import { checkPost, offTopicReason, RETIRED_SLUGS } from '../verify-content-quality.mjs';
 
 const hash = (raw) => crypto.createHash('sha256').update(raw).digest('hex');
 const source = 'https://example.com/official-pricing';
@@ -86,4 +86,26 @@ test('fabricated artifact path fails even with a filled evidence form', () => {
 });
 test('verified asset file, public link, method and limits satisfy mechanical checks', () => {
   const raw = article('Example [results](/research/results.json) '+source, 'AI citation research dataset'); const e = evidence(raw, { kind:'research-asset', artifacts:[{path:'/research/results.json',description:'A real data release with source records and definitions.'}], methodology:'A sufficiently detailed method describing inputs, sampling, processing, calculation, checks and reproducibility.', limitations:'A small convenience sample that cannot describe the whole industry.' }); assert.deepEqual(check(raw,{evidence:e,artifactExists:()=>true}),[]);
+});
+
+// ---- 2026-09-24 选题边界:跑题页在门禁就被拦住,定时管线不能再把它们写回来 ----
+test('retired slugs cannot be re-created even with full evidence', () => {
+  assert.ok(RETIRED_SLUGS.has('zoom-pricing') && RETIRED_SLUGS.has('profound-ai-review'));
+  const raw = article();
+  const out = checkPost({ file: 'content/blog/zoom-pricing.mdx', raw, evidence: evidence(raw) }).join('\n');
+  assert.match(out, /retired on 2026-09-24/);
+});
+test('generic SaaS and SEO-tool pricing/review pages are off-topic', () => {
+  for (const slug of ['slack-pricing', 'midjourney-pricing', 'semrush-review', 'ahrefs-alternatives', 'grammarly-review', 'best-keyword-research-tools']) assert.ok(offTopicReason(slug), slug);
+});
+test('AI assistant plans, features and assistant-vs-assistant pages are off-topic', () => {
+  for (const slug of ['claude-max-pricing', 'chatgpt-projects', 'gemini-gems', 'grok-vs-gemini', 'chatgpt-review', 'what-is-fine-tuning', 'prompt-engineer-salary']) assert.ok(offTopicReason(slug), slug);
+});
+test('AEO tools, engine search behaviour and AI-visibility topics stay allowed', () => {
+  for (const slug of ['peec-ai-pricing', 'profound-vs-semrush', 'perplexity-vs-chatgpt', 'how-does-perplexity-work', 'does-chatgpt-cite-wikipedia', 'ai-citation-freshness-metrics', 'aeo-vs-seo', 'google-ai-mode-vs-chatgpt', 'how-to-get-recommended-by-chatgpt']) assert.equal(offTopicReason(slug), null, slug);
+});
+test('a new off-topic page fails the gate with the reason spelled out', () => {
+  const raw = article('Slack costs $8.75 per seat. See [official pricing](' + source + ').', 'Slack Pricing');
+  const out = checkPost({ file: 'content/blog/slack-pricing-2027.mdx', raw, evidence: evidence(raw) }).join('\n');
+  assert.match(out, /off-topic for AEOeye/);
 });
