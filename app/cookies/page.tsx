@@ -31,8 +31,8 @@ export default function CookiesPage() {
             <strong>Preferences.</strong> Remember choices like your cookie consent.
           </li>
           <li>
-            <strong>Analytics.</strong> Privacy-friendly, aggregate analytics (Vercel Analytics, Cloudflare Web
-            Analytics) that help us improve the Service. These don’t identify you personally.
+            <strong>Analytics.</strong> Privacy-friendly, aggregate product analytics and first-party events that help
+            us improve the Service. These don’t identify you personally.
           </li>
         </ul>
 

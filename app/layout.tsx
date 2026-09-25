@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Poppins } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BgAurora } from "@/components/bg-aurora";
@@ -96,7 +95,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EventTracker />
         <FlowGlanceIdentity />
         <JsonLd data={[organizationJsonLd(), websiteJsonLd(), softwareJsonLd()]} />
-        <Analytics />
         {cf ? (
           <script
             defer
