@@ -1,0 +1,125 @@
+---
+title: "AI Citation URL Normalization Test Suite: 20 Cases With Expected Keys"
+description: "Run a deterministic, evidence-preserving URL normalization regression suite for AI citation audits, with 20 synthetic adversarial cases and byte-matched output."
+date: "2026-09-26"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI citation URL normalization", "URL normalization test suite", "AI search audit", "citation deduplication", "AEO measurement"]
+faqs: [{"q":"Does this test suite crawl URLs or follow redirects?","a":"No. It parses URL syntax only. It neither makes network requests nor infers redirects, canonical links, mirror relationships, ownership, or content equivalence."},{"q":"What does a compare decision mean?","a":"It means the fixture produced a documented comparison key. It is not proof that two URLs identify the same document; reviewers still decide whether a grouping is appropriate for their study."},{"q":"Why are functional query parameters retained?","a":"Parameters such as lang, page, and file can select different content. The script drops only named tracking keys and preserves the rest so a useful distinction is not silently erased."},{"q":"Can I use these fixtures as real search-engine results?","a":"No. Every row is synthetic and adversarial. Use it to regression-test code and policy changes, then run a separately documented study on captured AI answers."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst organizing web source records for an AI citation URL normalization audit.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"RFC 3986 URI Generic Syntax","url":"https://www.rfc-editor.org/rfc/rfc3986"},{"label":"WHATWG URL Standard","url":"https://url.spec.whatwg.org/"},{"label":"RFC 6596 Canonical Link Relation","url":"https://www.rfc-editor.org/rfc/rfc6596"},{"label":"Google Search Central canonical guidance","url":"https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"},{"label":"Python urllib.parse documentation","url":"https://docs.python.org/3/library/urllib.parse.html"}]
+---
+
+The fastest safe way to change a URL-normalization policy is to run a regression corpus before recalculating citation counts. This page ships 20 synthetic, adversarial cases and an executable Python implementation whose output must byte-match `expected.csv`. It validates syntax-level transformations; it is **not a live crawl study** and says nothing about what an AI engine actually retrieved.
+
+## Table of contents
+
+- [What does this suite validate?](#what-does-this-suite-validate)
+- [What evidence must normalization preserve?](#what-evidence-must-normalization-preserve)
+- [How are the 20 cases designed?](#how-are-the-20-cases-designed)
+- [What is in the runnable package?](#what-is-in-the-runnable-package)
+- [How do you run the exact byte-match test?](#how-do-you-run-the-exact-byte-match-test)
+- [How should you extend the corpus?](#how-should-you-extend-the-corpus)
+- [What are the limitations and sources?](#what-are-the-limitations-and-sources)
+- [FAQ](#faq)
+
+## What does this suite validate?
+
+The suite proves that a small, documented transformation pipeline behaves consistently: scheme and host case are lowercased, documented default ports are removed, dot segments are resolved, fragments leave the comparison key, and named tracking parameters are dropped. It also verifies that malformed or unsupported inputs are rejected rather than guessed.
+
+The output retains `raw_url`, emits `normalized_key`, and labels each row `normalized`, `relative-resolved`, or `rejected`. A `compare` label means “eligible for a comparison key”; `review` flags a row with a functional or potentially meaningful distinction. Neither label asserts that pages are duplicates.
+
+This boundary matters in AI search measurement. If an answer cites `/guide?lang=fr` and another cites `/guide?lang=en`, collapsing both into `/guide` can change a language-level visibility result. Conversely, retaining every `utm_*` value can split one source into artificial variants. A regression fixture makes that trade-off visible before it reaches a report.
+
+*Header image attribution: [ThisIsEngineering on Pexels](https://www.pexels.com/@thisisengineering); illustrative only, not a test screenshot.*
+
+## What evidence must normalization preserve?
+
+Always preserve the URL exactly as exposed by the answer. The raw value is an observation, while the normalized key is a derived comparison aid. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) defines URI components and reference resolution; it does not authorize an analyst to replace observed evidence with a preferred URL.
+
+The script therefore applies narrow syntax rules only:
+
+1. Resolve a relative reference only when a base URL is supplied.
+2. Lowercase the HTTP(S) scheme and host; remove only HTTP `:80` and HTTPS `:443`.
+3. Remove dot segments, but preserve repeated slashes and non-default ports.
+4. Normalize percent-encoded unreserved characters while preserving reserved delimiters such as `%2F`.
+5. Remove fragments from the document key; keep them in the raw field.
+6. Drop only `utm_*`, `gclid`, `fbclid`, and `msclkid`; retain functional and unknown query keys.
+
+Redirects, canonical links, archives, mirrors, syndication, and ownership remain separate relationships for a later evidence model. [RFC 6596](https://www.rfc-editor.org/rfc/rfc6596) and [Google's canonical guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls) describe signals, not proof that two citations are interchangeable.
+
+![Reviewer comparing URL keys and preserved citation evidence in a research workspace.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+
+*Image attribution: “Reviewer comparing URL keys and preserved citation evidence in a research workspace,” photographed by [Katerina Holmes on Pexels](https://www.pexels.com/@katerina-holmes). The image is illustrative, not a test screenshot.*
+
+## How are the 20 cases designed?
+
+The corpus is intentionally synthetic so a future run is reproducible and safe to publish. It covers the policy edges most likely to alter source counts:
+
+| Cases | Adversarial boundary | Expected handling |
+|---|---|---|
+| 01–04 | Case, default/non-default ports, dot segments | Normalize syntax; retain meaningful port |
+| 05–07 | Tracking-only and functional query keys | Drop named tracking; keep `lang` and `page` |
+| 08–11 | Reserved/unreserved percent encoding and repeated keys | Decode only safe characters; preserve meaning |
+| 12–14 | Fragments, parent path, repeated slash | Remove fragment; apply dot rule; do not collapse slash |
+| 15–16 | Relative references with a base URL | Resolve mechanically, never fetch |
+| 17–19 | Bad percent escape, bad port, FTP scheme | Reject without inference |
+| 20 | Functional plus tracking query | Keep functional `ref`, drop `fbclid` |
+
+The expected file is a contract, not a claim about the web. If a policy owner decides that `ref=partner` is tracking in their specific dataset, that is a documented policy change: update the fixture, explain the rationale, and review its impact on historical counts. Do not silently regenerate expected output.
+
+## What is in the runnable package?
+
+Download or inspect the complete asset through its [README](/resources/ai-citation-url-normalization-test-suite/README.md). It contains:
+
+- [`normalize_urls.py`](/resources/ai-citation-url-normalization-test-suite/normalize_urls.py): dependency-free Python 3 implementation using `urllib.parse`.
+- [`cases.csv`](/resources/ai-citation-url-normalization-test-suite/cases.csv): 20 explicitly synthetic/adversarial inputs with optional bases.
+- [`expected.csv`](/resources/ai-citation-url-normalization-test-suite/expected.csv): deterministic output, including keys, statuses, decisions, and notes.
+- [`README.md`](/resources/ai-citation-url-normalization-test-suite/README.md): scope, command, and interpretation rules.
+
+The package deliberately has no HTTP client. [Python's `urllib.parse` documentation](https://docs.python.org/3/library/urllib.parse.html) describes parsing primitives, but parser success is not evidence that a URL is reachable. A later retrieval stage can record status codes and redirect hops as separate provenance events.
+
+## How do you run the exact byte-match test?
+
+From the resource directory, run:
+
+```sh
+python3 normalize_urls.py cases.csv > generated.csv
+cmp --silent generated.csv expected.csv
+```
+
+The first command writes a fixed header and one output row per input. The second compares bytes, including row order and line endings. Exit code `0` means the implementation and expected contract agree; a nonzero result requires inspecting the diff before changing either file. A rejected row is still a successful test outcome: it demonstrates that malformed input was not turned into a plausible-looking key.
+
+For audit work, save the policy version, Python version, fixture hash, and command beside the citation export. Then report normalized counts separately from raw URL counts. That lets a reviewer reproduce both the evidence-facing denominator and the comparison-facing grouping.
+
+## How should you extend the corpus?
+
+Add a new row when a real study reveals a transformation boundary, but keep the example synthetic and document why it matters. Add the expected row only after deciding the policy, then run the byte comparison. Include cases for new schemes only if the project explicitly supports them; this package intentionally rejects non-HTTP(S) references.
+
+Do not add redirect destinations, canonical targets, or guessed aliases to `normalized_key`. Capture those as additional fields in a separate retrieval/provenance artifact. That separation prevents a later policy edit from rewriting what the answer originally cited.
+
+## What are the limitations and sources?
+
+This is a regression tool, not a URL equivalence oracle. It cannot prove reachability, redirects, canonical declarations, identical content, authorship, freshness, ownership, or what an AI engine saw. Percent encoding, internationalized hostnames, credentials, unusual schemes, and application-specific query semantics may require a stricter project policy and human review.
+
+The syntax references are [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986), the [WHATWG URL Standard](https://url.spec.whatwg.org/), and Python's [`urllib.parse`](https://docs.python.org/3/library/urllib.parse.html). Canonical links are contextualized by [RFC 6596](https://www.rfc-editor.org/rfc/rfc6596) and [Google Search Central](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls). The fixture values, expected keys, and decisions are AEOeye's synthetic test contract, not observations from a live engine or website.
+
+## FAQ
+
+### Does this test suite crawl URLs or follow redirects?
+
+No. It performs no network request. Redirect histories, response status, canonical declarations, and archive captures must be collected and reported as separate evidence.
+
+### What does a compare decision mean?
+
+It means the syntax pipeline produced a key suitable for a documented comparison. It does not mean the source is duplicate, canonical, reachable, or content-equivalent.
+
+### Why retain functional query parameters?
+
+Parameters such as `lang`, `page`, and `file` can select different documents or representations. The conservative default is to preserve them until a study-specific policy proves they are non-functional.
+
+### Can I use these fixtures as real AI search results?
+
+No. They are synthetic adversarial inputs for regression testing. Run a separately documented capture study when you need claims about engine citations, recommendations, or source behavior.
+
+If your audit needs a repeatable view of which sources an AI engine cites for buyer questions, [start a free AEOeye audit](/#audit) and retain the raw citation evidence alongside any normalized comparison key.

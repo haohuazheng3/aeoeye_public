@@ -1,0 +1,1 @@
+Synthetic fixture only. IDs are intentionally small and inspectable for validator demonstrations.

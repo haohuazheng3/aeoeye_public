@@ -1,0 +1,26 @@
+entity_id,canonical_name,entity_type,alias,alias_type
+org-aurora,Aurora Metrics,organization,Aurora Metrics,canonical
+org-aurora,Aurora Metrics,organization,aurora-metrics.com,domain
+org-aurora,Aurora Metrics,organization,AuroraMetrics,spacing_variant
+org-aurora,Aurora Metrics,organization,AMetrics,abbreviation
+org-aurora,Aurora Metrics,organization,Aurora,collision_fixture
+org-aurora-holdings,Aurora Metrics Holdings,organization,Aurora Metrics Holdings,canonical
+org-aurora-holdings,Aurora Metrics Holdings,organization,Aurora Holdings,short_name
+org-aurora-holdings,Aurora Metrics Holdings,organization,Aurora,collision_fixture
+prod-aurora,Aurora Metrics Cloud,product,Aurora Metrics Cloud,canonical
+prod-aurora,Aurora Metrics Cloud,product,Aurora Cloud,short_name
+org-bridge,Bridge Signal,organization,Bridge Signal,canonical
+org-bridge,Bridge Signal,organization,bridge-signal.io,domain
+org-bridge,Bridge Signal,organization,BridgeSignal,spacing_variant
+org-bridge-labs,Bridge Signal Labs,organization,Bridge Signal Labs,canonical
+org-bridge-labs,Bridge Signal Labs,organization,Bridge Labs,short_name
+org-cobalt,Cobalt Desk,organization,Cobalt Desk,canonical
+org-cobalt,Cobalt Desk,organization,cobalt-desk.com,domain
+org-cobalt,Cobalt Desk,organization,CobaltDesk,spacing_variant
+org-northstar,Northstar Research,organization,Northstar Research,canonical
+org-northstar,Northstar Research,organization,northstar-research.org,domain
+org-northstar,Northstar Research,organization,North Star Research,spacing_variant
+org-northstar,Northstar Research,organization,Northstar,collision_fixture
+org-northstar-marine,Northstar Marine,organization,Northstar Marine,canonical
+org-northstar-marine,Northstar Marine,organization,Northstar Marine Ltd,legal_name
+org-northstar-marine,Northstar Marine,organization,Northstar,collision_fixture

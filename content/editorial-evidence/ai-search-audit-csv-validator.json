@@ -1,0 +1,31 @@
+{
+  "contentSha256": "ed0394fc1d6ff4359b65ae8fc876b5a92b542a468471da7fb2bbf8b34d13d820",
+  "reviewedAt": "2026-09-26",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Validate an answer-level AI search audit export before computing mention, recommendation, availability, and citation denominators.",
+    "connection": "The validator protects the measurement layer behind AEOeye-style brand visibility and recommendation audits from missingness and type errors."
+  },
+  "assessment": "The page fulfills its validator promise with populated valid and invalid CSV fixtures, deterministic error output, and an explicit boundary between an observed zero and an unavailable answer. It does not present the fixture as provider performance or source-support evidence.",
+  "sources": [
+    {"url":"https://www.rfc-editor.org/rfc/rfc4180","checkedAt":"2026-09-26","supports":"The record, header, quoting, and text/csv conventions discussed for the fixture format."},
+    {"url":"https://docs.python.org/3/library/csv.html","checkedAt":"2026-09-26","supports":"The standard-library DictReader behavior used by the dependency-free validator."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-26","supports":"The distinction among entities, activities, and agents used to explain the wider provenance chain."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-09-26","supports":"The need to document context, intended use, measurement limits, and uncertainty."}
+  ],
+  "checks": [
+    "Ran the validator against valid-sample.csv and confirmed exit code zero with four rows and no reported errors.",
+    "Ran the invalid fixture, confirmed exit code one, and compared its JSON report byte-for-byte with expected-report.json.",
+    "Read the final opening, field table, commands, limitations, FAQ, source links, and resource links and corrected an inaccurate stock-photo description and attribution."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-search-audit-csv-validator/validate_audit.py","description":"Dependency-free validator for required fields, IDs, status, booleans, counts, and unavailable-answer invariants."},
+    {"path":"/resources/ai-search-audit-csv-validator/valid-sample.csv","description":"Populated four-row synthetic fixture that exercises available answers and explicit missingness."},
+    {"path":"/resources/ai-search-audit-csv-validator/invalid-sample.csv","description":"Populated synthetic failure fixture covering duplicate IDs, invalid booleans, counts, and unavailable values."},
+    {"path":"/resources/ai-search-audit-csv-validator/expected-report.json","description":"Deterministic checked error report used for a byte-level regression assertion."},
+    {"path":"/resources/ai-search-audit-csv-validator/README.md","description":"Runnable commands, scope, exit-code contract, and explicit synthetic-data disclosure."}
+  ],
+  "methodology": "The editorial review executed the Python 3 validator on both populated fixtures, recorded the valid and invalid exit branches, compared the invalid JSON bytes with the committed expectation, recomputed the four-row denominator examples, and opened every cited primary source and linked artifact.",
+  "limitations": "The validator checks internal CSV states only. It cannot prove faithful capture, representative prompts, correct brand coding, citation support, provider identity, or causal visibility changes."
+}

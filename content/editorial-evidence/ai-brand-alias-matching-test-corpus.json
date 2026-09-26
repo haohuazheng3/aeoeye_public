@@ -1,0 +1,31 @@
+{
+  "contentSha256": "6612f5e8a85057645a9c6092ace1fa3cc91e74f1bfca5c5a160d2f06f35985e5",
+  "reviewedAt": "2026-09-26",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Test brand-mention entity resolution without merging products, parents, subsidiaries, namesakes, or ambiguous aliases.",
+    "connection": "Brand identity matching determines the numerator for AI visibility, recommendation, and citation metrics produced by AEO audits."
+  },
+  "assessment": "The page provides a runnable twenty-four-case synthetic corpus and narrow reference matcher. It exercises exact, normalized, ambiguous, and no-match branches while preserving separate entity IDs for products, parents, subsidiaries, and namesakes instead of maximizing match rate.",
+  "sources": [
+    {"url":"https://unicode.org/reports/tr15/","checkedAt":"2026-09-26","supports":"Unicode normalization forms and the warning that compatibility normalization can remove distinctions."},
+    {"url":"https://docs.python.org/3/library/unicodedata.html","checkedAt":"2026-09-26","supports":"The Unicode database and normalization function used by the matcher."},
+    {"url":"https://schema.org/Organization","checkedAt":"2026-09-26","supports":"The organization vocabulary discussed as one possible identity evidence source rather than proof."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-26","supports":"The provenance concepts used to retain raw observed strings and later matching decisions."}
+  ],
+  "checks": [
+    "Ran all twenty-four cases to a separate actual.csv and confirmed a byte-for-byte match with the immutable expected.csv fixture.",
+    "Corrected the original self-comparison workflow and added four cases that genuinely execute the NFKC, case-fold, and separator-normalization branch.",
+    "Read every fixture row and final section, verified ambiguous aliases remain review, checked parent and product IDs stay separate, and corrected the second image's author and literal alt text."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-brand-alias-matching-test-corpus/aliases.csv","description":"Populated synthetic entity registry with canonical, domain, short-name, legal-name, and collision aliases."},
+    {"path":"/resources/ai-brand-alias-matching-test-corpus/cases.csv","description":"Twenty-four populated synthetic observations spanning exact, normalized, ambiguous, compound, and undeclared names."},
+    {"path":"/resources/ai-brand-alias-matching-test-corpus/match_aliases.py","description":"Dependency-free exact-first matcher with a unique normalized-alias fallback and explicit review state."},
+    {"path":"/resources/ai-brand-alias-matching-test-corpus/expected.csv","description":"Deterministic checked output used for a true separate-file byte comparison."},
+    {"path":"/resources/ai-brand-alias-matching-test-corpus/README.md","description":"Run contract, synthetic-data warning, and guidance for evidence-backed extensions."}
+  ],
+  "methodology": "The review generated a separate output file, compared it byte-for-byte, inspected all twenty-four observed names and entity IDs, forced actual normalized-branch coverage with full-width, case, spacing, and punctuation variants, and confirmed ambiguous exact and normalized keys never receive a guessed entity.",
+  "limitations": "The corpus is not a real entity benchmark. It cannot infer legal identity, ownership, redirects, multilingual equivalence, answer context, provider tokenization, or whether a mention is a recommendation."
+}

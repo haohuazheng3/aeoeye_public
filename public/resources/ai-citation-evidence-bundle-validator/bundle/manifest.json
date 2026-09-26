@@ -1,0 +1,12 @@
+{
+  "manifest_version": "1.0",
+  "bundle_id": "synthetic-ai-citation-evidence-001",
+  "files": [
+    {"path": "evidence/answers.csv", "bytes": 124, "sha256": "33acf8b6a6196ae67fe3268902065457aaad3f8791e53cd068ddeff61fb51837"},
+    {"path": "evidence/citations.csv", "bytes": 143, "sha256": "ec643a9a1e672216b584b5db9c8cca45cbc39bf47b09f7cb4c260f36bec6fd8c"},
+    {"path": "evidence/notes.txt", "bytes": 98, "sha256": "9bbc95ab319f47c9f1bd71d4fcaca296b4de06eeb22da74bc01ad3596ade0d02"}
+  ],
+  "references": [
+    {"source": "evidence/answers.csv", "field": "citation_id", "target": "evidence/citations.csv", "id_field": "citation_id"}
+  ]
+}

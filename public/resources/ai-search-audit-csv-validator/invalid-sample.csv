@@ -1,0 +1,5 @@
+run_id,prompt_id,engine,answer_status,brand_mentioned,brand_recommended,citation_count
+run-101,prompt-101,synthetic-engine,available,true,false,-1
+run-101,prompt-102,synthetic-engine,available,yes,false,0
+run-103,prompt-103,synthetic-engine,unavailable,false,false,0
+run-104,prompt-104,synthetic-engine,available,true,,1

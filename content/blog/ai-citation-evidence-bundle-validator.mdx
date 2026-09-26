@@ -1,0 +1,115 @@
+---
+title: "AI Citation Evidence Bundle Validator: Verify Files, Hashes, and References"
+description: "A runnable, synthetic fixture for checking that an AI citation evidence handoff still contains the files, bytes, hashes, and IDs it claims to contain."
+date: "2026-09-26"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI citation evidence", "evidence bundle validator", "SHA-256 manifest", "AEO audit handoff", "AI search audit integrity"]
+faqs: [{"q":"What does this validator prove?","a":"It proves that the listed fixture files exist at safe relative paths, have the manifest's byte sizes and SHA-256 values, and that referenced citation IDs close across the fixture tables."},{"q":"Does a passing hash prove an AI answer is true?","a":"No. A hash detects byte changes after a file was recorded. It does not prove the answer, source, annotation, sampling, or interpretation is correct."},{"q":"Is the downloadable package live AI research?","a":"No. The package is completely synthetic and exists to demonstrate a repeatable integrity check. Replace it with your authorized evidence before using the workflow for research."},{"q":"Can the validator repair a changed package?","a":"No. It reports the mismatch and exits nonzero. A reviewer should investigate, preserve the original copy, and publish a new manifest when a legitimate correction is made."}]
+image: {"url":"https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Person writing in a notebook beside printed charts on a desk.","photographer":"Lukas","photographerUrl":"https://www.pexels.com/@goumbik"}
+images: [{"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Developer reviewing structured files and integrity checks on a computer.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}]
+sources: [{"label":"NIST FIPS 180-4 Secure Hash Standard","url":"https://doi.org/10.6028/NIST.FIPS.180-4"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"RFC 8785 JSON Canonicalization Scheme","url":"https://www.rfc-editor.org/rfc/rfc8785"},{"label":"Python hashlib documentation","url":"https://docs.python.org/3/library/hashlib.html"},{"label":"Python pathlib documentation","url":"https://docs.python.org/3/library/pathlib.html"}]
+---
+
+The safest AI citation handoff is one a second person can check without trusting the sender’s folder view. Download the [complete AI citation evidence bundle validator README](/resources/ai-citation-evidence-bundle-validator/README.md), run its Python command, and compare the generated JSON with the released expected report. The package is deliberately a **fully synthetic fixture**: it is not a live model test, does not measure a real brand, and does not support a claim about any search engine.
+
+## Table of contents
+
+- [What does integrity validation prove?](#what-does-integrity-validation-prove)
+- [What can it not prove?](#what-can-it-not-prove)
+- [What is the manifest contract?](#what-is-the-manifest-contract)
+- [What is inside the complete fixture?](#what-is-inside-the-complete-fixture)
+- [How do you run the exact check?](#how-do-you-run-the-exact-check)
+- [How should a team use the result?](#how-should-a-team-use-the-result)
+- [Limitations and sources](#limitations-and-sources)
+- [FAQs](#faqs)
+
+## What does integrity validation prove?
+
+It proves that a package still matches a declared file inventory at the time of checking. For every listed evidence file, the validator checks a safe relative path, existence, byte count, and SHA-256 digest. It also checks that every `citation_id` in the answer fixture exists in the citation fixture.
+
+That distinction matters in AI search work. A report may refer to `ans-001`, a source URL, an annotation, and a generated metric. If a handoff silently drops a source file or changes a row, the metric may still render while its evidence chain has changed. A deterministic inventory makes that change visible before a reviewer interprets the report.
+
+SHA-256 is a digest algorithm specified by NIST’s Secure Hash Standard ([FIPS 180-4](https://doi.org/10.6028/NIST.FIPS.180-4)). The validator uses Python’s standard-library `hashlib`, reads bytes without normalization, and compares the resulting lowercase hexadecimal digest with the manifest. It does not “trust” file names as identity.
+
+![Person writing in a notebook beside printed charts on a desk.](https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Photo by [Lukas](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com/).*
+
+## What can it not prove?
+
+A passing report does not prove that an AI answer was accurate, that a cited page supported it, or that a reviewer labeled a mention consistently. It also cannot prove that the package is complete: a manifest can omit an important file and still be internally consistent. Hashes identify byte changes, not truth or authorship.
+
+The fixture therefore keeps integrity and research validity separate. Provenance concepts from [W3C PROV-O](https://www.w3.org/TR/prov-o/) can describe which activity generated an artifact, but provenance metadata does not make a synthetic observation live evidence. Record engine, prompt, account, locale, collection time, and failure states separately, and state which fields are unknown rather than inferring them.
+
+## What is the manifest contract?
+
+The manifest is a small JSON object with `manifest_version`, a human-readable `bundle_id`, a `files` array, and a `references` array. Each file entry declares `path`, `bytes`, and `sha256`; each reference declares a source table, source ID field, target table, and target ID field.
+
+The validator accepts only relative paths composed of ordinary filename characters. Absolute paths and traversal segments such as `../outside.csv` are rejected. Duplicate paths are errors, even if the duplicate entries happen to carry the same digest. The manifest itself is excluded from its own file list so a reviewer can update a release manifest without creating a circular hash.
+
+The reference rule is intentionally narrow. In this fixture, `answers.csv.citation_id` must be found in `citations.csv.citation_id`. It does not guess relationships from URLs, fuzzy-match names, follow redirects, or infer canonical pages. Those are separate analytical decisions and should have their own tests and evidence.
+
+## What is inside the complete fixture?
+
+The [downloadable resource README](/resources/ai-citation-evidence-bundle-validator/README.md) documents an executable `validate_bundle.py`, the expected JSON report, and a populated `bundle/` directory:
+
+| File | Purpose |
+| --- | --- |
+| [`bundle/manifest.json`](/resources/ai-citation-evidence-bundle-validator/bundle/manifest.json) | Version, inventory, byte sizes, hashes, and ID relationship |
+| [`bundle/evidence/answers.csv`](/resources/ai-citation-evidence-bundle-validator/bundle/evidence/answers.csv) | Two synthetic answer records and citation references |
+| [`bundle/evidence/citations.csv`](/resources/ai-citation-evidence-bundle-validator/bundle/evidence/citations.csv) | Two synthetic citation records keyed by `citation_id` |
+| [`bundle/evidence/notes.txt`](/resources/ai-citation-evidence-bundle-validator/bundle/evidence/notes.txt) | Plain-text scope note identifying the fixture as synthetic |
+| [`validate_bundle.py`](/resources/ai-citation-evidence-bundle-validator/validate_bundle.py) | Dependency-free integrity and reference validator |
+| [`expected-report.json`](/resources/ai-citation-evidence-bundle-validator/expected-report.json) | Deterministic valid report used as the review baseline |
+
+The CSV rows are intentionally small so a reviewer can inspect every ID. The `example.com` URLs are placeholders, not source evidence. The package is useful as a contract example: replace the files with authorized research artifacts, regenerate the manifest from exact bytes, and preserve the generated release separately.
+
+## How do you run the exact check?
+
+From the resource directory, run:
+
+```sh
+python3 validate_bundle.py bundle --report /tmp/citation-bundle-report.json
+cmp /tmp/citation-bundle-report.json expected-report.json
+```
+
+The unmodified fixture exits `0`, reports three checked files, and produces the same bytes as `expected-report.json`. The comparison is deliberately outside the validator: the validator checks the package; `cmp` checks that the published baseline is the report reviewers expect.
+
+![Developer reviewing code and integrity checks on a computer.](https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+*Photo by [ThisIsEngineering](https://www.pexels.com/@thisisengineering) on [Pexels](https://www.pexels.com/). This editorial image is illustrative, not evidence from the synthetic bundle.*
+
+To test failure without overwriting the baseline, copy the bundle to a temporary directory and append one byte to `notes.txt`. The copied package must exit nonzero because both its byte count and SHA-256 digest differ. Its report should differ from the baseline, while the original `bundle/` and `expected-report.json` remain unchanged. A failure is evidence of a changed handoff, not permission to edit the manifest until the warning disappears.
+
+## How should a team use the result?
+
+Use the validator at three handoff points: immediately after export, when attaching the package to a report, and when a reviewer downloads it. Keep the original release read-only where practical and store the command, interpreter version, UTC check time, and report alongside the review record.
+
+When a legitimate correction is needed, create a new bundle version. Explain which file changed, why it changed, whether derived metrics were recomputed, and whether old results remain comparable. Do not replace a failed package in place; silent replacement destroys the audit trail the manifest is meant to protect.
+
+For a real AI visibility study, pair this file-level check with a protocol, prompt IDs, answer snapshots, source captures permitted for redistribution, annotation rules, and an analysis script. A manifest can show that those bytes were retained; it cannot establish that the sample was unbiased or the conclusion was supported. That honest boundary is what makes a handoff useful to an AEO analyst.
+
+## Limitations and sources
+
+This is a documentation-based engineering guide and runnable synthetic example, not a hands-on evaluation of a live AI service. The implementation uses Python `pathlib` for filesystem paths and `hashlib` for SHA-256; consult the [pathlib](https://docs.python.org/3/library/pathlib.html) and [hashlib](https://docs.python.org/3/library/hashlib.html) references for runtime behavior. JSON serialization here is a report format, not a claim that every evidence file follows a canonical serialization. If byte-stable JSON signatures matter, [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785) describes a canonicalization scheme.
+
+The validator does not unpack archives, resolve symlinks, inspect Git history, fetch URLs, or authenticate the person who supplied a package. It also does not validate CSV semantics beyond the declared ID relationship. Add independent checks for encoding, schema, timestamps, redaction, and authorization when your study requires them.
+
+## FAQs
+
+### What does this validator prove?
+
+It proves that the listed fixture files exist at safe relative paths, match their declared byte sizes and SHA-256 values, and have closed citation IDs.
+
+### Does a passing hash prove an AI answer is true?
+
+No. It only detects byte-level change after recording. Truth, source support, sampling, and annotation quality need separate review.
+
+### Is the downloadable package live AI research?
+
+No. Every record is synthetic, and the example URLs are placeholders. Use it to test mechanics, not to report engine performance.
+
+### Can the validator repair a changed package?
+
+No. It exits nonzero and reports the mismatch. Preserve the changed copy, investigate, and publish a new version if the correction is authorized.

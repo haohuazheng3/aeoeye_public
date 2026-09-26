@@ -1,0 +1,120 @@
+---
+title: "AI Brand Alias Matching Test Corpus: 24 Synthetic Entity Cases"
+description: "A runnable, synthetic 24-case corpus for exact and normalized AI brand alias matching, with review-safe ambiguity and parent/product boundaries."
+date: "2026-09-26"
+category: "AI Search"
+readingTime: "10 min read"
+keywords: ["AI brand alias matching", "entity resolution test corpus", "AEO measurement", "brand mention auditing"]
+faqs: [{"q":"What does this alias corpus test?","a":"It tests a narrow matching contract: exact aliases first, then Unicode NFKC and case-folded separator normalization. Unique results match; collisions stay review; undeclared names are no-match."},{"q":"Are the 24 cases real AI answers?","a":"No. All 24 observations and the alias registry are synthetic fixtures created for regression testing. They are not provider outputs, benchmark results, or evidence that any brand was recommended."},{"q":"Why keep products and parent organizations separate?","a":"A product mention and its parent mention answer different measurement questions. Merging them can inflate brand presence and recommendation rates, so this corpus gives them different entity IDs."},{"q":"Does a normalized match prove two entities are legally related?","a":"No. Normalization only makes a declared string comparable. It does not infer ownership, redirects, legal identity, language equivalence, or context; those decisions require separate evidence and review."}]
+image: {"url":"https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Two analysts reviewing structured brand identity records on a laptop.","photographer":"fauxels","photographerUrl":"https://www.pexels.com/@fauxels"}
+sources: [{"label":"Unicode Standard Annex #15 — Unicode Normalization Forms","url":"https://unicode.org/reports/tr15/"},{"label":"Python unicodedata documentation","url":"https://docs.python.org/3/library/unicodedata.html"},{"label":"Schema.org — Organization","url":"https://schema.org/Organization"},{"label":"W3C PROV-O provenance ontology","url":"https://www.w3.org/TR/prov-o/"}]
+---
+
+Counting a brand in an AI answer is not just a string-search problem. **This 24-case synthetic corpus gives you a small, executable boundary: accept an exact declared alias, accept a unique documented normalization, and send ambiguity to review.** It keeps parent organizations, products, subsidiaries, and namesakes distinct rather than making a convenient guess.
+
+This is a documentation-based engineering asset, not a live-provider experiment. Every alias and observation is synthetic. The included Python program is a transparent reference implementation for regression tests; its output is not a claim about AI retrieval, recommendation, or real-world company identity. Download the [complete runnable corpus README](/resources/ai-brand-alias-matching-test-corpus/README.md) and inspect the CSV files before adapting it.
+
+![Two analysts reviewing structured brand identity records on a laptop.](https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+
+Photo: [fauxels on Pexels](https://www.pexels.com/@fauxels). The image illustrates review work; it is not a screenshot of the fixture or an AI result.
+
+## Table of contents
+
+- [Why does alias resolution change visibility metrics?](#why-does-alias-resolution-change-visibility-metrics)
+- [What is the safe matching boundary?](#what-is-the-safe-matching-boundary)
+- [How are the 24 synthetic cases labeled?](#how-are-the-24-synthetic-cases-labeled)
+- [What is included in the runnable package?](#what-is-included-in-the-runnable-package)
+- [How do you reproduce the exact output?](#how-do-you-reproduce-the-exact-output)
+- [When should a reviewer intervene?](#when-should-a-reviewer-intervene)
+- [What are the limitations and sources?](#what-are-the-limitations-and-sources)
+- [FAQ](#faq)
+
+## Why does alias resolution change visibility metrics?
+
+Alias policy determines the numerator before you calculate mention, recommendation, or citation rates. If `Aurora Metrics Cloud` is silently counted as `Aurora Metrics Holdings`, a product result may inflate a parent-company metric. If `Northstar` is assigned to the first familiar company, a namesake can become a false positive.
+
+For an audit, preserve the raw observed string, the target entity ID, the matching rule, and the reviewer state. That provenance makes a later correction possible without rewriting the original answer. [W3C PROV-O](https://www.w3.org/TR/prov-o/) provides a useful vocabulary for describing entities, activities, and provenance; it does not prescribe this matcher or certify its labels.
+
+The practical consequence is simple: an uncertain row should not disappear into a zero or a match. Keep it in a review queue and report the denominator you used. A clean metric with hidden identity errors is less useful than a slightly smaller metric with auditable exclusions.
+
+## What is the safe matching boundary?
+
+The reference matcher uses two deliberately narrow passes. First, it looks for an exact byte-level alias in `aliases.csv`. If exactly one entity owns that alias, the result is `match`. Second, if there is no exact hit, it applies Unicode NFKC normalization, case folding, and removal of non-word separators; a normalized key is accepted only when one entity remains.
+
+Unicode normalization is a comparison aid, not identity evidence. [Unicode Standard Annex #15](https://unicode.org/reports/tr15/) explains normalization forms, and Python's [`unicodedata`](https://docs.python.org/3/library/unicodedata.html) exposes the implementation used here. Neither source says that two normalized strings represent the same organization.
+
+The boundary has three important brakes:
+
+1. Multiple entities sharing an exact or normalized key become `review`.
+2. An undeclared string becomes `no-match`; the program does not search the Web or infer redirects.
+3. A product and parent retain different IDs even when their names share words.
+
+![Student writing in a notebook beside a laptop during an online lesson.](https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+Photo: [Katerina Holmes on Pexels](https://www.pexels.com/@katerina-holmes). This is illustrative editorial photography, not evidence from the synthetic corpus.
+
+## How are the 24 synthetic cases labeled?
+
+The cases cover five useful groups: canonical names, domains and spacing variants, abbreviations and legal names, deliberately ambiguous names, and undeclared strings. `Aurora Metrics` and `Aurora Metrics Cloud` have separate IDs. `Aurora Metrics Holdings` is a parent fixture, while `Bridge Signal Labs` is a subsidiary fixture. These relationships are labels in a synthetic registry, not claims about real companies.
+
+The ambiguity cases are intentional. `Aurora` maps to two declared entities, and `Northstar` maps to two namesakes. The matcher returns `review` with an empty entity ID rather than selecting a winner. The final case, `aurora metrics!`, demonstrates that punctuation normalization can be safe when the normalized alias is unique; it is still only a string decision, not a legal or semantic conclusion.
+
+The CSV keeps expected decisions beside reviewer notes so a test runner can detect accidental policy drift. Change an alias, add an entity, or broaden normalization and the expected output should change in a reviewed commit—not silently during an aggregation job.
+
+## What is included in the runnable package?
+
+The [resource README](/resources/ai-brand-alias-matching-test-corpus/README.md) documents five files:
+
+| File | Purpose |
+| --- | --- |
+| [`aliases.csv`](/resources/ai-brand-alias-matching-test-corpus/aliases.csv) | Synthetic entity registry and declared aliases |
+| [`cases.csv`](/resources/ai-brand-alias-matching-test-corpus/cases.csv) | 24 synthetic observed names and expected intent |
+| [`match_aliases.py`](/resources/ai-brand-alias-matching-test-corpus/match_aliases.py) | Dependency-free exact/normalized reference matcher |
+| [`expected.csv`](/resources/ai-brand-alias-matching-test-corpus/expected.csv) | Frozen deterministic output for byte comparison |
+| [`README.md`](/resources/ai-brand-alias-matching-test-corpus/README.md) | Contract, run instructions, and extension guidance |
+
+The output columns expose `match_mode`, `decision`, `matched_entity_id`, and canonical name. That is enough to build a reviewer queue without losing why a row did not match. `review` is a workflow state, not a confidence score.
+
+## How do you reproduce the exact output?
+
+Run Python 3 from the resource directory:
+
+```bash
+cd public/resources/ai-brand-alias-matching-test-corpus
+python3 match_aliases.py --output actual.csv
+cmp expected.csv actual.csv
+```
+
+The first command generates an actual result from the two inputs and prints a pass line for all 24 cases. `cmp` then checks that the generated bytes equal the committed fixture; the matcher never overwrites `expected.csv`. In CI, pass a temporary output path with `--output` so the repository stays unchanged. The program uses only the Python standard library.
+
+The expected file is a contract for this baseline, not a universal answer key. If your project treats hyphens, accents, transliterations, or query parameters differently, add explicit cases and document the policy. Do not widen matching merely to increase hit rate.
+
+## When should a reviewer intervene?
+
+Review when a key has more than one owner, when an answer contains a parent and product phrase together, or when context is needed to distinguish namesakes. Capture the raw answer, prompt, engine, date, locale, and any visible URL alongside the case ID. Then record the evidence that would change the decision.
+
+Schema.org's [`Organization`](https://schema.org/Organization) type can help publish an organization's name and identifiers, but structured data is not proof that an observed answer string refers to that organization. Use it as one evidence source in a broader identity workflow, not as an automatic alias generator.
+
+## What are the limitations and sources?
+
+This corpus cannot test provider-specific tokenization, ranking, retrieval, redirects, ownership, legal identity, or multilingual equivalence. It does not measure accuracy because there is no real-world gold set. Synthetic expected labels only verify that the implementation preserves a declared policy.
+
+The method is grounded in [Unicode normalization](https://unicode.org/reports/tr15/), Python's [`unicodedata`](https://docs.python.org/3/library/unicodedata.html), [Schema.org Organization](https://schema.org/Organization), and [W3C PROV-O](https://www.w3.org/TR/prov-o/). These are sources for normalization, entity vocabulary, and provenance concepts; none endorses AEOeye's fixture or claims that an AI engine will recognize a brand.
+
+## FAQ
+
+### What does this alias corpus test?
+
+It tests exact aliases, unique normalized aliases, explicit ambiguity, and no-match behavior. It does not test live AI answers.
+
+### Are the 24 cases real AI answers?
+
+No. All cases and aliases are synthetic fixtures. Treat them as executable examples, never as market or provider evidence.
+
+### Why keep products and parent organizations separate?
+
+They are different measurement entities. Keeping separate IDs prevents a product mention from inflating a parent-brand visibility rate.
+
+### Does a normalized match prove legal identity?
+
+No. It proves only that one declared string survived this narrow comparison policy. Legal and contextual identity requires human-reviewed evidence.

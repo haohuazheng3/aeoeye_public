@@ -1,0 +1,25 @@
+case_id,observed_name,expected_entity_id,expected_decision,notes
+case-01,Aurora Metrics,org-aurora,match,exact canonical organization name
+case-02,aurora-metrics.com,org-aurora,match,exact domain alias
+case-03,Ａｕｒｏｒａ　Ｍｅｔｒｉｃｓ,org-aurora,match,NFKC fullwidth and spacing variant
+case-04,AMetrics,org-aurora,match,exact abbreviation alias
+case-05,Aurora Metrics Holdings,org-aurora-holdings,match,exact parent entity
+case-06,Aurora Holdings,org-aurora-holdings,match,exact short name
+case-07,Aurora Metrics Cloud,prod-aurora,match,exact product name
+case-08,Aurora Cloud,prod-aurora,match,exact product short name
+case-09,Bridge Signal,org-bridge,match,exact organization name
+case-10,bridge-signal.io,org-bridge,match,exact domain alias
+case-11,bridge signal,org-bridge,match,casefold spacing variant
+case-12,Bridge Signal Labs,org-bridge-labs,match,exact subsidiary name
+case-13,Bridge Labs,org-bridge-labs,match,exact short name
+case-14,Cobalt Desk,org-cobalt,match,exact canonical organization name
+case-15,cobalt-desk.com,org-cobalt,match,exact domain alias
+case-16,Cobalt Desk!,org-cobalt,match,punctuation variant
+case-17,Northstar Research,org-northstar,match,exact organization name
+case-18,Ｎｏｒｔｈｓｔａｒ　Ｒｅｓｅａｒｃｈ,org-northstar,match,NFKC fullwidth and spacing variant
+case-19,Northstar Marine Ltd,org-northstar-marine,match,legal-name alias
+case-20,Aurora,review,,ambiguous prefix is not an alias
+case-21,Northstar,review,,namesake collision remains review
+case-22,Aurora Metrics Cloud by Aurora Metrics,review,,product and parent mention are not merged
+case-23,Blue Lantern,no-match,,no declared alias
+case-24,aurora metrics!,review,,punctuation-only normalization creates no unique safe match

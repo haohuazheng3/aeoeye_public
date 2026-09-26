@@ -1,0 +1,7 @@
+[
+  {"prompt_id":"p-001","engine":"synthetic-engine-a","availability":true,"brand_mention":true,"recommendation_label":"recommended","rank":1,"citation_domains":["docs.example.com","review.example.org"]},
+  {"prompt_id":"p-001","engine":"synthetic-engine-b","availability":true,"brand_mention":false,"recommendation_label":"not_recommended","rank":null,"citation_domains":["docs.example.com"]},
+  {"prompt_id":"p-002","engine":"synthetic-engine-a","availability":true,"brand_mention":true,"recommendation_label":"qualified","rank":2,"citation_domains":["docs.example.com","news.example.net"]},
+  {"prompt_id":"p-002","engine":"synthetic-engine-b","availability":true,"brand_mention":true,"recommendation_label":"recommended","rank":3,"citation_domains":["news.example.net"]},
+  {"prompt_id":"p-003","engine":"synthetic-engine-a","availability":false,"brand_mention":false,"recommendation_label":"unavailable","rank":null,"citation_domains":[]}
+]

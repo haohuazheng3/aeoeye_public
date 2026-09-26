@@ -1,0 +1,25 @@
+case_id,observed_name,match_mode,decision,matched_entity_id,matched_canonical_name
+case-01,Aurora Metrics,exact,match,org-aurora,Aurora Metrics
+case-02,aurora-metrics.com,exact,match,org-aurora,Aurora Metrics
+case-03,Ａｕｒｏｒａ　Ｍｅｔｒｉｃｓ,normalized,match,org-aurora,Aurora Metrics
+case-04,AMetrics,exact,match,org-aurora,Aurora Metrics
+case-05,Aurora Metrics Holdings,exact,match,org-aurora-holdings,Aurora Metrics Holdings
+case-06,Aurora Holdings,exact,match,org-aurora-holdings,Aurora Metrics Holdings
+case-07,Aurora Metrics Cloud,exact,match,prod-aurora,Aurora Metrics Cloud
+case-08,Aurora Cloud,exact,match,prod-aurora,Aurora Metrics Cloud
+case-09,Bridge Signal,exact,match,org-bridge,Bridge Signal
+case-10,bridge-signal.io,exact,match,org-bridge,Bridge Signal
+case-11,bridge signal,normalized,match,org-bridge,Bridge Signal
+case-12,Bridge Signal Labs,exact,match,org-bridge-labs,Bridge Signal Labs
+case-13,Bridge Labs,exact,match,org-bridge-labs,Bridge Signal Labs
+case-14,Cobalt Desk,exact,match,org-cobalt,Cobalt Desk
+case-15,cobalt-desk.com,exact,match,org-cobalt,Cobalt Desk
+case-16,Cobalt Desk!,normalized,match,org-cobalt,Cobalt Desk
+case-17,Northstar Research,exact,match,org-northstar,Northstar Research
+case-18,Ｎｏｒｔｈｓｔａｒ　Ｒｅｓｅａｒｃｈ,normalized,match,org-northstar,Northstar Research
+case-19,Northstar Marine Ltd,exact,match,org-northstar-marine,Northstar Marine
+case-20,Aurora,exact,review,,
+case-21,Northstar,exact,review,,
+case-22,Aurora Metrics Cloud by Aurora Metrics,none,no-match,,
+case-23,Blue Lantern,none,no-match,,
+case-24,aurora metrics!,normalized,match,org-aurora,Aurora Metrics

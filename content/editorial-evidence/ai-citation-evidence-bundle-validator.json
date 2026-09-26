@@ -1,0 +1,34 @@
+{
+  "contentSha256": "fbe07f436571b9faf95a621f3b8feaf78d2164d59563d2b9945206eaf999ab1a",
+  "reviewedAt": "2026-09-26",
+  "kind": "research-asset",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "Verify that an AI citation audit handoff still contains the exact files, bytes, hashes, and internal IDs declared by its manifest.",
+    "connection": "Citation-evidence integrity supports reproducible review of the sources and answer records behind AEOeye-style brand citation audits."
+  },
+  "assessment": "The page ships a complete populated synthetic bundle, a deterministic valid report, and a validator that checks inventory integrity and citation-ID closure. It clearly separates byte integrity from truth, completeness, sampling quality, reviewer correctness, and live engine evidence.",
+  "sources": [
+    {"url":"https://doi.org/10.6028/NIST.FIPS.180-4","checkedAt":"2026-09-26","supports":"The SHA-256 algorithm family used for the bundle's byte-integrity digests."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-26","supports":"The provenance concepts used to describe artifacts, generating activities, and review handoffs."},
+    {"url":"https://www.rfc-editor.org/rfc/rfc8785","checkedAt":"2026-09-26","supports":"The separate JSON canonicalization scheme cited when byte-stable JSON signatures are required."},
+    {"url":"https://docs.python.org/3/library/hashlib.html","checkedAt":"2026-09-26","supports":"The standard-library SHA-256 implementation used by the validator."},
+    {"url":"https://docs.python.org/3/library/pathlib.html","checkedAt":"2026-09-26","supports":"The standard-library filesystem path handling used by the validator."}
+  ],
+  "checks": [
+    "Ran the original bundle and byte-compared its valid three-file JSON report with expected-report.json.",
+    "Copied the bundle to a temporary directory, appended one byte to notes.txt, and confirmed exit code one plus a report that differs from the immutable baseline.",
+    "Reviewed manifest hashes, byte sizes, citation-ID closure, safe path handling, source claims, limitations, and all reader-accessible resource links; added reference-path validation and accurate image metadata."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-citation-evidence-bundle-validator/validate_bundle.py","description":"Dependency-free validator for manifest version, paths, inventory bytes, SHA-256, duplicates, and internal references."},
+    {"path":"/resources/ai-citation-evidence-bundle-validator/bundle/manifest.json","description":"Populated synthetic manifest with three file entries and one declared citation-ID relationship."},
+    {"path":"/resources/ai-citation-evidence-bundle-validator/bundle/evidence/answers.csv","description":"Two populated synthetic answer rows referencing the citation table."},
+    {"path":"/resources/ai-citation-evidence-bundle-validator/bundle/evidence/citations.csv","description":"Two populated synthetic citation rows with example-domain placeholder URLs."},
+    {"path":"/resources/ai-citation-evidence-bundle-validator/bundle/evidence/notes.txt","description":"Plain-text fixture scope disclosure included in the hashed manifest inventory."},
+    {"path":"/resources/ai-citation-evidence-bundle-validator/expected-report.json","description":"Deterministic valid report used for byte-level baseline verification."},
+    {"path":"/resources/ai-citation-evidence-bundle-validator/README.md","description":"Baseline and tamper-test commands that preserve the published bundle and expected report."}
+  ],
+  "methodology": "The review recalculated every manifest file byte count and SHA-256 through the validator, checked citation-ID closure, compared the valid report bytes, ran a one-byte tamper test in a temporary copy, and tested a traversal-style reference so the validator rejects reference files outside the declared safe inventory.",
+  "limitations": "Integrity checks cannot prove factual accuracy, source support, authorship, authorization, redaction, bundle completeness, unbiased sampling, or correct annotations; the fixture contains no live provider observations."
+}

@@ -1,0 +1,113 @@
+---
+title: "AI Search Audit CSV Validator: Catch Broken Denominators Before Reporting"
+description: "Run a deterministic, dependency-free CSV contract check before calculating AI-search mentions, recommendations, availability, and citations."
+date: "2026-09-26"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["AI search audit CSV validator", "AEO measurement", "answer denominator", "citation audit data", "AI visibility QA"]
+faqs: [{"q":"What does this validator prove?","a":"It proves that a CSV meets a small mechanical contract: required columns exist, run IDs are unique, answer status is explicit, booleans are strict, citation counts are nonnegative, and unavailable rows do not carry measured values. It does not prove that an AI provider answer is accurate or that a citation supports a claim."},{"q":"Why must unavailable fields be blank?","a":"An unavailable answer is missing evidence, not a measured zero. Keeping mention, recommendation, and citation fields blank prevents a missing response from silently entering a rate denominator as a negative observation."},{"q":"Is the sample based on live ChatGPT or Perplexity results?","a":"No. Both CSV fixtures are synthetic teaching data, and the engine value is deliberately synthetic-engine. The package makes no live provider observation, benchmark, or population claim."},{"q":"How do I adapt the contract to my export?","a":"Keep the stable identifiers and status rule, then add fields only with an explicit codebook and tests. Update the validator and fixtures together, preserve raw evidence elsewhere, and review any denominator change before publishing a new rate."}]
+image: {"url":"https://images.pexels.com/photos/3861957/pexels-photo-3861957.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Analyst reviewing structured CSV records for an AI search audit.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
+sources: [{"label":"RFC 4180, Common Format and MIME Type for CSV Files","url":"https://www.rfc-editor.org/rfc/rfc4180"},{"label":"Python csv module","url":"https://docs.python.org/3/library/csv.html"},{"label":"W3C PROV-O provenance ontology","url":"https://www.w3.org/TR/prov-o/"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+An answer-level CSV should fail loudly before it becomes a percentage. This page ships a runnable Python validator and synthetic fixtures that catch missing columns, duplicate run IDs, ambiguous status values, invalid booleans, negative citation counts, and the particularly dangerous mistake of treating an unavailable answer as a measured zero. It is a reproducible data contract, not a live test of ChatGPT, Perplexity, Gemini, Google AI, or any other provider.
+
+## Table of contents
+
+- [What does the validator prove?](#what-does-the-validator-prove)
+- [Why do denominator failures matter?](#why-do-denominator-failures-matter)
+- [What is the field contract?](#what-is-the-field-contract)
+- [What is included and how was it tested?](#what-is-included-and-how-was-it-tested)
+- [How do you interpret a failure?](#how-do-you-interpret-a-failure)
+- [What are the limitations and sources?](#what-are-the-limitations-and-sources)
+- [Frequently asked questions](#frequently-asked-questions)
+
+![School desk with notebooks and stationery arranged for review work.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Photo by [Katerina Holmes](https://www.pexels.com/@katerina-holmes) on [Pexels](https://www.pexels.com).*
+
+## What does the validator prove?
+
+The validator proves only that each row conforms to a narrow, inspectable contract. It checks the header against seven required columns, identifies every row with a stable `run_id`, requires `available` or `unavailable`, accepts only `true` or `false` for measured booleans, and accepts only nonnegative integer citation counts for available answers.
+
+It also enforces the missingness boundary: an unavailable answer must leave mention, recommendation, and citation count blank. That rule protects the distinction between “we observed no citation” and “we did not obtain an answer.” The package uses Python’s standard-library `csv` reader, whose dialect and quoting behavior are documented in the [Python csv module](https://docs.python.org/3/library/csv.html), and follows the record-oriented spirit of [RFC 4180](https://www.rfc-editor.org/rfc/rfc4180).
+
+The validator does not inspect answer prose, judge whether a brand mention is genuine, decide whether a displayed URL supports a statement, or infer that two URLs are equivalent. Those require an annotation guide and preserved evidence. In provenance terms, the file is one recorded entity in a larger chain; [W3C PROV-O](https://www.w3.org/TR/prov-o/) is a useful vocabulary for documenting that chain.
+
+## Why do denominator failures matter?
+
+Denominator errors change the question while leaving a plausible-looking rate. If three answers are available and one is unavailable, a mention rate over three answers answers a different question from a rate over four rows. Turning the unavailable row into `brand_mentioned=false` quietly claims evidence that was never captured.
+
+The same distinction applies to citations. `citation_count=0` on an available answer is an observed zero under your coding protocol. A blank count on an unavailable answer is missingness. A validator cannot choose your study design, but it can stop these incompatible states from sharing one column without an explicit decision.
+
+This is why the fixtures include both cases. The valid sample has three available answers and one unavailable answer. The invalid sample includes a negative count, a duplicate identifier, a non-boolean `yes`, a missing measured boolean, and zero-like values on an unavailable row. None of these rows represents provider behavior; every value is synthetic and designed to exercise one failure mode.
+
+## What is the field contract?
+
+Use one row per captured answer run, not one row per brand impression. The minimal contract is:
+
+| Field | Rule | Why it matters |
+| --- | --- | --- |
+| `run_id` | Non-empty and unique | Joins evidence without double counting |
+| `prompt_id` | Prompt identifier | Retains the unit being asked |
+| `engine` | Provider/model label | Preserves comparison context |
+| `answer_status` | Exactly `available` or `unavailable` | Makes missingness explicit |
+| `brand_mentioned` | `true`/`false` when available; blank otherwise | Separates observation from missingness |
+| `brand_recommended` | `true`/`false` when available; blank otherwise | Keeps recommendation distinct from mention |
+| `citation_count` | Nonnegative integer when available; blank otherwise | Distinguishes zero citations from no answer |
+
+The table is intentionally smaller than a production audit. Add capture timestamp, locale, model mode, prompt version, raw-answer location, and reviewer fields in your own schema. Do not overwrite those details to make a fixture fit. NIST’s [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) is a governance reference for documenting intended use and uncertainty; it is not a recipe for a visibility score.
+
+## What is included and how was it tested?
+
+Download the [validator](/resources/ai-search-audit-csv-validator/validate_audit.py), [valid fixture](/resources/ai-search-audit-csv-validator/valid-sample.csv), [invalid fixture](/resources/ai-search-audit-csv-validator/invalid-sample.csv), [expected report](/resources/ai-search-audit-csv-validator/expected-report.json), and [README](/resources/ai-search-audit-csv-validator/README.md). The files use only Python’s standard library, so no package installation or API key is required.
+
+From the resource directory, run:
+
+```bash
+python3 validate_audit.py valid-sample.csv --output valid-report.json
+echo $?
+python3 validate_audit.py invalid-sample.csv --output actual-report.json
+echo $?
+diff -u expected-report.json actual-report.json
+```
+
+The valid command exits `0`. The invalid command exits nonzero and writes a deterministic JSON report whose errors are sorted by row, code, and field. The final `diff` must print nothing. This is a fixture test, not a live provider experiment: `synthetic-engine` is a label inside synthetic rows, and no network call occurs.
+
+## How do you interpret a failure?
+
+Fix the capture or transformation step that created the invalid row; do not delete the row merely to make the report green. A duplicate `run_id` may mean a retry was appended without an attempt identifier. An invalid boolean may mean a source uses `yes/no`, which requires a documented mapping rather than silent coercion. A value on an unavailable row usually means a default was filled in during export.
+
+After fixing the upstream data, rerun the validator and retain the report with the audit snapshot. If you intentionally revise the contract—for example, to allow `unknown`—change the codebook, test fixtures, and downstream rate definitions together. Preserve the original export so an analyst can explain why historical denominators changed.
+
+## What are the limitations and sources?
+
+CSV validation cannot establish that an answer was captured faithfully, that an engine label is correct, or that a citation is relevant. It cannot detect a brand alias missed by a reviewer, a provider retry hidden behind a UI, or a sampling frame that over-represents one prompt type. It also does not normalize URLs or adjudicate recommendation language. Those are separate, evidence-bearing tasks.
+
+Treat the report as a quality gate, not as an approval stamp. A green result says the fields are internally consistent; it says nothing about whether the prompt set represents the buying questions you care about. Keep the original bytes, capture timestamp, export command, locale, model or mode, and validator version beside each report. If a later analyst changes a label, they should be able to identify the exact input, rule, and contract revision that caused a rate to move. That audit trail makes corrections explainable instead of silently rewriting history.
+
+Use the output as a gate before aggregation, then retain raw answers, timestamps, locale, prompt version, model or mode, and reviewer decisions. Report the denominator beside every rate. The primary references are [RFC 4180](https://www.rfc-editor.org/rfc/rfc4180), the [Python csv documentation](https://docs.python.org/3/library/csv.html), [W3C PROV-O](https://www.w3.org/TR/prov-o/), and the [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework). These sources support file handling and provenance practice; they do not validate the synthetic values.
+
+### Frequently asked questions
+
+#### What does this validator prove?
+
+It proves conformance to the listed mechanical CSV rules. It does not prove provider accuracy, citation support, or a representative sample.
+
+#### Why must unavailable fields be blank?
+
+Blank fields preserve missingness. Filling them with `false` or `0` would turn “no answer captured” into a measured negative observation and can distort rates.
+
+#### Is the sample based on live provider results?
+
+No. The rows are synthetic fixtures, use `synthetic-engine`, and make no claim about any provider’s behavior, ranking, or recommendation frequency.
+
+#### How should I extend the contract?
+
+Add a documented field and test case, update the validator and expected report together, and preserve the source evidence and old contract. Do not silently coerce new status values into existing categories.
+
+## Sources
+
+1. [RFC 4180, Common Format and MIME Type for CSV Files](https://www.rfc-editor.org/rfc/rfc4180) — CSV record and quoting conventions.
+2. [Python `csv` module](https://docs.python.org/3/library/csv.html) — standard-library parsing behavior.
+3. [W3C PROV-O](https://www.w3.org/TR/prov-o/) — provenance entities, activities, and agents.
+4. [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) — measurement and governance context.

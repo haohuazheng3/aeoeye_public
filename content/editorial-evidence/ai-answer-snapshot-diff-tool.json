@@ -1,0 +1,32 @@
+{
+  "contentSha256": "a3c827d76cd7f6b11c7a7c6cda27dc1225103565b8bf62208be97d0189f2c480",
+  "reviewedAt": "2026-09-26",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Explain exactly which brand mention, recommendation, rank, availability, and citation fields changed between two answer snapshots.",
+    "connection": "Row-level snapshot diffs make AEO visibility changes auditable before AEOeye-style results are aggregated into rates or stability scores."
+  },
+  "assessment": "The page delivers a deterministic row-level comparator with populated before and after snapshots. It separates prompt-set gaps from measured zeroes and exposes scalar and citation-domain changes without claiming a provider caused them or that either coded answer is correct.",
+  "sources": [
+    {"url":"https://www.rfc-editor.org/rfc/rfc3339","checkedAt":"2026-09-26","supports":"The timestamp syntax recommended for preserving collection dates and time zones."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-26","supports":"The provenance relationship between raw snapshots, collection activity, and derived diffs."},
+    {"url":"https://www.nist.gov/ai-measurement-and-evaluation","checkedAt":"2026-09-26","supports":"The context-dependent nature of AI measurement and evaluation stated in the guide."},
+    {"url":"https://docs.python.org/3/library/json.html","checkedAt":"2026-09-26","supports":"The standard-library JSON decoder used for populated snapshot inputs."},
+    {"url":"https://docs.python.org/3/library/csv.html","checkedAt":"2026-09-26","supports":"The standard-library CSV writer used for deterministic row-level output."}
+  ],
+  "checks": [
+    "Executed the comparator against before.json and after.json and byte-compared every generated row with expected-diff.csv.",
+    "Manually recomputed the rank move, recommendation changes, availability change, citation additions and removals, and both prompt-set gaps from the two JSON files.",
+    "Read the final article, checked all sources and resource links, and corrected the second image attribution and literal alt description."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-answer-snapshot-diff-tool/diff_answers.py","description":"Dependency-free comparator keyed by prompt ID and engine with scalar, domain, and gap outputs."},
+    {"path":"/resources/ai-answer-snapshot-diff-tool/before.json","description":"Populated synthetic baseline containing five prompt-engine answer records."},
+    {"path":"/resources/ai-answer-snapshot-diff-tool/after.json","description":"Populated synthetic comparison snapshot with changed, removed, and added records."},
+    {"path":"/resources/ai-answer-snapshot-diff-tool/expected-diff.csv","description":"Deterministic checked change log for byte-level regression comparison."},
+    {"path":"/resources/ai-answer-snapshot-diff-tool/README.md","description":"Runnable commands and an explicit boundary between detected differences and causal claims."}
+  ],
+  "methodology": "The editorial review parsed both populated JSON fixtures, manually traced their union of prompt and engine keys, recomputed each scalar and set difference, ran the standard-library implementation, and compared the generated CSV bytes with the checked expected output.",
+  "limitations": "The tool cannot retrieve answers, detect why they changed, validate source support, prove provider causality, repair changed sampling, or make ranks comparable across answer surfaces."
+}

@@ -1,0 +1,48 @@
+{
+  "file": "invalid-sample.csv",
+  "ok": false,
+  "row_count": 4,
+  "errors": [
+    {
+      "code": "invalid_citation_count",
+      "row": 2,
+      "value": "-1"
+    },
+    {
+      "code": "duplicate_run_id",
+      "row": 3,
+      "run_id": "run-101",
+      "first_row": 2
+    },
+    {
+      "code": "invalid_boolean",
+      "field": "brand_mentioned",
+      "row": 3,
+      "value": "yes"
+    },
+    {
+      "code": "unavailable_field_must_be_blank",
+      "field": "brand_mentioned",
+      "row": 4,
+      "value": "false"
+    },
+    {
+      "code": "unavailable_field_must_be_blank",
+      "field": "brand_recommended",
+      "row": 4,
+      "value": "false"
+    },
+    {
+      "code": "unavailable_field_must_be_blank",
+      "field": "citation_count",
+      "row": 4,
+      "value": "0"
+    },
+    {
+      "code": "invalid_boolean",
+      "field": "brand_recommended",
+      "row": 5,
+      "value": ""
+    }
+  ]
+}

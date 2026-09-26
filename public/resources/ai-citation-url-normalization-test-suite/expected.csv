@@ -1,0 +1,21 @@
+case_id,raw_url,normalized_key,status,decision,notes
+01,HTTP://Example.COM:80/Guide#Intro,http://example.com/Guide,normalized,compare,fragment removed; named tracking keys dropped
+02,https://EXAMPLE.com:443/guide,https://example.com/guide,normalized,compare,fragment removed; named tracking keys dropped
+03,https://example.com:8443/guide,https://example.com:8443/guide,normalized,compare,fragment removed; named tracking keys dropped
+04,https://example.com/a/./b/../report,https://example.com/a/report,normalized,compare,fragment removed; named tracking keys dropped
+05,https://example.com/report?utm_source=chat&utm_medium=answer,https://example.com/report,normalized,compare,fragment removed; tracking-only query dropped
+06,https://example.com/report?lang=en&utm_campaign=x,https://example.com/report?lang=en,normalized,review,fragment removed; named tracking keys dropped
+07,https://example.com/report?page=2&gclid=abc,https://example.com/report?page=2,normalized,review,fragment removed; named tracking keys dropped
+08,https://example.com/report%2F2026,https://example.com/report%2F2026,normalized,review,fragment removed; named tracking keys dropped
+09,https://example.com/report%7Eteam,https://example.com/report~team,normalized,compare,fragment removed; named tracking keys dropped
+10,https://example.com/report?file=a%2Fb,https://example.com/report?file=a%2Fb,normalized,review,fragment removed; named tracking keys dropped
+11,https://example.com/report?x=1&x=2,https://example.com/report?x=1&x=2,normalized,review,fragment removed; named tracking keys dropped
+12,https://example.com/report#pricing,https://example.com/report,normalized,compare,fragment removed; named tracking keys dropped
+13,https://example.com/report/..,https://example.com/,normalized,compare,fragment removed; named tracking keys dropped
+14,https://example.com//report,https://example.com//report,normalized,review,fragment removed; named tracking keys dropped
+15,/docs/../guide,https://example.com/guide,relative-resolved,compare,fragment removed; named tracking keys dropped
+16,guide?utm_source=mail,https://example.com/base/guide,relative-resolved,compare,fragment removed; tracking-only query dropped
+17,https://example.com/%ZZ,,rejected,reject,malformed or unsupported URL; no inference
+18,https://example.com:bad/report,,rejected,reject,malformed or unsupported URL; no inference
+19,ftp://example.com/report,,rejected,reject,malformed or unsupported URL; no inference
+20,https://example.com/report?ref=partner&fbclid=xyz,https://example.com/report?ref=partner,normalized,review,fragment removed; named tracking keys dropped
