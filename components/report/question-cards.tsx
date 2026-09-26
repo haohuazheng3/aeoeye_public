@@ -145,7 +145,7 @@ export function QnaCard({
 
       <Lightbox open={open} onClose={hide} eyebrow={mentioned ? "Mentioned" : "Absent"} title={question}>
         {/* 原文中的标题、表格、链接必须按 Markdown 语义呈现,不能把模型标记直接倒给用户。 */}
-        <div className="overflow-x-auto text-[15px] leading-relaxed text-ink/75 [&_a]:text-iris [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:font-display [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ol]:space-y-1 [&_p]:mb-3 [&_table]:min-w-full [&_table]:border-collapse [&_td]:border [&_td]:border-ink/10 [&_td]:p-2 [&_th]:border [&_th]:border-ink/10 [&_th]:bg-ink/[0.03] [&_th]:p-2 [&_ul]:mb-3 [&_ul]:space-y-1">
+        <div className="overflow-x-auto text-[15px] leading-relaxed text-ink/75 [&_a]:text-iris [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:font-display [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ol]:space-y-1 [&_p]:mb-3 [&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_td]:break-words [&_td]:border [&_td]:border-ink/10 [&_td]:p-2 [&_th]:break-words [&_th]:border [&_th]:border-ink/10 [&_th]:bg-ink/[0.03] [&_th]:p-2 [&_ul]:mb-3 [&_ul]:space-y-1">
           <Markdown
             options={{
               forceBlock: true,
