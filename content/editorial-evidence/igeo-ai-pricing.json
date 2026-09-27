@@ -1,0 +1,41 @@
+{
+  "contentSha256": "a5c0244b21856444fb473b2ee4f231b48cffe775b646fec1795466abfb79717c",
+  "reviewedAt": "2026-09-26",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Translate iGEO.ai annual-billing plan cards and prompt limits into a comparable yearly monitoring budget.",
+    "connection": "Directly supports choosing the capacity needed to track brand recommendations across AI search."
+  },
+  "assessment": "The final iGEO.ai Pricing (2026): Prompt Limits, Engines, and Annual Cost guide answers the buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a practical monitoring-scope decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://new.igeo.ai/pricing/",
+      "checkedAt": "2026-09-26",
+      "supports": "Official public plan prices, annual billing and prompt allowances."
+    },
+    {
+      "url": "https://new.igeo.ai/",
+      "checkedAt": "2026-09-26",
+      "supports": "Official product positioning."
+    },
+    {
+      "url": "https://new.igeo.ai/features/",
+      "checkedAt": "2026-09-26",
+      "supports": "Official feature scope."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and reconciled the visible amount, currency, billing cadence, allowance, and quote status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly equivalents shown with annual billing; Enterprise is custom",
+    "verification": "Checked the official pricing page for the $49, $140 and $232 monthly equivalents and 50/50/150 prompt allowances; recomputed the $588, $1,680 and $2,784 annual planning totals.",
+    "checkedAt": "2026-09-26"
+  }
+}

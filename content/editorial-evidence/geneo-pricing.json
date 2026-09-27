@@ -1,0 +1,41 @@
+{
+  "contentSha256": "f28a1b540d63ea3ea84131f44e3a6fe0ce896f86ce6cb62ec6f586563c80650d",
+  "reviewedAt": "2026-09-26",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Compare Geneo credit plans without mistaking a nominal credit ratio for the cost of a guaranteed AI response.",
+    "connection": "Supports an AEOeye reader budgeting recurring AI visibility checks and agency capacity."
+  },
+  "assessment": "The final Geneo Pricing (2026): Credits, Plans, and Cost per AI Check guide answers the buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a practical monitoring-scope decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://geneo.app/pricing",
+      "checkedAt": "2026-09-26",
+      "supports": "Official free, Pro and agency plan prices and included credits."
+    },
+    {
+      "url": "https://geneo.app/",
+      "checkedAt": "2026-09-26",
+      "supports": "Official product positioning."
+    },
+    {
+      "url": "https://geneo.app/blog",
+      "checkedAt": "2026-09-26",
+      "supports": "Official supporting product material."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and reconciled the visible amount, currency, billing cadence, allowance, and quote status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly plans with published credit allowances; pay-as-you-go is referenced for Pro",
+    "verification": "Checked the official plan cards for $0, $39.90, $129, $249 and $499 amounts and their credit allowances; recomputed nominal included-credit ratios without claiming a universal response-per-credit conversion.",
+    "checkedAt": "2026-09-26"
+  }
+}

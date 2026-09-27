@@ -1,0 +1,41 @@
+{
+  "contentSha256": "20f6faf3dd70ca2fa3301e496808628de1646f8b398f50e8435addb7ad06a87d",
+  "reviewedAt": "2026-09-26",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Separate SERPRecon report-credit capacity from the plan access required for ChatGPT and Perplexity share of voice.",
+    "connection": "Supports an AEOeye buyer combining conventional SERP and AI-answer visibility measurement."
+  },
+  "assessment": "The final SERPRecon Pricing (2026): Credits, AI Share of Voice, and Plan Fit guide answers the buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a practical monitoring-scope decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://www.serprecon.com/pricing",
+      "checkedAt": "2026-09-26",
+      "supports": "Official monthly prices, report credits, projects and share-of-voice access."
+    },
+    {
+      "url": "https://www.serprecon.com/features/share-of-voice",
+      "checkedAt": "2026-09-26",
+      "supports": "Official Google, ChatGPT and Perplexity share-of-voice scope."
+    },
+    {
+      "url": "https://www.serprecon.com/",
+      "checkedAt": "2026-09-26",
+      "supports": "Official product context."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and reconciled the visible amount, currency, billing cadence, allowance, and quote status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly or yearly; official page says yearly saves up to 5%",
+    "verification": "Checked the official $49, $149 and $349 prices, 100/300/700 credits, project limits and AI SOV access; recomputed the near-flat nominal credit ratios.",
+    "checkedAt": "2026-09-26"
+  }
+}

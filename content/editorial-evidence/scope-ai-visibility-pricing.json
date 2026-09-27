@@ -1,0 +1,41 @@
+{
+  "contentSha256": "c5fd57762877691b67944ed60a87215119c647c5454cb2cf56ebd2b67e6072b8",
+  "reviewedAt": "2026-09-26",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Distinguish Scope’s launch prices, reference prices, check units and engine breadth before subscribing.",
+    "connection": "Helps an AEOeye reader turn a one-time visibility finding into a recurring prompt-monitoring plan."
+  },
+  "assessment": "The final Scope AI Visibility Pricing (2026): Launch Prices, Checks, and Plan Fit guide answers the buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a practical monitoring-scope decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://scope.online/pricing",
+      "checkedAt": "2026-09-26",
+      "supports": "Official launch prices, reference prices, check allowances, businesses, engines and trial."
+    },
+    {
+      "url": "https://scope.online/how-it-works",
+      "checkedAt": "2026-09-26",
+      "supports": "Official workflow context."
+    },
+    {
+      "url": "https://scope.online/docs",
+      "checkedAt": "2026-09-26",
+      "supports": "Official product documentation."
+    }
+  ],
+  "checks": [
+    "Opened every named official source and reconciled the visible amount, currency, billing cadence, allowance, and quote status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly launch prices; official page says launch price is locked for life",
+    "verification": "Checked $25 and $79 launch prices, $99 and $199 reference prices, 100 and 250 included checks, business and engine coverage; recomputed nominal $0.25 and $0.316 per-check ratios.",
+    "checkedAt": "2026-09-26"
+  }
+}
