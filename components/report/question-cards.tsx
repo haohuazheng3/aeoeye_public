@@ -15,6 +15,72 @@ import { Lightbox, MoreAffordance, firstSentences, useLightbox } from "./lightbo
 
 export type RivalRow = { question: string; mentioned: boolean; why?: string; competitors: string[] };
 
+type MarkdownBlock =
+  | { kind: "markdown"; text: string }
+  | { kind: "table"; header: string[]; rows: string[][] };
+
+function markdownTableRow(line: string): string[] | null {
+  const value = line.trim();
+  if (!value.includes("|")) return null;
+  const row = value.replace(/^\|/, "").replace(/\|$/, "");
+  return row.split(/(?<!\\)\|/).map((cell) => cell.trim().replace(/\\\|/g, "|"));
+}
+
+function isMarkdownTableSeparator(line: string): boolean {
+  const cells = markdownTableRow(line);
+  return Boolean(cells && cells.length >= 2 && cells.every((cell) => /^:?-{3,}:?$/.test(cell.replace(/\s/g, ""))));
+}
+
+/** markdown-to-jsx does not parse GitHub-style pipe tables, so render those blocks semantically. */
+function splitMarkdownBlocks(markdown: string): MarkdownBlock[] {
+  const lines = markdown.split(/\r?\n/);
+  const blocks: MarkdownBlock[] = [];
+  const prose: string[] = [];
+  let inFence = false;
+
+  const flushProse = () => {
+    if (prose.length > 0) blocks.push({ kind: "markdown", text: prose.join("\n") });
+    prose.length = 0;
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (/^\s*```/.test(line)) inFence = !inFence;
+    const header = !inFence ? markdownTableRow(line) : null;
+    if (header && index + 1 < lines.length && isMarkdownTableSeparator(lines[index + 1])) {
+      flushProse();
+      const rows: string[][] = [];
+      let rowIndex = index + 2;
+      while (rowIndex < lines.length) {
+        const row = markdownTableRow(lines[rowIndex]);
+        if (!row || row.length === 0) break;
+        rows.push([...row.slice(0, header.length), ...Array(Math.max(0, header.length - row.length)).fill("")]);
+        rowIndex += 1;
+      }
+      blocks.push({ kind: "table", header, rows });
+      index = rowIndex - 1;
+      continue;
+    }
+    prose.push(line);
+  }
+  flushProse();
+  return blocks;
+}
+
+const markdownOptions = {
+  forceBlock: true,
+  overrides: {
+    a: { props: { rel: "noopener noreferrer", target: "_blank" } },
+  },
+};
+
+const inlineMarkdownOptions = {
+  forceBlock: false,
+  overrides: {
+    a: { props: { rel: "noopener noreferrer", target: "_blank" } },
+  },
+};
+
 /**
  * 单题竞争结果。三种结局都要能一眼分辨:
  * 你缺席且有人被推荐(输了)/ 你缺席但 AI 谁也没点名(没人赢)/ 你在答案里(守住了)。
@@ -146,16 +212,36 @@ export function QnaCard({
       <Lightbox open={open} onClose={hide} eyebrow={mentioned ? "Mentioned" : "Absent"} title={question}>
         {/* 原文中的标题、表格、链接必须按 Markdown 语义呈现,不能把模型标记直接倒给用户。 */}
         <div className="overflow-x-auto text-[15px] leading-relaxed text-ink/75 [&_a]:text-iris [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:font-display [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ol]:space-y-1 [&_p]:mb-3 [&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_td]:break-words [&_td]:border [&_td]:border-ink/10 [&_td]:p-2 [&_th]:break-words [&_th]:border [&_th]:border-ink/10 [&_th]:bg-ink/[0.03] [&_th]:p-2 [&_ul]:mb-3 [&_ul]:space-y-1">
-          <Markdown
-            options={{
-              forceBlock: true,
-              overrides: {
-                a: { props: { rel: "noopener noreferrer", target: "_blank" } },
-              },
-            }}
-          >
-            {displayText}
-          </Markdown>
+          {splitMarkdownBlocks(displayText).map((block, index) =>
+            block.kind === "table" ? (
+              <table key={`table-${index}`} className="w-full table-fixed border-collapse">
+                <thead>
+                  <tr>
+                    {block.header.map((cell, cellIndex) => (
+                      <th key={`header-${cellIndex}`} scope="col">
+                        <Markdown options={inlineMarkdownOptions}>{cell}</Markdown>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {block.rows.map((row, rowIndex) => (
+                    <tr key={`row-${rowIndex}`}>
+                      {row.map((cell, cellIndex) => (
+                        <td key={`cell-${rowIndex}-${cellIndex}`}>
+                          <Markdown options={inlineMarkdownOptions}>{cell}</Markdown>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <Markdown key={`markdown-${index}`} options={markdownOptions}>
+                {block.text}
+              </Markdown>
+            ),
+          )}
         </div>
         {answerWasTrimmed && (
           <p role="note" className="mt-5 border-t border-amber-500/20 pt-4 text-sm leading-relaxed text-amber-700">
