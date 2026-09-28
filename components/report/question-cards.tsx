@@ -153,7 +153,20 @@ export function QnaCard({
   // 引擎原文在落库时最多保留 6000 字符。达到上限说明用户看到的可能不是完整回答,
   // 不能再静默把半截单词/句子当成完整研究结果。
   const answerWasTrimmed = Boolean(full && full.length >= 6000);
-  const displayText = answerWasTrimmed ? stripMarkdown(fullText).replace(/[*_`~]+/g, "") : fullText;
+  // Split before cleaning truncated answers: stripMarkdown removes table pipes, which turns a
+  // useful comparison table into an unreadable run-on sentence in the lightbox.
+  const parsedBlocks = splitMarkdownBlocks(fullText);
+  const displayBlocks: MarkdownBlock[] = answerWasTrimmed
+    ? parsedBlocks.map((block) =>
+        block.kind === "table"
+          ? {
+              kind: "table",
+              header: block.header.map((cell) => stripMarkdown(cell)),
+              rows: block.rows.map((row) => row.map((cell) => stripMarkdown(cell))),
+            }
+          : { kind: "markdown", text: stripMarkdown(block.text) },
+      )
+    : parsedBlocks;
   const teaser = firstSentences(excerpt || fullText);
 
   const card = (
@@ -212,7 +225,7 @@ export function QnaCard({
       <Lightbox open={open} onClose={hide} eyebrow={mentioned ? "Mentioned" : "Absent"} title={question}>
         {/* 原文中的标题、表格、链接必须按 Markdown 语义呈现,不能把模型标记直接倒给用户。 */}
         <div className="overflow-x-auto text-[15px] leading-relaxed text-ink/75 [&_a]:text-iris [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mb-2 [&_h3]:font-display [&_h3]:font-semibold [&_li]:ml-5 [&_li]:list-disc [&_ol]:space-y-1 [&_p]:mb-3 [&_table]:w-full [&_table]:table-fixed [&_table]:border-collapse [&_td]:break-words [&_td]:border [&_td]:border-ink/10 [&_td]:p-2 [&_th]:break-words [&_th]:border [&_th]:border-ink/10 [&_th]:bg-ink/[0.03] [&_th]:p-2 [&_ul]:mb-3 [&_ul]:space-y-1">
-          {splitMarkdownBlocks(displayText).map((block, index) =>
+          {displayBlocks.map((block, index) =>
             block.kind === "table" ? (
               <table key={`table-${index}`} className="w-full table-fixed border-collapse">
                 <thead>
