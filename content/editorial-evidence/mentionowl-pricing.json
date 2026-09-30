@@ -1,0 +1,36 @@
+{
+  "contentSha256": "19919d17c23c579643a09d0eabb464d56a83b6ae7689f182d087aea66c202a88",
+  "reviewedAt": "2026-09-29",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Calculate MentionOwl’s subscription, cadence, trial conversion, and separate provider costs together.",
+    "connection": "Supports AEOeye readers choosing repeatable monitoring capacity rather than comparing only monthly labels."
+  },
+  "assessment": "The final MentionOwl Pricing (2026): Prompt Frequency, BYO Costs, and Trial Terms guide answers the buyer's pricing question with attributed documentation, reproducible arithmetic, explicit documentation-only limits, and a practical fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://www.mentionowl.com/pricing",
+      "checkedAt": "2026-09-29",
+      "supports": "Official prices, prompt cadence, annual and BYO savings."
+    },
+    {
+      "url": "https://www.mentionowl.com/terms",
+      "checkedAt": "2026-09-29",
+      "supports": "Official trial conversion and terms context."
+    }
+  ],
+  "checks": [
+    "Opened every named source and reconciled the visible amount, currency, billing cadence, allowance, and availability status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly; annual billing advertises two months free; BYO advertises 25% savings",
+    "verification": "Checked $19/$49/$99/$399 tiers, 15/50 weekly and 50/200 daily prompts, $1 seven-day auto-converting trial, annual and BYO terms; recomputed annual totals.",
+    "checkedAt": "2026-09-29"
+  }
+}

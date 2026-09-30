@@ -1,0 +1,36 @@
+{
+  "contentSha256": "1b00210232c8ee5aab28b93f0e45cea01b4f02ed9f871c97fa237f6b6c59fd2e",
+  "reviewedAt": "2026-09-29",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Match Am I On AI prompt and audience-segment capacity to a brand or agency monitoring program.",
+    "connection": "Supports AEOeye readers selecting recurring measurement after a first AI visibility check."
+  },
+  "assessment": "The final Am I On AI Pricing (2026): Prompts, Segments, and Plan Fit guide answers the buyer's pricing question with attributed documentation, reproducible arithmetic, explicit documentation-only limits, and a practical fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://www.amionai.com/pricing",
+      "checkedAt": "2026-09-29",
+      "supports": "Official prices, prompt limits, audience segments, trial, and waitlist status."
+    },
+    {
+      "url": "https://www.amionai.com/agency",
+      "checkedAt": "2026-09-29",
+      "supports": "Official agency context."
+    }
+  ],
+  "checks": [
+    "Opened every named source and reconciled the visible amount, currency, billing cadence, allowance, and availability status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly list prices; annual discount not verified",
+    "verification": "Checked $100 Pro, $349 Prism, $2,500 GEO Council, 150/750 prompt limits, five Prism audience segments, seven-day trial, and GEO Council waitlist; recomputed monthly-times-twelve budgets.",
+    "checkedAt": "2026-09-29"
+  }
+}

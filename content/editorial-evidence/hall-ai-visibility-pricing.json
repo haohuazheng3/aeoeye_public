@@ -1,0 +1,36 @@
+{
+  "contentSha256": "6c46b9fdb2f631f740c789da0282a894dba5b4597966cc31dc1f1b37c8e5f386",
+  "reviewedAt": "2026-09-29",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Avoid treating indexed historical Hall prices as a current purchasable offer.",
+    "connection": "Helps AEOeye readers compare active AI visibility monitoring options using current, attributable commercial terms."
+  },
+  "assessment": "The final Hall AI Visibility Pricing (2026): Current Status and Historical Plans guide answers the buyer's pricing question with attributed documentation, reproducible arithmetic, explicit documentation-only limits, and a practical fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://usehall.com/",
+      "checkedAt": "2026-09-29",
+      "supports": "Official acquisition date, current waitlist, and lack of standalone pricing."
+    },
+    {
+      "url": "https://www.g2.com/products/hall/pricing",
+      "checkedAt": "2026-09-29",
+      "supports": "Historical third-party plan figures; not a current offer."
+    }
+  ],
+  "checks": [
+    "Opened every named source and reconciled the visible amount, currency, billing cadence, allowance, and availability status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "not-publicly-verified",
+    "region": "No current public region or currency verified",
+    "billing": "Current standalone billing unavailable; historical third-party figures are labeled as such",
+    "verification": "Opened the official Hall site and confirmed the July 21, 2026 Tracksuit acquisition message and waitlist; treated G2 values only as historical context.",
+    "checkedAt": "2026-09-29"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "contentSha256": "2c4e062394f1e549b18dcb5ec7e150a9d31a3cb350d1b1a148d129cec8677405",
+  "reviewedAt": "2026-09-29",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Compare Visibility.so annual economics without assuming what a credit buys or that early-access terms are permanent.",
+    "connection": "Helps AEOeye readers connect a monitored prompt workload to a vendor-specific credit allowance."
+  },
+  "assessment": "The final Visibility.so Pricing (2026): Credits, Annual Cost, and Early Access guide answers the buyer's pricing question with attributed documentation, reproducible arithmetic, explicit documentation-only limits, and a practical fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://visibility.so/pricing/",
+      "checkedAt": "2026-09-29",
+      "supports": "Official monthly and annual prices, credits, trial, and early-access status."
+    },
+    {
+      "url": "https://docs.visibility.so/introduction",
+      "checkedAt": "2026-09-29",
+      "supports": "Official product terminology and documentation."
+    }
+  ],
+  "checks": [
+    "Opened every named source and reconciled the visible amount, currency, billing cadence, allowance, and availability status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly or annual; early-access offer",
+    "verification": "Checked $166/$333 monthly, $996/$1,992 annual, 5,000 credits on both public tiers, seven-day trial, and early-access wording; recomputed annual differences.",
+    "checkedAt": "2026-09-29"
+  }
+}

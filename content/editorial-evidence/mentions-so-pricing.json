@@ -1,0 +1,31 @@
+{
+  "contentSha256": "a9cb93ff513623a8e67d8ddaaa88322876f3e733404bbaf6731f06ab3e8ada83",
+  "reviewedAt": "2026-09-29",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Match Mentions.so prompt, site, and LLM scope to the smallest viable plan and a transparent annual baseline.",
+    "connection": "Supports AEOeye readers selecting recurring brand-monitoring capacity across answer engines."
+  },
+  "assessment": "The final Mentions.so Pricing (2026): Prompts, Sites, LLMs, and Annual Budget guide answers the buyer's pricing question with attributed documentation, reproducible arithmetic, explicit documentation-only limits, and a practical fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://mentions.so/",
+      "checkedAt": "2026-09-29",
+      "supports": "Official prices, prompt, site, LLM, white-label, custom-domain, and yearly-toggle details."
+    }
+  ],
+  "checks": [
+    "Opened every named source and reconciled the visible amount, currency, billing cadence, allowance, and availability status with the final article.",
+    "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
+    "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "US / USD public references",
+    "billing": "Monthly prices; page displays a Yearly -16% toggle without exact totals captured for this review",
+    "verification": "Checked $49/$99/$199/$399 prices, 25/50/100/300 prompts, 1/5/10/unlimited sites, LLM and Agency features; recomputed monthly-times-twelve budget baselines without inventing annual checkout amounts.",
+    "checkedAt": "2026-09-29"
+  }
+}
