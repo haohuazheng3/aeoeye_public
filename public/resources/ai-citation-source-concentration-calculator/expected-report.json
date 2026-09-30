@@ -1,0 +1,46 @@
+{
+  "effective_domain_count": 4.83871,
+  "hhi_0_to_1": 0.206667,
+  "hhi_0_to_10000": 2066.666667,
+  "hosts": [
+    {
+      "count": 10,
+      "host": "nist.gov",
+      "share": 0.333333
+    },
+    {
+      "count": 5,
+      "host": "docs.python.org",
+      "share": 0.166667
+    },
+    {
+      "count": 5,
+      "host": "justice.gov",
+      "share": 0.166667
+    },
+    {
+      "count": 5,
+      "host": "rfc-editor.org",
+      "share": 0.166667
+    },
+    {
+      "count": 3,
+      "host": "w3.org",
+      "share": 0.1
+    },
+    {
+      "count": 1,
+      "host": "prov.w3.org",
+      "share": 0.033333
+    },
+    {
+      "count": 1,
+      "host": "standards.w3.org",
+      "share": 0.033333
+    }
+  ],
+  "top_one_share": 0.333333,
+  "top_three_share": 0.666667,
+  "total_citations": 30,
+  "unique_hosts": 7
+}

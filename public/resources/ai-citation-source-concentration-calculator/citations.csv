@@ -1,0 +1,31 @@
+citation_id,prompt_id,engine,url
+c001,p01,ChatGPT,https://www.nist.gov/ai
+c002,p02,ChatGPT,https://www.nist.gov/risk
+c003,p03,Perplexity,https://www.nist.gov/guide
+c004,p04,Perplexity,https://www.nist.gov/framework
+c005,p05,Gemini,https://www.nist.gov/overview
+c006,p06,Gemini,https://www.nist.gov/profile
+c007,p07,Google AI,https://www.nist.gov/measurement
+c008,p08,Google AI,https://www.nist.gov/testing
+c009,p09,Codex,https://www.nist.gov/tools
+c010,p10,Codex,https://www.nist.gov/glossary
+c011,p11,ChatGPT,https://www.rfc-editor.org/rfc/rfc3986
+c012,p12,Perplexity,https://www.rfc-editor.org/rfc/rfc9309
+c013,p13,Gemini,https://www.rfc-editor.org/rfc/rfc9110
+c014,p14,Google AI,https://www.rfc-editor.org/rfc/rfc7230
+c015,p15,Codex,https://www.rfc-editor.org/rfc/rfc8089
+c016,p16,ChatGPT,https://docs.python.org/3/library/urllib.parse.html
+c017,p17,Perplexity,https://docs.python.org/3/library/csv.html
+c018,p18,Gemini,https://docs.python.org/3/library/json.html
+c019,p19,Google AI,https://docs.python.org/3/library/statistics.html
+c020,p20,Codex,https://docs.python.org/3/library/collections.html
+c021,p21,ChatGPT,https://www.justice.gov/atr/2023-merger-guidelines
+c022,p22,Perplexity,https://www.justice.gov/atr/archives
+c023,p23,Gemini,https://www.justice.gov/opa
+c024,p24,Google AI,https://www.justice.gov/press
+c025,p25,Codex,https://www.justice.gov/criminal
+c026,p26,ChatGPT,https://prov.w3.org/TR/prov-o/
+c027,p27,Perplexity,https://standards.w3.org/TR/annotation-model/
+c028,p28,Gemini,https://www.w3.org/TR/trace-context/
+c029,p29,Google AI,https://www.w3.org/TR/activitystreams-core/
+c030,p30,Codex,https://www.w3.org/TR/vocab-org/

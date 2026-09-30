@@ -1,0 +1,25 @@
+case_id,user_agent,path,expected_decision,note
+C01,ExampleAnswerBot,/private/report,disallow,basic disallow
+C02,ExampleAnswerBot,/private/public/report,allow,longer allow wins
+C03,ExampleAnswerBot,/public/report,allow,no matching rule
+C04,ExampleAnswerBot,/assets/data.json,disallow,wildcard rule
+C05,ExampleAnswerBot,/assets/data.json?x=1,disallow,query is excluded before path matching
+C06,ExampleAnswerBot,/assets/featured.json,allow,longer allow wins
+C07,ExampleAnswerBot,/assets/featured.json.bak,allow,end anchor does not match suffix
+C08,ExampleAnswerBot,/encoded/%E2%9C%93,allow,percent encoding equivalent
+C09,ExampleAnswerBot,/encoded/%E2%9C%93/file,disallow,prefix encoding rule
+C10,ExampleAnswerBot,/tie/abc,allow,equal length allow tie
+C11,ExampleAnswerBot,/tie/abcd,disallow,wildcard disallow
+C12,ExampleAnswerBot,/merged/open/file,allow,merged later group
+C13,ExampleAnswerBot,/merged/closed,disallow,merged later group
+C14,ExampleAnswerBot,/open,allow,empty disallow ignored
+C15,ExampleAnswerBot/2.1,/private/x,disallow,product token match
+C16,exampleanswerbot,/private/x,disallow,case insensitive token
+C17,OtherBot,/fallback/x,disallow,wildcard fallback
+C18,OtherBot,/fallback/public/x,allow,fallback longer allow
+C19,OtherBot,/outside,allow,fallback no match
+C20,ExampleAnswerBot,/fallback/x,allow,specific group beats wildcard
+C21,ExampleAnswerBot,/assets/a.JSON,allow,path matching remains case sensitive
+C22,OtherBot,/assets/a.json,allow,wildcard does not govern other path
+C23,UnknownBot,/private/x,allow,wildcard does not inherit specific group
+C24,OtherBot,https://example.test/fallback/public/x,allow,absolute URL path extraction

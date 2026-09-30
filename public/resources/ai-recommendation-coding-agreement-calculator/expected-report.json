@@ -1,0 +1,89 @@
+{
+  "categories": [
+    "not_mentioned",
+    "mentioned",
+    "recommended"
+  ],
+  "cohens_kappa": 0.625,
+  "column_marginals": {
+    "mentioned": 8,
+    "not_mentioned": 8,
+    "recommended": 8
+  },
+  "confusion_matrix": {
+    "mentioned": {
+      "mentioned": 5,
+      "not_mentioned": 1,
+      "recommended": 2
+    },
+    "not_mentioned": {
+      "mentioned": 1,
+      "not_mentioned": 7,
+      "recommended": 0
+    },
+    "recommended": {
+      "mentioned": 2,
+      "not_mentioned": 0,
+      "recommended": 6
+    }
+  },
+  "disagreement_count": 6,
+  "disagreements": [
+    {
+      "item_id": "answer-04",
+      "reviewer_a": "mentioned",
+      "reviewer_b": "recommended"
+    },
+    {
+      "item_id": "answer-08",
+      "reviewer_a": "not_mentioned",
+      "reviewer_b": "mentioned"
+    },
+    {
+      "item_id": "answer-09",
+      "reviewer_a": "recommended",
+      "reviewer_b": "mentioned"
+    },
+    {
+      "item_id": "answer-13",
+      "reviewer_a": "mentioned",
+      "reviewer_b": "not_mentioned"
+    },
+    {
+      "item_id": "answer-19",
+      "reviewer_a": "mentioned",
+      "reviewer_b": "recommended"
+    },
+    {
+      "item_id": "answer-23",
+      "reviewer_a": "recommended",
+      "reviewer_b": "mentioned"
+    }
+  ],
+  "expected_agreement": 0.333333,
+  "item_count": 24,
+  "observed_agreement": 0.75,
+  "per_category": {
+    "mentioned": {
+      "agreement_count": 5,
+      "reviewer_a_count": 8,
+      "reviewer_b_count": 8
+    },
+    "not_mentioned": {
+      "agreement_count": 7,
+      "reviewer_a_count": 8,
+      "reviewer_b_count": 8
+    },
+    "recommended": {
+      "agreement_count": 6,
+      "reviewer_a_count": 8,
+      "reviewer_b_count": 8
+    }
+  },
+  "row_marginals": {
+    "mentioned": 8,
+    "not_mentioned": 8,
+    "recommended": 8
+  },
+  "undefined_reason": null
+}

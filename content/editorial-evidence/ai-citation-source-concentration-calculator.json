@@ -1,0 +1,30 @@
+{
+  "contentSha256": "53f0ed51fd6ff5201858a8fb071dedcf936231198c8d12c79e78c55c5b20b75c",
+  "reviewedAt": "2026-09-30",
+  "kind": "research-asset",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "Measure whether an AI citation dataset with many URLs still depends heavily on one or two normalized hosts.",
+    "connection": "Source concentration adds an inspectable dependency metric to AEOeye-style citation and brand-visibility audits."
+  },
+  "assessment": "The page provides a populated 30-row synthetic citation dataset, transparent host normalization, HHI, top-source share, and effective-domain calculations. It avoids treating competition-policy thresholds as an AEO quality grade.",
+  "sources": [
+    {"url":"https://www.justice.gov/atr/2023-merger-guidelines","checkedAt":"2026-09-30","supports":"The HHI concentration concept, used here only as a descriptive mathematical reference."},
+    {"url":"https://www.rfc-editor.org/rfc/rfc3986","checkedAt":"2026-09-30","supports":"URI syntax boundaries for absolute HTTP and HTTPS inputs."},
+    {"url":"https://docs.python.org/3/library/urllib.parse.html","checkedAt":"2026-09-30","supports":"The URL parsing functions used for host extraction."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-30","supports":"Provenance context for citation records and collection activities."}
+  ],
+  "checks": [
+    "Ran all 30 synthetic citation rows and confirmed the generated JSON byte-matches expected-report.json.",
+    "Recomputed HHI as 0.206666..., top-one share as 10/30, top-three share as 20/30, and effective domains as 1/HHI.",
+    "Changed one temporary URL to ftp:// and confirmed rejection with exit 2; read the final article and opened all sources and artifacts."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-citation-source-concentration-calculator/calculate_concentration.py","description":"Dependency-free host concentration calculator with explicit URL validation and normalization boundaries."},
+    {"path":"/resources/ai-citation-source-concentration-calculator/citations.csv","description":"Populated 30-row synthetic citation fixture across seven normalized hosts."},
+    {"path":"/resources/ai-citation-source-concentration-calculator/expected-report.json","description":"Deterministic host counts, shares, HHI values, and effective-domain result."},
+    {"path":"/resources/ai-citation-source-concentration-calculator/README.md","description":"Exact byte-comparison and malformed-URL failure commands with method limits."}
+  ],
+  "methodology": "Editorial review executed the normal and malformed-input paths, compared output bytes, independently recalculated each published metric from host counts, opened the four primary sources, and checked all resource and internal links.",
+  "limitations": "The calculator counts normalized hosts, not registrable domains or owners. It does not follow redirects, infer canonicals, assess support or authority, prove independence, or explain provider selection."
+}

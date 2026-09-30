@@ -1,0 +1,6 @@
+[
+  {"name": "20 to 30 percent mention rate", "baseline_rate": 0.20, "target_rate": 0.30, "alpha": 0.05, "power": 0.80},
+  {"name": "10 to 20 percent lift", "baseline_rate": 0.10, "target_rate": 0.20, "alpha": 0.05, "power": 0.80},
+  {"name": "40 to 50 percent lift", "baseline_rate": 0.40, "target_rate": 0.50, "alpha": 0.05, "power": 0.90},
+  {"name": "30 to 35 percent sensitive change", "baseline_rate": 0.30, "target_rate": 0.35, "alpha": 0.01, "power": 0.90}
+]

@@ -1,0 +1,121 @@
+---
+title: "AI Recommendation Coding Agreement Calculator: Cohen’s Kappa for Two Reviewers"
+description: "A transparent Python 3 fixture for checking agreement when two reviewers code AI answers as not mentioned, mentioned, or recommended."
+date: "2026-09-30"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["Cohen's kappa calculator", "AI recommendation coding", "inter-rater agreement", "AEO measurement"]
+faqs: [{"q":"What does this calculator measure?","a":"It measures agreement between two reviewers using three declared AI-answer codes, including raw agreement, chance-expected agreement, Cohen’s kappa, category counts, and disagreements."},{"q":"Are the 24 rows real provider observations?","a":"No. The rows are synthetic and demonstrate the calculation only; they do not measure an AI provider, brand, reviewer validity, or search performance."},{"q":"What does an undefined kappa mean here?","a":"It means expected agreement is 1, so the usual denominator is zero. The calculator returns null and an explicit reason instead of dividing by zero."},{"q":"How do I run the package?","a":"From the resource directory, run python3 calculate_agreement.py ratings.csv --check expected-report.json. It exits zero only on an exact byte match."}]
+image: {"url":"https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Laptop and notes beside a structured review workflow.","photographer":"Pexels","photographerUrl":"https://www.pexels.com/photo/5905445/"}
+sources: [{"label":"scikit-learn Cohen’s kappa documentation","url":"https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"W3C PROV-O","url":"https://www.w3.org/TR/prov-o/"},{"label":"Python CSV documentation","url":"https://docs.python.org/3/library/csv.html"}]
+---
+
+When two reviewers label AI answers as `not_mentioned`, `mentioned`, or `recommended`, this package calculates the confusion matrix, raw agreement, chance-expected agreement, Cohen’s kappa, category counts, and every disagreement. It is a documentation-based research asset with a populated **24-row synthetic fixture**. It does not prove provider performance, reviewer validity, coding accuracy, or representativeness.
+
+## Table of contents
+
+- [What does kappa answer?](#what-does-kappa-answer)
+- [Why is raw agreement insufficient?](#why-is-raw-agreement-insufficient)
+- [What is the codebook boundary?](#what-is-the-codebook-boundary)
+- [What is in the package?](#what-is-in-the-package)
+- [What result does the 24-row fixture produce?](#what-result-does-the-24-row-fixture-produce)
+- [How should disagreements be interpreted?](#how-should-disagreements-be-interpreted)
+- [What should happen after adjudication?](#what-should-happen-after-adjudication)
+- [What are the limitations?](#what-are-the-limitations)
+- [FAQ](#faq)
+- [Sources](#sources)
+
+![Laptop and notes beside a structured review workflow.](https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Editorial image: [Pexels photo 5905445](https://www.pexels.com/photo/5905445/).*
+
+## What does kappa answer?
+
+Cohen’s kappa answers a narrow question: how much two raters agree after subtracting the agreement expected from their observed category frequencies? The [scikit-learn definition and reference implementation](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html) describe the statistic as agreement corrected for chance, for two nominal or ordinal labelers.
+
+For AEO measurement, the unit might be one saved answer row: a prompt, engine, date, and answer snapshot. Reviewer A and reviewer B independently code whether the target brand was absent, mentioned, or recommended. The calculator keeps those labels visible rather than collapsing them into a single “visibility” number.
+
+Kappa is useful as a quality-control signal before calculating rates from a coding batch. It is not a verdict on a reviewer or on an AI engine. A team can agree consistently on a bad rule, and a low kappa can reflect an unclear boundary rather than careless work.
+
+## Why is raw agreement insufficient?
+
+Raw agreement is the share of rows where the labels match. In this fixture, 18 of 24 rows match, so observed agreement is 0.75. That is easy to explain, but it ignores how often each reviewer uses each code.
+
+Expected agreement estimates coincidence from the marginal distributions. If both reviewers use each category equally often, chance agreement is one third. Kappa is then calculated as `(observed - expected) / (1 - expected)`, producing `(0.75 - 0.333333...) / (1 - 0.333333...) = 0.625`.
+
+The statistic does not automatically solve category imbalance. A rare `recommended` code, or a large pile of `not_mentioned` rows, can make a percentage look reassuring while the substantive boundary remains unstable. Report the marginals alongside kappa, as this package does.
+
+![A person reviewing evidence and notes beside a laptop.](https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+*Editorial image: [Pexels photo 3769021](https://www.pexels.com/photo/3769021/).*
+
+## What is the codebook boundary?
+
+The three codes must be defined before collection, with examples that two people can apply independently. This package deliberately uses an ordered-looking vocabulary but treats it as three declared categories; it does not assign a universal severity interpretation.
+
+| Code | Operational question |
+|---|---|
+| `not_mentioned` | Is the target brand absent from the answer? |
+| `mentioned` | Is the brand named without a recommendation signal? |
+| `recommended` | Does the answer explicitly suggest, rank, or endorse the brand? |
+
+Decide how to handle comparisons, “best of” lists, caveats, aliases, and a brand mentioned only in a source link. Preserve the prompt, answer, reviewer IDs, and codebook version with the row. [W3C PROV-O](https://www.w3.org/TR/prov-o/) is useful context for keeping entities and activities traceable; it does not prescribe these labels.
+
+## What is in the package?
+
+Download the [calculator source](/resources/ai-recommendation-coding-agreement-calculator/calculate_agreement.py), [24-row synthetic ratings](/resources/ai-recommendation-coding-agreement-calculator/ratings.csv), [expected report](/resources/ai-recommendation-coding-agreement-calculator/expected-report.json), and [README with commands](/resources/ai-recommendation-coding-agreement-calculator/README.md). The script uses only Python 3’s standard library and validates unique IDs, nonblank labels, and the exact three-code contract. Its CSV handling follows the [Python CSV documentation](https://docs.python.org/3/library/csv.html).
+
+The report contains a 3×3 matrix with reviewer A on rows and reviewer B on columns, row and column marginals, six-decimal numeric rounding, per-category diagonal counts, and an ordered disagreement list. JSON is rendered with sorted keys and a final newline so the expected file can be checked byte-for-byte.
+
+## What result does the 24-row fixture produce?
+
+The synthetic fixture has eight rows in each marginal for both reviewers. The diagonal counts are 7 `not_mentioned`, 5 `mentioned`, and 6 `recommended`. That produces 18 agreements, six disagreements, observed agreement **0.75**, expected agreement **0.333333**, and Cohen’s kappa **0.625000** (represented as `0.625`).
+
+Run the exact regression check from the package directory:
+
+```sh
+python3 calculate_agreement.py ratings.csv --check expected-report.json
+```
+
+The successful output is `exact match: generated report equals expected-report.json` and the exit status is 0. The report is generated from the CSV on every run; the committed JSON is an expectation, not hand-entered evidence. This makes a changed row, category, ordering rule, or rounding policy visible in review.
+
+## How should disagreements be interpreted?
+
+Start with the six item IDs, then read the underlying answer and codebook rule. Three disagreements cross the `mentioned`/`recommended` boundary, two cross `not_mentioned`/`mentioned`, and one is the reverse direction of that same boundary. This pattern suggests a useful adjudication question: what counts as an actual recommendation?
+
+Do not silently replace a disagreement with a consensus label before calculating agreement. Keep the independent labels, record an adjudication field separately, and version any codebook change. For a larger audit, connect the fixture’s item ID to a stable answer snapshot and use the [AI citation evidence bundle validator](/resources/ai-citation-evidence-bundle-validator/README.md), [AI answer snapshot diff tool](/resources/ai-answer-snapshot-diff-tool/README.md), [AI search prompt coverage auditor](/resources/ai-search-prompt-coverage-auditor/README.md), or [AI visibility experiment sample-size calculator](/resources/ai-visibility-experiment-sample-size-calculator/README.md) to preserve adjacent parts of the measurement chain.
+
+## What should happen after adjudication?
+
+Adjudication should improve the measurement protocol, not manufacture a higher score. Have a third reviewer or a documented discussion resolve each disagreement, but preserve both original labels, the final label, the reason, and the codebook version. Then calculate the primary visibility metric from the pre-specified adjudicated field while reporting the independent agreement separately.
+
+Agreement is also not validity. Two reviewers can consistently apply an incomplete definition of “recommended,” overlook an alias, or mistake a source quotation for the assistant’s own recommendation. Before trusting a result, compare a sample against an explicit codebook, test borderline examples, and inspect the [AI answer factuality evaluation](/blog/ai-answer-factuality-evaluation) and [AI answer citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics) guidance for the separate questions of factual support and citation quality. For study design, the [AI search audit methodology template](/blog/ai-search-audit-methodology-template) and [AI visibility metrics dictionary](/blog/ai-visibility-metrics-dictionary) help document denominators and definitions. The [AI brand recommendation rank coding rules](/blog/ai-brand-recommendation-rank-coding-rules) is a useful adjacent reference when recommendation strength needs finer levels than this three-code fixture.
+
+## What are the limitations?
+
+Kappa is undefined when expected agreement is 1. The included [all-one-category.csv](/resources/ai-recommendation-coding-agreement-calculator/all-one-category.csv) fixture has both reviewers label every row `mentioned`; expected agreement is 1, so the denominator is zero. The script emits `cohens_kappa: null` and `undefined_reason: "expected_agreement_is_1"` rather than dividing by zero. Run `python3 calculate_agreement.py all-one-category.csv` to inspect that branch.
+
+This asset is not a reliability threshold table. Qualitative labels such as “moderate” or “substantial” depend on context and should not be treated as universal acceptance criteria. Kappa also assumes paired ratings of the same items, does not establish that the codebook captures the construct, and cannot correct biased sampling, copied answers, prompt drift, or reviewer training problems. Synthetic rows are illustrative, not measured provider data.
+
+## FAQ
+
+### What does this calculator measure?
+
+It measures agreement between two reviewers using three declared AI-answer codes, including raw agreement, chance-expected agreement, Cohen’s kappa, category counts, and disagreements.
+
+### Are the 24 rows real provider observations?
+
+No. The rows are synthetic and demonstrate the calculation only; they do not measure an AI provider, brand, reviewer validity, or search performance.
+
+### What does an undefined kappa mean here?
+
+It means expected agreement is 1, so the usual denominator is zero. The calculator returns null and an explicit reason instead of dividing by zero.
+
+### How do I run the package?
+
+From the resource directory, run `python3 calculate_agreement.py ratings.csv --check expected-report.json`. It exits zero only on an exact byte match.
+
+## Sources
+
+- [scikit-learn: Cohen’s kappa](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html)
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [W3C PROV-O](https://www.w3.org/TR/prov-o/)
+- [Python CSV documentation](https://docs.python.org/3/library/csv.html)

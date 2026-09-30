@@ -1,0 +1,20 @@
+# Synthetic policy: it is intentionally not a live crawler allowlist.
+User-Agent: ExampleAnswerBot
+Disallow: /private/
+Allow: /private/public/
+Disallow: /assets/*.json$
+Allow: /assets/featured.json
+Disallow: /encoded/%E2%9C%93
+Allow: /encoded/✓
+Disallow: /encoded/✓/
+Disallow: /tie/*
+Allow: /tie/abc$
+
+uSeR-aGeNt: ExampleAnswerBot
+Disallow: /merged/
+Allow: /merged/open
+Disallow:
+
+USER-AGENT: *
+Disallow: /fallback/
+Allow: /fallback/public/

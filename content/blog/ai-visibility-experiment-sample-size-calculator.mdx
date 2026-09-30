@@ -1,0 +1,112 @@
+---
+title: "AI Visibility Experiment Sample Size Calculator: Plan a Detectable Mention-Rate Change"
+description: "Use a transparent, dependency-free calculator to plan equal-size AI answer samples for a two-proportion mention-rate experiment, with synthetic scenarios and stated limitations."
+date: "2026-09-30"
+category: "AI Search"
+readingTime: "9 min read"
+keywords: ["AI visibility experiment sample size", "AI mention rate", "AEO measurement", "two proportion sample size", "AI search experiment"]
+faqs: [{"q":"What does this AI visibility sample-size calculator estimate?","a":"It estimates the number of independent valid answers needed in each of two equal-size groups to detect a specified change between two mention rates, given alpha and power. It is planning math, not a measurement of an AI provider."},{"q":"What does the 20% to 30% example require?","a":"Using the included two-sided alpha 0.05 and 80% power scenario, the normal approximation returns 294 observations per group, or 588 total. The observations must meet your declared sampling and coding rules."},{"q":"Can I treat prompts from several engines as independent?","a":"Not automatically. Reusing prompts, engines, models, accounts, or collection times can create clustering and dependence. Stratify or model those factors, and do not present this simple calculator as correcting for them."},{"q":"Does a larger sample prove that a change is causal?","a":"No. This calculation addresses detectable difference under assumptions. It cannot establish causality, representativeness, coding validity, provider accuracy, or stable future behavior."}]
+image: {"url":"https://images.pexels.com/photos/669615/pexels-photo-669615.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"A desk with a calculator, notebook, and statistical planning notes.","photographer":"Lukas","photographerUrl":"https://www.pexels.com/@goumbik"}
+sources: [{"label":"statsmodels power for two independent proportions","url":"https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.power_proportions_2indep.html"},{"label":"NIST Technical Note 2106","url":"https://doi.org/10.6028/NIST.TN.2106"},{"label":"Python statistics.NormalDist documentation","url":"https://docs.python.org/3/library/statistics.html#statistics.NormalDist"},{"label":"NIST AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"}]
+---
+
+This page gives you a dependency-free calculator for planning a two-group AI visibility experiment. It estimates equal-size observations needed to detect a stated change in a binary mention rate; it does **not** prove live provider performance, demand, causality, representativeness, or independence. Every number in the downloadable fixture is synthetic.
+
+## Table of Contents
+
+- [What does the calculator estimate?](#what-does-the-calculator-estimate)
+- [What formula and assumptions does it use?](#what-formula-and-assumptions-does-it-use)
+- [What is included in the package?](#what-is-included-in-the-package)
+- [What do the four scenarios show?](#what-do-the-four-scenarios-show)
+- [How do you turn observations into an AI test plan?](#how-do-you-turn-observations-into-an-ai-test-plan)
+- [What can make this estimate misleading?](#what-can-make-this-estimate-misleading)
+- [Frequently asked questions](#frequently-asked-questions)
+- [Sources](#sources)
+
+![A researcher reviewing a chart and notes during experiment planning.](https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1200)
+*Photo by [Lukas](https://www.pexels.com/@goumbik) on [Pexels](https://www.pexels.com); an editorial illustration, not experiment evidence.*
+
+## What does the calculator estimate?
+
+The calculator estimates the per-group sample size for comparing two independent Bernoulli proportions: for example, the share of valid answers that mention a brand in a baseline round versus a later round. You provide baseline rate `p0`, target rate `p1`, two-sided significance level `alpha`, and desired power.
+
+The result is a planning threshold, not a promise that a team will observe the target change. The unit is a valid coded answer, not a human, prompt, page view, or citation. Define “mentioned” before collection, preserve the exact answer and coding decision, and report exclusions. A useful companion is the [AI search experiment reporting checklist](/blog/ai-search-experiment-reporting-checklist); an [AI recommendation coding agreement calculator](/blog/ai-recommendation-coding-agreement-calculator) can help examine reviewer agreement before rates are compared.
+
+## What formula and assumptions does it use?
+
+The script implements the pooled-null, unpooled-alternative normal approximation for two equal-size independent groups documented by [statsmodels](https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.power_proportions_2indep.html). With pooled rate `p̄ = (p0 + p1) / 2`, it calculates:
+
+`n = ceil(((z(1 − α/2) × √(2p̄(1 − p̄))) + (z(power) × √(p0(1 − p0) + p1(1 − p1))))² / (p1 − p0)²)`
+
+Here, `z()` is the standard normal quantile, obtained from Python’s standard-library `statistics.NormalDist`; there is no API key or third-party dependency. The statsmodels reference documents the pooled variance under the null and unpooled variance under the alternative, while [NIST Technical Note 2106](https://doi.org/10.6028/NIST.TN.2106) is a useful reminder to state uncertainty and measurement context rather than hide it behind a single number.
+
+The implementation validates `0 < p0,p1 < 1`, requires different rates, and validates `0 < alpha,power < 1`. It rounds each group upward to a whole observation, then reports twice that value as the total. The approximation is most useful for planning; extreme rates, very small effects, or complex designs deserve specialist review.
+
+## What is included in the package?
+
+The [downloadable package](/resources/ai-visibility-experiment-sample-size-calculator/README.md) contains a runnable [Python calculator](/resources/ai-visibility-experiment-sample-size-calculator/calculate_sample_size.py), populated [synthetic scenarios](/resources/ai-visibility-experiment-sample-size-calculator/scenarios.json), a byte-level [expected report](/resources/ai-visibility-experiment-sample-size-calculator/expected-report.json), and exact commands in the README. The output is sorted and rendered with deterministic JSON formatting so a reviewer can compare bytes, not eyeball rounded output.
+
+Run this from the package directory:
+
+```bash
+python3 calculate_sample_size.py --input scenarios.json --output actual-report.json
+cmp -s actual-report.json expected-report.json
+```
+
+The normal fixture includes four named planning scenarios. A separate invalid input with a zero baseline rate must exit nonzero. That failure is deliberate: a boundary value outside the contract should stop a run instead of silently producing an attractive but unsupported number.
+
+## What do the four scenarios show?
+
+The synthetic report makes the trade-off concrete. The first row is the requested 20% to 30% change at alpha .05 and 80% power.
+
+| Synthetic scenario | Alpha | Power | Per group | Total |
+|---|---:|---:|---:|---:|
+| 20% to 30% mention rate | .05 | .80 | 294 | 588 |
+| 10% to 20% lift | .05 | .80 | 199 | 398 |
+| 40% to 50% lift | .05 | .90 | 519 | 1,038 |
+| 30% to 35% sensitive change | .01 | .90 | 2,609 | 5,218 |
+
+These are not benchmark results. They illustrate that a smaller absolute difference can require dramatically more observations, especially when the design demands high power and a stricter alpha. The calculator does not select which effect is commercially meaningful; your protocol must justify that choice before looking at results.
+
+Notice that “20% to 30%” is a ten-percentage-point absolute change but a 50% relative increase. Decide which scale matches the decision before entering values: a rate can move meaningfully for a business while still being difficult to detect statistically. Document that rationale alongside the chosen baseline.
+
+## How do you turn observations into an AI test plan?
+
+Start with the unit and strata, then map the required count to a feasible collection grid. If the first scenario says 294 valid answers per group, “294 prompts once” is not automatically equivalent to “98 prompts across three engines.” Repeated prompts and shared retrieval conditions may be correlated, so the effective information can be lower than the row count suggests.
+
+Write down prompt wording, engine and model labels, locale, account state, collection dates, answer-completeness rule, mention codebook, and missing-answer handling. Use [AI visibility checks](/blog/ai-visibility-check) to keep the buyer-question frame explicit, and preserve source and answer details using the [AI citation data schema](/blog/ai-citation-data-schema). If engines are important strata, report each engine separately before any aggregate.
+
+Do not quietly replace a failed answer with a later answer. Record whether it was excluded, retried under a predeclared rule, or counted as missing. If you are testing a before/after intervention on the same prompt set, this independent-groups calculator is conservative or inappropriate depending on the design; a paired analysis may be more efficient but requires different mathematics.
+
+## What can make this estimate misleading?
+
+The largest risk is treating rows as independent when they are not. Prompt variants can share wording, engines can share retrieval infrastructure, and repeated runs can share cached or personalized context. Clustered observations can make a nominal 588-row plan less informative than it appears.
+
+The formula also does not correct for repeated interim looks, multiple outcomes or engines, prompt drift, missingness, unequal group sizes, non-binary coding, or a post-hoc choice of the baseline. It assumes the observed outcome is a Bernoulli variable and that the two rates are the quantities you planned to compare. It cannot fix an ambiguous codebook or biased prompt frame.
+
+Treat the calculation as a transparent starting point. Pre-register the estimand and stopping rule, run a small operational pilot to find failure rates, inflate collection targets for expected missing answers, and ask a statistician to review confirmatory work. The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) supports documenting context, measurement choices, and limitations as part of responsible evaluation.
+
+## Frequently asked questions
+
+### What does this AI visibility sample-size calculator estimate?
+
+It estimates independent valid answers per equal-size group for detecting a specified difference between two mention rates at declared alpha and power. It is planning math, not a provider benchmark.
+
+### What does the 20% to 30% example require?
+
+The synthetic example requires 294 observations per group, or 588 total, with two-sided alpha .05 and 80% power. Those observations still need a defensible sampling frame and coding rule.
+
+### Can I treat prompts from several engines as independent?
+
+No—not automatically. Shared prompts, engines, models, accounts, and dates can create clustering. Stratify, model, or seek statistical advice rather than claiming the simple formula corrected for dependence.
+
+### Does a larger sample prove that a change is causal?
+
+No. A larger sample can improve precision under assumptions; it cannot establish causality, representativeness, coding validity, or stable future provider behavior.
+
+## Sources
+
+- [statsmodels: power for two independent proportions](https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.power_proportions_2indep.html)
+- [NIST Technical Note 2106](https://doi.org/10.6028/NIST.TN.2106)
+- [Python `statistics.NormalDist`](https://docs.python.org/3/library/statistics.html#statistics.NormalDist)
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)

@@ -1,0 +1,30 @@
+{
+  "contentSha256": "c6948e818c41f93587fe1202f61002cd8c05c3e9a813dce5ce939fbf9d5a2660",
+  "reviewedAt": "2026-09-30",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Estimate equal per-group observations needed to detect a declared difference between two independent AI brand-mention rates.",
+    "connection": "The planning calculator prevents AEO teams from over-interpreting small mention-rate movements from undersized answer samples."
+  },
+  "assessment": "The page delivers a transparent two-independent-proportions normal approximation, four populated synthetic scenarios, deterministic output, and a corrected source aligned with the implemented pooled-null/unpooled-alternative formula.",
+  "sources": [
+    {"url":"https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.power_proportions_2indep.html","checkedAt":"2026-09-30","supports":"Independent two-proportion power calculation using pooled null and unpooled alternative variance."},
+    {"url":"https://doi.org/10.6028/NIST.TN.2106","checkedAt":"2026-09-30","supports":"Measurement-comparison context and the dependence of required samples on the compared proportions."},
+    {"url":"https://docs.python.org/3/library/statistics.html#statistics.NormalDist","checkedAt":"2026-09-30","supports":"The standard-normal inverse CDF used to compute alpha and power quantiles."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-09-30","supports":"Documenting measurement context, intended use, and limitations."}
+  ],
+  "checks": [
+    "Ran all four synthetic scenarios and confirmed the generated report byte-matches expected-report.json.",
+    "Confirmed the 20% to 30% scenario returns 294 observations per group and checked the code against the pooled-null/unpooled-alternative formula.",
+    "Ran a zero-baseline input and confirmed exit 2; read the final article and opened all sources and artifacts after correcting the original NIST formula attribution."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-visibility-experiment-sample-size-calculator/calculate_sample_size.py","description":"Dependency-free independent-proportions planning calculator using statistics.NormalDist."},
+    {"path":"/resources/ai-visibility-experiment-sample-size-calculator/scenarios.json","description":"Four populated synthetic planning scenarios with declared rates, alpha, and power."},
+    {"path":"/resources/ai-visibility-experiment-sample-size-calculator/expected-report.json","description":"Deterministic required per-group and total observation counts."},
+    {"path":"/resources/ai-visibility-experiment-sample-size-calculator/README.md","description":"Exact byte-comparison, invalid-input test, assumptions, and method limits."}
+  ],
+  "methodology": "Editorial review executed normal and invalid-input paths, compared output bytes, traced the calculation to the documented statsmodels variance assumptions, opened all sources, and checked every resource and internal link.",
+  "limitations": "The approximation assumes independent Bernoulli observations in equal groups. It does not correct repeated prompts, engine clustering, paired designs, missing answers, sequential looks, multiple comparisons, prompt drift, coding error, or causal identification."
+}

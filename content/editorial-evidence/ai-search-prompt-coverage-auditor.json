@@ -1,0 +1,31 @@
+{
+  "contentSha256": "ba0c6ec7abf781c7e1127a8e705b7d43679e4ea311a592fbe85001791baa00aa",
+  "reviewedAt": "2026-09-30",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Detect declared buyer-stage, persona, topic, locale, and engine gaps in an AI-search prompt register before answer collection begins.",
+    "connection": "Prompt coverage defines the sampling frame behind AEOeye-style brand mention, recommendation, and citation measurements."
+  },
+  "assessment": "The page delivers a populated prompt register, explicit coverage requirements, a runnable validator, and deterministic gap report. It keeps declared coverage separate from representativeness, search demand, and provider behavior.",
+  "sources": [
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-09-30","supports":"Documenting context, measurement choices, and limits in AI risk management."},
+    {"url":"https://doi.org/10.6028/NIST.AI.600-1","checkedAt":"2026-09-30","supports":"The generative-AI profile context for measuring and documenting system risks."},
+    {"url":"https://www.w3.org/TR/prov-o/","checkedAt":"2026-09-30","supports":"Provenance vocabulary for entities, activities, and agents in a research workflow."},
+    {"url":"https://docs.python.org/3/library/csv.html","checkedAt":"2026-09-30","supports":"The standard-library CSV parsing behavior used by the tool."}
+  ],
+  "checks": [
+    "Ran the 20-row synthetic fixture and confirmed the normal command exits 1 while its JSON byte-matches expected-report.json.",
+    "Ran --allow-gaps and confirmed exit 0 with byte-identical findings, then confirmed an unknown requirement dimension exits 2.",
+    "Read the final article, opened all four primary sources and seven resource links, and verified the three declared gaps and one unknown value against the fixture."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-search-prompt-coverage-auditor/audit_prompt_coverage.py","description":"Dependency-free coverage validator with structural errors separated from declared coverage gaps."},
+    {"path":"/resources/ai-search-prompt-coverage-auditor/prompts.csv","description":"Populated 20-row synthetic prompt register with active, disabled, and excluded records."},
+    {"path":"/resources/ai-search-prompt-coverage-auditor/requirements.csv","description":"Declared dimension/value minimums for the synthetic sampling frame."},
+    {"path":"/resources/ai-search-prompt-coverage-auditor/expected-report.json","description":"Deterministic report containing the exact coverage counts, gaps, and unknown values."},
+    {"path":"/resources/ai-search-prompt-coverage-auditor/README.md","description":"Runnable commands, exit-code contract, scope, and synthetic-data disclosure."}
+  ],
+  "methodology": "Editorial review executed both gap-handling modes and the structural failure branch, compared output bytes with the committed expectation, recomputed the reported counts from the CSVs, opened every cited source, and checked every promised resource link.",
+  "limitations": "The tool checks declared cells only. It cannot prove prompt representativeness, user demand, independence, provider identity, answer availability, coding validity, statistical power, or causal visibility."
+}

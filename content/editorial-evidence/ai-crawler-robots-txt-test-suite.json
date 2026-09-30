@@ -1,0 +1,31 @@
+{
+  "contentSha256": "c45b409fe2be8599ab6e6eca4a0f289fd339490e1dd43f547e3a140da7df843b",
+  "reviewedAt": "2026-09-30",
+  "kind": "research-asset",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Regression-test crawler groups, longest-match precedence, wildcards, anchors, encoding, and allow exceptions before publishing robots.txt changes.",
+    "connection": "Crawler policy is part of the technical accessibility layer that precedes AI-search retrieval and citation."
+  },
+  "assessment": "The page ships a real evaluator, populated policy, exactly 24 synthetic cases, and deterministic expected decisions. It labels the RFC subset and does not present robots.txt as access control or proof of real-crawler compliance.",
+  "sources": [
+    {"url":"https://www.rfc-editor.org/rfc/rfc9309","checkedAt":"2026-09-30","supports":"Group selection, matching precedence, allow-on-tie, protocol limits, and the statement that robots.txt is not authorization."},
+    {"url":"https://www.rfc-editor.org/rfc/rfc3986","checkedAt":"2026-09-30","supports":"URI path and percent-encoding terminology."},
+    {"url":"https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt","checkedAt":"2026-09-30","supports":"Google's documented robots.txt behavior and implementation context."},
+    {"url":"https://platform.openai.com/docs/bots","checkedAt":"2026-09-30","supports":"A dated official discovery reference for OpenAI crawler documentation, not a fixture claim."}
+  ],
+  "checks": [
+    "Ran all 24 synthetic cases after the reserved-slash handling review and confirmed output byte-matches expected.csv.",
+    "Inspected group merging, specific-token selection, wildcard fallback, longest-rule selection, equal-length Allow priority, terminal anchors, and the synthetic UTF-8 case.",
+    "Read the final article, opened all sources and seven artifact links, and confirmed every excluded behavior is disclosed."
+  ],
+  "artifacts": [
+    {"path":"/resources/ai-crawler-robots-txt-test-suite/evaluate_policy.py","description":"Dependency-free evaluator for the explicitly documented RFC 9309 subset."},
+    {"path":"/resources/ai-crawler-robots-txt-test-suite/robots.txt","description":"Populated synthetic policy with specific, repeated, and wildcard groups."},
+    {"path":"/resources/ai-crawler-robots-txt-test-suite/cases.csv","description":"Exactly 24 populated synthetic policy cases with expected decisions."},
+    {"path":"/resources/ai-crawler-robots-txt-test-suite/expected.csv","description":"Deterministic decisions and winning-rule evidence for every case."},
+    {"path":"/resources/ai-crawler-robots-txt-test-suite/README.md","description":"Exact byte-level verification command, scope, and excluded production behaviors."}
+  ],
+  "methodology": "Editorial review executed the full 24-case regression, compared output bytes, traced every winning rule through the evaluator, reviewed the documented subset against RFC 9309, opened all primary sources, and inspected all article links.",
+  "limitations": "The package omits HTTP fetching, redirects, caching, the 500 KiB ceiling, non-UTF-8 recovery, authentication, IP verification, reserved-delimiter encoding edge cases, and real-bot compliance."
+}

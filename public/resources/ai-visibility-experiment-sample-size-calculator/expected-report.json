@@ -1,0 +1,40 @@
+{
+  "scenarios": [
+    {
+      "alpha": 0.05,
+      "baseline_rate": 0.2,
+      "name": "20 to 30 percent mention rate",
+      "per_group_observations": 294,
+      "power": 0.8,
+      "target_rate": 0.3,
+      "total_observations": 588
+    },
+    {
+      "alpha": 0.05,
+      "baseline_rate": 0.1,
+      "name": "10 to 20 percent lift",
+      "per_group_observations": 199,
+      "power": 0.8,
+      "target_rate": 0.2,
+      "total_observations": 398
+    },
+    {
+      "alpha": 0.05,
+      "baseline_rate": 0.4,
+      "name": "40 to 50 percent lift",
+      "per_group_observations": 519,
+      "power": 0.9,
+      "target_rate": 0.5,
+      "total_observations": 1038
+    },
+    {
+      "alpha": 0.01,
+      "baseline_rate": 0.3,
+      "name": "30 to 35 percent sensitive change",
+      "per_group_observations": 2609,
+      "power": 0.9,
+      "target_rate": 0.35,
+      "total_observations": 5218
+    }
+  ]
+}
