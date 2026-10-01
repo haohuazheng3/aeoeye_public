@@ -1,23 +1,26 @@
 "use client";
 
 import { useEffect } from "react";
-import { isTransientClientError, recoverFromStaleChunk } from "@/lib/client-errors";
+import { isTransientClientError, recoverFromStaleChunk, shouldReportClientError } from "@/lib/client-errors";
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    try {
-      const payload = JSON.stringify({
-        name: error?.name || "GlobalError",
-        message: (error?.message || "render crash").slice(0, 2000),
-        stack: (error?.stack || "").slice(0, 6000),
-        route: typeof location !== "undefined" ? location.pathname : "",
-        // 曾经这里硬编码 "error",于是每次发版留下的 chunk 噪音都被记成严重错误、
-        // 把 /api/health 拖成 degraded(实测 8 条未处理里 3 条就是这么来的)。
-        level: isTransientClientError(error?.name || "", error?.message || "") ? "warn" : "error",
-      });
-      navigator.sendBeacon?.("/api/errors", new Blob([payload], { type: "application/json" }));
-    } catch {
-      /* 绝不二次抛错 */
+    // 自动化爬虫、离开页面时被中断的请求不上报(见 lib/client-errors);换版自愈照常进行
+    if (shouldReportClientError(error?.name || "", error?.message || "")) {
+      try {
+        const payload = JSON.stringify({
+          name: error?.name || "GlobalError",
+          message: (error?.message || "render crash").slice(0, 2000),
+          stack: (error?.stack || "").slice(0, 6000),
+          route: typeof location !== "undefined" ? location.pathname : "",
+          // 曾经这里硬编码 "error",于是每次发版留下的 chunk 噪音都被记成严重错误、
+          // 把 /api/health 拖成 degraded(实测 8 条未处理里 3 条就是这么来的)。
+          level: isTransientClientError(error?.name || "", error?.message || "") ? "warn" : "error",
+        });
+        navigator.sendBeacon?.("/api/errors", new Blob([payload], { type: "application/json" }));
+      } catch {
+        /* 绝不二次抛错 */
+      }
     }
     recoverFromStaleChunk(error);
   }, [error]);

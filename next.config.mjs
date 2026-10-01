@@ -45,14 +45,14 @@ const nextConfig = {
       // ⚠️ 装任何第三方脚本都必须同时改这里和 connect-src,否则脚本会被 CSP 静默
       // 拦掉:标签在 HTML 里、控制台只有一行 CSP 报错,后台一直显示"未安装",
       // 很容易被当成对方服务的问题查半天(FlowGlance 就这么栽过一次)。
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.aeoeye.com https://*.clerk.accounts.dev https://*.clerk.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://va.vercel-scripts.com https://flowglance.com https://*.flowglance.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.aeoeye.com https://*.clerk.accounts.dev https://*.clerk.com https://challenges.cloudflare.com https://static.cloudflareinsights.com https://flowglance.com https://*.flowglance.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
       // flowglance 要连**主域和子域**:fw.js 与配置在 flowglance.com,
       // 但事件上报发往 collect.flowglance.com —— 只放行主域的话,脚本跑得起来、
       // 配置也拉得到,唯独一条数据都传不出去(实测控制台报的就是 collect 子域被拦)。
-      "connect-src 'self' https://*.aeoeye.com https://*.clerk.accounts.dev https://*.clerk.com https://api.aeoeye.com https://cloudflareinsights.com https://*.vercel-insights.com https://vitals.vercel-insights.com https://flowglance.com https://*.flowglance.com",
+      "connect-src 'self' https://*.aeoeye.com https://*.clerk.accounts.dev https://*.clerk.com https://api.aeoeye.com https://cloudflareinsights.com https://flowglance.com https://*.flowglance.com",
       "frame-src 'self' https://*.aeoeye.com https://*.clerk.accounts.dev https://challenges.cloudflare.com https://js.stripe.com https://checkout.stripe.com",
       "worker-src 'self' blob: https://*.aeoeye.com",
       "object-src 'none'",

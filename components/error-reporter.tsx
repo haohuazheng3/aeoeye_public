@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { isTransientClientError, recoverFromStaleChunk } from "@/lib/client-errors";
+import { isTransientClientError, recoverFromStaleChunk, shouldReportClientError } from "@/lib/client-errors";
 
 /**
  * 客户端错误上报(E26):捕获 window.onerror 与未处理的 Promise 拒绝,
@@ -16,6 +16,8 @@ export function ErrorReporter() {
     const noisy = isTransientClientError;
 
     function report(name: string, message: string, stack?: string) {
+      // 自动化爬虫、离开页面时被中断的请求:不是 bug,不进收件箱(见 lib/client-errors)
+      if (!shouldReportClientError(name, message)) return;
       try {
         const payload = JSON.stringify({
           name: name || "Error",

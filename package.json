@@ -18,7 +18,8 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:studio": "drizzle-kit studio",
     "verify:engines": "node scripts/verify-engines.mjs",
-    "test:seo": "tsx --test lib/seo-audit/tests/*.test.ts"
+    "test:seo": "tsx --test lib/seo-audit/tests/*.test.ts",
+    "test:lib": "tsx --test lib/tests/*.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0",
@@ -26,7 +27,6 @@
     "@clerk/nextjs": "^6.39.5",
     "@neondatabase/serverless": "^1.1.0",
     "@react-pdf/renderer": "^4.5.1",
-    "@vercel/analytics": "^2.0.1",
     "@vercel/functions": "^3.9.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
