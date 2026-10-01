@@ -43,9 +43,13 @@ export function ErrorReporter() {
     }
 
     const onError = (e: ErrorEvent) => {
-      report(e.error?.name || "Error", e.message || "window.onerror", e.error?.stack);
+      // 判断用**错误对象自己的 message**:它带着失败分块的完整地址(…(error: https://…));
+      // ErrorEvent.message 在部分浏览器 / 场景里只有前半句,缺了地址就分不清是自家分块还是
+      // Clerk 这类第三方分块 —— 2026-10-01 生产复测就因此把 Clerk 分块失败又当成换版刷新了页面。
+      const message = e.error?.message || e.message || "window.onerror";
+      report(e.error?.name || "Error", message, e.error?.stack);
       // 换版导致的 chunk 404:先上报再自动重载,用户不必看到坏掉的页面
-      recoverFromStaleChunk({ name: e.error?.name, message: e.message });
+      recoverFromStaleChunk({ name: e.error?.name, message });
     };
     const onRejection = (e: PromiseRejectionEvent) => {
       const r = e.reason as { name?: string; message?: string; stack?: string } | undefined;
