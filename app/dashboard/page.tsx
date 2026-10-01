@@ -7,6 +7,7 @@ import { audits as auditsTable, subscriptions as subsTable } from "@/lib/db/sche
 import { getSessionUser } from "@/lib/auth";
 import { isApiOwner } from "@/lib/api-keys";
 import { confirmCheckoutSession, claimAnonymousAudits } from "@/lib/orders";
+import { listSeoAuditsForUser } from "@/lib/seo-audit/repo";
 import { AuditForm } from "@/components/audit-form";
 import { ManageBillingButton } from "@/components/manage-billing";
 import { formatDate } from "@/lib/utils";
@@ -48,9 +49,11 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
     }
   }
 
-  const [myAudits, mySubs] = await Promise.all([
+  const [myAudits, mySubs, mySeoAudits] = await Promise.all([
     db.select().from(auditsTable).where(eq(auditsTable.userId, userId)).orderBy(desc(auditsTable.createdAt)).limit(30),
     db.select().from(subsTable).where(eq(subsTable.userId, userId)),
+    // 第二个产品面的列表。它出问题不该拖垮整个 dashboard(关键路径 #4),失败就当没有
+    listSeoAuditsForUser(userId).catch(() => []),
   ]);
   const activeSub = mySubs.find((s) => s.status === "active" || s.status === "trialing");
   const apiEnabled = isApiOwner(session?.email);
@@ -126,6 +129,55 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
                 </div>
               </Link>
             ))}
+          </div>
+        )}
+      </div>
+
+      {/* SEO 审计(独立产品面,独立表)。空态也给入口 —— 很多用户是在这里第一次知道有它 */}
+      <div className="mt-8">
+        <div className="flex items-center justify-between gap-4">
+          <h2 className="font-display text-lg font-semibold">SEO audits</h2>
+          <Link href="/seo-audit" className="text-sm font-medium text-iris hover:underline">
+            Run an SEO audit
+          </Link>
+        </div>
+        {mySeoAudits.length === 0 ? (
+          <div className="card mt-4 p-6 text-sm text-ink/60">
+            No SEO audits yet.{" "}
+            <Link href="/seo-audit" className="font-medium text-iris hover:underline">
+              Score any site’s SEO health
+            </Link>{" "}
+            — free, takes about a minute.
+          </div>
+        ) : (
+          <div className="card mt-4 divide-y divide-paper-dim">
+            {mySeoAudits.map((a) => {
+              // 被 WAF 拦截的报告不出分(复审 C35):落库的 score 可能是探针类检查算出的数字,不能在这里冒出来
+              const blocked = a.result?.meta?.outcome === "blocked";
+              return (
+                <Link
+                  key={a.id}
+                  href={`/seo-audit/${a.id}`}
+                  className="flex items-center justify-between gap-4 p-4 transition hover:bg-paper-soft"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate font-medium text-ink">{a.domain}</p>
+                    <p className="text-xs text-ink/50">
+                      {formatDate(a.createdAt)} ·{" "}
+                      {a.unlocked ? <span className="font-semibold text-iris">Unlocked</span> : "Free"}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {a.score !== null && !blocked ? (
+                      <span className="font-display text-lg font-semibold text-iris">{a.score}</span>
+                    ) : (
+                      <span className="text-xs text-ink/40 capitalize">{blocked ? "Blocked" : a.status}</span>
+                    )}
+                    <ExternalLink className="h-4 w-4 text-ink/30" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>

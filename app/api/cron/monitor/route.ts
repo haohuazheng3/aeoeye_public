@@ -7,6 +7,7 @@ import { runAudit } from "@/lib/engine/run";
 import { saveAuditResult, createAudit } from "@/lib/engine/repo";
 import { saveLead } from "@/lib/leads";
 import { env, features } from "@/lib/env";
+import { sweepStaleSeoAudits, SEO_STALE_RUN_MS } from "@/lib/seo-audit/repo";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -18,9 +19,35 @@ function authorized(req: Request): boolean {
   return req.headers.get("authorization") === `Bearer ${env.CRON_SECRET}`;
 }
 
+/**
+ * SEO 审计卡死清扫:pending/running 超过 6 分钟的行标 failed("Timed out";有旧报告的重跑则恢复 complete),
+ * running 超过 6 分钟的升级标 failed。运行自己有 250s 的 deadline,这里是最后一道兜底 ——
+ * waitUntil 后台被平台掐断时,报告页才不会永远转圈。放在 LLM 门之前:它不依赖任何引擎。
+ */
+async function sweepSeoAudits(): Promise<{ restored: number; timedOut: number; upgradesFailed: number } | { error: string }> {
+  try {
+    const r = await sweepStaleSeoAudits(SEO_STALE_RUN_MS);
+    if (r.timedOut || r.restored || r.upgradesFailed) {
+      await captureError({
+        name: "seo_audit_stale_sweep",
+        message: `stale SEO audit runs: ${r.timedOut} timed out, ${r.restored} re-runs restored, ${r.upgradesFailed} upgrades failed`,
+        route: "/api/cron/monitor",
+        source: "server",
+        level: "warn",
+        meta: r,
+      });
+    }
+    return r;
+  } catch (e) {
+    await captureError({ name: "seo_audit_stale_sweep", message: String((e as Error)?.message ?? e), stack: (e as Error)?.stack, route: "/api/cron/monitor", source: "server" });
+    return { error: String((e as Error)?.message ?? e) };
+  }
+}
+
 export async function GET(req: Request) {
   if (!authorized(req)) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  if (!features.llm) return NextResponse.json({ ran: 0, note: "engine not configured" });
+  const seoAudits = await sweepSeoAudits();
+  if (!features.llm) return NextResponse.json({ ran: 0, note: "engine not configured", seoAudits });
 
   const now = new Date();
   const due = await db
@@ -68,5 +95,5 @@ export async function GET(req: Request) {
     }
   }
 
-  return NextResponse.json({ ran, due: due.length });
+  return NextResponse.json({ ran, due: due.length, seoAudits });
 }

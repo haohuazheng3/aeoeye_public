@@ -1,0 +1,127 @@
+{
+  "version": "0.1.20260917",
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "time": "0 sec.",
+  "cost": 0,
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "tasks": [
+    {
+      "id": "09302250-1965-0265-2000-f59e5ab85e15",
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0 sec.",
+      "cost": 0,
+      "result_count": 1,
+      "path": [
+        "v3",
+        "backlinks",
+        "summary",
+        "live"
+      ],
+      "data": {
+        "api": "backlinks",
+        "function": "summary",
+        "target": "aeoeye.com",
+        "include_subdomains": true,
+        "backlinks_status_type": "live",
+        "internal_list_limit": 10
+      },
+      "result": [
+        {
+          "target": "dataforseo.com",
+          "first_seen": "2019-01-15 23:54:14 +00:00",
+          "lost_date": null,
+          "rank": 51,
+          "backlinks": 332685,
+          "backlinks_spam_score": 15,
+          "crawled_pages": 123855,
+          "info": {
+            "server": "nginx/1.24.0 (Ubuntu)",
+            "cms": "wordpress",
+            "platform_type": [
+              "organization"
+            ],
+            "ip_address": "178.63.191.50",
+            "country": "US",
+            "is_ip": false,
+            "target_spam_score": 0
+          },
+          "internal_links_count": 1945852,
+          "external_links_count": 5031887,
+          "broken_backlinks": 1130,
+          "broken_pages": 130,
+          "referring_domains": 2952,
+          "referring_domains_nofollow": 0,
+          "referring_main_domains": 2803,
+          "referring_main_domains_nofollow": 0,
+          "referring_ips": 2315,
+          "referring_subnets": 1403,
+          "referring_pages": 329175,
+          "referring_pages_nofollow": 0,
+          "referring_links_tld": {
+            "jetzt": 231921,
+            "de": 83127,
+            "com": 5400,
+            "net": 1488,
+            "pl": 1125,
+            "io": 931,
+            "blogspot.com": 922,
+            "ai": 716,
+            "org": 661,
+            "github.io": 388
+          },
+          "referring_links_types": {
+            "image": 237276,
+            "anchor": 64168,
+            "redirect": 27728,
+            "canonical": 3
+          },
+          "referring_links_attributes": {
+            "noopener": 4348,
+            "noreferrer": 2270,
+            "external": 46,
+            "sponsored": 38,
+            "ugc": 5,
+            "bookmark": 3,
+            "author": 2
+          },
+          "referring_links_platform_types": {
+            "unknown": 241580,
+            "organization": 57549,
+            "blogs": 4074,
+            "cms": 3199,
+            "news": 1153,
+            "ecommerce": 394,
+            "message-boards": 81
+          },
+          "referring_links_semantic_locations": {
+            "": 320802,
+            "article": 4244,
+            "section": 2312,
+            "main": 1274,
+            "header": 211,
+            "footer": 161,
+            "aside": 81,
+            "details": 61,
+            "figure": 21,
+            "nav": 5
+          },
+          "referring_links_countries": {
+            "": 238265,
+            "DE": 83605,
+            "US": 1566,
+            "IO": 1323,
+            "PL": 1267,
+            "AI": 717,
+            "WW": 617,
+            "CC": 377,
+            "CA": 234,
+            "UA": 216
+          }
+        }
+      ]
+    }
+  ]
+}

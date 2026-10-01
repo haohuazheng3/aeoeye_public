@@ -1,0 +1,364 @@
+{
+  "version": "0.1.20260917",
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "time": "0 sec.",
+  "cost": 0,
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "tasks": [
+    {
+      "id": "09302251-1965-0460-2000-0e2fd132d559",
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0 sec.",
+      "cost": 0,
+      "result_count": 1,
+      "path": [
+        "v3",
+        "backlinks",
+        "timeseries_new_lost_summary",
+        "live"
+      ],
+      "data": {
+        "api": "backlinks",
+        "function": "timeseries_new_lost_summary",
+        "target": "aeoeye.com",
+        "date_from": "2026-07-02",
+        "date_to": "2026-09-30",
+        "group_range": "month"
+      },
+      "result": [
+        {
+          "target": "dataforseo.com",
+          "date_from": "2021-12-01",
+          "date_to": "2022-01-01",
+          "group_range": "day",
+          "items_count": 32,
+          "items": [
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-01 00:00:00 +00:00",
+              "new_backlinks": 178,
+              "lost_backlinks": 15,
+              "new_referring_domains": 14,
+              "lost_referring_domains": 8,
+              "new_referring_main_domains": 14,
+              "lost_referring_main_domains": 8
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-02 00:00:00 +00:00",
+              "new_backlinks": 101,
+              "lost_backlinks": 18,
+              "new_referring_domains": 8,
+              "lost_referring_domains": 4,
+              "new_referring_main_domains": 8,
+              "lost_referring_main_domains": 4
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-03 00:00:00 +00:00",
+              "new_backlinks": 68,
+              "lost_backlinks": 21,
+              "new_referring_domains": 11,
+              "lost_referring_domains": 4,
+              "new_referring_main_domains": 9,
+              "lost_referring_main_domains": 4
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-04 00:00:00 +00:00",
+              "new_backlinks": 43,
+              "lost_backlinks": 22,
+              "new_referring_domains": 12,
+              "lost_referring_domains": 4,
+              "new_referring_main_domains": 10,
+              "lost_referring_main_domains": 4
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-05 00:00:00 +00:00",
+              "new_backlinks": 67,
+              "lost_backlinks": 39,
+              "new_referring_domains": 6,
+              "lost_referring_domains": 6,
+              "new_referring_main_domains": 5,
+              "lost_referring_main_domains": 6
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-06 00:00:00 +00:00",
+              "new_backlinks": 109,
+              "lost_backlinks": 1,
+              "new_referring_domains": 10,
+              "lost_referring_domains": 1,
+              "new_referring_main_domains": 12,
+              "lost_referring_main_domains": 1
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-07 00:00:00 +00:00",
+              "new_backlinks": 86,
+              "lost_backlinks": 1,
+              "new_referring_domains": 12,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 13,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-08 00:00:00 +00:00",
+              "new_backlinks": 26,
+              "lost_backlinks": 1,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-09 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-10 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-11 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-12 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-13 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-14 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-15 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-16 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-17 00:00:00 +00:00",
+              "new_backlinks": 37,
+              "lost_backlinks": 3,
+              "new_referring_domains": 9,
+              "lost_referring_domains": 1,
+              "new_referring_main_domains": 12,
+              "lost_referring_main_domains": 1
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-18 00:00:00 +00:00",
+              "new_backlinks": 100,
+              "lost_backlinks": 4,
+              "new_referring_domains": 7,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 8,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-19 00:00:00 +00:00",
+              "new_backlinks": 14,
+              "lost_backlinks": 2,
+              "new_referring_domains": 3,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 3,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-20 00:00:00 +00:00",
+              "new_backlinks": 32,
+              "lost_backlinks": 7,
+              "new_referring_domains": 8,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 8,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-21 00:00:00 +00:00",
+              "new_backlinks": 1,
+              "lost_backlinks": 0,
+              "new_referring_domains": 1,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 1,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-22 00:00:00 +00:00",
+              "new_backlinks": 0,
+              "lost_backlinks": 0,
+              "new_referring_domains": 0,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 0,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-23 00:00:00 +00:00",
+              "new_backlinks": 39,
+              "lost_backlinks": 17,
+              "new_referring_domains": 10,
+              "lost_referring_domains": 1,
+              "new_referring_main_domains": 10,
+              "lost_referring_main_domains": 1
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-24 00:00:00 +00:00",
+              "new_backlinks": 46,
+              "lost_backlinks": 0,
+              "new_referring_domains": 16,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 16,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-25 00:00:00 +00:00",
+              "new_backlinks": 50,
+              "lost_backlinks": 2,
+              "new_referring_domains": 11,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 15,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-26 00:00:00 +00:00",
+              "new_backlinks": 55,
+              "lost_backlinks": 1,
+              "new_referring_domains": 16,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 21,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-27 00:00:00 +00:00",
+              "new_backlinks": 35,
+              "lost_backlinks": 1,
+              "new_referring_domains": 9,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 9,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-28 00:00:00 +00:00",
+              "new_backlinks": 35,
+              "lost_backlinks": 7,
+              "new_referring_domains": 9,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 9,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-29 00:00:00 +00:00",
+              "new_backlinks": 31,
+              "lost_backlinks": 5,
+              "new_referring_domains": 10,
+              "lost_referring_domains": 1,
+              "new_referring_main_domains": 10,
+              "lost_referring_main_domains": 1
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-30 00:00:00 +00:00",
+              "new_backlinks": 38,
+              "lost_backlinks": 3,
+              "new_referring_domains": 11,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 15,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2021-12-31 00:00:00 +00:00",
+              "new_backlinks": 37,
+              "lost_backlinks": 2,
+              "new_referring_domains": 2,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 3,
+              "lost_referring_main_domains": 0
+            },
+            {
+              "type": "backlinks_timeseries_new_lost_summary",
+              "date": "2022-01-01 00:00:00 +00:00",
+              "new_backlinks": 29,
+              "lost_backlinks": 1,
+              "new_referring_domains": 2,
+              "lost_referring_domains": 0,
+              "new_referring_main_domains": 2,
+              "lost_referring_main_domains": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -69,11 +69,14 @@ export function FlowGlancePurchase({
   amountCents,
   currency,
   sessionId,
+  item = "full-report",
 }: {
   auditId: string;
   amountCents?: number;
   currency?: string;
   sessionId: string;
+  /** 卖的是哪个产品:$29 AI 可见度报告 "full-report" / $10 SEO 报告 "seo-report"。混在一起营收归因就废了 */
+  item?: string;
 }) {
   useEffect(() => {
     once(`fw_purchase_${sessionId}`, "local", () =>
@@ -81,11 +84,11 @@ export function FlowGlancePurchase({
         // FlowGlance 的 money 字段按整数分处理(spec: "Money is integer cents")
         amount: amountCents,
         currency: (currency || "usd").toLowerCase(),
-        item: "full-report",
+        item,
         id: auditId,
       })
     );
-  }, [auditId, amountCents, currency, sessionId]);
+  }, [auditId, amountCents, currency, sessionId, item]);
 
   return null;
 }
@@ -98,11 +101,20 @@ export function FlowGlancePurchase({
  * 两个数字一对就露馅。所以判据必须是"内容到齐"(plan === full),
  * 不能是"页面解锁了"。
  */
-export function FlowGlanceUnlock({ auditId, delivered }: { auditId: string; delivered: boolean }) {
+export function FlowGlanceUnlock({
+  auditId,
+  delivered,
+  item = "full-report",
+}: {
+  auditId: string;
+  delivered: boolean;
+  /** 与 FlowGlancePurchase 的 item 一致,revenue 端点才能按产品把 purchase 与 unlock 对上 */
+  item?: string;
+}) {
   useEffect(() => {
     if (!delivered) return;
-    once(`fw_unlock_${auditId}`, "local", () => fw("event", "unlock", { id: auditId, item: "full-report" }));
-  }, [auditId, delivered]);
+    once(`fw_unlock_${auditId}`, "local", () => fw("event", "unlock", { id: auditId, item }));
+  }, [auditId, delivered, item]);
 
   return null;
 }

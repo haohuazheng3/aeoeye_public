@@ -39,6 +39,11 @@ const serverSchema = z.object({
 
   // 真实多引擎查询(DataForSEO AI Optimization);余额耗尽时引擎自动降级为"未激活"
   DATAFORSEO_B64: z.string().default(""),
+  /**
+   * SEO 审计付费层的 DataForSEO 基址开关:"1" → 走 sandbox.dataforseo.com(免费,回假数据)。
+   * 开发与验证一律用沙盒 —— 站长硬性规则:不得为测试调用正式付费端点。生产留空。
+   */
+  DATAFORSEO_SANDBOX: z.string().default(""),
 
   // 交易邮件:付款后把完整报告 PDF 发到买家在 Stripe 填的邮箱
   RESEND_API_KEY: z.string().default(""),
@@ -51,6 +56,8 @@ const serverSchema = z.object({
   STRIPE_PRICE_PRO_MONTHLY: z.string().default(""),
   STRIPE_PRICE_PRO_YEARLY: z.string().default(""),
   STRIPE_PRICE_REPORT: z.string().default(""),
+  /** $10 一次性完整 SEO 报告。留空时 checkout 用内联 price_data,不会像 $29 报告那样回 503 */
+  STRIPE_PRICE_SEO_REPORT: z.string().default(""),
 
   // Clerk
   CLERK_SECRET_KEY: z.string().default(""),
@@ -109,4 +116,9 @@ export const features = {
   r2: !!env.R2_ACCESS_KEY_ID && !!env.R2_SECRET_ACCESS_KEY,
   indexnow: !!env.INDEXNOW_KEY,
   email: !!env.RESEND_API_KEY,
+  /**
+   * SEO 审计的付费层(站外三模块)能不能跑 —— 只取决于 DataForSEO 凭据。
+   * 免费层零外部付费依赖,永远可跑;缺它时付费升级把三个模块降级为 null 并写明。
+   */
+  seoAuditPaid: !!env.DATAFORSEO_B64,
 };

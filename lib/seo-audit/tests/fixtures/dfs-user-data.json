@@ -1,0 +1,33 @@
+{
+  "version": "0.1.20260917",
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "time": "0 sec.",
+  "cost": 0,
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "tasks": [
+    {
+      "id": "09302250-1965-0064-2000-d560885329d0",
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0 sec.",
+      "cost": 0,
+      "result_count": 1,
+      "path": [
+        "v3",
+        "appendix",
+        "user_data"
+      ],
+      "result": [
+        {
+          "money": {
+            "total": 269081.995351,
+            "balance": -117583.89906900004
+          },
+          "backlinks_subscription_expiry_date": "2050-01-01 00:00:00 +00:00"
+        }
+      ]
+    }
+  ]
+}

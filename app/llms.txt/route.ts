@@ -19,7 +19,9 @@ export function GET() {
   lines.push("## Key pages");
   lines.push(`- [Free AI visibility audit](${siteUrl}/): Run an audit for any brand or website.`);
   lines.push(`- [How it works](${siteUrl}/how-it-works): Our methodology for measuring AI visibility.`);
-  lines.push(`- [Pricing](${siteUrl}/pricing): Free audit, and a one-time $29 full multi-engine report. No subscription.`);
+  lines.push(`- [Pricing](${siteUrl}/pricing): Free audit, a one-time $29 full multi-engine AI visibility report, and a one-time $10 full technical SEO report. No subscription.`);
+  lines.push(`- [SEO Audit](${siteUrl}/seo-audit): Free technical SEO score across 7 dimensions (crawlability, on-page, Core Web Vitals, mobile, structured data, HTTPS, internal links); $10 unlocks every fix, backlinks, rankings and competitors.`);
+  lines.push(`- [How we score](${siteUrl}/seo-audit/how-we-score): Weights, thresholds and data sources behind the SEO score.`);
   lines.push("");
   lines.push("## Free tools");
   for (const t of TOOLS) lines.push(`- [${t.name}](${siteUrl}/tools/${t.slug}): ${t.tagline}.`);

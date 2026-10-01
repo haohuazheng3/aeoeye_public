@@ -7,6 +7,13 @@ import { Lock, Sparkles, Loader2, ArrowRight, Check } from "lucide-react";
 let autoResumeFired = false;
 
 /**
+ * 可购买的一次性产品:"report" = $29 AI 可见度完整报告;"seo_report" = $10 完整 SEO 报告。
+ * 两者各走各的表(audits / seo_audits),/api/checkout 按 product 决定 successPath 与解锁哪张表 ——
+ * 传错就是"付了钱、另一份报告被解锁"的事故,所以类型上只放行这两个字面量。
+ */
+export type UnlockProduct = "report" | "seo_report";
+
+/**
  * 发起完整报告解锁(Stripe checkout)。
  * 未登录时先跳转登录,登录后自动回到本页继续支付(?unlock=1 触发)。
  */
@@ -17,8 +24,8 @@ export function UnlockButton({
   children,
 }: {
   auditId: string;
-  /** 目前只有一个付费产品:$29 一次性完整报告(Pro 订阅已下线) */
-  product?: "report";
+  /** 默认 "report"($29 AI 可见度报告);SEO 报告页必须显式传 "seo_report"(Pro 订阅已下线) */
+  product?: UnlockProduct;
   className?: string;
   children?: React.ReactNode;
 }) {
@@ -83,11 +90,17 @@ export function LockedSection({
   title,
   blurb,
   children,
+  product = "report",
+  cta,
 }: {
   auditId: string;
   title: string;
   blurb: string;
   children: React.ReactNode;
+  /** 透传给 UnlockButton;默认沿用 $29 报告,现有调用处行为不变 */
+  product?: UnlockProduct;
+  /** 按钮文案;不传用 UnlockButton 的默认 "Unlock full report" */
+  cta?: React.ReactNode;
 }) {
   // min-h 由容器给:覆盖层是 absolute inset-0,高度完全跟随 children。
   // children 矮(如 3 行竞品表)时图标+标题+说明+按钮会塞不下而溢出模块。
@@ -102,7 +115,9 @@ export function LockedSection({
         </div>
         <h3 className="font-display text-base font-semibold leading-snug sm:text-lg">{title}</h3>
         <p className="max-w-xs text-sm leading-snug text-ink/55 sm:max-w-sm">{blurb}</p>
-        <UnlockButton auditId={auditId} className="btn-primary mt-1 shrink-0" />
+        <UnlockButton auditId={auditId} product={product} className="btn-primary mt-1 shrink-0">
+          {cta}
+        </UnlockButton>
       </div>
     </div>
   );
@@ -115,7 +130,15 @@ export function LockedSection({
  * 数字比形容词有说服力,而且每一个都能在付费报告里当场验证 —— 吹不了。
  * ⚠️ 分析模型只说"最强档",不点名型号:模型会换代,承诺的是档位。
  */
-export function UnlockBanner({ auditId, questionCount = 3 }: { auditId: string; questionCount?: number }) {
+export function UnlockBanner({
+  auditId,
+  questionCount = 3,
+  product = "report",
+}: {
+  auditId: string;
+  questionCount?: number;
+  product?: UnlockProduct;
+}) {
   const headline = [
     { n: "5", label: "AI engines", sub: "vs 1 now" },
     { n: "10", label: "buyer questions", sub: `vs ${questionCount} now` },
@@ -160,7 +183,7 @@ export function UnlockBanner({ auditId, questionCount = 3 }: { auditId: string; 
           </ul>
         </div>
         <div className="flex flex-col gap-3">
-          <UnlockButton auditId={auditId} className="btn-primary w-full justify-center py-4 text-base" />
+          <UnlockButton auditId={auditId} product={product} className="btn-primary w-full justify-center py-4 text-base" />
           <a href="/pricing" className="btn-ghost w-full justify-center py-4">
             Compare plans <ArrowRight className="h-4 w-4" />
           </a>

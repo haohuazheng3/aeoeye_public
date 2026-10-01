@@ -19,12 +19,12 @@ export function AuthNav() {
   return (
     <>
       <SignedOut>
-        <Link href="/login" className="btn-ghost hidden px-4 py-2 text-[13px] sm:inline-flex">
+        <Link href="/login" className="btn-ghost hidden whitespace-nowrap px-4 py-2 text-[13px] sm:inline-flex">
           Sign in
         </Link>
       </SignedOut>
       <SignedIn>
-        <Link href="/dashboard" className="btn-ghost hidden gap-1.5 px-4 py-2 text-[13px] sm:inline-flex">
+        <Link href="/dashboard" className="btn-ghost hidden gap-1.5 whitespace-nowrap px-4 py-2 text-[13px] sm:inline-flex">
           <LayoutDashboard className="h-4 w-4" /> Dashboard
         </Link>
         <UserButton afterSignOutUrl="/">

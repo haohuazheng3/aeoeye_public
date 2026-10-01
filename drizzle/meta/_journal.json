@@ -29,6 +29,20 @@
       "when": 1786332018911,
       "tag": "0003_nifty_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790808261713,
+      "tag": "0004_flippant_corsair",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790810060330,
+      "tag": "0005_goofy_purple_man",
+      "breakpoints": true
     }
   ]
 }

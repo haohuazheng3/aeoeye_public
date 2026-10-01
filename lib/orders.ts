@@ -1,7 +1,7 @@
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNull, notInArray, sql } from "drizzle-orm";
 import type Stripe from "stripe";
 import { db } from "@/lib/db";
-import { orders, subscriptions, audits } from "@/lib/db/schema";
+import { orders, subscriptions, audits, seoAudits } from "@/lib/db/schema";
 import { shortId } from "@/lib/utils";
 import { stripe } from "@/lib/stripe";
 import { features } from "@/lib/env";
@@ -28,21 +28,64 @@ export async function createPendingOrder(args: {
   return id;
 }
 
+/**
+ * 订单状态:pending → paid → refunded | disputed。
+ * refunded / disputed 是"权益已撤销"的终态:之后任何一次 markOrderPaid(回跳页带着旧 session_id
+ * 重开、Stripe 重投 checkout.session.completed)都不能把它翻回 paid —— Checkout Session 的
+ * payment_status 在退款 / 拒付之后仍是 "paid",不挡这一步,撤销就形同虚设(复审 C1/C15/C30/C37)。
+ * 争议胜诉后的恢复只走显式的 restoreOrderByPaymentIntent(webhook charge.dispute.closed)。
+ */
+export const REVOKED_ORDER_STATUSES = ["refunded", "disputed"] as const;
+
 export async function markOrderPaid(
   sessionId: string,
   paymentIntent?: string,
   /** Stripe 结账时买家填的邮箱 —— 匿名购买时这是认领报告的唯一凭据,必须落库 */
   buyerEmail?: string
-): Promise<{ auditId?: string } | null> {
+): Promise<{ auditId?: string; revoked?: boolean } | null> {
   const rows = await db.select().from(orders).where(eq(orders.stripeSessionId, sessionId)).limit(1);
   const order = rows[0];
   if (!order) return null;
   const email = normEmail(buyerEmail) || order.email || "";
-  await db
+  // 一条条件更新,以它的结果为准(不是"先读 status 再写"——读和写之间可能插进一次撤销)。
+  // pending 与 paid 都照常(幂等)走下去:neon-http 没有事务,第一次调用可能写完订单、没写完解锁就挂了,
+  // webhook 与回跳确认的"重放"正是靠这里幂等才能自愈;只有撤销态被拒。
+  // paidAt 用 coalesce:回放不能覆盖首次付款时间。
+  const moved = await db
     .update(orders)
-    .set({ status: "paid", stripePaymentIntent: paymentIntent, paidAt: new Date(), email })
-    .where(eq(orders.stripeSessionId, sessionId));
-  if (order.auditId) {
+    .set({ status: "paid", stripePaymentIntent: paymentIntent, paidAt: sql`coalesce(${orders.paidAt}, now())`, email })
+    .where(and(eq(orders.stripeSessionId, sessionId), notInArray(orders.status, [...REVOKED_ORDER_STATUSES])))
+    .returning({ id: orders.id });
+  if (!moved.length) {
+    // 已退款 / 拒付:不改订单、不解锁任何东西
+    return { auditId: order.auditId ?? undefined, revoked: true };
+  }
+  if (order.auditId && order.product === "seo_report") {
+    // $10 完整 SEO 报告:只解锁,**不改 plan** —— plan 要等升级真把 40 页抓取 + DataForSEO 三模块
+    // 跑完才置 "full",报告页据此决定渲染进度页还是完整报告。
+    // 也绝不碰 audits 表:两个产品各自一张表,id 空间互不相干,更新错表就是静默无效。
+    // unlockedAt 用 coalesce:webhook 与回跳确认会各调一次,首次付款时间不该被后到的那次覆盖。
+    // WHERE 里再查一次订单此刻仍是 paid:挡住"上面那条更新之后、这条解锁之前"插进来的撤销。
+    // 归属跟着付款人走(复审 C16/C25):匿名付款(order 没有 userId)且是**首次**解锁(unlocked_at 为空)时,
+    // 把行归为匿名购买(user_id = null)—— 否则创建者 A 的行被别人(或 A 自己没登录时)匿名买下后,
+    // 只有 A 登录才能重跑;买家之后用 Stripe 邮箱登录时由 claimAnonymousAudits 认领。
+    // 只在首次解锁时清空:webhook 重投 / 回跳回放不能把已经认领的归属再抹掉
+    // (SET 里引用的 unlocked_at 是更新前的值)。
+    await db
+      .update(seoAudits)
+      .set({
+        unlocked: true,
+        unlockedAt: sql`coalesce(${seoAudits.unlockedAt}, now())`,
+        userId: order.userId ? order.userId : sql`case when ${seoAudits.unlockedAt} is null then null else ${seoAudits.userId} end`,
+        ...(email ? { email } : {}),
+      })
+      .where(
+        and(
+          eq(seoAudits.id, order.auditId),
+          sql`exists (select 1 from orders o where o.stripe_session_id = ${sessionId} and o.status = 'paid')`
+        )
+      );
+  } else if (order.auditId) {
     // 解锁报告。匿名购买没有 userId,只能记下买家邮箱 —— 之后用同一邮箱注册登录时
     // 由 claimAnonymousAudits 认领(此前这里只在有 userId 时绑定,匿名买家在
     // dashboard 里永远找不到自己刚买的报告)。
@@ -59,6 +102,75 @@ export async function markOrderPaid(
 
 function normEmail(e?: string | null): string {
   return (e || "").trim().toLowerCase();
+}
+
+/**
+ * 退款 / 拒付 → 撤销权益。按 stripe_payment_intent 找订单(charge.refunded 与
+ * charge.dispute.* 事件里都只有 payment_intent,没有 session id)。
+ * 退款 → orders.status='refunded'(终态);拒付 → 'disputed'(争议胜诉后可由 restoreOrderByPaymentIntent 恢复;
+ * 已经退款的订单再被拒付仍记 refunded —— 退了的钱不能因为"争议胜诉"又被恢复成已付款)。
+ * $10 SEO 报告的 seo_audits.unlocked=false —— **只撤销解锁,数据与 plan 不动**:争议胜诉后要能恢复,
+ * 而且历史上"跑过完整版"这个事实(cost_cents)不该被抹掉;免费视图会把撤销态还原成免费形状。
+ * 幂等:重复事件安全。找不到订单返回 null(不是本站的 PI,或订单在 webhook 之前就被删了)。
+ */
+export async function revokeOrderByPaymentIntent(
+  paymentIntentId: string,
+  reason: "refunded" | "disputed" | string
+): Promise<{ orderId: string; product: string; auditId: string | null; revokedSeoAudit: boolean } | null> {
+  if (!paymentIntentId) return null;
+  const rows = await db.select().from(orders).where(eq(orders.stripePaymentIntent, paymentIntentId)).limit(1);
+  const order = rows[0];
+  if (!order) return null;
+  const status =
+    reason === "disputed" ? sql`case when ${orders.status} = 'refunded' then 'refunded' else 'disputed' end` : "refunded";
+  await db.update(orders).set({ status }).where(eq(orders.id, order.id));
+  let revokedSeoAudit = false;
+  if (order.product === "seo_report" && order.auditId) {
+    const res = await db
+      .update(seoAudits)
+      .set({ unlocked: false })
+      .where(and(eq(seoAudits.id, order.auditId), eq(seoAudits.unlocked, true)))
+      .returning({ id: seoAudits.id });
+    revokedSeoAudit = res.length > 0;
+  }
+  console.warn(`order ${order.id} (${order.product}) revoked: ${reason}`);
+  return { orderId: order.id, product: order.product, auditId: order.auditId ?? null, revokedSeoAudit };
+}
+
+/**
+ * 争议胜诉 / 询问期结束(charge.dispute.closed: won | warning_closed)→ 显式恢复权益:
+ * 只把 'disputed' 的订单翻回 'paid'(退款是终态,绝不恢复),再把 $10 SEO 报告重新解锁。
+ * 解锁语句同样以"订单此刻是 paid"为条件,与 markOrderPaid 同一条纪律。幂等。
+ */
+export async function restoreOrderByPaymentIntent(
+  paymentIntentId: string
+): Promise<{ orderId: string; product: string; auditId: string | null; restoredOrder: boolean; restoredSeoAudit: boolean } | null> {
+  if (!paymentIntentId) return null;
+  const rows = await db.select().from(orders).where(eq(orders.stripePaymentIntent, paymentIntentId)).limit(1);
+  const order = rows[0];
+  if (!order) return null;
+  const moved = await db
+    .update(orders)
+    .set({ status: "paid", paidAt: sql`coalesce(${orders.paidAt}, now())` })
+    .where(and(eq(orders.id, order.id), eq(orders.status, "disputed")))
+    .returning({ id: orders.id });
+  let restoredSeoAudit = false;
+  if (order.product === "seo_report" && order.auditId) {
+    const res = await db
+      .update(seoAudits)
+      .set({ unlocked: true, unlockedAt: sql`coalesce(${seoAudits.unlockedAt}, now())` })
+      .where(
+        and(
+          eq(seoAudits.id, order.auditId),
+          eq(seoAudits.unlocked, false),
+          sql`exists (select 1 from orders o where o.id = ${order.id} and o.status = 'paid')`
+        )
+      )
+      .returning({ id: seoAudits.id });
+    restoredSeoAudit = res.length > 0;
+  }
+  console.warn(`order ${order.id} (${order.product}) restored after dispute: order=${moved.length > 0} seo=${restoredSeoAudit}`);
+  return { orderId: order.id, product: order.product, auditId: order.auditId ?? null, restoredOrder: moved.length > 0, restoredSeoAudit };
 }
 
 /**
@@ -86,7 +198,9 @@ export async function claimAnonymousAudits(userId: string, rawEmail: string): Pr
         const found = normEmail(s.customer_details?.email || (s as { customer_email?: string }).customer_email);
         if (!found) continue;
         await db.update(orders).set({ email: found }).where(eq(orders.id, o.id));
-        if (o.auditId) {
+        if (o.auditId && o.product === "seo_report") {
+          await db.update(seoAudits).set({ email: found }).where(eq(seoAudits.id, o.auditId));
+        } else if (o.auditId) {
           await db.update(audits).set({ email: found }).where(eq(audits.id, o.auditId));
         }
       } catch {
@@ -95,20 +209,34 @@ export async function claimAnonymousAudits(userId: string, rawEmail: string): Pr
     }
   }
 
-  // 2) 认领:邮箱匹配 + 尚无归属
+  // 2) 认领:邮箱匹配 + 尚无归属。按 product 分表 —— $10 SEO 报告在 seo_audits,
+  //    $29 报告在 audits;同一个 id 字面量在两张表里指的是不同东西,不能混着 update。
   const claimable = await db
-    .select({ id: orders.auditId })
+    .select({ id: orders.auditId, product: orders.product })
     .from(orders)
     .where(and(eq(orders.status, "paid"), eq(orders.email, email)));
-  const ids = [...new Set(claimable.map((r) => r.id).filter((x): x is string => !!x))];
+  const seen = new Set<string>();
   let claimed = 0;
-  for (const id of ids) {
-    const res = await db
-      .update(audits)
-      .set({ userId })
-      .where(and(eq(audits.id, id), isNull(audits.userId)))
-      .returning({ id: audits.id });
-    claimed += res.length;
+  for (const { id, product } of claimable) {
+    if (!id) continue;
+    const key = `${product}:${id}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    if (product === "seo_report") {
+      const res = await db
+        .update(seoAudits)
+        .set({ userId })
+        .where(and(eq(seoAudits.id, id), isNull(seoAudits.userId)))
+        .returning({ id: seoAudits.id });
+      claimed += res.length;
+    } else {
+      const res = await db
+        .update(audits)
+        .set({ userId })
+        .where(and(eq(audits.id, id), isNull(audits.userId)))
+        .returning({ id: audits.id });
+      claimed += res.length;
+    }
   }
   return claimed;
 }
@@ -213,6 +341,9 @@ export async function confirmCheckoutSession(
         (session.payment_intent as string) || undefined,
         session.customer_details?.email || session.customer_email || undefined
       );
+      // 已退款 / 拒付的订单:Stripe 的 session 仍写着 paid,但对我们来说这笔钱已经不算数 ——
+      // 不解锁,也不再让页面重发一次 purchase 事件
+      if (r?.revoked) return { paid: false, auditId: r.auditId };
       // 金额取 Stripe 实收的 amount_total,**不要**用价目表上的 $29 —— 优惠券、
       // 促销码、货币换算都会让两者对不上,而分析里的营收数字一旦是猜的就没用了。
       return {

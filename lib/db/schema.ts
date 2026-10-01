@@ -1,5 +1,6 @@
 import { pgTable, text, integer, boolean, timestamp, jsonb, index } from "drizzle-orm/pg-core";
 import type { AuditResult, ReportData } from "@/lib/engine/types";
+import type { SeoAuditProgress, SeoAuditResult } from "@/lib/seo-audit/types";
 
 /* ============================================================
    AEOeye 数据表(身份认证由 Clerk 托管,本库不存用户密码)
@@ -263,6 +264,78 @@ export const apiRequests = pgTable(
     createdIdx: index("api_requests_created_idx").on(t.createdAt),
   })
 );
+
+/* ============================================================
+   SEO 审计(第二个产品面:与 AI 可见度审计并列,独立表、独立路由)
+   ============================================================ */
+
+/**
+ * 一次 SEO 审计。刻意**不复用** audits 表:两个产品的 plan/unlocked 语义、
+ * dashboard 链接、出题锚(lastCategoryFor 按 domain 查 audits)都会串台。
+ *
+ * unlocked 只由付款(markOrderPaid)置 true;plan 只在付费升级真正跑完后置 "full" ——
+ * 两者分开才能发现"付了钱但完整报告没生成"这类事故。
+ * ip_hash = sha256(ip + 盐) 前 32 位,只用于按 IP 限流,不存明文 IP。
+ * cost_cents 累加每次运行的 DataForSEO 实测花费(免费轮恒为 0)。
+ */
+export const seoAudits = pgTable(
+  "seo_audits",
+  {
+    id: text("id").primaryKey(),
+    input: text("input").notNull(), // 用户原始输入
+    url: text("url").notNull(), // 归一化后的入口 URL
+    domain: text("domain").notNull(), // 去 www 的可注册域名
+    status: text("status").notNull().default("pending"), // pending|running|complete|failed
+    plan: text("plan").notNull().default("free"), // free | full
+    score: integer("score"),
+    grade: text("grade"),
+    result: jsonb("result").$type<SeoAuditResult>(),
+    error: text("error"),
+    email: text("email"),
+    unlocked: boolean("unlocked").notNull().default(false),
+    userId: text("user_id"), // Clerk userId(若已登录或事后认领)
+    source: text("source"), // 入口归因
+    ipHash: text("ip_hash"),
+    costCents: integer("cost_cents").notNull().default(0),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    completedAt: timestamp("completed_at"),
+    unlockedAt: timestamp("unlocked_at"),
+    /* ---- v2(hardening):异步运行 + 缓存 + 升级状态机 + 重跑计数 ---- */
+    /** 后台运行的实时阶段(报告页每 3s 轮询);complete 后保留最后一帧 */
+    progress: jsonb("progress").$type<SeoAuditProgress>(),
+    /** 免费层缓存:本行的 result 是从哪一行复制来的(6h 内同入口 URL 的完成报告) */
+    cachedFrom: text("cached_from"),
+    /** 付费升级 CAS 状态机:idle | running | done | failed | pending_provider */
+    upgradeState: text("upgrade_state").default("idle"),
+    upgradeStartedAt: timestamp("upgrade_started_at", { withTimezone: true }),
+    /** 解锁后 30 天内的重跑次数(免费模块不限次) */
+    rerunCount: integer("rerun_count").notNull().default(0),
+    /** DataForSEO 模块被刷新的次数(上限 2 —— 每次都是真钱) */
+    paidRefreshCount: integer("paid_refresh_count").notNull().default(0),
+  },
+  (t) => ({
+    domainIdx: index("seo_audits_domain_idx").on(t.domain),
+    userIdx: index("seo_audits_user_idx").on(t.userId),
+    createdIdx: index("seo_audits_created_idx").on(t.createdAt),
+    ipHashIdx: index("seo_audits_ip_hash_idx").on(t.ipHash),
+  })
+);
+
+/**
+ * SEO 审计的跨实例配额计数(固定窗口)。一行一个桶(ip:<hash>:1h / domain:<d>:1h /
+ * global:1h / psi:24h …),`INSERT … ON CONFLICT DO UPDATE … RETURNING n` 一条语句原子完成
+ * "窗口过期则重置、否则 +1" —— neon-http 没有交互式事务,只能靠单语句原子性。
+ * 只对**真正触发抓取**的运行计数,缓存复用不计。
+ */
+export const seoQuota = pgTable("seo_quota", {
+  bucket: text("bucket").primaryKey(),
+  windowStart: timestamp("window_start", { withTimezone: true }).notNull(),
+  n: integer("n").notNull().default(0),
+});
+
+export type SeoAudit = typeof seoAudits.$inferSelect;
+export type NewSeoAudit = typeof seoAudits.$inferInsert;
+export type SeoQuotaRow = typeof seoQuota.$inferSelect;
 
 export type ApiKey = typeof apiKeys.$inferSelect;
 export type ApiRequest = typeof apiRequests.$inferSelect;

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { LLM_MODEL_FULL, LLM_MODEL_ENGINE, LLM_MODEL_ENGINE_GPT, LLM_MODEL_FREE } from "@/lib/anthropic";
+import { seoAuditHealth } from "@/lib/seo-audit/repo";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -36,6 +37,9 @@ const OPTIONAL_ENV = [
   "CRON_SECRET",
   "ANTHROPIC_API_KEY",
   "PSI_API",
+  // SEO 审计($10 报告):Price id 可空(checkout 走内联价格);SANDBOX 生产应为空
+  "STRIPE_PRICE_SEO_REPORT",
+  "DATAFORSEO_SANDBOX",
 ];
 
 function present(name: string): boolean {
@@ -83,14 +87,35 @@ function stripeMode(): "live" | "test" | "unset" {
   return "unset";
 }
 
+/**
+ * SEO 审计的运行快照:最近一小时真实运行数、卡死(running > 6 min)数、累计解锁数。
+ * 查询失败(表 / 列缺失 = 迁移没跑,或库不可读)→ { ok: false, error } 且判不健康:
+ * 吞成 null 的话,迁移漏跑的部署照样"健康",要等第一个真实用户撞上 500 才发现(复审 D1)。
+ * 卡死行本身不判不健康 —— 那由 cron 的 sweep 收拾。
+ */
+type SeoAuditSnapshot =
+  | { ok: true; runsLastHour: number; stuckRunning: number; unlockedTotal: number }
+  | { ok: false; error: string };
+
+async function seoAuditSnapshot(): Promise<SeoAuditSnapshot> {
+  try {
+    return { ok: true, ...(await seoAuditHealth()) };
+  } catch (e) {
+    // drizzle 把驱动错误包一层,真正的原因(如 relation "seo_audits" does not exist)在 cause 上
+    const cause = (e as { cause?: unknown })?.cause;
+    const msg = cause instanceof Error ? cause.message : e instanceof Error ? e.message : String(e);
+    return { ok: false, error: msg.slice(0, 200) };
+  }
+}
+
 export async function GET() {
-  const [database, errors] = await Promise.all([dbOk(), seriousErrorCount()]);
+  const [database, errors, seoAudit] = await Promise.all([dbOk(), seriousErrorCount(), seoAuditSnapshot()]);
 
   const envPresence: Record<string, boolean> = {};
   for (const n of [...REQUIRED_ENV, ...OPTIONAL_ENV]) envPresence[n] = present(n);
   const missingRequired = REQUIRED_ENV.filter((n) => !present(n));
 
-  const healthy = database.ok && missingRequired.length === 0 && errors.unresolvedSerious === 0;
+  const healthy = database.ok && missingRequired.length === 0 && errors.unresolvedSerious === 0 && seoAudit.ok;
 
   const body = {
     status: healthy ? "ok" : "degraded",
@@ -121,6 +146,9 @@ export async function GET() {
     },
     stripe: { mode: stripeMode() },
     errorInbox: errors,
+    // $10 SEO 审计:runsLastHour 只数真实运行(缓存副本不算);stuckRunning > 0 说明 waitUntil 后台被掐或 deadline 没兜住;
+    // ok=false 说明表 / 列查不了(多半是迁移没跑),计入 degraded
+    seoAudit,
   };
 
   return NextResponse.json(body, {

@@ -12,7 +12,8 @@ export const metadata: Metadata = pageMeta({
 
 const FAQS = [
   { q: "Is the free audit really free?", a: "Yes — run an AI visibility audit with no signup and no card. You get your score, the live Claude analysis and every buyer question with the real answer. Only the full multi-engine report is paid." },
-  { q: "Is there a subscription?", a: "No. There is one paid product: the $29 full report. You pay once for that brand and keep it — no recurring charge, nothing to cancel." },
+  { q: "Is there a subscription?", a: "No. Both paid products are one-time: the $29 full AI visibility report and the $10 full SEO report. You pay once for that brand or site and keep it — no recurring charge, nothing to cancel." },
+  { q: "What is the $10 SEO report?", a: "A separate, technical SEO audit of your site: crawlability, on-page, Core Web Vitals from real Chrome users, mobile, structured data, HTTPS and internal links. The free version gives you the score and the most severe issues; $10 unlocks every check with page-level fixes, backlinks, rankings, competitors and a prioritized roadmap. It answers whether Google can crawl and rank you; the $29 report answers whether AI assistants recommend you." },
   { q: "What do I get for $29?", a: "The same buyer questions asked live to ChatGPT, Perplexity, Gemini and Google AI as well as Claude, an engine-by-engine breakdown, the complete prioritized fix roadmap, copy-paste llms.txt and schema fixes, and the full report as a PDF emailed to you." },
   { q: "Do I need an account to buy?", a: "No. Checkout works without signing up — the report unlocks straight away and the PDF goes to the email you enter at checkout. Sign in with that same email later and the report appears in your dashboard." },
   { q: "Do you offer refunds?", a: "If a paid report fails to generate, contact us and we’ll re-run it or refund you." },
@@ -25,8 +26,8 @@ export default function PricingPage() {
         <p className="eyebrow">Pricing</p>
         <h1 className="mt-3 font-display text-4xl font-semibold sm:text-5xl">Start free. Pay once, if ever.</h1>
         <p className="mt-4 text-ink/65">
-          Find out where you stand for nothing. One flat $29 unlocks every engine for that brand — no subscription,
-          no seats, nothing to cancel.
+          Find out where you stand for nothing. One flat $29 unlocks every AI engine for that brand, and a separate $10
+          unlocks the full technical SEO report — no subscription, no seats, nothing to cancel.
         </p>
       </div>
 

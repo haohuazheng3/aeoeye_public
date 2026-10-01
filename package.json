@@ -17,7 +17,8 @@
     "db:push": "drizzle-kit push",
     "db:migrate": "tsx scripts/migrate.ts",
     "db:studio": "drizzle-kit studio",
-    "verify:engines": "node scripts/verify-engines.mjs"
+    "verify:engines": "node scripts/verify-engines.mjs",
+    "test:seo": "tsx --test lib/seo-audit/tests/*.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0",
@@ -26,6 +27,7 @@
     "@neondatabase/serverless": "^1.1.0",
     "@react-pdf/renderer": "^4.5.1",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/functions": "^3.9.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.2",
@@ -33,9 +35,11 @@
     "lucide-react": "^1.21.0",
     "markdown-to-jsx": "^7.7.17",
     "next": "14.2.35",
+    "node-html-parser": "^7.1.0",
     "react": "^18",
     "react-dom": "^18",
     "resend": "^6.18.0",
+    "robots-parser": "^3.0.1",
     "stripe": "^22.2.3",
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7",

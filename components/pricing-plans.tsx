@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 
 /**
- * 两档定价:免费审计 + $29 一次性完整报告。
+ * 三档定价:免费审计 + $29 一次性完整 AI 可见度报告 + $10 一次性完整 SEO 报告(2026-09-30 新增)。
  *
  * Pro 订阅已下线 —— 目前只做完整报告这一个付费产品,所以这里没有计费周期切换、
  * 没有登录门槛(完整报告支持匿名购买),也不再调用 /api/checkout:
@@ -13,9 +13,10 @@ import { Check } from "lucide-react";
 export function PricingPlans() {
   const router = useRouter();
   const toAudit = () => router.push("/#audit");
+  const toSeoAudit = () => router.push("/seo-audit");
 
   return (
-    <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2">
+    <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <Plan
         name="Free audit"
         price="$0"
@@ -47,6 +48,23 @@ export function PricingPlans() {
           "Re-analysed by our most capable model",
           "5-layer SEO foundation audit",
           "Full fix roadmap, PDF emailed to you",
+        ]}
+      />
+
+      {/* 第二个付费产品:技术 SEO 深审。与 $29 的分工写清楚 —— $29 回答"AI 推不推荐你",$10 回答"Google 能不能抓、抓了排不排" */}
+      <Plan
+        name="SEO report"
+        price="$10"
+        priceSuffix="one-time"
+        tagline="Technical SEO score, with every fix."
+        cta="Run free SEO audit"
+        onClick={toSeoAudit}
+        features={[
+          "Free: score across 7 dimensions, top issues",
+          "Every check with evidence and page-level fixes",
+          "Backlinks, rankings and competitors (DataForSEO)",
+          "Prioritized roadmap and page-by-page table",
+          "Re-run free for 30 days after fixes",
         ]}
       />
     </div>

@@ -1,0 +1,173 @@
+{
+  "version": "0.1.20260917",
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "time": "0 sec.",
+  "cost": 0,
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "tasks": [
+    {
+      "id": "09302250-1965-0121-2000-76f6ddf10f8e",
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0 sec.",
+      "cost": 0,
+      "result_count": 1,
+      "path": [
+        "v3",
+        "serp",
+        "google",
+        "organic",
+        "live",
+        "regular"
+      ],
+      "data": {
+        "api": "serp",
+        "function": "live",
+        "se": "google",
+        "se_type": "organic",
+        "keyword": "site:aeoeye.com",
+        "location_code": 2840,
+        "language_code": "en",
+        "depth": 10
+      },
+      "result": [
+        {
+          "keyword": "pizza",
+          "type": "organic",
+          "se_domain": "google.com",
+          "location_code": 1006886,
+          "language_code": "en",
+          "check_url": "https://www.google.com/search?q=pizza&hl=en&gl=GB&ie=UTF-8&uule=w+CAIQIFISCXXeIa8LoNhHEZkq1d1aOpZS",
+          "datetime": "2026-09-27 20:17:10 +00:00",
+          "spell": null,
+          "refinement_chips": null,
+          "item_types": [
+            "find_results_on",
+            "local_pack",
+            "organic",
+            "people_also_ask",
+            "google_reviews",
+            "knowledge_graph"
+          ],
+          "se_results_count": 2220000,
+          "pages_count": 1,
+          "items_count": 10,
+          "items": [
+            {
+              "type": "organic",
+              "rank_group": 1,
+              "rank_absolute": 5,
+              "page": 1,
+              "domain": "pizzaavenue.uk",
+              "title": "Pizza Delivery in Barking IG11",
+              "description": "Open 12:30–23:00 today — order pizza and anything from our 176+ dish menu for delivery and collection — including The Greek (VEG), Kunafa Pizza and Coke - 1.25L ... Read more",
+              "url": "https://pizzaavenue.uk/delivery/areas/barking-ig11/pizza",
+              "breadcrumb": "https://pizzaavenue.uk › Delivery › Barking IG11"
+            },
+            {
+              "type": "organic",
+              "rank_group": 2,
+              "rank_absolute": 7,
+              "page": 1,
+              "domain": "discovergodalming.co.uk",
+              "title": "Best Pizza in Godalming | Top Pizza Places to Try",
+              "description": "Popular choices include Piazza Firenze for an independent feel, as well as Pizza Express and Prezzo for reliable favourites.",
+              "url": "https://discovergodalming.co.uk/things-to-do/best-pizza-in-godalming",
+              "breadcrumb": "https://discovergodalming.co.uk › Things to do"
+            },
+            {
+              "type": "organic",
+              "rank_group": 3,
+              "rank_absolute": 8,
+              "page": 1,
+              "domain": "www.just-eat.co.uk",
+              "title": "Pizza restaurants and takeaways in ME14, Maidstone",
+              "description": "Order Pizza food online for delivery from restaurants and takeaways in ME14, Maidstone. Super Pizza - Maidstone … £9.99 50% off selected items. Delivery from £ ...",
+              "url": "https://www.just-eat.co.uk/area/me14-maidstone/pizza",
+              "breadcrumb": "https://www.just-eat.co.uk › area › pizza"
+            },
+            {
+              "type": "organic",
+              "rank_group": 4,
+              "rank_absolute": 9,
+              "page": 1,
+              "domain": "orders.thepizzajoint.co.uk",
+              "title": "Best Pizza Delivery in Rusthall TN4 - Tunbridge Wells",
+              "description": "We're open daily 11:00–23:00, with 74+ dishes on the full menu — including The Veggie V, Pesto Sticks and Garlic Pizza Bread . Choose delivery and collection ... Read more",
+              "url": "https://orders.thepizzajoint.co.uk/delivery/areas/rusthall-tn4/best-pizza",
+              "breadcrumb": "https://orders.thepizzajoint.co.uk › ... › Rusthall TN4"
+            },
+            {
+              "type": "organic",
+              "rank_group": 5,
+              "rank_absolute": 10,
+              "page": 1,
+              "domain": "pizzaavenue.uk",
+              "title": "Pizza Collection in Barking Riverside IG11",
+              "description": "Order pizza collection from Pizza Avenue in Dagenham. We're open 12:30–23:00 today. Pizza is on the menu — including The Greek (VEG), Kunafa Pizza and Coke - 1 ...",
+              "url": "https://pizzaavenue.uk/takeaway/areas/barking-riverside-ig11/pizza",
+              "breadcrumb": "https://pizzaavenue.uk › ... › Barking Riverside IG11"
+            },
+            {
+              "type": "organic",
+              "rank_group": 6,
+              "rank_absolute": 11,
+              "page": 1,
+              "domain": "www.thefork.co.uk",
+              "title": "The Best Pizza in Maidstone - TheFork",
+              "description": "Find the best Pizza in Maidstone on TheFork. choose between classic Neapolitan and American deep-dish, wood-fired and Sicilian square-cut varieties,",
+              "url": "https://www.thefork.co.uk/restaurants/maidstone-c669361/pizza-t652",
+              "breadcrumb": "https://www.thefork.co.uk › Maidstone restaurants"
+            },
+            {
+              "type": "organic",
+              "rank_group": 7,
+              "rank_absolute": 12,
+              "page": 1,
+              "domain": "deliveroo.co.uk",
+              "title": "Pizza Takeaway and Delivery in Crawley",
+              "description": "From classic Margheritas and loaded pepperoni to authentic wood-fired pizzas, Deliveroo makes it easy to discover top-rated local restaurants. Average price - ...",
+              "url": "https://deliveroo.co.uk/cuisines/pizza-takeaway/crawley",
+              "breadcrumb": "https://deliveroo.co.uk › Cuisines › Pizza takeaway"
+            },
+            {
+              "type": "organic",
+              "rank_group": 8,
+              "rank_absolute": 13,
+              "page": 1,
+              "domain": "www.tripadvisor.co.uk",
+              "title": "The Best Pizza Places for Lunch in Milton Keynes",
+              "description": "Best Pizza in Milton Keynes, 1. The Italian Sul Lago Milton Keynes. Pizza££ - £ 2. Nonna's 4.3. Vita Xscape Italian 4.8 4. Muratis Pizzeria ...",
+              "url": "https://www.tripadvisor.co.uk/Restaurants-g187055-c31-zfp30-Milton_Keynes_Buckinghamshire_England.html",
+              "breadcrumb": "https://www.tripadvisor.co.uk › ... › Milton Keynes"
+            },
+            {
+              "type": "organic",
+              "rank_group": 9,
+              "rank_absolute": 14,
+              "page": 1,
+              "domain": "foodhub.co.uk",
+              "title": "Italian Pizza",
+              "description": null,
+              "url": "https://foodhub.co.uk/blackpool/italian-pizza/ordernow",
+              "breadcrumb": "https://foodhub.co.uk › italian-pizza › ordernow"
+            },
+            {
+              "type": "organic",
+              "rank_group": 10,
+              "rank_absolute": 15,
+              "page": 1,
+              "domain": "threebestrated.co.uk",
+              "title": "3 Best Pizza in Wokingham, UK - Expert Recommendations",
+              "description": "1. Pizza Express 2. Totò italian street food 3. It's Pizza Time - The top Wokingham pizza selected via rigorous 50-Point Inspection.",
+              "url": "https://threebestrated.co.uk/pizza-in-wokingham",
+              "breadcrumb": "https://threebestrated.co.uk › Wokingham"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

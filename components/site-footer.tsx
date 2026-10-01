@@ -8,6 +8,7 @@ const groups: { title: string; links: { href: string; label: string }[] }[] = [
     title: "Product",
     links: [
       { href: "/#audit", label: "Free AI audit" },
+      { href: "/seo-audit", label: "SEO audit" },
       { href: "/how-it-works", label: "How it works" },
       { href: "/example", label: "Example report" },
       { href: "/pricing", label: "Pricing" },
