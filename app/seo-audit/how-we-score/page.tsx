@@ -2,20 +2,72 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
-import { DIMENSIONS, ONSITE_DIMENSIONS, FREE_CRAWL_PAGES, FULL_CRAWL_PAGES, FREE_NAV_PAGES, FULL_NAV_PAGES, SEO_GRADE_SCALE } from "@/lib/seo-audit/types";
+import {
+  DIMENSIONS,
+  ONSITE_DIMENSIONS,
+  FREE_CRAWL_PAGES,
+  FULL_CRAWL_PAGES,
+  FREE_NAV_PAGES,
+  FULL_NAV_PAGES,
+  SEO_GRADE_SCALE,
+  RANKING_PILLARS,
+  RANKING_SUBS,
+  type PillarId,
+  type SignalConfidence,
+} from "@/lib/seo-audit/types";
+import { CONFIDENCE_ORDER, ConfidenceBadge, PILLAR_ICON, PILLAR_ORDER, PillarName, subMeasures, subsOf } from "@/components/seo-audit/ranking-meta";
 
 /* ============================================================
    /seo-audit/how-we-score —— 评分模型全文公开。
    一个分数只有在阈值可查、来源可查时才值得信;这页就是那张"可查"的表。
    所有数字与 lib/seo-audit/types.ts 及 V2-1 评分规则保持一致;改规则先改这里的说明。
+   v3:新增 #ranking-score 一节 —— SEO Ranking Score 的五支柱、权重、每个小维度测什么、
+   可信度标签、技术门槛与诚实的局限(规格 docs/design/seo-ranking-score-spec.md §4)。
+   报告里的 "How we score" 链接指向这个锚点,id 不能改。
    ============================================================ */
 
 export const metadata: Metadata = pageMeta({
   title: "How We Score — SEO Audit Methodology",
   description:
-    "Every weight and threshold behind the AEOeye technical SEO score: dimension weights, severity weights, gate rules, page-share thresholds, Core Web Vitals thresholds, grade scale, data sources and limits.",
+    "Every weight and threshold behind the AEOeye technical SEO score and the SEO Ranking Score: dimension and pillar weights, every sub-score, severity weights, gate rules, Core Web Vitals thresholds, grade scale, data sources and limits.",
   path: "/seo-audit/how-we-score",
 });
+
+/** 可信度标签的完整说明(报告里的徽章只放短提示,这里给全句) */
+const CONFIDENCE_DETAIL: Record<SignalConfidence, string> = {
+  measured: "Read directly from data — your crawled pages, the Chrome UX Report or DataForSEO.",
+  estimated:
+    "A rule-based estimate from page text — word lists, heading comparisons and counts. Good at patterns, blind to meaning.",
+  proxy: "Page traits standing in for user-behaviour data that Google doesn't share with anyone.",
+};
+
+/** 诚实的局限:排名分看不到什么、在哪里会偏 —— 与规格 §0 / §3 的做法逐条对应 */
+const RANKING_LIMITS: { title: string; body: string }[] = [
+  {
+    title: "Behaviour is scored through page traits",
+    body: "Google doesn't share clicks, dwell time or returns to the results page. Apart from real Chrome UX Report data, the User satisfaction pillar scores the traits that drive satisfaction — an early answer, a next step, readable text, titles that keep their promise — and labels those sub-scores Proxy.",
+  },
+  {
+    title: "Comparisons are a sample",
+    body: "Up to 3 of your queries × the top 5 organic Google results (US, English). Pages that block AEOeyeBot in robots.txt or don't load are skipped and shown as not fetched.",
+  },
+  {
+    title: "Queries come from your rankings",
+    body: "Non-brand first, highest search volume, one per page. A site with no ranking data is compared on the topics of its homepage and two most-linked content pages instead.",
+  },
+  {
+    title: "Subtopics are matched by wording, not meaning",
+    body: "Two H2/H3 headings count as one subtopic when at least half their words overlap. A page that covers a topic under unusual wording can be under-credited.",
+  },
+  {
+    title: "Word lists catch phrasing, not truth",
+    body: "“We tested” earns first-hand credit whether or not you did. The score rewards signals that usually come with real experience; it can't verify them.",
+  },
+  {
+    title: "A model, not a forecast",
+    body: "It measures the factors that decide rankings; it doesn't predict positions and doesn't see your Search Console data.",
+  },
+];
 
 const CRUX = [
   { metric: "LCP (Largest Contentful Paint)", good: "≤ 2.5 s", ni: "≤ 4.0 s", poor: "> 4.0 s" },
@@ -47,8 +99,11 @@ export default function HowWeScorePage() {
         <p className="eyebrow">Methodology</p>
         <h1 className="mt-3 font-display text-4xl font-semibold">How we score</h1>
         <p className="mt-3 text-lg text-ink/65">
-          The technical SEO score is a weighted roll-up of pass / warn / fail checks across seven dimensions. Here is
-          every number that goes into it.
+          The technical SEO score is a weighted roll-up of pass / warn / fail checks across seven dimensions. The{" "}
+          <a href="#ranking-score" className="text-iris hover:underline">
+            SEO Ranking Score
+          </a>{" "}
+          in the full report builds four more pillars on top of it. Here is every number that goes into both.
         </p>
       </header>
 
@@ -264,12 +319,122 @@ export default function HowWeScorePage() {
               </li>
               <li>
                 <span className="font-medium text-ink">DataForSEO</span> (full report): backlink summary and anchors,
-                ranked keywords (Google US, English), competitor domains. Traffic and index figures are estimates.
+                ranked keywords (Google US, English), competitor domains, and the top 10 organic results for up to 3 of
+                your queries. Traffic and index figures are estimates.
+              </li>
+              <li>
+                <span className="font-medium text-ink">Top-ranking pages</span> (full report): the top 5 results for each
+                of those queries, fetched once each by our crawler as raw HTML, robots.txt respected.
               </li>
             </ul>
           </div>
         </section>
       </div>
+
+      {/* ============ SEO Ranking Score(完整版)============ */}
+      <section id="ranking-score" className="mt-16 scroll-mt-28" aria-labelledby="ranking-score-title">
+        <div className="max-w-2xl">
+          <p className="eyebrow">Full report</p>
+          <h2 id="ranking-score-title" className="mt-3 font-display text-3xl font-semibold tracking-tight">
+            The SEO Ranking Score
+          </h2>
+          <p className="mt-3 text-ink/65">
+            The technical score asks whether Google can crawl and index you. The Ranking Score asks whether your pages can
+            win the ranking: {PILLAR_ORDER.length} pillars and {RANKING_SUBS.length} sub-scores, each 0–100 and traced to
+            evidence on your pages, your backlinks and the pages that rank today. No AI model grades anything — every
+            sub-score is a rule published below, so the same site gets the same score twice.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          {/* 支柱与权重 + 合成公式 */}
+          <section className="card min-w-0 p-6 sm:p-7" aria-labelledby="ranking-weights">
+            <div className="relative z-10 min-w-0">
+              <h3 id="ranking-weights" className="font-display text-xl font-semibold tracking-tight">
+                Pillars and weights
+              </h3>
+              <p className="mt-1.5 text-sm text-ink/55">
+                Score = Σ(pillar score × weight) ÷ Σ(weights of scored pillars). Inside a pillar, sub-scores roll up the
+                same way.
+              </p>
+              <table className="mt-4 w-full text-sm">
+                <thead>
+                  <tr className="border-b border-ink/[0.06]">
+                    <Th>Pillar</Th>
+                    <Th right>Weight</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PILLAR_ORDER.map((p) => (
+                    <tr key={p} className="border-b border-ink/[0.05] last:border-0">
+                      <td className="py-2 pr-3">
+                        <a href={`#pillar-${p}`} className="text-ink/80 hover:text-iris">
+                          <PillarName label={RANKING_PILLARS[p].label} />
+                        </a>
+                        <span className="mt-0.5 block text-xs leading-relaxed text-ink/45">{RANKING_PILLARS[p].role}</span>
+                      </td>
+                      <td className="py-2 text-right align-top font-medium tabular-nums">{RANKING_PILLARS[p].weight}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="mt-3 text-xs leading-relaxed text-ink/45">
+                A sub-score we can&rsquo;t measure shows as &ldquo;Not measured&rdquo; and its weight goes to the rest of its
+                pillar — it is never scored as zero. Grades use the same scale as the technical score.
+              </p>
+            </div>
+          </section>
+
+          {/* 技术门槛 + 可信度标签 */}
+          <section className="card min-w-0 p-6 sm:p-7" aria-labelledby="ranking-gate">
+            <div className="relative z-10 min-w-0">
+              <h3 id="ranking-gate" className="font-display text-xl font-semibold tracking-tight">
+                The technical gate
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/65">
+                If the technical score has a blocker — any of the{" "}
+                <a href="#gates" className="text-iris hover:underline">
+                  five gate rules
+                </a>{" "}
+                — the Ranking Score is capped at 40 and graded F whatever the other pillars score, and the report says to
+                fix the blockers first. Content and links can&rsquo;t rank a site Google can&rsquo;t index.
+              </p>
+              <h3 className="mt-6 font-display text-xl font-semibold tracking-tight">Confidence labels</h3>
+              <p className="mt-1.5 text-sm text-ink/55">Every sub-score carries one, so you know how hard the number is.</p>
+              <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-ink/70">
+                {CONFIDENCE_ORDER.map((c) => (
+                  <li key={c} className="flex items-start gap-2.5">
+                    <span className="mt-0.5 shrink-0">
+                      <ConfidenceBadge confidence={c} />
+                    </span>
+                    <span className="min-w-0">{CONFIDENCE_DETAIL[c]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {PILLAR_ORDER.map((p) => (
+            <PillarMethod key={p} pillar={p} />
+          ))}
+
+          {/* 诚实的局限 */}
+          <section className="card min-w-0 p-6 sm:p-7" aria-labelledby="ranking-limits">
+            <div className="relative z-10 min-w-0">
+              <h3 id="ranking-limits" className="font-display text-xl font-semibold tracking-tight">
+                What it can&rsquo;t see
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-ink/65">
+                {RANKING_LIMITS.map((l) => (
+                  <li key={l.title}>
+                    <span className="font-medium text-ink">{l.title}.</span> {l.body}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
+      </section>
 
       <section className="mx-auto mt-10 max-w-3xl">
         <div className="surface p-5 sm:p-6">
@@ -285,5 +450,45 @@ export default function HowWeScorePage() {
 
       <JsonLd data={breadcrumbJsonLd([{ name: "SEO Audit", path: "/seo-audit" }, { name: "How we score", path: "/seo-audit/how-we-score" }])} />
     </div>
+  );
+}
+
+/** 一个支柱的方法卡:作用、权重、每个小维度(权重 + 可信度 + 测什么) */
+function PillarMethod({ pillar }: { pillar: PillarId }) {
+  const meta = RANKING_PILLARS[pillar];
+  const Icon = PILLAR_ICON[pillar];
+  return (
+    <section id={`pillar-${pillar}`} className="card min-w-0 scroll-mt-28 p-6 sm:p-7" aria-labelledby={`pillar-${pillar}-title`}>
+      <div className="relative z-10 min-w-0">
+        <div className="flex items-start justify-between gap-3">
+          <h3 id={`pillar-${pillar}-title`} className="flex min-w-0 items-center gap-2 font-display text-xl font-semibold tracking-tight">
+            <Icon className="h-4 w-4 shrink-0 text-iris" />
+            <span className="min-w-0">
+              <PillarName label={meta.label} />
+            </span>
+          </h3>
+          <span className="mt-1 shrink-0 rounded-full bg-ink/[0.05] px-2.5 py-0.5 text-xs font-semibold tabular-nums text-ink/60">
+            {meta.weight}%
+          </span>
+        </div>
+        <p className="mt-1.5 text-sm text-ink/55">
+          {meta.role}.
+          {pillar === "technical" &&
+            " The pillar score is the free Technical SEO score itself, gate cap included, so the two never disagree."}
+        </p>
+        <dl className="mt-4 divide-y divide-ink/[0.05]">
+          {subsOf(pillar).map((s) => (
+            <div key={s.id} className="py-3 first:pt-0 last:pb-0">
+              <dt className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="text-sm font-semibold text-ink">{s.label}</span>
+                <span className="text-xs tabular-nums text-ink/40">{s.weight}%</span>
+                <ConfidenceBadge confidence={s.confidence} />
+              </dt>
+              <dd className="mt-1 text-sm leading-relaxed text-ink/60">{subMeasures(s.id)}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
   );
 }

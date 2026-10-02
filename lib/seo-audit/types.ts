@@ -172,6 +172,8 @@ export interface CrawledPage {
   minhash?: number[];
   /** 主体文本前 400 字符(供 headline/title 一致性等轻量判断) */
   textSample?: string;
+  /** v3:内容质量与用户信号(parse.ts 计算;只存计数 / 比例 / 短文本,不存全文) */
+  content?: PageContentSignals;
 }
 
 export type PageType = "home" | "product" | "pricing" | "legal" | "contact" | "article" | "listing" | "other";
@@ -329,6 +331,10 @@ export interface AuthorityResult {
   timeseries?: { month: string; newReferringDomains: number; lostReferringDomains: number }[];
   /** DataForSEO 没有这个域名的数据(≠ 0 分) */
   noData?: boolean;
+  /** v3:引荐链接在对方页面里的语义位置分布(article / main / section / header / footer / aside / nav / ""=未知) */
+  semanticLocations?: Record<string, number>;
+  /** v3:引荐来源的平台类型分布(blogs / news / cms / organization / ecommerce / message-boards / unknown …) */
+  platformTypes?: Record<string, number>;
 }
 
 export interface RankedKeyword {
@@ -407,6 +413,8 @@ export interface SeoAuditResult {
   visibility: VisibilityResult | null;
   competitors: CompetitorsResult | null;
   cost: { dataforseoUsd: number; calls: number };
+  /** v3:SEO Ranking Score(仅付费完整版;免费视图恒为 null) */
+  ranking?: RankingFramework | null;
   meta: {
     pagesCrawled: number;
     pagesRequested: number;
@@ -506,4 +514,227 @@ export const SEO_GRADE_SCALE: { grade: "A" | "B" | "C" | "D" | "F"; min: number 
   { grade: "C", min: 55 },
   { grade: "D", min: 40 },
   { grade: "F", min: 0 },
+];
+
+
+/* ============================================================
+   v3 · SEO Ranking Score —— 付费完整版的新总分(2026-10-01 站长指令)
+
+   5 个大维度(支柱),每个下设若干小维度,各自 0-100 分并附证据与修法。
+   全部用可复现的规则 + 已付费拿到的数据计算,不调用大模型:同一站点多次运行结果一致,
+   每一分都能追溯到证据。规格:docs/design/seo-ranking-score-spec.md
+   ============================================================ */
+
+/** 每页的内容质量与用户信号(parse.ts 计算;只存计数、比例与短文本) */
+export interface PageContentSignals {
+  /** 主体文本词数(去掉 nav / header / footer / aside / script / style) */
+  mainWords: number;
+  sentences: number;
+  paragraphs: number;
+  /** Flesch Reading Ease(只对英文页计算,其他语言 null) */
+  fleschReadingEase: number | null;
+  avgSentenceWords: number;
+  avgParagraphWords: number;
+  h2Count: number;
+  h3Count: number;
+  listCount: number;
+  orderedListCount: number;
+  listItemCount: number;
+  tableCount: number;
+  /** 正文里的数据点(带单位 / 百分号 / 货币的数字,以及 ≥2 位的数字;不含年份) */
+  numberCount: number;
+  /** 一手经验表述命中数(we tested / I tried / in our experience / hands-on / we measured …) */
+  experienceMarkers: number;
+  /** 原始数据表述命中数(our survey / our study / we analyzed N / sample of N / methodology …) */
+  originalDataMarkers: number;
+  /** AI 套话命中数(delve / in today's fast-paced / unlock the power / game-changer …) */
+  aiPhraseHits: number;
+  /** 指向权威来源的外链数(.gov / .edu / 官方文档 / 学术 / 维基百科 / 主流媒体) */
+  authoritativeOutlinks: number;
+  outboundLinks: number;
+  /** 正文图片:自托管 vs 图库(pexels / unsplash / shutterstock / istock / getty / adobe stock …) */
+  imagesSelfHosted: number;
+  imagesStock: number;
+  /** 署名 */
+  byline: boolean;
+  authorName: string | null;
+  /** 作者页链接(站内) */
+  authorLink: string | null;
+  authorInSchema: boolean;
+  /** JSON-LD datePublished / dateModified、article:*_time、<time datetime>(ISO 日期) */
+  datePublished: string | null;
+  dateModified: string | null;
+  /** 标题里的年份(如 "Best X in 2023");没有为 null */
+  titleYear: number | null;
+  /** 正文前 150 词(小写、去标点) */
+  leadText: string;
+  /** 首段(≤300 字符) */
+  firstParagraph: string;
+  /** 页面上有 FAQ(FAQPage schema 或 FAQ 标题) */
+  hasFaq: boolean;
+  /** 正文后半段指向站内其他页的"下一步"链接数 */
+  nextStepLinks: number;
+  /** 标题党信号命中数 */
+  clickbaitHits: number;
+  /** 标题承诺的数量("10 ways" → 10);没有承诺为 null */
+  titleNumber: number | null;
+  /** YMYL 话题命中数(健康 / 金融 / 法律词表) */
+  ymylHits: number;
+  /** 实体信号 */
+  orgName: string | null;
+  siteName: string | null;
+  titleBrand: string | null;
+  sameAsCount: number;
+  /** 弹窗 / 遮罩类元素线索 */
+  interstitialHints: number;
+  /**
+   * 整页(含页脚)能找到的联系方式:mailto: / 可见邮箱、tel: / 电话号码、PostalAddress / <address>。
+   * 给 quality.authorship 判"Contact 页有没有真实联系方式"用 —— 内容信号不存全文,只能在解析时就判好。
+   * 可选:这个字段加得比其余信号晚,旧数据里没有。
+   */
+  contactDetails?: { email: boolean; phone: boolean; address: boolean };
+}
+
+export type SearchIntent = "informational" | "commercial" | "transactional" | "navigational" | "local";
+export type PageFormat = "definition" | "how-to" | "comparison" | "listicle" | "product" | "pricing" | "local" | "homepage" | "article" | "other";
+
+/** 竞品页(某查询的排名前几名)的可比信号 */
+export interface CompetitorPageSignals {
+  url: string;
+  domain: string;
+  position: number;
+  title: string;
+  h1: string;
+  wordCount: number;
+  format: PageFormat;
+  /** 规范化后的 H2/H3(≤40) */
+  headings: string[];
+  numbers: number;
+  tables: number;
+  orderedLists: number;
+  images: number;
+  fetched: boolean;
+  error?: string;
+}
+
+/** 一个"查询 ↔ 本站页面"对 */
+export interface RelevancePair {
+  query: string;
+  /** ranking = 来自 DataForSEO 排名词;page-topic = 没有排名数据时取页面标题的主题 */
+  source: "ranking" | "page-topic";
+  volume: number | null;
+  position: number | null;
+  intent: SearchIntent;
+  intentSource: "dataforseo" | "pattern";
+  url: string;
+  pageFormat: PageFormat;
+  /** 排名前几名的主流形态;没做 SERP 对比为 null */
+  serpFormat: PageFormat | null;
+  intentMatch: boolean | null;
+  /** 0-1:查询核心词在 title / H1 里的覆盖 */
+  titleAlignment: number;
+  h1Alignment: number;
+  /** 查询核心词出现在正文前 150 词 */
+  answerEarly: boolean;
+  /** 0-1:竞品共有子话题被本页覆盖的比例;没做对比为 null */
+  coverage: number | null;
+  coveredTopics: string[];
+  missingTopics: string[];
+  /** 本页有、竞品都没有的子话题 */
+  uniqueTopics: string[];
+  gainSignals: { uniqueTopics: number; extraNumbers: number; extraTables: number; ownImages: number; experienceMarkers: number };
+  competitors: CompetitorPageSignals[];
+}
+
+export interface RelevanceAnalysis {
+  /** ≤5 对,其中 ≤3 对做了 SERP 竞品对比 */
+  pairs: RelevancePair[];
+  serpCalls: number;
+  competitorPagesFetched: number;
+  notes: string[];
+}
+
+export type PillarId = "relevance" | "quality" | "authority" | "behavior" | "technical";
+/** measured = 直接数据;estimated = 基于页面文本的规则估计;proxy = 用页面特征代理 Google 不公开的行为数据 */
+export type SignalConfidence = "measured" | "estimated" | "proxy";
+
+export interface SubScore {
+  /** 例:"quality.experience" */
+  id: string;
+  pillar: PillarId;
+  label: string;
+  /** 0-100;拿不到数据为 null(不进加权) */
+  score: number | null;
+  weight: number;
+  confidence: SignalConfidence;
+  /** 一句话结论(随分数高低写成达标句或问题句) */
+  summary: string;
+  evidence: string[];
+  fixes: string[];
+}
+
+export interface PillarScore {
+  id: PillarId;
+  label: string;
+  role: string;
+  weight: number;
+  score: number | null;
+  grade: "A" | "B" | "C" | "D" | "F" | null;
+  summary: string;
+  subs: SubScore[];
+}
+
+export interface RankingFramework {
+  version: 1;
+  overall: { score: number; grade: "A" | "B" | "C" | "D" | "F"; capped: boolean; note: string };
+  pillars: PillarScore[];
+  basis: {
+    pagesAnalyzed: number;
+    contentPages: number;
+    queries: { query: string; url: string; position: number | null; volume: number | null; intent: SearchIntent }[];
+    competitorsCompared: number;
+  };
+  /** 查询 / 竞品对比明细(付费可见) */
+  relevance: RelevanceAnalysis | null;
+  notes: string[];
+}
+
+/** 支柱定义:标签、作用、在总分里的权重(合计 100) */
+export const RANKING_PILLARS: Record<PillarId, { label: string; role: string; weight: number }> = {
+  relevance: { label: "Relevance & search intent", role: "Decides whether you can rank at all", weight: 30 },
+  quality: { label: "Content quality (E-E-A-T)", role: "Decides whether rankings survive core updates", weight: 25 },
+  authority: { label: "Authority & links", role: "Decides who wins among similar pages", weight: 25 },
+  behavior: { label: "User satisfaction signals", role: "Validates the result — scored through the page traits that drive it", weight: 10 },
+  technical: { label: "Technical foundation", role: "The threshold — failing it voids everything else", weight: 10 },
+};
+
+/** 小维度定义(免费版锁定预告与方法论页也用它,所以放在类型层) */
+export const RANKING_SUBS: { id: string; pillar: PillarId; label: string; weight: number; confidence: SignalConfidence }[] = [
+  { id: "relevance.intent", pillar: "relevance", label: "Search intent match", weight: 30, confidence: "estimated" },
+  { id: "relevance.coverage", pillar: "relevance", label: "Semantic coverage", weight: 30, confidence: "estimated" },
+  { id: "relevance.gain", pillar: "relevance", label: "Information gain", weight: 20, confidence: "estimated" },
+  { id: "relevance.alignment", pillar: "relevance", label: "Title, H1 & answer-first", weight: 20, confidence: "measured" },
+  { id: "quality.experience", pillar: "quality", label: "First-hand experience", weight: 25, confidence: "estimated" },
+  { id: "quality.data", pillar: "quality", label: "Original data & verifiable sources", weight: 20, confidence: "estimated" },
+  { id: "quality.authorship", pillar: "quality", label: "Authorship & trust pages", weight: 20, confidence: "measured" },
+  { id: "quality.freshness", pillar: "quality", label: "Freshness", weight: 15, confidence: "measured" },
+  { id: "quality.scaled", pillar: "quality", label: "Scaled-content risk", weight: 20, confidence: "estimated" },
+  { id: "authority.editorial", pillar: "authority", label: "Editorial link quality", weight: 30, confidence: "measured" },
+  { id: "authority.breadth", pillar: "authority", label: "Link authority & breadth", weight: 25, confidence: "measured" },
+  { id: "authority.clusters", pillar: "authority", label: "Topic clusters", weight: 15, confidence: "measured" },
+  { id: "authority.internal", pillar: "authority", label: "Internal links to core pages", weight: 15, confidence: "measured" },
+  { id: "authority.entity", pillar: "authority", label: "Brand & entity signals", weight: 15, confidence: "estimated" },
+  { id: "behavior.realuser", pillar: "behavior", label: "Real-user experience (Chrome data)", weight: 30, confidence: "measured" },
+  { id: "behavior.task", pillar: "behavior", label: "Task completion: answer-first & next step", weight: 25, confidence: "proxy" },
+  { id: "behavior.readability", pillar: "behavior", label: "Readability & scannability", weight: 25, confidence: "proxy" },
+  { id: "behavior.promise", pillar: "behavior", label: "Title promise integrity", weight: 20, confidence: "proxy" },
+  // 技术支柱 = 免费版的 Technical SEO score:7 个小维度一一对应现有 7 个站内维度,权重相同,
+  // 支柱分直接取免费技术分(含致命项封顶),两处永远是同一个数字。
+  { id: "technical.crawl", pillar: "technical", label: "Crawl & index", weight: 25, confidence: "measured" },
+  { id: "technical.onpage", pillar: "technical", label: "On-page basics", weight: 20, confidence: "measured" },
+  { id: "technical.cwv", pillar: "technical", label: "Core Web Vitals", weight: 15, confidence: "measured" },
+  { id: "technical.mobile", pillar: "technical", label: "Mobile usability", weight: 10, confidence: "measured" },
+  { id: "technical.https", pillar: "technical", label: "HTTPS & trust", weight: 10, confidence: "measured" },
+  { id: "technical.structure", pillar: "technical", label: "Site structure", weight: 10, confidence: "measured" },
+  { id: "technical.schema", pillar: "technical", label: "Structured data", weight: 10, confidence: "measured" },
 ];

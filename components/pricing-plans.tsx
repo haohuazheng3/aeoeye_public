@@ -60,11 +60,13 @@ export function PricingPlans() {
         cta="Run free SEO audit"
         onClick={toSeoAudit}
         features={[
-          "Free: score across 7 dimensions, top issues",
+          "Free: technical score across 7 dimensions, top issues",
+          // v3:完整版的新总分 —— 5 个支柱、25 个小维度,与排名前 5 的页面逐项对比
+          "SEO Ranking Score: 5 pillars, 25 sub-scores",
+          "Your pages vs the top 5 Google results",
           "Every check with evidence and page-level fixes",
           "Backlinks, rankings and competitors (DataForSEO)",
-          "Prioritized roadmap and page-by-page table",
-          "Re-run free for 30 days after fixes",
+          "Roadmap, page table, free re-runs for 30 days",
         ]}
       />
     </div>

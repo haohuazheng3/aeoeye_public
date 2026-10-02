@@ -17,7 +17,8 @@ import {
   SITEMAP_SAMPLE_SIZE,
 } from "@/lib/seo-audit/crawl";
 import { MAX_SITEMAP_CANDIDATES, MAX_SITEMAP_CHILDREN } from "@/lib/seo-audit/sitemap";
-import { DEFAULT_MAX_BYTES } from "@/lib/seo-audit/fetch";
+import { DEFAULT_MAX_BYTES, DEFAULT_TIMEOUT_MS } from "@/lib/seo-audit/fetch";
+import { CONCURRENCY, DEFAULT_COMPETITORS, DEFAULT_MAX_SERP, MAX_TARGET_FETCHES } from "@/lib/seo-audit/relevance";
 import { QUOTA } from "@/lib/seo-audit/quota";
 import { SEO_AUDIT_REUSE_MS, SEO_RERUN_WINDOW_MS } from "@/lib/seo-audit/repo";
 
@@ -49,8 +50,25 @@ const PROBE_OVERHEAD = 2 + 3 + 8 + 1 + 1 + 1;
 const CANONICAL_TARGETS = CANONICAL_TARGETS_MAX + 1;
 const SITE_CHECKS = SITEMAP_SAMPLE_SIZE + CANONICAL_TARGETS_MAX + BROKEN_INTERNAL_MAX + LARGE_IMAGES_MAX;
 const SITEMAP_FILES = MAX_SITEMAP_CANDIDATES + MAX_SITEMAP_CHILDREN;
+
+/**
+ * 完整版 SEO Ranking Score 的相关性分析(lib/seo-audit/relevance.ts,与其实现逐条核对过):
+ * - 排名 URL 不在抓取集合里时对本站补抓,失败顺延到下一个词,总数封顶 MAX_TARGET_FETCHES,
+ *   照爬虫口径查本站 robots.txt(这次分析里再取一次)—— 所以完整版对本站最多再多 MAX_TARGET_FETCHES + 1 个请求;
+ * - 前 DEFAULT_MAX_SERP 个查询各取 Google 前 DEFAULT_COMPETITORS 个自然结果(URL 去重),
+ *   每个主机先取一次 robots.txt(读不到按 RFC 9309 视为禁止、跳过),按 Crawl-delay 调整同主机间隔,
+ *   再 GET 一次(8 s、2 MB,与 fetch.ts 的默认值相同),全局并发 CONCURRENCY;
+ * - 付费重跑沿用上次的竞品 URL(不再查 SERP),但会重新抓这些页面。
+ * 数字直接取自 relevance.ts 的导出常量 —— 那边一改,这页自动跟着变(复审 C36)。
+ */
+const RANKING_OWN_FETCHES_MAX = MAX_TARGET_FETCHES;
+const RANKING_QUERIES_MAX = DEFAULT_MAX_SERP;
+const RANKING_RESULTS_PER_QUERY = DEFAULT_COMPETITORS;
+const RANKING_CONCURRENCY = CONCURRENCY;
+const RANKING_PAGES_MAX = RANKING_QUERIES_MAX * RANKING_RESULTS_PER_QUERY;
+
 const FREE_TOTAL = roundUp10(PROBE_OVERHEAD + SITEMAP_FILES + FREE_CRAWL_PAGES + SITE_CHECKS);
-const FULL_TOTAL = roundUp10(PROBE_OVERHEAD + SITEMAP_FILES + FULL_CRAWL_PAGES + SITE_CHECKS);
+const FULL_TOTAL = roundUp10(PROBE_OVERHEAD + SITEMAP_FILES + FULL_CRAWL_PAGES + SITE_CHECKS + RANKING_OWN_FETCHES_MAX + 1);
 
 function roundUp10(n: number): number {
   return Math.ceil(n / 10) * 10;
@@ -78,7 +96,8 @@ export default function BotPage() {
           <Link href="/seo-audit" className="font-medium text-iris hover:underline">
             technical SEO audit
           </Link>{" "}
-          of it on {site.name}. It never crawls on its own schedule.
+          of it on {site.name}, and for a full report it reads the few pages that rank above that site on Google. It
+          never crawls on its own schedule.
         </p>
       </header>
 
@@ -117,6 +136,10 @@ export default function BotPage() {
               <li>
                 Up to {FREE_CRAWL_PAGES} HTML pages for a free report, {FULL_CRAWL_PAGES} for a full one — found through
                 your links and a sample of your sitemap
+              </li>
+              <li>
+                Full reports only: up to {RANKING_OWN_FETCHES_MAX} of your pages that rank on Google but weren&rsquo;t
+                reached by the crawl, one request each, plus robots.txt once more to check them
               </li>
               <li>
                 Variants of the audited URL — http / https, www / apex, trailing slash, upper case,{" "}
@@ -160,7 +183,7 @@ export default function BotPage() {
               </li>
               <li>
                 Follows the <Code>robots.txt</Code> rules for <Code>AEOeyeBot</Code> (or <Code>*</Code>) for every page it
-                crawls and every sitemap URL or internal link it samples
+                crawls, every sitemap URL or internal link it samples, and every top-ranking page it reads for a full report
               </li>
               <li>
                 Honours <Code>Crawl-delay</Code> while crawling pages, up to {seconds(MAX_CRAWL_DELAY_MS)}; a longer delay is
@@ -177,6 +200,42 @@ export default function BotPage() {
                 forced. Paid reports can also be re-run for {days(SEO_RERUN_WINDOW_MS)} days after purchase.
               </li>
             </ul>
+          </div>
+        </section>
+
+        {/* 完整版排名分的竞品对比 —— 被抓的是"排在被审计站前面的别人家的页面",
+            这些站长没请求过任何审计,看到日志里的 AEOeyeBot 最需要这一段解释 */}
+        <section className="card p-6 sm:p-7 lg:col-span-2" aria-labelledby="top-pages">
+          <div className="relative z-10">
+            <h2 id="top-pages" className="font-display text-xl font-semibold tracking-tight">
+              Top-ranking pages (full reports)
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-ink/65">
+              A full report compares the audited site with the pages that outrank it. For up to {RANKING_QUERIES_MAX} of
+              that site&rsquo;s search queries we take the top {RANKING_RESULTS_PER_QUERY} organic Google results (via
+              DataForSEO), and AEOeyeBot fetches each of those pages once per report run:
+            </p>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-ink/75 marker:text-ink/25">
+              <li>
+                It requests that host&rsquo;s <Code>/robots.txt</Code> first and skips the page if <Code>AEOeyeBot</Code>{" "}
+                (or <Code>*</Code>) is disallowed from it — or if robots.txt can&rsquo;t be read
+              </li>
+              <li>
+                Then one GET for the page itself — raw HTML up to {megabytes(DEFAULT_MAX_BYTES)},{" "}
+                {seconds(DEFAULT_TIMEOUT_MS)} timeout. It doesn&rsquo;t follow links on the page or fetch its images, scripts
+                or stylesheets
+              </li>
+              <li>
+                At most {RANKING_PAGES_MAX} pages per report run, across all sites, {RANKING_CONCURRENCY} at a time; requests
+                to the same host start at least {MIN_HOST_INTERVAL_MS} ms apart, longer if robots.txt sets a{" "}
+                <Code>Crawl-delay</Code>
+              </li>
+            </ul>
+            <p className="mt-3 text-xs leading-relaxed text-ink/45">
+              So if one of your pages ranks for a query an audited site cares about, you may see one request for it plus
+              your robots.txt — nothing else on your site. A re-run of that paid report fetches the same pages again
+              without a new search. Blocking AEOeyeBot in robots.txt stops it.
+            </p>
           </div>
         </section>
 

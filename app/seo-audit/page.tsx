@@ -4,9 +4,26 @@ import { ArrowRight, Check, Lock, Minus } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { SeoAuditForm } from "@/components/seo-audit/seo-audit-form";
 import { DIMENSION_ICON } from "@/components/seo-audit/dimension-meta";
+import { PILLAR_ICON, PILLAR_ORDER, PillarName, subsOf } from "@/components/seo-audit/ranking-meta";
 import { pageMeta, faqJsonLd, breadcrumbJsonLd, softwareJsonLd } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
-import { DIMENSIONS, ONSITE_DIMENSIONS, PAID_DIMENSIONS, FREE_CRAWL_PAGES, FULL_CRAWL_PAGES, SEO_GRADE_SCALE } from "@/lib/seo-audit/types";
+import {
+  DIMENSIONS,
+  ONSITE_DIMENSIONS,
+  PAID_DIMENSIONS,
+  FREE_CRAWL_PAGES,
+  FULL_CRAWL_PAGES,
+  SEO_GRADE_SCALE,
+  RANKING_PILLARS,
+  RANKING_SUBS,
+} from "@/lib/seo-audit/types";
+
+/** 排名分的支柱与权重一句话("Relevance & search intent 30%, … and Technical foundation 10%");
+ *  FAQ 正文与 FAQPage JSON-LD 共用,权重只在 types.ts 改一处 */
+const PILLAR_WEIGHTS = (() => {
+  const parts = PILLAR_ORDER.map((p) => `${RANKING_PILLARS[p].label} ${RANKING_PILLARS[p].weight}%`);
+  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+})();
 
 /* ============================================================
    /seo-audit 落地页 —— 第二个产品面的入口。
@@ -39,13 +56,19 @@ const FAQS = [
     a: `${FREE_CRAWL_PAGES} on the free report (${12} by following navigation links, ${8} sampled from your sitemap so different templates are covered) and ${FULL_CRAWL_PAGES} on the full report. Page-level checks say exactly how many of the crawled pages are affected — the score is a sample, and we say so on the report.`,
   },
   {
+    q: "What is the SEO Ranking Score?",
+    a: `A 0–100 score for whether your pages can win rankings, not just get crawled. It weights ${PILLAR_ORDER.length} pillars — ${PILLAR_WEIGHTS} — built from ${RANKING_SUBS.length} sub-scores, each traced to evidence on your pages, your backlinks and the top 5 Google results for up to 3 of your queries. No AI model grades anything: every rule is published, so the same site gets the same score twice. It comes with the full report; the free technical score is its fifth pillar.`,
+  },
+  {
     q: "What does the $10 full report include, and is there a subscription?",
-    a: "One-time, per report, no subscription and no account needed. It unlocks the evidence and fix for every check, a page-by-page table, the prioritised roadmap, authority and backlinks, ranked keywords with quick wins, top-5 competitors (all via DataForSEO), desktop PageSpeed, JSON export and 30 days of re-runs.",
+    a: `One-time, per report, no subscription and no account needed. It adds the SEO Ranking Score — ${PILLAR_ORDER.length} pillars and ${RANKING_SUBS.length} sub-scores, with your pages compared against the pages that rank above them — and unlocks the evidence and fix for every check, a page-by-page table, the prioritised roadmap, authority and backlinks, ranked keywords with quick wins, top-5 competitors (all via DataForSEO), desktop PageSpeed, JSON export and 30 days of re-runs.`,
   },
 ];
 
 const FREE_VS_FULL: { label: string; free: string | boolean; full: string | boolean }[] = [
   { label: "Technical SEO score, grade and 7 dimension scores", free: true, full: true },
+  { label: `SEO Ranking Score: ${PILLAR_ORDER.length} pillars, ${RANKING_SUBS.length} sub-scores, each with evidence and fixes`, free: false, full: true },
+  { label: "Your pages vs the top 5 Google results for up to 3 of your queries", free: false, full: true },
   { label: "Every check listed with pass / warn / fail", free: true, full: true },
   { label: "Top 3 issues with full evidence and fix", free: true, full: true },
   { label: "Evidence + fix for all critical and high checks", free: "up to 8", full: "all" },
@@ -91,7 +114,8 @@ export default function SeoAuditLanding() {
             What we check
           </h2>
           <p className="mt-2 text-sm text-ink/55">
-            Seven on-site dimensions from our own crawl and Google PageSpeed Insights, scored and weighted into one number.
+            Seven on-site dimensions from our own crawl and Google PageSpeed Insights, weighted into the technical score —
+            plus, in the full report, the SEO Ranking Score.
           </p>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -139,6 +163,52 @@ export default function SeoAuditLanding() {
         <p className="mt-4 text-center text-xs text-ink/45">
           Off-site dimensions are scored separately and never change your technical score.
         </p>
+
+        {/* SEO Ranking Score(完整版):五个支柱 + 权重 + 作用;技术分就是第 5 支柱,一句话交代两个分数的关系 */}
+        <div className="card mt-10 min-w-0 p-6 sm:p-8">
+          <div className="relative z-10 min-w-0">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="eyebrow">SEO Ranking Score</p>
+              <span className="inline-flex items-center gap-1 rounded-full bg-iris/10 px-2.5 py-0.5 text-[11px] font-semibold text-iris">
+                <Lock className="h-3 w-3" /> Full report
+              </span>
+            </div>
+            <h3 className="mt-2 font-display text-xl font-semibold tracking-tight sm:text-2xl">
+              Can your pages win the ranking? {PILLAR_ORDER.length} pillars, {RANKING_SUBS.length} sub-scores.
+            </h3>
+            <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-ink/55">
+              Your pages compared with the top 5 Google results for up to 3 of your queries, scored by published rules — no AI
+              grading, so the same site gets the same score twice. The technical score above is the fifth pillar.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {PILLAR_ORDER.map((p) => {
+                const meta = RANKING_PILLARS[p];
+                const Icon = PILLAR_ICON[p];
+                return (
+                  <div key={p} className="surface min-w-0 p-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <Icon className="h-3.5 w-3.5 shrink-0 text-iris" />
+                      <span className="rounded-full bg-ink/[0.05] px-2 py-0.5 text-[11px] font-semibold tabular-nums text-ink/55">
+                        {meta.weight}%
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm font-semibold leading-snug text-ink">
+                      <PillarName label={meta.label} />
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-ink/50">{meta.role}</p>
+                    <p className="mt-2 text-[11px] text-ink/40">{subsOf(p).length} sub-scores</p>
+                  </div>
+                );
+              })}
+            </div>
+            <Link
+              href="/seo-audit/how-we-score#ranking-score"
+              className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-iris hover:underline"
+            >
+              Every pillar and sub-score, explained <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* How the score works */}
@@ -207,15 +277,15 @@ export default function SeoAuditLanding() {
                     <Link href="/bot" className="text-iris hover:underline">
                       AEOeyeBot
                     </Link>
-                    ).
+                    ). The full report also reads the top-ranking pages for up to 3 of your queries.
                   </li>
                   <li>
                     <span className="font-medium text-ink">Google PageSpeed Insights</span> — real-user Core Web Vitals (CrUX
                     p75) plus a single Lighthouse run.
                   </li>
                   <li>
-                    <span className="font-medium text-ink">DataForSEO</span> — backlinks, ranked keywords and competitors, full
-                    report only.
+                    <span className="font-medium text-ink">DataForSEO</span> — backlinks, ranked keywords, competitors and the
+                    Google results for those queries, full report only.
                   </li>
                 </ul>
                 <Link href="/seo-audit/how-we-score" className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-iris hover:underline">

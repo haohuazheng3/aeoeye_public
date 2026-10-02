@@ -34,12 +34,32 @@
 
    复审 C23:robots 指令按逗号逐项整项匹配 —— max-image-preview:none 不是 noindex,
    X-Robots-Tag 里 "otherbot: noindex" 只对 otherbot 生效。
+
+   v3(SEO Ranking Score):2xx 的 HTML 页面另算一份 page.content(PageContentSignals,
+   见 content-signals.ts)。主体文本的抽取规则、词数口径、截断工具都搬到了 content-signals.ts,
+   这里与它共用同一份实现 —— minhash、textSample 与内容信号读的是**同一次抽取**的同一份文本,
+   不会出现"近重复检测看的正文"和"一手经验词表看的正文"不是一回事。
    ============================================================ */
 
-import { parse as parseHtml, NodeType, TextNode, type HTMLElement, type Node as HtmlNode } from "node-html-parser";
+import { parse as parseHtml, NodeType, type HTMLElement, type Node as HtmlNode, type TextNode } from "node-html-parser";
 import type { CrawledPage, Heading, PageType } from "./types";
 import type { FetchResult } from "./fetch";
 import { dedupeKey, isSameSite, normalizeUrl } from "./url";
+import {
+  INVISIBLE_TAGS,
+  boundedText,
+  clipText,
+  collapse,
+  computeContentSignals,
+  countWords,
+  extractMainContent,
+  isChrome,
+  tagOf,
+  wordTokens,
+} from "./content-signals";
+
+// clipText 搬到了 content-signals.ts(内容信号也要按代理对安全截断);这里原样再导出,老调用方不受影响
+export { clipText };
 
 export interface ParsedPageDetails {
   page: CrawledPage;
@@ -55,9 +75,6 @@ export interface ParsedPageDetails {
 
 const GENERIC_ANCHORS = new Set(["click here", "read more", "here", "learn more", "more"]);
 const NAV_TAGS = new Set(["nav", "header", "footer"]);
-const CHROME_TAGS = new Set(["nav", "header", "footer", "aside"]);
-/** 不可见内容:预扫描已把前四种的内容剥掉,svg 里的 <title>/<text> 也不算页面文字 */
-const INVISIBLE_TAGS = new Set(["script", "style", "noscript", "template", "svg"]);
 const MOUNT_SELECTORS = ["#root", "#app", "#__next", "#__nuxt", "#___gatsby", "#svelte", "#q-app", "#__layout", "[data-reactroot]"];
 const MIXED_RESOURCE_SELECTORS = [
   "img[src]",
@@ -102,6 +119,8 @@ export const MAX_META_KEYS = 50;
 export const MAX_JSONLD_TYPES = 100;
 /** 超过这个长度的 URL 不落库(只计数) */
 export const MAX_URL_CHARS = 2_048;
+/** 交给内容信号的 JSON-LD 根对象个数(块数正常是个位数) */
+const MAX_JSONLD_ROOTS = 50;
 const MAX_TEXT_CHARS = 1_000;
 const MAX_HEADING_CHARS = 200;
 const MAX_META_KEY_CHARS = 100;
@@ -110,42 +129,11 @@ const MAX_TYPE_CHARS = 100;
 /** 泛化锚文本("click here" 之类)都很短:读到这么多字符还没完就一定不是 */
 const MAX_ANCHOR_CHARS = 64;
 
-const collapse = (s: string) => s.replace(/\s+/g, " ").trim();
 const codePoints = (s: string) => Array.from(s).length;
-
-/**
- * 截断字符串但不劈开 UTF-16 代理对。半个 emoji 序列化成 "\ud83d" 后 Postgres 的 jsonb
- * 会拒收整份结果(审计白跑),所以任何落库字符串的截断都走这里。
- */
-export function clipText(s: string, max: number): string {
-  if (s.length <= max) return s;
-  let end = Math.max(0, max);
-  const c = s.charCodeAt(end - 1);
-  if (c >= 0xd800 && c <= 0xdbff) end--;
-  return s.slice(0, end);
-}
 
 function attr(el: HTMLElement, name: string): string | undefined {
   const v = el.getAttribute(name);
   return v === undefined ? undefined : v;
-}
-
-function tagOf(el: HTMLElement): string {
-  return (el.rawTagName ?? "").toLowerCase();
-}
-
-function roleOf(p: HTMLElement): string {
-  return (p.getAttribute("role") ?? "").toLowerCase();
-}
-
-function isChrome(el: HTMLElement, tags: Set<string>): boolean {
-  const tag = tagOf(el);
-  if (tags.has(tag)) return true;
-  if (tag === "div" || tag === "ul" || tag === "section" || tag === "aside") {
-    const role = roleOf(el);
-    if (role === "navigation" || role === "banner" || role === "contentinfo") return true;
-  }
-  return false;
 }
 
 function hasAncestor(el: HTMLElement, tags: Set<string>): boolean {
@@ -215,49 +203,6 @@ function collectText(node: HtmlNode, out: string[], skip?: (el: HTMLElement) => 
       for (let i = kids.length - 1; i >= 0; i--) stack.push(kids[i]);
     }
   }
-}
-
-/**
- * element.text 的有上限版本(同口径:文本节点直接相连、<br> 记为换行),读够 max 个字符就停。
- * 标题、锚文本、段落只需要前几百个字符;嵌套的 <h1><span><h1>… 若每层都取完整 .text,
- * 底部一段大文本会被复制成"层数 × 文本长"(复审 C6)。返回值最多 max + 1 个字符,
- * 调用方据此判断"原文比上限长"。
- */
-function boundedText(el: HtmlNode, max: number): string {
-  let out = "";
-  const stack: HtmlNode[] = [];
-  for (let i = el.childNodes.length - 1; i >= 0; i--) stack.push(el.childNodes[i]);
-  while (stack.length && out.length <= max) {
-    const node = stack.pop() as HtmlNode;
-    if (node.nodeType === NodeType.TEXT_NODE) {
-      // 先截原文再解码:TextNode.text 每次都把整段原文 decode 一遍,超长文本节点不能每层都付一次
-      const raw = (node as TextNode).rawText;
-      const room = max + 1 - out.length + 32;
-      out += raw.length > room ? new TextNode(raw.slice(0, room)).text : (node as TextNode).text;
-    } else if (node.nodeType === NodeType.ELEMENT_NODE) {
-      if (tagOf(node as HTMLElement) === "br") {
-        out += "\n";
-        continue;
-      }
-      const kids = node.childNodes;
-      for (let i = kids.length - 1; i >= 0; i--) stack.push(kids[i]);
-    }
-  }
-  return out.length > max + 1 ? out.slice(0, max + 1) : out;
-}
-
-const CJK = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/gu;
-
-function countWords(text: string): number {
-  // CJK 一字一词;其余按字母数字串计
-  const cjk = text.match(CJK)?.length ?? 0;
-  const rest = text.replace(CJK, " ");
-  const tokens = rest.match(/[\p{L}\p{N}]+(?:['’.\-][\p{L}\p{N}]+)*/gu)?.length ?? 0;
-  return cjk + tokens;
-}
-
-function words(text: string): string[] {
-  return (text.toLowerCase().replace(CJK, " $& ").match(/[\p{L}\p{N}]+/gu) ?? []) as string[];
 }
 
 function isHtmlLike(res: FetchResult, html: string): boolean {
@@ -467,7 +412,7 @@ function mix(h: number, seed: number): number {
  * 两个签名相同槽位的占比 ≈ shingle 集合的 Jaccard。词数不足一个 shingle → undefined。
  */
 export function minhashSignature(text: string, k: number = SHINGLE_WORDS, n: number = MINHASH_SIZE): number[] | undefined {
-  const w = words(text);
+  const w = wordTokens(text);
   if (w.length < k) return undefined;
   const sig = new Array<number>(n).fill(0xffffffff);
   const seen = new Set<number>();
@@ -833,6 +778,8 @@ function parseWithCap(html: string, res: FetchResult, depth: number, host: strin
   /* ---- JSON-LD(读预扫描切出的 <script> 原文) ---- */
   const types = new Set<string>();
   let jsonLdBlocks = 0;
+  /** 解析好的根对象留给内容信号(作者 / 日期 / 机构 / FAQPage),不再解析第二遍 */
+  const jsonLdRoots: unknown[] = [];
   for (const b of prepared.blocks) {
     if (b.tag !== "script") continue;
     if (!scriptType(b.openTag).startsWith("application/ld+json")) continue;
@@ -843,7 +790,9 @@ function parseWithCap(html: string, res: FetchResult, depth: number, host: strin
       continue;
     }
     try {
-      walkJsonLd(JSON.parse(raw), types, dates);
+      const parsed: unknown = JSON.parse(raw);
+      walkJsonLd(parsed, types, dates);
+      if (jsonLdRoots.length < MAX_JSONLD_ROOTS) jsonLdRoots.push(parsed);
     } catch {
       page.jsonLdErrors++;
     }
@@ -910,9 +859,11 @@ function parseWithCap(html: string, res: FetchResult, depth: number, host: strin
   page.wordCount = countWords(visible);
   page.textToHtml = html_.length ? Number((visible.length / html_.length).toFixed(3)) : 0;
 
-  const mainParts: string[] = [];
-  collectText(textRoot, mainParts, (el) => invisible(el) || isChrome(el, CHROME_TAGS));
-  const mainText = collapse(mainParts.join(" "));
+  // 主体文本与内容信号的切块是同一次遍历(剔除规则与原来的 collectText 完全相同);
+  // 非 2xx / 非 HTML 的页面不算内容信号,只要文本
+  const contentEligible = htmlLike && res.status >= 200 && res.status < 300;
+  const main = extractMainContent(textRoot, { base, host, textOnly: !contentEligible });
+  const mainText = main.text;
   page.textSample = clipText(mainText, TEXT_SAMPLE_CHARS);
   const sig = minhashSignature(mainText);
   if (sig) page.minhash = sig;
@@ -922,6 +873,15 @@ function parseWithCap(html: string, res: FetchResult, depth: number, host: strin
   page.jsShell = (page.wordCount < 100 && sameSiteLinks < 3 && emptyMountPoint) || ((page.scriptShare ?? 0) > 0.6 && page.wordCount < 80);
   page.pageType = pageTypeFor(base, page.jsonLdTypes, datedParagraphs);
   finishDirectives(page, directives, dates);
+
+  /* ---- v3 内容信号(只给 2xx 的 HTML 页;算不出来就不给,绝不让它连累整页解析) ---- */
+  if (contentEligible) {
+    try {
+      page.content = computeContentSignals({ root, main, title: page.title, lang: page.lang, og: page.og, jsonLd: jsonLdRoots, base, host, visibleParts: allParts });
+    } catch {
+      // 留空:下游把缺省的 content 当作"没测到",不会当成 0 分
+    }
+  }
 
   /* ---- per-page issues ---- */
   if (htmlLike && res.status >= 200 && res.status < 300) {

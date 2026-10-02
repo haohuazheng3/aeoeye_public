@@ -7,6 +7,8 @@ import { runPsi, psiFailureIsFatal } from "./psi";
 import { runAllOnsiteChecks } from "./checks";
 import { scoreDimensions, overallScore, pickTopIssues, buildRoadmap } from "./score";
 import { dfsEnabled, fetchAuthority, fetchVisibility, fetchCompetitors, paidChecks } from "./dataforseo";
+import { analyzeRelevance } from "./relevance";
+import { computeRanking } from "./ranking";
 import {
   DIMENSIONS,
   FREE_CRAWL_PAGES,
@@ -18,6 +20,8 @@ import {
   type DimensionScore,
   type PaidModuleId,
   type PsiResult,
+  type RankingFramework,
+  type RelevanceAnalysis,
   type SeoAuditProgress,
   type SeoAuditResult,
   type SeoAuditStage,
@@ -71,9 +75,14 @@ export interface RunOpts {
   fallbackPaid?: PaidModules | null;
   /** 重跑:把上一次的分数记进 meta.notes("Previous score: N (date)"),UI 据此并列显示新旧分 */
   previousScore?: { score: number; date: string } | null;
+  /**
+   * v3 重跑:上一份的相关性分析(查询 + 竞品 URL)。给了就沿用,不再调 SERP(每次都是真钱);
+   * 付费刷新(refreshPaid)或这次重新拉了排名词(visibility)时不沿用 —— 查询要跟着新的排名词走。
+   */
+  reuseRelevance?: RelevanceAnalysis | null;
 }
 
-export type UpgradeModule = "crawl40" | "psiDesktop" | "authority" | "visibility" | "competitors";
+export type UpgradeModule = "crawl40" | "psiDesktop" | "authority" | "visibility" | "competitors" | "ranking";
 
 export interface UpgradeOpts {
   /** 每个模块一落地就回调 —— repo.mergeModule 立即落库,进程中途被杀时重试只补缺的模块 */
@@ -200,6 +209,9 @@ const FULL_CRAWL_BUDGET_MS = 60_000;
 const PSI_TIMEOUT_MS = 65_000;
 /** V2-0:付费模块各自 60s 超时 */
 const DFS_MODULE_TIMEOUT_MS = 60_000;
+/** v3:与排名前列页面的对比(≤3 次 SERP + ≤15 个竞品页)。在 deadline 之内再收紧,并给计分落库留 15s */
+const RELEVANCE_BUDGET_MS = 60_000;
+const RELEVANCE_RESERVE_MS = 15_000;
 /** 供"孤页信号"抽样的 sitemap URL 数 */
 const SITEMAP_SAMPLE = 20;
 /** 抓到的页数低于此值时 Architecture 维度标低置信(V2-0) */
@@ -677,6 +689,78 @@ function round6(n: number): number {
   return Math.round(n * 1e6) / 1e6;
 }
 
+/* ---------- v3 · SEO Ranking Score ---------- */
+
+/** 进度帧上的说明:对比阶段没有自己的 stage(进度页的阶段表是契约,不随意加),只换 message */
+const RELEVANCE_MESSAGE = "Comparing your pages with the pages that rank on page one";
+
+/**
+ * 相关性分析(查询 ↔ 本站页面 ↔ 排名前 5 的真实页面)。依赖排名词(visibility)与抓取结果,
+ * 所以只能排在付费模块之后。analyzeRelevance 自己不抛、按预算收尾;这里再加一道 deadline 兜底 ——
+ * 到点就放弃对比,Ranking Score 照常出(相关性支柱标"未测"),绝不拖垮整份付费报告。
+ * 只有可沿用的上一份(且有查询)才传 reuse:沿用时零 SERP 调用。
+ */
+async function relevanceWithinDeadline(
+  args: { domain: string; origin: string; host: string; pages: CrawledPage[]; visibility: VisibilityResult | null; reuse: RelevanceAnalysis | null },
+  deadline: Deadline,
+  notes: string[]
+): Promise<RelevanceAnalysis | null> {
+  const budgetMs = Math.min(RELEVANCE_BUDGET_MS, deadline.remaining() - RELEVANCE_RESERVE_MS);
+  if (budgetMs < 5_000) {
+    notes.push("The comparison with top-ranking pages was skipped because the run was out of time; re-run to compute it.");
+    return null;
+  }
+  const reuse = args.reuse && Array.isArray(args.reuse.pairs) && args.reuse.pairs.length > 0 ? args.reuse : null;
+  try {
+    return await untilDeadline(
+      analyzeRelevance({
+        domain: args.domain,
+        origin: args.origin,
+        host: args.host,
+        pages: args.pages,
+        visibility: args.visibility,
+        reuse,
+        refreshSerp: false,
+        budgetMs,
+      }),
+      deadline,
+      "Comparison with top-ranking pages",
+      () => null
+    );
+  } catch (e) {
+    notes.push(`The comparison with top-ranking pages did not finish (${errMsg(e)}); re-run to compute it.`);
+    return null;
+  }
+}
+
+/**
+ * 计分:computeRanking 是纯函数,正常不会抛;真抛了(代码缺陷)也只让 Ranking Score 缺席并写明,
+ * 其余完整版内容照常交付。技术支柱 = 免费版 Technical SEO score(含致命项封顶),两处永远是同一个数。
+ */
+function rankingOrNull(
+  args: { domain: string; pages: CrawledPage[]; probe: SiteProbe; psi: SeoAuditResult["psi"]; scored: Scored; paid: PaidModules; relevance: RelevanceAnalysis | null },
+  notes: string[]
+): RankingFramework | null {
+  try {
+    return computeRanking({
+      domain: args.domain,
+      pages: args.pages,
+      probe: args.probe,
+      psi: args.psi,
+      checks: args.scored.checks,
+      dimensions: args.scored.dimensions,
+      technical: { score: args.scored.overall.score, grade: args.scored.overall.grade, blockers: args.scored.blockers },
+      authority: args.paid.authority,
+      visibility: args.paid.visibility,
+      relevance: args.relevance,
+      now: new Date(),
+    });
+  } catch (e) {
+    notes.push(`The SEO Ranking Score could not be computed (${errMsg(e)}); re-run to retry.`);
+    return null;
+  }
+}
+
 /* ---------- 计分收尾 ---------- */
 
 type Scored = Pick<SeoAuditResult, "overall" | "dimensions" | "checks" | "topIssues" | "roadmap"> & {
@@ -880,6 +964,7 @@ export async function runSeoAudit(input: string, opts: RunOpts): Promise<SeoAudi
       const psi: SeoAuditResult["psi"] = { mobile: psiMobile, desktop: null };
 
       let paid: PaidModules = { ...NO_PAID };
+      let relevance: RelevanceAnalysis | null = null;
       if (plan === "full" && outcome !== "blocked") {
         const reuse = opts.reusePaid ?? null;
         const toFetch = paidModulesToFetch(reuse, opts.fillMissing === true);
@@ -900,12 +985,18 @@ export async function runSeoAudit(input: string, opts: RunOpts): Promise<SeoAudi
         ]);
         paid = mergePaidModules({ reuse, fresh, fallback: opts.fallbackPaid ?? null, fetched: toFetch }, notes);
         psi.desktop = psiDesktop;
+        // v3:排名词这次重新拉过(付费刷新 / 补缺)→ 查询要跟着新词走,不沿用上一份的对比
+        emit("competitors", { message: RELEVANCE_MESSAGE });
+        const reuseRelevance = toFetch.includes("visibility") ? null : opts.reuseRelevance ?? null;
+        relevance = await relevanceWithinDeadline({ domain, origin, host, pages, visibility: paid.visibility, reuse: reuseRelevance }, deadline, notes);
       } else if (plan === "full") {
         paid = paidOnBlockedRun(opts, notes);
       }
 
       emit("scoring");
       const scored = assemble({ plan, probe, pages, psi, paid, domain });
+      // v3:被拦的运行不出分(与技术分同一纪律),Ranking Score 同样缺席
+      const ranking = plan === "full" && outcome !== "blocked" ? rankingOrNull({ domain, pages, probe, psi, scored, paid, relevance }, notes) : null;
       const note = outcomeNote(outcome, blocked);
       if (note) notes.unshift(note);
       if (opts.previousScore) {
@@ -931,6 +1022,7 @@ export async function runSeoAudit(input: string, opts: RunOpts): Promise<SeoAudi
         authority: paid.authority,
         visibility: paid.visibility,
         competitors: paid.competitors,
+        ranking,
         cost: { dataforseoUsd: 0, calls: 0 },
         meta: {
           pagesCrawled: pages.length,
@@ -968,6 +1060,7 @@ export function presentModules(prev: SeoAuditResult): Record<UpgradeModule, bool
     authority: prev.authority !== null,
     visibility: prev.visibility !== null,
     competitors: prev.competitors !== null,
+    ranking: prev.ranking != null,
   };
 }
 
@@ -1089,6 +1182,12 @@ export async function upgradeSeoAudit(prev: SeoAuditResult, opts: UpgradeOpts = 
               : `Re-crawl returned no pages; page-level results reuse the ${prev.pages.length} pages from the free run.`
         );
       }
+      // v3:与排名前列页面对比(依赖排名词与 40 页抓取)。上一次中途落库过 ranking 的,沿用它的查询与竞品,不再调 SERP;
+      // 但这次才补到排名词(visibility 缺 → 补拉)时不沿用,查询要跟着新词走
+      emit("competitors", { message: RELEVANCE_MESSAGE });
+      const reuseRelevance = have.visibility ? prev.ranking?.relevance ?? null : null;
+      const relevance = await relevanceWithinDeadline({ domain, origin, host, pages, visibility: paid.visibility, reuse: reuseRelevance }, deadline, notes);
+
       if (deadline.expired()) {
         notes.push(`The upgrade reached its ${Math.round((opts.deadlineMs ?? RUN_DEADLINE_MS) / 1000)}s time limit; modules that did not finish are marked unavailable.`);
       }
@@ -1096,6 +1195,9 @@ export async function upgradeSeoAudit(prev: SeoAuditResult, opts: UpgradeOpts = 
       emit("scoring");
       const psi: SeoAuditResult["psi"] = { mobile: prev.psi.mobile, desktop: psiDesktop };
       const scored = assemble({ plan: "full", probe: prev.probe, pages, psi, paid, domain });
+      const ranking = prev.meta?.outcome === "blocked" ? null : rankingOrNull({ domain, pages, probe: prev.probe, psi, scored, paid, relevance }, notes);
+      // 计分本身零成本;落库只是为了"最后一次整体保存失败后重试"时沿用对比结果(SERP 是真钱)
+      if (ranking) await persist("ranking", { ranking }, notes);
 
       // 免费轮的 notes 里关于 PSI/抓取的说明仍然成立,保留;去重避免同一句出现两遍
       const mergedNotes = [...new Set([...prev.meta.notes, ...notes])];
@@ -1115,6 +1217,7 @@ export async function upgradeSeoAudit(prev: SeoAuditResult, opts: UpgradeOpts = 
         authority: paid.authority,
         visibility: paid.visibility,
         competitors: paid.competitors,
+        ranking,
         meta: {
           ...prev.meta,
           pagesCrawled: pages.length,
@@ -1180,6 +1283,8 @@ export async function rerunSeoAudit(prev: SeoAuditResult, opts: RerunOpts = {}):
     fillMissing: !refresh && opts.fillMissing === true,
     fallbackPaid: refresh ? prevPaid : null,
     previousScore: { score: prev.overall.score, date: (prev.generatedAt || "").slice(0, 10) || "previous run" },
+    // v3:不刷新就沿用上一份的查询与竞品 URL(零 SERP 调用);刷新时连同排名词一起重来
+    reuseRelevance: refresh ? null : prev.ranking?.relevance ?? null,
   });
   return {
     ...next,

@@ -1,5 +1,5 @@
 import type { SeoAuditStage } from "@/lib/seo-audit/types";
-import { ONSITE_DIMENSIONS, PAID_DIMENSIONS } from "@/lib/seo-audit/types";
+import { ONSITE_DIMENSIONS, RANKING_PILLARS, RANKING_SUBS } from "@/lib/seo-audit/types";
 
 /* ============================================================
    进度页的阶段逻辑(纯函数,SeoProgress 用;单独成文件好在 node 里直接验)。
@@ -50,14 +50,15 @@ const STATUS: Record<SeoAuditStage, string> = {
   verifying: "Checking sitemap samples, links and images",
   authority: "Desktop PageSpeed, authority and backlinks",
   visibility: "Search visibility and ranked keywords",
-  competitors: "Competitor overlap",
+  competitors: "Competitors and page-one comparison",
   scoring: "Scoring and picking top issues",
   done: "Finishing up",
 };
 
 function scoringLabel(paid: boolean): string {
+  // 完整版的头条是 v3 SEO Ranking Score(5 个支柱 / 25 个小维度);免费版仍是 7 个站内维度的技术分
   return paid
-    ? `Scoring ${ONSITE_DIMENSIONS.length + PAID_DIMENSIONS.length} dimensions and building your fix roadmap`
+    ? `Computing your SEO Ranking Score (${Object.keys(RANKING_PILLARS).length} pillars, ${RANKING_SUBS.length} sub-scores) and fix roadmap`
     : `Scoring ${ONSITE_DIMENSIONS.length} dimensions and picking top issues`;
 }
 
@@ -84,7 +85,7 @@ export function stageRows(paid: boolean): StageRow[] {
     to: st,
     label: STATUS[st],
   }));
-  if (paid) rows.push({ id: "paid", from: "authority", to: "competitors", label: "Desktop PageSpeed, authority, rankings and competitors" });
+  if (paid) rows.push({ id: "paid", from: "authority", to: "competitors", label: "Desktop PageSpeed, authority, rankings, competitors and page-one comparison" });
   rows.push({ id: "scoring", from: "scoring", to: "scoring", label: scoringLabel(paid) });
   return rows;
 }

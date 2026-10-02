@@ -1,4 +1,14 @@
-import type { AuthorityResult, CompetitorsResult, SeoAuditResult, VisibilityResult } from "./types";
+import type {
+  AuthorityResult,
+  CompetitorPageSignals,
+  CompetitorsResult,
+  RankingFramework,
+  RelevanceAnalysis,
+  RelevancePair,
+  SearchIntent,
+  SeoAuditResult,
+  VisibilityResult,
+} from "./types";
 import { publicCachedFrom } from "./view";
 
 /* ============================================================
@@ -14,12 +24,19 @@ export const EXPORT_NOTE =
 type ExportAuthority = Omit<AuthorityResult, "anchors"> & { anchorsCount: number; topAnchorShare: number | null };
 type ExportVisibility = Omit<VisibilityResult, "topKeywords" | "quickWins"> & { topKeywordsCount: number; quickWinsCount: number };
 type ExportCompetitors = Omit<CompetitorsResult, "items"> & { itemsCount: number; domains: string[] };
+type ExportCompetitorPage = Pick<CompetitorPageSignals, "domain" | "format" | "wordCount" | "fetched">;
+type ExportRelevancePair = Omit<RelevancePair, "volume" | "position" | "competitors"> & { competitors: ExportCompetitorPage[] };
+type ExportRanking = Omit<RankingFramework, "basis" | "relevance"> & {
+  basis: Omit<RankingFramework["basis"], "queries"> & { queries: { query: string; url: string; intent: SearchIntent }[] };
+  relevance: (Omit<RelevanceAnalysis, "pairs"> & { pairs: ExportRelevancePair[] }) | null;
+};
 
-export type SeoAuditExport = Omit<SeoAuditResult, "authority" | "visibility" | "competitors" | "cost"> & {
+export type SeoAuditExport = Omit<SeoAuditResult, "authority" | "visibility" | "competitors" | "cost" | "ranking"> & {
   exportNote: string;
   authority: ExportAuthority | null;
   visibility: ExportVisibility | null;
   competitors: ExportCompetitors | null;
+  ranking: ExportRanking | null;
 };
 
 function stripAuthority(a: AuthorityResult | null): ExportAuthority | null {
@@ -45,9 +62,33 @@ function stripCompetitors(c: CompetitorsResult | null): ExportCompetitors | null
   return { ...rest, itemsCount: list.length, domains: list.map((x) => x.domain).filter(Boolean).slice(0, 5) };
 }
 
+/**
+ * v3 Ranking Score:分数、证据、修法、子话题覆盖都是我们自己的分析,原样导出;
+ * 来自 DataForSEO 的行(排名词的搜索量与名次、SERP 结果的 URL / 标题 / 名次)剥掉,竞品只留域名与页面形态。
+ */
+function stripRanking(r: RankingFramework | null | undefined): ExportRanking | null {
+  if (!r) return null;
+  const { basis, relevance, ...rest } = r;
+  const queries = (basis?.queries ?? []).map((q) => ({ query: q.query, url: q.url, intent: q.intent }));
+  const pairs: ExportRelevancePair[] = (relevance?.pairs ?? []).map((pair) => {
+    const keep: Partial<RelevancePair> = { ...pair };
+    delete keep.volume;
+    delete keep.position;
+    return {
+      ...(keep as Omit<RelevancePair, "volume" | "position" | "competitors">),
+      competitors: (pair.competitors ?? []).map((c) => ({ domain: c.domain, format: c.format, wordCount: c.wordCount, fetched: c.fetched })),
+    };
+  });
+  return {
+    ...rest,
+    basis: { ...basis, queries },
+    relevance: relevance ? { ...relevance, pairs } : null,
+  };
+}
+
 /** 完整报告 → 可导出的 JSON(付费权益;调用方已校验 unlocked && plan === "full") */
 export function toExportView(result: SeoAuditResult): SeoAuditExport {
-  const { authority, visibility, competitors, ...withCost } = result;
+  const { authority, visibility, competitors, ranking, ...withCost } = result;
   // cost 不进买家可下载的文件:那是我们的内部成本账,不是报告内容
   const rest: Omit<typeof withCost, "cost"> & { cost?: unknown } = { ...withCost };
   delete rest.cost;
@@ -58,5 +99,6 @@ export function toExportView(result: SeoAuditResult): SeoAuditExport {
     authority: stripAuthority(authority),
     visibility: stripVisibility(visibility),
     competitors: stripCompetitors(competitors),
+    ranking: stripRanking(ranking),
   };
 }

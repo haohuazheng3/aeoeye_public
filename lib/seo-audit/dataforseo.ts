@@ -259,6 +259,9 @@ function isoDate(ms: number): string {
   return new Date(ms).toISOString().slice(0, 10);
 }
 
+/** 外链趋势的截止日比"今天"早几天(见 fetchAuthority:供应商只收早于它"今天"的 date_to) */
+export const TREND_END_LAG_DAYS = 2;
+
 /** DataForSEO 的日期形如 "2019-01-15 23:54:14 +00:00" —— 报告只需要日期部分 */
 function dateOnly(v: unknown): string | null {
   const s = str(v);
@@ -329,6 +332,10 @@ interface BacklinksSummary {
   first_seen?: string | null;
   referring_links_tld?: Record<string, number> | null;
   referring_links_types?: Record<string, number> | null;
+  /** v3:引荐链接在对方页面里的语义位置(article / main / section / header / footer / aside / nav / ""=未知) */
+  referring_links_semantic_locations?: Record<string, number> | null;
+  /** v3:引荐来源的平台类型(blogs / news / cms / organization / ecommerce / message-boards / unknown …) */
+  referring_links_platform_types?: Record<string, number> | null;
 }
 
 interface AnchorsResponse {
@@ -413,6 +420,20 @@ function topN(dict: Record<string, number> | null | undefined, n: number): Recor
 }
 
 /**
+ * v3:summary 里自带的分布字典(语义位置 / 平台类型)→ 只留正的有限数,按数量降序。
+ * 字段缺失(老接口 / 供应商没回)返回 undefined 而不是 {}:计分端要能分清"没测"与"测了是 0"。
+ * 保留 "" 键(位置未知)—— 计分时由 ranking 自己从分母里剔除,这里不替它做决定。
+ */
+function distribution(dict: unknown): Record<string, number> | undefined {
+  if (!dict || typeof dict !== "object" || Array.isArray(dict)) return undefined;
+  const entries = Object.entries(dict as Record<string, unknown>)
+    .filter((e): e is [string, number] => typeof e[1] === "number" && Number.isFinite(e[1]) && e[1] > 0)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 30);
+  return Object.fromEntries(entries);
+}
+
+/**
  * backlinks/summary/live(总览)→ 有链接才继续 anchors(前 20)与 90 天新增/丢失引荐域。
  * 新增/丢失用 timeseries_new_lost_summary:timeseries_summary 只回累计值,拆不出 new/lost。
  * summary 为空或 backlinks=referring_domains=0 → noData,不再花后两笔钱。
@@ -429,14 +450,21 @@ export async function fetchAuthority(domain: string): Promise<AuthorityResult> {
   const referringDomains = num(summary?.referring_domains);
   if (!summary || (backlinks === 0 && referringDomains === 0)) return emptyAuthority();
 
-  const now = Date.now();
+  // date_to 必须早于供应商眼里的"今天"(2026-10-02 实测:传 UTC 今天被 40501 "date_to - must be earlier than
+  // present date" 整单拒收)。取两天前,跨时区也稳;月度汇总少两天无关紧要。
+  const dateTo = Date.now() - TREND_END_LAG_DAYS * 86_400_000;
   const [anchorsRes, newLostRes] = await Promise.all([
     dfsPost<AnchorsResponse>("backlinks/anchors/live", { target, limit: 20, order_by: ["backlinks,desc"] }),
+    // 新增 / 丢失趋势只是附加信息:这一笔失败(参数被拒、供应商抖动)不能拖垮整个外链模块 ——
+    // summary + anchors 才是主体。失败时趋势为空,报告里那一块不显示;钱照样记账(dfsAttempt 里已记)
     dfsPost<NewLostResponse>("backlinks/timeseries_new_lost_summary/live", {
       target,
-      date_from: isoDate(now - 90 * 86_400_000),
-      date_to: isoDate(now),
+      date_from: isoDate(dateTo - 90 * 86_400_000),
+      date_to: isoDate(dateTo),
       group_range: "month",
+    }).catch((e: unknown) => {
+      console.warn(`[seo-audit] backlinks trend unavailable for ${target}: ${e instanceof Error ? e.message : String(e)}`);
+      return null;
     }),
   ]);
 
@@ -460,6 +488,10 @@ export async function fetchAuthority(domain: string): Promise<AuthorityResult> {
     .filter((a) => a.backlinks > 0)
     .slice(0, 20);
 
+  // v3:同一个 summary 响应里本来就有,不额外请求、不额外花钱
+  const semanticLocations = distribution(summary.referring_links_semantic_locations);
+  const platformTypes = distribution(summary.referring_links_platform_types);
+
   return {
     rank,
     backlinks,
@@ -477,6 +509,8 @@ export async function fetchAuthority(domain: string): Promise<AuthorityResult> {
     score: authorityScore(rank, referringDomains, spamScore),
     timeseries: monthlyNewLost(newLostRes?.items),
     noData: false,
+    ...(semanticLocations ? { semanticLocations } : {}),
+    ...(platformTypes ? { platformTypes } : {}),
   };
 }
 
@@ -752,6 +786,83 @@ export async function fetchCompetitors(domain: string): Promise<CompetitorsResul
     organicKeywords: numOrNull(it.full_domain_metrics?.organic?.count),
   }));
   return { items, score: competitorsScore(kept), noData: false };
+}
+
+/* ============================================================
+   v3 · SERP 前 N 名 —— 相关性分析(relevance.ts)拿来和排名前列的真实页面逐项对比
+   ============================================================ */
+
+/** 一条自然结果:position = 在自然结果里的名次(rank_group),广告 / PAA 等模块不占名次 */
+export interface SerpOrganicItem {
+  url: string;
+  /** 主机名(小写、去 www.) */
+  domain: string;
+  position: number;
+  title: string;
+}
+
+interface SerpOrganicResponse {
+  items?: {
+    type?: string;
+    rank_group?: number;
+    rank_absolute?: number;
+    domain?: string | null;
+    title?: string | null;
+    url?: string | null;
+  }[] | null;
+}
+
+/** 去重键:主机已被 URL 小写化,去掉 #fragment 与路径末尾的斜杠 —— 同一页的两种写法只算一次 */
+function serpUrlKey(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.protocol !== "http:" && u.protocol !== "https:") return null;
+    u.hash = "";
+    const path = u.pathname.length > 1 ? u.pathname.replace(/\/+$/, "") : u.pathname;
+    return `${u.host}${path}${u.search}`;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Google(美国 / 英语,与本文件其余口径一致)某个查询的自然结果前 depth 条(默认 10 = 1 页,
+ * DataForSEO 按页计费,一次约 $0.002)。只留 type = organic,按 URL 去重(保留名次靠前的那条)。
+ * 走 dfsPost:逐笔记账、瞬时故障重试 1 次、失败抛 SeoAuditError("unreachable") —— 由调用方
+ * (relevance.ts)降级成 note。空查询直接返回 [],不发请求(不花钱)。
+ */
+export async function fetchSerpTop(keyword: string, opts?: { depth?: number }): Promise<SerpOrganicItem[]> {
+  const kw = (keyword ?? "").replace(/\s+/g, " ").trim();
+  if (!kw) return [];
+  const depth = clamp(Math.round(opts?.depth ?? 10), 1, 100);
+  const res = await dfsPost<SerpOrganicResponse>("serp/google/organic/live/regular", {
+    keyword: kw,
+    location_code: LOCATION_CODE,
+    language_code: LANGUAGE_CODE,
+    depth,
+  });
+  const rows: SerpOrganicItem[] = [];
+  let order = 0;
+  for (const it of res?.items ?? []) {
+    order += 1;
+    if (!it || it.type !== "organic") continue;
+    const url = str(it.url);
+    if (!url || !serpUrlKey(url)) continue;
+    // rank_group 缺失时退到 rank_absolute,再退到出现顺序 —— 名次只用于排序与展示,不能是 0
+    const position = num(it.rank_group) || num(it.rank_absolute) || order;
+    rows.push({ url, domain: cleanDomain(str(it.domain) ?? new URL(url).hostname), position, title: str(it.title) ?? "" });
+  }
+  // 先按名次稳定排序再去重:同一 URL 出现两次时保留名次靠前的那条
+  rows.sort((a, b) => a.position - b.position);
+  const out: SerpOrganicItem[] = [];
+  const seen = new Set<string>();
+  for (const r of rows) {
+    const key = serpUrlKey(r.url) as string;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(r);
+  }
+  return out;
 }
 
 /* ============================================================

@@ -282,7 +282,7 @@ function result(over: Partial<SeoAuditResult> = {}): SeoAuditResult {
 test("presentModules: free result has nothing; merged modules are detected so retries only redo the missing ones", async () => {
   const { presentModules } = await import("../run");
   const free = presentModules(result());
-  assert.deepEqual(free, { crawl40: false, psiDesktop: false, authority: false, visibility: false, competitors: false });
+  assert.deepEqual(free, { crawl40: false, psiDesktop: false, authority: false, visibility: false, competitors: false, ranking: false });
   const auth: AuthorityResult = { rank: 1, backlinks: 1, referringDomains: 1, referringMainDomains: 1, referringIps: 1, nofollowShare: 0, spamScore: 0, brokenBacklinks: 0, brokenPages: 0, firstSeen: null, tld: {}, linkTypes: {}, anchors: [], score: 50 };
   const partial = presentModules(result({ authority: auth, meta: { pagesCrawled: 40, pagesRequested: 40, crawlLimited: true, notes: [], lockedSections: [] }, pages: [page()] }));
   assert.equal(partial.authority, true);

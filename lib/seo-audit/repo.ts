@@ -474,7 +474,7 @@ export function upgradeRunning(row: SeoAuditRow, now: number = Date.now()): bool
 }
 
 /**
- * 付费模块(DataForSEO 三项)跑完仍为 null → 错误收件箱(level=error,/api/health 会变红)。
+ * 付费模块(DataForSEO 三项)跑完仍为 null、或 Ranking Score 缺席 → 错误收件箱(level=error,/api/health 会变红)。
  * 买家付了钱却缺一块,站长必须知道;noData(供应商没有这个域名的数据)是有效结果,不算缺
  * —— 判定以 run.ts 的 missingPaidModules 为准。永不抛。
  */
@@ -482,15 +482,28 @@ async function alertMissingPaidModules(id: string, result: SeoAuditResult, route
   try {
     if (result.plan !== "full") return;
     const missing: PaidModuleId[] = missingPaidModules(result);
-    if (!missing.length) return;
-    await captureError({
-      name: "seo_audit_paid_module_missing",
-      message: `Paid modules missing after ${kind} of ${id}: ${missing.join(", ")}`,
-      route,
-      source: "server",
-      level: "error",
-      meta: { id, missing },
-    });
+    if (missing.length) {
+      await captureError({
+        name: "seo_audit_paid_module_missing",
+        message: `Paid modules missing after ${kind} of ${id}: ${missing.join(", ")}`,
+        route,
+        source: "server",
+        level: "error",
+        meta: { id, missing },
+      });
+    }
+    // v3:SEO Ranking Score 是完整版的头条内容。计分是纯函数、拿不到的数据只会让小维度标"未测",
+    // 所以非 blocked 的完整版缺它 = 代码缺陷,必须让站长看到(blocked 的运行本来就不出分)
+    if (!result.ranking && result.meta?.outcome !== "blocked") {
+      await captureError({
+        name: "seo_audit_ranking_missing",
+        message: `SEO Ranking Score missing after ${kind} of ${id}`,
+        route,
+        source: "server",
+        level: "error",
+        meta: { id, notes: (result.meta?.notes ?? []).filter((n) => /ranking score|top-ranking/i.test(n)).slice(0, 3) },
+      });
+    }
   } catch {
     /* 报警本身不能拖垮主流程 */
   }

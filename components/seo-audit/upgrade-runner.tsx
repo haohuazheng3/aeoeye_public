@@ -22,10 +22,14 @@ const STAGES = [
   { at: 35, label: "Search visibility & ranked keywords" },
   { at: 50, label: "Competitor overlap" },
   { at: 65, label: "PageSpeed Insights — desktop" },
-  { at: 80, label: "Re-scoring and building your roadmap" },
+  { at: 80, label: "Comparing your pages with the page-one results" },
+  { at: 105, label: "Computing your SEO Ranking Score and roadmap" },
 ];
-/** 典型总时长(秒)。六个模块并行、各自 60s 超时,通常 90s 内结束;进度条封顶 95% */
-const TYPICAL = 90;
+/**
+ * 典型总时长(秒)。前六个模块并行、各自 60s 超时,通常 90s 内结束;v3 之后还要抓排名前列的页面做对比
+ * (≤3 个查询 × 5 页,单独 60s 预算),合计约 2 分钟。进度条封顶 95%
+ */
+const TYPICAL = 120;
 
 const PROVIDER_NOTICE =
   "Our ranking-data provider is temporarily unavailable. We'll retry automatically — your payment is safe.";
@@ -130,8 +134,8 @@ export function SeoUpgradeRunner({ auditId, domain }: { auditId: string; domain?
                 failed
               ) : (
                 <>
-                  40-page crawl, desktop PageSpeed, authority, rankings and competitors{domain ? ` for ${domain}` : ""}.
-                  This usually takes <span className="font-semibold text-ink/75">about 90 seconds</span>.
+                  40-page crawl, desktop PageSpeed, authority, rankings, competitors and your SEO Ranking Score
+                  {domain ? ` for ${domain}` : ""}. This usually takes <span className="font-semibold text-ink/75">about 2 minutes</span>.
                 </>
               )}
             </p>

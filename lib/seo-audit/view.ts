@@ -11,6 +11,7 @@
      以后谁给类型加了字段,默认也是不出站(复审 C3/C24/C42)。
    - **撤销态还原成免费形状**:退款/拒付后 unlocked=false 但 result.plan 仍是 full(撤销刻意不动数据,
      便于争议胜诉后恢复)。此时付费维度的检查整条移除、维度分数与计数清空,而不是只打 locked(复审 C8)。
+   - v3:result.ranking(SEO Ranking Score)在免费 / 撤销视图里恒为 null。
    ============================================================ */
 
 import {
@@ -204,6 +205,7 @@ export function toPublicView(result: SeoAuditResult, unlocked: boolean): SeoAudi
     "authority",
     "visibility",
     "competitors",
+    "ranking",
     "export",
   ];
 
@@ -243,6 +245,9 @@ export function toPublicView(result: SeoAuditResult, unlocked: boolean): SeoAudi
     authority: null, // ⑦
     visibility: null,
     competitors: null,
+    // v3:SEO Ranking Score 整体是付费内容(分数、证据、修法、查询与竞品对比);免费页只画锁定预告,
+    // 预告用的支柱 / 小维度名来自 types.ts 的常量,不需要这里下发任何数据
+    ranking: null,
     // 内部成本账不对外(撤销态的 full 结果里是真实的 DataForSEO 花费)
     cost: { dataforseoUsd: 0, calls: 0 },
     meta,

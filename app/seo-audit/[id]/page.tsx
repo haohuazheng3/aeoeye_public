@@ -10,6 +10,7 @@ import { SeoAuditForm } from "@/components/seo-audit/seo-audit-form";
 import { SeoProgress } from "@/components/seo-audit/seo-progress";
 import { SeoUpgradeRunner } from "@/components/seo-audit/upgrade-runner";
 import { SeoReportView } from "@/components/seo-audit/report-view";
+import { usableRanking } from "@/components/seo-audit/ranking-meta";
 
 /* ============================================================
    /seo-audit/[id] —— 报告页。凭 id 公开(与 $29 报告同口径),noindex,
@@ -28,7 +29,14 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   // 落库的 score 可能是 robots/TLS 等探针类检查算出来的,看着像真分。历史行可能还带着分数,所以按 outcome 再判一次。
   const blocked = row.result?.meta?.outcome === "blocked";
   const scored = row.status === "complete" && row.score !== null && !blocked;
-  const title = scored ? `${row.domain} — Technical SEO score ${row.score}/100` : `${row.domain} — Technical SEO audit`;
+  // v3:已解锁的完整版以 SEO Ranking Score 为头条(与报告首屏的大环同一个数);免费 / 撤销态仍是技术分 ——
+  // 锁定的分数不能从标签页标题漏出去
+  const ranking = row.unlocked && row.result?.plan === "full" && !blocked ? usableRanking(row.result.ranking) : null;
+  const title = ranking
+    ? `${row.domain} — SEO Ranking Score ${ranking.overall.score}/100`
+    : scored
+      ? `${row.domain} — Technical SEO score ${row.score}/100`
+      : `${row.domain} — Technical SEO audit`;
   const base = `Technical SEO audit of ${row.domain}: crawlability, on-page, Core Web Vitals, mobile, structured data, HTTPS and internal links.`;
   const description = blocked
     ? `${base} Our crawler was blocked by the site's firewall, so no score was given.`

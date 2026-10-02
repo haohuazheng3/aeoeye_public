@@ -1,6 +1,6 @@
 import { Check, Lock } from "lucide-react";
 import type { SeoAuditResult } from "@/lib/seo-audit/types";
-import { FULL_CRAWL_PAGES } from "@/lib/seo-audit/types";
+import { FULL_CRAWL_PAGES, RANKING_PILLARS, RANKING_SUBS } from "@/lib/seo-audit/types";
 import { UnlockButton } from "@/components/report/unlock";
 import { UNLOCK_UNAVAILABLE, isIssue } from "./check-ui";
 import { roadmapCounts } from "./locked-meta";
@@ -22,6 +22,8 @@ export function UnlockCard({ result, id, dfsReady = true }: { result: SeoAuditRe
   const pagesLabel = pages > 0 ? `all ${pages} pages` : "every page";
 
   const perks = [
+    // v3:完整版的头条 —— 数字取自类型层常量,与锁定预告、方法论页同源
+    `SEO Ranking Score: ${Object.keys(RANKING_PILLARS).length} pillars and ${RANKING_SUBS.length} sub-scores — relevance, content quality (E-E-A-T), authority, user signals and this technical foundation — compared against the pages that rank on page one`,
     lockedIssues > 0
       ? `Evidence, affected URLs and a step-by-step fix for the ${lockedIssues} issue${lockedIssues === 1 ? "" : "s"} still locked (${issues.length} found in total)`
       : `Evidence, affected URLs and a step-by-step fix for every one of the ${issues.length} issues found`,

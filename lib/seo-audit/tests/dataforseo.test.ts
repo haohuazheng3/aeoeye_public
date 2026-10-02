@@ -105,6 +105,9 @@ test("fetchAuthority maps sandbox summary/anchors/new-lost and hits the sandbox 
   const from = new Date(String(ts.body?.date_from)).getTime();
   const to = new Date(String(ts.body?.date_to)).getTime();
   assert.ok(Math.abs(to - from - 90 * 86_400_000) < 86_400_000, "date_from is 90 days before date_to");
+  // 供应商只收早于它"今天"的 date_to(40501):截止日至少比 UTC 今天早 2 天
+  const todayUtc = new Date(new Date().toISOString().slice(0, 10)).getTime();
+  assert.ok(to <= todayUtc - 2 * 86_400_000, `date_to ${String(ts.body?.date_to)} is at least 2 days before today`);
   const anchors = calls.find((c) => c.url.includes("backlinks/anchors"))!;
   assert.equal(anchors.body?.limit, 20);
 
@@ -133,6 +136,62 @@ test("fetchAuthority maps sandbox summary/anchors/new-lost and hits the sandbox 
   assert.equal(a.score, 65);
 });
 
+test("fetchAuthority (v3) maps referring-link semantic locations and platform types from the same summary response", async () => {
+  const calls = installFetch(AUTH_ROUTES());
+  const a = await dfs.fetchAuthority("aeoeye.com");
+  assert.equal(calls.length, 3, "no extra request for the v3 fields");
+  // 沙盒 summary 原样带着这两个分布;"" = 位置未知,保留给计分端自己剔除
+  assert.deepEqual(a.semanticLocations, {
+    "": 320802,
+    article: 4244,
+    section: 2312,
+    main: 1274,
+    header: 211,
+    footer: 161,
+    aside: 81,
+    details: 61,
+    figure: 21,
+    nav: 5,
+  });
+  assert.deepEqual(a.platformTypes, {
+    unknown: 241580,
+    organization: 57549,
+    blogs: 4074,
+    cms: 3199,
+    news: 1153,
+    ecommerce: 394,
+    "message-boards": 81,
+  });
+  // 按数量降序
+  assert.deepEqual(Object.keys(a.platformTypes!).slice(0, 3), ["unknown", "organization", "blogs"]);
+});
+
+test("fetchAuthority (v3): missing distributions stay undefined (not measured ≠ zero); junk values are dropped", async () => {
+  installFetch({
+    "backlinks/summary/live": envelope([
+      {
+        rank: 40,
+        backlinks: 120,
+        referring_domains: 30,
+        referring_links_semantic_locations: { article: 7, footer: 0, main: "3", nav: -1, section: Number.NaN },
+      },
+    ]),
+    "backlinks/anchors/live": envelope([{ items: null }]),
+    "backlinks/timeseries_new_lost_summary/live": envelope([{ items: null }]),
+  });
+  const a = await dfs.fetchAuthority("site.example");
+  assert.deepEqual(a.semanticLocations, { article: 7 });
+  assert.equal(a.platformTypes, undefined);
+  assert.equal("platformTypes" in a, false, "absent rather than an explicit undefined key");
+
+  mock.restoreAll();
+  installFetch({ "backlinks/summary/live": envelope([{ backlinks: 0, referring_domains: 0 }]) });
+  const none = await dfs.fetchAuthority("new.example");
+  assert.equal(none.noData, true);
+  assert.equal(none.semanticLocations, undefined);
+  assert.equal(none.platformTypes, undefined);
+});
+
 test("fetchAuthority: zero backlinks → noData with zeros, no further calls", async () => {
   const calls = installFetch({
     "backlinks/summary/live": envelope([{ target: "new.example", rank: 0, backlinks: 0, referring_domains: 0 }]),
@@ -145,6 +204,24 @@ test("fetchAuthority: zero backlinks → noData with zeros, no further calls", a
   assert.equal(a.referringDomains, 0);
   assert.deepEqual(a.anchors, []);
   assert.deepEqual(a.timeseries, []);
+});
+
+test("fetchAuthority: a rejected trend request (40501) leaves an empty trend, not a failed module", async () => {
+  const warn = mock.method(console, "warn", () => undefined);
+  installFetch({
+    "backlinks/summary/live": fixture("dfs-backlinks-summary"),
+    "backlinks/anchors/live": fixture("dfs-backlinks-anchors"),
+    "backlinks/timeseries_new_lost_summary/live": {
+      status_code: 20000,
+      tasks: [{ status_code: 40501, status_message: "Invalid Field: 'date_to - must be earlier than present date'.", cost: 0, result: null }],
+    },
+  });
+  const a = await dfs.fetchAuthority("aeoeye.com");
+  assert.equal(a.noData, false);
+  assert.equal(a.referringDomains, 2952, "summary data survive");
+  assert.equal(a.anchors.length, 10, "anchors survive");
+  assert.deepEqual(a.timeseries, []);
+  assert.equal(warn.mock.callCount(), 1);
 });
 
 test("fetchAuthority: result [null] → noData rather than a throw", async () => {
@@ -302,6 +379,92 @@ test("fetchCompetitors: empty items → noData", async () => {
   installFetch({ "competitors_domain/live": envelope([{ total_count: 0, items_count: 0, items: null }]) });
   const c = await dfs.fetchCompetitors("new.example");
   assert.deepEqual(c, { items: [], score: 0, noData: true });
+});
+
+/* ---------------- v3 · SERP top results ---------------- */
+
+test("fetchSerpTop: Google US/en, depth 10, sandbox base URL; organic items mapped in rank order", async () => {
+  const calls = installFetch({ "serp/google/organic/live/regular": fixture("dfs-serp-organic") });
+  const items = await dfs.fetchSerpTop("  best   aeo tools ");
+
+  assert.equal(calls.length, 1);
+  assert.ok(calls[0].url.startsWith("https://sandbox.dataforseo.com/v3/serp/google/organic/live/regular"), calls[0].url);
+  assert.deepEqual(calls[0].body, { keyword: "best aeo tools", location_code: 2840, language_code: "en", depth: 10 });
+
+  // 沙盒回的是固定的 "pizza" SERP(10 条 organic)
+  assert.equal(items.length, 10);
+  assert.deepEqual(items[0], {
+    url: "https://www.tripadvisor.co.uk/Restaurants-g186338-c31-zfp19-London_England.html",
+    domain: "tripadvisor.co.uk",
+    position: 1,
+    title: "The Best Pizza Places Delivery in London",
+  });
+  assert.deepEqual(
+    items.map((i) => i.position),
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "position = rank_group (organic rank), not rank_absolute"
+  );
+  assert.equal(items[2].domain, "en.wikipedia.org");
+  for (const it of items) {
+    assert.ok(/^https:\/\//.test(it.url));
+    assert.ok(!it.domain.startsWith("www."), it.domain);
+    assert.equal(typeof it.title, "string");
+  }
+});
+
+test("fetchSerpTop: keeps organic items only and de-duplicates by URL (best position wins)", async () => {
+  const fx = fixture("dfs-serp-organic");
+  const r = result0<{ items: Record<string, unknown>[] }>(fx);
+  const first = r.items[0];
+  r.items.unshift({ type: "paid", rank_group: 1, rank_absolute: 1, domain: "ads.example", url: "https://ads.example/landing", title: "Ad" });
+  r.items.push({ type: "people_also_ask", rank_group: 1, rank_absolute: 20, url: null, title: "People also ask" });
+  // 同一页的另一种写法(末尾斜杠 + #fragment)排在更后面 → 丢掉
+  r.items.push({ ...first, rank_group: 11, rank_absolute: 30, url: `${String(first.url)}/#reviews` });
+  // 名次缺失时退到 rank_absolute
+  r.items.push({ type: "organic", rank_absolute: 31, domain: "late.example", url: "https://late.example/page", title: "Late" });
+  // 非 http(s) 链接不要
+  r.items.push({ type: "organic", rank_group: 12, rank_absolute: 32, domain: "x", url: "ftp://files.example/x", title: "FTP" });
+  installFetch({ "serp/google/organic/live/regular": fx });
+
+  const items = await dfs.fetchSerpTop("best aeo tools", { depth: 20 });
+  assert.equal(items.length, 11);
+  assert.ok(!items.some((i) => i.domain === "ads.example"), "paid results are excluded");
+  assert.equal(items.filter((i) => i.domain === "tripadvisor.co.uk").length, 1, "duplicate URL collapsed");
+  assert.equal(items[0].position, 1);
+  assert.deepEqual(items[items.length - 1], { url: "https://late.example/page", domain: "late.example", position: 31, title: "Late" });
+});
+
+test("fetchSerpTop: depth option is clamped and passed through; empty keyword makes no request", async () => {
+  const calls = installFetch({ "serp/google/organic/live/regular": fixture("dfs-serp-organic") });
+  await dfs.fetchSerpTop("aeo", { depth: 20 });
+  await dfs.fetchSerpTop("aeo", { depth: 500 });
+  assert.deepEqual(
+    calls.map((c) => c.body?.depth),
+    [20, 100]
+  );
+  assert.deepEqual(await dfs.fetchSerpTop("   "), []);
+  assert.equal(calls.length, 2, "blank keyword is free: no call");
+});
+
+test("fetchSerpTop: cost is booked per call; empty result → []; task error → SeoAuditError('unreachable')", async () => {
+  const { SeoAuditError } = await import("../url");
+  const fx = fixture("dfs-serp-organic");
+  fx.tasks[0].cost = 0.002;
+  installFetch({ "serp/google/organic/live/regular": fx });
+  const { result, entries } = await costMod.withCostLedger(() => dfs.fetchSerpTop("best aeo tools"));
+  assert.equal(result.length, 10);
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].resource, "serp/google/organic/live/regular");
+  assert.equal(entries[0].stage, "seo-audit");
+  assert.equal(entries[0].usd, 0.002);
+  mock.restoreAll();
+
+  installFetch({ "serp/google/organic/live/regular": envelope([{ items: null }]) });
+  assert.deepEqual(await dfs.fetchSerpTop("nothing ranks"), []);
+  mock.restoreAll();
+
+  installFetch({ "serp/google/organic/live/regular": envelope(null, 0, 40501) });
+  await assert.rejects(dfs.fetchSerpTop("x"), (e: unknown) => e instanceof SeoAuditError && e.code === "unreachable");
 });
 
 /* ---------------- failures, cost ledger, base URL ---------------- */

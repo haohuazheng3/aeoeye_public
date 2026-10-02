@@ -1,0 +1,174 @@
+{
+  "version": "0.1.20260917",
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "time": "0 sec.",
+  "cost": 0,
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "tasks": [
+    {
+      "id": "10020057-1965-0121-2000-4ccfe8a46e89",
+      "status_code": 20000,
+      "status_message": "Ok.",
+      "time": "0 sec.",
+      "cost": 0,
+      "result_count": 1,
+      "path": [
+        "v3",
+        "serp",
+        "google",
+        "organic",
+        "live",
+        "regular"
+      ],
+      "data": {
+        "api": "serp",
+        "function": "live",
+        "se": "google",
+        "se_type": "organic",
+        "keyword": "best aeo tools",
+        "location_code": 2840,
+        "language_code": "en",
+        "depth": 10
+      },
+      "result": [
+        {
+          "keyword": "pizza",
+          "type": "organic",
+          "se_domain": "google.com",
+          "location_code": 1006886,
+          "language_code": "en",
+          "check_url": "https://www.google.com/search?q=pizza&hl=en&gl=GB&ie=UTF-8&uule=w+CAIQIFISCXXeIa8LoNhHEZkq1d1aOpZS",
+          "datetime": "2026-09-30 12:20:37 +00:00",
+          "spell": null,
+          "refinement_chips": null,
+          "item_types": [
+            "find_results_on",
+            "local_pack",
+            "organic",
+            "people_also_ask",
+            "related_searches",
+            "google_reviews",
+            "knowledge_graph"
+          ],
+          "se_results_count": 1210000000,
+          "pages_count": 1,
+          "items_count": 10,
+          "items": [
+            {
+              "type": "organic",
+              "rank_group": 1,
+              "rank_absolute": 5,
+              "page": 1,
+              "domain": "www.tripadvisor.co.uk",
+              "title": "The Best Pizza Places Delivery in London",
+              "description": "Best Pizza in London, England : Find Tripadvisor traveller reviews of London Pizza places and search by price, location, and more.",
+              "url": "https://www.tripadvisor.co.uk/Restaurants-g186338-c31-zfp19-London_England.html",
+              "breadcrumb": "https://www.tripadvisor.co.uk › ... › England › London"
+            },
+            {
+              "type": "organic",
+              "rank_group": 2,
+              "rank_absolute": 7,
+              "page": 1,
+              "domain": "www.pizzapilgrims.co.uk",
+              "title": "Pizza Pilgrims",
+              "description": "Pizza Pilgrims serve slow proved Neapolitan pizza in our pizzerias, All our dough is made fresh, daily, sourcing the best ingredients Italy",
+              "url": "https://www.pizzapilgrims.co.uk/",
+              "breadcrumb": "https://www.pizzapilgrims.co.uk"
+            },
+            {
+              "type": "organic",
+              "rank_group": 3,
+              "rank_absolute": 8,
+              "page": 1,
+              "domain": "en.wikipedia.org",
+              "title": "Pizza",
+              "description": "Pizza is an Italian dish typically consisting of a flat base of leavened wheat-based dough topped with tomato, cheese, and other ingredients, baked at a ... Read more",
+              "url": "https://en.wikipedia.org/wiki/Pizza",
+              "breadcrumb": "https://en.wikipedia.org › wiki › Pizza"
+            },
+            {
+              "type": "organic",
+              "rank_group": 4,
+              "rank_absolute": 9,
+              "page": 1,
+              "domain": "www.just-eat.co.uk",
+              "title": "Pizza Delivery & Takeaway Near Me in London",
+              "description": "Order Pizza for delivery near me in London from takeaways and restaurants. Whether you adore classics like Mushroom, Pepperoni, Ham or Margherita. Or modern ...",
+              "url": "https://www.just-eat.co.uk/takeaway/london/pizza",
+              "breadcrumb": "https://www.just-eat.co.uk › Locations › London"
+            },
+            {
+              "type": "organic",
+              "rank_group": 5,
+              "rank_absolute": 10,
+              "page": 1,
+              "domain": "www.bbcgoodfood.com",
+              "title": "30 best pizza restaurants in London 2026",
+              "description": "12 Apr 2026 — Best for a bargain · 1. Vincenzo's · 2. Ria's · 3. Dough Hands · 4. Voodoo Ray's · 5. Ace Pizza at Pembury Tavern · 6. Lamezia · 7. Yard Sale. Read more",
+              "url": "https://www.bbcgoodfood.com/travel/the-best-pizza-in-london",
+              "breadcrumb": "https://www.bbcgoodfood.com › Travel"
+            },
+            {
+              "type": "organic",
+              "rank_group": 6,
+              "rank_absolute": 11,
+              "page": 1,
+              "domain": "www.dominos.co.uk",
+              "title": "Domino's Pizza: Order Pizza Delivery & Takeaway Near You",
+              "description": "Order delicious Domino's Pizza near you for speedy delivery or collection. Find your best deal online for hot, fresh pizza and sides.",
+              "url": "https://www.dominos.co.uk/",
+              "breadcrumb": "https://www.dominos.co.uk"
+            },
+            {
+              "type": "organic",
+              "rank_group": 7,
+              "rank_absolute": 12,
+              "page": 1,
+              "domain": "www.pizzahut.co.uk",
+              "title": "Pizza Hut | Pizza Delivery",
+              "description": "Our food is prepared in store, in one kitchen, Start your order Deliver Collect Dine-in Delivery",
+              "url": "https://www.pizzahut.co.uk/",
+              "breadcrumb": "https://www.pizzahut.co.uk"
+            },
+            {
+              "type": "organic",
+              "rank_group": 8,
+              "rank_absolute": 13,
+              "page": 1,
+              "domain": "www.pizzaunion.com",
+              "title": "Pizza Union: Superfast Fire-Baked Pizza Restaurants in London",
+              "description": "Five Pizza Bars across central London serving fire-baked Roman style pizza in under 10 minutes. Margherita £5.95, open 11am to 11pm, seven days.",
+              "url": "https://www.pizzaunion.com/",
+              "breadcrumb": "https://www.pizzaunion.com"
+            },
+            {
+              "type": "organic",
+              "rank_group": 9,
+              "rank_absolute": 14,
+              "page": 1,
+              "domain": "www.timeout.com",
+              "title": "20 Best Pizza Restaurants in London",
+              "description": "1 Sept 2026 — Top 20 London pizzas · 1. Short Road Pizza · 2. Dough Hands · 3. Bad Boy Pizzeria · 4. Fresh Hot Pizza at The Fox · 5. Spring Street Pizza · 6. Read more",
+              "url": "https://www.timeout.com/london/restaurants/londons-best-restaurants-for-pizza",
+              "breadcrumb": "https://www.timeout.com › london › londons-best-resta..."
+            },
+            {
+              "type": "organic",
+              "rank_group": 10,
+              "rank_absolute": 15,
+              "page": 1,
+              "domain": "www.cntraveller.com",
+              "title": "How London overtook New York as home of the world's ...",
+              "description": "23 hours ago — Outside Italy, New York has long been considered the greatest pizza city on the planet – but a west London pizzeria has just beaten ...",
+              "url": "https://www.cntraveller.com/article/how-london-overtook-new-york-as-home-of-the-worlds-best-pizza",
+              "breadcrumb": "https://www.cntraveller.com › ... › London"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

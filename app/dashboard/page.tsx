@@ -8,6 +8,7 @@ import { getSessionUser } from "@/lib/auth";
 import { isApiOwner } from "@/lib/api-keys";
 import { confirmCheckoutSession, claimAnonymousAudits } from "@/lib/orders";
 import { listSeoAuditsForUser } from "@/lib/seo-audit/repo";
+import { usableRanking } from "@/components/seo-audit/ranking-meta";
 import { AuditForm } from "@/components/audit-form";
 import { ManageBillingButton } from "@/components/manage-billing";
 import { formatDate } from "@/lib/utils";
@@ -154,6 +155,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
             {mySeoAudits.map((a) => {
               // 被 WAF 拦截的报告不出分(复审 C35):落库的 score 可能是探针类检查算出的数字,不能在这里冒出来
               const blocked = a.result?.meta?.outcome === "blocked";
+              // 已解锁的完整版以 SEO Ranking Score 为头条(与报告首屏同一个数);其余仍是技术分
+              const ranking = a.unlocked && a.result?.plan === "full" && !blocked ? usableRanking(a.result?.ranking) : null;
+              const shown = ranking ? ranking.overall.score : a.score;
               return (
                 <Link
                   key={a.id}
@@ -168,8 +172,13 @@ export default async function DashboardPage({ searchParams }: { searchParams: { 
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
-                    {a.score !== null && !blocked ? (
-                      <span className="font-display text-lg font-semibold text-iris">{a.score}</span>
+                    {shown !== null && !blocked ? (
+                      <span
+                        className="font-display text-lg font-semibold text-iris"
+                        title={ranking ? "SEO Ranking Score" : "Technical SEO score"}
+                      >
+                        {shown}
+                      </span>
                     ) : (
                       <span className="text-xs text-ink/40 capitalize">{blocked ? "Blocked" : a.status}</span>
                     )}
