@@ -1,5 +1,5 @@
 import { Check, Lock, Target } from "lucide-react";
-import { RANKING_PILLARS, RANKING_SUBS } from "@/lib/seo-audit/types";
+import { RANKING_PILLARS, RANKING_SUBS, type PillarId } from "@/lib/seo-audit/types";
 import { UnlockButton } from "@/components/report/unlock";
 import { UNLOCK_UNAVAILABLE } from "./check-ui";
 import { PILLAR_ICON, PILLAR_ORDER, PillarName, subsOf } from "./ranking-meta";
@@ -52,7 +52,8 @@ export function RankingLocked({ id, dfsReady = true }: { id: string; dfsReady?: 
           </div>
         </div>
 
-        <div className="mt-7 divide-y divide-ink/[0.06]">
+        {/* 桌面 / 平板:每个支柱一行,右侧列出它的小维度(锁 / 免费) */}
+        <div className="mt-7 hidden divide-y divide-ink/[0.06] sm:block">
           {PILLAR_ORDER.map((pid) => {
             const meta = RANKING_PILLARS[pid];
             const Icon = PILLAR_ICON[pid] ?? Target;
@@ -60,7 +61,7 @@ export function RankingLocked({ id, dfsReady = true }: { id: string; dfsReady?: 
             return (
               <div
                 key={pid}
-                className="grid min-w-0 gap-2.5 py-4 first:pt-0 last:pb-0 sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] sm:gap-6"
+                className="grid min-w-0 grid-cols-[minmax(0,15rem)_minmax(0,1fr)] gap-6 py-4 first:pt-0 last:pb-0"
               >
                 <div className="min-w-0">
                   <p className="flex items-center gap-2 text-sm font-semibold text-ink">
@@ -72,22 +73,7 @@ export function RankingLocked({ id, dfsReady = true }: { id: string; dfsReady?: 
                   <p className="mt-0.5 text-xs leading-relaxed text-ink/45">{meta.role}</p>
                 </div>
                 <div className="min-w-0">
-                  <ul className="flex min-w-0 flex-wrap gap-1.5 sm:pt-0.5">
-                    {subsOf(pid).map((s) => (
-                      <li
-                        key={s.id}
-                        className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-ink/[0.04] px-2.5 py-1 text-xs text-ink/60"
-                      >
-                        {free ? (
-                          <Check className="h-3 w-3 shrink-0 text-mint" aria-hidden="true" />
-                        ) : (
-                          <Lock className="h-3 w-3 shrink-0 text-ink/35" aria-hidden="true" />
-                        )}
-                        <span className="min-w-0 break-words">{s.label}</span>
-                        <span className="sr-only">{free ? " (free, shown below)" : " (locked)"}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <SubChips pid={pid} />
                   {free && (
                     <a href="#technical-foundation" className="mt-2 inline-block text-xs font-medium text-iris hover:underline">
                       Free — your Technical SEO score, in detail below
@@ -98,7 +84,77 @@ export function RankingLocked({ id, dfsReady = true }: { id: string; dfsReady?: 
             );
           })}
         </div>
+
+        {/* 手机:每个支柱一行(名称 + 小维度数),25 个小维度收进折叠区 ——
+            完整展开在 390px 上约 1.7 屏,会把下面免费的维度分挤得太远 */}
+        <div className="mt-6 sm:hidden">
+          <ul className="divide-y divide-ink/[0.06]">
+            {PILLAR_ORDER.map((pid) => {
+              const meta = RANKING_PILLARS[pid];
+              const Icon = PILLAR_ICON[pid] ?? Target;
+              const free = pid === "technical";
+              const n = subsOf(pid).length;
+              return (
+                <li key={pid} className="flex min-w-0 items-center justify-between gap-3 py-2.5 first:pt-0">
+                  <span className="flex min-w-0 items-center gap-2 text-sm font-semibold text-ink">
+                    <Icon className="h-3.5 w-3.5 shrink-0 text-iris" aria-hidden="true" />
+                    <span className="min-w-0 break-words">
+                      <PillarName label={meta.label} />
+                    </span>
+                  </span>
+                  {free ? (
+                    <a href="#technical-foundation" className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-mint-deep">
+                      <Check className="h-3 w-3" aria-hidden="true" /> Free
+                    </a>
+                  ) : (
+                    <span className="inline-flex shrink-0 items-center gap-1 text-xs text-ink/45">
+                      <Lock className="h-3 w-3" aria-hidden="true" /> {n}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          <details className="group mt-3">
+            <summary className="cursor-pointer list-none text-xs font-medium text-iris [&::-webkit-details-marker]:hidden">
+              <span className="group-open:hidden">See all {subCount} sub-scores</span>
+              <span className="hidden group-open:inline">Hide sub-scores</span>
+            </summary>
+            <div className="mt-3 space-y-4">
+              {PILLAR_ORDER.map((pid) => (
+                <div key={pid} className="min-w-0">
+                  <p className="text-xs font-semibold text-ink/70">
+                    <PillarName label={RANKING_PILLARS[pid].label} />
+                  </p>
+                  <div className="mt-1.5">
+                    <SubChips pid={pid} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </details>
+        </div>
       </div>
     </section>
+  );
+}
+
+/** 一个支柱的小维度胶囊:锁定的挂锁,技术支柱(免费展示)打勾 */
+function SubChips({ pid }: { pid: PillarId }) {
+  const free = pid === "technical";
+  return (
+    <ul className="flex min-w-0 flex-wrap gap-1.5 sm:pt-0.5">
+      {subsOf(pid).map((s) => (
+        <li key={s.id} className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-ink/[0.04] px-2.5 py-1 text-xs text-ink/60">
+          {free ? (
+            <Check className="h-3 w-3 shrink-0 text-mint" aria-hidden="true" />
+          ) : (
+            <Lock className="h-3 w-3 shrink-0 text-ink/35" aria-hidden="true" />
+          )}
+          <span className="min-w-0 break-words">{s.label}</span>
+          <span className="sr-only">{free ? " (free, shown below)" : " (locked)"}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
