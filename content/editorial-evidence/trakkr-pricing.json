@@ -1,0 +1,36 @@
+{
+  "contentSha256": "3521d9efd4f0aab14d24fbf80e6a90a8fccced5839e3f4a65f8916d15f661901",
+  "reviewedAt": "2026-10-02",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Choose a Trakkr tier using brand, prompt, model, seat, and evidence requirements rather than headline volume.",
+    "connection": "Helps AEOeye readers budget recurring AI answer monitoring after identifying a visibility gap."
+  },
+  "assessment": "The final Trakkr Pricing (2026): Brands, Prompts, Models, and Annual Cost guide answers a direct AEO-software buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a concrete fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://trakkr.ai/pricing",
+      "checkedAt": "2026-10-02",
+      "supports": "Official prices, brands, prompts, seats, article credits, annual options, trial, and Enterprise starting point."
+    },
+    {
+      "url": "https://trakkr.ai/learn/docs/faq",
+      "checkedAt": "2026-10-02",
+      "supports": "Official model roster, data-point definition, and 30-day allowance examples."
+    }
+  ],
+  "checks": [
+    "The main editor opened every named source and reconciled the visible amount, currency or unavailable-price status, billing cadence, allowance, and access boundary with the final article.",
+    "The main editor independently recomputed every worked example from cited inputs and kept checkout, quote, tax, or unknown-field caveats adjacent to the arithmetic.",
+    "The main editor read the complete final draft, including opening, tables, images and alt text, internal links, limitations, conclusion, and all four FAQs.",
+    "The main editor confirmed the article is explicitly documentation-based and contains no claim of paid-account use, output-quality testing, ranking result, guaranteed outcome, or internal production note."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "Public USD pricing",
+    "billing": "Monthly and annual options; Enterprise starts at $1,000/month billed annually",
+    "verification": "Checked Growth $100/$1,000 and Scale $500/$5,000, brand/prompt/model/seat/article allowances, 14-day card-required trial, $20 Growth seats, and recomputed 12,000/120,000 data points and annual savings.",
+    "checkedAt": "2026-10-02"
+  }
+}

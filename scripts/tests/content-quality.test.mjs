@@ -102,7 +102,12 @@ test('AI assistant plans, features and assistant-vs-assistant pages are off-topi
   for (const slug of ['claude-max-pricing', 'chatgpt-projects', 'gemini-gems', 'grok-vs-gemini', 'chatgpt-review', 'what-is-fine-tuning', 'prompt-engineer-salary']) assert.ok(offTopicReason(slug), slug);
 });
 test('AEO tools, engine search behaviour and AI-visibility topics stay allowed', () => {
-  for (const slug of ['peec-ai-pricing', 'profound-vs-semrush', 'perplexity-vs-chatgpt', 'how-does-perplexity-work', 'does-chatgpt-cite-wikipedia', 'ai-citation-freshness-metrics', 'aeo-vs-seo', 'google-ai-mode-vs-chatgpt', 'how-to-get-recommended-by-chatgpt', 'bluefish-ai-pricing', 'geneo-pricing', 'igeo-ai-pricing', 'xfunnel-pricing', 'geordy-pricing', 'serprecon-pricing', 'koalr-pricing', 'scope-ai-visibility-pricing']) assert.equal(offTopicReason(slug), null, slug);
+  for (const slug of ['peec-ai-pricing', 'profound-vs-semrush', 'perplexity-vs-chatgpt', 'how-does-perplexity-work', 'does-chatgpt-cite-wikipedia', 'ai-citation-freshness-metrics', 'aeo-vs-seo', 'google-ai-mode-vs-chatgpt', 'how-to-get-recommended-by-chatgpt', 'bluefish-ai-pricing', 'geneo-pricing', 'igeo-ai-pricing', 'xfunnel-pricing', 'geordy-pricing', 'serprecon-pricing', 'koalr-pricing', 'scope-ai-visibility-pricing', 'rank-prompt-pricing', 'airank-pricing', 'aerank-pricing', 'geostars-pricing', 'geopher-ai-pricing', 'geopta-pricing', 'se-ranking-ai-search-pricing', 'yext-scout-pricing']) assert.equal(offTopicReason(slug), null, slug);
+});
+test('published INR pricing is accepted as a concrete visible amount', () => {
+  const raw = article(`GEOpta is ₹4,999 per month. See [official pricing](${source}).`, 'GEOpta Pricing');
+  const out = checkPost({ file: 'content/blog/geopta-pricing.mdx', raw, evidence: evidence(raw, { pricing: { status:'published', region:'India / INR', billing:'Monthly plus GST', checkedAt:'2026-09-18', verification:'Checked the official INR amount, billing cadence, and tax basis and recomputed the GST-inclusive total.' } }) });
+  assert.deepEqual(out, []);
 });
 test('a new off-topic page fails the gate with the reason spelled out', () => {
   const raw = article('Slack costs $8.75 per seat. See [official pricing](' + source + ').', 'Slack Pricing');

@@ -1,0 +1,36 @@
+{
+  "contentSha256": "98785f61273406ab0dda1a7c2b2c58cf4a75e6e3a20d3a369f1cfea9a822c11e",
+  "reviewedAt": "2026-10-02",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Translate GeoStars credits and prompt equivalents into an agency-ready monitoring budget.",
+    "connection": "Supports AEOeye readers comparing evidence volume across recurring AI visibility tools."
+  },
+  "assessment": "The final GeoStars Pricing (2026): Credits, Prompts, Top-Ups, and VAT guide answers a direct AEO-software buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a concrete fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://geostars.com/en-us/pricing/",
+      "checkedAt": "2026-10-02",
+      "supports": "Official plans, prices, credits, prompt equivalents, top-ups, trial, VAT, and extra-model multipliers."
+    },
+    {
+      "url": "https://geostars.com/",
+      "checkedAt": "2026-10-02",
+      "supports": "Official product and platform context."
+    }
+  ],
+  "checks": [
+    "The main editor opened every named source and reconciled the visible amount, currency or unavailable-price status, billing cadence, allowance, and access boundary with the final article.",
+    "The main editor independently recomputed every worked example from cited inputs and kept checkout, quote, tax, or unknown-field caveats adjacent to the arithmetic.",
+    "The main editor read the complete final draft, including opening, tables, images and alt text, internal links, limitations, conclusion, and all four FAQs.",
+    "The main editor confirmed the article is explicitly documentation-based and contains no claim of paid-account use, output-quality testing, ranking result, guaranteed outcome, or internal production note."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "Public USD prices excluding VAT",
+    "billing": "Monthly and annual prices; Enterprise by quote from 375,000 credits",
+    "verification": "Checked $95/$200/$360/$540/$1,050 monthly and $920/$1,900/$3,450/$5,200/$9,800 annual prices, credit and prompt tables, top-up expiry, 7-day trial, and Claude/Grok credit multipliers; recomputed savings and unit examples.",
+    "checkedAt": "2026-10-02"
+  }
+}

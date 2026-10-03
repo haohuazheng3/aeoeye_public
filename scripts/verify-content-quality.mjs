@@ -9,7 +9,7 @@ const RETIRED = JSON.parse(fs.readFileSync(new URL('../content/retired.json', im
 export const RETIRED_SLUGS = new Set([...RETIRED.gone, ...Object.keys(RETIRED.merged)]);
 const seg = (re) => new RegExp(`(^|-)(?:${re})(-|$)`);
 // 只有这些 AI 可见度 / AEO 工具与服务,才允许出 pricing / review / alternatives / vs 页
-const AEO_SUBJECTS = seg('profound|peec|peec-ai|otterly|otterly-ai|athenahq|scrunch|scrunch-ai|llmrefs|trakkr|goodie|brandlight|evertune|nightwatch|quattr|knowatoa|promptwatch|qwairy|rankscale|waikay|ziptie|airops|bluefish|bluefish-ai|geneo|igeo|igeo-ai|xfunnel|geordy|serprecon|koalr|scope-ai-visibility|searchable|gauge-ai-visibility|hall-ai-visibility|am-i-on-ai|mentionsflow|getmentioned|mentionowl|visibility-so|ai-search-visibility|mentions-so|aeo-grader|hubspot-aeo-grader|brand-radar|ahrefs-brand-radar|semrush-ai|semrush-ai-toolkit|similarweb-ai|aeo|geo|seo|aeo-tool|aeo-tools|geo-tool|geo-tools|ai-visibility|ai-visibility-tool|ai-visibility-tools|llm-visibility|chatgpt-rank-tracker|ai-rank-tracker|ai-search-optimization|generative-engine-optimization|answer-engine-optimization');
+const AEO_SUBJECTS = seg('profound|peec|peec-ai|otterly|otterly-ai|athenahq|scrunch|scrunch-ai|llmrefs|trakkr|goodie|rank-prompt|airank|aerank|geostars|geopher-ai|geopta|se-ranking-ai-search|yext-scout|brandlight|evertune|nightwatch|quattr|knowatoa|promptwatch|qwairy|rankscale|waikay|ziptie|airops|bluefish|bluefish-ai|geneo|igeo|igeo-ai|xfunnel|geordy|serprecon|koalr|scope-ai-visibility|searchable|gauge-ai-visibility|hall-ai-visibility|am-i-on-ai|mentionsflow|getmentioned|mentionowl|visibility-so|ai-search-visibility|mentions-so|aeo-grader|hubspot-aeo-grader|brand-radar|ahrefs-brand-radar|semrush-ai|semrush-ai-toolkit|similarweb-ai|aeo|geo|seo|aeo-tool|aeo-tools|geo-tool|geo-tools|ai-visibility|ai-visibility-tool|ai-visibility-tools|llm-visibility|chatgpt-rank-tracker|ai-rank-tracker|ai-search-optimization|generative-engine-optimization|answer-engine-optimization');
 // AI 助手/模型本身:允许写"它如何检索、引用、推荐品牌",不允许写它的套餐价格、功能教程、产品评测
 const AI_ASSISTANTS = seg('chatgpt|claude|gemini|copilot|perplexity|grok|deepseek|openai|anthropic|genspark|character-ai|notebooklm|manus|manus-ai|together-ai|mistral|llama|meta-ai|kimi|qwen');
 const SEARCH_SIDE = /perplexity|google|bing|ai-mode|ai-overview/;
@@ -91,7 +91,7 @@ export function checkPost({ file, raw, baselineHash, evidence, artifactExists = 
     if (!['published', 'quote-only', 'not-publicly-verified'].includes(pricing.status)) fail('pricing disclosure status is required');
     if (!meaningful(pricing.region, 2) || !meaningful(pricing.billing, 8) || !dated(pricing.checkedAt)) fail('pricing must identify region, billing basis and check date');
     if (!meaningful(pricing.verification, 50)) fail('explain the actual price/limit/arithmetic verification');
-    if (pricing.status === 'published' && !/[$€£]\s*\d|\b(?:USD|EUR|GBP)\s*\d/i.test(content)) fail('published pricing needs concrete amounts in the visible body');
+    if (pricing.status === 'published' && !/[$€£₹]\s*\d|\b(?:USD|EUR|GBP|INR)\s*\d/i.test(content)) fail('published pricing needs concrete amounts in the visible body');
     if (pricing.status !== 'published' && !/quote|not publicly|not independently verified|could not verify|not verified/i.test(content.slice(0, 2400))) fail('unavailable pricing must be disclosed near the opening, not buried');
   }
   const needsArtifacts = evidence.kind === 'hands-on-review' || evidence.kind === 'research-asset';

@@ -1,0 +1,36 @@
+{
+  "contentSha256": "2afcbde597dd83db51d0e8323a1d8aa056adc879b0e900c7d19803a072bf4a9d",
+  "reviewedAt": "2026-10-02",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Compare GEOpta monthly commitment and non-expiring scan top-ups with GST included.",
+    "connection": "Supports AEOeye readers budgeting AI visibility scans for brands or client portfolios."
+  },
+  "assessment": "The final GEOpta Pricing (2026): Plans, GST, Live Scans, and Top-Ups guide answers a direct AEO-software buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a concrete fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://geopta.com/pricing",
+      "checkedAt": "2026-10-02",
+      "supports": "Official INR plan prices, GST, brand and scan limits, top-ups, and global currency option."
+    },
+    {
+      "url": "https://geopta.com/",
+      "checkedAt": "2026-10-02",
+      "supports": "Official product and engine context."
+    }
+  ],
+  "checks": [
+    "The main editor opened every named source and reconciled the visible amount, currency or unavailable-price status, billing cadence, allowance, and access boundary with the final article.",
+    "The main editor independently recomputed every worked example from cited inputs and kept checkout, quote, tax, or unknown-field caveats adjacent to the arithmetic.",
+    "The main editor read the complete final draft, including opening, tables, images and alt text, internal links, limitations, conclusion, and all four FAQs.",
+    "The main editor confirmed the article is explicitly documentation-based and contains no claim of paid-account use, output-quality testing, ranking result, guaranteed outcome, or internal production note."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "India / INR prices; public page says 18% GST is additional",
+    "billing": "Monthly plans plus one-time non-expiring top-ups; Enterprise custom",
+    "verification": "Checked ₹4,999/₹9,999/₹24,999 plans, 5/10/25 brand and 25/50/120 scan allowances, ₹2,999/₹7,499/₹17,999 top-ups, 18% GST, and recomputed GST-inclusive and per-scan examples; exact USD amounts were not captured.",
+    "checkedAt": "2026-10-02"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "contentSha256": "1a00aaf0215906318c5b7e7d8447f84f7dd3a8cdf43baf84748c08117beecdfa",
+  "reviewedAt": "2026-10-02",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Choose a Geopher.ai plan by combining brand, prompt, scan, member, and history limits.",
+    "connection": "Helps AEOeye readers turn visibility questions into a repeatable multi-platform monitoring brief."
+  },
+  "assessment": "The final Geopher.ai Pricing (2026): Prompts, Scans, History, and Annual Cost guide answers a direct AEO-software buying question with official documentation, reproducible arithmetic, explicit documentation-only limits, and a concrete fit decision. It does not claim product use or outcome testing.",
+  "sources": [
+    {
+      "url": "https://www.geopher.ai/en/pricing",
+      "checkedAt": "2026-10-02",
+      "supports": "Official monthly and annual prices, brands, prompts, platforms, scans, members, history, and trial."
+    },
+    {
+      "url": "https://www.geopher.ai/en",
+      "checkedAt": "2026-10-02",
+      "supports": "Official product and workflow context."
+    }
+  ],
+  "checks": [
+    "The main editor opened every named source and reconciled the visible amount, currency or unavailable-price status, billing cadence, allowance, and access boundary with the final article.",
+    "The main editor independently recomputed every worked example from cited inputs and kept checkout, quote, tax, or unknown-field caveats adjacent to the arithmetic.",
+    "The main editor read the complete final draft, including opening, tables, images and alt text, internal links, limitations, conclusion, and all four FAQs.",
+    "The main editor confirmed the article is explicitly documentation-based and contains no claim of paid-account use, output-quality testing, ranking result, guaranteed outcome, or internal production note."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "Public USD pricing",
+    "billing": "Monthly or annual billing",
+    "verification": "Checked $29/$79/$199 monthly and $290/$790/$1,990 annual plans, brands, prompts, platforms, automated and on-demand scans, members, history, GA4, priority support, and 7-day no-card Pro trial; recomputed savings.",
+    "checkedAt": "2026-10-02"
+  }
+}
