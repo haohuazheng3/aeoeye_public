@@ -1,0 +1,91 @@
+{
+  "contentSha256": "9176caf5f1faa992c6c33e9d0a55a1684d3f0344b7e4b0de573c67b03ee93765",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A store owner or marketer wants ChatGPT, Perplexity and Google AI to name and correctly describe their products, and needs to know what to change on an individual product page and how to check whether it worked.",
+    "connection": "AEOeye audits whether AI engines recommend a brand when buyers ask. The page covers the product-page layer of that problem (readable facts, matching markup and feeds, crawl access) and points to AEOeye's crawler access study and free audit as ways to check."
+  },
+  "assessment": "The page now answers how to optimize a single product page for AI answers in the first screen, then walks through how engines read a page (server HTML, no JavaScript execution by most AI crawlers as of the December 2024 Vercel/MERJ data), the answer block, spec/price/availability exposure and variant URLs, Product markup and the product feed route, comparison and FAQ content, and a four-layer verification routine. It rests on Google Search Central and Merchant Center documentation, OpenAI's product feed spec and crawler documentation, Perplexity's crawler documentation, a University of Toronto paper, a SparkToro run-to-run study and AEOeye's own crawler access study (e-commerce and consumer group, with its convenience-sample caveats). It deliberately does not claim that ChatGPT or Perplexity read JSON-LD, that schema wins recommendations, or that FAQ markup still earns a Google rich result; it drops the earlier page's unsourced claims (engines cross-check markup, reviews quoted verbatim in AI answers, several engines ignore JSON-LD) and its incorrect description of the free audit.",
+  "sources": [
+    {
+      "url": "https://support.google.com/merchants/answer/4752265",
+      "checkedAt": "2026-10-03",
+      "supports": "Merchant Center landing page requirements: price, currency and availability must match product data; do not change displayed product information after initial loading because crawlers treat the post-load page as final; pre-select the variant in the landing page URL; include product structured data in the initial HTML."
+    },
+    {
+      "url": "https://support.google.com/merchants/answer/12159029",
+      "checkedAt": "2026-10-03",
+      "supports": "Googlebot compares the price in the data source with the landing page or structured data price and may disapprove a mismatched product; it reads the HTML returned by the server, so prices added dynamically after load trigger an error."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
+      "checkedAt": "2026-10-03",
+      "supports": "Merchant listing requirements: name, image and an Offer with price and priceCurrency are required; aggregateRating, brand.name, gtin, availability and hasMerchantReturnPolicy are recommended."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "General structured data policies: do not mark up content that is not visible to readers; when marking up reviews, include all of the reviews that are visible on the page."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's guide to generative AI features: first-hand perspective vs a summary of existing content; structured data isn't required for generative AI search and there is no special schema.org markup; Merchant Center feeds and Business Profiles can help products appear in AI responses."
+    },
+    {
+      "url": "https://developers.google.com/search/updates",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central changelog: the FAQ rich result feature no longer appears in Google Search starting May 7, 2026."
+    },
+    {
+      "url": "https://developers.openai.com/commerce/specs/feed",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI product feed spec: nine required fields (item_id, title, description, url, brand, seller_name, image_url, availability, price); one row per variant with its own URL, price, availability; omitted or unrecognized availability rejects the row; plain-text factual descriptions."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; sites opted out of OAI-SearchBot are not shown in ChatGPT search answers. The page describes the purpose of each bot and does not describe JSON-LD handling."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search results; the page recommends allowing it in robots.txt and, for WAF users, allowing its user agent and published IP ranges. It does not describe JSON-LD handling."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Vercel and MERJ, published 2024-12-17: none of the major AI crawlers measured (OpenAI, Anthropic, Meta, ByteDance, Perplexity) rendered JavaScript; Gemini uses Googlebot's rendering infrastructure."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "University of Toronto GEO paper: in US consumer-electronics queries AI search (a gpt-4o-search-preview model) cited earned media (independent reviews and comparison sites) for 92.1% of sources, read in the paper's results text."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro: 600 volunteers, 2,961 runs on ChatGPT, Claude and Google AI; under a 1 in 100 chance that ChatGPT or Google AI give the same list of brands in two responses; 60-100 runs per prompt suggested."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/JSON-LD",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of JSON-LD as a file format for encoding linked data using JSON."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 with curl, converted the HTML to text and checked each stated figure and rule against the raw text (Google Merchant Center landing page and price-mismatch pages, merchant listing and policy docs, the AI optimization guide, the Search Central changelog, OpenAI feed spec and crawler page, Perplexity crawler page, Vercel post and its datePublished 2024-12-17).",
+    "Writer (Sonnet): downloaded the University of Toronto paper PDF and read the consumer-electronics results and the section 4 method to confirm that 92.1% is the US earned-media share for the GPT search model and that earned means independent media, review or comparison sites.",
+    "Writer (Sonnet): recounted the e-commerce and consumer group of ai-crawler-access-study-2026-10.csv (4 of 90 block at least one AI retrieval bot via OAI-SearchBot, PerplexityBot or Claude-SearchBot rules per the evidence pack; 24 of 88 homepages challenged the research crawler) and kept the convenience-sample and one-fetch caveats.",
+    "Writer (Sonnet): tried help.openai.com and perplexity.ai/merchants (blocked, HTTP 403) and therefore did not cite or state anything from them; Perplexity merchant program details and ChatGPT shopping ranking factors were left out as unverified.",
+    "Writer (Sonnet): removed unsupported claims from the previous version (engines cross-check schema and ignore mismatches, reviews quoted verbatim, several engines ignore JSON-LD, the free audit analysing a product page across engines) and corrected the AEOeye product description to the evidence-pack facts.",
+    "Writer (Sonnet): viewed the three chosen Pexels photos (studio camera rig, croissants between studio lights, hand with bank card at a laptop) and wrote alt text describing only what is visible; ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; fact/page/markup table; removed two evidence sources that were not linked on the page",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

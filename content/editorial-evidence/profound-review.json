@@ -1,0 +1,76 @@
+{
+  "contentSha256": "87ff9cd55e3b24c5092d3881e6bbf4e9254ea0867e9d0a2cce29f054f02fd5d6",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Work out what Profound actually does today, how hard it is to set up and run, and whether it is worth buying, without a hands-on review.",
+    "connection": "Helps an AEOeye reader decide between an enterprise monitoring platform, cheaper trackers and a one-off AI visibility audit."
+  },
+  "assessment": "The page rewrites the old Profound review and folds in the 'is Profound too complicated' answer. It rests entirely on Profound's own pricing page, feature pages, help-center articles, developer docs and university page, fetched 2026-10-03, plus SparkToro's study for the daily-repeat rationale and AEOeye's vendor-site crawl. It corrects stale claims (no trial, Starter/Growth cards, 1-3 weeks to data, G2 score) and does not claim hands-on use, quote review scores it could not load, or estimate an Enterprise price.",
+  "sources": [
+    {
+      "url": "https://www.tryprofound.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Homepage positioning as an AI marketing platform with an AI Marketer that finds work, drafts it and asks for approval."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free 7-day Trial (50 prompts daily, ChatGPT/Gemini/Google AI Overviews, fixed prompt set), quote-only Enterprise (up to 9 engines, API, exports, SSO), credits FAQ, 'Is Profound only for AI search? No', setup 'Instant'."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/answer-engine-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Tracker features (visibility, sentiment, citations, FactCheck), browser capture rather than API, daily runs because AI platforms don't return the same answer twice."
+    },
+    {
+      "url": "https://help.tryprofound.com/articles/3443229936-answer-engine-insights-overview",
+      "checkedAt": "2026-10-03",
+      "supports": "Definitions of visibility score, share of voice, average position, sentiment, citations and FactCheck."
+    },
+    {
+      "url": "https://help.tryprofound.com/articles/4881350168-how-to-create-topics-prompts-to-track-in-profound",
+      "checkedAt": "2026-10-03",
+      "supports": "Prompt-set setup: 5-10 topics to start, about 15 topics with about 10 prompts each, metrics populate after 24-48 hours, initial 'No Data' is normal."
+    },
+    {
+      "url": "https://docs.tryprofound.com/agent-analytics/self-serve-onboarding",
+      "checkedAt": "2026-10-03",
+      "supports": "Agent Analytics needs hosting-provider access and a provider-specific log integration (Cloudflare, Vercel, CloudFront, Fastly and others)."
+    },
+    {
+      "url": "https://docs.tryprofound.com/dynamic-bot-rendering/overview",
+      "checkedAt": "2026-10-03",
+      "supports": "Client-rendered pages may look empty to AI assistants; rendering does not guarantee inclusion or citation in an answer."
+    },
+    {
+      "url": "https://university.tryprofound.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound 101 course (272 min, beginner) and two-week pod ending in certification."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "Under 1-in-100 chance that ChatGPT or Google's AI gives the same brand list in two responses; repeated runs needed."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO is also known as answer engine optimization (AEO): improving visibility in AI-generated responses."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched Profound's pricing page, five feature pages, help-center articles, developer docs and university page on 2026-10-03 and kept only what they state; confirmed the pricing FAQ and plan table in the raw server HTML with curl.",
+    "Writer (Sonnet): tried to load G2's Profound review page (HTTP 403), so no review scores or reviewer quotes are used; the old page's 'G2 3.8/5', 'weeks to learn' quote and '1-3 weeks to data' were dropped as unverifiable, and the old 'no free trial' claim was corrected to the current free Trial.",
+    "Writer (Sonnet): took the vendor-site fact box (no AI bots blocked or named, /llms.txt 404, no JSON-LD in served HTML) from docs/content/vendor-sites-study-2026-10.md and kept the JavaScript-injection caveat; no quality verdict implied.",
+    "Writer (Sonnet): deliberately omitted the old page's $96M Series C and 'low-to-mid four figures a month' claims, the agency add-on dollar figures (JS-rendered, covered by the pricing page), and any Enterprise price estimate.",
+    "Editor (Opus): read the final draft and the writer's source report; documentation-based Profound guide; title no longer claims a review; /answers/profound-too-complicated-hard-to-use content absorbed (ease-of-use section); stale G2/price/no-trial claims removed",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [
+    "/answers/profound-too-complicated-hard-to-use"
+  ]
+}

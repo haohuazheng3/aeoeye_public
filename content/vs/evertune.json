@@ -1,62 +1,64 @@
 {
  "slug": "evertune",
  "type": "vs",
- "title": "AEOeye vs Evertune: Free Instant Audit vs Enterprise GEO Analytics",
- "metaTitle": "AEOeye vs Evertune: Honest 2026 Comparison",
- "metaDescription": "AEOeye vs Evertune compared honestly: free instant multi-engine AI visibility audit vs a sales-gated enterprise GEO analytics platform from ~$3,000/mo.",
- "primaryKeyword": "aeoeye vs Evertune",
- "shortAnswer": "AEOeye gives you a free, instant blind audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini in minutes — no demo, contract, or commitment. Evertune is a sales-gated enterprise GEO platform (reported to start around $3,000/mo) that samples each prompt ~100 times for data-science-grade analytics and adds a US consumer panel. Choose AEOeye to quickly find out if AI recommends you; choose Evertune if you need high-volume statistical depth and can fund it.",
- "intro": "If you're comparing AEOeye and Evertune, you're really comparing two different jobs. One answers \"does AI recommend my brand, and who's winning instead?\" in a few minutes for free. The other is a heavyweight analytics platform built to give large brands statistically rigorous, ongoing measurement of how AI talks about them.\n\nBoth are legitimate tools for the same broad problem — AI visibility — but they sit at opposite ends of the cost, depth, and accessibility spectrum. Here's an honest, specific breakdown so you can pick the one that actually fits your team and budget.",
+ "title": "AEOeye vs Evertune: One-Off AI Audit or Always-On GEO Platform?",
+ "metaTitle": "AEOeye vs Evertune: Which Should You Use? (2026)",
+ "metaDescription": "AEOeye vs Evertune: a one-off AI visibility audit (free, then $29) against a demo-led GEO platform listed at $800 a month. Who should pick which, and why.",
+ "primaryKeyword": "aeoeye vs evertune",
+ "shortAnswer": "Pick AEOeye if you want a one-time answer to \"does AI name us, and who does it name instead?\": a free ChatGPT check, or a $29 report across five engines. Pick Evertune if AI visibility is a funded channel and you need always-on, repeatedly sampled tracking plus content and advertising tools. Its Pro plan is listed at $800 a month (as of October 2026), sold through a demo.",
+ "intro": "This comparison is based on Evertune's public documentation (its pricing, platform, methodology and FAQ pages, read on 3 October 2026), and we have not tested Evertune hands-on. AEOeye is our product, so we say plainly where Evertune is stronger.\n\nWe left out two claims that circulate in older write-ups: a roughly $3,000-a-month floor and a US-only panel. We could not verify either from Evertune's own pages, which list a Pro plan at $800 a month and \"global language and country tracking\". For the price detail, see [how much Evertune costs](/answers/how-much-does-evertune-cost).",
  "sections": [
   {
-   "heading": "The core difference in one paragraph",
-   "body": "AEOeye is a free, instant, self-serve audit. You enter your brand and the questions your buyers ask, and it queries ChatGPT, Perplexity, Google AI, Claude, and Gemini *blind* — no logins, no priming — then shows whether each engine recommends you, where you rank, and which competitors come up instead. You see results in minutes without a sales call or contract.\n\nEvertune is an enterprise GEO/AEO analytics platform. Instead of a single query per question, it samples each tracked prompt roughly 100 times across 9+ engines (ChatGPT, Gemini, Perplexity, Claude, Copilot, Meta AI, DeepSeek, and Google's AI Mode/Overviews), generating 1M+ prompts per brand per month to produce statistically significant brand-visibility and sentiment metrics. It pairs that with a large US consumer panel. Access is sales-gated, with no public pricing and reported pricing starting around $3,000/month. In short: AEOeye optimizes for speed and access; Evertune optimizes for statistical depth and scale."
+   "heading": "Which should you choose, AEOeye or Evertune?",
+   "body": "Choose by the question you need answered. AEOeye answers a one-off question: does AI name my brand, and who does it name instead? Evertune is a continuous measurement and activation platform for teams that will act on its data every week.\n\n- **Pick AEOeye** if you have never checked what ChatGPT says about you. Start with the [free audit](/), then add the $29 report when you want Claude, Gemini, Google AI and Perplexity too.\n- **Pick Evertune** if AI visibility is already a funded channel. You need weekly or daily tracking across many models, content production and advertising in one place, and you can run a sales-led onboarding at $800 a month or more.\n- **Pick neither** if you want continuous tracking at a lower price. Self-serve trackers cost far less; see [Evertune alternatives](/alternatives/evertune).\n\nOur view: run a one-time audit before you buy any monitoring platform. A tracker measures change, and you cannot judge a trend until you know whether you have a problem at all."
   },
   {
-   "heading": "Where Evertune is genuinely stronger",
-   "body": "We won't pretend otherwise — for large brands that need it, Evertune offers depth AEOeye doesn't try to match today.\n\n- **Statistical rigor.** Sampling each prompt ~100 times smooths out the natural run-to-run randomness of AI models. A single query (what a quick audit gives you) is one draw from a noisy distribution; Evertune's volume produces stable, defensible metrics you can trend over time and put in front of a CMO.\n- **High-volume, ongoing measurement.** 1M+ prompts per brand per month supports granular tracking across many prompts, engines, and time periods — useful for high-consideration categories like automotive, healthcare, and B2B SaaS.\n- **Consumer panel signal.** Evertune layers in a proprietary US consumer panel, connecting AI-visibility data to real consumer behavior — something a pure blind-query tool can't replicate.\n- **Enterprise track record.** Reported clients include Canada Goose, Miro, and WPP's Choreograph. If you're a large brand or agency that needs data-science-grade analytics and can fund it, Evertune is built for you."
+   "heading": "What is each tool actually built for?",
+   "body": "AEOeye is an audit: you ask, it answers, you act. Evertune is a platform that measures, then helps you act and advertise. They overlap on one question (is my brand named?) and differ on everything after it.\n\n**AEOeye.** The free audit gives an AI visibility score and grade, three unbranded buyer questions asked to ChatGPT live with the real answers shown in full, the competitors AI recommends instead, and starter fixes. The $29 one-time report adds Claude, Gemini, Google AI and Perplexity, ten questions instead of three, a five-layer SEO foundation audit and a fix roadmap emailed as a PDF. Each engine is tested at the default tier a free user would get. There is no subscription.\n\n**Evertune.** Its [homepage](https://www.evertune.ai/) describes four steps: Explore (what buyers ask AI), Measure (where you stand against competitors across 11 models), Act (content and website fixes) and Advertise (ChatGPT ads and retargeting). Its [company page](https://www.evertune.ai/about-us/company-overview) says it was founded in 2024 by early Trade Desk team members and lists Halo Collar, Canada Goose, HexClad, Roku and WPP as clients.\n\n![Business meeting where a team studies data on a presentation screen](https://images.pexels.com/photos/5716030/pexels-photo-5716030.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Where AEOeye is genuinely stronger",
-   "body": "AEOeye wins decisively on access, speed, and cost — the things that matter most when you just need an answer.\n\n- **Free to start, no commitment.** You can run a real audit at no cost. Evertune has no free trial and no self-serve signup; every engagement reportedly begins with a 'Book a demo' call and a contract before you can even see pricing.\n- **Instant results.** AEOeye returns a multi-engine read in minutes. With Evertune, the evaluation path runs through demos and procurement before you learn anything about your brand.\n- **No ~$3k/mo floor.** Independent reviews repeatedly peg Evertune at roughly $3,000/month minimum — out of reach for small businesses, solo marketers, and most mid-market teams. AEOeye is sized for exactly those people.\n- **Built for non-experts.** AEOeye's blind multi-engine audit is designed to be readable by someone who isn't a data scientist — clear 'do they recommend me, and who beats me?' output, not aggregate index scores you need training to interpret.\n- **Global by default.** AEOeye queries the engines directly with no US-panel dependency, so it isn't skewed toward a US consumer base."
+   "heading": "How do AEOeye and Evertune compare side by side?",
+   "body": "The biggest differences are price basis, how often you measure, and what happens after measurement. AEOeye charges per report; Evertune charges per month and sells through a demo. The table after these sections lists every row, and four deserve a note.\n\n- **Price basis.** AEOeye costs $0 for the free audit and $29 one-time. Evertune's [pricing page](https://www.evertune.ai/pricing) lists Pro at $800 a month and Enterprise as custom, with no billing terms. At list price, a year of Pro is $9,600 (our arithmetic).\n- **Prompt limits.** Pro lists 100,000 prompts tracked across 11 AI models. The page does not say whether that counts prompts or sampled responses, so ask in the demo, because the method asks each prompt up to 100 times.\n- **Engines.** Evertune's [FAQ](https://www.evertune.ai/resources/faq) lists ChatGPT, ChatGPT Search, Gemini, Gemini Search, AI Mode, AI Overviews, Meta AI, Claude, Copilot, Perplexity and DeepSeek. AEOeye covers five engines in the $29 report and ChatGPT alone in the free audit.\n- **Access.** Both Evertune plans end in \"Request a demo\", and we found no free tier or trial on that page. AEOeye starts at the homepage."
   },
   {
-   "heading": "The honest trade-off",
-   "body": "The fairest way to frame this: AEOeye and Evertune are not really competing for the same buyer.\n\nAEOeye trades statistical depth for speed and access. A free, instant audit is one snapshot per engine — fantastic for discovering whether AI recommends you, who your AI-era competitors are, and whether you have a problem worth solving, but it's a starting point, not a 100x-sampled statistical model. AEOeye is also newer and lighter on enterprise analytics and long-run historical dashboards than incumbents; its deeper multi-engine querying activates with usage.\n\nEvertune trades accessibility and cost for that depth. The ~100x sampling and consumer panel are real, valuable, and expensive — and they're gated behind sales, a contract, and a budget most teams don't have. Its insights also lean partly on a US consumer panel, which several reviews flag as less relevant for non-US brands.\n\nSo the question isn't 'which is better' — it's 'which job are you hiring for?'"
+   "heading": "Where is Evertune stronger than AEOeye?",
+   "body": "Evertune is stronger on measurement depth, prompt sourcing and what you can do after measuring. That is a different class of product, not a bigger version of ours.\n\n**Repeated sampling.** Evertune asks each prompt up to 100 times per model. That matters: [OpenAI's documentation](https://cookbook.openai.com/examples/reproducible_outputs_with_the_seed_parameter) says its API outputs are non-deterministic by default, and [SparkToro's study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) of 2,961 runs found under a 1-in-100 chance of getting the same brand list twice and advised asking at least 60 to 100 times. One answer is a draw, not a rate.\n\nWe checked Evertune's margins against the [standard formula](https://en.wikipedia.org/wiki/Margin_of_error): 100 responses at a 50% mention rate give about ±10 points at 95% confidence, which matches its [methodology page](https://www.evertune.ai/platform/methodology). The study is Evertune's own (running shoes, July 2026) and covers sampling noise only, not whether the prompts are well chosen.\n\n**Prompts from real users.** Evertune builds prompt sets from EverPanel, which it describes as over 150 million real conversations. It also reports what a model knows from training (direct API access) separately from what the consumer app says after a live search, and reads the gap as a diagnosis.\n\n**Action.** Its [platform pages](https://www.evertune.ai/platform/act) cover Site Audit, Content Studio drafts and affiliate placements, and its FAQ says Site Audit crawls up to 1,000 pages. The pricing page does not make clear which plan includes which tool. Forrester listed Evertune as a notable vendor in its Q3 2026 AEO landscape, [per Evertune's own post](https://www.evertune.ai/resources/insights-on-ai/evertune-named-a-notable-vendor-in-forresters-answer-engine-optimization-technologies-landscape-q3-2026).\n\nOne caution: its AI Brand Score weights position, with first place at 100% and second at 90%. SparkToro put the chance of the same list in the same order below 1 in 1,000. Averaging 100 samples helps, but we would read the Visibility Score, the share of responses naming you, first."
   },
   {
-   "heading": "Which should you choose?",
-   "body": "**Choose AEOeye if** you want to know *today*, for free, whether ChatGPT, Perplexity, Google AI, Claude, and Gemini recommend your brand and who's winning instead. It's the right call for small and mid-market businesses, solo marketers, agencies running quick client checks, and anyone who wants an answer without a demo, contract, or ~$3,000/month commitment. It's also a smart first step even if you might buy an enterprise tool later — run the free audit, see the gap, then decide.\n\n**Choose Evertune if** you're a large brand or agency in a high-consideration category, you need statistically significant, high-volume analytics (100x prompt sampling, a consumer panel, deep historical trending), and you have the budget and procurement appetite for an enterprise contract. If a CMO needs defensible numbers to justify content investment, Evertune's depth is built for exactly that.\n\nMany teams can reasonably start with AEOeye's free audit and only graduate to a platform like Evertune once AI visibility becomes a funded, strategic priority."
+   "heading": "Where is AEOeye stronger than Evertune?",
+   "body": "AEOeye is stronger on cost, speed and readability for a first answer. You get the real engine answers without a demo or a monthly commitment, and you can judge them yourself.\n\n- **Cost and commitment.** $0, then $29 once, against a demo-led platform at $800 a month or more.\n- **Evidence you can read.** You see the full answers and the competitors AI names instead, not an index you must trust.\n- **Realistic tiers.** Each engine is tested at the default tier a free user would get, so you see what most buyers see.\n- **No data science needed.** The output is a list of fixes, not a dashboard to interpret.\n\nThe limits are real. The audit reports the answers returned when we asked; it gives no visibility rate with a margin of error. AEOeye is not a daily tracker, does not write your content and cannot guarantee a recommendation. For ongoing monitoring across hundreds of prompts, dedicated trackers do that job; see the [best AI visibility tools](/blog/best-ai-visibility-tools).\n\n![Detailed business stages displayed onscreen, useful for planning and strategy sessions](https://images.pexels.com/photos/7948041/pexels-photo-7948041.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+  },
+  {
+   "heading": "Does Evertune block AI crawlers on its own site?",
+   "body": "No. In AEOeye's crawler access study (one fetch per site on 3 October 2026), Evertune's robots.txt blocks no AI crawler: it disallows only /legal/ and /404. The site serves an llms.txt file, and its homepage has server-rendered JSON-LD of type Organization, WebSite, SearchAction and EntryPoint.\n\nThat is a neutral fact, not a verdict on the product. None of the 43 AI-visibility vendors in the study blocked an AI bot, so it is the norm. The [study hub](/blog/ai-crawler-user-agent-directory) has the method and per-site data."
   }
  ],
  "keyTakeaways": [
-  "AEOeye is free, instant, and self-serve; Evertune is sales-gated with no public pricing and a reported ~$3,000/month minimum.",
-  "AEOeye runs a blind audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini in minutes — no demo, contract, or commitment.",
-  "Evertune is genuinely deeper: it samples each prompt ~100 times across 9+ engines (1M+ prompts/brand/month) for statistically significant metrics, plus a US consumer panel.",
-  "Evertune fits large enterprise brands and agencies (e.g. Canada Goose, Miro, WPP's Choreograph) that need data-science-grade analytics and can fund it.",
-  "AEOeye fits small/mid-market teams, solo marketers, and non-experts who just need a clear, fast answer on whether AI recommends them.",
-  "Honest trade-off: AEOeye trades statistical depth for speed/access; Evertune trades accessibility and cost for high-volume rigor and a (US-centric) consumer panel."
+  "AEOeye is a one-off audit (free on ChatGPT, $29 for five engines); Evertune is a demo-led platform with Pro listed at $800 a month as of October 2026.",
+  "Evertune's 100-sample method is a real strength: single AI answers vary, and its published margins match the standard formula.",
+  "Evertune adds site audit, content drafting and advertising; AEOeye does not track daily, write content or run ads.",
+  "Run a one-time audit first, then buy continuous tracking once you know what you are tracking."
  ],
  "faqs": [
   {
-   "q": "Is AEOeye really free, and what do I get?",
-   "a": "Yes. AEOeye runs a free, instant audit that blind-queries ChatGPT, Perplexity, Google AI, Claude, and Gemini with the questions your buyers actually ask, then shows whether each engine recommends your brand, where you rank, and which competitors come up instead. No demo call or contract is required to start. Deeper multi-engine querying activates with usage."
+   "q": "Is AEOeye a replacement for Evertune?",
+   "a": "No. AEOeye is a one-time audit that shows what ChatGPT, Claude, Gemini, Google AI and Perplexity say about your brand today. Evertune is a continuous platform with repeated sampling, content tools and advertising. Most teams could use the audit first, then decide whether a monitoring platform is worth its monthly cost."
   },
   {
    "q": "How much does Evertune cost?",
-   "a": "Evertune doesn't publish pricing — access is sales-gated through a demo and contract. Multiple independent reviews report it starts around $3,000/month for a single enterprise tier, with no free trial and no self-serve signup. You generally can't see exact pricing without talking to their sales team."
+   "a": "As of October 2026, Evertune's pricing page lists Pro at $800 a month and Enterprise as custom, with no billing terms stated. Both plans lead to a demo request. A year of Pro at list price is $9,600. Confirm contract length and what the 100,000-prompt allowance counts in the demo."
   },
   {
-   "q": "Why does Evertune query each prompt ~100 times?",
-   "a": "AI models give slightly different answers each time, so a single query is one noisy draw. Evertune samples each tracked prompt roughly 100 times across 9+ engines (1M+ prompts per brand per month) to average out that randomness and produce statistically significant, trendable metrics. That depth is its core strength — and a real advantage over any single-query snapshot for brands that need defensible numbers."
+   "q": "Does Evertune have a free trial?",
+   "a": "We found no free tier or trial on Evertune's pricing page, where both plans end in \"Request a demo\", and its get-started page asks for a demo form. That reflects public documentation read on 3 October 2026, not hands-on use, so ask Evertune directly if a trial matters to you."
   },
   {
-   "q": "Is AEOeye a replacement for Evertune?",
-   "a": "Not exactly — they're built for different jobs. AEOeye is the fast, free, accessible 'just tell me if AI recommends my brand' answer for small and mid-market teams. Evertune is a high-volume enterprise analytics platform with a consumer panel for large brands that need data-science-grade depth and can fund it. Many teams start with AEOeye's free audit and only move to an enterprise platform if AI visibility becomes a funded priority."
+   "q": "Why does Evertune sample each prompt 100 times?",
+   "a": "AI answers differ from run to run, so one response is a single draw. Evertune asks each prompt up to 100 times per model to estimate a mention rate with a small margin of error. An independent SparkToro study similarly advised asking at least 60 to 100 times and averaging."
   },
   {
-   "q": "Does Evertune work for non-US brands?",
-   "a": "Its engine coverage is global, but several reviews note Evertune's insights lean partly on a proprietary US consumer panel, which can make the consumer-behavior signal less relevant for non-US markets. AEOeye queries the AI engines directly with no US-panel dependency, so it isn't skewed toward a US audience."
+   "q": "Can I start with AEOeye and move to Evertune later?",
+   "a": "Yes, and we think that order is sensible. The free audit shows whether AI names you and who it names instead. If that gap is worth tracking weekly, a platform like Evertune, or a cheaper tracker, can measure whether your fixes move the number."
   }
  ],
  "comparisonTable": {
@@ -66,60 +68,101 @@
   ],
   "rows": [
    {
-    "label": "Free tier",
+    "label": "What it is",
     "values": [
-     "Yes — free, instant audit with no signup friction",
-     "No free tier or free trial"
+     "One-off audit: free ChatGPT check, $29 five-engine report",
+     "Continuous GEO platform: measure, act and advertise"
     ]
    },
    {
-    "label": "Pricing",
+    "label": "Engines",
     "values": [
-     "Free to start; paid plans for deeper/ongoing use",
-     "No public pricing; sales-gated, reported to start ~$3,000/mo"
+     "Free: ChatGPT. $29 report: ChatGPT, Claude, Gemini, Google AI, Perplexity",
+     "11+ listed, including ChatGPT, Gemini, Claude, AI Mode, AI Overviews, Copilot, Perplexity, Meta AI, DeepSeek"
     ]
    },
    {
-    "label": "AI engines covered",
+    "label": "Prompts and limits",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "9+ engines: ChatGPT, Gemini, Perplexity, Claude, Copilot, Meta AI, DeepSeek, Google AI Mode/Overviews"
+     "Free: 3 questions. $29 report: 10 questions",
+     "Pro: 100,000 prompts across 11 models; each prompt sampled up to 100 times per model"
     ]
    },
    {
-    "label": "Speed to first result",
+    "label": "Pricing basis and entry price",
     "values": [
-     "Minutes — instant, self-serve",
-     "After a demo and contract; not self-serve"
+     "$0 free audit; $29 one-time report; no subscription",
+     "Pro $800 a month; Enterprise custom (as of October 2026); billing terms not stated"
     ]
    },
    {
-    "label": "Setup/learning curve",
+    "label": "How you start",
     "values": [
-     "Minimal; built for non-experts",
-     "Higher; data-science-grade analytics, onboarding via sales"
+     "Enter your brand or URL on the homepage",
+     "Request a demo; onboarding sessions with the team"
+    ]
+   },
+   {
+    "label": "Tracking frequency",
+    "values": [
+     "Snapshot when you run it",
+     "Daily, weekly or monthly on Pro"
+    ]
+   },
+   {
+    "label": "Data and outputs",
+    "values": [
+     "Full answers, competitors named, fix roadmap as an emailed PDF",
+     "Dashboards, source analysis, content drafts exported as Markdown or HTML; Enterprise adds AI bot analytics and SSO"
     ]
    },
    {
     "label": "Best for",
     "values": [
-     "Small/mid-market teams, solo marketers, agencies, quick checks",
-     "Large enterprise brands and agencies in high-consideration categories"
-    ]
-   },
-   {
-    "label": "Contract",
-    "values": [
-     "None required to start",
-     "Enterprise contract required"
+     "First check, small teams, one-off budgets",
+     "Mid-market and enterprise teams with a funded AI channel"
     ]
    }
   ]
  },
+ "definitions": [
+  {
+   "term": "Generative engine optimization (GEO)",
+   "definition": "Increasing how often and how favorably a brand appears in answers generated by AI models; the term was formalized in a 2023 research paper.",
+   "sourceUrl": "https://arxiv.org/abs/2311.09735"
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/6592690/pexels-photo-6592690.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Group of professionals collaborating on a project with graphs in an office setting.",
-  "photographer": "Mikhail Nilov",
-  "photographerUrl": "https://www.pexels.com/@mikhail-nilov"
- }
+  "url": "https://images.pexels.com/photos/7876384/pexels-photo-7876384.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A bearded man in glasses reviews financial charts on paper next to a whiteboard.",
+  "photographer": "https://kaboompics.com/",
+  "photographerUrl": "https://www.pexels.com/@karola-g"
+ },
+ "sources": [
+  {
+   "label": "Evertune — Pricing",
+   "url": "https://www.evertune.ai/pricing"
+  },
+  {
+   "label": "Evertune — Methodology",
+   "url": "https://www.evertune.ai/platform/methodology"
+  },
+  {
+   "label": "Evertune — FAQ",
+   "url": "https://www.evertune.ai/resources/faq"
+  },
+  {
+   "label": "SparkToro — AI brand recommendation consistency study",
+   "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+  },
+  {
+   "label": "OpenAI Cookbook — Reproducible outputs",
+   "url": "https://cookbook.openai.com/examples/reproducible_outputs_with_the_seed_parameter"
+  },
+  {
+   "label": "Wikipedia — Margin of error",
+   "url": "https://en.wikipedia.org/wiki/Margin_of_error"
+  }
+ ],
+ "updated": "2026-10-03"
 }

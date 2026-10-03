@@ -1,0 +1,80 @@
+{
+  "contentSha256": "1dd76431498c22a3fcf96af8709970d5535c36b35277bbe3b5b89b405f4f54c1",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A buyer shortlisting two AI visibility platforms, Scrunch AI and Profound, needs a verdict on which fits their team, with engines, entry price, trial terms and what each tool actually changes compared side by side.",
+    "connection": "Helps an AEOeye reader decide between a one-time AI visibility baseline and two ongoing platforms, and says plainly when neither is needed yet; the baseline route is AEOeye's free audit and $29 one-time report."
+  },
+  "assessment": "The page gives a verdict (Scrunch for a priced self-serve start, Profound for enterprise teams wanting agents, neither if the baseline is unknown), a vendor-sourced comparison table checked on 2026-10-03, and a corrected framing: both vendors now sell an action loop, so the real difference is what the action touches (Scrunch changes delivery to AI bots, Profound produces new assets). It replaces the earlier claim that Profound is primarily monitoring. It does not claim hands-on use, treats data-capture method and refresh rate as vendor statements, quotes no agency price for Profound because the agency tab is not in the served HTML, and labels the AEOeye benchmark as small and self-selected.",
+  "sources": [
+    {
+      "url": "https://scrunch.com/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Scrunch Core $250/month, 125 prompts, 5,000 responses/month, four platforms; AXP not in Core; Enterprise custom with nine platforms."
+    },
+    {
+      "url": "https://scrunch.com/faqs/what-is-the-pricing-for-scrunch-plans",
+      "checkedAt": "2026-10-03",
+      "supports": "Agency Core $500/month, Enterprise tiers custom, seven-day Core trial, platform lists for Core and Enterprise."
+    },
+    {
+      "url": "https://scrunch.com/faqs/what-methods-does-scrunch-use-to-collect-data-from-ai-platforms",
+      "checkedAt": "2026-10-03",
+      "supports": "Scrunch collects through browser automation and official APIs; daily for the first 14 days then a default 72-hour refresh."
+    },
+    {
+      "url": "https://scrunch.com/faqs/what-is-scrunchs-content-delivery-and-how-does-it-work",
+      "checkedAt": "2026-10-03",
+      "supports": "Content delivery detects AI traffic and serves optimized HTML to AI bots while people see the normal site."
+    },
+    {
+      "url": "https://scrunch.com/faqs/can-you-export-data-from-scrunch",
+      "checkedAt": "2026-10-03",
+      "supports": "Scrunch states data can be exported via CSV and API."
+    },
+    {
+      "url": "https://scrunch.com/faqs/is-scrunch-soc-2-type-ii-compliant-and-what-security-standards-does-it-meet",
+      "checkedAt": "2026-10-03",
+      "supports": "Scrunch states it completed a SOC 2 Type II audit and points to a trust center."
+    },
+    {
+      "url": "https://www.sitecore.com/company/newsroom/press-releases/2026/06/sitecore-acquires-scrunch-to-help-brands-influence-discovery--and-buying-decisions",
+      "checkedAt": "2026-10-03",
+      "supports": "Sitecore announced the Scrunch acquisition on June 3, 2026; Scrunch recommendations to be automated inside SitecoreAI."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound Trial (free, 50 prompts daily for 7 days, ChatGPT/Gemini/Google AI Overviews, prompts not customizable); Enterprise custom with up to nine engines, daily tracking, exports, SSO; credits consumed per agent run; overage or pause setting; Agency Growth 400 credits per month per client workspace."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/answer-engine-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound captures front-end experiences rather than API outputs, runs every tracked prompt daily because AI platforms do not return the same answer twice, and lists the nine engines it queries; SOC 2 Type II statement."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/agents",
+      "checkedAt": "2026-10-03",
+      "supports": "Agents research what AI engines cite, draft content, include an approval step and publish to a CMS."
+    },
+    {
+      "url": "https://www.tryprofound.com/newsroom/profound-raises-usd180m-series-d-at-usd1-8b-valuation-to-build-the-ai-platform-for-marketing-teams",
+      "checkedAt": "2026-10-03",
+      "supports": "September 15, 2026 Series D of $180M at $1.8B valuation; over 1,000 enterprise brands (Profound's figure); evolution from analytics to AI Marketer, Agents, Ads Studio and earned-media work."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched Scrunch's pricing page and FAQ pages and Profound's pricing, Answer Engine Insights, Agents and newsroom pages with curl on 2026-10-03 and read the converted raw text; every table cell traces to one of those pages, not to a summary or to the older version of this page.",
+    "Writer (Sonnet): found the old claim that Profound is 'primarily monitoring; action sits with your team' contradicted by Profound's Agents page and Series D release, and replaced the 'monitoring vs action' framing with 'what the action touches'.",
+    "Writer (Sonnet): looked for Profound's agency price in the served pricing HTML, found only the Agency Growth credits line (400 credits per client workspace) and no dollar amount, so the page quotes no Profound agency price and tells the reader to price it for their client count.",
+    "Writer (Sonnet): used the scrunch.com and tryprofound.com rows of docs/content/vendor-sites-study-2026-10.md (no AI bots blocked or named; Scrunch llms.txt present, Profound llms.txt 404; no JSON-LD in served HTML) with the JavaScript caveat, and the AEOeye recommendation benchmark (157 of 892 answers, 127 audits) with its small, self-selected caveat and no per-engine rates.",
+    "Writer (Sonnet): kept this page to its own intent and did not reuse paragraphs from /blog/scrunch-ai-review; Scrunch company facts and feature detail stay there and are linked.",
+    "Editor (Opus): read the final draft and the writer's source report; comparison corrected: Profound now sells agents, so the split is reframed; Profound agency price omitted as unverifiable",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

@@ -1,54 +1,103 @@
 {
  "slug": "how-to-block-ai-crawlers",
  "type": "answer",
- "title": "How to Block AI Crawlers (and Why You Might Not Want To)",
- "metaTitle": "How to Block AI Crawlers (and Why You Might Not)",
- "metaDescription": "Block GPTBot, ClaudeBot, PerplexityBot and other AI crawlers with robots.txt or Cloudflare — plus the visibility tradeoff you should weigh before you do.",
+ "title": "How to Block AI Crawlers (and Which Ones to Leave Open)",
+ "metaTitle": "How to Block AI Crawlers (and Which to Leave Open)",
+ "metaDescription": "Block AI training bots with one robots.txt group, enforce it in Cloudflare, and keep search bots open. Copy-ready rules plus what 384 sites actually block.",
  "primaryKeyword": "how to block ai crawlers",
- "shortAnswer": "You block AI crawlers by adding their user agents to robots.txt — e.g. Disallow rules for GPTBot, ClaudeBot, PerplexityBot, Google-Extended and CCBot — or by blocking them at the CDN level (Cloudflare offers AI-bot controls). But blocking is a real tradeoff: it can remove you from AI answers and recommendations entirely, so decide per-bot based on whether you value AI visibility or content protection more.",
- "intro": "Every week another site owner asks us the same question, usually right after spotting ClaudeBot or GPTBot in their server logs: should I block this thing? The honest answer is that blocking is easy — the hard part is deciding whether you actually want to. This page covers both: the exact robots.txt and Cloudflare steps to block AI crawlers, and the tradeoff most guides skip entirely — that blocking a retrieval bot can quietly remove you from the AI answers your customers are already reading.",
+ "shortAnswer": "Block AI crawlers by naming their robots.txt tokens in one group followed by `Disallow: /`, and block only the training bots: GPTBot, ClaudeBot, Google-Extended, Applebot-Extended and CCBot. Leave search bots such as OAI-SearchBot, Claude-SearchBot and PerplexityBot open, or you drop out of those engines' answers. robots.txt is a request, so enforce it at your CDN if you need a real block.",
+ "intro": "Most advice on this topic stops at a list of `Disallow` lines. The harder part is choosing which bots to name, because the wrong block costs you citations, and the right file still only asks politely. This page gives you the rules to copy, the CDN step that enforces them, and a check for what your site blocks today. It leans on [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) (October 2026, 384 sites): 64 sites (16.7%) block at least one AI training bot, but only 37 (9.6%) block an AI retrieval bot. An [AI crawler](/glossary/ai-crawler) is any bot that fetches pages for a model's training, search index or live answers.",
  "sections": [
   {
-   "heading": "How Do You Block AI Crawlers?",
-   "body": "You block an AI crawler by naming its user agent in robots.txt and disallowing it — no plugin or paid tool required. Add a dedicated block for each bot you want to exclude:\n\n```\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: PerplexityBot\nDisallow: /\n\nUser-agent: Google-Extended\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /\n```\n\nSave that at yourdomain.com/robots.txt and well-behaved crawlers will stop requesting your pages. The catch: robots.txt is voluntary. It's a request, not a lock — compliant bots (which the major AI labs' crawlers generally are, per their own published documentation) honor it, but nothing technically stops a scraper that ignores it. If you need real enforcement rather than a polite ask, block at the CDN or server level too. Cloudflare added one-click AI-bot controls that fingerprint and block crawler traffic even when a bot misrepresents its user agent — that's the harder-enforcement option worth pairing with robots.txt, not replacing it with."
+   "heading": "How do you block AI crawlers in robots.txt?",
+   "body": "Put the training bots you want out in one robots.txt group and end it with `Disallow: /`. A compliant crawler matches the group by its token and stays out of the whole site. The rules live in a plain-text file defined by [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309), which says plainly that they \"are not a form of access authorization\".\n\nThis recipe opts out of training and leaves search and user-triggered access alone:\n\n```\nUser-agent: GPTBot\nUser-agent: ClaudeBot\nUser-agent: Google-Extended\nUser-agent: Applebot-Extended\nUser-agent: CCBot\nUser-agent: meta-externalagent\nDisallow: /\n\nUser-agent: *\nDisallow: /api/\n```\n\nTo protect one section instead of the whole site, give a bot its own path, for example `User-agent: GPTBot` then `Disallow: /research/`. Each token below comes from the operator's own page: [OpenAI](https://developers.openai.com/api/docs/bots), [Anthropic](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler), [Apple](https://support.apple.com/en-us/119829), [Common Crawl](https://commoncrawl.org/ccbot) and [Meta](https://developers.facebook.com/documentation/sharing/webmasters/web-crawlers).\n\nFive details decide whether the file works:\n\n- **A named group replaces `*`.** Under RFC 9309 a crawler obeys its own group and falls back to `*` only when none matches. Repeat any `*` rules you still want.\n- **Rules apply per host.** Anthropic asks you to add them to every subdomain you want to opt out.\n- **Changes lag.** OpenAI says its search systems need about 24 hours to adjust; Perplexity says up to 24 hours.\n- **Two tokens are controls, not crawlers.** [Google-Extended](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers) has no user-agent string, and Apple says Applebot-Extended does not crawl pages.\n- **Blocking looks forward.** Anthropic says restricting ClaudeBot signals that a site's future materials should be excluded from training; it does not recall data already collected."
   },
   {
-   "heading": "Which AI Crawlers Exist, and What Does Each One Do?",
-   "body": "AI crawlers split into two different jobs: training-data collection and live-answer retrieval, and conflating them is the most common mistake we see. CCBot (Common Crawl) and similar bots feed model training datasets — blocking them affects future model knowledge, not today's answers. Others, like PerplexityBot and OAI-SearchBot, fetch pages in real time to answer one specific user question right now — blocking those can mean your page simply can't be cited in that answer.\n\nGoogle-Extended is a special case worth knowing cold: it governs whether your content trains Gemini and powers Google's AI features, but it is entirely separate from Googlebot. Blocking Google-Extended does not touch your regular Google search rankings — the two are unrelated signals that Google deliberately keeps decoupled. For the full bot-by-bot breakdown of what each one fetches and how to tell training from retrieval at a glance, see our [AI crawler glossary](/glossary/ai-crawler); for a deep dive on the single most-discussed one, see the [GPTBot glossary entry](/glossary/gptbot)."
+   "heading": "Which AI crawlers should you block, and which should you leave open?",
+   "body": "Sort bots by job, not by company. Training bots feed model datasets, search bots build the index an engine cites from, and user-triggered fetchers load a page because someone asked. For a brand, block only the first group, if you block anything. Our [directory of 22 AI user agents](/blog/ai-crawler-user-agent-directory) has every token; this table is the decision.\n\n| Job | Examples | What the operator says blocking does | Our default for a brand |\n|---|---|---|---|\n| Training | GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot | Content is excluded from future model training | Optional |\n| Search | OAI-SearchBot, Claude-SearchBot, PerplexityBot | OpenAI: not shown in ChatGPT search answers. Anthropic: may reduce visibility. | Never block |\n| User-triggered | ChatGPT-User, Claude-User, Perplexity-User | OpenAI: robots.txt may not apply. Perplexity: generally ignores it. Anthropic: Claude-User is controllable. | Leave alone |\n\n![Two brass padlocks securing a graffiti-painted door](https://images.pexels.com/photos/10892979/pexels-photo-10892979.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\nOne trap catches people who want out of Google's AI answers. [Google says](https://developers.google.com/search/docs/appearance/ai-features) a page needs only to be indexed and snippet-eligible to appear in AI Overviews or AI Mode, and that Googlebot rules are the control. Blocking Google-Extended does not remove you. Snippet controls such as `nosnippet` and `max-snippet` limit what Search shows from your pages, but they shrink your normal listing too."
   },
   {
-   "heading": "Should You Actually Block Them? The Honest Tradeoff",
-   "body": "Blocking protects your content from being scraped, but it also removes you as a candidate whenever an AI assistant answers a question your page could have answered. That's the full trade — most advice on this topic only tells you half of it.\n\nIf you run a brand that wants to be discovered, recommended, or compared when someone asks ChatGPT, Perplexity, or Gemini a buying question, blocking retrieval bots like OAI-SearchBot or PerplexityBot works directly against that goal. You'd be asking to be excluded from the exact channel you're trying to win. We've written at length about why [blocking GPTBot is usually a mistake](/blog/blocking-gptbot-is-usually-a-mistake) for this reason — it's one of the more common self-inflicted visibility gaps we find when auditing a site.\n\nThe calculus flips if your content is the product itself — subscription journalism, proprietary datasets, anything you license rather than give away. There, training bots scraping your work for free is a real cost with no offsetting AI-visibility upside, and blocking is defensible. Know which category you're in before you copy-paste a blanket Disallow: /."
+   "heading": "Should your business block AI crawlers?",
+   "body": "If you want AI engines to name your brand, block none of their search bots. Training bots are a business decision that mostly matters to publishers with licensable archives. The real divide is who you are: 84.2% of publishers in our study block a training bot, against 6.2% of SaaS sites.\n\n| Group | Block at least one training bot | Block at least one retrieval bot |\n|---|---|---|\n| SaaS (n=193) | 12 (6.2%) | 1 (0.5%) |\n| E-commerce and consumer (n=90) | 9 (10%) | 4 (4.4%) |\n| News publishers (n=38) | 32 (84.2%) | 27 (71.1%) |\n| UGC and review sites (n=20) | 11 (55%) | 5 (25%) |\n| All sites (n=384) | 64 (16.7%) | 37 (9.6%) |\n\nNone of the 43 AI-visibility vendors blocked either kind, including aeoeye.com, whose robots.txt explicitly allows GPTBot, ClaudeBot, PerplexityBot, Google-Extended and CCBot. The study counts training bots as GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot, Bytespider and meta-externalagent, and retrieval bots as the search and user-triggered tokens in the table above. It counts policy, not outcomes: nothing here shows a block changed whether an engine recommends a site.\n\nOur positions:\n\n- **SaaS, stores, local and service businesses:** allow everything. Your risk is being absent, not being crawled.\n- **Paywalled or licensing-first publishers:** block the training tokens and keep search tokens open if referrals matter. Blocking retrieval bots as well is coherent only when licensing income beats citations.\n- **Worried about server load:** rate-limit instead. Anthropic supports `Crawl-delay` for its bots; [Apple says](https://support.apple.com/en-us/119829) Applebot does not.\n\nFor the GPTBot-specific argument, read [why blocking GPTBot is usually a mistake](/blog/blocking-gptbot-is-usually-a-mistake)."
   },
   {
-   "heading": "The Selective Middle Path — and Checking Your Current Setup",
-   "body": "Most sites don't need an all-or-nothing rule — the better default is allowing retrieval bots that can send you customers while blocking training-only bots that just feed a model for free. In practice that means leaving PerplexityBot, OAI-SearchBot, and ClaudeBot's retrieval traffic open, while disallowing pure training crawlers like CCBot if you're protective of your content.\n\nBefore you touch anything, check what your robots.txt currently allows — plenty of sites are blocking AI crawlers by accident, inherited from a template or a security plugin's default settings. Our [AI robots.txt generator](/tools/ai-robots-txt-generator) builds the exact rule set for the bots you choose, correctly separated by training versus retrieval, so you're not guessing at user-agent names or syntax.\n\nIf you're not sure whether your site currently shows up in AI answers at all — or which bots are actually hitting your logs — that's precisely what an AEOeye audit checks. [Run a free AI visibility audit](/#audit) and see where you actually stand before you decide what to block."
+   "heading": "How do you enforce a block at the CDN or firewall?",
+   "body": "To enforce a block rather than request it, filter at your CDN. On Cloudflare, AI Crawl Control lets you allow or block each AI crawler, and blocking creates a WAF rule on your zone. Match on user agent plus the operator's published IPs, because a user-agent string alone is only a claim.\n\nCloudflare gives you three layers:\n\n1. **Managed robots.txt.** Switch on the setting that blocks training in robots.txt, found under bot traffic in Security Settings. [Cloudflare's docs](https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/) show it prepending Disallow rules for Amazonbot, Applebot-Extended, Bytespider, CCBot, ClaudeBot, Google-Extended, GPTBot and meta-externalagent to your own file. That is training bots only, and Cloudflare itself says compliance is voluntary.\n2. **AI Crawl Control.** [Available on all plans](https://developers.cloudflare.com/ai-crawl-control/): set Allow or Block per crawler in the [Actions column](https://developers.cloudflare.com/ai-crawl-control/features/manage-ai-crawlers/). The free plan identifies crawlers by user-agent string; paid plans add deeper detection and a configurable block response (403, or 402 Payment Required).\n3. **Custom WAF rules.** Use them for path exceptions or extra user agents.\n\n![Iron gate secured with a padlock](https://images.pexels.com/photos/4006805/pexels-photo-4006805.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\nTwo cautions. First, Anthropic warns that blocking by IP address may stop its bots from reading your robots.txt, so opt-outs become unreliable; we would exempt `/robots.txt` from any firewall block. Second, a firewall is the only thing that stops user-triggered fetchers, but it also turns away the person who asked about you.\n\nThe same layer can block bots you want. [Perplexity's guide](https://docs.perplexity.ai/docs/resources/perplexity-crawlers) tells sites with a WAF to allow PerplexityBot and Perplexity-User by user agent and IP range. Of 375 homepages in our study, 60 (16%) blocked or challenged our declared research crawler, including 24 of 88 e-commerce sites."
+  },
+  {
+   "heading": "How do you check what you are blocking right now?",
+   "body": "Fetch your live robots.txt, read the group each token matches, then look in your firewall logs for refusals aimed at AI user agents. The file visitors receive is not always the copy in your repository, and a firewall can override a permissive file.\n\n1. **Open `yourdomain.com/robots.txt` and confirm it returns 200.** Under RFC 9309, a 4xx response lets crawlers access anything, while a 5xx means they must assume complete disallow. In our study, 30 of 384 sites (7.8%) had no robots.txt at all.\n2. **Check what a CDN adds.** Cloudflare's managed setting prepends its own rules, so read the final served file, not your source.\n3. **Find the group each token hits.** Search for `GPTBot`, `ClaudeBot`, `OAI-SearchBot`, `Claude-SearchBot` and `PerplexityBot`, then confirm none sits inside a `Disallow: /` group by accident. Templates, plugins and CDN settings can add them without you noticing.\n4. **Search your CDN logs for 403, 429 and challenge responses** on those user agents. Cloudflare's AI Crawl Control also lists crawlers that violate your robots.txt.\n5. **Wait a day, then test the outcome.** A clean file proves reachability, not recommendation. Our [free audit](/) shows whether ChatGPT names you for three unbranded buyer questions, and our [AI robots.txt generator](/tools/ai-robots-txt-generator) drafts a file that separates training from search."
   }
  ],
+ "comparisonTable": null,
  "keyTakeaways": [
-  "Block AI crawlers by adding User-agent/Disallow rules to robots.txt for GPTBot, ClaudeBot, PerplexityBot, Google-Extended, and CCBot.",
-  "robots.txt is voluntary compliance, not enforcement — compliant bots honor it, but pair it with Cloudflare's AI-bot controls if you need a real block.",
-  "AI crawlers split into two types: training bots (feed model datasets) and retrieval bots (fetch pages live to answer a user's question).",
-  "Google-Extended only controls Gemini/AI training — blocking it has zero effect on your Googlebot search rankings.",
-  "Blocking retrieval bots removes you from AI answers entirely; for most customer-facing brands that's a worse trade than the content protection it buys.",
-  "A selective setup — allow retrieval bots, block training-only bots — fits most sites better than a blanket block-all rule."
+  "Block training bots (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot) in one robots.txt group; leave search bots open.",
+  "robots.txt is a request: RFC 9309 says its rules are not access authorization, so use CDN rules for enforcement.",
+  "User-triggered fetchers such as ChatGPT-User and Perplexity-User may ignore robots.txt, and a firewall block turns away the person who asked.",
+  "Google-Extended does not control AI Overviews; Google says indexing and snippet eligibility decide.",
+  "In our 384-site study, 0.5% of SaaS sites block a retrieval bot against 71.1% of publishers."
  ],
  "faqs": [
   {
-   "q": "Does robots.txt actually stop AI crawlers?",
-   "a": "For the major AI labs' documented crawlers, yes in most cases — GPTBot, ClaudeBot, PerplexityBot and similar are built to check and honor robots.txt, per their own published documentation. But it's compliance-based, not enforced: nothing technically stops a bot from ignoring your Disallow rules, so robots.txt works as a request, not a wall. If you need guaranteed blocking, pair it with CDN-level controls like Cloudflare's AI bot blocking."
+   "q": "How do I block AI bots from my website?",
+   "a": "Add the training bots' tokens to one robots.txt group, such as GPTBot, ClaudeBot, Google-Extended, Applebot-Extended and CCBot, followed by Disallow: /. For enforcement, add a CDN or firewall rule, for example Cloudflare AI Crawl Control. Keep search bots like OAI-SearchBot and PerplexityBot allowed if you want AI engines to cite you."
   },
   {
-   "q": "Does blocking GPTBot affect my Google rankings?",
-   "a": "No. GPTBot and the AI crawlers covered here are entirely separate from Googlebot, which crawls for Google Search rankings. Even Google-Extended — Google's own AI-training crawler — is deliberately decoupled from Googlebot, so blocking it affects Gemini and AI features only, not your search visibility."
+   "q": "Does robots.txt stop AI crawlers?",
+   "a": "It stops crawlers that choose to comply. Anthropic says its bots honor robots.txt, and OpenAI and Perplexity document tokens for managing theirs. But OpenAI says ChatGPT-User may not follow it, and Perplexity says Perplexity-User generally ignores it. Cloudflare notes compliance is voluntary, so use firewall rules when you need enforcement."
   },
   {
-   "q": "How do I block AI bots in Cloudflare?",
-   "a": "In the Cloudflare dashboard, go to Security → Bots and enable the AI Bots / AI Scrapers and Crawlers controls. Cloudflare maintains its own list of known AI crawler fingerprints and can block them even when a request doesn't declare an honest user agent — a stronger layer than robots.txt alone, useful if you suspect bots that ignore your Disallow rules."
+   "q": "Will blocking AI crawlers hurt my Google rankings?",
+   "a": "Blocking AI-specific tokens does not. Google says Google-Extended does not affect inclusion in Google Search and is not a ranking signal. Blocking Googlebot itself would remove you from search, so never put it in an AI-bot group. Only 1 of the 384 sites in our study blocks Googlebot."
   },
   {
-   "q": "Can I block training but allow AI search?",
-   "a": "Yes, and for most sites this is the smarter default. Add separate robots.txt blocks per bot: disallow training-focused crawlers like CCBot while leaving retrieval bots like PerplexityBot and OAI-SearchBot open, since those are the ones that can actually surface your page in an AI answer a customer sees."
+   "q": "Can I block AI training but still appear in AI search?",
+   "a": "Yes. Operators control the jobs separately. OpenAI says you can allow OAI-SearchBot to appear in ChatGPT search while disallowing GPTBot, and Anthropic gives Claude-SearchBot its own token. Only 19 of the 384 sites in our study use that split (4.9%)."
+  },
+  {
+   "q": "Does blocking remove my content from models that already trained on it?",
+   "a": "No. Anthropic says restricting ClaudeBot signals that a site's future materials should be excluded from training datasets. OpenAI's wording is that disallowing GPTBot indicates content should not be used in training. Neither promises to remove what was already collected."
   }
- ]
+ ],
+ "image": {
+  "url": "https://images.pexels.com/photos/12785130/pexels-photo-12785130.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A close-up of a chain link fence with padlocks securing it, symbolizing high security outdoors.",
+  "photographer": "David McElwee",
+  "photographerUrl": "https://www.pexels.com/@davidmcelwee"
+ },
+ "sources": [
+  {
+   "label": "OpenAI — Overview of OpenAI Crawlers",
+   "url": "https://developers.openai.com/api/docs/bots"
+  },
+  {
+   "label": "Anthropic — Does Anthropic crawl data from the web, and how can site owners block the crawler?",
+   "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"
+  },
+  {
+   "label": "Perplexity — Perplexity Crawlers",
+   "url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers"
+  },
+  {
+   "label": "Google — List of Google's common crawlers",
+   "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers"
+  },
+  {
+   "label": "Google — AI features and your website",
+   "url": "https://developers.google.com/search/docs/appearance/ai-features"
+  },
+  {
+   "label": "Cloudflare — Managed robots.txt",
+   "url": "https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/"
+  },
+  {
+   "label": "Cloudflare — Manage AI crawlers (AI Crawl Control)",
+   "url": "https://developers.cloudflare.com/ai-crawl-control/features/manage-ai-crawlers/"
+  },
+  {
+   "label": "IETF — RFC 9309: Robots Exclusion Protocol",
+   "url": "https://www.rfc-editor.org/rfc/rfc9309"
+  }
+ ],
+ "updated": "2026-10-03"
 }

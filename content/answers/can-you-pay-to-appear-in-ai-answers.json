@@ -1,54 +1,135 @@
 {
   "slug": "can-you-pay-to-appear-in-ai-answers",
   "type": "answer",
-  "title": "Can You Pay to Appear in AI Answers? Not the Way You Think",
-  "metaTitle": "Can You Pay to Appear in AI Answers?",
-  "metaDescription": "Not directly — you can't buy a spot in ChatGPT or Google AI Overviews' organic answers. Here's what actually earns your brand a mention.",
+  "title": "Can You Pay to Appear in AI Answers? Ads Yes, Recommendations No",
+  "metaTitle": "Can You Pay to Appear in AI Answers? Ads Yes, Answers No",
+  "metaDescription": "You can buy ads in Google AI Overviews, ChatGPT and Copilot, but not the organic answer. A checked table of where ads run (Oct 2026) and how to earn a mention.",
   "primaryKeyword": "can you pay to appear in chatgpt",
-  "shortAnswer": "Not directly. As of 2026, you generally can't buy a guaranteed spot inside the organic answer that ChatGPT, Perplexity, or Google's AI Overview generates. Some engines are testing ads or sponsored placements around AI answers, but that's a separate product from the recommendation itself. The only reliable way to get named inside the actual answer is answer engine optimization (AEO) — earning it through entity clarity, third-party consensus, and citable content.",
-  "intro": "People ask this constantly: can you just pay ChatGPT to recommend your brand? The honest answer is no — not the way paid search ads work. AI answer engines like ChatGPT, Perplexity, and Google's AI Overview build their organic responses from training data, live retrieval, and reasoning, not from a bid you placed. That's a real shift from the search-ads world most marketers grew up in, and it trips a lot of people up. Here's what's actually true about paying for AI visibility right now, where advertising inside AI answers is really headed, and the one lever that does work.",
+  "shortAnswer": "You can pay for ads near or inside some AI answers, but not for the organic answer itself. As of October 2026, Google runs ads in AI Overviews and is testing them in AI Mode, OpenAI shows ads to some ChatGPT Free and Go users, and Microsoft sells Copilot ads. Each labels them as ads, and OpenAI says ads do not influence ChatGPT's answers. Earning a mention takes work, not budget.",
+  "intro": "The question mixes two products. An ad is a labelled slot that a platform sells you. A recommendation is the list of brands the model writes itself. Ads on AI surfaces are real and growing; recommendations are still not for sale.\n\nThis guide is based on each company's public pages, checked on 3 October 2026. We have not bought or run any of these ad products ourselves.",
   "sections": [
     {
       "heading": "Can you pay to appear in AI answers?",
-      "body": "No — not for the actual recommendation. When ChatGPT, Perplexity, or Google's AI Overview names a brand as the answer to \"best CRM for a small team\" or \"most reliable moving company,\" that selection comes from the model's training and retrieval process, not a media buy. There's no self-serve dashboard where you set a budget and buy your way into that sentence.\n\nWhat you can increasingly pay for is something adjacent: placement near an AI answer, not inside its organic reasoning. Google has said ads will run alongside AI Overviews, the same way search ads sit next to organic results today. Perplexity has rolled out sponsored formats around its answers. OpenAI has been testing commerce and shopping features inside ChatGPT rather than traditional display ads. All of this moves fast and details change, so treat any specific claim about a given engine's ad program as a snapshot, not gospel — but the pattern is consistent: sponsored content and the model's own answer are kept as two different things, at least publicly. If you're evaluating a specific engine's current ad policy, check that engine's own advertiser or help documentation directly — these programs are being iterated in real time, and what's true this quarter may not hold next quarter."
+      "body": "Yes for ads, no for the answer. You can buy a labelled ad slot on several AI surfaces, but no engine sells a place in its own recommendation. Google says it [does not accept payment to rank pages higher](https://developers.google.com/search/docs/fundamentals/how-search-works), and OpenAI says [advertisers cannot shape, rank or alter ChatGPT's responses](https://help.openai.com/en/articles/20001047-ads-in-chatgpt).\n\nThere are two different things people mean by \"appearing in an AI answer\":\n\n- **An ad.** A slot the platform sells, labelled as an ad, priced by auction or bid, usually below the answer.\n- **A recommendation.** The brand names the model writes itself after retrieving and weighing sources. It has no price.\n\nOne format blurs that line. Google's [20 May 2026 announcement](https://blog.google/products/ads-commerce/google-marketing-live-search-ads/) says ads can be \"eligible to appear on that list\" when AI Mode returns a list of recommendations, as a Highlighted Answer. Google calls it a test, says it stays labelled \"Sponsored\", and shows an independent AI explainer beside the ad.\n\nOur reading: paying buys a labelled card inside the list, not a change to the list. Google does not say whether paying affects the organic list either way, and we cannot test it, so do not budget on the assumption that it does.\n\n![Blue payment terminal with a receipt and gold coins on a blue background](https://images.pexels.com/photos/12920746/pexels-photo-12920746.jpeg?auto=compress&cs=tinysrgb&w=1200)"
     },
     {
-      "heading": "Ads vs organic AI answers",
-      "body": "They're not the same product, and confusing them costs marketers real money. A sponsored placement next to an AI answer is labeled, positioned separately, and paid for directly. The organic answer — the actual sentence recommending a brand — is generated by the model reasoning over what it knows and what it retrieves, and buying an ad slot doesn't make that generation process more likely to name you the next time someone asks an unprompted question in a fresh chat.\n\nThis distinction matters because it's easy to assume ad spend equals AI visibility. It doesn't. A user might see your sponsored link next to an AI Overview and, in a completely separate conversation with no ads involved, ask \"what's the best project management tool\" and never hear your name. The ad bought a placement; it didn't buy a recommendation. If your AI visibility strategy is just redirected ad budget, you're solving the wrong problem — you're buying attention that looks like AI visibility but isn't the same as being the model's actual answer."
+      "heading": "Where do ads appear in AI search today?",
+      "body": "Ads exist today in Google AI Overviews, in Google AI Mode (as a test), in ChatGPT for some Free and Go users, and in Microsoft Copilot. Perplexity has stepped back from ads and Claude is ad-free. This table reflects each company's own pages as checked on 3 October 2026; formats change quickly, so re-check before you plan spend.\n\n| Surface | Ads? | Where they appear | What the source says |\n|---|---|---|---|\n| Google AI Overviews | Yes | Above, below or within the Overview | Text and Shopping ads; [within-Overview ads are English-only in 12 countries including the US](https://support.google.com/google-ads/answer/16297775?hl=en); not shown for sensitive verticals such as finance and healthcare |\n| Google AI Mode | Testing | Below and integrated into the response | New formats announced [May 2026](https://blog.google/products/ads-commerce/google-marketing-live-search-ads/): Conversational Discovery ads and Highlighted Answers, labelled \"Sponsored\" |\n| ChatGPT | Test, Free and Go plans | Below the end of a response | [Testing began in the US on 9 February 2026](https://help.openai.com/en/articles/20001047-ads-in-chatgpt); no ads for Plus, Pro, Business, Enterprise or Edu |\n| Microsoft Copilot | Yes | Below the organic Copilot response | [Microsoft's July 2025 post describes an \"Ad Voice\" explaining why an ad is relevant](https://about.ads.microsoft.com/en/blog/post/july-2025/how-generative-ai-is-reshaping-search-a-qa-with-nicole-schumacher); [Offer Highlights added in April 2026](https://about.ads.microsoft.com/en/blog/post/april-2026/win-across-all-three-eras-of-the-web) |\n| Perplexity | Not now | None | [Reported in February 2026](https://www.macrumors.com/2026/02/18/perplexity-abandons-ai-advertising/): sponsored answers phased out in 2025, no plan to return |\n| Claude | No | None | Anthropic: [\"Claude will remain ad-free\"](https://www.anthropic.com/news/claude-is-a-space-to-think) (4 February 2026) |\n\nThe Google Ads Help page for AI Overviews contains the detail that matters most to buyers. You [cannot opt out, cannot target placements inside AI Overviews directly, and get no segmented reporting](https://support.google.com/google-ads/answer/16297775?hl=en) for them. So you cannot see what share of your spend ran there, which makes ad spend a poor way to measure AI visibility.\n\nWe did not verify whether ads run in the Gemini app, so it is not in the table."
     },
     {
-      "heading": "The only real path: earn it with AEO",
-      "body": "The one way to consistently show up inside the actual AI answer is to earn it — through entity clarity, third-party consensus, and content the model can confidently cite. That combination is what [answer engine optimization](/blog/what-is-answer-engine-optimization) is actually about, and it's a completely different discipline from buying ad slots.\n\nThree pieces do the real work:\n\n- **Entity clarity** — your brand name, category, and \"who this is for\" description need to be consistent everywhere the model might encounter them: your site, directories, schema markup, social profiles. A model that can't confidently identify what you are won't recommend you, no matter how good you are.\n- **Third-party consensus** — independent mentions matter more than your own claims. Reviews, comparison posts, forum threads, and roundups that agree on what you're good at give the model corroborating evidence. Your homepage saying \"the best X\" carries far less weight than five unrelated sources saying the same thing.\n- **Citable content** — pages built around specific, checkable facts and direct answers that a model can quote or paraphrase with confidence, instead of vague marketing language it has no way to verify.\n\nNone of this is instant, and none of it can be bought outright — which is exactly why it's a durable advantage once you build it."
+      "heading": "Can you pay for organic AI recommendations?",
+      "body": "No. No engine sells organic recommendations, and the ones that comment say so. Google states it [does not accept payment to rank pages higher](https://developers.google.com/search/docs/fundamentals/how-search-works). OpenAI says [ChatGPT's product results are selected independently, are not ads, and are not influenced by partnerships](https://help.openai.com/en/articles/11128490-shopping-with-chatgpt-search).\n\nPeople still pay for three things that sit next to the answer. Here is our view of each:\n\n1. **Sponsored posts on other sites.** Do not expect these to earn citations. In a University of Toronto study of a web-enabled GPT, US software queries drew [72.7% earned media and 26.7% brand-owned sources](https://arxiv.org/abs/2509.08919), against 45.4% and 43.7% for Google. We have no data on whether engines discount sponsored posts, and Google's [spam policies](https://developers.google.com/search/docs/essentials/spam-policies) treat paid articles with ranking-credit links as link spam.\n2. **Agencies and tools.** You pay for work or measurement, never for placement. A guarantee that you will be named is a red flag; our [nine questions to ask an AEO agency](/blog/answer-engine-optimization-agency) cover what to ask instead.\n3. **Product feeds.** This is data, not a purchase. OpenAI's help page says Shopify merchants are already integrated through Shopify Catalog and that other merchants [can apply for direct product-feed access](https://help.openai.com/en/articles/11128490-shopping-with-chatgpt-search). Complete, current product data is the closest thing to a lever e-commerce brands have.\n\n![A cardboard hand holding a coin above a jar, standing for saving instead of spending](https://images.pexels.com/photos/5849596/pexels-photo-5849596.jpeg?auto=compress&cs=tinysrgb&w=1200)"
     },
     {
-      "heading": "How to start earning AI recommendations",
-      "body": "Start by finding out where you actually stand, not where you assume you stand. Run an audit that checks whether ChatGPT, Perplexity, Gemini, and Google's AI actually name your brand today when a buyer asks the questions that matter to your business — then fix the specific gaps it turns up, following the steps in [how to get your business recommended by AI](/blog/how-to-get-your-business-recommended-by-ai).\n\nIn practice that means: see which engines mention you and which don't, figure out why (missing entity clarity, thin third-party coverage, content that's not structured for extraction), fix the highest-impact gap first, and re-check after a few weeks since training data and retrieval indexes don't update instantly. Most brands are surprised by the pattern: strong in one engine, invisible in another, simply because the underlying signals differ by engine. This is slower than buying an ad, and that's the point — it's not rentable, so once you've earned it, it's yours.\n\nIf you want to see exactly where your brand stands across ChatGPT, Perplexity, Gemini, and Google AI right now, [run a free AEOeye audit](/#audit) and start from real data instead of guesses."
+      "heading": "Should you buy ads on AI surfaces anyway?",
+      "body": "Buy AI-surface ads only when the query is commercial and your ad already converts in classic search, and budget them separately from AI visibility. An ad stops when the budget does. A recommendation earned from independent coverage does not depend on your spend, and it is the more valuable of the two.\n\nWhy we say recommendations are worth more, with a caveat. In AEOeye's recommendation benchmark (127 audits from 26 June to 7 September 2026, 27 brand names), 71.4% of 147 ranked brand mentions were in first place. That sample is small and self-selected, so treat it as a pattern, not a market rate; the [measurement hub](/blog/ai-brand-recommendation-measurement) lists the numbers and limits, and the [benchmark file](/resources/aeoeye-recommendation-benchmark-2026-09.json) is public. The pattern: when an answer names your brand, it usually names it first.\n\nPractical limits to know before you spend:\n\n- **Google** requires [AI-powered targeting such as broad match, AI Max, Performance Max, Shopping campaigns or Dynamic Search Ads](https://support.google.com/google-ads/answer/16297775?hl=en) for ads in AI Overviews.\n- **OpenAI** says ad ranking considers [relevance and advertiser bids](https://help.openai.com/en/articles/20001047-ads-in-chatgpt), and ads are not eligible near sensitive topics such as personal health, mental health or politics.\n- **Both** keep ads visibly separate, so a good ad does not make the model say your name in its own text."
+    },
+    {
+      "heading": "How do you earn AI recommendations instead?",
+      "body": "Measure where you stand, keep AI crawlers allowed, earn independent coverage, and make your pages easy to quote. This takes weeks, not a budget line, but it is the only route that changes what the engine writes. [How AI assistants decide which brands to recommend](/blog/how-ai-assistants-choose-brands) explains the mechanics.\n\n1. **Measure first.** Ask each engine ten buyer questions without naming your brand, then repeat on another day, because answers vary. AEOeye's [free audit](/) runs three unbranded questions live on ChatGPT and shows the real answers. Engines differ, so check each one separately.\n2. **Do not block retrieval bots.** OpenAI says [sites opted out of OAI-SearchBot are not shown in ChatGPT search answers](https://developers.openai.com/api/docs/bots). In AEOeye's crawler access study (October 2026, 384 sites), only 1 of 193 SaaS sites blocked any AI retrieval bot, so for most brands the gap lies elsewhere. The [crawler directory](/blog/ai-crawler-user-agent-directory) has the data.\n3. **Earn third-party coverage.** Reviews, comparisons and roundups written by others were the sources AI search leaned on in the Toronto test above, so that is where to earn mentions.\n4. **State who you are, consistently, and write quotable pages.** Use the same brand name, category and who-it-is-for line on your site, directories and profiles so an engine can identify you. Google says [no special optimization is needed for AI Overviews or AI Mode](https://developers.google.com/search/docs/appearance/ai-features); a page must be indexed and eligible to show with a snippet. There is no setting to buy either. See [what an AI Overview is](/blog/what-is-an-ai-overview).\n5. **Re-measure in batches** and fix the largest gap first, following [how to get your business recommended by AI](/blog/how-to-get-your-business-recommended-by-ai).\n\n![A green plant growing from a jar of coins on a table](https://images.pexels.com/photos/6774947/pexels-photo-6774947.jpeg?auto=compress&cs=tinysrgb&w=1200)"
     }
   ],
+  "comparisonTable": null,
   "keyTakeaways": [
-    "You can't buy the actual AI-generated recommendation inside ChatGPT, Perplexity, or Google's AI Overview — no bid places your brand in that sentence.",
-    "Some engines are testing or running labeled ads/sponsored content near AI answers, but that's a separate product from the organic answer itself.",
-    "Ad spend and AI recommendation visibility measure different things — don't assume buying one buys the other.",
-    "The only reliable path to being named is AEO: entity clarity, third-party consensus, and citable content.",
-    "Independent third-party mentions — reviews, comparisons, forum threads — carry more weight with models than your own homepage claims.",
-    "Start with an audit to see where you actually stand across engines before trying to fix anything."
+    "Ads in AI surfaces are real (Google AI Overviews, ChatGPT Free and Go tests, Copilot); organic recommendations are not for sale.",
+    "Google's AI Mode test lets ads appear as a labelled Highlighted Answer in a recommendation list, but it remains an ad.",
+    "You cannot opt out of, target, or separately report on Google ads inside AI Overviews, so ad spend does not measure AI visibility.",
+    "Perplexity has reportedly stepped back from ads, and Anthropic says Claude will remain ad-free.",
+    "The route that changes the answer is slower: allow AI crawlers, earn independent coverage, publish quotable pages."
   ],
   "faqs": [
     {
       "q": "Are there ads in ChatGPT?",
-      "a": "Not in the traditional display-ad sense, as of 2026. OpenAI has been testing commerce and shopping-related features inside ChatGPT rather than dropping banner ads into every conversation. If and when sponsored content does appear, expect it to be labeled and kept separate from ChatGPT's own conversational recommendation — so don't assume you can currently buy a slot inside a normal answer."
+      "a": "Yes, in a test. OpenAI's help center says ads may appear for users on the Free and Go plans, below the end of a response, labelled as sponsored and visually separated. Plus, Pro, Business, Enterprise and Edu accounts do not see ads. OpenAI says ads do not influence ChatGPT's answers, and advertisers can sign up at ads.openai.com."
     },
     {
       "q": "Can I pay Google to appear in AI Overviews?",
-      "a": "You can pay for ads that run alongside the AI Overviews experience, the same way search ads sit next to organic results — but that's not the same as paying to be the brand the AI Overview text itself recommends. The summary is still generated from Google's own retrieval and ranking process, not a bid."
+      "a": "You can pay for ads that Google may show above, below or within AI Overviews, but not for the Overview's own text. Google Ads Help says ads appear when its systems find commercial intent and a relevant ad, require AI-powered targeting such as broad match, and cannot be opted out of or targeted to AI Overviews alone."
     },
     {
-      "q": "Is there an ad product for Perplexity?",
-      "a": "Yes — Perplexity has introduced sponsored formats that appear around its answers. They're labeled as sponsored and sit separately from Perplexity's own generated response, so buying one doesn't guarantee your brand gets named when someone asks an unrelated, unprompted question later."
+      "q": "Does Perplexity or Claude sell ads?",
+      "a": "Not currently, according to the sources we checked. Anthropic states that Claude will remain ad-free and that responses will not be influenced by advertisers. Perplexity phased out sponsored answers in 2025, and executives told the Financial Times in February 2026 that they do not plan to revisit them, as reported by MacRumors."
     },
     {
-      "q": "How do I get recommended without paying?",
-      "a": "Focus on the three things that actually earn a mention: entity clarity, third-party consensus, and citable content — the pillars of answer engine optimization (AEO). Start by auditing where you stand today, then close the specific gaps engine by engine."
+      "q": "Do ads change which brands an AI recommends?",
+      "a": "OpenAI says no: ads run on separate systems from its chat model, and advertisers cannot shape or rank responses. Google describes AI Mode ads as separately labelled units but does not say whether they affect organic lists. We have not tested either claim, so measure your own answers before and after any campaign."
+    },
+    {
+      "q": "How do I get recommended by AI without paying?",
+      "a": "Check which buyer questions name you, keep AI search crawlers allowed in robots.txt, earn independent reviews and comparisons, and publish pages that state facts clearly enough to quote. Then re-check in batches, because answers vary from run to run. Expect weeks rather than days."
     }
-  ]
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/3570239/pexels-photo-3570239.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "A close-up of a hand using a payment terminal with currency notes and a money box in view",
+    "photographer": "Hook Tell",
+    "photographerUrl": "https://www.pexels.com/@hook-tell-1947041"
+  },
+  "sources": [
+    {
+      "label": "Google Search Central — In-depth guide to how Google Search works",
+      "url": "https://developers.google.com/search/docs/fundamentals/how-search-works"
+    },
+    {
+      "label": "Google Ads Help — About ads and AI Overviews",
+      "url": "https://support.google.com/google-ads/answer/16297775?hl=en"
+    },
+    {
+      "label": "Google Ads & Commerce Blog — A new generation of ads for the AI era of Search (20 May 2026)",
+      "url": "https://blog.google/products/ads-commerce/google-marketing-live-search-ads/"
+    },
+    {
+      "label": "Google Search Central — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "label": "OpenAI Help Center — Ads in ChatGPT",
+      "url": "https://help.openai.com/en/articles/20001047-ads-in-chatgpt"
+    },
+    {
+      "label": "OpenAI Help Center — Shopping with ChatGPT Search",
+      "url": "https://help.openai.com/en/articles/11128490-shopping-with-chatgpt-search"
+    },
+    {
+      "label": "OpenAI — Overview of OpenAI crawlers",
+      "url": "https://developers.openai.com/api/docs/bots"
+    },
+    {
+      "label": "Microsoft Advertising — How generative AI is reshaping search (July 2025)",
+      "url": "https://about.ads.microsoft.com/en/blog/post/july-2025/how-generative-ai-is-reshaping-search-a-qa-with-nicole-schumacher"
+    },
+    {
+      "label": "Microsoft Advertising — Win across all three eras of the web (April 2026)",
+      "url": "https://about.ads.microsoft.com/en/blog/post/april-2026/win-across-all-three-eras-of-the-web"
+    },
+    {
+      "label": "Anthropic — Claude is a space to think",
+      "url": "https://www.anthropic.com/news/claude-is-a-space-to-think"
+    },
+    {
+      "label": "MacRumors — Perplexity Abandons AI Advertising Strategy Over Trust Worries (18 Feb 2026)",
+      "url": "https://www.macrumors.com/2026/02/18/perplexity-abandons-ai-advertising/"
+    },
+    {
+      "label": "arXiv — Generative Engine Optimization: How to Dominate AI Search",
+      "url": "https://arxiv.org/abs/2509.08919"
+    },
+    {
+      "label": "Google Search Central — Spam policies for Google web search",
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+    }
+  ],
+  "definitions": [
+    {
+      "term": "AI Overview",
+      "definition": "A Google Search feature that shows an AI-generated summary with supporting links above or among the results when Google's systems judge it helpful.",
+      "sourceUrl": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "term": "Highlighted Answer",
+      "definition": "A Google ad format announced in May 2026 in which an ad is eligible to appear on a list of recommendations in AI Mode, labelled Sponsored.",
+      "sourceUrl": "https://blog.google/products/ads-commerce/google-marketing-live-search-ads/"
+    }
+  ],
+  "updated": "2026-10-03"
 }

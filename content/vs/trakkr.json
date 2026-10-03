@@ -1,58 +1,44 @@
 {
  "slug": "trakkr",
  "type": "vs",
- "title": "AEOeye vs Trakkr: Free Instant Audit or Daily Paid Monitoring?",
- "metaTitle": "AEOeye vs Trakkr: Honest AI Visibility Comparison",
- "metaDescription": "AEOeye vs Trakkr compared honestly: free instant AI visibility audit vs daily paid monitoring across 8 models. See pricing, engines, speed and who each fits.",
- "primaryKeyword": "aeoeye vs Trakkr",
- "shortAnswer": "AEOeye gives a free, instant AI visibility audit — no signup or trial clock — so a non-expert sees in seconds whether ChatGPT, Perplexity, Google AI, Claude and Gemini recommend their brand. Trakkr is a trial-then-paid platform ($79+/mo) built for ongoing, daily monitoring across 8 AI models with competitor benchmarking, citation mapping and weekly action playbooks. Choose AEOeye to check fast and free; choose Trakkr if you have a team to run continuous, agency-grade tracking.",
- "intro": "AEOeye and Trakkr both answer the same question — are AI models recommending your brand? — but they're built for different moments. AEOeye is a free, instant audit you run before committing to anything. Trakkr is a subscription that watches your AI visibility every day and gives your team a workflow to act on it.\n\nThis is a fair head-to-head. Trakkr is genuinely strong at ongoing monitoring and is built for agencies and marketing teams; AEOeye is newer and lighter on enterprise analytics and historical dashboards. The right pick depends on whether you need a quick answer or a continuous program.",
+ "title": "AEOeye vs Trakkr: One-Off Audit or Daily Monitoring?",
+ "metaTitle": "AEOeye vs Trakkr: Which Should You Use? (2026)",
+ "metaDescription": "AEOeye vs Trakkr, honestly: a free ChatGPT check and $29 five-engine report versus Trakkr's daily tracking from $100 a month. Who should pick which.",
+ "primaryKeyword": "AEOeye vs Trakkr",
+ "shortAnswer": "Choose Trakkr if you need to watch how AI engines name your brand every day and someone will act on it weekly; it starts at $100 a month for one brand. Choose AEOeye if you want to know once, cheaply, whether ChatGPT, Claude, Gemini, Google AI and Perplexity recommend you: a free ChatGPT check, then a $29 one-time report. AEOeye is not monitoring.",
+ "intro": "This comparison is based on public documentation as of October 2026: Trakkr's pricing page, billing guide, FAQ and terms. We have not used Trakkr hands-on, and AEOeye is our own product, so read our claims about it with that in mind. Everything about Trakkr below comes from Trakkr's own pages and is dated; everything about AEOeye is what we ship.\n\nThe two answer different questions. Trakkr answers \"how is our AI visibility moving?\" AEOeye answers \"are we visible at all, and who is named instead?\" Most readers need the second answer first.",
  "sections": [
   {
-   "heading": "The core difference: a free check vs. a paid program",
-   "body": "The cleanest way to separate these two is by commitment. AEOeye is a free, instant audit. You enter your brand and a buyer-style question, and within seconds you see whether ChatGPT, Perplexity, Google AI, Claude and Gemini recommend you, roughly where you rank, and which competitors are winning the answer. No card, no trial clock, no sales call — it's designed so a non-expert gets a clear read in one sitting.\n\nTrakkr is a program, not a one-off check. After a 14-day free trial (no card), it becomes a recurring subscription starting at $79/mo that tracks your visibility daily across eight AI models and assembles trends, benchmarks and playbooks over time. That ongoing cadence is the point — and the cost.\n\nSo the decision isn't really 'which tool is better.' It's whether you need to *find out now* (AEOeye) or *watch continuously and act every week* (Trakkr). Many teams start with a free AEOeye audit to see if there's a problem worth a paid monitoring subscription at all."
+   "heading": "Which should you choose, AEOeye or Trakkr?",
+   "body": "Choose by the question you are asking. If it is \"do AI engines recommend us at all?\", run AEOeye once. If it is \"is our share of AI answers rising, and who moved?\", you need a daily tracker, and Trakkr is built for that job.\n\n- **Pick AEOeye if** you have never read what the five engines say about you, you want a fixed price, or you want to see who gets named instead of you.\n- **Pick Trakkr if** you already know AI answers affect your sales, someone will open the dashboard every week, and you need trends and eight models rather than a snapshot.\n- **Use both, in that order:** [run the free audit](/) first, subscribe to a tracker only if the gap is worth watching.\n\nOur position: paying $1,000 a year for a trend line you have never looked at once is the common mistake. Look first, then subscribe."
   },
   {
-   "heading": "Where Trakkr is genuinely stronger",
-   "body": "Credit where it's due: for ongoing, multi-brand monitoring, Trakkr does more than a free audit can. It tracks eight AI models — ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Grok, DeepSeek and Meta AI — on a daily basis, so you see trends rather than a single snapshot. It adds competitor benchmarking, citation source mapping (which pages and domains the models pull from), perception scoring, and weekly prioritized action playbooks that tell your team what to fix next.\n\nIt's also built for agencies. The Scale plan ($399/mo) covers 10 brands with white-label reporting and API access — useful if AI visibility is a service you sell to clients. AEOeye, by contrast, is lighter on historical dashboards and enterprise-grade analytics today; its deeper multi-engine querying activates with usage rather than arriving as a polished daily command center on day one.\n\nIf you have marketing capacity to run a continuous AEO/GEO program and want one dashboard to manage it, Trakkr is built for exactly that, and it's a reasonable choice."
+   "heading": "What is each tool built for?",
+   "body": "Trakkr monitors; AEOeye diagnoses once. Trakkr's [FAQ](https://trakkr.ai/learn/docs/faq) says it sends each tracked prompt to the model providers' own APIs every day and records which brands each answer names, and in what order. AEOeye asks buyer questions once and shows you the answers.\n\nBeyond the daily scores, Trakkr's documentation describes citation tracking, perception analysis, competitor discovery, a page-by-page action pipeline and an assistant it calls the Agent. It tracks eight models: ChatGPT, Claude, Gemini, Perplexity, DeepSeek, Grok, Meta AI and Google AI Overviews.\n\nAEOeye's free audit asks ChatGPT three unbranded buyer questions live and shows the full answers, the competitors named instead of you and starter fixes. The [$29 report](/pricing) adds Claude, Gemini, Google AI and Perplexity, ten questions instead of three, a five-layer SEO foundation audit and a fix roadmap by PDF. Each engine is tested at the default tier a free user would get; [how it works](/how-it-works).\n\nBoth sit under what [Wikipedia](https://en.wikipedia.org/wiki/Generative_engine_optimization) calls generative engine optimization, also known as answer engine optimization (AEO)."
   },
   {
-   "heading": "Where AEOeye wins: speed, price and zero friction",
-   "body": "AEOeye's edge is that there's nothing to commit to. It's free to start, instant, and requires no signup, no card and no contract — which matters most for the people Trakkr's pricing pinches: solo founders, small businesses and anyone who just wants to know where they stand before spending.\n\nThree practical advantages stand out. First, time-to-answer: AEOeye returns a result in seconds, versus setting up prompts and waiting for daily data to accumulate. Second, the learning curve: AEOeye is built for non-experts, so you don't need acquired intuition about AI behavior to read it — a common complaint about dashboards is that they show data but not always what to do. Third, blind multi-engine querying: it asks ChatGPT, Perplexity, Google AI, Claude and Gemini the questions real buyers ask, so the result reflects genuine recommendations, not a self-flattering setup.\n\nThe honest trade-off: AEOeye is lighter on long-run trend history and the agency tooling Trakkr offers. If continuous tracking is your job, you'll eventually want more than a free audit gives."
+   "heading": "How do AEOeye and Trakkr compare side by side?",
+   "body": "They differ on price, cadence and depth. The table sets the documented facts next to each other. Trakkr figures are US dollars from its [pricing page](https://trakkr.ai/pricing) and [billing guide](https://trakkr.ai/learn/docs/account/billing), checked on 2026-10-03, before tax. Add-ons and annual maths are in our [Trakkr pricing breakdown](/blog/trakkr-pricing)."
   },
   {
-   "heading": "Cost and the small-business question",
-   "body": "Cost is where the two diverge most. AEOeye's core audit is free, so the barrier to a first answer is zero. Trakkr offers a 14-day trial with no card, but there's no open free tier for ongoing use — to keep monitoring you commit to a recurring subscription. Reviews repeatedly note it 'may be steep for small businesses,' and that fuller value sits in the higher Scale tier (~$399/mo). Annual billing saves roughly 17%.\n\nThere are real constraints to plan around on Trakkr regardless of price. Tracking is capped at 50 prompts per brand even on paid plans, which can feel tight as you broaden coverage. And because AI answers vary across models and shift over time, Trakkr is explicitly a trend-tracking tool, not an exact ranking — the whole AEO category is young and best practices keep moving.\n\nThe sensible path for budget-conscious teams: run AEOeye free first. If it surfaces a clear, recurring visibility gap and you have the capacity to act on weekly playbooks, Trakkr's subscription may pay for itself. If you mainly need to check and occasionally re-check, the free audit is enough."
-  }
- ],
- "keyTakeaways": [
-  "AEOeye is a free, instant AI visibility audit — no signup, card or trial clock; Trakkr is a trial-then-paid subscription starting at $79/mo.",
-  "Trakkr is genuinely stronger for ongoing work: daily tracking across 8 AI models, competitor benchmarking, citation mapping, perception scoring and weekly action playbooks.",
-  "Trakkr is built for agencies and marketing teams — the $399/mo Scale plan adds 10 brands, white-label reporting and API access.",
-  "AEOeye wins on speed (seconds to first result), price (free), and ease for non-experts who don't want to read dashboards.",
-  "Honest limits: AEOeye is lighter on historical dashboards and enterprise analytics; Trakkr caps tracking at 50 prompts per brand and gives data, not done-for-you fixes.",
-  "Smart move: run AEOeye free first to see if there's a problem, then commit to Trakkr if you have the team to run continuous monitoring."
- ],
- "faqs": [
-  {
-   "q": "Is AEOeye really free, or is it a trial like Trakkr?",
-   "a": "AEOeye's core audit is genuinely free to run — no card, no signup requirement and no trial countdown. Trakkr offers a 14-day free trial (no card), but after that it's a paid subscription starting at $79/mo, with no open free tier for ongoing use."
+   "heading": "Where is Trakkr stronger?",
+   "body": "Trakkr is stronger at everything that needs repetition: trends, coverage, volume and workflow. If your question is \"what changed since last month?\", a one-off report cannot answer it.\n\n**Repeated sampling.** SparkToro's study of 2,961 runs across ChatGPT, Claude and Google AI found [under a 1 in 100 chance](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) that ChatGPT or Google's AI repeats the same brand list, and its author suggests asking 60 to 100 times and averaging. Daily runs give Trakkr about 30 samples per prompt per month; one AEOeye run is one sample.\n\n**Volume.** Trakkr counts a data point as one query to one model. Growth lists [12,000 data points](https://trakkr.ai/pricing) a month, which is 50 prompts times 8 models times 30 days. At $100 that is under one cent each (our arithmetic); AEOeye's 50 answers for $29 cost 58 cents each, once.\n\n**Coverage and workflow.** Grok, DeepSeek and Meta AI are tracked; AEOeye covers five engines. Trakkr also offers [MCP access, CSV and Sheets export](https://trakkr.ai/learn/docs/account/billing), and on Scale a REST API and white-label client portals.\n\n**Exit terms.** New subscribers get a [14-day money-back guarantee](https://trakkr.ai/terms)."
   },
   {
-   "q": "How many AI engines does each tool check?",
-   "a": "AEOeye queries ChatGPT, Perplexity, Google AI, Claude and Gemini with the questions real buyers ask. Trakkr tracks eight models daily: ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Grok, DeepSeek and Meta AI. Trakkr covers more engines and tracks them continuously over time."
+   "heading": "Where is AEOeye stronger?",
+   "body": "AEOeye is stronger at the first question: it costs the least to find out where you stand. The ChatGPT audit is free, and the five-engine report is $29 once, with no subscription to cancel.\n\n![Close-up of a checklist with green checkmarks on white paper](https://images.pexels.com/photos/11412596/pexels-photo-11412596.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\n- **No card on a clock.** Trakkr's [14-day trial needs a card](https://trakkr.ai/learn/docs/account/billing) and converts to $100 a month unless you cancel.\n- **Engines at the default tier.** We test each engine at the tier your buyers get for free, not a stronger one.\n- **A fix list, not only a score.** The report ends with a roadmap and a five-layer SEO foundation audit.\n\nThe honest limit: AEOeye shows a snapshot, not a trend. It cannot tell you whether last month's fix worked. Treat absence as the strong signal. If you are missing from every engine across several questions, that is robust; a single \"named third\" is one sample, not a rank. Re-run after you change something."
   },
   {
-   "q": "Which is better for a small business or solo founder?",
-   "a": "Usually AEOeye to start. It's free and instant, so you can see where you stand without committing budget. Trakkr is powerful but reviews note its subscription 'may be steep for small businesses,' and the fuller value sits in the $399/mo Scale tier. If you later need daily monitoring and have time to act on it, Trakkr makes sense."
+   "heading": "What does a year cost with each tool?",
+   "body": "A year of Trakkr Growth costs $1,000 on annual billing or $1,200 paid monthly; AEOeye's report is $29 once. They buy different things: Trakkr's price covers 365 daily runs of 50 prompts across eight models, ours covers one run of ten questions across five engines.\n\nTwo details change the Trakkr bill. Annual plans are [charged upfront and renew automatically](https://trakkr.ai/terms). Extra brands cost $50 a month and extra prompts $39 to $99 a month per brand, per its billing guide.\n\nOne tip applies to any tracker: Trakkr's FAQ advises starting with 5 to 20 questions your buyers really ask, not all 50. Fewer, sharper prompts are easier to read, and you can grow once you see what moves."
   },
   {
-   "q": "Does Trakkr fix my AI visibility automatically?",
-   "a": "No. Trakkr provides data, benchmarks and prioritized playbooks, but reviews stress it shows what's happening, not always why, and it doesn't make the fixes for you. You need some marketing capacity and intuition about AI behavior to turn its dashboards into results."
+   "heading": "Which tool fits a solo founder, an in-house team or an agency?",
+   "body": "A solo founder or small shop should start with AEOeye, an in-house team with a weekly routine can justify Trakkr, and an agency should price Trakkr's Scale plan against its client count.\n\n- **Solo founder or small business:** run the audit, fix the obvious gaps, and only then ask whether daily tracking is worth $1,000 a year.\n- **In-house marketing team:** if AI answers already feed your pipeline, Trakkr's dashboard, citation data and actions suit a standing weekly review.\n- **Agency:** Scale lists ten brands, unlimited seats, an API and white-label portals; AEOeye has none of that. For a prospect pitch, a one-off AEOeye report is a cheaper opener."
   },
   {
-   "q": "Can I use both?",
-   "a": "Yes, and it's a reasonable approach. Use AEOeye's free audit to quickly check or re-check whether AI models recommend you, and use Trakkr if you want a continuous, agency-grade program with daily tracking, competitor benchmarking and weekly action plans."
+   "heading": "What did we see on Trakkr's own site?",
+   "body": "We saw an open door for AI crawlers. This is a neutral fact box from AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.json), one fetch on 2026-10-03, not a verdict on the product.\n\n![Modern laptop on a wooden desk displaying analytical software](https://images.pexels.com/photos/34803995/pexels-photo-34803995.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\n- trakkr.ai's robots.txt names ten AI bots, including GPTBot, OAI-SearchBot, ClaudeBot, Claude-SearchBot and PerplexityBot, and allows all of them.\n- It publishes an llms.txt file.\n- Its server-rendered homepage carries JSON-LD including FAQPage, Offer and SoftwareApplication.\n\nThe aeoeye.com row in the same study looks alike: no AI bot blocked, six named, an llms.txt file, FAQPage and SoftwareApplication schema. Both vendors practise what they sell. Method and numbers: [AI crawler directory](/blog/ai-crawler-user-agent-directory)."
   }
  ],
  "comparisonTable": {
@@ -62,60 +48,137 @@
   ],
   "rows": [
    {
-    "label": "Free tier",
+    "label": "Built for",
     "values": [
-     "Yes — free instant audit, no card, no trial clock",
-     "No open free tier; 14-day trial (no card), then paid"
+     "One-off diagnosis: are we recommended, and who is named instead",
+     "Daily monitoring, citations, perception and actions"
     ]
    },
    {
-    "label": "Pricing",
+    "label": "AI engines",
     "values": [
-     "Free to start",
-     "$79/£79/mo (Growth), $399/£395/mo (Scale), Enterprise custom; ~17% off annual"
+     "Free audit: ChatGPT. $29 report: ChatGPT, Claude, Gemini, Google AI, Perplexity",
+     "8 on every plan: ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Grok, DeepSeek, Meta AI"
     ]
    },
    {
-    "label": "AI engines covered",
+    "label": "Questions / prompts",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "8 models: ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Grok, DeepSeek, Meta AI"
+     "3 in the free audit; 10 in the $29 report",
+     "50 active prompts per brand on Growth and Scale"
     ]
    },
    {
-    "label": "Speed to first result",
+    "label": "Cadence",
     "values": [
-     "Seconds — instant audit",
-     "Trial setup, then daily data accumulates over time"
+     "One snapshot per audit",
+     "Every prompt, every model, daily"
     ]
    },
    {
-    "label": "Setup/learning curve",
+    "label": "Entry price",
     "values": [
-     "Built for non-experts; no setup",
-     "Dashboards and playbooks; needs marketing capacity to act on"
+     "$0 (ChatGPT-only check); $29 one-time report",
+     "Growth $100/month, or $1,000/year, 1 brand"
     ]
    },
    {
-    "label": "Best for",
+    "label": "More brands",
     "values": [
-     "Founders, SMBs and non-experts who want a fast, free check",
-     "B2B/consumer brands and agencies running ongoing daily monitoring"
+     "Run another audit",
+     "Scale $500/month or $5,000/year, 10 brands; extra brand $50/month"
     ]
    },
    {
-    "label": "Contract",
+    "label": "Free option",
     "values": [
-     "None — no signup or commitment",
-     "Recurring subscription (monthly or annual)"
+     "Yes: free 3-question ChatGPT audit",
+     "No free plan; 14-day trial, card required"
+    ]
+   },
+   {
+    "label": "Commitment",
+    "values": [
+     "None; no subscription",
+     "Auto-renewing; 14-day money-back guarantee for new subscribers"
+    ]
+   },
+   {
+    "label": "Data access",
+    "values": [
+     "Report with PDF by email",
+     "CSV and Sheets export and MCP; REST API and Looker Studio on Scale"
+    ]
+   },
+   {
+    "label": "Agencies",
+    "values": [
+     "Not built for them",
+     "White-label portal and unlimited seats on Scale"
     ]
    }
   ]
  },
+ "keyTakeaways": [
+  "Trakkr is a daily monitor: eight models, 50 prompts per brand, from $100 a month (Growth, one brand), with a 14-day card-required trial.",
+  "AEOeye is a one-off diagnosis: a free three-question ChatGPT audit, then a $29 one-time report covering ten questions on five engines.",
+  "Trakkr is stronger on trends, repeated sampling, volume and agency features; AEOeye is stronger on cost of a first answer and no commitment.",
+  "One snapshot is one sample, so read AEOeye's results as where you are absent, not as an exact rank.",
+  "Look first, subscribe second: run the audit, then pay for tracking only if the gap is worth watching."
+ ],
+ "faqs": [
+  {
+   "q": "Is AEOeye a replacement for Trakkr?",
+   "a": "No. They do different jobs. Trakkr tracks your brand across eight models every day and shows trends. AEOeye is a one-off audit: a free ChatGPT check and a $29 report across five engines. Use AEOeye to learn where you stand, and a tracker only if you need to watch the gap over time."
+  },
+  {
+   "q": "How much does Trakkr cost compared with AEOeye?",
+   "a": "As of October 2026, Trakkr Growth is $100 a month ($1,000 billed annually) for one brand, and Scale is $500 a month for ten, before tax. AEOeye's audit is free for ChatGPT and the five-engine report is $29 once. They are not like-for-like: one buys continuous tracking, the other a snapshot."
+  },
+  {
+   "q": "Does Trakkr have a free plan?",
+   "a": "No. Trakkr's FAQ says there is no free version: it runs a 14-day Growth trial that needs a card and charges nothing until the trial ends. After that every plan is paid. AEOeye's free audit runs three buyer questions on ChatGPT only; Claude, Gemini, Google AI and Perplexity are in the $29 report."
+  },
+  {
+   "q": "Can I use AEOeye and Trakkr together?",
+   "a": "Yes, and in that order works well. Run the AEOeye audit to see whether AI engines name you and who they name instead. If the gap matters and someone will act on weekly data, add a tracker such as Trakkr to watch it move. Skip the subscription if the audit shows nothing worth tracking."
+  },
+  {
+   "q": "Is one audit enough to trust the result?",
+   "a": "For absence, often yes; for rank, no. SparkToro found AI tools almost never repeat the same brand list, so a single run is one sample. If you are missing from every engine across several questions, that signal is strong. Re-run after changes, or use a daily tracker for trends."
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/7691746/pexels-photo-7691746.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Man holding phone, working on multiple laptops with financial charts at desk.",
-  "photographer": "Yan Krukau",
-  "photographerUrl": "https://www.pexels.com/@yankrukov"
- }
+  "url": "https://images.pexels.com/photos/13427955/pexels-photo-13427955.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Chessboard with black and white pieces arranged mid-game on a wooden table",
+  "photographer": "Mateusz Feliksik",
+  "photographerUrl": "https://www.pexels.com/@mateusz-feliksik-1896604"
+ },
+ "sources": [
+  {
+   "label": "Trakkr — Pricing",
+   "url": "https://trakkr.ai/pricing"
+  },
+  {
+   "label": "Trakkr — Frequently asked questions",
+   "url": "https://trakkr.ai/learn/docs/faq"
+  },
+  {
+   "label": "Trakkr — Plans and billing",
+   "url": "https://trakkr.ai/learn/docs/account/billing"
+  },
+  {
+   "label": "Trakkr — Terms of service",
+   "url": "https://trakkr.ai/terms"
+  },
+  {
+   "label": "SparkToro — AIs are highly inconsistent when recommending brands",
+   "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+  },
+  {
+   "label": "Wikipedia — Generative engine optimization",
+   "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
+  }
+ ],
+ "updated": "2026-10-03"
 }

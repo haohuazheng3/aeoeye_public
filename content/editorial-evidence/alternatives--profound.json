@@ -1,0 +1,84 @@
+{
+  "contentSha256": "8a91c00db73caf5667267bef22a6ee001c140b9716851efb9ab449175eb32bbc",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buyers who find Profound's quote-only brand access, short fixed trial or per-client agency pricing hard to buy need alternatives they can start today, with verified entry prices and a clear fit for each.",
+    "connection": "AEOeye's free ChatGPT check and $29 one-time report serve the baseline job; the page routes readers to trackers (Otterly.AI, Peec AI, Trakkr, AthenaHQ, LLMrefs, Rankscale, Nightwatch) when ongoing monitoring is needed and says when Profound is still the right choice."
+  },
+  "assessment": "The page replaces an outdated alternatives story (no free trial, ~$99/$399 Profound tiers, 'free multi-engine' AEOeye audit, Trakkr 'free tier') with Profound's current public pricing and each alternative's own pricing page checked on 2026-10-03, including billing toggles. It absorbs the 'no sales call, instant' answer page as a self-serve section and a test-before-you-pay section, adds a labelled cost-per-answer calculation from vendor-defined units, and uses AEOeye's small, caveated recommendation benchmark. It does not claim hands-on use of any product, quote Profound Enterprise pricing, or rank products on quality.",
+  "sources": [
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brands: free 7-day Trial (50 fixed prompts daily, three engines, no history/exports/API) and custom Enterprise (up to 9 engines, all-time history, CSV/JSON, API, SSO/SAML, SOC 2, Agent Analytics integrations); agencies: Agency Growth $99/month plus add-ons, +1 client workspace $399/month, +5 trial workspaces $199/month, Agency Enterprise custom; not only for AI search."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month: 15 prompts, daily, ChatGPT/AI Overviews/Perplexity/Copilot; Claude, Gemini, AI Mode as add-ons; free trial offered (length not stated)."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month: 50 prompts, choose 3 models, unlimited users, daily, 1 project; FAQ formula prompts x models x days for monthly AI answers."
+    },
+    {
+      "url": "https://trakkr.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Growth $100/month: 1 brand daily, 50 prompts, all 8 models, 14-day free trial."
+    },
+    {
+      "url": "https://athenahq.ai/plans",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan $25 free credit (300 credits) across five engines; Starter $295/month (monthly view), 3,600 credits, 1 credit = 1 AI response, 11 models; API access and extra credits are paid add-ons."
+    },
+    {
+      "url": "https://llmrefs.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "$79/month marked limited time, 500 prompts, 7-day free trial, keyword-based tracking refreshed at least weekly."
+    },
+    {
+      "url": "https://rankscale.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Pro $99/month (Monthly toggle active): 1,200 credits, up to 4,800 answers, 7-day free trial."
+    },
+    {
+      "url": "https://nightwatch.io/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter EUR 99/month billed monthly (EUR 79/month billed yearly), 50 AI prompts, 500 keywords, 14-day free trial without a card."
+    },
+    {
+      "url": "https://knowatoa.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $59/month with free trial; Starter column lists ChatGPT, AI Overviews and AI Mode while Growth ($199) covers all 7 services."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of generative engine optimization / answer engine optimization."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): read Profound's pricing page as raw HTML and in a real browser (including the 'For agencies' tab) and re-derived Agency Growth $99/month, client workspace $399/month and the Trial limits; recomputed three client workspaces as $99 + 3 x $399 = $1,296 and labelled it as our arithmetic.",
+    "Writer (Sonnet): fetched Otterly.AI, Peec AI, Trakkr, AthenaHQ, LLMrefs, Rankscale, Nightwatch and Knowatoa pricing pages on 2026-10-03; where prices are JavaScript-rendered (Peec AI, AthenaHQ, Nightwatch, Rankscale) confirmed the monthly figures with the billing toggle in a browser.",
+    "Writer (Sonnet): recomputed cost per answer from vendor-defined units (Peec 50 x 3 x 30 = 4,500 -> $0.021; Rankscale 4,800 -> $0.021; Otterly 15 x 4 x 30 = 1,800 assuming daily runs on all four engines -> $0.016; AthenaHQ 3,600 -> $0.082) and marked them as approximate, our arithmetic.",
+    "Writer (Sonnet): used the AEOeye recommendation benchmark exactly as in the evidence pack (127 audits, 892 answers, 17.6%, 144 of 157 mentions positive) with its self-selected / unequal-engine-samples caveat, and did not compare engines.",
+    "Writer (Sonnet): merged the 'no sales call, instant' answer page; dropped its unverifiable claims (50-1,000+ employee targeting, $1B valuation, Rankscale '17+ engines', Trakkr 'genuine free tier', Knowatoa 'quick audit') and corrected 'no free trial' and 'free multi-engine audit'.",
+    "Editor (Opus): read the final draft and the writer's source report; Profound alternatives with current vendor-page prices; /answers/profound-alternatives-no-sales-call-instant absorbed as the self-serve section",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [
+    "/answers/profound-alternatives-no-sales-call-instant"
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "Public USD pricing (Nightwatch in EUR)",
+    "billing": "Profound brand access: free 7-day Trial or custom Enterprise; Otterly.AI, Peec AI, Trakkr, AthenaHQ, LLMrefs and Rankscale prices are monthly billing; Nightwatch shown at monthly billing with the yearly rate noted",
+    "checkedAt": "2026-10-03",
+    "verification": "Checked each vendor's pricing page on 2026-10-03, using a rendered browser and the billing toggle where prices are JavaScript-rendered, and recomputed cost-per-answer and agency totals from the published figures; Profound Enterprise has no published price so none is given."
+  }
+}

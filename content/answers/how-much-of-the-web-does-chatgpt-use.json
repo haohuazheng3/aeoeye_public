@@ -2,165 +2,163 @@
  "slug": "how-much-of-the-web-does-chatgpt-use",
  "type": "answers",
  "title": "How Much of the Web Does ChatGPT Actually Use?",
- "metaTitle": "How Much Data Does ChatGPT Use? (Web Sources)",
- "metaDescription": "How much of the web ChatGPT really uses, split into training vs live retrieval, with real cited stats. The numbers are smaller than you think.",
- "primaryKeyword": "how much data does chatgpt use",
- "shortAnswer": "ChatGPT uses two very different slices of the web. Its model was trained on a filtered crawl that boiled roughly 45TB of raw text down to about 570GB. But for live answers it reads only a handful of pages per query, fetched fresh from a search index. Neither touches most of the web.",
- "intro": "Here's the thing almost everyone gets wrong: ChatGPT does not \"use the whole internet.\" It uses two separate, surprisingly thin slices of it, and they work in completely different ways.\n\nOne slice is frozen training data from a few years ago. The other is live retrieval that reads maybe five to ten pages the moment you hit enter. If you want your content cited, you need to understand which slice you're fighting for. This page splits them cleanly and backs every number with a real source.",
+ "metaTitle": "How Much of the Web Does ChatGPT Use? Training vs Live",
+ "metaDescription": "ChatGPT trains on a filtered slice of the web and cites about 15 pages per live answer in one 2026 audit. The documented numbers, and what you can still change.",
+ "primaryKeyword": "how much of the web does chatgpt use",
+ "shortAnswer": "A small, filtered slice, and a different slice for each job. For training, OpenAI's last full disclosure (GPT-3) kept 570GB of Common Crawl text out of 45TB; for GPT-6 Astra it gives only a bracket of more than 10 trillion tokens. For a live answer, ChatGPT with search cited about 15 sources per response in one 2026 audit. The training slice is closed. The live slice is where you can still change the outcome.",
+ "intro": "\"Does ChatGPT use the whole internet?\" is the wrong question, because nobody publishes a count of the whole web to divide by. The useful question is which slice of the web ChatGPT draws on for each job, and whether your pages are inside it.\n\nBelow are the figures OpenAI and Common Crawl have actually published, the one 2026 audit that counts citations, and what our own crawler study shows about who keeps themselves out. Where a number does not exist, we say so.",
  "sections": [
   {
-   "heading": "Training vs retrieval: which 'web' are we even talking about?",
-   "body": "ChatGPT touches the web in two distinct ways, and conflating them is the single biggest mistake in AEO. **Training** is a one-time, frozen snapshot baked into the model's weights. **Retrieval** (ChatGPT Search) is live: it queries a search index in real time and reads a few pages per answer. Training shapes the model's default knowledge; retrieval is what cites your URL today.\n\n- **Training data** = the corpus used to build the model. Static. Has a cutoff date. You cannot rank in it after the fact.\n- **Retrieval** = live web search at query time. Dynamic. This is where fresh content gets pulled in and linked.\n\nIf your goal is getting cited in answers right now, retrieval is the game. Training is mostly out of your hands."
+   "heading": "How much of the web was ChatGPT trained on?",
+   "body": "OpenAI published exact figures only for GPT-3. Its [paper](https://arxiv.org/abs/2005.14165) says the Common Crawl portion was 45TB of compressed plain text before filtering and 570GB after, roughly 400 billion tokens. For GPT-6 Astra, OpenAI's [public training summary](https://cdn.openai.com/pdf/gpt-6-astra-eu-ai-act-public-summary-of-training-content.pdf) gives only a bracket: text of \"more than 10 trillion tokens\", the top option on the EU template.\n\nThe 570GB figure is the Common Crawl part alone, not the whole GPT-3 corpus. The paper's mix looks like this:\n\n- **Common Crawl, filtered:** 410 billion tokens, 60% of the training mix, seen 0.44 times.\n- **WebText2:** 19 billion tokens, 22% of the mix, seen 2.9 times.\n- **Books1 and Books2:** 12 and 55 billion tokens, 8% each.\n- **Wikipedia:** 3 billion tokens, 3% of the mix, seen 3.4 times.\n\nThose weights were chosen, not proportional to size: higher-quality sources were sampled more often. Wikipedia, the smallest dataset, was read 3.4 times while the crawl was read less than once.\n\nThe tables total about 499 billion tokens, so Astra's bracket is more than 20 times larger on paper. Treat that as a rough comparison, because the two documents define \"size\" differently.\n\nAstra's summary also confirms the training mix is not only the open web. It lists Common Crawl, data accessed through partnerships, synthetic data generated with earlier OpenAI models and, subject to privacy settings, interactions from products such as ChatGPT. For GPTBot crawling it gives a collection period of approximately March 2013 to May 2026, and says the crawler is designed to respect robots.txt.\n\n![Rows of library shelves holding books in soft light, with a focused view on the spines](https://images.pexels.com/photos/990432/pexels-photo-990432.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How much data was ChatGPT trained on?",
-   "body": "The base GPT-3 model behind early ChatGPT was trained on a heavily filtered crawl: roughly **45TB of compressed plain text** that was cleaned down to about **570GB**, equal to roughly 400 billion tokens. That 570GB is the number that matters. It is a tiny, curated fraction of what got crawled, let alone the whole web.\n\nThe composition of that GPT-3 dataset, per OpenAI's own paper, broke down like this:\n\n- **~60%** filtered [Common Crawl](https://en.wikipedia.org/wiki/Common_Crawl) (open web pages)\n- **~22%** WebText2 (outbound links from Reddit posts with 3+ upvotes)\n- **~16%** two internet book corpora\n- A slice of English Wikipedia\n\nNotice what that means: the model's web knowledge is filtered web, not raw web. Quality signals like Reddit upvotes literally decided what made the cut. Source: [the GPT-3 paper, 'Language Models are Few-Shot Learners'](https://arxiv.org/abs/2005.14165)."
+   "heading": "How big is Common Crawl, and is it the whole web?",
+   "body": "Common Crawl describes its own dataset as a sample. Its [FAQ](https://commoncrawl.org/faq) says it does not generally archive entire websites, only \"a randomly selected subset\" of each. Its [September 2026 crawl](https://commoncrawl.org/blog/september-2026-crawl-archive-now-available) holds 2.17 billion pages, 361.4 TiB uncompressed, from 40.4 million hosts and 33.2 million registered domains.\n\nThat is one monthly snapshot of a rotating sample, not a cumulative copy of the web.\n\nWe found no authoritative count of the whole web, so we do not quote a \"percent of the web\". Any page that does is guessing. What is documented: Common Crawl is a rotating sample, OpenAI filters it, and the filtered result is one input among several.\n\nCCBot, Common Crawl's crawler, checks robots.txt before fetching a page, per the same FAQ. The FAQ does not say a block removes crawls already collected; it points to a separate opt-out registry for that."
   },
   {
-   "heading": "How big is the crawl ChatGPT trained on, really?",
-   "body": "Common Crawl is enormous on its own, yet it still captures only a slice of the live web. The corpus spans **over 100 billion pages across multiple petabytes** collected over a decade, and each monthly crawl now grabs roughly **2 to 3 billion pages**. The September 2025 crawl alone held about 2.39 billion pages and 421 TiB uncompressed, per [Common Crawl's own release notes](https://commoncrawl.org/blog/september-2025-crawl-archive-now-available).\n\nBut here's the catch that AEO folks need to internalize: Common Crawl explicitly does **not** crawl the deep web, password-protected pages, login-walled content, or sites that block bots. So even the raw input excludes huge swathes of the internet before any filtering happens.\n\nThen OpenAI filtered that down to ~570GB for GPT-3. The web is estimated in the thousands of petabytes. The training set is a rounding error against the whole thing."
+   "heading": "How much does ChatGPT read for a live answer?",
+   "body": "OpenAI publishes no fixed number, and it varies by search depth. In a [2026 audit](https://arxiv.org/abs/2605.23684) of 712 politics, health and environment questions put to four AI search engines, ChatGPT with web search cited 14.7 sources per response on average. That was the highest of the four, ahead of Copilot (8.4), Perplexity (7.9) and Gemini (7.3).\n\nThe count moves with the topic. ChatGPT cited roughly 20 sources per response on environment questions, 12 on health and 10 on politics. Citations are also a floor on pages read, not a ceiling.\n\nSearch depth changes the picture. OpenAI's [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) says deep research \"often\" taps hundreds of sources and can run for several minutes, while plain non-reasoning search returns the top results with no planning step.\n\nThe audit found a long tail. The 25 most-cited domains made up 29.9% of ChatGPT's citations, and 82.8% of the domains it cited appeared twice or fewer times. A page does not need to be famous to be read. It needs to be one of the few that fit that particular question.\n\nLimits: the audit covered three topics, drove each engine's web interface, and counts citations, not every page fetched.\n\n![A woman works on a laptop inside a modern data center lined with mirrored server racks](https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How much of the web does ChatGPT read for a live answer?",
-   "body": "For a live answer, ChatGPT reads almost nothing, just a handful of pages per query. ChatGPT Search rewrites your prompt into one or more targeted search queries, pulls back a short list of results from its search partner index, and reads the top few it can cleanly parse. We're talking single digits, not the whole web.\n\nOpenAI launched [ChatGPT search](https://openai.com/index/introducing-chatgpt-search/) broadly in late 2024 and early 2025. As of 2025 there are three retrieval depths, and the page count scales hard with each:\n\n- **Standard web search** — a handful of sources per answer, query-driven, with inline citations.\n- **Deep Research** — synthesizes dozens to hundreds of sources for a single report.\n- **Agent mode** — actively clicks, scrolls, and scrapes across sites.\n\nFor 95% of normal questions, you're competing to be one of about five to ten links the model chooses to read. That scarcity is the whole ballgame for AEO."
+   "heading": "How does ChatGPT choose which pages to read?",
+   "body": "OpenAI documents the mechanics, not the ranking recipe. The model decides whether to search, sends queries to a search tool and, in agentic mode, reads results and decides whether to keep going. Which pages win beyond that is observed behavior, not published policy.\n\nBe wary of anyone quoting exact ranking weights for ChatGPT. None are public. What you can verify is simpler:\n\n- Your page has to be fetchable by OpenAI's search crawler: per its [crawler documentation](https://developers.openai.com/api/docs/bots), sites that opt out of OAI-SearchBot are not shown in ChatGPT search answers.\n- Our advice, not a documented rule: lead each page with a direct answer, because retrieval matches pages to a specific question.\n- Our stance: one strong page per question beats five thin ones, for Google and for AI retrieval.\n\nFor the selection logic in detail, read [how ChatGPT chooses its sources](/answers/how-does-chatgpt-choose-sources). For the retrieval mechanism underneath, see [what RAG is](/blog/what-is-rag)."
   },
   {
-   "heading": "How does ChatGPT decide which pages to use?",
-   "body": "ChatGPT doesn't grab result #1 and stop. It scans the available sources and prioritizes pages it can cleanly parse and reuse, which rewards structure and punishes mush. Readability and machine-parseability are the deciding factors, not just raw rank.\n\nWhat tips the scales, based on how the retrieval layer behaves:\n\n- **Clean HTML structure** — well-formed tables, clear headings, labeled sections.\n- **Answer-first content** — a direct answer near the top it can lift verbatim.\n- **Credibility cues** — visible author names, dates, consistent formatting, citations.\n- **Licensed publishers** — OpenAI has content deals with AP, Reuters, Condé Nast, Hearst and others, which feed the index.\n\nIf the model can't quickly understand and extract from your page, it moves to one it can. This is why a thin, ad-choked page loses to a tightly structured one even on the same topic. Want to see which of these queries you already show up for? AEOeye runs a [free AI visibility audit](https://aeoeye.com) across ChatGPT, Perplexity, Google AI, Claude and Gemini so you can stop guessing."
+   "heading": "Who blocks the crawlers that feed both slices?",
+   "body": "Few brands do, and publishers often do. In AEOeye's crawler access study (October 2026, 384 sites), 44 sites (11.5%) blocked CCBot, 35 (9.1%) blocked GPTBot and 16 (4.2%) blocked OAI-SearchBot, which OpenAI's crawler documentation ties to ChatGPT search.\n\nThe split by group is the story:\n\n| Blocks CCBot | Sites |\n|---|---|\n| News publishers | 29 of 38 (76.3%) |\n| E-commerce and consumer brands | 5 of 90 (5.6%) |\n| SaaS brands | 5 of 193 (2.6%) |\n| AI-visibility vendors | 0 of 43 |\n\nOur reading: the open crawl may lean away from publishers and toward brands, who mostly leave the door open. Being in the pool is not the same as being remembered, but a block guarantees you are not in it.\n\nLimits: it is a convenience sample of established sites, fetched once on one day, main host only, and robots.txt is a request, not enforcement. See the [study hub](/blog/ai-crawler-user-agent-directory) and the [per-site CSV](/resources/ai-crawler-access-study-2026-10.csv)."
   },
   {
-   "heading": "So what should you actually do about it?",
-   "body": "Stop optimizing for training, start optimizing for retrieval. You can't retroactively get into a frozen 570GB training set, but you can make your live pages the easy pick for the five-to-ten links ChatGPT reads per query. That's where the leverage is.\n\nPractical moves, in priority order:\n\n1. **Lead with the answer.** Put a 40-60 word direct answer at the top of every page. Retrieval models lift these.\n2. **Make it machine-readable.** Real HTML headings, tables, lists. Add [schema.org](https://schema.org) structured data so parsers don't guess.\n3. **Don't block the crawlers.** If you wall off content or block AI bots, you self-eliminate from both training and live retrieval.\n4. **Earn credibility signals.** Bylines, dates, sources, and outbound citations to authoritative pages.\n5. **Audit your current visibility.** Measure where you appear before and after changes, not from a single account that personalizes results."
-  }
- ],
- "keyTakeaways": [
-  "ChatGPT uses the web in two unrelated ways: frozen training data and live retrieval. Don't confuse them.",
-  "GPT-3's training set was filtered from ~45TB of compressed text down to roughly 570GB, about 400 billion tokens. A tiny slice of the web.",
-  "Around 60% of that GPT-3 data came from filtered Common Crawl, plus ~22% Reddit-linked WebText2 and ~16% books.",
-  "Common Crawl spans 100B+ pages over multiple petabytes but skips the deep web, login walls, and bot-blocked sites entirely.",
-  "For a live answer, ChatGPT reads only a handful of pages per query, not the whole web. That scarcity is what AEO competes for.",
-  "Win retrieval by being machine-readable and answer-first; you can't retroactively enter the training set."
- ],
- "faqs": [
-  {
-   "q": "How much data does ChatGPT use in total?",
-   "a": "It depends on which mode. The underlying GPT-3 model was trained on a filtered corpus of roughly 570GB of text (boiled down from about 45TB compressed). For a live answer via ChatGPT Search, it reads only a handful of fresh pages per query, not a large dataset."
-  },
-  {
-   "q": "Does ChatGPT use the entire internet?",
-   "a": "No. Its training set is a filtered fraction of the web that excludes the deep web, login-walled pages, and bot-blocked sites. Its live retrieval reads only about five to ten pages per query. Most of the internet never touches a given ChatGPT answer."
-  },
-  {
-   "q": "What percentage of ChatGPT's training came from Common Crawl?",
-   "a": "For GPT-3, roughly 60% of the training mix came from a filtered version of Common Crawl. The rest was about 22% WebText2 (Reddit-linked pages), 16% book corpora, and a portion of Wikipedia, per OpenAI's GPT-3 paper."
-  },
-  {
-   "q": "Is ChatGPT's training data up to date?",
-   "a": "No. Training data is a frozen snapshot with a cutoff date. That's exactly why live retrieval (ChatGPT Search) exists, to pull current pages at query time. If you want to be cited on recent topics, you're competing in retrieval, not training."
-  },
-  {
-   "q": "How can I tell if ChatGPT uses my website?",
-   "a": "Run a visibility audit that tests real prompts across engines and shows whether your pages get cited. AEOeye offers a free audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini so you can see exactly where you appear instead of guessing."
+   "heading": "What should you do about it?",
+   "body": "Spend your effort on the slice you can still change. Keep crawlers allowed, make each key fact easy to fetch and quote, and check whether ChatGPT actually cites you. You cannot enter a model that has already finished training.\n\n1. **Decide on training and search separately.** They are controlled by different crawlers. We allow GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot and Applebot-Extended on aeoeye.com, because our business is being found. Our case against blanket blocking is in [why blocking GPTBot is usually a mistake](/blog/blocking-gptbot-is-usually-a-mistake).\n2. **Generate a clean robots.txt** with the [AI Robots.txt Generator](/tools/ai-robots-txt-generator), then confirm in your CDN or firewall logs that the bots are not challenged. In our study 60 of 375 homepages (16%) challenged our self-identifying crawler.\n3. **Lead each page with a direct answer** to one question. Retrieval reads pages that match the question, not pages that match the topic.\n4. **Test, do not assume.** Ask ChatGPT your buyers' questions and see who it names. AEOeye's [free audit](/) asks ChatGPT three unbranded buyer questions live and shows the full answers."
   }
  ],
  "comparisonTable": {
   "columns": [
    "Dimension",
    "Training data",
-   "Live retrieval (ChatGPT Search)"
+   "Live retrieval (ChatGPT search)"
   ],
   "rows": [
    {
     "label": "What it is",
     "values": [
-     "Frozen snapshot baked into model weights",
-     "Real-time web search at query time"
+     "Text, images and other data used to build the model's weights; frozen once training ends",
+     "Pages fetched at question time and cited in the answer"
     ]
    },
    {
-    "label": "Scale of web used",
+    "label": "Documented scale",
     "values": [
-     "~570GB filtered text (from ~45TB compressed)",
-     "~5-10 pages per query"
+     "GPT-3: 570GB filtered Common Crawl text; GPT-6 Astra: more than 10 trillion tokens of text (bracket)",
+     "About 15 cited sources per response in one 2026 audit; deep research often hundreds"
     ]
    },
    {
     "label": "Freshness",
     "values": [
-     "Stuck at a cutoff date",
-     "Current, fetched on the spot"
+     "Stops at a training cutoff",
+     "As current as the pages fetched"
     ]
    },
    {
     "label": "Can you influence it now?",
     "values": [
-     "No — set in stone after training",
-     "Yes — structure and publish for it"
+     "Only through crawl permissions for future runs",
+     "Yes: fetchable, answer-first pages"
     ]
    },
    {
-    "label": "What wins",
+    "label": "Crawler involved",
     "values": [
-     "Being in the corpus years ago",
-     "Machine-readable, answer-first pages"
+     "GPTBot, Common Crawl's CCBot",
+     "OAI-SearchBot"
     ]
    }
   ]
  },
+ "keyTakeaways": [
+  "OpenAI published exact training figures only for GPT-3: 45TB of Common Crawl text filtered to 570GB. For GPT-6 Astra it gives a bracket of more than 10 trillion tokens.",
+  "Common Crawl calls its data a sample of the web; its September 2026 crawl held 2.17 billion pages from 33.2 million registered domains.",
+  "One 2026 audit counted 14.7 cited sources per ChatGPT search response, varying by topic, with a long tail: 82.8% of cited domains appeared twice or fewer times.",
+  "In AEOeye's crawler study, 76.3% of news publishers blocked CCBot against 2.6% of SaaS sites; brands rarely lock themselves out.",
+  "You cannot enter finished training data, so keep crawlers allowed and make pages fetchable and answer-first."
+ ],
+ "faqs": [
+  {
+   "q": "How much data does ChatGPT use in total?",
+   "a": "It depends on the job and the model. OpenAI's last detailed disclosure, for GPT-3, kept 570GB of filtered Common Crawl text. For GPT-6 Astra it gives only a bracket of more than 10 trillion tokens of text. For one live answer, an audit counted about 15 cited sources for ChatGPT with search."
+  },
+  {
+   "q": "Does ChatGPT use the entire internet?",
+   "a": "No. Common Crawl calls its dataset a sample of the web, OpenAI filters what it takes, and live answers cite a few to a few dozen pages. No authoritative count of the whole web exists, so any exact percentage is a guess."
+  },
+  {
+   "q": "What percentage of ChatGPT's training came from Common Crawl?",
+   "a": "For GPT-3, filtered Common Crawl carried 60% of the training mix, WebText2 22%, two book corpora 16% and Wikipedia 3%, per OpenAI's paper. For newer models OpenAI names Common Crawl as a source but publishes no percentages, so any figure for them is unsourced."
+  },
+  {
+   "q": "Can I stop ChatGPT from using my website?",
+   "a": "You can ask. Disallowing GPTBot in robots.txt tells OpenAI not to use your pages for training, and Common Crawl's CCBot has its own rule. Blocking is a request that governs future crawling, not a takedown tool, and blocking OAI-SearchBot removes you from ChatGPT search answers."
+  },
+  {
+   "q": "How can I tell if ChatGPT uses my pages?",
+   "a": "Ask ChatGPT the questions your buyers ask and look at which sources it cites. Check your server or CDN logs for GPTBot and OAI-SearchBot requests. A free AEOeye audit asks ChatGPT three buyer questions live and shows whether your brand comes up."
+  }
+ ],
+ "image": {
+  "url": "https://images.pexels.com/photos/17489152/pexels-photo-17489152.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Close-up view of modern rack-mounted server units in a data center.",
+  "photographer": "panumas nikhomkhai",
+  "photographerUrl": "https://www.pexels.com/@cookiecutter"
+ },
  "sources": [
   {
-   "label": "Language Models are Few-Shot Learners (GPT-3 paper), arXiv",
+   "label": "Brown et al. — Language Models are Few-Shot Learners (GPT-3 paper, arXiv)",
    "url": "https://arxiv.org/abs/2005.14165"
   },
   {
-   "label": "Common Crawl — Wikipedia",
-   "url": "https://en.wikipedia.org/wiki/Common_Crawl"
+   "label": "OpenAI — Public Summary of Training Content for GPT-6 Astra",
+   "url": "https://cdn.openai.com/pdf/gpt-6-astra-eu-ai-act-public-summary-of-training-content.pdf"
   },
   {
-   "label": "Common Crawl, September 2025 Crawl Archive",
-   "url": "https://commoncrawl.org/blog/september-2025-crawl-archive-now-available"
+   "label": "Common Crawl — September 2026 Crawl Archive Now Available",
+   "url": "https://commoncrawl.org/blog/september-2026-crawl-archive-now-available"
   },
   {
-   "label": "Introducing ChatGPT search — OpenAI",
-   "url": "https://openai.com/index/introducing-chatgpt-search/"
+   "label": "Common Crawl — FAQ",
+   "url": "https://commoncrawl.org/faq"
   },
   {
-   "label": "ChatGPT Search — OpenAI Help Center",
-   "url": "https://help.openai.com/en/articles/9237897-chatgpt-search"
+   "label": "Allaham and Diakopoulos — Synthetic Sources? Auditing Generative Search Engine Citations (arXiv, 2026)",
+   "url": "https://arxiv.org/abs/2605.23684"
   },
   {
-   "label": "schema.org structured data",
-   "url": "https://schema.org"
+   "label": "OpenAI — Web search guide",
+   "url": "https://developers.openai.com/api/docs/guides/tools-web-search"
+  },
+  {
+   "label": "OpenAI — Overview of OpenAI crawlers",
+   "url": "https://developers.openai.com/api/docs/bots"
   }
  ],
  "definitions": [
   {
    "term": "Common Crawl",
-   "definition": "A free, open repository of web crawl data spanning 100B+ pages over multiple petabytes, widely used to train large language models. It skips the deep web, login walls, and bot-blocked sites.",
+   "definition": "A nonprofit that crawls the web and freely provides its archives to the public; its monthly crawls are a sample of the web, not a copy of it, and are widely used as raw text for training language models.",
    "sourceUrl": "https://en.wikipedia.org/wiki/Common_Crawl"
   },
   {
-   "term": "Training data",
-   "definition": "The static corpus used to build a model's weights. It has a cutoff date and cannot be changed after training, which is why it goes stale.",
-   "sourceUrl": "https://arxiv.org/abs/2005.14165"
-  },
-  {
-   "term": "Retrieval (RAG / live search)",
-   "definition": "Fetching fresh pages from a search index at query time and feeding them to the model so it can cite current sources beyond its training cutoff.",
-   "sourceUrl": "https://openai.com/index/introducing-chatgpt-search/"
-  },
-  {
    "term": "Token",
-   "definition": "The unit of text a language model processes, roughly a word fragment. GPT-3's ~570GB training set equated to about 400 billion tokens.",
+   "definition": "The unit of text a language model processes, roughly a word fragment. GPT-3's filtered Common Crawl portion was about 410 billion tokens.",
    "sourceUrl": "https://arxiv.org/abs/2005.14165"
+  },
+  {
+   "term": "Retrieval-augmented generation (RAG)",
+   "definition": "A technique that lets a language model retrieve and incorporate new information from external sources before answering, which is how ChatGPT's live search adds pages beyond its training data.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
   }
  ],
  "howToSteps": [],
- "updated": "2026-06-26",
- "image": {
-  "url": "https://images.pexels.com/photos/17489157/pexels-photo-17489157.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Detailed view of a server rack with a focus on technology and data storage.",
-  "photographer": "panumas nikhomkhai",
-  "photographerUrl": "https://www.pexels.com/@cookiecutter"
- }
+ "updated": "2026-10-03"
 }

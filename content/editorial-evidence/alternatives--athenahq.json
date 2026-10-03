@@ -1,0 +1,59 @@
+{
+  "contentSha256": "0c8e60ddf592d9604b62f1f5c81ab392bc6bc19ef45d80bef010b1f01cb614ff",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Someone leaving or avoiding AthenaHQ wants to know why people look elsewhere and which alternatives fit a one-time check, cheaper daily tracking, SEO plus AI tracking, or enterprise scale, with prices that are current.",
+    "connection": "AEOeye is a one-time AI visibility audit and one of the options listed. The page places it honestly next to continuous trackers, says it does not replace them, and tells readers to take a snapshot before buying monitoring."
+  },
+  "assessment": "The page is documentation-based and says so near the top. The reasons to look elsewhere come only from AthenaHQ's own plans page (metered credits with unpublished add-on prices, scale features on a quote-only tier, a Free plan that is a sampler). Entry prices for Otterly.AI, Peec AI, LLMrefs, Nightwatch and Profound were read from their own pricing pages on 2026-10-03, with Peec and Nightwatch read from the rendered page in a browser because their prices are JavaScript-rendered. It adds a cost-per-answer yardstick with caveats and SparkToro's run-to-run variance research, and a neutral fact box from AEOeye's crawler study. It deliberately does not rank the vendors on quality, quote customer results, or claim hands-on use of any product; Otterly's trial length is omitted because its pricing page does not state it.",
+  "sources": [
+    {
+      "url": "https://athenahq.ai/plans",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $295/month, 3,600 credits, 1 credit = 1 AI response; extra credits and API access are paid add-ons with no published price; Starter single region and language; Enterprise card lists multi-region, persona targeting, Citation Engine, SAML SSO, BI dashboards on custom pricing; Free plan $25 credit / 300 credits / five platforms; Starter lists 11 models; integrations GA4, Search Console, Shopify, Webflow listed on the plan table."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month with 15 prompts, 4 engines (ChatGPT, Google AI Overviews, Perplexity, MS Copilot) with Claude, AI Mode and Gemini as extra add-ons, daily tracking; Standard $189 for 100 prompts; free trial offered (length not stated on the page)."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month, 50 prompts, choose 3 models, unlimited users, daily tracking, 4,500 monthly AI answers (50 x 3 x 30, as the page defines it); Pro $245 with 150 prompts and 13,500 answers; read from the rendered page in a browser because prices are JavaScript-rendered."
+    },
+    {
+      "url": "https://llmrefs.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pricing section: All in One $79/month marked 'limited time only', 500 prompts, weekly reports, all AI engines at no extra fee, 7-day free trial; free account to set up a project (FAQ)."
+    },
+    {
+      "url": "https://nightwatch.io/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter €99/month billed monthly (read from the Monthly toggle in a browser) and €79 on yearly billing; 500 keywords, 50 AI prompts, 1,500 AI answers a month; platforms ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview; 14-day trial, no credit card."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plans: free Trial (50 prompts run daily for 7 days; ChatGPT, Gemini, Google AI Overviews) and custom Enterprise (up to 9 answer engines, SSO/SAML)."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "Under 1-in-100 chance that ChatGPT or Google's AI returns the same brand list twice; advice to ask usually at least 60-100 times and average (published 27 Jan 2026)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded athenahq.ai/plans with curl and read the rendered plan table in a browser on 2026-10-03; used only text-valued cells (Single region, Paid add-on) and the Enterprise card list, not unlabeled check icons.",
+    "Writer (Sonnet): read Peec's and Nightwatch's JavaScript-rendered prices in a browser (including Nightwatch's Monthly toggle, because a WebFetch summary wrongly gave EUR 79 as the monthly price) and fetched Otterly, Profound and LLMrefs with WebFetch plus raw HTML.",
+    "Writer (Sonnet): recomputed $295 / 3,600 = $0.082, $95 / 4,500 = $0.021, $29 / 1,800 = $0.016 (labeled as our arithmetic with its assumption) and EUR 99 / 1,500 = EUR 0.066, and kept currencies separate.",
+    "Writer (Sonnet): took the vendor fact box (0 of 43 vendors block AI bots; llms.txt 27 of 41; FAQPage 18 of 42) from the supplied crawler-study files and kept the JavaScript-rendering caveat.",
+    "Editor (Opus): read the final draft and the writer's source report; AthenaHQ alternatives; reasons to leave taken from AthenaHQ's own plans page",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

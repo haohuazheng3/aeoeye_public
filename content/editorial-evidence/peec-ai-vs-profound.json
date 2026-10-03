@@ -1,0 +1,83 @@
+{
+  "contentSha256": "55904ac58c959cefdeb27f06578923f9fc5bf9271c76375a2ffdb93451408ac3",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Decide between Peec AI and Profound for their team by seeing, from each vendor's own current pages, how the two differ on pricing basis, engines, prompts, content automation, compliance and onboarding.",
+    "connection": "Helps an AEOeye reader who is weighing subscription AI-visibility platforms decide which one fits, or whether to run a one-off audit before paying for either."
+  },
+  "assessment": "The page gives a verdict first, then compares Peec AI and Profound using only each vendor's own pricing pages, feature pages, docs and Peec's AI-instructions page as read on 2026-10-03, with a side-by-side table, a scale check computed from published inputs, and a section showing where each vendor's own head-to-head article is out of step with the other's live pages. It states up front that it is documentation-based. It does not claim hands-on use, data accuracy, a Profound Enterprise price or Peec trial length (not stated).",
+  "sources": [
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec brand plans ($95/$245/$495 monthly; 50/150/350 prompts; choose 3 models; unlimited users; daily; support tiers), selectable model list, Enterprise custom with API and more models, pricing basis FAQ (prompts and models, higher tiers cheaper per prompt), 4,500 monthly answers on Starter. Prices are JavaScript-rendered and were read in a real browser."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound brand pricing shows a free Trial (50 prompts daily for 7 days; ChatGPT, Gemini, Google AI Overviews; fixed recommended prompt set; no exports, API or support) and a custom Enterprise plan (up to 9 engines, tailored prompts, API, CSV/JSON exports, all-time history, SSO, SOC 2), unlimited seats, setup answer 'Instant', separate For agencies view."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/answer-engine-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound captures answers from the browser rather than APIs, runs prompts daily, is SOC 2 Type II compliant and supports SSO via SAML or OIDC."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/agents",
+      "checkedAt": "2026-10-03",
+      "supports": "Agents draft content and publish to a CMS, with an approval step before anything publishes; templates; Sheets for scale."
+    },
+    {
+      "url": "https://peec.ai/ai-instructions",
+      "checkedAt": "2026-10-03",
+      "supports": "Dated July 2026: Berlin headquarters, Peec does not generate or publish content by design, pursuing SOC 2 and not yet certified."
+    },
+    {
+      "url": "https://docs.peec.ai/quickstart-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Setup takes under 10 minutes; add first 10 prompts and 3-4 competitors; first insights within 24 hours."
+    },
+    {
+      "url": "https://docs.peec.ai/ai-referrals",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI referrals connects to Google Analytics 4 to show AI-referred sessions and conversions."
+    },
+    {
+      "url": "https://peec.ai/legal/terms-of-use",
+      "checkedAt": "2026-10-03",
+      "supports": "Monthly plans end at the end of the payment cycle without notice."
+    },
+    {
+      "url": "https://peec.ai/comparison/peec-vs-profound",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec's own comparison is dated January 5, 2026 and lists Profound Starter $99 and Growth $399; it says Peec is pursuing SOC 2 and does not yet offer it."
+    },
+    {
+      "url": "https://www.tryprofound.com/articles/profound-vs-peec-ai",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound's own article is dated April 16, 2026 and says Peec has no agents, no built-in content workflows and no native GA4 connection."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): read tryprofound.com/pricing, /features/answer-engine-insights and /features/agents as raw HTML text and re-confirmed with WebFetch on 2026-10-03; kept only the Trial and Enterprise terms the live page shows and left Enterprise price and agency add-on figures out (pointed to the dedicated Profound pricing guide).",
+    "Writer (Sonnet): read peec.ai/pricing and peec.ai/pricing-agencies in a real browser on 2026-10-03 because dollar amounts are JavaScript-rendered, and checked model lists, support tiers and the pricing-basis FAQ against the rendered text.",
+    "Writer (Sonnet): fetched both vendors' head-to-head pages and checked their dates and claims against the other vendor's live pages: Peec's January 2026 page lists Profound Starter $99 and Growth $399 which Profound's live pricing no longer shows; Profound's April 2026 article says Peec has no agents or GA4 link while Peec's docs describe an in-app data Agent and a GA4 AI-referrals view. Wrote the correction narrowly (no content-writing agents).",
+    "Writer (Sonnet): recomputed 50 prompts x 3 models x 30 days = 4,500 answers (Peec Starter) and 50 x 3 x 7 = 1,050 (Profound Trial, assuming each prompt runs on each engine daily) and labelled both as arithmetic on published inputs.",
+    "Writer (Sonnet): used the peec.ai and tryprofound.com rows of docs/content/vendor-sites-study-2026-10.md (no AI bots blocked or named, llms.txt 404, no JSON-LD in served HTML) as a neutral fact box with the JavaScript caveat; AEOeye product facts taken only from the evidence pack.",
+    "Writer (Sonnet): left the CSV-export claim for Peec attributed ('Peec says every plan') because its pricing table ticks were not readable as text, and left trial length unstated because Peec's pages state none.",
+    "Editor (Opus): read the final draft and the writer's source report; opening now states public documentation and no hands-on test; vendor-vs-vendor price conflict reported",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "USD as displayed to us; Peec also shows euro prices to visitors in Europe; Profound states no currency, region or tax treatment",
+    "billing": "Peec: monthly billing shown, annual about 15% cheaper per its FAQ; Profound: free 7-day Trial and quote-only Enterprise.",
+    "checkedAt": "2026-10-03",
+    "verification": "Read Peec's brand and agency pricing pages in a real browser and Profound's brand pricing page as raw HTML on 2026-10-03; Profound's earlier Starter $99 and Growth $399 plans are no longer listed for brands, so no Profound number is given beyond what the live page shows."
+  },
+  "merged": []
+}

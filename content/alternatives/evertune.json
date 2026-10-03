@@ -1,66 +1,60 @@
 {
  "slug": "evertune",
  "type": "alternatives",
- "title": "Best Evertune Alternatives (2026)",
- "metaTitle": "Best Evertune Alternatives (2026) | AEOeye",
- "metaDescription": "Looking for Evertune alternatives? Compare free, instant, and self-serve AI visibility tools — AEOeye, Otterly, Peec, Profound, Nightwatch — on price",
+ "title": "Best Evertune Alternatives (2026): What to Use Instead, and When to Stay",
+ "metaTitle": "Best Evertune Alternatives (2026): Prices Compared",
+ "metaDescription": "Evertune alternatives with prices checked on 3 October 2026: AEOeye, Otterly.AI, Peec AI, AthenaHQ and Profound, plus when Evertune's $800 Pro plan still wins.",
  "primaryKeyword": "Evertune alternatives",
- "shortAnswer": "Evertune is a strong enterprise GEO platform, but its ~$3,000/mo starting price, demo-only access, and US-centric data panel push many teams to look elsewhere. The best Evertune alternatives depend on budget and depth: AEOeye for a free, instant multi-engine check; Otterly or Peec for affordable self-serve tracking; Profound for enterprise-grade analytics; and Nightwatch if you want AI tracking bolted onto traditional rank tracking.",
- "intro": "Evertune is one of the more serious names in AI brand-visibility analytics. It samples each tracked prompt roughly 100 times across 9+ AI engines to produce statistically significant visibility and sentiment data, and it backs that with a proprietary US consumer panel. For a Fortune 500 marketing team, that rigor is the point.\n\nBut that rigor comes with enterprise pricing (reported to start around $3,000/month), no free trial, and a sales call before you can even see the product. If you're a small business, a solo marketer, or a mid-market team that just wants to know whether ChatGPT recommends your brand, Evertune may be more platform — and more cost — than you need. Below we cover why people look for alternatives, then walk through the best options fairly, including where Evertune is genuinely the stronger choice.",
+ "shortAnswer": "The best Evertune alternative depends on why you are leaving. For a one-time check, use AEOeye (free, then $29). For cheap daily tracking, Otterly.AI starts at $29 a month and Peec AI at $95. AthenaHQ has a free plan and Profound a 7-day trial. Evertune's Pro plan is listed at $800 a month (as of October 2026) and stays right for repeatedly sampled, enterprise-grade tracking with ads.",
+ "intro": "This guide is based on public documentation as of October 2026: Evertune's pricing and platform pages and each alternative's own pricing page, all read on 3 October 2026. We have not tested Evertune or the other tools hands-on. AEOeye is our product, so it is listed with its limits.\n\nWe took the reasons to leave from Evertune's own pages, not from forum complaints. We do not repeat the $3,000-a-month figure older write-ups quote: Evertune's pages list Pro at $800 and Enterprise as custom.",
  "sections": [
   {
-   "heading": "Why people look for Evertune alternatives",
-   "body": "Evertune earns its reputation on statistical depth — sampling each prompt about 100 times across many engines is genuinely more rigorous than a single-shot query, because AI answers vary run to run. That methodology is real value, not marketing. The friction isn't the product quality; it's who the product is built for.\n\nThree themes come up repeatedly in independent reviews and comparisons: enterprise-only pricing that starts well above what most teams can justify, a sales-gated buying process with no way to try before you talk to someone, and a US-centric data panel that limits relevance for brands outside the US. None of these make Evertune a bad tool. They make it a poor fit for the large group of people who simply want a fast, affordable, self-serve answer about their AI visibility. The sections below break down each concern factually, then point you to alternatives that solve for different needs and budgets."
+   "heading": "Why do people look for an Evertune alternative?",
+   "body": "Three things on Evertune's own pages push buyers elsewhere: a demo-only entry at $800 a month, a bundle that includes content and advertising you may not need, and a target customer that is mid-market or larger. None says the product is weak. They say it is priced and sold for a specific buyer.\n\n- **Demo-only, with an $800 floor.** Its [pricing page](https://www.evertune.ai/pricing) lists Pro at $800 a month and Enterprise as custom, and both buttons say \"Request a demo\". At list price, a year of Pro is $9,600 (our arithmetic). We found no trial and no billing terms on the page.\n- **A bundle, not a meter.** Pro includes 25 AI-optimized articles a month, affiliate advertising partnerships and AI Retargeting, which Evertune's [Advertise page](https://www.evertune.ai/platform/advertise) offers as a beta. If you only want to know whether AI names you, you are paying for the rest.\n- **Built for mid-market and up.** Pro is labelled \"for mid-market brands\", and Evertune's [company page](https://www.evertune.ai/about-us/company-overview) says it works with mid-market and enterprise brands. A small team is probably outside that picture."
   },
   {
-   "heading": "Concern 1: Enterprise-only pricing (~$3,000/mo minimum)",
-   "body": "Multiple independent reviews report Evertune starts around $3,000/month for a single enterprise tier, with no transparent pricing page and no entry-level plan. There's no published self-serve table, so the real number is whatever your custom contract lands on — and reviewers consistently frame that floor as sized for Fortune 500 budgets rather than smaller organizations.\n\nFor an enterprise running high-consideration categories (automotive, healthcare, B2B software), $3,000+/month for statistically significant, multi-engine tracking can be reasonable. For a small business, a solo marketer, or most mid-market teams, it's hard to justify just to check whether AI engines recommend your brand. This is the single most common reason people search for Evertune alternatives. If budget is your constraint, AEOeye (free to start), Otterly (from $29/mo), or Peec (from $95/mo) cover the core job — seeing whether and where you show up across engines — at a fraction of the cost."
+   "heading": "Which alternatives fit which need?",
+   "body": "Match the tool to the job: a one-off check (AEOeye), cheap daily tracking (Otterly.AI, Peec AI), a free start with more engines (AthenaHQ), or an enterprise tracker (Profound). The table after these sections compares entry prices; the notes below say who each tool is for. Prices are list prices as of October 2026, on monthly billing where the vendor states it.\n\n- **AEOeye: a one-off check, not a tracker.** The free audit asks ChatGPT three unbranded buyer questions and shows the full answers, the competitors named and starter fixes. The $29 one-time report adds Claude, Gemini, Google AI and Perplexity, ten questions, a five-layer SEO foundation audit and a fix roadmap as a PDF. There is no subscription and no daily tracking.\n- **Otterly.AI: the cheapest self-serve tracking.** [Lite is $29 a month](https://otterly.ai/pricing) for 15 prompts tracked daily on ChatGPT, Google AI Overviews, Perplexity and Copilot, with Claude, AI Mode and Gemini as add-ons. Standard is $189 for 100 prompts, and a free trial is offered. Fifteen prompts is a narrow sample, so treat Lite as a pulse check.\n- **Peec AI: the middle tier.** [Starter is $95 a month](https://peec.ai/pricing) for 50 prompts on 3 models you choose, tracked daily with unlimited users. Pro is $245 for 150 prompts and Advanced $495 for 350. It also lists a crawlability audit covering 40+ AI bots.\n- **AthenaHQ: a free start, then credits.** [Its free plan](https://athenahq.ai/pricing) gives $25 of credit (300 credits) across five engines. Starter is $295 a month for 3,600 credits and 11 models; one credit is one AI response.\n- **Profound: an enterprise tracker with a trial.** [Its trial is free](https://www.tryprofound.com/pricing) for 7 days with 50 prompts run daily on ChatGPT, Gemini and Google AI Overviews. Beyond that, Enterprise is custom, with up to 9 engines, SSO/SAML and SOC 2. It is the closest like-for-like to Evertune's sales model.\n\n![A rustic wooden signpost on the Welsh Coastal Path under a clear blue sky](https://images.pexels.com/photos/29545773/pexels-photo-29545773.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Concern 2: No free trial and sales-gated access",
-   "body": "Evertune has no self-serve signup and no free trial. Every engagement reportedly begins with a 'Book a demo' call, and you typically move toward a contract before you see pricing or use the product. For a buyer comparing several tools, that's real friction: you have to sit through demos just to learn whether each one fits your budget and use case.\n\nThis matters most when you want a quick answer. If your question is simply 'Does ChatGPT recommend us, and who's beating us?', waiting on a sales calendar is a heavy way to get there. It's a deliberate enterprise go-to-market choice — high-touch onboarding suits high-touch accounts — but it's the opposite of what a fast evaluator wants. Tools like AEOeye run an audit instantly with no signup or call, and Otterly and Peec offer self-serve signup with free trials, so you can see output before committing a cent or a meeting."
+   "heading": "How do you compare prices across these tools fairly?",
+   "body": "Compare cost per answer, not per prompt, because vendors define a prompt differently. Peec defines monthly AI answers as prompts times models times frequency, and AthenaHQ sells credits where one credit is one response. Evertune asks each prompt up to 100 times, so its prompt is a different unit.\n\nWorked from the vendors' own numbers (our arithmetic): Peec Starter lists 4,500 monthly AI answers for $95, about 2 cents each. AthenaHQ Starter gives 3,600 responses for $295, about 8 cents each. Evertune's page does not say whether its 100,000 prompts count prompts or sampled responses, so ask.\n\nBefore paying anyone, ask four questions:\n\n1. **What does one \"prompt\" count?** One question on one engine, or on all of them?\n2. **How many times is each prompt run?** [SparkToro's study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) found AI brand lists rarely repeat and advised asking at least 60 to 100 times and averaging. The cheaper tools sell daily tracking, but their pages state no repeat count.\n3. **Which model tier is queried?** Free-user defaults and top-tier models give different answers. AEOeye tests each engine at the default tier a free user sees.\n4. **Can AI read the vendor's own site?** In AEOeye's crawler access study we checked 43 AI-visibility vendor sites. None blocked an AI crawler, 27 of 41 that we could check served llms.txt, and 18 of 42 had FAQPage markup on the homepage (AEOeye included). See the [study hub](/blog/ai-crawler-user-agent-directory)."
   },
   {
-   "heading": "Concern 3: US-centric data panel",
-   "body": "Part of Evertune's insight comes from a proprietary panel of US internet users. Several reviews flag this as a limitation for non-US brands and markets: the consumer-behavior signal layered onto the visibility data is calibrated to US audiences, so companies serving other regions may find it less applicable. This is a recurring note in third-party comparisons, and it's worth being precise about — it's a limitation of the panel-based audience signal, not of Evertune's engine coverage, which is broad.\n\nIf your buyers are primarily in the US, this is a non-issue and arguably a strength. If you're a European, APAC, LATAM, or global brand, weigh how much of Evertune's value depends on that panel versus its raw multi-engine tracking. Tools that focus on the engine-query layer rather than a US consumer panel — AEOeye, Otterly, Peec — sidestep the geographic skew because they measure what the AI engines actually say, which you can frame around your own market's prompts and competitors."
+   "heading": "What does Evertune cost, for reference?",
+   "body": "As of October 2026, Evertune lists two plans: Pro at $800 a month and Enterprise at custom pricing. Both are sold through a demo request, so the pricing page is the only public number. [Our cost explainer](/answers/how-much-does-evertune-cost) covers it in more depth.\n\n- **Pro, $800 a month:** 100,000 prompts tracked across 11 AI models, daily, weekly or monthly tracking, global language and country tracking, 25 AI-optimized articles a month, three onboarding sessions, affiliate advertising partnerships and AI Retargeting.\n- **Enterprise, custom:** everything in Pro plus a dedicated AI Success Manager, customized onboarding, deep category analysis, unlimited content generation, AI website optimization, AI bot analytics for your domain and SSO.\n\nNot stated publicly: contract length, whether a trial exists, and which plan includes Site Audit. For a head-to-head with a one-off audit, see [AEOeye vs Evertune](/vs/evertune).\n\n![Explore destinations with this direction signpost overlooking Taiwan's landscapes](https://images.pexels.com/photos/2873651/pexels-photo-2873651.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "AEOeye — free, instant, multi-engine (start here)",
-   "body": "AEOeye is the fastest way to answer the question most people actually have: does AI recommend my brand, and who wins instead? It runs a free, instant audit that asks ChatGPT, Perplexity, Google AI, Claude, and Gemini the questions real buyers ask, then shows whether each engine recommends you, where you rank, and which competitors come up. No sales call, no contract, no signup wall to get started — it's built for non-experts, and the multi-engine querying is blind across engines so you see the unfiltered picture.\n\nBe clear on the trade-off. AEOeye is newer and intentionally lighter than Evertune on enterprise analytics and long-run historical dashboards, and its deeper multi-engine querying activates with usage rather than firing 100 samples per prompt out of the gate. If you need statistically significant, panel-backed, audited enterprise reporting, Evertune or Profound will go deeper. If you want an honest, immediate read on your AI visibility before spending anything, start with AEOeye and escalate only if you outgrow it."
-  },
-  {
-   "heading": "Otterly, Peec, Profound, and Nightwatch — other real alternatives",
-   "body": "Otterly.AI is a strong self-serve pick for solo marketers and small teams. Plans start at $29/month (Lite, ~15 prompts, core engines), with Standard at $189 and Premium at $489, plus a 14-day free trial. It's affordable and easy to get into, though prompt volumes on lower tiers are modest.\n\nPeec AI targets SEO and content teams that want consistent tracking. It starts at $95/month (50 prompts, 3 AI models, unlimited users, daily tracking) with a 14-day trial; extra models are paid add-ons, so costs rise as you broaden engine coverage.\n\nProfound is the closest like-for-like Evertune alternative for enterprises — real-time tracking across 10+ engines, SOC 2 compliance, and self-serve tiers reportedly from around $99/month (ChatGPT-only) up to custom enterprise. It's genuinely strong on enterprise analytics.\n\nNightwatch suits teams that already do traditional rank tracking and want AI visibility alongside it; pricing scales with keyword and site volume from roughly $39/month. Confirm AI-tracking inclusion by plan, since coverage varies by tier."
+   "heading": "When is Evertune still the right choice?",
+   "body": "Evertune is still the right choice when you need repeatedly sampled data, real-user prompt sourcing and action tools in one place, and you can fund it. That describes a mid-market or enterprise team treating AI search as a channel, not a team checking once.\n\n- **You will decide by topic.** In [Evertune's own experiment](https://www.evertune.ai/platform/methodology) (running shoes, July 2026), asking 100 prompts once gave ±9 points overall but ±31 points on a 10-response topic. Asking each 100 times cut those to ±1 and ±2. The figures are consistent with the standard formula, and they matter only if you will move budget between topics.\n- **You want ads tied to visibility.** Evertune sells ChatGPT ad campaigns inside the platform, and by its own account is the first GEO platform to turn visibility data into paid reach. Confirm whether the others offer it.\n- **You need enterprise controls.** Pro adds onboarding sessions, and Enterprise adds a dedicated manager and SSO. Profound also lists SSO and SOC 2.\n- **You would use the content tools.** If you will publish the 25 monthly articles, Pro may cost less than buying drafting separately. We have not priced that.\n\nOur view: if you would only read dashboards, buy cheaper. If you will use the sampling, content and ads, the price is easier to defend. Either way, run the [free audit](/) first so you know what you are paying to change."
   }
  ],
  "keyTakeaways": [
-  "Evertune is a legitimately rigorous enterprise GEO platform — it samples each prompt ~100 times across 9+ engines and adds a US consumer panel — but it's priced and sold for large companies.",
-  "The top reasons people seek alternatives: ~$3,000/mo starting price, no free trial or self-serve signup, and a US-centric data panel that limits relevance for non-US brands.",
-  "AEOeye is the best starting point if you want a free, instant, multi-engine AI visibility check with no sales call or contract.",
-  "Otterly (from $29/mo) and Peec (from $95/mo) offer affordable self-serve tracking with free trials for small and mid-market teams.",
-  "Profound is the closest enterprise-grade alternative, with 10+ engines, SOC 2, and self-serve tiers; Nightwatch fits teams adding AI tracking to traditional rank tracking.",
-  "Match the tool to your need: AEOeye for a fast honest read, Otterly/Peec for ongoing affordable monitoring, Profound/Evertune for deep enterprise analytics."
+  "Evertune's own pages explain why people leave: demo-only entry, an $800-a-month Pro floor, a content-and-ads bundle, and a mid-market-and-up focus.",
+  "Cheaper options: Otterly.AI from $29 a month, Peec AI from $95, AthenaHQ with a free plan, Profound with a 7-day trial, and AEOeye for a one-off check.",
+  "Compare cost per answer, not per prompt: Peec Starter works out near 2 cents an answer and AthenaHQ Starter near 8 cents, on their own figures.",
+  "Evertune stays right for teams that need repeatedly sampled, topic-level data, content tools and ads, and can fund them."
  ],
  "faqs": [
   {
-   "q": "How much does Evertune cost?",
-   "a": "Evertune has no public pricing page and no entry-level plan. Independent reviews report it starts around $3,000/month for a single enterprise tier, with the exact figure set by a custom contract. There is no free trial or self-serve signup — pricing is disclosed during a sales demo."
-  },
-  {
    "q": "What is the best free alternative to Evertune?",
-   "a": "AEOeye is the best free option. It runs an instant AI visibility audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini with no signup, sales call, or contract to start. It's lighter than Evertune on enterprise analytics and historical dashboards, but it answers the core question — does AI recommend you, and who wins — immediately and for free."
+   "a": "It depends on the job. AEOeye's free audit asks ChatGPT three unbranded buyer questions and shows the real answers and competitors. AthenaHQ has a free plan with $25 of credit (300 credits), and Profound offers a free 7-day trial. None of these gives always-on tracking for free; they let you look before you pay."
   },
   {
-   "q": "Is Evertune worth it compared to cheaper tools?",
-   "a": "For large enterprises that need statistically significant, panel-backed, multi-engine reporting, Evertune's depth can justify its cost. For small businesses, solo marketers, and most mid-market teams, cheaper self-serve tools like AEOeye (free), Otterly (from $29/mo), or Peec (from $95/mo) cover the essential job — checking AI visibility and competitors — at a fraction of the price."
+   "q": "What is the cheapest Evertune alternative?",
+   "a": "For tracking, Otterly.AI's Lite plan is $29 a month for 15 prompts on monthly billing (as of October 2026), with Peec AI starting at $95 for 50 prompts. AEOeye's $29 report is one-time rather than monthly, so it answers a different question: what AI says about you today."
   },
   {
-   "q": "Does Evertune work well for non-US brands?",
-   "a": "Evertune's engine coverage is global, but part of its insight relies on a proprietary US consumer panel that several reviews flag as less relevant outside the US. If your buyers are primarily American, this is a strength; if you're a global or non-US brand, weigh how much of the value depends on that panel versus the raw multi-engine tracking, which tools like AEOeye, Otterly, and Peec also provide."
+   "q": "Does Evertune have a free trial?",
+   "a": "None is shown on its pricing page as of 3 October 2026; both plans lead to a demo request, and billing terms are not stated. That is a reading of public documentation, not hands-on use. If you want to try something before paying, AthenaHQ has a free plan, Profound a 7-day trial, and Otterly.AI and Peec AI offer free trials."
   },
   {
-   "q": "What are the main Evertune alternatives in 2026?",
-   "a": "The most-cited alternatives are AEOeye (free, instant, multi-engine), Otterly.AI (self-serve from $29/mo), Peec AI (from $95/mo), Profound (enterprise-grade, 10+ engines, SOC 2), and Nightwatch (AI tracking added to traditional rank tracking). The right pick depends on your budget, the depth of analytics you need, and whether you want self-serve access or full enterprise onboarding."
+   "q": "Is Evertune worth $800 a month?",
+   "a": "Whether it is worth it depends on use. Pro bundles 100,000 tracked prompts across 11 models, 25 AI-optimized articles a month and advertising partnerships. If your team will act on topic-level data and use those tools, the bundle can make sense. If you only want to know whether AI names your brand, a cheaper tracker or a one-time audit fits better."
+  },
+  {
+   "q": "What does Evertune do that cheaper tools do not?",
+   "a": "By its own pages, Evertune samples each prompt up to 100 times per model, builds prompts from a panel of over 150 million real conversations, separates base-model from live-search results, and runs ChatGPT ads. Cheaper tools publish daily tracking but state no repeat count. Verify each claim in a demo before relying on it."
   }
  ],
  "comparisonTable": {
@@ -68,56 +62,110 @@
    "AEOeye",
    "Otterly.AI",
    "Peec AI",
+   "AthenaHQ",
    "Profound",
    "Evertune"
   ],
   "rows": [
    {
-    "label": "Starting price",
+    "label": "Entry price (as of October 2026)",
     "values": [
-     "Free to start",
-     "$29/mo",
-     "$95/mo",
-     "~$99/mo (self-serve); custom enterprise",
-     "~$3,000/mo (custom)"
+     "$0 audit; $29 one-time report",
+     "$29 a month (Lite)",
+     "$95 a month (Starter)",
+     "Free plan; $295 a month (Starter)",
+     "Free 7-day trial; Enterprise custom",
+     "$800 a month (Pro); Enterprise custom"
     ]
    },
    {
-    "label": "Free tier / trial",
+    "label": "What the entry plan buys",
     "values": [
-     "Free instant audit, no signup",
-     "14-day free trial",
-     "14-day free trial",
-     "Self-serve tiers; enterprise demo",
-     "No free trial; demo only"
+     "Free: 3 questions on ChatGPT. Report: 10 questions on 5 engines",
+     "15 prompts, tracked daily",
+     "50 prompts, 3 models you choose, daily",
+     "Free: 300 credits. Starter: 3,600 credits (1 credit = 1 AI response)",
+     "Trial: 50 prompts run daily for 7 days",
+     "100,000 prompts across 11 models; daily, weekly or monthly"
     ]
    },
    {
-    "label": "AI engines",
+    "label": "Engines at entry",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "Core 4 engines (more on higher tiers)",
-     "3 models included; extras paid add-on",
-     "10+ engines in real time",
-     "9+ engines, ~100 samples per prompt"
+     "Free: ChatGPT. Report: ChatGPT, Claude, Gemini, Google AI, Perplexity",
+     "ChatGPT, AI Overviews, Perplexity, Copilot (Claude, AI Mode, Gemini as add-ons)",
+     "3 you choose from ChatGPT, AI Mode, AI Overviews, Copilot, Gemini, Naver AI",
+     "Free: 5 engines. Starter: 11 models",
+     "Trial: ChatGPT, Gemini, AI Overviews",
+     "11+ listed, including Claude and Perplexity"
+    ]
+   },
+   {
+    "label": "Free option",
+    "values": [
+     "Yes, ChatGPT only",
+     "Free trial",
+     "Free trial offered",
+     "Free plan",
+     "7-day trial",
+     "None shown; demo only"
+    ]
+   },
+   {
+    "label": "Billing",
+    "values": [
+     "One-time",
+     "Monthly or annual (15% off)",
+     "Monthly or annual (15% off)",
+     "Monthly or annual (17% off)",
+     "Quote for Enterprise",
+     "Not stated"
     ]
    },
    {
     "label": "Best for",
     "values": [
-     "A fast, free, honest multi-engine visibility check",
-     "Solo marketers and small teams on a budget",
-     "SEO/content teams wanting ongoing tracking",
-     "Enterprises needing deep, SOC 2-compliant analytics",
-     "Large enterprises needing panel-backed, statistically significant data"
+     "First check before spending",
+     "Solo marketers wanting a daily pulse",
+     "SEO and content teams",
+     "Testing before paying",
+     "Large teams, SSO and SOC 2",
+     "Funded teams wanting sampled data, content and ads"
     ]
    }
   ]
  },
  "image": {
-  "url": "https://images.pexels.com/photos/7693689/pexels-photo-7693689.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Professional team working on stock market analysis with laptops and tablets in modern office setting.",
-  "photographer": "Yan Krukau",
-  "photographerUrl": "https://www.pexels.com/@yankrukov"
- }
+  "url": "https://images.pexels.com/photos/34787908/pexels-photo-34787908.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A tranquil path through a forest of fir trees with a direction signpost.",
+  "photographer": "ilayda 0700",
+  "photographerUrl": "https://www.pexels.com/@ilayda0700"
+ },
+ "sources": [
+  {
+   "label": "Evertune — Pricing",
+   "url": "https://www.evertune.ai/pricing"
+  },
+  {
+   "label": "Otterly.AI — Pricing",
+   "url": "https://otterly.ai/pricing"
+  },
+  {
+   "label": "Peec AI — Pricing",
+   "url": "https://peec.ai/pricing"
+  },
+  {
+   "label": "AthenaHQ — Pricing",
+   "url": "https://athenahq.ai/pricing"
+  },
+  {
+   "label": "Profound — Pricing",
+   "url": "https://www.tryprofound.com/pricing"
+  },
+  {
+   "label": "SparkToro — AI brand recommendation consistency study",
+   "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+  }
+ ],
+ "updated": "2026-10-03"
 }

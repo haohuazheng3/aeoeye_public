@@ -1,119 +1,207 @@
 {
  "slug": "trakkr",
  "type": "alternatives",
- "title": "Best Trakkr Alternatives (2026)",
- "metaTitle": "Best Trakkr Alternatives (2026): 5 Compared",
- "metaDescription": "Looking for Trakkr alternatives in 2026? Compare AEOeye, Otterly, Peec, Profound and Nightwatch on price, free tiers, AI engines and best fit — honestly.",
+ "title": "Best Trakkr Alternatives (2026): Who Fits Which Need",
+ "metaTitle": "Best Trakkr Alternatives (2026): Prices Compared",
+ "metaDescription": "Six Trakkr alternatives with prices checked in October 2026: AEOeye, Otterly, Peec, Nightwatch, AthenaHQ and Profound, and when Trakkr is still the right call.",
  "primaryKeyword": "Trakkr alternatives",
- "shortAnswer": "Trakkr is a strong daily AI brand-visibility tracker, but its recurring $79+/mo subscription, prompt caps, and \"data not done-for-you fixes\" approach push some teams to look elsewhere. The best Trakkr alternatives in 2026 are AEOeye (free, instant, multi-engine — best for a fast first check), Otterly (cheap entry tier), Peec (clean competitor benchmarking), Profound (enterprise analytics), and Nightwatch (AI tracking bolted onto classic SEO rank tracking).",
- "intro": "Trakkr earned its reputation by tracking, every day, how eight AI models — ChatGPT, Claude, Gemini, Perplexity, Google AI Overviews, Grok, DeepSeek and Meta AI — describe, cite and recommend your brand, then turning that into competitor benchmarks and weekly action playbooks. It's a genuinely capable platform.\n\nBut \"capable\" isn't always \"right for you.\" If the recurring subscription feels steep, if you want answers before committing a budget, or if you need someone (or something) to actually fix the gaps rather than just chart them, it's worth seeing what else is out there. Below we cover the real reasons people look for Trakkr alternatives, then walk through five options — starting with a free, instant way to see where you stand today.",
+ "shortAnswer": "The best Trakkr alternative depends on why you are leaving. For a one-off answer, use AEOeye: a free ChatGPT check, then a $29 five-engine report. For cheaper daily tracking, look at Otterly from $29 a month or Peec from $95. For rank tracking plus AI prompts, Nightwatch starts at €79 a month on yearly billing. AthenaHQ and Profound suit action-heavy or enterprise teams.",
+ "intro": "This guide is based on public documentation as of October 2026: each vendor's own pricing page, plus Trakkr's billing guide and FAQ. We have not tested any of these products hands-on, and AEOeye is our own product, so it is listed with its limits.\n\nPrices move often and several of these pages render them with JavaScript, so check the vendor page before you buy.",
  "sections": [
   {
-   "heading": "Why people look for a Trakkr alternative",
-   "body": "Trakkr is well-built, so most switching isn't about quality — it's about fit, budget and what happens *after* the dashboard loads. Three themes come up repeatedly in reviews:\n\n- **Cost can be steep for small teams.** The platform's fuller value lives in higher tiers, and there's a 14-day trial but no open free tier for ongoing use. Solo founders and SMBs have to commit to a recurring $79+/mo subscription just to keep monitoring running.\n- **It gives you data, not done-for-you fixes.** Reviewers note Trakkr \"provides data, it doesn't automatically fix visibility problems.\" It shows what's happening, but translating playbooks into results needs marketing capacity and some hard-won intuition about how AI models behave.\n- **Prompt limits meet AI volatility.** Tracking is capped at 50 prompts per brand even on paid plans, which can feel tight as you scale. And because AI answers shift across models and over time, Trakkr is explicitly a *trend-tracking* tool, not an exact ranking — fair, but a reminder that this whole category is young.\n\nNone of these are dealbreakers for everyone. They're just the honest reasons a buyer might want options."
+   "heading": "Why look for a Trakkr alternative?",
+   "body": "Three things in Trakkr's own documentation send people elsewhere: there is no free plan, the 50-prompt cap is per brand on every plan, and a dashboard still needs someone to act on it. None is a flaw; each is a fit question.\n\n1. **No free plan, and a card for the trial.** Trakkr's [FAQ](https://trakkr.ai/learn/docs/faq) states there is no free version, only a 14-day Growth trial that needs a card. Growth then costs $100 a month for one brand.\n2. **A prompt ceiling per brand.** Growth and Scale both include 50 active prompts per brand. Scale adds brands, not depth: its [pricing page](https://trakkr.ai/pricing) says the per-brand depth is the same on both. More prompts are paid add-ons.\n3. **Measurement before action.** Trakkr's Agent can change nothing until you grant permission per work area, so a person still does the fixing. If you only need to know where you stand, a subscription is more than the question needs."
   },
   {
-   "heading": "Subscription cost vs. starting free",
-   "body": "This is the most common trigger. Trakkr's 14-day trial requires no card, which is generous, but once it ends there's no free plan to fall back on — you're choosing between a $79+/mo Growth subscription or stopping. For a solo founder validating whether AI even mentions their brand, that's a real commitment to make before seeing much.\n\nThe practical workaround is to separate two jobs that often get bundled: *the first look* and *ongoing monitoring*. You rarely need a paid subscription to answer \"Do AI engines recommend us, and who beats us?\" — that's a one-time diagnostic. **AEOeye** is built for exactly that first look: a free, instant audit across ChatGPT, Perplexity, Google AI, Claude and Gemini, with no card and no sales call. If the results show a real problem worth tracking weekly, *then* a paid tracker like Trakkr (or one of the others below) earns its monthly fee. Starting free also tells you whether AI visibility is even a priority for your business before you budget for it — which is hard to know in advance."
+   "heading": "Which Trakkr alternatives fit which need?",
+   "body": "Match the alternative to the reason you are leaving. Each need below has one clear pick.\n\n- **A one-off answer instead of a subscription:** AEOeye.\n- **Cheapest entry to daily tracking:** Otterly.\n- **Lean analytics with a model choice:** Peec AI.\n- **Rank tracking and AI prompts in one tool:** Nightwatch.\n- **Credit-metered actions:** AthenaHQ.\n- **Enterprise security and scale:** Profound.\n\nThe table shows each vendor's own figures, checked on 2026-10-03. \"Answers per month\" is how that vendor counts included AI responses, so treat the cost-per-answer row as our arithmetic, not like-for-like pricing."
   },
   {
-   "heading": "Data vs. done-for-you: closing the gap",
-   "body": "Almost every tool in this category, Trakkr included, is a measurement tool. It tells you *what* AI says and, increasingly, *which sources* shape that answer — but it stops short of writing the content, earning the citations, or fixing the pages for you. That's not a flaw unique to Trakkr; it's how the category works today. The honest caveat: if your team lacks marketing bandwidth, a dashboard alone won't move your numbers.\n\nWhen evaluating alternatives, weigh how much interpretation each tool does for you. Trakkr's weekly prioritized playbooks are a real strength here — they're more prescriptive than a raw dashboard. **AEOeye** leans the other way: it keeps the *diagnosis* dead simple and readable for non-experts (it tells you plainly whether you're recommended, where you rank, and which competitors win), so you don't need acquired intuition just to understand the output. Neither approach auto-fixes your visibility. Be skeptical of any tool that claims it does — in a field this young, the work of earning AI recommendations still happens off-platform, in your content and citations."
+   "heading": "How does each alternative work, and who is it for?",
+   "body": "Each alternative trades something against Trakkr: price, engines, depth or commitment. Here is the honest fit for each, from its own pages.\n\n![Close-up of a signpost in New South Wales pointing to global cities](https://images.pexels.com/photos/33263430/pexels-photo-33263430.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\n- **AEOeye** is a one-off audit, not tracking. The free audit asks ChatGPT three unbranded buyer questions; the [$29 report](/pricing) adds Claude, Gemini, Google AI and Perplexity and ten questions. Best for a first answer. It will not show trends.\n- **[Otterly](https://otterly.ai/pricing)** starts at $29 a month for 15 prompts on four engines (ChatGPT, Google AI Overviews, Perplexity, Microsoft Copilot). Claude is a $29 add-on on Lite. Best for the lowest recurring price.\n- **[Peec AI](https://peec.ai/pricing)** starts at $95 a month for 50 prompts and three models you choose from six. Best for small teams that want focused analytics.\n- **[Nightwatch](https://nightwatch.io/pricing)** bundles keyword rank tracking with 50 AI prompts from €79 a month on yearly billing, 14-day trial with no card. Best if you track Google rankings too.\n- **[AthenaHQ](https://www.athenahq.ai/pricing)** has a free plan with $25 of credit, then Starter at $295 a month for 3,600 credits. Best if you want credit-metered actions.\n- **[Profound](https://www.tryprofound.com/pricing)** offers a free 7-day trial (50 prompts, three engines) and quote-only Enterprise. Best for large teams needing SSO and SOC 2."
   },
   {
-   "heading": "Prompt limits and the volatility of AI answers",
-   "body": "Trakkr caps tracking at 50 prompts per brand even on paid plans. For a focused brand that's often plenty; for a team covering many products, categories or regions, it can feel restrictive — and several competitors below offer 100+ prompts at comparable or higher price points (Otterly Standard, Peec Pro, Profound Growth, Nightwatch's larger add-ons).\n\nThe deeper issue is volatility, and it applies to *every* tool here. AI answers vary between models and drift over time, so any visibility number is a moving average, not a fixed rank. Trakkr is refreshingly upfront that it's a trend-tracking tool rather than an exact leaderboard — that honesty is a point in its favor, and you should expect the same realism from any alternative. AEOeye queries each engine blind (no logged-in personalization skewing results) to keep the snapshot fair, but it's still a snapshot. Treat all of these tools as directional instruments: great for spotting movement and gaps, not for chasing a single decimal place."
+   "heading": "What does Trakkr cost, for reference?",
+   "body": "Trakkr Growth is $100 a month, or $1,000 on annual billing, for one brand with 50 prompts across eight models. Scale is $500 a month for ten brands. Enterprise starts at $1,000 a month billed annually. Prices are billed in USD, per Trakkr's [pricing page](https://trakkr.ai/pricing).\n\nHere is the surprise: Trakkr is not expensive per answer, only per entry. Included answers per month and our arithmetic:\n\n- **Trakkr Growth:** 12,000 data points, about $0.008 each.\n- **Peec Starter:** 4,500 answers, about $0.021 each.\n- **Nightwatch Starter:** 1,500 answers, about €0.053 each.\n- **AthenaHQ Starter:** 3,600 credits (one per AI response), about $0.082 each.\n\nSo if you will really use 50 prompts across many models, Trakkr's headline price buys more volume than most. If you will use fewer, a cheaper plan wins. For the add-on maths, see our [Trakkr pricing breakdown](/blog/trakkr-pricing)."
   },
   {
-   "heading": "The best Trakkr alternatives in 2026",
-   "body": "Here's how the strongest options stack up. Lead with the free check, then layer on paid monitoring if the diagnosis warrants it.\n\n- **AEOeye — best free, instant first look.** A free AI visibility audit across ChatGPT, Perplexity, Google AI, Claude and Gemini. No card, no contract, no sales call, and simple enough for non-experts: it shows whether each engine recommends you, where you rank, and which competitors win. Honest limits: it's newer and lighter on enterprise analytics and long historical dashboards than incumbents, and its deeper multi-engine querying activates with usage. Best for founders, SMBs and anyone who wants to know where they stand *today*.\n- **Otterly.ai — cheapest entry point.** A Lite tier around $29/mo makes it the budget-friendly way to start ongoing tracking, scaling to Standard (~$189) and Premium (~$489). Note some Google coverage is a paid add-on. Best for cost-conscious teams that want a low monthly commitment.\n- **Peec AI — clean competitor benchmarking.** Euro-priced from ~€89/mo (Starter, 25 prompts) up through Pro (~€199, 100 prompts) and Enterprise. Well-liked for clear competitor and sentiment views. Best for European teams and side-by-side rival tracking.\n- **Profound — enterprise depth.** The heavyweight: Starter ~$99, Growth ~$399, and custom Enterprise with SOC 2 and 10+ platforms. Deeper analytics and an agency/enterprise sales motion. Best for large teams that need governance and breadth and have budget to match.\n- **Nightwatch — AI tracking plus classic SEO.** Starts around $32/mo for traditional rank tracking, with AI monitoring as add-ons (100–500 prompts, ~$99–$495). Best if you want AI visibility *and* conventional Google rank tracking in one tool."
-  }
- ],
- "keyTakeaways": [
-  "Trakkr is a capable daily AI-visibility tracker; people seek alternatives mainly over recurring cost, the lack of an ongoing free tier, prompt caps, and the fact that it measures rather than fixes.",
-  "Separate the two jobs: a one-time first look (free) versus ongoing monitoring (paid). You rarely need a subscription to answer 'do AI engines recommend us?'",
-  "AEOeye is the best free, instant starting point — a no-card audit across ChatGPT, Perplexity, Google AI, Claude and Gemini that's simple enough for non-experts.",
-  "For ongoing paid monitoring, Otterly is the cheapest entry, Peec is strong on competitor benchmarking, Profound suits enterprises, and Nightwatch bundles AI tracking with classic SEO rank tracking.",
-  "No tool in this category auto-fixes your AI visibility — the work of earning recommendations still happens in your content and citations.",
-  "AI answers are volatile by nature, so treat every tool's numbers as directional trends, not exact rankings."
- ],
- "faqs": [
-  {
-   "q": "Is there a free alternative to Trakkr?",
-   "a": "Yes. Trakkr offers a 14-day trial but no ongoing free tier. AEOeye runs a free, instant AI visibility audit across ChatGPT, Perplexity, Google AI, Claude and Gemini with no card and no sales call — ideal for a first look before paying for any monitoring tool. Otterly's ~$29/mo Lite tier is the cheapest paid entry if you need continuous tracking."
+   "heading": "When is Trakkr still the right choice?",
+   "body": "Trakkr is still the right choice when you need all eight models on every plan, daily history and a team workflow, and you will use the volume. Do not leave it only because the entry price looks high.\n\n![Multi-directional signpost in a Japanese park surrounded by trees](https://images.pexels.com/photos/23897494/pexels-photo-23897494.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\n- **You track many models.** Grok, DeepSeek and Meta AI are included with no per-model fee, per its FAQ.\n- **You run client brands.** Scale lists ten brands, unlimited seats, a REST API and white-label portals.\n- **You want a money-back path.** New subscribers get a 14-day guarantee in its [terms](https://trakkr.ai/terms).\n- **You will review it weekly.** Trakkr's workflow runs from pages to actions to measured results.\n\nWe cannot judge the quality of its data, because we have not used it. Use the trial to check that. Our [head-to-head with AEOeye](/vs/trakkr) goes deeper."
   },
   {
-   "q": "How is AEOeye different from Trakkr?",
-   "a": "Trakkr is built for ongoing daily monitoring across 8 models with weekly action playbooks, on a recurring subscription. AEOeye is built for a fast, free first diagnosis: it tells you plainly whether AI engines recommend you, where you rank, and which competitors win, with no commitment. AEOeye is newer and lighter on enterprise analytics and long historical dashboards; Trakkr is the deeper choice once you've confirmed you need continuous tracking."
+   "heading": "What should you check before paying for any tracker?",
+   "body": "Check how the vendor counts usage, which engines each plan includes, and whether you can test without a card. Those three details change the real price more than the headline number does.\n\n- **The unit.** Trakkr sells data points, Peec sells monthly AI answers, AthenaHQ sells credits, Nightwatch sells prompts and answers. Convert each to answers per month before you compare.\n- **The engines.** Peec Starter lets you choose three models; Otterly Lite charges extra for Claude. A cheap plan that omits the engine your buyers use is not cheap.\n- **The method.** Trakkr says it queries providers' own APIs. Ask each vendor how it collects answers, then compare tools with the same prompts side by side during trials.\n\nOur wider shortlist is in [the best AI visibility tools](/blog/best-ai-visibility-tools)."
   },
   {
-   "q": "Which Trakkr alternative is best for a small business or solo founder?",
-   "a": "Start with AEOeye's free audit to see if you even have a visibility problem worth paying to track. If you do and want ongoing monitoring on a small budget, Otterly's Lite tier (~$29/mo) is the most affordable. Trakkr itself remains a fair option if you value its weekly playbooks and don't mind the $79+/mo commitment."
-  },
-  {
-   "q": "Do any of these tools automatically fix my AI visibility?",
-   "a": "No — and be wary of any that claim to. Trakkr, AEOeye, Otterly, Peec, Profound and Nightwatch all measure and diagnose. Trakkr's prioritized playbooks are among the more prescriptive, but the actual work of earning AI recommendations happens off-platform in your content, PR and citations. These tools tell you where to focus; your team (or an agency) does the fixing."
-  },
-  {
-   "q": "Why do AI visibility results change between tools and over time?",
-   "a": "AI models give different answers depending on the model, the phrasing, personalization and timing — and they drift as the models update. That's why Trakkr describes itself as a trend-tracking tool rather than an exact ranking, and why AEOeye queries each engine blind for a fairer snapshot. Treat all results as directional signals, and watch movement over time rather than a single number."
+   "heading": "How do you choose in ten minutes?",
+   "body": "Decide the job first, then the price. Four steps settle most cases.\n\n1. **Name the job.** One answer (\"are we recommended?\") needs an audit. A trend over months needs a tracker.\n2. **Count your questions.** Trakkr's FAQ suggests starting with 5 to 20 buyer questions. Under 20 prompts, Otterly Lite or Peec Starter may be enough.\n3. **List the engines your buyers use.** Peec Starter limits you to three models; Nightwatch and Trakkr include six or more.\n4. **Test before paying.** Use Nightwatch's no-card trial or Profound's free trial. Trakkr's trial asks for a card.\n\nIn [AEOeye's audit records](/resources/aeoeye-recommendation-benchmark-2026-09.json) (127 audits, June to September 2026), answers named 2.9 competitors on average, a small, self-selected sample. Seeing who is named instead of you is the real first step. [Start with the free audit](/)."
   }
  ],
  "comparisonTable": {
   "columns": [
+   "Trakkr (reference)",
    "AEOeye",
    "Otterly",
-   "Peec",
-   "Profound",
-   "Nightwatch"
+   "Peec AI",
+   "Nightwatch",
+   "AthenaHQ",
+   "Profound"
   ],
   "rows": [
    {
-    "label": "Starting price",
+    "label": "Entry price",
     "values": [
-     "Free",
-     "~$29/mo (Lite)",
-     "~€89/mo (Starter)",
-     "~$99/mo (Starter)",
-     "~$32/mo + AI add-ons"
+     "$100/mo (Growth); $1,000/yr",
+     "Free ChatGPT check; $29 one-time report",
+     "$29/mo (Lite); $25/mo on annual",
+     "$95/mo (Starter, monthly)",
+     "€79/mo on yearly billing (€948/yr)",
+     "Free plan; Starter $295/mo",
+     "Free 7-day trial; Enterprise quote-only"
     ]
    },
    {
-    "label": "Free tier / trial",
+    "label": "Free option",
     "values": [
-     "Free instant audit, no card",
-     "Trial; paid tiers from $29",
-     "Paid from Starter",
-     "Trial; sales-led",
-     "Trial; AI tracking is add-on"
+     "No; 14-day trial, card required",
+     "Yes: 3-question ChatGPT audit",
+     "Free trial (length not stated)",
+     "Not shown on pricing page",
+     "14-day trial, no card",
+     "$25 free credit (300 credits)",
+     "7-day trial"
     ]
    },
    {
-    "label": "AI engines covered",
+    "label": "Engines",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "ChatGPT, Perplexity + Google add-ons",
-     "ChatGPT, Perplexity, Gemini & more",
-     "ChatGPT (Starter); 3+ to 10+ higher tiers",
-     "LLMs + classic search engines"
+     "8 on every plan",
+     "Free: ChatGPT. $29 report: 5 engines",
+     "4 (ChatGPT, AI Overviews, Perplexity, Copilot); Claude, Gemini, AI Mode are add-ons",
+     "Choose 3 of 6 on Starter",
+     "6 (ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview)",
+     "5 on free; 11 on Starter",
+     "Trial: 3; Enterprise: up to 9"
     ]
    },
    {
-    "label": "Best for",
+    "label": "Included usage",
     "values": [
-     "Fast, free first look; non-experts; SMBs",
-     "Lowest-cost ongoing tracking",
-     "Competitor benchmarking; EU teams",
-     "Enterprise analytics & governance",
-     "AI tracking plus traditional SEO rank tracking"
+     "50 prompts per brand",
+     "3 questions free; 10 in report",
+     "15 prompts (Lite)",
+     "50 prompts",
+     "50 AI prompts + 500 keywords",
+     "300 credits free; 3,600 on Starter",
+     "Trial: 50 prompts for 7 days"
+    ]
+   },
+   {
+    "label": "Answers per month",
+    "values": [
+     "12,000",
+     "One snapshot",
+     "Not stated",
+     "4,500",
+     "1,500",
+     "3,600",
+     "Not stated"
+    ]
+   },
+   {
+    "label": "Cost per answer (our maths)",
+    "values": [
+     "about $0.008",
+     "$0.58 once ($29 / 50)",
+     "n/a",
+     "about $0.021",
+     "about €0.053",
+     "about $0.082",
+     "n/a"
+    ]
+   },
+   {
+    "label": "Best fit",
+    "values": [
+     "Daily multi-model tracking, agencies",
+     "First answer, no subscription",
+     "Lowest recurring price",
+     "Lean team analytics",
+     "Rank tracking plus AI",
+     "Credit-based actions",
+     "Enterprise, SSO, SOC 2"
     ]
    }
   ]
  },
+ "keyTakeaways": [
+  "People leave Trakkr mainly over no free plan, the per-brand 50-prompt ceiling and the need for a person to act on the data, not over quality.",
+  "For a one-off answer, AEOeye (free ChatGPT audit, $29 five-engine report) fits; it shows no trends.",
+  "For cheaper daily tracking, Otterly starts at $29 a month and Peec at $95; Nightwatch is €79 a month on yearly billing and adds rank tracking.",
+  "Trakkr is cheap per answer (about 0.8 cents on our arithmetic) and expensive only per entry, so heavy users should not leave on price alone.",
+  "Test first: Nightwatch's trial needs no card, Profound's is free, Trakkr's needs a card."
+ ],
+ "faqs": [
+  {
+   "q": "What is the best free alternative to Trakkr?",
+   "a": "AEOeye offers a free audit, but it is ChatGPT-only and three questions; Claude, Gemini, Google AI and Perplexity are in the $29 one-time report. AthenaHQ has a free plan with $25 of credit (300 credits). Profound has a free 7-day trial. Trakkr itself has no free plan, only a card-required 14-day trial."
+  },
+  {
+   "q": "What is the cheapest daily-tracking alternative to Trakkr?",
+   "a": "Otterly Lite is $29 a month for 15 prompts on four engines, as of October 2026. Peec Starter is $95 a month for 50 prompts and three models. Cheapest entry is not cheapest per answer: Trakkr Growth lists 12,000 data points for $100, so heavy users may pay less per answer there."
+  },
+  {
+   "q": "Is AEOeye a like-for-like replacement for Trakkr?",
+   "a": "No. AEOeye runs a one-off audit, not daily tracking, so it cannot show how your visibility changes over time. It suits readers who want to know once whether engines recommend them. If you need continuous monitoring, choose a tracker such as Trakkr, Otterly, Peec or Nightwatch."
+  },
+  {
+   "q": "Which Trakkr alternative also tracks Google rankings?",
+   "a": "Nightwatch. Its Starter plan is €79 a month on yearly billing and combines 500 tracked keywords with 50 AI prompts across ChatGPT, Claude, Gemini, Perplexity, AI Mode and AI Overview, with a 14-day trial that needs no card. Trakkr focuses on AI visibility rather than classic rank tracking."
+  },
+  {
+   "q": "When should I stay with Trakkr?",
+   "a": "Stay if you use many of its eight models, manage several brands, or review the dashboard weekly. Its headline price covers 12,000 data points a month, which is more volume than most entry plans. Leave if you only need a one-off answer or fewer than about 20 prompts."
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/7667442/pexels-photo-7667442.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A person points to t-shirt options in an online store on a laptop screen.",
-  "photographer": "MART  PRODUCTION",
-  "photographerUrl": "https://www.pexels.com/@mart-production"
- }
+  "url": "https://images.pexels.com/photos/11993227/pexels-photo-11993227.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Serene landscape featuring a lone tree by a calm river under a vibrant sky",
+  "photographer": "SN.CHE",
+  "photographerUrl": "https://www.pexels.com/@sn-che-3918651"
+ },
+ "sources": [
+  {
+   "label": "Trakkr — Pricing",
+   "url": "https://trakkr.ai/pricing"
+  },
+  {
+   "label": "Trakkr — Frequently asked questions",
+   "url": "https://trakkr.ai/learn/docs/faq"
+  },
+  {
+   "label": "Trakkr — Terms of service",
+   "url": "https://trakkr.ai/terms"
+  },
+  {
+   "label": "OtterlyAI — Pricing",
+   "url": "https://otterly.ai/pricing"
+  },
+  {
+   "label": "Peec AI — Pricing",
+   "url": "https://peec.ai/pricing"
+  },
+  {
+   "label": "Nightwatch — Pricing",
+   "url": "https://nightwatch.io/pricing"
+  },
+  {
+   "label": "AthenaHQ — Plans and pricing",
+   "url": "https://www.athenahq.ai/pricing"
+  },
+  {
+   "label": "Profound — Pricing",
+   "url": "https://www.tryprofound.com/pricing"
+  }
+ ],
+ "updated": "2026-10-03"
 }

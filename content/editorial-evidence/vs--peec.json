@@ -1,0 +1,77 @@
+{
+  "contentSha256": "ff4fa18e9d1226f6aa11c0d16bd24d9e3aa87f0e5f3a5227910761f25e002822",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer or agency person weighing AEOeye against Peec AI wants to know which tool fits their job, what each really costs now, which engines each covers, and where Peec AI is the better pick.",
+    "connection": "AEOeye runs one-time AI visibility audits (free ChatGPT check, $29 five-engine report) for the same buyer questions Peec AI tracks daily on a subscription; the page explains the difference honestly and recommends Peec AI where ongoing tracking is the real need."
+  },
+  "assessment": "The page is based on Peec AI's own pricing pages, documentation and terms read on 2026-10-03 and says near the top that we did not use the product hands-on. It replaces the earlier version's stale claims (about $89 to $95 Starter pricing, 'only diagnoses', 'Gemini and Claude are add-ons', '115+ languages') with figures read from the rendered pricing page in a browser (monthly and annual toggles) and from Peec's Actions documentation. It turns Peec's own AI-answers formula into a cost-per-answer comparison (our arithmetic, labelled), uses SparkToro's run-to-run variance research to explain why daily sampling is Peec's structural advantage, flags that Peec's own pages disagree on which engines each plan includes, and states the limits of a ten-question AEOeye report. It deliberately does not rate accuracy of Peec's data, claim hands-on testing, repeat reviewer hearsay about hidden costs, or promise that either tool improves visibility.",
+  "sources": [
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Rendered in a browser: Starter $95, Pro $245, Advanced $495 a month (monthly) and $80, $205, $420 a month (annual toggle); 50, 150, 350 prompts; choose 3 models; daily tracking; 4,500, 13,500, 31,500 monthly AI answers (prompts x active models x frequency); Looker Studio listed under Advanced; model list (ChatGPT, AI Mode, AI Overviews, Microsoft Copilot, Gemini, Naver AI) and Enterprise column adding Claude Sonnet 4, Grok and others; extra-model add-on $30, $70, $140 labelled Annual with Perplexity in the add-on list; gap analysis, recommended actions, crawl insights and Start free trial button."
+    },
+    {
+      "url": "https://peec.ai/pricing-agencies",
+      "checkedAt": "2026-10-03",
+      "supports": "Agency plans Essential $245, Growth $495, Scale $795 a month (monthly) and a Pitching and new business section with free pitch projects for auditing prospects."
+    },
+    {
+      "url": "https://docs.peec.ai/intro-to-peec-ai",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec runs prompts daily; reports visibility, position and sentiment; collects data by UI scraping of AI web interfaces rather than APIs, which it says matches what a logged-out user sees."
+    },
+    {
+      "url": "https://docs.peec.ai/actions",
+      "checkedAt": "2026-10-03",
+      "supports": "Actions: a prioritized list of recommendations organized into Site audit, Owned and Earned, each with evidence (why this matters, competitor evidence, brief, what to do) and a relative impact rating."
+    },
+    {
+      "url": "https://docs.peec.ai/api/introduction",
+      "checkedAt": "2026-10-03",
+      "supports": "Access to the Peec API is currently limited to Enterprise customers."
+    },
+    {
+      "url": "https://docs.peec.ai/quickstart-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Quickstart: add your first 10 prompts, add 3 to 4 competitors, first insights within 24 hours."
+    },
+    {
+      "url": "https://peec.ai/ai-instructions",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec's page for AI assistants dated July 2026 lists Perplexity among models included in every plan and Claude Sonnet and Haiku among paid upgrades, which differs from the pricing page."
+    },
+    {
+      "url": "https://peec.ai/legal/terms-of-use",
+      "checkedAt": "2026-10-03",
+      "supports": "Section 10: monthly subscription can be ended at the end of the current payment cycle; section 10.5: no automatic refund for early termination of a fixed term; section 7: trial period length is determined by Peec."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, ChatGPT, Claude and Google AI, 2,961 runs; under 1 in 100 chance ChatGPT or Google's AI repeats the same brand list; ask 60-100 times and average; visibility percentage reasonable, ranking position not; work done with Gumshoe.ai."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_scraping",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of web scraping as automated extraction of data from websites."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): loaded peec.ai/pricing in a browser on 2026-10-03, read the rendered monthly prices, clicked the annual toggle to read $80/$205/$420, and read the add-on and Enterprise model lists, because the static HTML contains no prices.",
+    "Writer (Sonnet): downloaded peec.ai/pricing-agencies, the Peec docs (intro, quickstart, actions, API introduction, llms.txt), the terms of use and the July 2026 AI-instructions page with curl and read the raw text before citing them; found the AI-instructions page and the pricing page disagree on Perplexity and Claude and said so on the page instead of choosing one.",
+    "Writer (Sonnet): replaced the old page's stale claims (about $89-95 Starter, Pro $199-245, 'no recommendations engine', Gemini/Claude add-ons at 20-30 euros, 115+ languages, reviewer hearsay on 30-50% hidden cost) because none is supported by Peec's current pages.",
+    "Writer (Sonnet): computed 50 x 3 x 30 = 4,500 answers, $95 / 4,500 = 2.1 cents, $29 / 50 = 58 cents and a ratio of about 27 myself, and labelled them as our arithmetic.",
+    "Writer (Sonnet): re-read the SparkToro post against raw text for 600 volunteers, 12 prompts, 2,961 runs, under 1 in 100 and 60-100 runs, and kept the Gumshoe.ai involvement visible.",
+    "Writer (Sonnet): read the peec.ai row of the AEOeye crawler access study CSV (robots.txt 200, no AI crawler blocked or named, /llms.txt 404, no JSON-LD blocks) and kept the JavaScript-injection caveat from docs/content/vendor-sites-study-2026-10.md.",
+    "Writer (Sonnet): used only the evidence-pack product facts for AEOeye (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds Claude, Gemini, Google AI and Perplexity and ten questions; no subscription) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; opening states public documentation and no hands-on use; stale Peec prices removed",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

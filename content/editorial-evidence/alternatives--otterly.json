@@ -1,0 +1,96 @@
+{
+  "contentSha256": "72fc7ad09b86d5a23f1c7633e1f2f30794b8f923a61fae98e9f78eb0cefb258b",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Someone searching 'otterly alternative' is hitting an Otterly.AI plan limit or add-on cost and wants to know which other AI visibility tools fit, what each really costs, and whether leaving is the right call.",
+    "connection": "AEOeye sells a one-off AI visibility audit and says honestly that dedicated trackers (Peec AI, AthenaHQ, Profound, Nightwatch, Otterly.AI) do ongoing monitoring; the page helps the reader choose between a snapshot and a tracker and between trackers."
+  },
+  "assessment": "The page is documentation-based and says so near the top: it uses each vendor's own pricing page (and Otterly.AI's help center) checked on 2026-10-03, with no hands-on testing. It names three real reasons people leave Otterly.AI taken from Otterly.AI's own pricing and help pages (the 15-to-100 prompt step with no extra packs on Lite, Claude and Gemini as add-ons, data deleted on cancellation), drops the old 'monitoring-only, no fix guidance' claim because Otterly.AI's pricing page now lists Recommendations and a GEO Audit, gives verified entry prices for Peec AI, AthenaHQ, Profound, Nightwatch and AEOeye, and converts each entry plan to answers per month and price per 1,000 answers (labelled as our arithmetic where the vendor does not publish the figure). It deliberately does not rate any product's accuracy, repeat the earlier page's G2, Gartner, customer-count and Profound self-serve price claims, or give Profound a price it does not publish.",
+  "sources": [
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29 (15 prompts, no extra packs), Standard $189 (100), Premium $489 (400), annual per-month $25 / $160 / $422, add-on prices (Gemini and AI Mode $9 / $59 / $149, Claude $29 / $109 / $439), extra 100 prompts $99 on Standard and Premium, Recommendations 3 a week on Lite and unlimited above, API / MCP / Looker Studio from Standard, 2,000 API requests on Standard and 5,000 on Premium, Agency Partner 150 prompts on Standard, unlimited workspaces from Standard, Enterprise custom from 1,000 prompts."
+    },
+    {
+      "url": "https://otterly.ai/promptcalc/",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.AI's prompt calculator labels 50 prompts per category a 'Basic Check' and 100 per category 'Extensive Monitoring'."
+    },
+    {
+      "url": "https://help.otterly.ai/historical-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Tracking starts when a prompt is created; historical data is not backfilled."
+    },
+    {
+      "url": "https://help.otterly.ai/cancel-subscription",
+      "checkedAt": "2026-10-03",
+      "supports": "Access continues to the end of the billing cycle; tracked data and historical data are deleted after cancellation."
+    },
+    {
+      "url": "https://help.otterly.ai/monitoring-interval",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.AI runs every tracked prompt daily across every engine; no manual runs or frequency changes."
+    },
+    {
+      "url": "https://help.otterly.ai/free-trial",
+      "checkedAt": "2026-10-03",
+      "supports": "7-day trial, no credit card, 50 search prompts."
+    },
+    {
+      "url": "https://help.otterly.ai/lookerstudio",
+      "checkedAt": "2026-10-03",
+      "supports": "Looker Studio connector is available on Standard, Premium and Enterprise plans."
+    },
+    {
+      "url": "https://help.otterly.ai/can-i-export-my-data-and-reports",
+      "checkedAt": "2026-10-03",
+      "supports": "CSV exports (prompts, citations), raw AI responses in CSV and JSON, and PDF reports are available on all plans."
+    },
+    {
+      "url": "https://help.otterly.ai/amount-searchprompts",
+      "checkedAt": "2026-10-03",
+      "supports": "Each prompt is tied to one country, so the same question in two countries uses two prompt slots."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Read in a rendered browser: Starter $95 a month for 50 prompts, 3 models, daily tracking, unlimited users, 1 project, 4,500 monthly AI answers; Pro $245 for 150 prompts; Advanced $495 for 350; additional models add-on $30 / $70 / $140 a month by plan; Claude appears only in the Enterprise column; monthly answers = prompts x active models x frequency."
+    },
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan ($25 free credit, 300 credits; ChatGPT, Perplexity, AI Overviews, Gemini, Copilot); Starter $295 a month for 3,600 credits and 11 models; 1 credit = 1 AI response; API access and extra credits are paid add-ons; annual billing 17% off."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plans: free Trial (50 prompts run daily for 7 days, ChatGPT, Gemini, Google AI Overviews, limited AI Marketer credits) and custom-priced Enterprise (up to 9 answer engines, SSO/SAML, SOC 2, ongoing daily tracking)."
+    },
+    {
+      "url": "https://nightwatch.io/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Read in a rendered browser: Starter EUR 99 a month billed monthly (EUR 79 a month billed yearly, EUR 948), 500 keywords, 50 AI prompts, 1,500 AI answers a month, 14-day trial with no credit card; AI platforms ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview on every plan."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro advises asking an AI tool at least 60-100 times and averaging the results to know its recommendations."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded otterly.ai/pricing, otterly.ai/promptcalc and the Otterly.AI help articles on trial, add-ons, monitoring, prompt limits, history, cancellation, export, Looker Studio and Recommendations with curl on 2026-10-03 and read the raw text before using any price or limit.",
+    "Writer (Sonnet): read peec.ai/pricing and nightwatch.io/pricing in a rendered browser (their monthly prices are JavaScript-rendered), clicked Nightwatch's Monthly toggle to confirm EUR 99, and found that Peec AI's page lists extra models as a $30-a-month add-on, which corrected my first draft's claim that Perplexity was Enterprise-only.",
+    "Writer (Sonnet): fetched athenahq.ai/pricing (curl and browser) and tryprofound.com/pricing (curl) and confirmed AthenaHQ's free plan, Starter $295 with 3,600 credits and '1 credit = 1 AI response', and that Profound lists only a free trial and a custom Enterprise plan for brands, with daily tracking stated for both.",
+    "Writer (Sonnet): computed answers a month and price per 1,000 answers myself (Otterly.AI 15 x 4 x 30 = 1,800 and 100 x 4 x 30 = 12,000; Peec AI 4,500, Nightwatch 1,500 and AthenaHQ 3,600 as the vendors state) and labelled the Otterly.AI figures as our arithmetic on the page.",
+    "Writer (Sonnet): checked the crawler-study CSV rows for otterly.ai, peec.ai, athenahq.ai, tryprofound.com and nightwatch.io (403 on robots.txt and homepage for otterly.ai; llms.txt 404 for peec.ai, tryprofound.com and nightwatch.io, valid for athenahq.ai) and the 0/43 vendor blocking figures before describing them.",
+    "Writer (Sonnet): corrected AEOeye claims to the evidence-pack facts (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds four engines and ten questions; no subscription; not a daily tracker) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; Otterly.AI alternatives; per-1,000-answer table labelled as our arithmetic; unlinked source removed from evidence",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

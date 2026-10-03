@@ -1,0 +1,71 @@
+{
+  "contentSha256": "1fc91e13cac1e47843dc6f3b8f36e2e39ab27c408e648b2dc8e0f3ee1e591175",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A content team or founder wants to know whether using AI to write pages gets them penalized by Google, what Google actually penalizes, how to use AI without risk, and whether AI-written pages can be cited by ChatGPT, Google AI Overviews and other AI engines.",
+    "connection": "AEOeye's work is getting brands named in AI answers, which depends on having pages worth citing; the page explains the Google spam-policy line (scaled content abuse), the access and eligibility gates for AI citation, and AEOeye's own content pruning (234 posts retired, 165 pages merged into 42) as a first-hand example of one strong page per question."
+  },
+  "assessment": "The page now answers 'does Google penalize AI content' in the first screen (no; scaled low-value content made to manipulate rankings is what violates the spam policy), maps Google's own wording to a practice-by-risk table, explains that Google has not said it sorts pages by authorship, gives five concrete safe-use steps including Google's disclosure and Merchant Center labelling guidance, covers the AI-search twist (access gates for OAI-SearchBot and Google's AI features, Google's July 2026 statement that page-per-fan-out-query content violates the scaled content abuse policy, the GEO paper, a lab source-bias study) and ends with AEOeye's own pruning story with explicit caveats. It rests on six Google Search Central pages, OpenAI's crawler documentation and two arXiv papers. It deliberately does not claim Google detects or cannot detect AI text, does not claim our retired posts were AI-written or penalized, and does not claim our rankings improved after pruning (too early; no data).",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Feb 2023 Google Search Central blog and FAQ: appropriate use of AI or automation is not against guidelines; focus on quality rather than how content is produced; AI gives no special gains ('just content'); SpamBrain analyzes patterns and signals to identify spam however it is produced; disclosures useful where readers would wonder how content was created; an AI byline is probably not the best approach."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Page last updated 2026-10-01: generative AI is useful for research and structure but generating many pages without adding value may violate the scaled content abuse policy; manually fact-check, including titles, meta descriptions, structured data and alt text; models predict likely word sequences and may hallucinate; Merchant Center requires AI-generated product titles/descriptions to be labelled and AI images to carry IPTC metadata."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Page last updated 2026-08-28: scaled content abuse definition (many pages generated primarily to manipulate rankings, no matter how created) and its examples; violating sites may rank lower or not appear; detection by automated systems and human review that can result in a manual action."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Page last updated 2026-10-01: people-first questions (first-hand expertise, depth of knowledge); search-engine-first warning signs (extensive automation across many topics, many topics hoping some perform, summarizing without adding value); E-E-A-T is not itself a ranking factor and trust is the most important aspect."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "To be a supporting link in AI Overviews or AI Mode a page must be indexed and eligible to show in Search with a snippet; no additional requirements or special optimizations."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Page last updated 2026-07-10: creating separate content for every query variation or fan-out query primarily to manipulate rankings or generative AI responses violates the scaled content abuse policy; a high quantity of pages does not make a site higher quality."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Sites opted out of OAI-SearchBot will not be shown in ChatGPT search answers."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): Cite Sources, Quotation Addition and Statistics Addition gave 30-40% relative improvement on position-adjusted word count and 15-30% on subjective impression in the GEO-bench evaluation; checked against the PDF text."
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.20501",
+      "checkedAt": "2026-10-03",
+      "supports": "Neural retrieval models tended to rank LLM-generated documents higher than human-written ones ('source bias') in benchmark experiments with research retrievers, not production AI search engines."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded each cited Google Search Central page with curl on 2026-10-03 and read the raw text (AI content blog and FAQ, generative AI guidance, spam policies, helpful-content page, AI features page, generative-AI optimization guide), including each page's 'Last updated' date, before stating anything.",
+    "Writer (Sonnet): corrected the previous page's claims that Google 'doesn't require a disclosure label' and 'has said it doesn't evaluate content that way': Google's FAQ says disclosures are useful where readers would wonder how content was made, and says SpamBrain looks at patterns however content is produced; the page now says Google has not stated that it sorts pages by authorship.",
+    "Writer (Sonnet): confirmed the GEO figures (30-40% and 15-30%) in the arXiv PDF text, and read the source-bias paper's abstract and setup to state that it tested research retrieval models rather than commercial engines.",
+    "Writer (Sonnet): checked AEOeye's own story against the evidence pack (234 posts retired and 27 duplicates merged on 2026-09-24 after ~half of 496 posts were off-topic with 0 clicks in 90 days; 165 pages merged into 42 on 2026-10-03: 85 into 37 canonical pages and 80 into 5 hubs; robots.txt allows GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, Applebot-Extended) and added explicit caveats that no penalty notice was received and that no ranking improvement is claimed.",
+    "Writer (Sonnet): carried over the previous page's definition of scaled content abuse, the three-patterns idea (now a practice-by-risk table), the E-E-A-T point, the safe-use habits and the AI-search twist; dropped the link to /blog/ai-seo-checklist, which is not a live page, and the claim that AI content 'fails to get cited at all' when thin, which no source supports.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; scaled-content-abuse framing quoted from Google's spam policies; our 165-into-42 pruning carries no-penalty/no-ranking-claim caveats",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

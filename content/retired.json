@@ -1,5 +1,5 @@
 {
-  "$comment": "Permanently retired content URLs (full site paths). gone → HTTP 410 (middleware); merged → 301 to the page that absorbed it (next.config; chains are flattened so every source points at its final page). Rounds: 2026-09-24 (234 off-topic blog posts gone + 27 duplicate-intent merges, docs/audit/2026-09-24-content-pruning.md) and 2026-10-03 (21 off-topic pages gone, 10 redirected to an existing tool / glossary / comparison page, 165 merged into 37 canonical pages and 5 research hubs, docs/audit/2026-10-03-content-cleanup-plan.md). Paths listed here must never be re-created — the content gate (scripts/verify-content-quality.mjs) enforces it. Legacy entries without a leading slash are /blog/<slug>.",
+  "$comment": "Permanently retired content URLs (full site paths). gone → HTTP 410 (middleware); merged → 301 to the page that absorbed it (next.config; chains are flattened so every source points at its final page). Rounds: 2026-09-24 (234 off-topic blog posts gone + 27 duplicate-intent merges, docs/audit/2026-09-24-content-pruning.md) and 2026-10-03 (21 off-topic pages gone, 10 redirected to an existing tool / glossary / comparison page, 165 merged into 37 canonical pages and 5 research hubs, docs/audit/2026-10-03-content-cleanup-plan.md). Paths listed here must never be re-created — the content gate (scripts/verify-content-quality.mjs) enforces it. Legacy entries without a leading slash are /blog/<slug>. 2026-10-03 第二遍:15 页内容被吸收进规范页后合并(见 docs/audit/2026-10-03-content-cleanup-plan.md)。",
   "gone": [
     "/blog/accuranker-alternatives",
     "/blog/adobe-firefly-pricing",
@@ -459,6 +459,21 @@
     "/guides/how-to-do-an-aeo-audit": "/blog/aeo-audit-checklist",
     "/guides/how-to-optimize-for-ai-search": "/guides/how-to-optimize-content-for-ai-search",
     "/guides/how-to-rank-in-chatgpt": "/blog/chatgpt-seo",
-    "/guides/how-to-track-brand-mentions-in-ai": "/blog/ai-visibility-tracker"
+    "/guides/how-to-track-brand-mentions-in-ai": "/blog/ai-visibility-tracker",
+    "/blog/why-your-brand-is-invisible-to-ai": "/blog/why-ai-doesnt-mention-your-brand",
+    "/answers/why-does-ai-recommend-my-competitors": "/blog/why-ai-doesnt-mention-your-brand",
+    "/blog/ai-seo-services": "/blog/answer-engine-optimization-agency",
+    "/blog/geo-agency": "/blog/answer-engine-optimization-agency",
+    "/blog/geo-consultant": "/blog/answer-engine-optimization-agency",
+    "/blog/geo-services-scope-deliverables": "/blog/answer-engine-optimization-agency",
+    "/answers/profound-alternatives-no-sales-call-instant": "/alternatives/profound",
+    "/answers/profound-too-complicated-hard-to-use": "/blog/profound-review",
+    "/answers/does-claude-cite-sources": "/blog/claude-seo",
+    "/answers/do-ai-assistants-use-schema-markup": "/blog/structured-data-for-ai",
+    "/blog/aeo-marketing-playbook": "/blog/aeo-strategy",
+    "/answers/athenahq-free-trial": "/blog/athenahq-review",
+    "/answers/evertune-free-trial": "/answers/how-much-does-evertune-cost",
+    "/answers/does-llmrefs-show-the-actual-ai-answer": "/blog/llmrefs-review",
+    "/blog/geo-for-ecommerce": "/for/ecommerce"
   }
 }

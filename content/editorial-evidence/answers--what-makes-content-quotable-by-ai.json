@@ -1,0 +1,75 @@
+{
+  "contentSha256": "2e15444906caa4491a8b53bc2a29434960c4b643a2460d951d298da7030ecdd8",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A marketer or founder has well-written pages that AI engines never quote and wants to know what, at the level of a single passage, makes a sentence safe for an engine to lift and cite, and how to check their own pages.",
+    "connection": "AEOeye measures whether AI engines name a brand when buyers ask. This page explains the passage-level traits that make a page's text usable in those answers, links the page-level process guide rather than repeating it, and ties the fetch check to AEOeye's crawler access study."
+  },
+  "assessment": "The page answers 'what makes a passage quotable' with six traits in a table, a specificity-first position, three short before-and-after rewrites (two explicitly labelled illustrative with a fictional brand, one using a real, dated Google claim), an honest note that Google says no special writing or chunking is required, and a seven-question checklist. It rests on Microsoft's published Copilot guidance, Anthropic's contextual retrieval write-up, Google documentation, one retrieval position-bias paper (flagged as mechanism, not a test of ChatGPT or Perplexity) and the GEO paper. It deliberately avoids the earlier unsourced Litmus ROI figure, any claim about what ChatGPT quotes most, and any invented data or customers.",
+  "sources": [
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft (October 2025): assistants break content into smaller pieces; self-contained phrasing, concise one-to-two-sentence answers and strong headings; avoid vague language and anchor claims in measurable facts; AI systems may not render content hidden in tabs or expandable menus; headings mark where one idea ends and another begins."
+    },
+    {
+      "url": "https://www.anthropic.com/news/contextual-retrieval",
+      "checkedAt": "2026-10-03",
+      "supports": "In traditional RAG, chunks lose context; the example chunk 'The company's revenue grew by 3% over the previous quarter' does not specify the company or time period, making it hard to retrieve or use."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic's web search tool citation field cited_text holds up to 150 characters of the cited content."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google: no need to write in a special way for generative AI search; no requirement to break content into tiny pieces; defines commodity content as common knowledge that could originate from anyone; unique non-commodity content will likely matter most."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "A page must be indexed and eligible to be shown in Google Search with a snippet to be a supporting link in AI Overviews or AI Mode; structured data should match the visible text on the page."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/publication-dates",
+      "checkedAt": "2026-10-03",
+      "supports": "Google recommends a user-visible date labelled Published or Last updated and datePublished/dateModified in Article markup; it estimates the byline date from several factors including significant updates."
+    },
+    {
+      "url": "https://arxiv.org/abs/2505.13950",
+      "checkedAt": "2026-10-03",
+      "supports": "EMNLP 2025 Findings position-bias study: dense embedding and ColBERT-style retrievers dropped 15.6% on average when relevant information appeared later in the passage; BM25 and rerankers were more robust."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO (KDD 2024): adding statistics, quotations and cited sources raised visibility in the paper's evaluation while keyword stuffing gave little to no improvement."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Coreference",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of coreference: two or more expressions in a text refer to the same person or thing, and resolving it often needs context."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 with curl and read the extracted text; Microsoft, Anthropic, Google and arXiv claims are limited to what those pages say. Checked the Microsoft article's raw HTML for the 'one idea' wording after a search summary paraphrased it, and rewrote the FAQ to use the page's actual sentence.",
+    "Writer (Sonnet): verified the 15.6% position-bias figure and its EMNLP 2025 Findings venue on the arXiv abstract, and the 150-character cited_text limit on Anthropic's web search tool documentation; labelled the first as research retrievers only.",
+    "Writer (Sonnet): the two illustrative rewrites use a fictional brand (Acme Helpdesk) with invented figures and are labelled as such in the text; the third rewrite uses a real Google claim that I checked against the AI features page. Avoided repeating the Pew Research before-and-after already used on /blog/geo-examples.",
+    "Writer (Sonnet): used only the evidence-pack figure for the crawler access study (24 of 88 e-commerce and consumer homepages challenged our crawler; 391 sites, convenience sample) and the 165-into-42 merge, and read the sibling guide /guides/how-to-optimize-content-for-ai-search so this page covers passage anatomy without repeating its process steps.",
+    "Writer (Sonnet): viewed the three chosen Pexels photos and wrote alt text for what is visible; ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; two rewrites labelled illustrative with a fictional brand; research-retriever finding flagged as not a production-engine test",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

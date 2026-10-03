@@ -1,129 +1,181 @@
 {
- "slug": "peec",
- "type": "vs",
- "title": "AEOeye vs Peec AI: Which AI Visibility Tool Should You Pick?",
- "metaTitle": "AEOeye vs Peec AI: Honest 2026 Comparison",
- "metaDescription": "AEOeye vs Peec AI compared fairly: free instant 5-engine audit vs paid daily AEO tracking. Pricing, engine coverage, and who each tool is actually best for.",
- "primaryKeyword": "aeoeye vs Peec AI",
- "shortAnswer": "Pick AEOeye if you want a free, instant blind audit across all five major engines (ChatGPT, Perplexity, Google AI, Claude, Gemini) with no card and no contract — ideal for a first look or a non-specialist. Pick Peec AI if you're an established brand or agency that needs ongoing daily tracking, deep competitor benchmarking, and source-level analytics, and you have the budget (~$95+/mo, plus add-ons) and the in-house skill to act on the data.",
- "intro": "AEOeye and Peec AI both answer the same core question — does AI recommend your brand when buyers ask? — but they sit at opposite ends of the workflow. AEOeye is built to give anyone an instant, free, blind snapshot across five engines in a single run. Peec AI is a paid analytics platform built for teams that want to monitor that picture every day and benchmark it against competitors over time.\n\nThis is a head-to-head for people deciding where to start. We'll be specific about pricing, engine coverage, and the trade-offs — including where Peec AI is genuinely the stronger choice.",
- "sections": [
-  {
-   "heading": "The core difference: instant audit vs ongoing monitoring",
-   "body": "AEOeye is a diagnostic you run on demand. You enter a brand and category, and it blind-queries ChatGPT, Perplexity, Google AI, Claude, and Gemini with the questions real buyers ask, then shows whether each engine recommends you, where you rank, and which competitors win that answer. It's free to start, returns results in one shot, and needs no setup or sales call.\n\nPeec AI is a monitoring platform. You configure a set of prompts, and it tracks your visibility score, share of voice, citation sources, and competitor positions on a recurring (typically daily) basis, building dashboards and trend lines over time. That continuity is its real value — and the reason it carries a subscription.\n\nThe practical takeaway: if you want to *find out where you stand right now*, AEOeye gets you there in minutes with no commitment. If you want a *standing instrument panel* you check every week to catch movement and prove progress, that's Peec's job. Many teams start with a free AEOeye audit to decide whether the problem is big enough to justify a paid monitoring tool at all."
-  },
-  {
-   "heading": "Pricing and the real cost of engine coverage",
-   "body": "AEOeye is free to start — no credit card, no contract, and its deeper multi-engine querying activates with usage. You can see your full five-engine picture before spending anything.\n\nPeec AI has no free plan; you get a 7-day trial only. Pricing starts around $89–95/mo for Starter (a tight prompt quota and just three engines), then Pro at roughly $199–245/mo, Advanced around $495/mo, and Enterprise custom. Billing is monthly or annual, with about a 15% discount for paying annually.\n\nThe catch buyers should know about is add-ons. The affordable Peec tiers center on ChatGPT, Perplexity, and Google AI Overviews. Gemini, Claude, Grok, and Copilot are paid add-ons (roughly €20–30 per engine, varying by tier), and extra countries cost more too. So the sticker price isn't the real price — independent reviews note the true monthly cost often runs 30–50% above the headline once you add the engines and markets you actually need. Agencies report a single new client can add $500+ in tooling. None of that is hidden malice — it's a usage-based model — but you should budget for it."
-  },
-  {
-   "heading": "AI engines covered — and why it matters",
-   "body": "AEOeye queries all five major engines — ChatGPT, Perplexity, Google AI, Claude, and Gemini — in the same audit, from the start, at no cost. Because the picture differs meaningfully by engine (a brand can dominate Perplexity and be invisible in Gemini), seeing all five together is the whole point of a blind audit.\n\nPeec AI's out-of-the-box coverage on the plans most people buy is ChatGPT, Perplexity, and Google AI Overviews. Gemini, Claude, Grok, and Copilot sit behind paid add-ons. Peec does cover a notably wide set of languages and regions — 115+ — which is a genuine strength if you're a multilingual or multi-market brand, and arguably best-in-class at its price tier for that.\n\nSo the trade is: AEOeye gives you the full cross-engine view for free in one pass; Peec gives you deeper, repeatable per-engine analytics and far broader geographic/language coverage, but you assemble (and pay for) the full engine set yourself. If your priority is simply *seeing* where you stand across every engine today, AEOeye removes the friction. If your priority is *tracking* specific engines and regions continuously, Peec's depth wins."
-  },
-  {
-   "heading": "Where Peec AI is genuinely stronger",
-   "body": "We won't pretend AEOeye covers everything Peec does. Peec is a mature analytics platform, and there are clear areas where it leads:\n\n- Historical dashboards and trend analysis: Peec is built for daily tracking and longitudinal data, so you can prove whether your visibility is improving month over month. AEOeye is lighter on enterprise historical dashboards today.\n- Competitor benchmarking depth: Peec's share-of-voice and head-to-head competitor views are detailed and repeatable across a large prompt set.\n- Source and citation tracking: Peec shows which domains the engines pull from to construct answers — useful for understanding *why* you are or aren't cited.\n- Language and regional breadth: 115+ languages/regions is strong for global brands.\n- Scraping-based methodology: Peec's UI-scraping approach is often cited as producing accurate visibility data.\n\nIf you're an established brand or an SEO/AEO agency that already has AI-search presence and needs ongoing, granular reporting, Peec earns its place. Be aware of its most consistent criticism, covered next."
-  },
-  {
-   "heading": "The honest limits of each tool",
-   "body": "Peec AI's most repeated criticism in independent reviews is that it diagnoses but doesn't treat. It tells you where you're cited, how competitors compare, and which sources engines pull from — but it has no recommendations engine, no content optimization, and no specific steps to close the gaps it surfaces. It also doesn't estimate actual AI-referred traffic, even on paid plans, and lacks native HubSpot/Salesforce integration. Combined with the add-on pricing, that means real cost and real in-house effort to act on the data.\n\nAEOeye's honest limits are different. It's newer and lighter than incumbents on enterprise-grade historical dashboards and deep longitudinal analytics, and its deepest multi-engine querying activates with usage rather than being maximal on the first free run. It's built to make the *initial* picture instant and accessible to non-experts, not to replace a full enterprise analytics suite on day one.\n\nNeither tool, on its own, writes your content or guarantees a ranking. Both are measurement tools. The difference is how much you pay, how fast you see results, and how much expertise you need to start."
-  },
-  {
-   "heading": "How to choose",
-   "body": "Choose AEOeye if any of these fit: you want to know where you stand today without paying or booking a call; you're a founder, marketer, or non-specialist who needs a clear answer fast; you want the full five-engine picture (including Claude and Gemini) in one free run before committing budget; or you're scoping whether AI visibility is even a problem worth investing in.\n\nChoose Peec AI if: you're an established brand or agency with existing AI-search presence; you need daily, ongoing tracking and trend history; deep competitor benchmarking and source-level citation analysis are central to your reporting; you operate across many languages or markets; and you have the budget for the base plan plus engine/market add-ons and the in-house skill to act on diagnosis.\n\nA reasonable path for many teams: run the free AEOeye audit first to see your real cross-engine standing, then decide whether the gap justifies a paid monitoring subscription like Peec. Starting free costs you nothing but a few minutes."
-  }
- ],
- "keyTakeaways": [
-  "AEOeye is free and instant: a blind audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini in one run, no card and no contract.",
-  "Peec AI has no free plan — only a 7-day trial — and starts around $89–95/mo with just three engines included.",
-  "On Peec, Gemini, Claude, Grok, and Copilot are paid add-ons (~€20–30/engine), so the real cost often runs 30–50% above the sticker price.",
-  "Peec is genuinely stronger for ongoing daily tracking, historical dashboards, deep competitor benchmarking, source tracking, and 115+ language/region coverage.",
-  "Peec's most common criticism: it diagnoses but doesn't fix — no recommendations engine, no content optimization, no AI-traffic estimates.",
-  "Start with a free AEOeye audit to see your full cross-engine picture, then decide if a paid monitoring tool like Peec is worth the budget."
- ],
- "faqs": [
-  {
-   "q": "Does Peec AI have a free plan?",
-   "a": "No. Peec AI offers a 7-day free trial (no credit card required, on Starter and Pro brand plans) but no permanent free plan. AEOeye, by contrast, is free to start with no card and no contract, and runs a full five-engine audit on the first pass."
-  },
-  {
-   "q": "How much does Peec AI really cost?",
-   "a": "Starter is roughly $89–95/mo with a tight prompt quota and three engines. Pro is about $199–245/mo, Advanced around $495/mo, and Enterprise is custom. Because Gemini, Claude, Grok, and Copilot — plus extra countries — are paid add-ons (~€20–30 per engine), the real cost frequently lands 30–50% above the headline price once you add what you actually need."
-  },
-  {
-   "q": "Which AI engines does each tool cover?",
-   "a": "AEOeye covers all five major engines — ChatGPT, Perplexity, Google AI, Claude, and Gemini — for free in one audit. Peec AI's affordable tiers include ChatGPT, Perplexity, and Google AI Overviews out of the box; Gemini, Claude, Grok, and Copilot require paid add-ons. Peec does offer broader language and regional coverage (115+)."
-  },
-  {
-   "q": "Is AEOeye or Peec AI better for an agency?",
-   "a": "It depends on the job. For ongoing daily monitoring, deep competitor benchmarking, source tracking, and multi-market reporting for established clients, Peec AI is the stronger platform — if the budget and add-on costs work. For fast, free, no-commitment audits during pitches, onboarding, or scoping, AEOeye is more practical because it shows the full cross-engine picture instantly without a subscription."
-  },
-  {
-   "q": "Will either tool tell me how to fix my AI visibility?",
-   "a": "Both are primarily measurement tools, not done-for-you optimizers. Peec AI's most consistent criticism is that it diagnoses but doesn't treat — no recommendations engine or content optimization. AEOeye focuses on giving you a clear, honest read of where you stand across engines so you know what to prioritize. Acting on the findings still requires content and AEO work on your side."
-  }
- ],
- "comparisonTable": {
-  "columns": [
-   "AEOeye",
-   "Peec AI"
+  "slug": "peec",
+  "type": "vs",
+  "title": "AEOeye vs Peec AI: Which Should You Pick?",
+  "metaTitle": "AEOeye vs Peec AI: Which Should You Pick? (2026)",
+  "metaDescription": "Peec AI tracks AI answers daily from $95 a month; AEOeye is a one-off audit, $29 for five engines. Who should pick which, with prices checked 3 Oct 2026.",
+  "primaryKeyword": "aeoeye vs Peec AI",
+  "shortAnswer": "Pick Peec AI if you need to track the same buyer questions every day and show a trend to a client or boss; plans start at $95 a month. Pick AEOeye if you first need to know whether ChatGPT, Claude, Gemini, Google AI and Perplexity name you at all: a free ChatGPT check, then a $29 one-time report. They do different jobs, and most teams need the snapshot before the subscription.",
+  "intro": "This comparison rests on Peec AI's public documentation (pricing pages, docs and terms) as of 3 October 2026; we have not used Peec AI hands-on. AEOeye is our product, so we say plainly where Peec AI is stronger. On anything that needs repetition, it is.\n\nOlder comparisons, including the earlier version of this page, are out of date in two ways. Peec's documentation now describes [ranked recommended actions](https://docs.peec.ai/actions), so \"it only diagnoses\" no longer holds, and the old $89 and $199 price points are gone from its [pricing page](https://peec.ai/pricing).",
+  "sections": [
+    {
+      "heading": "Which should you choose?",
+      "body": "Choose by the job. A recurring report on how AI engines describe your brand points to Peec AI; a first answer to \"do the engines name us?\" points to AEOeye. Our view: do not pay for tracking before you know your starting point.\n\n- **Choose Peec AI** if you will review results every week, need a trend line for a client or executive, manage several brands, or want source and competitor detail across 50 to 350 prompts.\n- **Choose AEOeye** if you have never checked, want one clear snapshot, cannot justify a subscription, or want Claude, Perplexity and Gemini answers in the same report without picking models.\n- **Use both, in order,** if you are unsure: run the [free audit](/) first, and start a Peec trial only if the result says AI visibility is worth monitoring.\n\nTracking a brand that AI never names gives you a daily chart of zeros. Find out where you stand, fix the obvious gaps, then pay for the trend line."
+    },
+    {
+      "heading": "What is each tool built for?",
+      "body": "Peec AI is a monitoring platform: you define prompts, it runs them every day and charts what changes. AEOeye is an audit: we write the buyer questions, run them once and hand you the answers. One produces a time series, the other a snapshot.\n\nPeec's [documentation](https://docs.peec.ai/intro-to-peec-ai) says it runs your prompts daily and reports three metrics: visibility (how often you are mentioned), position and sentiment. It collects data by UI scraping, which means driving the public chat interfaces with browser automation instead of calling APIs. [Web scraping](https://en.wikipedia.org/wiki/Web_scraping) is automated extraction of data from websites, and\n\nAEOeye's free audit asks ChatGPT three unbranded buyer questions live and shows the full answers, the competitors named instead of you, and starter fixes. The $29 report, paid once, adds Claude, Gemini, Google AI and Perplexity, grows to ten questions (the free three are kept) and adds a fix roadmap. We test each engine at the default tier a free user gets, the same idea as Peec's logged-out approach. There is no subscription.\n\n![A vintage round weighing scale with black markings on a pale background](https://images.pexels.com/photos/7991910/pexels-photo-7991910.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do pricing and engine coverage compare?",
+      "body": "Peec AI's self-serve brand plans cost $95 to $495 a month; the AEOeye full report costs $29 once. The bigger gap is volume: Peec's Starter plan collects up to 4,500 AI answers a month, while an AEOeye report collects 50 once. Coverage differs too, as the table and notes show.\n\n- **Plans.** Starter, Pro and Advanced cost $95, $245 and $495 a month on monthly billing, or $80, $205 and $420 billed annually, for 50, 150 and 350 prompts. Each lets you choose three models and tracks daily. Enterprise is custom.\n- **Cost per answer.** Peec defines monthly AI answers as prompts times active models times frequency, so Starter is 50 x 3 x 30 = 4,500. That is about 2.1 cents an answer at $95. Our report is $29 for 50 answers, about 58 cents each. By our arithmetic Peec is roughly 27 times cheaper per answer; you pay AEOeye for needing no setup and no commitment.\n- **Engines.** The pricing page lists ChatGPT, AI Mode, AI Overviews, Microsoft Copilot, Gemini and Naver AI as the models a plan can use. Perplexity appears as an add-on at $30, $70 or $140 a month per extra model on the page's annual labels, and Claude Sonnet 4 and Grok appear only in the Enterprise column. A [July 2026 Peec page](https://peec.ai/ai-instructions) written for AI assistants says Perplexity is included in every plan. Peec's own pages disagree, so confirm your three models in the trial.\n- **Commitment.** Peec's [terms](https://peec.ai/legal/terms-of-use) end a monthly plan at the end of the payment cycle, but give no automatic refund when a fixed term is ended early."
+    },
+    {
+      "heading": "Where is Peec AI stronger?",
+      "body": "Peec AI is stronger at everything that needs repetition or scale: daily sampling, history, source analysis, team reporting and data access. If you need a trend, a snapshot cannot replace it, however good the snapshot is.\n\nSampling is the structural reason. [SparkToro](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/), working with the tracking startup Gumshoe.ai, had 600 volunteers run 12 prompts through ChatGPT, Claude and Google's AI 2,961 times. It found under a 1 in 100 chance that ChatGPT or Google's AI gives the same brand list twice, and advised asking each prompt 60 to 100 times and averaging. Ten questions run once is a sample of one; Peec's daily runs are built to average that noise out.\n\n- **Sources and gaps.** Its pricing page lists gap analysis: sources that appear often and name competitors but not you, by domain and URL.\n- **Actions.** The [Actions docs](https://docs.peec.ai/actions) describe a ranked list split into site audit, owned and earned work, each with its evidence.\n- **Bot traffic.** Crawl insights read server logs to show which AI bots hit which pages.\n- **Data access.** Its pricing card lists Looker Studio under Advanced; Peec's [API docs](https://docs.peec.ai/api/introduction) say API access is limited to Enterprise customers.\n- **Agencies.** The [agency pricing page](https://peec.ai/pricing-agencies) offers plans of $245, $495 and $795 a month and lists free pitch projects for auditing prospects."
+    },
+    {
+      "heading": "Where is AEOeye stronger, and where is it not?",
+      "body": "AEOeye is stronger when you have no setup time, no budget line and one question: does AI name us? There are no prompts to write, no models to pick and nothing to cancel. It is weaker once you ask what changed last month.\n\n- **No setup.** We write the buyer questions from your brand and category. Peec's [quickstart](https://docs.peec.ai/quickstart-guide) asks you to add your first 10 prompts and choose competitors.\n- **Five engines, one price.** The $29 report covers ChatGPT, Claude, Gemini, Google AI and Perplexity with 10 questions, plus a five-layer SEO foundation audit and a fix roadmap by PDF.\n- **Cheap to be wrong.** The free check costs nothing and the report is $29; Peec's cheapest plan is $95 for one month.\n\nThe limits are real. AEOeye has no history, no daily runs, no competitor dashboards and no team seats, and ten questions is a small sample. It does not guarantee recommendations or write content for you.\n\nA neutral note: when we checked Peec's own site for [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) on 3 October 2026, peec.ai's robots.txt blocked no AI crawler and named none, /llms.txt returned a 404, and the served homepage HTML had no JSON-LD (schema added by JavaScript would not show in our fetch). That is a fact box, not a verdict on the product.\n\n![A glass bathroom scale with a blue tape measure laid across it](https://images.pexels.com/photos/53404/scale-diet-fat-health-53404.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do you decide?",
+      "body": "Answer three questions in order: do you know whether AI names you, will you review the data every week, and who else needs to see it? The answers point to one tool or to a sequence.\n\n1. **Never checked?** Run the free audit at [aeoeye.com](/). If the three answers name you, you have something to protect; if not, you have a fix list.\n2. **Named, and need to keep it?** Start a Peec trial. Read our [Peec AI pricing guide](/blog/peec-ai-pricing) and [review](/blog/peec-ai-review) first; plan limits decide the real cost.\n3. **Agency?** Peec's agency plans and pitch projects are built for client work. The $29 AEOeye report is a cheap one-off for a pitch, if you need no client workspaces.\n4. **Need tracking under $95 a month?** Compare the [other Peec AI alternatives](/alternatives/peec) and our [guide to AI visibility tools](/blog/best-ai-visibility-tools).\n\nWhichever you pick, treat one run as evidence, not proof: ask again next week before rebuilding a page around one answer."
+    }
   ],
-  "rows": [
-   {
-    "label": "Free tier",
-    "values": [
-     "Yes — free to start, no credit card, no contract",
-     "No free plan; 7-day trial only"
+  "comparisonTable": {
+    "columns": [
+      "AEOeye",
+      "Peec AI"
+    ],
+    "rows": [
+      {
+        "label": "What it is",
+        "values": [
+          "One-time AI visibility audit",
+          "Platform that tracks AI answers daily"
+        ]
+      },
+      {
+        "label": "Price (checked 3 Oct 2026)",
+        "values": [
+          "$0 free audit; $29 one-time full report",
+          "Starter $95/mo ($80 billed annually), Pro $245 ($205), Advanced $495 ($420); Enterprise custom"
+        ]
+      },
+      {
+        "label": "Engines",
+        "values": [
+          "Free: ChatGPT. Full report: ChatGPT, Claude, Gemini, Google AI, Perplexity",
+          "Choose 3 per plan from ChatGPT, AI Mode, AI Overviews, Copilot, Gemini, Naver AI; more models are paid add-ons or Enterprise"
+        ]
+      },
+      {
+        "label": "Questions or prompts",
+        "values": [
+          "3 free; 10 in the full report",
+          "50, 150 or 350 by plan"
+        ]
+      },
+      {
+        "label": "AI answers collected",
+        "values": [
+          "3 free; 50 in the report (10 x 5), once",
+          "Up to 4,500, 13,500 or 31,500 a month"
+        ]
+      },
+      {
+        "label": "Change over time",
+        "values": [
+          "No history; re-run for a fresh snapshot",
+          "Daily runs with trend charts"
+        ]
+      },
+      {
+        "label": "Setup",
+        "values": [
+          "Enter your brand; we write the questions",
+          "You build or accept suggested prompts; first data within 24 hours"
+        ]
+      },
+      {
+        "label": "Data access",
+        "values": [
+          "Report on screen and PDF by email",
+          "Looker Studio from Advanced; API for Enterprise customers"
+        ]
+      },
+      {
+        "label": "Commitment",
+        "values": [
+          "None; no subscription",
+          "Monthly or 12-month term; no automatic refund when a fixed term ends early"
+        ]
+      }
     ]
-   },
-   {
-    "label": "Pricing",
-    "values": [
-     "Free to start; deeper querying activates with usage",
-     "~$89–95/mo Starter, ~$199–245 Pro, ~$495 Advanced, Enterprise custom; engines/markets are paid add-ons"
-    ]
-   },
-   {
-    "label": "AI engines covered",
-    "values": [
-     "All 5 in one audit: ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "3 on base plans (ChatGPT, Perplexity, Google AI Overviews); Gemini, Claude, Grok, Copilot are paid add-ons; 115+ languages/regions"
-    ]
-   },
-   {
-    "label": "Speed to first result",
-    "values": [
-     "Instant — full five-engine snapshot in one run",
-     "Setup of prompts, then recurring/daily tracking builds over time"
-    ]
-   },
-   {
-    "label": "Setup/learning curve",
-    "values": [
-     "Minimal — built for non-experts, no sales call",
-     "Higher — configure prompts; best with in-house SEO/AEO skill"
-    ]
-   },
-   {
-    "label": "Best for",
-    "values": [
-     "Founders, marketers, and agencies wanting a fast, free cross-engine read or pitch/scoping audit",
-     "Established brands and agencies needing ongoing daily tracking, benchmarking, and multi-market reporting"
-    ]
-   },
-   {
-    "label": "Contract",
-    "values": [
-     "None — no commitment to start",
-     "Monthly or annual (≈15% off annual); no long-term contract required, but a paid plan to use it"
-    ]
-   }
-  ]
- },
- "image": {
-  "url": "https://images.pexels.com/photos/8547191/pexels-photo-8547191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A focused woman working at her laptop in a bright, modern office setting.",
-  "photographer": "www.kaboompics.com",
-  "photographerUrl": "https://www.pexels.com/@karola-g"
- }
+  },
+  "keyTakeaways": [
+    "Peec AI tracks the same prompts daily from $95 a month; AEOeye is a free ChatGPT check plus a $29 one-time five-engine report.",
+    "Per answer, Peec is far cheaper (about 2.1 cents against 58 cents by our arithmetic); AEOeye's advantage is no setup and no commitment.",
+    "Peec's documentation now describes ranked actions, so the old \"it only diagnoses\" criticism is out of date.",
+    "Peec's own pages disagree on which engines each plan includes; confirm your three models in the trial.",
+    "Check where you stand first, then pay for tracking only if the snapshot says AI visibility is worth watching."
+  ],
+  "faqs": [
+    {
+      "q": "Is AEOeye a replacement for Peec AI?",
+      "a": "No. AEOeye is a one-time audit: a free ChatGPT check with three questions, then a $29 report covering ten questions on five engines. Peec AI runs your prompts daily and charts changes. If you need a trend line or weekly reporting, you need a tracker like Peec. If you need a first answer, the audit is enough."
+    },
+    {
+      "q": "How much does Peec AI cost compared with AEOeye?",
+      "a": "On 3 October 2026 Peec AI listed Starter at $95 a month, Pro at $245 and Advanced at $495, or $80, $205 and $420 a month billed annually, with Enterprise custom. AEOeye is free for the ChatGPT-only audit and $29 once for the five-engine report. AEOeye has no subscription."
+    },
+    {
+      "q": "Does Peec AI cover Claude and Perplexity?",
+      "a": "It depends on which Peec page you read. The pricing page lists Perplexity as a paid add-on and shows Claude Sonnet 4 only in the Enterprise column. A July 2026 Peec page for AI assistants says Perplexity is included and Claude is an upgrade. Confirm in the trial. AEOeye's $29 report includes both."
+    },
+    {
+      "q": "Does Peec AI only diagnose problems?",
+      "a": "Not any more. Peec's documentation describes an Actions page: a ranked list of improvements grouped into site audit, owned and earned work, each with supporting evidence and a brief. We have not used it hands-on, so we cannot say how good the advice is, only that the feature exists."
+    },
+    {
+      "q": "Does Peec AI have a free plan or trial?",
+      "a": "Peec's pricing pages list no free plan. The brand pricing page ends with a Start free trial button, and its terms say trial length and limits are set by Peec. We found no trial length stated on its own pages, so check the length before you sign up."
+    }
+  ],
+  "definitions": [
+    {
+      "term": "UI scraping",
+      "definition": "Collecting AI answers by driving a chatbot's public web interface with browser automation instead of calling its API; a form of web scraping.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Web_scraping"
+    },
+    {
+      "term": "AI answers (Peec's billing unit)",
+      "definition": "One chat result per model: tracked prompts times active models times tracking frequency, so 50 prompts on 3 models for 30 days is 4,500.",
+      "sourceUrl": "https://peec.ai/pricing"
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/6602917/pexels-photo-6602917.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "A retro round scale with precision markings and numbers in black and white",
+    "photographer": "Yuen Tou  Zan",
+    "photographerUrl": "https://www.pexels.com/@tochtliyeung1996"
+  },
+  "sources": [
+    {
+      "label": "Peec AI — Pricing for brands",
+      "url": "https://peec.ai/pricing"
+    },
+    {
+      "label": "Peec AI — Pricing for agencies",
+      "url": "https://peec.ai/pricing-agencies"
+    },
+    {
+      "label": "Peec AI Docs — Welcome to Peec AI",
+      "url": "https://docs.peec.ai/intro-to-peec-ai"
+    },
+    {
+      "label": "Peec AI Docs — Actions",
+      "url": "https://docs.peec.ai/actions"
+    },
+    {
+      "label": "Peec AI — Terms of Use",
+      "url": "https://peec.ai/legal/terms-of-use"
+    },
+    {
+      "label": "SparkToro — New Research: AIs are highly inconsistent when recommending brands or products",
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+    }
+  ],
+  "updated": "2026-10-03"
 }

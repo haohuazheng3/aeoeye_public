@@ -1,69 +1,151 @@
 {
- "slug": "does-chatgpt-use-my-website",
- "type": "answer",
- "title": "Does ChatGPT Use My Website? How Training, Search, and Live Fetching Actually Work",
- "metaTitle": "Does ChatGPT Use My Website? (2026 Guide)",
- "metaDescription": "Yes — ChatGPT can use your site three different ways: training, search, and live fetch. Here's exactly when each happens and how to make your pages usable.",
- "primaryKeyword": "does chatgpt use my website",
- "shortAnswer": "Yes — but in three distinct ways, and they're easy to confuse. ChatGPT may have ingested your site as training data (everything published before its June 2024 cutoff), it can surface your pages through ChatGPT Search via its OAI-SearchBot index, and it can fetch a live page in real time when a user's question demands it (the ChatGPT-User agent). Whether your site shows up depends on which mechanism is in play — and each one is controlled separately in your robots.txt.",
- "intro": "\"Does ChatGPT use my website?\" is really three questions wearing one coat, and almost everyone conflates them. Did OpenAI train on my content? Does ChatGPT cite my pages when people search inside it? Will it pull my page live to answer a specific question? The answers are different, the controls are different, and the optimization moves are different.\n\nGet the model wrong and you'll do the wrong thing — like blocking GPTBot to \"protect\" your content and accidentally torching your visibility in ChatGPT Search (which a separate bot powers). Let's separate the three cleanly, then make your site usable for the ones that matter.",
- "sections": [
-  {
-   "heading": "The three ways ChatGPT touches your site",
-   "body": "OpenAI runs separate crawlers for separate jobs, and that's the whole key to this topic:\n\n- **GPTBot** — the training crawler. It collects content to improve future foundation models. If you published before the current model's knowledge cutoff (June 2024 as of early 2026) and didn't block it, fragments of your site likely live inside the model's weights. You can't surgically remove them later, and there are no citations or links from training-derived knowledge.\n- **OAI-SearchBot** — the search index crawler. It builds the index behind ChatGPT Search. OpenAI states content it gathers is *not* used to train models — it exists purely to surface and cite live pages. This is the bot that decides whether you appear when ChatGPT shows clickable sources.\n- **ChatGPT-User** — the live-fetch agent. When a user asks something that requires reading a specific page (or you paste a URL), ChatGPT fetches it on the spot. OpenAI explicitly notes this is user-triggered, *not* automatic crawling.\n\nThree bots, three purposes, three robots.txt rules. Confusing them is the single most common mistake site owners make."
+  "slug": "does-chatgpt-use-my-website",
+  "type": "answer",
+  "title": "Does ChatGPT Use My Website? Training, Search and Live Fetch",
+  "metaTitle": "Does ChatGPT Use Your Website? Training, Search, Fetch",
+  "metaDescription": "ChatGPT can reach your site three ways: GPTBot for training, OAI-SearchBot for search, ChatGPT-User for live fetches. Spot each in your logs and control it.",
+  "primaryKeyword": "does chatgpt use my website",
+  "shortAnswer": "Yes, in up to three separate ways, and each has its own OpenAI user agent. GPTBot crawls content that may train future models. OAI-SearchBot indexes pages for ChatGPT search. ChatGPT-User visits a page when a person's request triggers it. OpenAI says each setting is independent, so blocking GPTBot does not remove you from ChatGPT search.",
+  "intro": "Most advice treats \"ChatGPT\" as one crawler. It is at least three, with different jobs and different costs if you block them. Mixing them up is how sites end up blocking the one bot that decides whether they appear in answers.\n\nIn [AEOeye's crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (October 2026, 384 sites with a usable robots.txt), 19 sites block GPTBot but allow OAI-SearchBot, the split setup OpenAI describes. Another 16 block both. None blocks OAI-SearchBot while allowing GPTBot. Everything below follows OpenAI's published documentation as of October 2026.",
+  "sections": [
+    {
+      "heading": "What are the three ways ChatGPT touches your website?",
+      "body": "ChatGPT reaches your site through three user agents: GPTBot for training, OAI-SearchBot for the search index and ChatGPT-User for visits a person triggers. OpenAI's [crawler documentation](https://developers.openai.com/api/docs/bots) lists each separately and says each setting is independent of the others.\n\n- **GPTBot** is automatic and feeds model training.\n- **OAI-SearchBot** is automatic and feeds the index behind ChatGPT's search features.\n- **ChatGPT-User** is not automatic. It runs when someone's action in ChatGPT or a Custom GPT calls for a page.\n\nA fourth agent, OAI-AdsBot, only visits pages submitted as ads and is not used for training. The table compares the three that matter for visibility. The study column counts sites whose robots.txt disallows that bot from the homepage."
+    },
+    {
+      "heading": "Does ChatGPT train on your website?",
+      "body": "It may have, if your pages were public and GPTBot was not disallowed. OpenAI says its models learn from publicly available web content, and that site owners can [disallow GPTBot in robots.txt](https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed), the plain-text file at a domain's root that tells crawlers where they may go ([definition](https://en.wikipedia.org/wiki/Robots.txt)).\n\nThree facts frame the decision:\n\n- OpenAI says its models do not store or retain copies of the data they train on; they adjust parameters to reflect patterns.\n- OpenAI says it does not intentionally gather content from sources known to sit behind paywalls.\n- For ChatGPT Atlas, OpenAI says it [respects the GPTBot signal](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) for content acquired through users' interactions.\n\nTraining knowledge cannot link to you. A link in an answer comes from search, not from training. That is our reading of the documents, not an OpenAI statement.\n\nOur position: blocking GPTBot is a defensible choice for publishers and licensing-first sites, and we hold that most brands gain little by doing it. The reasoning, and the real exceptions, are in [Should I block GPTBot?](/blog/blocking-gptbot-is-usually-a-mistake). Neither OpenAI nor we can measure what training exclusion costs a brand."
+    },
+    {
+      "heading": "Does ChatGPT search use your website?",
+      "body": "Only if OAI-SearchBot can reach it. OpenAI says sites opted out of OAI-SearchBot are not shown in ChatGPT search answers, though they can still appear as navigational links. Allowing it is the single documented step toward appearing.\n\nWhat OpenAI's [publisher FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) and [search help](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) add:\n\n- Any public website can appear in ChatGPT search.\n- Allow OAI-SearchBot in robots.txt, and make sure your host or CDN allows OpenAI's published searchbot IP addresses.\n- Robots.txt changes can take about 24 hours to reach OpenAI's search systems.\n- If you allow both bots, OpenAI may use one crawl for both purposes.\n- ChatGPT adds utm_source=chatgpt.com to referral links, so you can see the visits in analytics.\n- Ranking uses several factors, and placement is never guaranteed.\n\nThe CDN point is easy to miss. In our study, 24 of 88 e-commerce and consumer homepages (27.3%) challenged or blocked our self-identified research crawler. That was our crawler, not OpenAI's, but the same bot protection can quietly keep a store out of answers.\n\nSearch providers are a separate route. Our page on [whether ChatGPT uses Bing](/answers/does-chatgpt-use-bing) covers what OpenAI and Microsoft each confirm."
+    },
+    {
+      "heading": "Will ChatGPT fetch your page live?",
+      "body": "Yes, when a person triggers it. OpenAI says ChatGPT-User visits pages for certain user actions in ChatGPT and Custom GPTs, is not used to crawl the web automatically, and is not used to decide whether content appears in search. Because a user initiates the visit, OpenAI also says robots.txt rules may not apply.\n\nThat has two consequences:\n\n- **Search opt-outs belong on OAI-SearchBot.** OpenAI tells site owners to use that token for search opt-outs and automatic crawling.\n- **A robots.txt line is a request.** [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html) states that its rules are not a form of access authorization. If you must keep user-triggered fetchers out, use firewall or login controls. That is our inference.\n\nIn our study, 20 of 384 sites (5.2%) disallow ChatGPT-User, 14 of them publishers. Given OpenAI's wording, treat those lines as requests rather than guarantees."
+    },
+    {
+      "heading": "How can you see each bot in your server logs?",
+      "body": "Search your access logs for the three user-agent tokens, then check the source IP against OpenAI's published lists. A user-agent string alone proves nothing, because anyone can send it.\n\nOpenAI documents these strings: GPTBot/1.4, OAI-SearchBot/1.4 and ChatGPT-User/1.0, with version numbers that may change. The search and training crawlers may add a \"robots.txt\" marker to the string when fetching your robots.txt, which separates those requests when your logs omit paths.\n\nA first pass on a standard access log:\n\n```\ngrep -E \"GPTBot|OAI-SearchBot|ChatGPT-User\" access.log | awk '{print $1, $7}' | sort | uniq -c | sort -rn | head -20\n```\n\nThen compare each IP with the ranges OpenAI publishes: [gptbot.json](https://openai.com/gptbot.json), [searchbot.json](https://openai.com/searchbot.json) and [chatgpt-user.json](https://openai.com/chatgpt-user.json). The dependency-free log analyzer in our [crawler directory](/blog/ai-crawler-user-agent-directory) keeps the claimed token, the category and the IP check as three separate fields. It ships with synthetic sample data only.\n\nA crawl is not proof of indexing or citation. It shows access, nothing more.\n\n![A female engineer working on a laptop beside rows of data servers](https://images.pexels.com/photos/1181354/pexels-photo-1181354.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do you allow or block each one?",
+      "body": "Write one robots.txt group per user agent. Each group is independent, and crawlers match groups by product token without regard to case, per [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html). Pick the stance first, then the lines.\n\n**Visible in search, kept out of training** (19 of 384 sites in our study):\n\n```\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n```\n\n**Out of ChatGPT search as well** (16 of 384, mostly publishers): add `User-agent: OAI-SearchBot` with `Disallow: /`. You give up citations, and you may still appear as a bare link.\n\n**Fully open:** allow all three, or leave them unmentioned. aeoeye.com allows every crawler except private app paths, and names GPTBot in an allow group, because our business is being found.\n\nThree traps to check:\n\n- A catch-all `User-agent: *` with `Disallow: /` blocks every bot you did not name separately. Seven sites in our study have one.\n- OpenAI says a blocked page's link and title can still surface, which it describes for ChatGPT Atlas. Its fix is a noindex meta tag, and the crawler must be allowed to read the page to see it.\n- ChatGPT-User may ignore robots.txt, as covered above.\n\nOur [AI robots.txt generator](/tools/ai-robots-txt-generator) writes these groups for you.\n\n![Lines of programming code on a dark computer screen](https://images.pexels.com/photos/10816120/pexels-photo-10816120.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do you check your current status?",
+      "body": "Fetch your live robots.txt, test each token against it, check your CDN, then ask ChatGPT a question your page should answer. That takes about thirty minutes.\n\n1. **Read the file.** Open yourdomain.com/robots.txt. Look for groups naming each token and for any catch-all disallow.\n2. **Test, don't eyeball.** Run the rules through a real parser. The directory's 24-case RFC 9309 test suite is a good way to check a parser first.\n3. **Check the edge.** Confirm your CDN or firewall allows OpenAI's published IP ranges and does not challenge OAI-SearchBot.\n4. **Run the live test.** In ChatGPT with search on, ask a question your page answers and see whether it is cited. Then paste your URL and ask for a summary, which exercises the ChatGPT-User path.\n5. **Check analytics.** Filter referrals for utm_source=chatgpt.com.\n\nIf you would rather see whether ChatGPT names your brand for unbranded buyer questions, AEOeye's [free audit](/) asks three on ChatGPT and shows the answers."
+    }
+  ],
+  "comparisonTable": {
+    "columns": [
+      "GPTBot",
+      "OAI-SearchBot",
+      "ChatGPT-User"
+    ],
+    "rows": [
+      {
+        "label": "Job",
+        "values": [
+          "Crawls content that may train OpenAI's foundation models",
+          "Surfaces websites in ChatGPT's search features",
+          "Visits a page for certain user actions in ChatGPT and Custom GPTs"
+        ]
+      },
+      {
+        "label": "Triggered by",
+        "values": [
+          "Automatic crawling",
+          "Automatic crawling",
+          "A person's request"
+        ]
+      },
+      {
+        "label": "Effect of a robots.txt Disallow",
+        "values": [
+          "Signals your content should not be used for training",
+          "Not shown in ChatGPT search answers; may still appear as a link",
+          "OpenAI says robots.txt rules may not apply"
+        ]
+      },
+      {
+        "label": "User-agent string in the docs",
+        "values": [
+          "GPTBot/1.4",
+          "OAI-SearchBot/1.4",
+          "ChatGPT-User/1.0"
+        ]
+      },
+      {
+        "label": "Sites disallowing it from the homepage (AEOeye study, n=384)",
+        "values": [
+          "35 (9.1%)",
+          "16 (4.2%)",
+          "20 (5.2%)"
+        ]
+      },
+      {
+        "label": "Published IP list",
+        "values": [
+          "openai.com/gptbot.json",
+          "openai.com/searchbot.json",
+          "openai.com/chatgpt-user.json"
+        ]
+      }
+    ]
   },
-  {
-   "heading": "Training data vs. live retrieval: why the difference matters",
-   "body": "Default ChatGPT — no search, no browsing — answers from training data. That data has a hard cutoff (June 2024 for the model shipping in early 2026), so anything you published after it simply doesn't exist to the base model. Training knowledge is also *lossy and uncited*: the model absorbed patterns, not a verbatim copy, so it can't link to you and may paraphrase you wrong.\n\nLive retrieval is the opposite. When ChatGPT Search runs, it queries a live index, reads current pages, and returns 3–6 clickable citations. New content can appear within days. As of early 2026, ChatGPT triggers web search on roughly 34.5% of queries — down from ~46% in late 2024 — so the majority of answers still come from training memory, but the cited, link-driving answers come from retrieval.\n\nThe practical takeaway: **if you want traffic and attribution, you're optimizing for retrieval, not training.** Training gets you vague background familiarity. Retrieval gets you named, linked, and clicked. Chasing the training pipeline is mostly a dead end for visibility — you can't see into it, can't measure it, and can't get a link out of it."
+  "keyTakeaways": [
+    "ChatGPT touches a site through three OpenAI user agents: GPTBot (training), OAI-SearchBot (search index) and ChatGPT-User (user-triggered visits).",
+    "Blocking GPTBot does not remove you from ChatGPT search; opting out of OAI-SearchBot does.",
+    "OpenAI says ChatGPT-User visits may not follow robots.txt, and robots.txt is a request, not access control.",
+    "Verify OpenAI traffic by IP against the published lists; a user-agent string can be faked.",
+    "In our 384-site study, 19 sites block GPTBot but allow OAI-SearchBot; none does the reverse."
+  ],
+  "faqs": [
+    {
+      "q": "If I block GPTBot, will ChatGPT stop using my website?",
+      "a": "Not entirely. Blocking GPTBot signals that your content should not be used to train OpenAI's models. ChatGPT search relies on OAI-SearchBot, and user-triggered visits use ChatGPT-User. OpenAI says the settings are independent, so a site can disallow GPTBot and still be eligible to appear in ChatGPT search."
+    },
+    {
+      "q": "Was my website used to train ChatGPT?",
+      "a": "We cannot tell you for a specific site, and neither can a log search. OpenAI says it trains on publicly available web content and that disallowing GPTBot is how site owners signal an opt-out. If your pages were public and GPTBot was not disallowed, they may have been crawled. OpenAI says models learn patterns rather than storing copies."
+    },
+    {
+      "q": "How do I know whether ChatGPT can read my page right now?",
+      "a": "Check three things. First, your robots.txt must not disallow OAI-SearchBot. Second, your CDN or firewall must allow OpenAI's published IP ranges. Third, run a live test: in ChatGPT, ask about your page with search on and see whether it is cited, then paste your URL and ask for a summary. If either fails, look at your logs."
+    },
+    {
+      "q": "Can I stop ChatGPT-User from visiting my site?",
+      "a": "A robots.txt line may not work. OpenAI says robots.txt rules may not apply to ChatGPT-User because a person initiates the visit. If you need to keep it out, use network or login controls, such as firewall rules against OpenAI's published ChatGPT-User IP ranges. That is our inference from OpenAI's wording, so test the result in your logs."
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/6466141/pexels-photo-6466141.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "High-tech server rack in a secure data center with network cables and hardware components.",
+    "photographer": "Sergei Starostin",
+    "photographerUrl": "https://www.pexels.com/@sejio402"
   },
-  {
-   "heading": "When does ChatGPT actually use your specific page?",
-   "body": "It pulls your page when three things line up:\n\n1. **The query needs current or specific information** — recent events, prices, comparisons, anything past the training cutoff, or anything where the model's confidence is low. This is what flips ChatGPT from memory-mode into search-mode.\n2. **Your page is in the OAI-SearchBot index and ranks for the query's intent.** ChatGPT's search retrieval leans heavily on Bing's index plus OpenAI's own signals, weighting domain authority, content relevance, and how directly a passage answers the question. If you're invisible to that retrieval layer, you're invisible in the answer.\n3. **Your content cleanly answers the sub-question being asked.** ChatGPT doesn't cite whole pages — it cites passages. A page that states a direct, extractable answer near the top beats a page that buries it under 600 words of throat-clearing.\n\nFor live fetches via ChatGPT-User, the trigger is even more direct: a user pastes your URL or asks about your specific brand/page. If that fetch is blocked or the page is JavaScript-dependent and renders empty to a fetcher, ChatGPT comes back with nothing useful — and may hallucinate instead."
-  },
-  {
-   "heading": "How to make your site usable by ChatGPT",
-   "body": "Concrete moves, in priority order:\n\n- **Don't block OAI-SearchBot or ChatGPT-User in robots.txt.** Plenty of sites blanket-block every AI agent and then wonder why they never get cited. If your goal is visibility, allow the search and fetch bots. Blocking *only* GPTBot (training) while allowing the others is a perfectly coherent stance if you want citations without feeding the training set.\n- **Lead with the answer.** Put a direct, self-contained answer in the first paragraph or an early heading. Retrieval systems lift passages — make yours liftable. Question-shaped H2s and tight definitional sentences win.\n- **Serve real HTML.** If your key content only appears after client-side JavaScript runs, a simple fetcher may see an empty shell. Server-render or pre-render anything you want read.\n- **Add structured data** (FAQPage, Article, Product, Organization) so machines parse your entities and facts without guessing.\n- **Build third-party corroboration.** ChatGPT trusts claims that show up across multiple independent sources — reviews, listicles, Reddit, industry sites. Your own page rarely wins alone.\n\nIf you want to know which of these is actually costing you citations right now, [AEOeye's free audit](https://aeoeye.com) checks whether AI engines can crawl, read, and cite your pages — and shows where ChatGPT is mentioning (or ignoring) your brand."
-  },
-  {
-   "heading": "Check, don't guess: verify your current status",
-   "body": "You can confirm most of this yourself in an afternoon:\n\n- **Read your robots.txt** at yourdomain.com/robots.txt and look for `User-agent: GPTBot`, `OAI-SearchBot`, and `ChatGPT-User` blocks. Decide each one deliberately.\n- **Check server logs** for those user-agent strings to see which OpenAI bots are actually hitting you and how often.\n- **Test live retrieval directly.** In ChatGPT, ask a question your page should answer and turn on search. See if you're cited. Then paste your URL and ask it to summarize — if it can't read the page, your rendering or blocking is the culprit.\n- **Search your brand name** in ChatGPT and note what it says. Training-era staleness (wrong facts, old pricing, defunct claims) is a signal that the model is running on memory, not your live site — and the fix is getting into the retrieval layer.\n\nGuessing is the expensive option here. Every one of these checks gives you a definite answer about whether — and how — ChatGPT is using your website."
-  }
- ],
- "keyTakeaways": [
-  "ChatGPT uses your site three separate ways: training (GPTBot), search citations (OAI-SearchBot), and live fetch (ChatGPT-User) — each controlled independently in robots.txt.",
-  "Default ChatGPT answers from training data with a hard cutoff (June 2024 as of early 2026); anything newer only appears via live search or fetch.",
-  "Training-derived knowledge is uncited and unlinked — if you want traffic and attribution, you're optimizing for retrieval, not training.",
-  "ChatGPT runs web search on roughly 34.5% of queries; the cited, click-driving answers all come from that retrieval path.",
-  "Blocking GPTBot does NOT stop ChatGPT Search — that's powered by the separate OAI-SearchBot, so blanket AI blocks can silently kill your citations.",
-  "Make pages usable: lead with a direct answer, serve real HTML (not JS-only), add structured data, and earn third-party mentions."
- ],
- "faqs": [
-  {
-   "q": "If I block GPTBot, does ChatGPT stop using my website?",
-   "a": "No. Blocking GPTBot only stops your content from being used to train future models. ChatGPT Search runs on a different crawler, OAI-SearchBot, and live fetches use ChatGPT-User. If you block only GPTBot, ChatGPT can still find, read, and cite your pages in search — which is usually what you actually want."
-  },
-  {
-   "q": "Was my website used to train ChatGPT?",
-   "a": "Probably, if it was publicly accessible before the model's training cutoff (June 2024 for the model in use in early 2026) and you didn't disallow GPTBot in robots.txt. But training is lossy and uncited — the model absorbed patterns, not a copy, so you won't get links or attribution from it, and you can't selectively remove content already in the weights."
-  },
-  {
-   "q": "Why does ChatGPT get facts about my business wrong?",
-   "a": "Usually because it's answering from stale training data instead of reading your live site. If your pricing, features, or claims changed after the training cutoff and ChatGPT isn't triggering search, it repeats the old version it memorized. The fix is making sure you're in the retrieval layer (OAI-SearchBot) so current pages override stale memory."
-  },
-  {
-   "q": "How do I know if ChatGPT can read my page right now?",
-   "a": "Paste your URL into ChatGPT and ask it to summarize the page. If it returns accurate specifics, the fetcher can read your HTML. If it returns vague or wrong content, your page is likely JavaScript-rendered (the fetcher sees an empty shell) or blocked in robots.txt. A tool like AEOeye automates this crawlability and citation check across multiple AI engines."
-  },
-  {
-   "q": "Does appearing in Google help me appear in ChatGPT?",
-   "a": "Indirectly, yes. ChatGPT Search leans on Bing's index and broad authority signals, and the same fundamentals — crawlable HTML, clear answers, structured data, third-party mentions — help across both. But they're not identical: you can rank in Google and still be missing from ChatGPT if you've blocked its search bot or buried your answers."
-  }
- ],
- "comparisonTable": null,
- "image": {
-  "url": "https://images.pexels.com/photos/16094043/pexels-photo-16094043.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A focused individual types on a laptop running AI software indoors.",
-  "photographer": "Matheus Bertelli",
-  "photographerUrl": "https://www.pexels.com/@bertellifotografia"
- }
+  "sources": [
+    {
+      "label": "OpenAI — Overview of OpenAI Crawlers",
+      "url": "https://developers.openai.com/api/docs/bots"
+    },
+    {
+      "label": "OpenAI Help Center — Publishers and Developers FAQ",
+      "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq"
+    },
+    {
+      "label": "OpenAI Help Center — Searching the web with ChatGPT",
+      "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"
+    },
+    {
+      "label": "OpenAI Help Center — How ChatGPT and our foundation models are developed",
+      "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed"
+    },
+    {
+      "label": "IETF — RFC 9309: Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    }
+  ],
+  "updated": "2026-10-03"
 }

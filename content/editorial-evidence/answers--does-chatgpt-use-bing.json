@@ -1,0 +1,92 @@
+{
+  "contentSha256": "e703d9db18558a796c55fa8d38d92994b4b45961b7f09cea455347c432ed5ea1",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A marketer or site owner has heard that ChatGPT search runs on Bing and wants to know whether that is true, whether Bing indexing is required, and what to do about it without chasing a claim that OpenAI's own documentation does not support.",
+    "connection": "AEOeye audits whether ChatGPT and other engines name a brand. Retrieval access (OAI-SearchBot, the search provider layer, Bing indexing) is the first gate before any recommendation, and the page backs its advice with AEOeye's crawler access study on how rarely sites block Bingbot or OAI-SearchBot."
+  },
+  "assessment": "The page replaces the earlier flat claim that ChatGPT's search runs largely on Bing with what the sources actually state: OpenAI documents third-party search providers (linking Microsoft and Shopify privacy policies), partner content and its own OAI-SearchBot index; Microsoft says its Bing-based Web IQ grounding infrastructure already powers ChatGPT; neither publishes a share. It gives a dated timeline, a source-by-source table of what each source does and does not state, a five-step Bing Webmaster Tools / IndexNow checklist, and a way to test ChatGPT answers directly. It rests on OpenAI and Microsoft documentation, NPR's report of the April 2025 trial testimony, IndexNow and Bing Webmaster documentation, one arXiv study and AEOeye's crawler access study quoted with its n. It deliberately does not claim a percentage of ChatGPT queries served by Bing, does not name Google, Bright Data, Oxylabs or other providers (only third-party blog evidence exists), and drops the old unsourced claims about Reddit and consensus weighting.",
+  "sources": [
+    {
+      "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt",
+      "checkedAt": "2026-10-03",
+      "supports": "ChatGPT search sometimes partners with other search providers and sends them rewritten targeted queries; the article links Microsoft's and Shopify's privacy policies for those providers; ranking uses multiple factors and placement is not guaranteed; to be eligible, allow OAI-SearchBot and allow OpenAI's published searchbot IP addresses at the host or CDN."
+    },
+    {
+      "url": "https://openai.com/index/introducing-chatgpt-search/",
+      "checkedAt": "2026-10-03",
+      "supports": "October 31, 2024 launch post: ChatGPT search leverages third-party search providers as well as content provided directly by partners (news and data providers)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot is used to surface websites in ChatGPT's search features; sites opted out of OAI-SearchBot are not shown in ChatGPT search answers but can still appear as navigational links."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq",
+      "checkedAt": "2026-10-03",
+      "supports": "If OpenAI obtains the URL of a disallowed page from a third-party search provider or by crawling other pages and has relevance signals, it may surface just the link and page title; noindex is the control and the crawler must be allowed to read it."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/20001203-offline-web-search-for-chatgpt-workspaces",
+      "checkedAt": "2026-10-03",
+      "supports": "Eligible workspaces can use OpenAI's indexed and cached web content instead of live web search; lists robots.txt blocks, CDN bot-blocking, logins, script-heavy pages and new or low-signal pages as reasons content may be missing or stale."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
+      "checkedAt": "2026-10-03",
+      "supports": "Because of inherent randomness in how the model responds, the same question may yield different answers across different queries."
+    },
+    {
+      "url": "https://commandline.microsoft.com/grounding-system-agentic-web-engineering-retrieval/",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft Build post dated 2 June 2026: Web IQ is a grounding system; the same infrastructure powering Copilot, ChatGPT, Nasdaq systems and others is now offered as a platform; names Bing's crawling and indexing as the web substrate under grounding; describes returning passage-level evidence objects rather than whole documents."
+    },
+    {
+      "url": "https://www.npr.org/2025/04/29/nx-s1-5377353/google-antitrust-remedies-trial-ai",
+      "checkedAt": "2026-10-03",
+      "supports": "NPR, 29 April 2025: OpenAI's head of product for ChatGPT testified that building its own index was too slow, expensive and potentially years away, that OpenAI sought a third-party search provider, and that Google declined a deal."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/",
+      "checkedAt": "2026-10-03",
+      "supports": "10 February 2026: AI Performance in Bing Webmaster Tools shows citations across Microsoft Copilot, AI-generated summaries in Bing and select partner integrations (ChatGPT is not listed); IndexNow helps keep content fresh across search and AI experiences by notifying participating engines."
+    },
+    {
+      "url": "https://www.indexnow.org/documentation",
+      "checkedAt": "2026-10-03",
+      "supports": "IndexNow requires a key file hosted on the domain, accepts up to 10,000 URLs per POST, an HTTP 200 only means the engine received the URL, and participating engines share submitted URLs with each other."
+    },
+    {
+      "url": "https://www.bing.com/webmasters/help/getting-started-checklist-66a806de",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Tools account is free and can be opened with a Microsoft, Google or Facebook account; sites must be added and verified; Bing accepts XML sitemaps and sitemap indexes, Atom 0.3/1.0, RSS 2.0 and text files with one URL per line."
+    },
+    {
+      "url": "https://www.bing.com/webmasters/help/url-inspection-55a30305",
+      "checkedAt": "2026-10-03",
+      "supports": "URL Inspection's Index card shows when and where a URL was discovered, crawled and indexed; the Live URL view shows what Bingbot sees when downloading the page."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "September 2025 arXiv paper: AI search shows a systematic and overwhelming bias towards earned media over brand-owned and social content compared with Google, and AI search services differ in domain diversity, freshness, cross-language stability and sensitivity to phrasing."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened every cited URL on 2026-10-03 (OpenAI crawler docs, three OpenAI help-center articles and the launch post through the built-in browser because the OpenAI pages return 403 to fetchers; the Microsoft Command Line post, Bing Webmaster pages and IndexNow documentation in the browser; NPR and arXiv with curl) and kept only claims the fetched text states.",
+    "Writer (Sonnet): checked that OpenAI's current help article does not name Bing; it links only Microsoft's and Shopify's privacy policies, so the page says Bing is probably one provider rather than repeating the old 'ChatGPT's search runs largely on Bing' claim. Wording on Microsoft's post stays at what it says (same infrastructure powers Copilot and ChatGPT; Bing underpins grounding).",
+    "Writer (Sonnet): recomputed the Bingbot and OAI-SearchBot figures from public/resources/ai-crawler-access-study-2026-10.csv (384 usable robots.txt files): Bingbot blocked on the homepage by 1 (reddit.com), OAI-SearchBot by 16 (4.2%); the 11-of-38 publisher figure comes from the evidence pack. Corrected the job spec's 'Bingbot never blocked' to the true count of 1.",
+    "Writer (Sonnet): read the previous version of the page and dropped claims with no primary source (Bing as the retrieval backbone since the browsing plugin, 'ChatGPT effectively can't retrieve unindexed pages', Reddit and consensus weighting, the glossary and /guides/how-to-rank-in-chatgpt links, the claim that the free audit covers four engines); kept Bing Webmaster Tools, sitemaps, IndexNow and the buyer-prompt check, each now sourced.",
+    "Writer (Sonnet): kept third-party blog findings (an alleged Labrador index, Bright/Oxylabs scraping, Google scraping) out of the page because they are not primary sources; the page states only what OpenAI, Microsoft and NPR report.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs content/answers/does-chatgpt-use-bing.json (clean).",
+    "Editor (Opus): read the final page: answer changed to 'partly, but not only' with the earlier overclaim stated openly; dated timeline; source table; Bing Webmaster Tools/IndexNow checklist",
+    "Editor (Opus): unverifiable claims about OpenAI's own index and scraping vendors (single competitor blog) left out",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): crawler-study figures (Bingbot blocked by 1/384, OAI-SearchBot 16/384) recomputed from the public CSV",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

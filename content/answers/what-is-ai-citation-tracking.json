@@ -1,168 +1,172 @@
 {
  "slug": "what-is-ai-citation-tracking",
  "type": "answers",
- "title": "What Is AI Citation Tracking? Definition, How It Works, and Why It Matters in 2026",
- "metaTitle": "AI Citation Tracking: What It Is & Why It Matters",
- "metaDescription": "AI citation tracking monitors when ChatGPT, Perplexity, Google AI, Claude and Gemini cite your brand. Here's what it is, how it works, and why it matters in 2026.",
+ "title": "What Is AI Citation Tracking and How Does It Work?",
+ "metaTitle": "AI Citation Tracking: What It Is and How It Works",
+ "metaDescription": "AI citation tracking samples buyer questions across ChatGPT, Claude, Gemini, Perplexity and Google AI to count mentions, cited URLs and rivals. How it works.",
  "primaryKeyword": "ai citation tracking",
- "shortAnswer": "AI citation tracking is the practice of monitoring whether ChatGPT, Perplexity, Google AI Overviews, Claude and Gemini name or link to your brand when users ask questions in your category. It's the AI-era replacement for rank tracking: instead of measuring where you sit in a list of blue links, it measures whether the machine recommends you at all.",
- "intro": "Ranking #1 on Google used to be the whole game. Now an AI answer sits above your link, summarizes the topic, cites three sources, and the user never scrolls. If you're not one of those three sources, you're invisible — and you have no idea, because your analytics show a click that never happened.\n\nAI citation tracking exists to close that blind spot. It tells you what the models are actually saying about you, who they cite instead, and where to intervene. This page defines it cleanly, shows how it works under the hood, and makes the case for why it's now a core marketing measurement — not a nice-to-have.",
+ "shortAnswer": "AI citation tracking is the repeated testing of buyer questions in AI engines to record whether each answer names your brand, links to your pages, and which competitors and sources it uses instead. Because answers change from run to run, tools sample each question many times and report rates, such as the share of answers that cite you, rather than one-off screenshots.",
+ "intro": "When a buyer asks ChatGPT, Perplexity or Google AI for a recommendation, the answer names a few brands and often lists a few sources. Your web analytics see none of it unless someone clicks. Citation tracking makes that hidden layer countable.\n\nVendors use \"citation\" loosely, so this page defines it precisely, explains the sampling underneath, names the metrics worth keeping and shows how to start for free. Our position: the headline number should be a rate over repeated runs. Never headline a position or a single screenshot.",
  "sections": [
   {
-   "heading": "What is AI citation tracking, exactly?",
-   "body": "AI citation tracking is the process of running real prompts through large language models — ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini — and recording whether your brand gets named, linked, or recommended in the generated answer. Think of it as rank tracking for a world where the result is a paragraph, not a page of links.\n\nA proper tracker captures four things on every prompt:\n\n- **Presence** — were you mentioned or cited at all?\n- **Source URL** — which of your pages (or which competitor's page) did the model link to?\n- **Sentiment & framing** — were you the recommended pick, a caveat, or an afterthought?\n- **Share of voice** — across a basket of category prompts, how often do you appear versus rivals?\n\nThe distinction that trips people up: a *mention* is the model saying your name; a *citation* is the model linking to a source URL as the basis for its claim. Both matter. Mentions build the brand association the model carries in its weights; citations are the live, retrievable links that send actual traffic and that you can influence fastest."
+   "heading": "What is AI citation tracking?",
+   "body": "It is the practice of asking AI engines a fixed set of buyer questions and recording, for each answer, whether it mentions your brand, cites your URLs and recommends you, plus who it names instead. Three terms get blurred, and the difference decides what you fix:\n\n- **Mention:** the answer names your brand in its text, with or without a link.\n- **Citation:** the answer attaches one of your URLs as a source for a claim.\n- **Recommendation:** the answer picks you for the buyer's need. This is the outcome that earns customers.\n\nYou can be mentioned without being cited, because the model remembered you from training. You can be cited without being recommended, because your page supplied a fact while the answer recommended a rival. Engines that use [retrieval-augmented generation](https://arxiv.org/abs/2005.11401), which combines a model's stored knowledge with retrieved documents, produce the citations. Whether a given answer searches at all can vary: OpenAI's docs note that, with the Responses API, [the model decides whether to search](https://developers.openai.com/api/docs/guides/tools-web-search).\n\nTracking is possible because engines expose citations as data. OpenAI's web search returns a [url_citation annotation](https://developers.openai.com/api/docs/guides/tools-web-search) with the cited URL and title, and Anthropic's web search tool returns [a url, title and up to 150 characters of cited text](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool). Those are API outputs; the consumer apps can differ, so spot-check them too."
   },
   {
-   "heading": "How does AI citation tracking actually work?",
-   "body": "Under the hood, a tracker programmatically asks each engine a fixed set of category questions on a schedule, then parses the responses for your domain and brand. It's prompt automation plus answer parsing, repeated across engines and over time so you can see trends, not one-off snapshots.\n\nThe mechanics, step by step:\n\n1. **Build a prompt set** — the real questions buyers ask in your category (\"best CRM for small teams,\" \"X vs Y,\" \"is X any good\"), not vanity branded queries.\n2. **Query each engine** — fire those prompts at ChatGPT, Perplexity, Google AI, Claude and Gemini, ideally with the search/retrieval mode that real users get.\n3. **Parse the answers** — detect brand mentions, extract cited source URLs, and classify sentiment.\n4. **Score and trend** — compute presence rate and share of voice per engine, and watch the line move as you publish.\n\nThe non-obvious part: answers are non-deterministic. Ask the same question twice and you can get different sources. That's why single checks are worthless — you need repeated sampling to separate signal from noise. AEOeye's free audit runs this across all five engines at once so you get a baseline read instead of guessing from a single ChatGPT screenshot."
+   "heading": "How does AI citation tracking work?",
+   "body": "A tracker asks each engine a fixed question set many times, parses every answer for your brand, your domains and your competitors, and reports rates over time. The sampling is the product; the dashboard is a view onto it.\n\n1. **Build the question set.** Use unbranded buyer questions such as \"best invoicing software for freelancers\", not your brand name.\n2. **Run each question per engine, repeatedly.** Fire it at ChatGPT, Claude, Gemini, Perplexity and Google AI, through APIs or by capturing the interface.\n3. **Parse the answers.** Mentions need entity matching, since a brand can appear under an alias. Citations need URL matching after redirects and tracking parameters are stripped.\n4. **Aggregate and trend.** Report the share of valid answers that name or cite you, per engine, per week or month.\n\nRepetition is not optional. SparkToro's study of 2,961 runs found [under a 1 in 100 chance](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) that ChatGPT or Google AI return the same brand list twice. It still judged visibility percentage across many runs a reasonable metric, and suggested 60 to 100 runs per prompt. A tool that reports one run per question is selling anecdotes.\n\nAsk any vendor two questions: does it call APIs or capture the consumer interface, and which model tier does it test? Free users get a default tier, and a stronger model flatters the result. AEOeye tests each engine at the default tier a free user would see for that reason."
   },
   {
-   "heading": "Why does AI citation tracking matter now?",
-   "body": "Because a huge and growing share of search traffic now ends inside an AI answer, and that answer either includes you or it doesn't. Google's AI Overviews alone reached over [2 billion monthly users by mid-2025](https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india/), and ChatGPT crossed roughly [800 million weekly users by late 2025](https://www.demandsage.com/chatgpt-statistics/). This isn't a niche channel anymore.\n\nHere's the part that should worry every marketer: when an AI summary appears, people stop clicking. A July 2025 Pew Research study of real browsing behavior found users clicked a traditional link on just [8% of pages with an AI summary, versus 15% without one — and only 1% clicked the source the AI cited](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/).\n\nThe consequence is blunt. Your traffic can fall while your *influence* is fine — the AI is recommending you, users just aren't clicking. Or your traffic is fine but the model is quietly steering buyers to a competitor, and you won't see it until the pipeline dries up. AI citation tracking is the only instrument that distinguishes those two cases. Without it, you're optimizing a channel you can't see."
+   "heading": "Which AI citation metrics matter?",
+   "body": "Track mention rate, citation share, competitor share and the list of cited URLs. Position and sentiment are secondary, because AI answers rarely keep a stable order and most mentions are positive anyway.\n\n- **Mention rate:** answers naming you ÷ valid answers.\n- **Citation share:** answers citing at least one of your URLs ÷ valid answers.\n- **Competitor share:** the same rate for each rival over the same questions. This is your scoreboard.\n- **Cited URLs and domains:** which of your pages engines rely on, and which third-party sites they cite instead. A [University of Toronto study](https://arxiv.org/abs/2509.08919) found AI search leaning heavily toward earned media over brand-owned pages, so your visibility often runs through other people's sites.\n\nFirst-hand numbers show why competitor share belongs in the report. In AEOeye's audit records (127 audits, 892 answers, October 2026), the audited brand was named in 157 answers, 17.6%, and answers named 2.9 competitors on average. When a ranked mention occurred, it came first in 71.4% of 147, and 144 of the 157 mentions were positive. Being named at all is the hard part, and the first slot is winner-take-most.\n\nThe sample is small and self-selected, and engine samples are unequal and not comparable, so read it as a pattern, not a market rate. See the [benchmark data](/resources/aeoeye-recommendation-benchmark-2026-09.json) and [our measurement method](/blog/ai-brand-recommendation-measurement).\n\nA citation is not proof. A human audit of four generative search engines found only [51.5% of sentences fully supported by their citations](https://arxiv.org/abs/2304.09848); those systems are older, but spot-check what your cited pages actually say. Our [citation metrics reference](/blog/ai-search-citation-evaluation-metrics) covers support labels and source concentration.\n\n![Laptop screen showing a line chart with price data and indicators](https://images.pexels.com/photos/7108129/pexels-photo-7108129.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "What metrics should you actually track?",
-   "body": "Track presence rate, share of voice, citation source, and sentiment — in that order of importance. Presence tells you if you exist to the model; share of voice tells you if you're winning the category; source and sentiment tell you what to fix.\n\nDon't drown in vanity numbers. The metrics that drive decisions:\n\n- **Presence / citation rate** — % of category prompts where you appear. Your single north-star number.\n- **Share of voice** — your presence relative to named competitors across the same prompt set. This is the competitive scoreboard.\n- **Cited URL** — which specific pages earn citations, so you can make more like them.\n- **Sentiment / position** — recommended, neutral, or warned-against. A mention inside \"avoid these\" is not a win.\n- **Per-engine breakdown** — being strong in Perplexity and absent in ChatGPT is a real and common gap.\n\nResist the urge to track one branded prompt in one tool and call it monitoring. The value is in the basket of buyer-intent prompts, sampled repeatedly, across every engine your audience uses."
+   "heading": "How is AI citation tracking different from rank tracking?",
+   "body": "Rank tracking reports where your link sits in a stable list. Citation tracking reports how often a changing answer names or cites you. The table below sets them side by side.\n\nClick behavior shows why the second matters. Pew Research's 2025 browsing study of 900 US adults found searchers [clicked a result link in 8% of visits with a Google AI summary against 15% without](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/), and clicked a link inside the summary in 1%. Influence now happens in the answer, where analytics cannot see it.\n\nGoogle does give site owners a free, partial view. Search Console's [generative AI performance report](https://support.google.com/webmasters/answer/16984139) shows impressions and pages for AI Overviews and AI Mode, rolled out to all sites as of August 31, 2026. It covers Google only and says nothing about competitors or other engines, so treat it as a complement, not a replacement."
   },
   {
-   "heading": "AI citation tracking vs. traditional rank tracking",
-   "body": "They answer different questions. Rank tracking asks \"where does my link sit in a list?\" Citation tracking asks \"does the machine recommend me in its answer, and on what basis?\" The second is what increasingly determines whether anyone ever reaches your link at all.\n\nThe table below lays out the core differences. The headline: in classic SEO, position 3 still gets clicks. In AI answers, if you're not in the cited set, you effectively don't exist — there is no page two to climb back from."
+   "heading": "What can citation tracking not tell you?",
+   "body": "It cannot prove cause or revenue, and it is only as good as its question set and sample size. Treat it as a measured sample of what buyers might see, not a census.\n\n- **Cause:** a rise after you publish can be run-to-run noise unless each question was sampled enough times.\n- **Question wording:** SparkToro had 142 volunteers write their own prompts for one buying need. Their prompts were [barely similar to one another](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/), yet the same top brands kept appearing, which suggests intent matters more than exact phrasing.\n- **Revenue:** a citation is not a click, and Pew's 1% figure above applies to Google AI summaries only.\n- **Surface:** API results and app results may differ, which is why a spot-check in the real interface still earns its time."
+  },
+  {
+   "heading": "How do you start AI citation tracking?",
+   "body": "Write 10 to 20 unbranded buyer questions, run each in every engine your buyers use, record the result in a sheet, and repeat. You can do the first pass in an afternoon without buying a tool.\n\n1. **List the questions.** Pull them from sales calls, support tickets and search queries: \"best X for Y\", \"X vs Y\", \"is X worth it\".\n2. **Run each one several times** in a fresh session on each engine.\n3. **Log four fields:** whether you were named, whether any of your URLs were cited, which competitors appeared, and which other domains were cited.\n4. **Compute the rates** above, and re-run monthly or after you publish.\n5. **Read the cited pages.** The gaps they reveal are your fix list.\n\nThe free [AEOeye audit](/) automates a first look: it asks ChatGPT three unbranded buyer questions and shows the real answers and the competitors named. The $29 full report adds Claude, Gemini, Google AI and Perplexity and ten questions. Neither is continuous tracking. For daily monitoring across hundreds of prompts, dedicated trackers such as Profound, Peec AI and Otterly fit better; our [tracker comparison](/blog/ai-visibility-tracker) lays out the trade-offs, and the [measurement guide](/blog/measuring-ai-visibility) covers the wider metric set.\n\n![Tablet and monitors showing candlestick charts above a desk calculator](https://images.pexels.com/photos/29885479/pexels-photo-29885479.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   }
  ],
  "keyTakeaways": [
-  "AI citation tracking monitors whether ChatGPT, Perplexity, Google AI, Claude and Gemini name, cite, or recommend your brand when users ask category questions — it's rank tracking for the answer-engine era.",
-  "Track four things on every prompt: presence (were you mentioned), the cited source URL, sentiment/framing, and share of voice against competitors.",
-  "It matters because clicks are collapsing inside AI answers — Pew found users click a link on just 8% of pages with an AI summary vs 15% without, and only 1% click the cited source.",
-  "AI answers are non-deterministic, so single checks are noise. You need repeated sampling across engines to get a reliable read.",
-  "A mention builds brand association in the model's weights; a citation is a live link you can influence fastest — optimize for both.",
-  "Per-engine gaps are common and invisible without tracking: you can dominate Perplexity and be absent from ChatGPT at the same time."
+  "Mention, citation and recommendation are different outcomes; track all three and report them separately.",
+  "AI answers vary per run, so report rates over repeated samples, never a single screenshot.",
+  "Keep four metrics: mention rate, citation share, competitor share and the cited URLs and domains.",
+  "Citation tracking complements rank tracking; Search Console's generative AI report gives a free Google-only view.",
+  "Start by hand with 10 to 20 unbranded buyer questions, then automate only when volume demands it."
  ],
  "faqs": [
   {
    "q": "Is AI citation tracking the same as AEO or GEO?",
-   "a": "They're related but not identical. Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) are the strategies for earning AI citations. AI citation tracking is the measurement layer — the analytics that tell you whether those strategies are working. You optimize with AEO/GEO; you measure with citation tracking."
+   "a": "No. Answer engine optimization (AEO) and generative engine optimization (GEO) are the work of earning mentions and citations. Citation tracking is the measurement that tells you whether that work moved anything. Google's own guidance treats optimizing for AI features as part of SEO, so measure AI visibility alongside classic search data, not instead of it."
   },
   {
-   "q": "Can't I just ask ChatGPT myself to check?",
-   "a": "You can, but it's unreliable as monitoring. AI answers are non-deterministic — the same prompt can return different brands and sources on repeat runs, and your logged-in ChatGPT may behave differently from a fresh session. Manual spot-checks miss trends and can't cover five engines and dozens of prompts consistently. Tracking exists to sample systematically and surface the signal."
+   "q": "Can I just ask ChatGPT myself to check?",
+   "a": "You can, and it is a fine first pass, but one answer is an anecdote. SparkToro found under a 1 in 100 chance of ChatGPT repeating the same brand list, so repeat each question several times, in fresh sessions, and across engines. Log the results so you can compare next month rather than relying on memory."
   },
   {
-   "q": "Does a citation actually send me traffic?",
-   "a": "Sometimes, but the bigger value is influence. Pew's 2025 data shows only about 1% of users click the source an AI cites, so don't expect citations to behave like old organic links. The real payoff is being the brand the AI recommends — that shapes buyer perception before they ever reach a website, which is why presence and share of voice matter more than raw referral clicks."
+   "q": "Does a citation send me traffic?",
+   "a": "Sometimes, but expect little. Pew Research found users clicked a link inside a Google AI summary in about 1% of visits. The larger value is influence: being the brand the answer names shapes the shortlist before anyone visits a site. Measure mentions and citations alongside referral traffic in your analytics, not as a substitute for it."
   },
   {
-   "q": "How often should I run AI citation tracking?",
-   "a": "At minimum monthly for a stable baseline, weekly if you're actively publishing or in a fast-moving category. Because answers shift as models retrain and as you ship content, a one-time check goes stale quickly. The point is the trendline — is your presence and share of voice rising after you make changes?"
+   "q": "How often should I run citation tracking?",
+   "a": "Monthly is a workable baseline for a stable category, and weekly while you are publishing or fixing pages. Answers shift as models and indexes update, so a one-time check goes stale. The point is the trend in your rates after changes, which only holds if you keep the same questions and sampling each time."
   },
   {
    "q": "Which AI engines should I track?",
-   "a": "At least the five that matter most for visibility: ChatGPT, Perplexity, Google AI Overviews, Claude and Gemini. Coverage matters because performance varies wildly per engine — being cited heavily in one and absent in another is the norm, not the exception. AEOeye's free audit checks all five in one run so you start with a complete picture."
+   "a": "Track the engines your buyers use, which for most categories means ChatGPT, Google AI Overviews or AI Mode, Perplexity, Claude and Gemini. Check them separately because results differ by engine and their samples should not be pooled into one number. AEOeye's free audit covers ChatGPT; the $29 full report covers all five."
   }
  ],
  "comparisonTable": {
   "columns": [
    "Dimension",
-   "AI Citation Tracking",
-   "Traditional Rank Tracking"
+   "AI citation tracking",
+   "Traditional rank tracking"
   ],
   "rows": [
    {
     "label": "What it measures",
     "values": [
-     "Whether AI engines name/cite/recommend you in the answer",
-     "Your page's position in a list of links"
+     "How often answers name you or cite your URLs",
+     "Your page's position for a keyword"
     ]
    },
    {
-    "label": "Surface",
+    "label": "Unit",
     "values": [
-     "Conversational AI answer (ChatGPT, Perplexity, AI Overviews, Claude, Gemini)",
-     "Search engine results page (SERP)"
+     "A rate over repeated runs of a question",
+     "A rank from 1 to 100"
     ]
    },
    {
-    "label": "Result format",
+    "label": "Stability",
     "values": [
-     "A synthesized paragraph citing a few sources",
-     "Ten blue links, ranked"
+     "Varies run to run, so sampling is required",
+     "Largely stable for a query and location"
     ]
    },
    {
-    "label": "Determinism",
+    "label": "Competitor view",
     "values": [
-     "Non-deterministic — varies per run, needs repeated sampling",
-     "Largely stable for a given query and location"
+     "Which rivals and sources the answer names",
+     "Which domains rank above you"
     ]
    },
    {
-    "label": "Core metric",
+    "label": "Where you are seen",
     "values": [
-     "Presence rate & share of voice",
-     "Keyword position (#1–#100)"
+     "Inside a generated answer",
+     "In a list of links"
     ]
    },
    {
-    "label": "Cost of absence",
+    "label": "Free first-party data",
     "values": [
-     "Invisible — no \"page two\" to climb back from",
-     "Lower ranking still gets some clicks"
-    ]
-   },
-   {
-    "label": "Click behavior",
-    "values": [
-     "~1% click the cited source (Pew, 2025)",
-     "Click-through scales with position"
+     "Search Console generative AI report, Google only",
+     "Search Console performance report"
     ]
    }
   ]
  },
+ "image": {
+  "url": "https://images.pexels.com/photos/1720082/pexels-photo-1720082.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A woman looks through a viewing scope over a city from a high lookout",
+  "photographer": "Ricky Esquivel",
+  "photographerUrl": "https://www.pexels.com/@rickyesquivel"
+ },
  "sources": [
+  {
+   "label": "OpenAI — Web search tool guide (output and citations)",
+   "url": "https://developers.openai.com/api/docs/guides/tools-web-search"
+  },
+  {
+   "label": "Anthropic — Web search tool (citations)",
+   "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool"
+  },
+  {
+   "label": "SparkToro — AIs are highly inconsistent when recommending brands or products",
+   "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+  },
   {
    "label": "Pew Research Center — Google users are less likely to click links when an AI summary appears (July 2025)",
    "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
   },
   {
-   "label": "TechCrunch — Google's AI Overviews have 2B monthly users",
-   "url": "https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india/"
+   "label": "Google Search Console Help — Generative AI performance report",
+   "url": "https://support.google.com/webmasters/answer/16984139"
   },
   {
-   "label": "Search Engine Journal — Pew Research confirms Google AI Overviews is eroding the web ecosystem",
-   "url": "https://www.searchenginejournal.com/pew-research-confirms-google-ai-overviews-is-eroding-web-ecosystem/551825/"
-  },
-  {
-   "label": "DemandSage — ChatGPT Statistics (latest active users data)",
-   "url": "https://www.demandsage.com/chatgpt-statistics/"
+   "label": "Liu, Zhang and Liang — Evaluating Verifiability in Generative Search Engines",
+   "url": "https://arxiv.org/abs/2304.09848"
   }
  ],
  "definitions": [
   {
-   "term": "AI citation tracking",
-   "definition": "The practice of systematically querying AI engines and recording whether a brand is mentioned, cited as a source, and how it compares to competitors, tracked over time.",
-   "sourceUrl": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
+   "term": "AI citation",
+   "definition": "A source URL an AI engine attaches to a claim in its answer; OpenAI's web search returns it as a url_citation annotation with the URL and title.",
+   "sourceUrl": "https://developers.openai.com/api/docs/guides/tools-web-search"
   },
   {
-   "term": "Citation vs. mention",
-   "definition": "A mention is the AI naming your brand in its answer; a citation is the AI linking to a specific source URL as the basis for a claim. Mentions build brand association; citations are influenceable links.",
-   "sourceUrl": "https://www.searchenginejournal.com/pew-research-confirms-google-ai-overviews-is-eroding-web-ecosystem/551825/"
+   "term": "Mention vs citation",
+   "definition": "A mention is the answer naming your brand in its text; a citation is the answer attaching one of your URLs as a source. Either can occur without the other.",
+   "sourceUrl": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool"
   },
   {
-   "term": "Share of voice",
-   "definition": "Across a fixed set of category prompts, how often a brand appears in AI answers relative to its named competitors — the competitive scoreboard for AI visibility.",
-   "sourceUrl": "https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india/"
+   "term": "Visibility percentage",
+   "definition": "The share of repeated runs of a prompt in which a brand appears in the answer; SparkToro judged it a reasonable metric across many runs, unlike ranking position.",
+   "sourceUrl": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
   },
   {
-   "term": "AI Overviews",
-   "definition": "Google's AI-generated summary that appears above traditional search results, reaching over 2 billion monthly users by mid-2025.",
-   "sourceUrl": "https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india/"
+   "term": "Retrieval-augmented generation",
+   "definition": "A technique that combines a language model's stored (parametric) knowledge with documents retrieved at answer time; it is how search-enabled engines produce cited answers.",
+   "sourceUrl": "https://arxiv.org/abs/2005.11401"
   }
  ],
  "howToSteps": [],
- "updated": "2026-06-26",
- "image": {
-  "url": "https://images.pexels.com/photos/3862610/pexels-photo-3862610.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Female engineer using laptop to analyze vehicle data inside a car for testing purposes.",
-  "photographer": "ThisIsEngineering",
-  "photographerUrl": "https://www.pexels.com/@thisisengineering"
- }
+ "updated": "2026-10-03"
 }

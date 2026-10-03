@@ -1,0 +1,76 @@
+{
+  "contentSha256": "a777b0ae8999b231f02bc7d5c5225ea69cb123e4c505b775ade59d958d5fb1e6",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A buyer who is unhappy with, or wary of, Peec AI wants a short list of real alternatives with current entry prices, the catch of each, and an honest view of when Peec AI is still the right pick.",
+    "connection": "AEOeye sells one-time AI visibility audits, not tracking; the page lists AEOeye honestly beside dedicated trackers and recommends them where ongoing monitoring is the actual need."
+  },
+  "assessment": "The page builds its reasons for leaving Peec AI only from Peec's own pricing page, API docs and terms, and drops the earlier version's unsupported ones ('only diagnoses', 30-50% hidden cost, 'three engines plus Gemini/Claude add-ons') after finding Peec's Actions documentation and current model lists. Each alternative's entry price, engines and limits were read from that vendor's own rendered pricing page on 2026-10-03 (Otterly.AI, AthenaHQ, Profound, Nightwatch), and per-prompt and per-response figures are our own arithmetic, labelled as such. It uses one first-hand AEOeye fact (0 of 43 AI-visibility vendor sites block an AI retrieval bot in the crawler access study). It deliberately does not rate product quality, claim hands-on testing, convert currencies, or state Nightwatch's monthly-billing price, which was not re-read today.",
+  "sources": [
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Rendered in a browser: $95/$245/$495 a month monthly and $80/$205/$420 annual; 50/150/350 prompts; choose 3 models; model list; Enterprise column with Claude Sonnet 4 and others; extra-model add-on $30/$70/$140 labelled Annual; gap analysis and recommended actions listed."
+    },
+    {
+      "url": "https://peec.ai/pricing-agencies",
+      "checkedAt": "2026-10-03",
+      "supports": "Agency plans $245, $495, $795 a month (monthly) and free pitch projects for auditing prospects."
+    },
+    {
+      "url": "https://peec.ai/legal/terms-of-use",
+      "checkedAt": "2026-10-03",
+      "supports": "Monthly subscription ends at the end of the payment cycle; no automatic refund for early termination of a fixed term (10.5)."
+    },
+    {
+      "url": "https://docs.peec.ai/api/introduction",
+      "checkedAt": "2026-10-03",
+      "supports": "API access currently limited to Enterprise customers."
+    },
+    {
+      "url": "https://docs.peec.ai/actions",
+      "checkedAt": "2026-10-03",
+      "supports": "Actions: ranked list of recommendations grouped into Site audit, Owned and Earned, with evidence and a brief."
+    },
+    {
+      "url": "https://docs.peec.ai/setting-up-your-prompts",
+      "checkedAt": "2026-10-03",
+      "supports": "Prompts are conversational questions that Peec runs across AI platforms; used for the prompt definition."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Rendered in a browser: Lite $29 / 15 prompts, Standard $189 / 100, Premium $489 / 400; four engines (ChatGPT, Google AI Overviews, Perplexity, MS Copilot), Claude, Google AI Mode and Gemini as add-ons (Lite monthly: $29, $9, $9); unlimited team members; daily tracking; free trial with no length stated; monthly subscriptions."
+    },
+    {
+      "url": "https://athenahq.ai/plans",
+      "checkedAt": "2026-10-03",
+      "supports": "Essential free ($25 free credit, 300 credits, five engines); Starter $295/month, 3,600 credits, 11 models, 1 credit = 1 AI response; API and extra credits paid add-ons with no published price."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free Trial: 50 prompts run daily for 7 days on ChatGPT, Gemini, Google AI Overviews; Enterprise custom, up to 9 answer engines, SSO/SAML and SOC 2; no self-serve paid price."
+    },
+    {
+      "url": "https://nightwatch.io/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Yearly toggle: Starter EUR 79 a month (EUR 948 billed yearly), 500 keywords, 50 AI prompts; Professional EUR 159, 150 prompts; Agency EUR 399, 500 prompts; 14-day trial, no card; AI platforms ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview on every plan."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): loaded peec.ai/pricing, otterly.ai/pricing, athenahq.ai/plans, tryprofound.com/pricing and nightwatch.io/pricing in a browser on 2026-10-03 and read the rendered text (Peec's annual toggle clicked for $80/$205/$420); none of the prices is in the static HTML.",
+    "Writer (Sonnet): downloaded Peec's terms of use, API introduction, Actions documentation and agency pricing page and read the raw text before citing the term, refund, API-limit and Actions claims.",
+    "Writer (Sonnet): dropped the old page's Otterly 14-day-trial claim, Profound Starter $99 / Growth $399, Nightwatch $32 base plus $99 AI add-on and Peec 'no recommendations engine' claims because the vendors' current pages contradict or do not support them.",
+    "Writer (Sonnet): computed per-prompt rates (95/50, 245/150, 495/350, 29/15, 189/100, 489/400) and per-response rates (295/3,600 and 95/4,500) myself and labelled them as our arithmetic; did not convert currencies and did not quote Nightwatch's monthly-billing price because I did not re-read it today.",
+    "Writer (Sonnet): checked the AI-visibility-vendor column of the AEOeye crawler access study (0 of 43 block an AI retrieval bot) in docs/content/aeoeye-evidence-pack.md and kept it to that single stated fact.",
+    "Writer (Sonnet): used only evidence-pack product facts for AEOeye (free three-question ChatGPT audit; $29 one-time report with four more engines and ten questions; no subscription, no history) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; alternatives table with vendor-page prices; stale Profound/Nightwatch figures removed",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

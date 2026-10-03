@@ -1,0 +1,60 @@
+{
+  "contentSha256": "f8a98d20bff6afb74c7ada8ae27abae41607e934abbbe9d0696b77fcf7e18de9",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer deciding between a content-production platform and an AI-visibility tracker needs to know what AirOps and AthenaHQ each do today, what they cost, and which bottleneck each one addresses.",
+    "connection": "AEOeye measures whether AI engines recommend a brand; this page explains when measurement should come before production and how the tool categories now overlap, with a verification step readers can run themselves."
+  },
+  "assessment": "The page replaces an older 'different categories' framing with what AirOps and AthenaHQ state on their own pages on 2026-10-03: AirOps now sells intelligence and measurement (ChatGPT-only insights on Solo, 7+ engines on Pro) on top of agents and workflows, while AthenaHQ sells recommendations on top of monitoring. It compares plans, usage units and published prices, flags AirOps's inconsistent plan naming, adds a neutral crawler-study fact box and cites Google's documentation and the GEO paper for why volume alone does not guarantee AI visibility. It does not claim hands-on testing, quote any AirOps dollar price (none is published) or repeat vendor customer-result claims.",
+  "sources": [
+    {
+      "url": "https://www.airops.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "AirOps Solo (ChatGPT insights only, 35,000 tasks, single user), Pro (7+ answer engines, 100,000 tasks, unlimited seats), Enterprise custom; no dollar prices; Solo overage $0.025/task; task definition; 14-day trial FAQ naming plans not shown on the cards."
+    },
+    {
+      "url": "https://www.airops.com/platform",
+      "checkedAt": "2026-10-03",
+      "supports": "AirOps platform framed as intelligence, action and measurement; agents, playbooks, workflows, CMS integrations, human review inbox, version history, content scores."
+    },
+    {
+      "url": "https://www.airops.com/blog/the-next-chapter-for-airops",
+      "checkedAt": "2026-10-03",
+      "supports": "September 2, 2026 announcement: AirOps expands to strategy, channel investment and execution with a services team, and argues a visibility score can measure a prompt list rather than the market."
+    },
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "AthenaHQ Free ($25 credit, 300 credits), Starter $295/month with 3,600 credits and 11 models, Enterprise custom, add-ons unpriced, 17% annual discount, 1 credit = 1 AI response."
+    },
+    {
+      "url": "https://athenahq.ai",
+      "checkedAt": "2026-10-03",
+      "supports": "AthenaHQ's self-description as command center for AEO and GEO, platforms on all vs paid plans, AthenaHQ Content, Ask Athena, GA4/Search Console/Shopify integrations."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Pages must be indexed and snippet-eligible to appear in AI Overviews and AI Mode; no additional requirements or special optimizations."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper abstract: GEO can boost visibility by up to 40% in generative engine responses; effectiveness varies by domain."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched airops.com/pricing, /platform and the September 2, 2026 announcement and read the raw page text, which showed AirOps now offers answer-engine insights; rewrote the page's thesis instead of keeping the old 'AirOps does not track visibility' claim.",
+    "Writer (Sonnet): confirmed AirOps publishes no plan prices on its pricing page and therefore stated none; flagged that its FAQ names Scale/Agency plans absent from the plan cards.",
+    "Writer (Sonnet): checked AthenaHQ plan names, credits and prices against the raw pricing page HTML, not only the WebFetch summary, and kept the quoted AirOps sentence fragment verbatim and under 15 words.",
+    "Writer (Sonnet): took the AirOps and AthenaHQ fact-box rows from the crawler study CSV (airops.com llmsSoft404 = true; athenahq.ai valid llms.txt, zero JSON-LD blocks) and kept the JavaScript-injection caveat.",
+    "Writer (Sonnet): dropped vendor-supplied customer results and AirOps's citation/prompt dataset figures because they are unverifiable marketing claims and inconsistent across AirOps's own pages.",
+    "Editor (Opus): read the final draft and the writer's source report; outdated 'AirOps does not track visibility' claim corrected; no AirOps prices stated because none are published",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

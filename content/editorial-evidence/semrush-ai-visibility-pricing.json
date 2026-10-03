@@ -1,5 +1,5 @@
 {
-  "contentSha256": "8089a42008fadd135419cac4c84b5a10d892c57ae351a83cbefdc1bc5418940c",
+  "contentSha256": "c75081495f90d15dd67c6987ad651abd90e69d6089e58a8842b927763604b5ac",
   "reviewedAt": "2026-09-26",
   "kind": "pricing-guide",
   "topic": {
@@ -20,7 +20,7 @@
       "supports": "Official AI visibility feature scope."
     },
     {
-      "url": "https://www.semrush.com/kb/1494-ai-visibility-toolkit",
+      "url": "https://www.semrush.com/kb/1493-ai-visibility-toolkit",
       "checkedAt": "2026-09-26",
       "supports": "Official product documentation and operating context."
     }
@@ -29,7 +29,8 @@
     "Opened every named official source and reconciled the visible amount, currency, billing cadence, allowance, and quote status with the final article.",
     "Recomputed every worked example from the published inputs and kept uncertainty or checkout caveats adjacent to the arithmetic.",
     "Read the final opening, tables, internal links, limitations, conclusion, and all four FAQs for consistency and documentation-only disclosure.",
-    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome."
+    "Confirmed the final article contains no claim of paid-account use, output-quality testing, ranking result, or guaranteed product outcome.",
+    "Editor (Opus): replaced the dead Semrush KB URL (1494, now 404) with the live 1493 page"
   ],
   "pricing": {
     "status": "published",

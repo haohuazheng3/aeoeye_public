@@ -1,0 +1,92 @@
+{
+  "contentSha256": "5eedf7bc4efa6bddf3fa490e201049dfd2d46170464044356f968b161938d8a7",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A founder or marketer wants to know whether they can buy their way into ChatGPT, Google AI Overviews, Copilot or Perplexity answers, where ads actually run today, and what to do instead if organic recommendations cannot be bought.",
+    "connection": "AEOeye audits whether AI engines name a brand when buyers ask; the page separates paid ad slots from organic recommendations (what the audit measures), shows where ads exist as of October 2026, and points the reader to measuring and earning mentions, backed by AEOeye's recommendation benchmark and crawler access study."
+  },
+  "assessment": "The page now answers 'can you pay to appear in AI answers' in the first screen (ads yes, organic recommendations no), gives a source-by-source table of where ads run in Google AI Overviews, Google AI Mode, ChatGPT, Microsoft Copilot, Perplexity and Claude as of 3 October 2026, explains the Google Highlighted Answers test that blurs the ad/answer line, covers the indirect things people pay for (sponsored posts, agencies, product feeds) with a stated position on each, and gives a five-step earn-it route. It rests on Google, OpenAI, Microsoft and Anthropic's own pages, one dated news report for Perplexity, a University of Toronto arXiv study, and two AEOeye datasets quoted with n and caveats. It deliberately does not claim ads change organic recommendations (neither Google nor any source we read tests this), does not state ad prices or CPCs, makes no claim about ads in the Gemini app, and does not say we have run any ad product.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/how-search-works",
+      "checkedAt": "2026-10-03",
+      "supports": "Google does not accept payment to rank pages higher, and ranking is done programmatically; Google does not accept payment for crawling, indexing or ranking."
+    },
+    {
+      "url": "https://support.google.com/google-ads/answer/16297775?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Ads eligible above, below or within AI Overviews; within-Overview ads currently in English in 12 listed countries including the US; Text and Shopping ads from Search, Shopping, Performance Max; not shown in sensitive verticals incl. finance and healthcare; requires AI-powered targeting (broad match, AI Max, PMax, Shopping, DSA); cannot opt out, cannot target AI Overviews alone, no segmented reporting."
+    },
+    {
+      "url": "https://blog.google/products/ads-commerce/google-marketing-live-search-ads/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Ads & Commerce Blog post dated 20 May 2026: testing two new Gemini-built ad formats in AI Mode (Conversational Discovery ads, Highlighted Answers), eligible to appear on a list of recommendations, clearly labelled Sponsored with an independent AI explainer."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No additional requirements or special optimizations needed to appear in AI Overviews or AI Mode; a page must be indexed and eligible to show with a snippet; defines AI Overviews as AI features in Search."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/20001047-ads-in-chatgpt",
+      "checkedAt": "2026-10-03",
+      "supports": "Opened in the built-in browser: ads may appear for Free and Go users, below the end of a response, labelled sponsored; testing began in the US on 9 February 2026; Plus/Pro/Business/Enterprise/Edu have no ads; ads do not influence answers and advertisers cannot shape, rank or alter responses; ads ranked by relevance and advertiser bids; not shown near sensitive topics; advertiser sign-up at ads.openai.com."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/11128490-shopping-with-chatgpt-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Opened in the built-in browser: ChatGPT product results are selected independently and are not ads or influenced by partnerships; Shopify merchants integrated via Shopify Catalog; merchants can apply for direct product-feed access."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Sites opted out of OAI-SearchBot will not be shown in ChatGPT search answers."
+    },
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/july-2025/how-generative-ai-is-reshaping-search-a-qa-with-nicole-schumacher",
+      "checkedAt": "2026-10-03",
+      "supports": "July 2025 Microsoft Advertising Q&A: Copilot ads appear below the organic Copilot response with a conversational summary ('Ad Voice') explaining why the ad is relevant, creating separation between organic and sponsored."
+    },
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/april-2026/win-across-all-three-eras-of-the-web",
+      "checkedAt": "2026-10-03",
+      "supports": "April 2026 Microsoft Advertising post: Offer Highlights, new ad experiences within Copilot conversations, available for retail in English-speaking markets on product detail pages in Copilot, Edge and Bing; AI Max pilot for Copilot Search and Copilot Answers."
+    },
+    {
+      "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic post dated 4 February 2026: 'Claude will remain ad-free'; no sponsored links adjacent to conversations and responses not influenced by advertisers."
+    },
+    {
+      "url": "https://www.macrumors.com/2026/02/18/perplexity-abandons-ai-advertising/",
+      "checkedAt": "2026-10-03",
+      "supports": "MacRumors, 18 February 2026, citing the Financial Times: Perplexity phased out sponsored answers in 2025 and executives say they do not plan to revisit ads. Secondary report; Perplexity's own page was not found, so the page labels it as reported."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Raw PDF text checked: US software-product queries, web-enabled GPT (gpt-4o-search-preview) 72.7% Earned / 26.7% Brand vs Google 45.4% Earned / 43.7% Brand."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Link spam section lists advertorials or native advertising where payment is received for articles that include links that pass ranking credit."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened both OpenAI help articles (ads in ChatGPT, shopping with ChatGPT search) in the built-in browser on 2026-10-03 and stated only what they say; confirmed ads appear below responses, are labelled, are limited to some Free and Go users, and that OpenAI states ads do not influence answers.",
+    "Writer (Sonnet): downloaded the Google Ads Help page, the Google 20 May 2026 ads blog post, the Google AI-features doc, the Search Central how-search-works and spam-policy pages, both Microsoft Advertising posts and the Anthropic post with curl and read the raw text before using any figure (12 countries, 200+ markets, 9 February 2026, 4 February 2026, 20 May 2026).",
+    "Writer (Sonnet): confirmed the 72.7/26.7/45.4/43.7 figures and that the AI engine in that experiment was a web-enabled GPT by reading the raw text of the arXiv PDF.",
+    "Writer (Sonnet): checked the AEOeye benchmark figures (127 audits, 27 brands, 147 ranked mentions, 71.4% first, snapshot 2026-06-26 to 2026-09-07) against public/resources/aeoeye-recommendation-benchmark-2026-09.json and the crawler figure (1 of 193 SaaS sites blocking any AI retrieval bot) against the evidence pack.",
+    "Writer (Sonnet): replaced the previous page's undated claims about ads in ChatGPT ('not in the traditional display-ad sense') and Perplexity ('rolled out sponsored formats') with the current verified state; dropped the earlier 'ads vs organic' section's unsupported assertions and kept the entity clarity, third-party consensus and citable-content advice in condensed, sourced form.",
+    "Writer (Sonnet): left out the Gemini app because no Google page we read states whether it carries ads, and left out ad prices because none of the pages we read publish them.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; ads vs organic answers per engine with dated vendor sources; Perplexity ad phase-out labelled as secondary reporting",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

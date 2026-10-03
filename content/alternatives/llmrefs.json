@@ -1,129 +1,190 @@
 {
  "slug": "llmrefs",
  "type": "alternatives",
- "title": "Best LLMrefs Alternatives (2026): Honest Picks for AI Visibility Tracking",
- "metaTitle": "Best LLMrefs Alternatives (2026) Compared",
- "metaDescription": "The best LLMrefs alternatives in 2026, compared fairly: prompt-level data, freshness, price, and engine coverage — with AEOeye's free, instant multi-engine",
- "primaryKeyword": "LLMrefs alternatives",
- "shortAnswer": "The best LLMrefs alternatives in 2026 are AEOeye (free, instant, blind multi-engine audit that shows the actual AI answers), Otterly.ai (low-cost prompt monitoring from $29/mo), Peec AI (fast mid-market tracking from €89/mo), Profound (enterprise depth around $499/mo), and Nightwatch (SEO rank tracking plus an AI add-on). LLMrefs is genuinely affordable at $79/mo, but people switch mainly for prompt-level visibility into why they appear, fresher data, and looser limits than its 1-keyword free plan allows.",
- "intro": "LLMrefs does one thing well: it puts AI search visibility tracking within reach at $79/month, covering 11+ engines with keyword-style 'share of voice' scores that feel familiar to anyone coming from SEO. For a solo marketer or a small team just starting to treat AI mentions as a KPI, that's a reasonable on-ramp.\n\nBut 'familiar' cuts both ways. The same keyword-first framing that makes LLMrefs easy to read is what sends a lot of buyers looking for an alternative — they want to see the actual answer ChatGPT or Perplexity gave, which prompt triggered a citation, and what content won it, not just a number that went up or down. Add weekly-to-monthly refreshes, a 1-keyword free plan, and a Pro price labeled 'limited time only,' and the questions start. Below, we break down exactly why people leave LLMrefs — fairly, including where it's actually fine — and the best alternatives, starting with AEOeye's free instant audit.",
+ "title": "Best LLMrefs Alternatives (2026): Six Options, With Real Prices",
+ "metaTitle": "Best LLMrefs Alternatives (2026): Prices and Fit",
+ "metaDescription": "LLMrefs alternatives with entry prices checked in October 2026: Otterly, Peec AI, Nightwatch, AthenaHQ, Profound and AEOeye, plus when LLMrefs still wins.",
+ "primaryKeyword": "llmrefs alternatives",
+ "shortAnswer": "The best LLMrefs alternative depends on why you are leaving. For daily tracking, Otterly.ai starts at $29/month (15 prompts), Peec AI at $95 (50 prompts) and Nightwatch at €99 (50 AI prompts plus classic rank tracking). For a free first look, AEOeye checks ChatGPT free and five engines for $29 once. LLMrefs' $79/month for 500 prompts is still hard to beat on capacity.",
+ "intro": "This guide is based on public documentation as of October 2026: each vendor's own pricing page, read on 3 October 2026. We have not tested LLMrefs or the alternatives hands-on, and AEOeye is our product, so we say plainly what it doesn't do. Prices change, so confirm before you buy.\n\nOur view: most people shopping for an alternative fixate on price, when the real differences are refresh rate and how many prompts you can afford. For LLMrefs itself, see our [LLMrefs breakdown](/blog/llmrefs-review) and the head-to-head [AEOeye vs LLMrefs](/vs/llmrefs).",
  "sections": [
   {
-   "heading": "Keyword-level scores, but no prompt-level visibility",
-   "body": "LLMrefs aggregates results into keyword-level 'share of voice' rather than showing you the raw AI answer and the specific prompt that triggered a mention or citation. That design choice is the single most common reason people look elsewhere.\n\nThe problem is diagnostic. When your score drops, a keyword-level number tells you *that* something changed, not *why*. You can't see that Perplexity started citing a competitor's comparison page, or that ChatGPT paraphrased a Reddit thread instead of your docs. The independent GenerateMore review scored LLMrefs 2/5 on data accuracy and noted that it leans on 'traditional SEO terms to simplify AI SEO concepts,' which obscures how the models actually behave. It also flagged that the most actionable view — the Sources tab — is buried inside a simplified UX, so the data you'd act on takes digging to reach.\n\nIf your goal is to fix visibility, not just monitor it, you need the answer itself. AEOeye takes the opposite approach: it shows the real responses from each engine, names the brands the model recommended, and surfaces which competitors won — so you can see the cause, not just the symptom."
+   "heading": "Why look for an LLMrefs alternative?",
+   "body": "There are three reasons visible in LLMrefs' own pages, and only one of them is about money. Each points to a different alternative.\n\n1. **Capacity and pricing clarity.** LLMrefs sells one plan: $79/month for 500 prompts, labelled \"Limited time only\" ([LLMrefs pricing](https://llmrefs.com/pricing)). Its FAQ says you can buy more than 50 keywords, but the price isn't published.\n2. **Refresh rate.** Its FAQ says each keyword updates in the dashboard \"at least once per week\" ([LLMrefs FAQ](https://llmrefs.com/)). Otterly, Peec AI and Nightwatch all list daily tracking on their entry plans.\n3. **Keyword-first design and thin documentation.** LLMrefs says you track keywords, not prompts. Its Getting Started page read \"Coming soon\" ([docs](https://llmrefs.com/docs/getting-started)), and the free account's limits aren't listed.\n\nIf none of these applies to you, stay. Our [LLMrefs breakdown](/blog/llmrefs-review) covers who it fits."
   },
   {
-   "heading": "Data freshness that can lag for fast-moving categories",
-   "body": "LLMrefs defaults to weekly refreshes, with monthly common on lighter usage and daily available but requiring configuration. For a slow, stable category that may be plenty. For anything competitive or fast-moving, reviewers consider it slow — GenerateMore scored freshness 2/5 and called it slower than most rivals.\n\nThere's a second, subtler reliability issue worth naming honestly: AI providers periodically change how responses are formatted, and citation parsers built on the old format can break until they're updated. When OpenAI, Anthropic, or Google shift their output, any tracker relying on parsing can show gaps for a stretch — and LLMrefs has been reported to be affected. This isn't unique to LLMrefs; it's a structural risk for every tool in this space. But it matters more when refreshes are infrequent, because a missed window plus a parser hiccup can leave you blind right when a trend is breaking. If you're publishing weekly and need to see the effect of a content change quickly, slower cadence is a real constraint — and a common trigger for switching to a tool that re-queries on demand."
+   "heading": "Which alternatives fit which need?",
+   "body": "Match the alternative to the reason you are leaving. The table gives entry prices as published on 3 October 2026; the notes below say who each one is for.\n\n- **Daily tracking on a small budget: Otterly.ai.** Lite is $29/month for 15 search prompts across four engines (ChatGPT, Google AI Overviews, Perplexity, Microsoft Copilot), with Claude, Google AI Mode and Gemini sold as add-ons ([Otterly pricing](https://otterly.ai/pricing)). Standard is $189 for 100 prompts.\n- **Daily tracking with more depth: Peec AI.** Starter is $95/month (monthly billing) for 50 prompts and three models of your choice, tracked daily. Claude and Perplexity appear only under Enterprise ([Peec pricing](https://peec.ai/pricing)).\n- **Rank tracking and AI in one tool: Nightwatch.** €99/month on monthly billing, or €79 billed yearly, for 500 keywords and 50 AI prompts, covering Google, Bing and AI engines including Claude; 14-day trial, no card ([Nightwatch pricing](https://nightwatch.io/pricing)).\n- **A free start, then a managed platform: AthenaHQ.** Essential is free with $25 of credit (300 credits); Starter is $295/month for 3,600 credits and 11 models ([AthenaHQ plans](https://athenahq.ai/plans)).\n- **Enterprise: Profound.** Brands get a free 7-day trial (50 prompts daily, three engines) or a custom Enterprise plan sold through a demo ([Profound pricing](https://www.tryprofound.com/pricing))."
   },
   {
-   "heading": "Restrictive limits and a 'limited time only' price",
-   "body": "Two pricing realities push people to compare. First, the free plan tracks just one keyword — useful for kicking the tires, not for actually running a program, so in practice it's a demo rather than a usable free tier. Second, there's a single 'All in One' Pro plan at $79/month capping you at 50 keywords and 500 prompts, limits reviewers describe as tight once you scale past a handful of topics or want to track competitors in depth.\n\nTo be fair, $79/mo is genuinely the low end of the paid market, and for many SMBs the caps are fine. But the Pro price is publicly labeled 'limited time only,' which is a fair warning to treat it as promotional rather than a locked-in, permanent rate when you're budgeting for a year. If you want to start at zero with no keyword cap on the audit itself, AEOeye's free instant audit runs your brand through real engines without asking you to pick a single keyword first. And if you outgrow LLMrefs' caps, the alternatives below scale in different directions — Otterly cheaply, Peec quickly, Profound deeply."
+   "heading": "Where does AEOeye fit, honestly?",
+   "body": "AEOeye fits one job: a baseline. It is not a tracker, so it replaces LLMrefs only if you never needed weekly monitoring.\n\n- **Free:** three unbranded buyer questions asked live to ChatGPT, with full answers, the competitors named instead, and starter fixes.\n- **$29 one-time:** adds Claude, Gemini, Google AI and Perplexity, 10 questions instead of 3, a 5-layer SEO foundation audit and a fix roadmap, emailed as a PDF. Each engine runs at the default tier a free user gets.\n- **Not included:** history, scheduled re-runs, share-of-voice trends. To see change, run it again.\n\nStart at [the free audit](/) and read the answers before deciding whether to pay anyone monthly.\n\n![Ornate vintage signpost pointing in several directions against a blue sky in Galle, Sri Lanka](https://images.pexels.com/photos/27626854/pexels-photo-27626854.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "AEOeye — free, instant, blind multi-engine audit",
-   "body": "AEOeye leads this list because it removes the two biggest frictions: cost and waiting. The audit is free to start and runs instantly — no sales call, no contract, no credit card to see your first result.\n\nWhat it does: it asks ChatGPT, Perplexity, Google AI, Claude, and Gemini the questions real buyers actually type, then shows whether each engine recommends your brand, where you rank in the answer, and which competitors get named instead. Crucially, it's *blind* multi-engine querying — you see the real answers across engines side by side, which is exactly the prompt-level visibility LLMrefs' keyword scores abstract away. For a non-expert, that's the difference between a dashboard you stare at and an answer you can act on this afternoon.\n\nBe clear on the trade-off, though. AEOeye is newer and deliberately lighter on enterprise analytics and long historical dashboards than incumbents like Profound; its deeper, continuous multi-engine querying activates with usage rather than being front-loaded into a heavy onboarding. If you need years of trended share-of-voice charts and SSO-gated team analytics on day one, a heavier platform fits better. If you want to know — right now, for free — whether AI recommends you or your competitor, start with AEOeye."
+   "heading": "Do you need a tracker at all?",
+   "body": "Not until you know whether AI names you. A tracker that reports zero mentions every week is an expensive way to learn one fact.\n\nIn AEOeye's audit records (127 completed audits created between 26 June and 7 September 2026), engines named the audited brand in 157 of 892 answers, 17.6%. The brands are self-selected and the engine samples are unequal, so [this benchmark](/resources/aeoeye-recommendation-benchmark-2026-09.json) is a prompt to test your own questions, not a ranking of engines.\n\nOur position: baseline first, then pay for monitoring only if the baseline shows something worth watching. That order holds whichever tracker you pick.\n\n![Tranquil autumn park pathway in the warm glow of a sunset](https://images.pexels.com/photos/20389905/pexels-photo-20389905.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Otterly, Peec, Profound, and Nightwatch — fair comparisons",
-   "body": "Four other real tools are worth a look depending on budget and depth.\n\n**Otterly.ai** is the budget-friendly prompt monitor, with a Lite plan at $29/month (around 15 prompts), Standard at $189, and Premium at $489. It tracks brand mentions and citations across the major engines and now ships a public API and MCP server. Best for: cost-conscious teams that want prompt-level monitoring without enterprise pricing.\n\n**Peec AI** targets the mid-market, starting near €89/month (about 25 prompts) with Pro around €199/month (100 prompts). Reviewers praise its speed and clean UX over exhaustive feature lists; it has raised significant funding and grown fast. Best for: teams that value usability and quick iteration.\n\n**Profound** is the enterprise option at roughly $499/month for Lite, with Fortune 500 clients, deep analytics, and the historical dashboards AEOeye intentionally keeps light. It's the most expensive here and overkill for a solo marketer — but genuinely strong if you need depth and scale. Best for: large brands and agencies with budget.\n\n**Nightwatch** comes at AI visibility from the SEO side: traditional rank tracking from about $32/month, plus an AI tracking add-on (~$99/month) so combined plans land near $131/month. It pairs Google/Bing/Maps rankings with AI Share of Voice, includes unlimited seats and white-label reports. Best for: SEO teams that want one tool for both rankings and AI citations."
+   "heading": "What should you check before switching?",
+   "body": "Check five things in the trial, because pricing pages leave them out. Nightwatch offers a 14-day trial with no card, LLMrefs and Profound 7-day trials, so this costs an afternoon.\n\n1. **Refresh rate.** Ask what \"daily\" or \"weekly\" means in the dashboard, per keyword or per prompt.\n2. **How prompts are counted.** One prompt on three models is not one answer; Peec and Nightwatch both quote monthly AI answers.\n3. **Engines you need.** Claude and Perplexity are add-ons or higher tiers at some vendors.\n4. **Export and API.** Confirm CSV and API are on your tier before you build reports on them.\n5. **Billing basis.** Nightwatch's €79 is the yearly-billing rate; monthly billing is €99."
+  },
+  {
+   "heading": "What does LLMrefs cost, for reference?",
+   "body": "LLMrefs costs $79/month for everything: 500 prompts, all listed engines, weekly reports, unlimited projects and team members, CSV export and API access, after a 7-day free trial. That is the benchmark every alternative above has to beat.\n\nPer prompt, the gap is wide on paper (our arithmetic): $79 / 500 = about $0.16 per prompt per month, against $29 / 15 = about $1.93 at Otterly Lite and $95 / 50 = $1.90 at Peec Starter. Treat that comparison with care. Vendors define a \"prompt\" differently; Peec, for example, counts monthly AI answers as prompts x models x tracking frequency (4,500 on Starter). LLMrefs derives prompts from your keywords.\n\nThe faster refresh at the alternatives is what the extra money buys. Whether it is worth it depends on how often you would act on a change."
+  },
+  {
+   "heading": "When is LLMrefs still the right choice?",
+   "body": "LLMrefs is still right when you need breadth and volume at the lowest listed price, and weekly data is fast enough. That describes many agencies and SEO teams.\n\n- **You work from keyword lists.** Its keyword-first model is built for that workflow.\n- **You need many engines.** Eleven are listed on its homepage, including Grok, Meta AI and DeepSeek, which Otterly, Peec Starter and Nightwatch don't list.\n- **You serve several clients.** One subscription covers unlimited projects and team members.\n- **You want your data out.** CSV and API access are in the one plan.\n\nSwitch if you need daily data or want to pick exact prompts. For a wider market view, see [the best AI visibility tools](/blog/best-ai-visibility-tools).\n\n![Signpost in a rural setting showing directions to several nearby places](https://images.pexels.com/photos/29357817/pexels-photo-29357817.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   }
  ],
  "keyTakeaways": [
-  "LLMrefs is genuinely affordable ($79/mo, 11+ engines) and a fine on-ramp for SMBs — most people leave for prompt-level depth, fresher data, or looser limits, not because it's bad.",
-  "The core gap: LLMrefs reports keyword-level 'share of voice' instead of the actual AI answer and the prompt that triggered a citation, so it's hard to diagnose why you appear (GenerateMore scored it 2/5 on accuracy).",
-  "Data refreshes default to weekly (monthly common, daily requires setup), which reviewers call slow for fast-moving categories — and parser changes from OpenAI/Anthropic/Google can cause temporary gaps.",
-  "Limits feel tight: the free plan tracks just 1 keyword, Pro caps at 50 keywords / 500 prompts, and the $79 price is publicly labeled 'limited time only.'",
-  "AEOeye is the free, instant alternative — a blind multi-engine audit (ChatGPT, Perplexity, Google AI, Claude, Gemini) that shows the real answers and which competitors win, though it's lighter on enterprise historical dashboards.",
-  "Pick by need: Otterly (~$29/mo) for cheap prompt monitoring, Peec (~€89/mo) for fast mid-market UX, Profound (~$499/mo) for enterprise depth, Nightwatch (~$131/mo combined) to pair SEO rankings with AI visibility."
+  "LLMrefs' own pages show three reasons to look elsewhere: one capped plan with a \"Limited time only\" price, at-least-weekly refresh, and a keyword-first design with thin documentation.",
+  "For daily tracking, Otterly.ai starts at $29/month (15 prompts), Peec AI at $95 (50 prompts) and Nightwatch at €99 (50 AI prompts).",
+  "AEOeye is a baseline, not a tracker: free for three ChatGPT questions, $29 once for 10 questions across five engines.",
+  "LLMrefs stays the capacity pick: $79/month for 500 prompts, eleven listed engines, CSV and API.",
+  "Compare per-prompt prices with care: vendors define prompts, and answers per prompt, differently."
  ],
  "faqs": [
   {
-   "q": "Is LLMrefs bad? Why would I switch?",
-   "a": "LLMrefs isn't bad — at $79/month covering 11+ engines, it's one of the most affordable AI visibility trackers and a reasonable starting point for small teams. People switch for specific reasons: they want prompt-level visibility (the actual AI answer and the prompt that triggered a citation) rather than keyword-level 'share of voice' scores; they need fresher data than the default weekly-to-monthly refresh; or they hit the limits — a 1-keyword free plan and a 50-keyword/500-prompt Pro cap. If those don't bother you, LLMrefs may be fine as-is."
+   "q": "What is the best alternative to LLMrefs?",
+   "a": "It depends on why you are leaving. For cheap daily tracking, Otterly.ai starts at $29/month; for more depth, Peec AI starts at $95/month; for rank tracking plus AI, Nightwatch starts at €99/month. For a one-off baseline instead of a subscription, AEOeye is free for ChatGPT and $29 once for five engines."
   },
   {
-   "q": "What's the best free alternative to LLMrefs?",
-   "a": "AEOeye is the strongest free option. LLMrefs' free plan only tracks one keyword, which makes it a demo rather than a usable tier. AEOeye's audit is free to start and runs instantly — no sales call or contract — and queries ChatGPT, Perplexity, Google AI, Claude, and Gemini with the questions real buyers ask, then shows whether each recommends your brand, where you rank, and which competitors win. The trade-off is that AEOeye is lighter on long historical dashboards than paid incumbents; its deeper multi-engine querying activates with usage."
+   "q": "Is there a free alternative to LLMrefs?",
+   "a": "Three have free starts. AEOeye's audit is free for three ChatGPT questions; AthenaHQ's Essential plan includes $25 of credit (300 credits); Profound offers a free 7-day trial. LLMrefs also offers a free account, but its pricing page doesn't list the account's limits. None of the free options is a full replacement for a paid tracker."
   },
   {
-   "q": "Why does prompt-level data matter more than keyword-level scores?",
-   "a": "Because keyword-level scores tell you that your visibility changed, not why. A 'share of voice' number that drops doesn't show you that Perplexity started citing a competitor's comparison page or that ChatGPT pulled from a Reddit thread instead of your docs. Prompt-level data shows the actual answer and the specific prompt behind a citation, so you can see the cause and fix it. Independent reviewers flagged this as LLMrefs' main weakness, scoring it 2/5 on data accuracy and noting its most actionable view is buried in the UX."
+   "q": "Does LLMrefs update daily?",
+   "a": "Its FAQ says every keyword is updated in the dashboard at least once per week and that results are checked in real time. The pages we read don't list a daily option. Otterly, Peec AI and Nightwatch list daily tracking on their entry plans, so choose one of those if daily data matters to you."
   },
   {
-   "q": "How current is LLMrefs' data?",
-   "a": "LLMrefs defaults to weekly refreshes; monthly is common on lighter usage, and daily updates are available but require configuration. Reviewers consider the default cadence slow for fast-moving categories (GenerateMore scored freshness 2/5). Separately, like any parsing-based tracker, its citation parsers can temporarily break when OpenAI, Anthropic, or Google change response formatting, which can cause gaps until they're updated. For fast iteration, an on-demand audit like AEOeye's re-queries engines when you run it."
+   "q": "Is LLMrefs' $79 price permanent?",
+   "a": "Unknown. The pricing page labels the $79/month plan \"Limited time only\" and doesn't say what happens afterwards. Budget for a change, ask support before an annual commitment, and note that the page lists no annual plan and no price for extra keywords."
   },
   {
-   "q": "Which LLMrefs alternative is right for my budget?",
-   "a": "For free and instant, start with AEOeye. For the cheapest paid prompt monitoring, Otterly.ai begins around $29/month. For a fast, clean mid-market tool, Peec AI starts near €89/month. For enterprise depth with deep historical analytics, Profound runs around $499/month. And if you want AI visibility alongside traditional SEO rank tracking in one tool, Nightwatch combines roughly $32/month SEO with a ~$99/month AI add-on. Match the tool to whether you optimize for price, speed, depth, or SEO integration."
+   "q": "Is AEOeye an LLMrefs replacement?",
+   "a": "Only for a one-off check. AEOeye isn't a tracker: it has no history, scheduled re-runs or share-of-voice trends. The free audit asks ChatGPT three questions; the $29 one-time report tests 10 questions on five engines. If you need weekly monitoring, keep LLMrefs or pick a tracker above."
   }
  ],
  "comparisonTable": {
   "columns": [
-   "AEOeye",
-   "LLMrefs",
-   "Otterly.ai",
-   "Peec AI",
-   "Profound"
+   "Entry price (checked 3 Oct 2026)",
+   "What the entry price buys",
+   "Engines at entry level",
+   "Best fit"
   ],
   "rows": [
    {
-    "label": "Starting price",
+    "label": "LLMrefs (reference)",
     "values": [
-     "Free to start",
-     "$79/mo (Pro, 'limited time')",
-     "$29/mo (Lite)",
-     "~€89/mo (Starter)",
-     "~$499/mo (Lite)"
+     "$79/month, one plan; 7-day trial; \"Limited time only\"",
+     "500 prompts, weekly reports, unlimited projects and seats",
+     "11 listed, incl. Grok, Meta AI, DeepSeek",
+     "SEO teams and agencies tracking keywords broadly"
     ]
    },
    {
-    "label": "Free tier",
+    "label": "AEOeye",
     "values": [
-     "Yes — full instant audit",
-     "Yes, but only 1 keyword",
-     "No (paid only)",
-     "No (paid only)",
-     "No (demo/sales)"
+     "Free ChatGPT audit; $29 one-time report",
+     "Free: 3 questions. Report: 10 questions, fix roadmap, PDF",
+     "Free: ChatGPT. Report: ChatGPT, Claude, Gemini, Google AI, Perplexity",
+     "A one-off baseline, not continuous tracking"
     ]
    },
    {
-    "label": "Engines queried",
+    "label": "Otterly.ai",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "11+ (adds Grok, Copilot, Meta AI, DeepSeek)",
-     "Major AI engines",
-     "Major AI engines",
-     "Major AI engines"
+     "$29/month (Lite)",
+     "15 search prompts, daily tracking, unlimited members",
+     "ChatGPT, Google AI Overviews, Perplexity, Copilot; Claude, AI Mode, Gemini as add-ons",
+     "Small teams wanting daily tracking cheaply"
     ]
    },
    {
-    "label": "Data view",
+    "label": "Peec AI",
     "values": [
-     "Real answers, prompt-level, blind multi-engine",
-     "Keyword-level share of voice",
-     "Prompt-level monitoring",
-     "Prompt-level monitoring",
-     "Prompt-level + deep analytics"
+     "$95/month (Starter, monthly billing)",
+     "50 prompts, 3 models, daily tracking, unlimited users",
+     "Choose 3 of ChatGPT, AI Mode, AI Overviews, Copilot, Gemini, Naver AI",
+     "Teams wanting daily tracking with prompt management"
     ]
    },
    {
-    "label": "Best for",
+    "label": "Nightwatch",
     "values": [
-     "Anyone wanting a free, instant check of AI visibility",
-     "SMBs wanting cheap keyword-style tracking",
-     "Cost-conscious prompt monitoring",
-     "Fast, clean mid-market tracking",
-     "Enterprise depth & historical dashboards"
+     "€99/month monthly billing (€79 billed yearly)",
+     "500 keywords and 50 AI prompts, tracked daily; 14-day trial",
+     "ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overviews",
+     "SEO teams wanting rank tracking and AI in one tool"
+    ]
+   },
+   {
+    "label": "AthenaHQ",
+    "values": [
+     "Free Essential ($25 credit); Starter $295/month",
+     "Starter: 3,600 credits",
+     "Essential: 5 platforms; Starter: 11 models incl. Claude",
+     "Teams wanting a free start, then a managed platform"
+    ]
+   },
+   {
+    "label": "Profound",
+    "values": [
+     "Free 7-day trial; Enterprise by quote",
+     "Trial: 50 prompts daily; Enterprise: custom volume",
+     "Trial: ChatGPT, Gemini, AI Overviews; Enterprise: up to nine",
+     "Larger organisations buying through a demo"
     ]
    }
   ]
  },
  "image": {
-  "url": "https://images.pexels.com/photos/7667442/pexels-photo-7667442.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A person points to t-shirt options in an online store on a laptop screen.",
-  "photographer": "MART  PRODUCTION",
-  "photographerUrl": "https://www.pexels.com/@mart-production"
- }
+  "url": "https://images.pexels.com/photos/28239422/pexels-photo-28239422.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Bright yellow signpost standing in a snowy winter landscape under a clear blue sky",
+  "photographer": "Sergio Zhukov",
+  "photographerUrl": "https://www.pexels.com/@triemli"
+ },
+ "sources": [
+  {
+   "label": "LLMrefs — Homepage, pricing and FAQ",
+   "url": "https://llmrefs.com/"
+  },
+  {
+   "label": "LLMrefs — Pricing",
+   "url": "https://llmrefs.com/pricing"
+  },
+  {
+   "label": "LLMrefs — Getting Started documentation",
+   "url": "https://llmrefs.com/docs/getting-started"
+  },
+  {
+   "label": "Otterly.AI — Pricing",
+   "url": "https://otterly.ai/pricing"
+  },
+  {
+   "label": "Peec AI — Pricing",
+   "url": "https://peec.ai/pricing"
+  },
+  {
+   "label": "Nightwatch — Pricing",
+   "url": "https://nightwatch.io/pricing"
+  },
+  {
+   "label": "AthenaHQ — Plans",
+   "url": "https://athenahq.ai/plans"
+  },
+  {
+   "label": "Profound — Pricing",
+   "url": "https://www.tryprofound.com/pricing"
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Generative engine optimization (GEO)",
+   "definition": "The practice of improving visibility in responses generated by AI systems; also called answer engine optimization (AEO).",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
+  }
+ ],
+ "updated": "2026-10-03"
 }

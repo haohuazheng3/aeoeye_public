@@ -1,0 +1,70 @@
+{
+  "contentSha256": "16eefb4ea6175b39cce1e9135fb1db9379b003af68067c68f00c02c784be5c0c",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketing lead or founder has seen Brandlight in a shortlist and wants to know what it is, what it costs, whether it fits their size, and what to verify before booking a demo.",
+    "connection": "AEOeye audits what AI engines say about a brand; the page helps readers decide between an enterprise monitoring platform and a lighter one-time audit, and shows how the vendor's own site looks to AI crawlers using AEOeye's crawler study."
+  },
+  "assessment": "The page is a documentation-based guide, not a hands-on review: it states what Brandlight's own public pages say (engines, modules, SOC 2 claim, quote-only pricing, beta and coming-soon items), adds a neutral fact box from AEOeye's crawler access study, and gives seven demo questions grounded in the SparkToro inconsistency study. It does not claim anything about data quality, accuracy or results, does not quote Brandlight prices (none are public), and treats the vendor's #1 claim as unverified marketing.",
+  "sources": [
+    {
+      "url": "https://www.brandlight.ai/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Brandlight's own summary: engines covered (ChatGPT, Google AI Overviews, Gemini, Perplexity, Copilot, Grok, Claude), six modules, pricing is enterprise and quote-based with no public self-serve tiers, access begins with a scoped visibility assessment rather than a free trial, 'SOC 2 compliant'."
+    },
+    {
+      "url": "https://www.brandlight.ai/enterprise",
+      "checkedAt": "2026-10-03",
+      "supports": "Enterprise page: multi-brand/region/language tracking, SOC 2 Type 2 claim, automated weekly reports, dedicated account executive, no PII or internal data needed for onboarding."
+    },
+    {
+      "url": "https://www.brandlight.ai/product/visibility-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Data collection described as asking AI engines thousands of questions from different viewpoints; metrics listed: sentiment, Source Impact Score, Mention Frequency, Direct Bias Score."
+    },
+    {
+      "url": "https://www.brandlight.ai/product/technical",
+      "checkedAt": "2026-10-03",
+      "supports": "Technical module identifies AI crawlers and agents, flags denied access and analyzes raw server logs."
+    },
+    {
+      "url": "https://www.brandlight.ai/product/ad-analysis",
+      "checkedAt": "2026-10-03",
+      "supports": "Ads module is offered as 'Apply for Enterprise Beta'; tracks ad share, category visibility and competitor spend."
+    },
+    {
+      "url": "https://www.brandlight.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Homepage: 'Soc 2 - Type 2 Compliant', 'named the #1 AEO platform globally' (vendor claim), Attribution marked coming soon, Ads marked NEW, demo-only calls to action with no public price."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 3 tools, 2,961 runs; under a 1-in-100 chance of the same brand list in any two ChatGPT or Google AI responses (confirmed in raw HTML text)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/System_and_Organization_Controls",
+      "checkedAt": "2026-10-03",
+      "supports": "SOC 2 Type 1 covers design of controls; Type 2 also covers operating effectiveness over a period, usually 9 to 12 months (confirmed in raw HTML text)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO lead: overlapping terms (AEO, AI SEO) with no consensus definition."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited Brandlight page (homepage, llms.txt, /enterprise, /product/visibility-insights, /product/technical, /product/ad-analysis) with WebFetch and curl on 2026-10-03 and kept only claims the page text states; the #1 AEO platform line is attributed to the vendor, not asserted.",
+    "Writer (Sonnet): confirmed with curl that brandlight.ai/pricing returns 404 and that robots.txt is 'User-agent: *' / 'Allow: /', then matched the fact box to docs/content/vendor-sites-study-2026-10.md (no bots blocked or named, llms.txt present, Organization-only JSON-LD).",
+    "Writer (Sonnet): checked the SparkToro numbers (2,961 runs, 600 volunteers, under 1 in 100) and the Wikipedia SOC 2 Type 1 / Type 2 wording against the raw page text before using them.",
+    "Writer (Sonnet): kept the page documentation-based: no hands-on claim, no pricing figures, no accuracy or performance claims about Brandlight; the AEOeye description uses only evidence-pack product facts (free audit = 3 questions on ChatGPT; $29 report = 10 questions x 5 engines).",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page: 1302 words, 2 inline images, 0 errors, 0 warnings.",
+    "Editor (Opus): read the final draft and the writer's source report; Brandlight documentation guide; quote-only pricing and beta modules attributed to the vendor; title does not claim a review",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

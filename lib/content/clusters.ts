@@ -34,7 +34,7 @@ export const PILLARS: Pillar[] = [
     clusters: [
       { href: "/compare/aeo-vs-geo-vs-seo", label: "AEO vs GEO vs SEO" },
       { href: "/blog/geo-examples", label: "GEO examples" },
-      { href: "/blog/geo-services-scope-deliverables", label: "What GEO services include" },
+      { href: "/blog/answer-engine-optimization-agency", label: "What AEO / GEO agencies deliver" },
       { href: "/blog/most-aeo-advice-is-recycled-seo", label: "Most AEO advice is recycled SEO" },
       { href: "/glossary/generative-engine-optimization", label: "GEO — glossary" },
     ],
@@ -66,7 +66,7 @@ export const PILLARS: Pillar[] = [
       { href: "/blog/how-to-rank-in-gemini", label: "How to rank in Gemini" },
       { href: "/blog/claude-seo", label: "How to get cited by Claude" },
       { href: "/answers/does-chatgpt-use-my-website", label: "Does ChatGPT use my website?" },
-      { href: "/answers/why-does-ai-recommend-my-competitors", label: "Why AI recommends your competitors" },
+      { href: "/blog/why-ai-doesnt-mention-your-brand", label: "Why AI recommends your competitors, not you" },
     ],
   },
   {
@@ -76,7 +76,6 @@ export const PILLARS: Pillar[] = [
     clusters: [
       { href: "/guides/how-to-optimize-content-for-ai-search", label: "Optimize content for AI search" },
       { href: "/answers/what-makes-content-quotable-by-ai", label: "What makes content quotable" },
-      { href: "/answers/do-ai-assistants-use-schema-markup", label: "Do AI assistants use schema?" },
       { href: "/blog/what-is-llms-txt", label: "What is llms.txt?" },
       { href: "/guides/how-to-add-llms-txt", label: "How to add llms.txt" },
       { href: "/blog/ai-crawler-user-agent-directory", label: "AI crawler directory" },

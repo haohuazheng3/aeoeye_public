@@ -1,0 +1,66 @@
+{
+  "contentSha256": "0f32fe8ce0c190a6afa936442e0afee010563bb8847d13ea662604f7c93b9bdc",
+  "reviewedAt": "2026-10-03",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer or founder evaluating Evertune wants to know what it costs, whether there is a free trial, what drives the bill, and whether it is worth paying for before they have even checked their AI visibility.",
+    "connection": "AEOeye audits whether AI engines name a brand; the page helps buyers of AI-visibility tooling price a vendor correctly, then points them to a free first check and honest alternatives, with a neutral fact box from AEOeye's crawler access study."
+  },
+  "assessment": "The page now opens with what Evertune's own pricing page shows today (Pro $800/month, Enterprise custom, every button 'Request a demo', no trial mentioned), says it is documentation-based and untested, tabulates the two plans, answers the free-trial question in its own section by citing the Pro sign-up page, the Platform Terms and the Ads Manager beta page, and explains cost drivers from the Platform Terms (fee types, auto-renewal, non-refundable fees, ad-spend percentage fee) while stating that the terms do not say which apply to Pro. It treats the legacy ~$3,000/month figure as unverified and does not repeat it as fact. It rests on Evertune's own pages and one arXiv paper, plus the AEOeye crawler access study for a neutral fact box. It deliberately does not quote any third-party price as fact, does not claim any hands-on use or accuracy of Evertune's data, labels all capability numbers as Evertune's claims, and does not state what Enterprise costs.",
+  "sources": [
+    {
+      "url": "https://www.evertune.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Pro $800 / month: 100,000 prompts tracked across 11 AI models, daily/weekly/monthly frequency, 25 AI-optimized articles per month, 3 onboarding sessions, affiliate advertising partnerships, AI Retargeting; Enterprise Custom with everything in Pro plus AI Success Manager, unlimited content generation, AI website optimization, AI bot analytics, SSO; only CTA is Request a demo; no trial mentioned."
+    },
+    {
+      "url": "https://www.evertune.ai/resources/faq",
+      "checkedAt": "2026-10-03",
+      "supports": "Each prompt sampled 100 times per model with margin of error about one point overall and two at topic level; EverPanel of more than 150 million conversations; 11 monitored models; Content Studio six templates 250 to 3,000 words."
+    },
+    {
+      "url": "https://www.evertune.ai/legal/platform-terms-and-conditions",
+      "checkedAt": "2026-10-03",
+      "supports": "Last updated 3 September 2026; self-serve purchases via Order Pages with credit card; fee types may include plan, usage, per-prompt, setup, Ads Manager percentage-of-ad-spend, managed service, add-on and overage fees; term month-to-month or fixed, auto-renews at then-current pricing; cancellation effective at end of term; fees generally non-refundable; OpenAI bills media spend directly."
+    },
+    {
+      "url": "https://www.evertune.ai/lp/get-started-pro-plan",
+      "checkedAt": "2026-10-03",
+      "supports": "After the form, the client team will walk you through your first report and show what AI says about your brand; no mention of free trial or price."
+    },
+    {
+      "url": "https://www.evertune.ai/platform/ads-manager",
+      "checkedAt": "2026-10-03",
+      "supports": "ChatGPT Ads Manager is in beta; join the beta list and the AI Success Manager reaches out when a spot is ready."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper abstract (raw page text checked): GEO can boost visibility by up to 40% in generative engine responses, in the authors' GEO-bench benchmark."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded evertune.ai/pricing with curl and opened it with WebFetch on 2026-10-03; confirmed $800 / month for Pro, Custom for Enterprise, the feature lists, and that the only CTA is Request a demo with no trial, billing period or currency code stated.",
+    "Writer (Sonnet): grepped the raw text of the pricing, FAQ, demo, Pro sign-up, homepage and Ads Manager pages for trial, free, annual, contract and billing wording and found none, then read Platform Terms sections 4, 10 and 15 to describe fee types, auto-renewal and cancellation exactly as written.",
+    "Writer (Sonnet): recomputed $800 x 12 = $9,600 and $800 / 100,000 = $0.008, and labelled the per-prompt figure as valid only if the page's '100,000 prompts' counts distinct prompts, which the page does not define.",
+    "Writer (Sonnet): fetched evertune.ai robots.txt (only /legal/ and /404 disallowed, no AI bots blocked), /llms.txt (200, text/plain) and counted JSON-LD blocks in raw homepage HTML (types EntryPoint, Organization, SearchAction, WebSite) and pricing page (none), matching docs/content/vendor-sites-study-2026-10.md.",
+    "Writer (Sonnet): fetched four third-party Evertune review pages to see which prices they report; all repeat $800 for Pro, one notes the ~$3,000 figure is an older entry price that predates the Pro tier. Because they are competitor or agency blogs, none is cited; the $3,000 figure is described as unverified.",
+    "Writer (Sonnet): merged the unique points of /answers/evertune-free-trial (no trial, demo-gate sequencing cost for multi-vendor evaluation, Evertune's sampling and panel strengths, check for free first) and dropped its unsourced claims (25 million-user panel, which Evertune now describes as 150 million conversations; the 30,000-word case; funding figures).",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; Evertune Pro $800/month and quote-only Enterprise from its pricing page; /answers/evertune-free-trial content absorbed (no trial, demo-gated)",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "Not stated on the page (dollar sign shown, no currency code)",
+    "billing": "Pro listed as $800 / month; billing term (monthly vs annual) not stated; Enterprise custom, quote only.",
+    "checkedAt": "2026-10-03",
+    "verification": "Opened evertune.ai/pricing via WebFetch and curl on 2026-10-03; Pro $800 / month and Enterprise Custom confirmed in raw HTML text. Recomputed $800 x 12 = $9,600 per year and $800 / 100,000 = $0.008 per prompt under the stated assumption that the allowance counts distinct prompts."
+  },
+  "merged": [
+    "/answers/evertune-free-trial"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "contentSha256": "97ea6d741de80366fda354229cd66f4181a32723af240b811d6adfc9f4d6dd72",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A site owner wants to know how to block AI crawlers, which ones to name in robots.txt, whether to block them at all, and how to enforce and verify the block.",
+    "connection": "AI crawler access is the first technical gate for being retrieved and cited by ChatGPT, Claude, Perplexity and Google, which is the visibility AEOeye audits; the page is backed by AEOeye's October 2026 crawler access study."
+  },
+  "assessment": "The page answers the how-to in the first screen (one robots.txt group for training bots, search bots left open, CDN enforcement) and then gives a clear position: brands should not block search bots, training is a business choice, and robots.txt is only a request. Vendor facts come from OpenAI, Anthropic, Perplexity, Google, Apple, Common Crawl, Meta and Cloudflare documentation fetched on 2026-10-03; study figures match the evidence pack and the public CSV. It deliberately does not claim that any block changes whether an engine recommends a site, does not state a full user-agent string for any bot, and does not describe Cloudflare features beyond what its docs say.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "GPTBot is a training crawler; OAI-SearchBot sites opted out are not shown in ChatGPT search answers; settings are independent; ~24 hours for search systems to adjust; ChatGPT-User robots.txt rules may not apply."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "ClaudeBot restriction excludes future materials from training; Claude-SearchBot and Claude-User block effects; rules per subdomain; Crawl-delay supported; IP blocking may stop robots.txt being read; bots honor robots.txt."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces sites in search and is not used for foundation-model training; Perplexity-User generally ignores robots.txt; up to 24 hours for changes; WAF guidance to allow bots by user agent and IP ranges."
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended has no separate user-agent string, is a control token for Gemini training and grounding, and does not affect inclusion in Google Search or ranking."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews and AI Mode need only an indexed, snippet-eligible page; Googlebot rules are the crawl control; snippet controls limit what Search shows."
+    },
+    {
+      "url": "https://support.apple.com/en-us/119829",
+      "checkedAt": "2026-10-03",
+      "supports": "Applebot-Extended opt-out token for foundation-model training does not crawl pages; Applebot does not follow crawl-delay."
+    },
+    {
+      "url": "https://commoncrawl.org/ccbot",
+      "checkedAt": "2026-10-03",
+      "supports": "Disallow rule for CCBot stops Common Crawl crawling."
+    },
+    {
+      "url": "https://developers.facebook.com/documentation/sharing/webmasters/web-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Meta-ExternalAgent crawls for AI model training and indexing and is blocked with a robots.txt disallow."
+    },
+    {
+      "url": "https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/",
+      "checkedAt": "2026-10-03",
+      "supports": "Managed robots.txt prepends Disallow rules for known AI training crawlers to an existing file; compliance is voluntary; setting location in Security Settings."
+    },
+    {
+      "url": "https://developers.cloudflare.com/ai-crawl-control/",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Crawl Control is available on all plans and gives per-crawler allow or block policies and robots.txt compliance monitoring."
+    },
+    {
+      "url": "https://developers.cloudflare.com/ai-crawl-control/features/manage-ai-crawlers/",
+      "checkedAt": "2026-10-03",
+      "supports": "Allow or Block per crawler in the Actions column; blocking creates a WAF custom rule; free plan detects by user-agent string; paid plans configure the block response (403 or 402); robots.txt violations column."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "Rules are not access authorization; group matching with * fallback; 4xx unavailable means access allowed; 5xx means assume complete disallow."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each vendor page (OpenAI, Anthropic, Perplexity, Google crawlers and AI features, Apple, Common Crawl, Meta, Cloudflare managed robots.txt and AI Crawl Control, RFC 9309) on 2026-10-03 with curl and checked every robots.txt token, timing and enforcement statement against the raw page text.",
+    "Writer (Sonnet): matched every study figure on the page (training and retrieval block rates by segment, 30 of 384 without robots.txt, 60 of 375 homepages challenged, 19 of 384 split setup) to the evidence pack and recomputed the Googlebot count from public/resources/ai-crawler-access-study-2026-10.csv.",
+    "Writer (Sonnet): left out Cloudflare's 'Block AI bots' toggle and any nginx or Apache snippets because they were not verified against current documentation, and avoided claiming a full ClaudeBot or GPTBot user-agent string.",
+    "Writer (Sonnet): ran scripts/content-lint.mjs on the page with no errors or warnings.",
+    "Editor (Opus): read the final page: training-only robots.txt recipe that keeps search bots open, named-group-replaces-* rule, Google-Extended scope, Cloudflare layers, five-step check",
+    "Editor (Opus): replaced the outdated Cloudflare menu path with current AI Crawl Control docs",
+    "Editor (Opus): re-checked every external URL on 2026-10-03; Meta's crawler doc returns 400 to scripted clients, all others reachable",
+    "Editor (Opus): crawler-study figures (64/384 training, 37/384 retrieval, 19 split) match the public CSV",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

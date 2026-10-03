@@ -1,0 +1,95 @@
+{
+  "contentSha256": "538c7ce09e8dfa2d66a9ff092ccf40eac05048f0cf135165cc19e74a2fee9d65",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer wants to know which factors make ChatGPT, Perplexity, Claude and Google AI cite a page or name a brand, and which of the many published ranking-factor lists can be trusted.",
+    "connection": "AEOeye audits whether AI engines name a brand for buyer questions. This page sorts every commonly cited factor into documented, measured and inferred, ties the documented access gate to AEOeye's crawler access study, and uses the recommendation benchmark (with its caveats) to explain why being named at all is the hard part."
+  },
+  "assessment": "The page replaces an opinion-ranked list with an evidence-graded one: ten factors in a ranked table with a grade column, then separate sections for what OpenAI, Perplexity, Anthropic and Google document, what three studies measured (GEO, University of Toronto, GEO-16) with their design limits, and what remains inference (entity clarity, backlinks, structured data, llms.txt). It deliberately drops the earlier Semrush Reddit/Wikipedia/YouTube citation shares and the claim that ChatGPT leans on Bing, which it could not verify from primary pages, and it states no ranking weights because no engine publishes any.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's AI features use retrieval from the Search index and query fan-out; unique, non-commodity content will likely matter most; llms.txt, chunking, inauthentic mentions and special markup are not needed; structured data is not required; no third-party tool has access to Google's internal ranking or AI systems."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "To be a supporting link in AI Overviews or AI Mode a page must be indexed and eligible to be shown in Google Search with a snippet."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended controls use of crawled content for Gemini training and grounding and does not affect inclusion in Google Search."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization structured data on the home page can help Google better understand and disambiguate an organization in search results."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; opted-out sites are not shown in ChatGPT search answers but can appear as navigational links; GPTBot (training) is a separate setting."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search results and is not used to crawl content for AI foundation models."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Disabling Claude-SearchBot prevents indexing for search and may reduce visibility and accuracy in Claude search results."
+    },
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft (October 2025): crawlability, metadata, internal linking and backlinks remain essential for discoverability; Copilot-style assistants break content into smaller pieces; schema markup is recommended."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO (KDD 2024): GEO-bench of 10K queries (1K test split); statistics, quotations and cited sources gave 30-40% (position-adjusted word count) and 15-30% (subjective impression) relative gains; keyword stuffing little to none; Perplexity.ai table: quotation addition 29.1 vs 24.1 baseline, keyword stuffing 21.9."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "University of Toronto: data collected August 2025; US software-product queries 72.7% earned / 26.7% brand for a search-enabled GPT vs Google 45.4% earned / 43.7% brand; engines differ in domain diversity and freshness; AI search deprioritized community platforms such as Reddit in consumer electronics."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.10762",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO-16: 1,100 URLs, 1,702 citations from Brave Summary, Google AI Overviews and Perplexity for 70 product-intent prompts on B2B SaaS pages; metadata and freshness (r=0.68), semantic HTML (0.65), structured data (0.63) most associated with citation; observational design with possible confounding."
+    },
+    {
+      "url": "https://arxiv.org/abs/2604.07585",
+      "checkedAt": "2026-10-03",
+      "supports": "AI search answers vary across runs, prompts and time, so one-off observations are unreliable and visibility should be measured as a distribution."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of generative engine optimization."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 with curl and read the extracted text; the Google, OpenAI, Perplexity and Anthropic claims are restricted to what those pages state. ChatGPT-search help pages returned 403, so no claim about ChatGPT using Bing or other search providers was kept.",
+    "Writer (Sonnet): downloaded the PDFs of arXiv 2311.09735, 2509.08919 and 2509.10762 and checked the numbers against the extracted full text: GEO 30-40% / 15-30% and Table 5 (29.1, 24.1, 21.9); Toronto 72.7 / 26.7 / 45.4 / 43.7 and the August 2025 collection date; GEO-16 counts and r values 0.68 / 0.65 / 0.63. Corrected my first draft after finding that GEO-bench's 10K queries split 8K/1K/1K and results are on the test split.",
+    "Writer (Sonnet): noticed that Google's AI guide and its AI features page differ on eligibility wording (the guide adds a Search Console inclusion note), so the page only states the shared claim: indexed and snippet-eligible.",
+    "Writer (Sonnet): recounted the AEOeye crawler study figures from public/resources/ai-crawler-access-study-2026-10.csv (SaaS 1/193 and publishers 27/38 blocking at least one of six retrieval bot tokens; 173 of 330 valid llms.txt) and used the evidence pack's 24/88 for e-commerce homepage challenges; read the benchmark JSON for 127 audits, 892 answers, 147 ranked mentions and the 71.4% first-place share, and kept its self-selection caveat.",
+    "Writer (Sonnet): viewed the four chosen Pexels photos and wrote alt text describing only what is visible; ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; factor table with evidence grade; unverifiable Reddit/Bing claims dropped",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

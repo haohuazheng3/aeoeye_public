@@ -1,0 +1,65 @@
+{
+  "contentSha256": "bb1e309169904b3f41b297a2290b327cda38ec910ea5279b6374c14c081d4a38",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "A marketer or founder has heard of AI citation tracking and wants to know exactly what it is, how it differs from a brand mention and from rank tracking, how tools produce the numbers, which metrics matter and how to start without buying a tool.",
+    "connection": "AEOeye's free audit and full report measure whether AI engines name a brand for unbranded buyer questions. The page defines the measurement vocabulary behind that work and uses AEOeye's recommendation benchmark, with its caveats, as first-hand evidence."
+  },
+  "assessment": "The page now answers what AI citation tracking is in the first screen, separates mention, citation and recommendation, explains the sampling loop and why repeated runs are required, defines four metrics with formulas, contrasts the method with rank tracking, states its limits and gives a manual start. It rests on OpenAI and Anthropic API documentation for how citations are exposed, SparkToro's 2,961-run consistency study, Pew Research click data, Google's Search Console generative AI performance report page, two arXiv papers and AEOeye's audit-record benchmark quoted with its self-selection and unequal-engine caveats. It deliberately does not compare engines using AEOeye's unequal samples, quote adoption statistics from statistics-roundup sites (the earlier page cited DemandSage and an AI Overviews user count), or claim the free audit covers five engines or computes share of voice.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI web search returns message annotations of type url_citation with the cited URL, title and location; with the Responses API the model decides whether to search while Chat Completions always retrieves."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic web search citations are always enabled; each web_search_result_location includes url, title and cited_text of up to 150 characters."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers and 2,961 runs on ChatGPT, Claude and Google AI; under a 1 in 100 chance of the same brand list twice for ChatGPT and Google; visibility percentage over many runs judged a reasonable metric, 60-100 runs per prompt suggested; 142 human-written prompts had very low semantic similarity yet brands recurred."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Browsing data for 900 US adults in March 2025: a result-link click in 8% of visits with an AI summary vs 15% without; a click on a link inside the summary in 1% of visits."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console generative AI performance report: impressions for AI Overviews and AI Mode by page, country, device and date; page states rollout to all websites as of August 31, 2026; Google only."
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.09848",
+      "checkedAt": "2026-10-03",
+      "supports": "Liu, Zhang and Liang human evaluation of four generative search engines: on average 51.5% of generated sentences fully supported by citations and 74.5% of citations support their sentence (older systems)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "University of Toronto GEO paper abstract: AI search shows a systematic bias toward earned media (third-party, authoritative sources) over brand-owned and social content, in contrast to Google's more balanced mix."
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "checkedAt": "2026-10-03",
+      "supports": "Retrieval-augmented generation combines a model's pre-trained parametric memory with retrieved non-parametric memory."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 with curl, converted to text and checked each figure and rule against the raw text (OpenAI web search guide, Anthropic web search tool page, SparkToro, Pew, Search Console help page, Google AI optimization guide, the arXiv abstracts).",
+    "Writer (Sonnet): checked every AEOeye figure against public/resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 892 answers, 157 mentions = 17.6%, 147 ranked mentions with 71.4% first, 2.93 competitors per answer, 144 positive of 157) and kept the self-selected-sample, unequal-engine and not-a-market-rate caveats; no per-engine rates are quoted.",
+    "Writer (Sonnet): read the previous page and the cited hubs; carried over the definition, mention versus citation, the metric list, non-determinism and the rank-tracking comparison; dropped the DemandSage (statistics roundup) and TechCrunch adoption figures and the Search Engine Journal source, and corrected the AEOeye product claims to the evidence-pack facts (free = 3 unbranded questions on ChatGPT; $29 adds four engines and 10 questions).",
+    "Writer (Sonnet): replaced the earlier unsourced statement that mentions build brand association in model weights with the sourced retrieval-augmented generation definition, and added the Search Console generative AI performance report as a free Google-only measure after reading the Google help page.",
+    "Writer (Sonnet): viewed the three chosen Pexels photos (viewing scope over a city, laptop with a line chart, tablet and monitors with charts above a calculator) and wrote alt text describing only what is visible; ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; definition, metrics, limits; false 'free audit covers five engines' claim removed; unlinked source dropped from evidence",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

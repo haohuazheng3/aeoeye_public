@@ -1,0 +1,70 @@
+{
+  "contentSha256": "b86bc7ceada9c78f31f37c97564aeefe2688bde5b110b1ee103617298f403ffa",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Someone who finds Evertune too expensive, demo-gated or too large for their team wants a shortlist of alternatives with real entry prices and an honest view of when Evertune is still the better pick.",
+    "connection": "AEOeye audits whether AI engines name a brand; this page helps buyers choose between a one-off audit like AEOeye, cheap self-serve trackers and an enterprise platform, and teaches them to compare vendors by cost per answer and sampling rather than headline prompt counts."
+  },
+  "assessment": "The page derives the reasons to leave Evertune from its own pricing, Advertise and company pages (demo-only entry at $800 a month, a content-and-ads bundle, a mid-market-and-up target) instead of reviewer rumors, and drops the older page's unverified $3,000-a-month floor, US-panel limit and engine claims. It lists AEOeye, Otterly.AI, Peec AI, AthenaHQ and Profound with entry prices and limits read from each vendor's own pricing page on 3 October 2026, adds worked cost-per-answer arithmetic from the vendors' own figures (Peec Starter 4,500 answers for $95; AthenaHQ Starter 3,600 credits for $295), and ends with when Evertune is still the right choice. It states that it rests on public documentation and does not claim hands-on testing of any tool but AEOeye. It deliberately does not rank the tools, claim any vendor lacks a feature it does not list, or convert currencies.",
+  "sources": [
+    {
+      "url": "https://www.evertune.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Pro $800 / month (100,000 prompts across 11 AI models; daily, weekly or monthly tracking; global language and country tracking; 25 AI-optimized articles a month; 3 onboarding sessions; affiliate advertising partnerships; AI Retargeting; 'for mid-market brands'); Enterprise custom (dedicated AI Success Manager, customized onboarding, deep category analysis, unlimited content generation, AI website optimization, AI bot analytics, SSO); both plans use 'Request a demo'."
+    },
+    {
+      "url": "https://www.evertune.ai/platform/advertise",
+      "checkedAt": "2026-10-03",
+      "supports": "Ads Manager runs ChatGPT advertising from visibility insights; the retargeting section is offered as a beta ('Join the beta'); Evertune calls itself the first GEO platform to turn organic AI visibility into paid reach."
+    },
+    {
+      "url": "https://www.evertune.ai/about-us/company-overview",
+      "checkedAt": "2026-10-03",
+      "supports": "Evertune works with mid-market and enterprise brands."
+    },
+    {
+      "url": "https://www.evertune.ai/platform/methodology",
+      "checkedAt": "2026-10-03",
+      "supports": "Evertune's July 2026 running-shoes experiment: ±9 points overall and ±31 points at topic level when each of 100 prompts is asked once, versus ±1 and ±2 when asked 100 times."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29 / month (15 prompts, daily tracking, ChatGPT, Google AI Overviews, Perplexity, Microsoft Copilot; Claude, AI Mode and Gemini as add-ons); Standard $189 / month (100 prompts); free trial offered; annual billing 15% off."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Read in a rendered browser: Starter $95 / month (50 prompts, choose 3 models, unlimited users, daily, 1 project; 4,500 monthly AI answers = prompts x models x frequency), Pro $245 (150 prompts), Advanced $495 (350 prompts); Enterprise custom; 15% annual discount; crawlability audit across 40+ AI bots; free trial button."
+    },
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan with $25 credit (300 credits) across five engines; Starter $295 / month for 3,600 credits across 11 models; 1 credit = 1 AI response; API access and extra credits are paid add-ons; annual billing 17% off; Enterprise custom."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plans are a free Trial (50 prompts run daily for 7 days on ChatGPT, Gemini and Google AI Overviews, limited AI Marketer credits) and Enterprise (custom, up to 9 answer engines, SSO/SAML and SOC 2)."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "AI brand lists rarely repeat across runs; advice to ask at least 60-100 times and average."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded the pricing pages of Evertune, Otterly.AI, Profound and AthenaHQ with curl on 2026-10-03 and read the raw page text; Peec AI's prices are JavaScript-rendered, so I loaded peec.ai/pricing in a browser and read Starter $95, Pro $245, Advanced $495 and the 4,500 monthly answers from the rendered page.",
+    "Writer (Sonnet): confirmed on Evertune's own pricing, Advertise, get-started and company pages that the page shows Pro at $800 a month, no trial and no billing terms, and a mid-market-and-up target; I dropped the earlier page's $3,000-a-month floor, US-centric-panel concern, Otterly 14-day trial and $489 Premium, Peec 14-day trial and Profound ~$99 self-serve claims because the current pricing pages do not show them.",
+    "Writer (Sonnet): computed the cost-per-answer figures myself (95/4,500 = $0.021; 295/3,600 = $0.082; 800 x 12 = $9,600) and labelled them on the page as our arithmetic from vendor-stated numbers; I did not compute a per-answer price for Evertune because its page does not define what its 100,000 prompts count.",
+    "Writer (Sonnet): checked the AI-visibility-vendor rows of the AEOeye crawler access study (0 of 43 block an AI bot; llms.txt 27 of 41; homepage FAQPage 18 of 42) against the evidence pack before using them, with the study's denominators.",
+    "Writer (Sonnet): corrected AEOeye claims to the evidence-pack product facts (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds Claude, Gemini, Google AI and Perplexity and ten questions; no subscription; not a daily tracker) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; Evertune alternatives; $800 Pro reference price consistent with the Evertune cost page",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

@@ -1,105 +1,142 @@
 ---
-title: "ClaudeBot Explained: What It Is and Whether to Block It"
-description: "ClaudeBot is Anthropic's crawler for training Claude. See how it differs from Claude-User and Claude-SearchBot, and whether blocking it actually helps you."
-date: "2026-07-17"
+title: "ClaudeBot: What It Is and Whether You Should Block It"
+description: "ClaudeBot is Anthropic's training crawler, not the bot that answers your buyers. How it differs from Claude-SearchBot, how to block it, how to verify it."
+date: "2026-10-03"
+published: "2026-07-17"
 category: "Technical"
-readingTime: "8 min read"
-keywords: ["claudebot", "what is claudebot", "block claudebot", "claudebot robots.txt", "claude-user", "claude-searchbot", "anthropic web crawler", "ai crawler"]
-faqs: [{"q": "What is ClaudeBot?", "a": "ClaudeBot is a web crawler built and operated by Anthropic that visits publicly available web pages to collect content usable for training Claude models. It identifies itself with the user-agent token `ClaudeBot` and is documented as built to respect robots.txt."}, {"q": "Should I block ClaudeBot?", "a": "For most commercial and marketing sites, no. Blocking ClaudeBot trades a trivial bandwidth cost for reduced visibility in what Claude knows and recommends. Blocking makes more sense for businesses built on paywalled or licensed content, where a crawler reading everything for free carries real cost."}, {"q": "Does ClaudeBot respect robots.txt?", "a": "Yes. Anthropic documents ClaudeBot as built to respect robots.txt rules, so a correctly formatted Disallow rule under the `ClaudeBot` user-agent token should keep it out of the paths you block."}, {"q": "What's the difference between ClaudeBot and Claude-User?", "a": "ClaudeBot is a background crawler that gathers web content to train Claude models over time. Claude-User instead fetches one specific page in real time, only when someone actively using Claude asks about that site or shares its URL. Blocking ClaudeBot affects future training; blocking Claude-User affects a live answer to a real person right now."}]
-image: {"url": "https://images.pexels.com/photos/27427258/pexels-photo-27427258.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Vibrant and engaging code displayed on a computer screen, showcasing programming concepts.", "photographer": "Seraphfim Gallery", "photographerUrl": "https://www.pexels.com/@seraphfim"}
-sources: [{"label": "Anthropic \u2014 Does Anthropic crawl data from the web?", "url": "https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"}]
+readingTime: "6 min read"
+keywords: ["claudebot", "claudebot user agent", "claudebot user-agent", "user-agent: claudebot", "what is claudebot", "block claudebot", "claudebot robots.txt", "claude-searchbot", "claude-user"]
+faqs: [{"q": "What is ClaudeBot?", "a": "ClaudeBot is Anthropic's web crawler. Anthropic says it collects web content that could contribute to training its generative AI models. It is one of three Anthropic bots, alongside Claude-SearchBot for search quality and Claude-User for fetches triggered by a person's question. Each has its own robots.txt token."}, {"q": "Does ClaudeBot respect robots.txt?", "a": "Yes, according to Anthropic. It says its bots honor industry-standard robots.txt directives, support the non-standard Crawl-delay extension and will not try to bypass CAPTCHAs. Add a User-agent: ClaudeBot group with Disallow: / to opt out, on every subdomain you want covered."}, {"q": "Will blocking ClaudeBot remove my site from Claude's answers?", "a": "No. Anthropic says restricting ClaudeBot signals that a site's future materials should be excluded from training datasets. Retrieval is handled by Claude-SearchBot and Claude-User, which have separate tokens. Blocking those two, not ClaudeBot, is what Anthropic says may reduce your visibility in Claude's search answers."}, {"q": "What is the ClaudeBot user agent?", "a": "Anthropic documents ClaudeBot as a robots.txt token and does not print a full User-Agent string on its crawler page. Under RFC 9309 the token should appear as a substring of the User-Agent header, so search your logs for it case-insensitively, then confirm the IP against Anthropic's published list."}, {"q": "How do I know if a ClaudeBot request is fake?", "a": "Check the source IP, not the name. Anthropic says a crawler whose IP is on its published list comes from Anthropic. A request that claims to be ClaudeBot from an address outside that list is an impostor. Rate-limit or block it, and refetch the list periodically because it changes."}]
+image: {"url": "https://images.pexels.com/photos/37605910/pexels-photo-37605910.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Close-up of server equipment in a modern data center highlighting technology infrastructure.", "photographer": "panumas nikhomkhai", "photographerUrl": "https://www.pexels.com/@cookiecutter"}
+sources: [{"label": "Anthropic — Does Anthropic crawl data from the web, and how can site owners block the crawler?", "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"}, {"label": "Anthropic — Published crawler IP ranges (bots.json)", "url": "https://claude.com/crawling/bots.json"}, {"label": "IETF — RFC 9309: Robots Exclusion Protocol", "url": "https://www.rfc-editor.org/rfc/rfc9309"}, {"label": "OpenAI — Overview of OpenAI Crawlers", "url": "https://developers.openai.com/api/docs/bots"}, {"label": "Common Crawl — CCBot", "url": "https://commoncrawl.org/ccbot"}]
 ---
 
-If ClaudeBot showed up in your server logs and you went looking for answers, you probably hit a wall: GitHub repos for unrelated IRC bots, generic "meet this AI assistant" explainers, forum threads about completely different software. None of it tells you what actually just crawled your site. Here's the real answer: ClaudeBot is a web crawler built and operated by Anthropic, the company behind the Claude AI models, and it exists to collect publicly available content from the web that can be used to train those models. It's not malware, it's not a competitor scraping your prices, and it's not the same "ClaudeBot" as any same-named side project you might find elsewhere online.
+ClaudeBot is Anthropic's crawler for collecting public web content that could contribute to training its Claude models. It is not the bot behind Claude's search results or user requests: Claude-SearchBot and Claude-User handle those, each with its own robots.txt token. In [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) (October 2026, 384 sites), 44 sites (11.5%) block ClaudeBot, including 30 of 38 news publishers but only 3 of 193 SaaS sites.
 
-That said, the specific question you actually want answered — should you block it — isn't a one-line answer, because Anthropic doesn't run one crawler. It runs three, each with a different job, and blocking the wrong one can quietly cut you off from customers instead of protecting you from anything.
+This guide rests on Anthropic's public documentation as of October 2026; we have not tested the bots hands-on. Our position: if you want Claude to know and recommend you, leave ClaudeBot open, and never block the other two.
 
-## What Is ClaudeBot, Exactly?
+## What is ClaudeBot?
 
-ClaudeBot is Anthropic's automated web crawler, and its job is narrow — it visits publicly available pages and gathers content that Anthropic can use to train future versions of Claude. It identifies itself with the user-agent token `ClaudeBot`, and per Anthropic's own documentation, it's built to respect `robots.txt` — meaning if you disallow it correctly, it's expected to stay out.
+ClaudeBot is the crawler [Anthropic](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) uses to collect web content that could contribute to training its generative AI models. Restricting it signals that your site's future materials should be excluded from those training datasets. A ClaudeBot hit means Anthropic is gathering text, not that Claude is answering a question about you.
 
-That single fact is why blocking ClaudeBot actually works, unlike blocking, say, a scraper that ignores your rules entirely. You're not fighting the crawler; you're just deciding what to tell it. The decision that matters is what you tell it to do — and that's a strategy question, not a technical one, which is what the rest of this page is actually about.
+A [web crawler](https://en.wikipedia.org/wiki/Web_crawler) is software that fetches pages automatically. Anthropic states four principles for its crawling:
 
-Worth saying plainly: ClaudeBot is one member of a much larger family. Practically every major AI company now runs some version of an [AI crawler](/glossary/ai-crawler) — a bot that walks the public web the same way Googlebot always has, except the destination is a model's training set or a real-time answer instead of a search index.
+- **Transparent:** it uses three named bots to access web content.
+- **Not intrusive:** it aims for minimal disruption and says it respects `Crawl-delay` where appropriate.
+- **Honors do-not-crawl signals:** its bots follow industry-standard robots.txt directives.
+- **Respects anti-circumvention technology:** it says it will not try to bypass CAPTCHAs.
 
-## ClaudeBot vs. Claude-User vs. Claude-SearchBot
+## How do ClaudeBot, Claude-SearchBot and Claude-User differ?
 
-Anthropic operates three separate, independently-controllable agents — ClaudeBot (training), Claude-User (real-time, user-triggered fetches), and Claude-SearchBot (search-quality crawling) — and treating them as one bot is the single most common mistake site owners make in robots.txt.
+Anthropic runs three bots with three jobs: ClaudeBot gathers possible training data, Claude-SearchBot improves search result quality, and Claude-User fetches a page when someone asks Claude a question. Each has its own token, so a rule for one does nothing to the others.
 
-| Agent | What it does | robots.txt token | What happens if you block it |
+| Bot | Job, per Anthropic | If you block it, per Anthropic | Sites blocking it (n=384) |
 |---|---|---|---|
-| **ClaudeBot** | Crawls the public web to collect content that may be used to train Claude models | `ClaudeBot` | Your content stops flowing into future training data. No immediate visible effect — the cost shows up later, in what future Claude models know about you. |
-| **Claude-User** | Fetches a specific page in real time when a person actively using Claude asks about your site or pastes your URL | `Claude-User` | Claude can't read your page at the exact moment someone interested in you is asking about it. This is the one that costs you live traffic. |
-| **Claude-SearchBot** | Crawls pages to improve the relevance and quality of Claude's search-style results | `Claude-SearchBot` | Your pages become less likely to surface when someone uses Claude's search functionality. |
+| `ClaudeBot` | Collects web content that could contribute to model training | Future materials are excluded from training datasets | 44 (11.5%) |
+| `Claude-SearchBot` | Improves the quality and relevance of search results | Content is not indexed for search; may reduce visibility and accuracy | 24 (6.2%) |
+| `Claude-User` | Retrieves pages when a user asks Claude a question | Content is not retrieved for user queries; may reduce visibility | 26 (6.8%) |
 
-The distinction matters because these are documented as separate agents in Anthropic's crawler documentation, and each takes its own line in `robots.txt`. A rule written for `ClaudeBot` does nothing to `Claude-User`. If you copy-pasted a generic "block AI bots" snippet from a forum a while back, there's a decent chance it only covers the training crawler and leaves the other two — or none of them — untouched.
+[OpenAI draws the same three-way line](https://developers.openai.com/api/docs/bots): GPTBot for training, OAI-SearchBot for search, ChatGPT-User for user actions.
 
+We also checked how the blocks overlap, using our [public CSV](/resources/ai-crawler-access-study-2026-10.csv). No site blocked Claude-SearchBot without also blocking ClaudeBot. Of the 44 that block ClaudeBot, 20 left Claude-SearchBot open and 18 left both Claude-SearchBot and Claude-User open, which is what a deliberate training-only opt-out looks like. The other 24 probably pasted a blanket "block AI bots" list, though our data cannot say.
 
-![Modern toy bot with eyes in pure water on pavement in daytime on blurred background](https://images.pexels.com/photos/5895405/pexels-photo-5895405.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+![Illuminated HTML code displayed on a computer screen, close-up view](https://images.pexels.com/photos/4509131/pexels-photo-4509131.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-## How to Block (or Allow) ClaudeBot in robots.txt
+## How do you block or allow ClaudeBot in robots.txt?
 
-Because each agent uses its own token, you can be as blunt or as surgical as you want — block everything, allow everything, or (the option most sites actually should pick) block training while leaving the real-time and search agents open.
-
-**Block all three:**
-
-```
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: Claude-User
-Disallow: /
-
-User-agent: Claude-SearchBot
-Disallow: /
-```
-
-**Block only training, allow real-time and search access:**
+Add a group naming `ClaudeBot` with `Disallow: /` to the robots.txt at your domain root, and repeat it on every subdomain. That is Anthropic's own example, and it covers ClaudeBot only:
 
 ```
 User-agent: ClaudeBot
 Disallow: /
-
-User-agent: Claude-User
-Allow: /
-
-User-agent: Claude-SearchBot
-Allow: /
 ```
 
-**Allow all three:**
+If your worry is server load, slow it down instead. Anthropic supports `Crawl-delay`, a non-standard extension, with this example:
 
 ```
 User-agent: ClaudeBot
-Allow: /
+Crawl-delay: 1
+```
 
-User-agent: Claude-User
-Allow: /
+Watch one trap when you "allow" it. Under [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309), a crawler obeys only the group that matches its token and falls back to `*` when none does:
 
-User-agent: Claude-SearchBot
+```
+User-agent: *
+Disallow: /account/
+
+User-agent: ClaudeBot
 Allow: /
 ```
 
-Drop whichever block you choose into your `robots.txt` at the root of your domain. If you're managing rules for the wider field of crawlers too — GPTBot, Google-Extended, PerplexityBot, and the rest — it's worth setting them all up in one pass; our guide to [how to block AI crawlers](/answers/how-to-block-ai-crawlers) covers the full syntax for each one.
+Here ClaudeBot may crawl `/account/`, because its own group replaced the `*` rules. Skip a group for any bot you are happy to treat like everyone else, or copy the `Disallow` lines into it.
 
-## Should You Actually Block ClaudeBot?
+Anthropic's page gives no propagation time, unlike the roughly 24 hours OpenAI states for its search systems, so watch your logs for the change rather than assuming it is instant.
 
-For most marketing and commercial sites, blocking ClaudeBot is a bad trade — you save a trivial amount of bandwidth and give up any chance of Claude ever recommending you, which is a much bigger loss than it sounds like on the day you make the change.
+Do not enforce the opt-out by IP address. Anthropic warns that IP blocking may not work or persist, because it stops the bot reading your robots.txt. For rules across all AI bots, see our [AI robots.txt generator](/tools/ai-robots-txt-generator) and the full [blocking playbook](/answers/how-to-block-ai-crawlers).
 
-Here's the logic, stated plainly instead of hedged into mush: if Claude never reads your site, Claude cannot recommend your site. Not "might recommend less" — cannot, structurally, because there's nothing in the model's knowledge or in its live retrieval to point to. And this isn't only about the training crawler. Claude-User fires when someone is actively using Claude and asks about a site like yours, or pastes your URL directly into a conversation, or asks Claude to compare you against a competitor. Blocking Claude-User doesn't protect you from some abstract future risk — it blocks a real person, right now, who is already interested enough to ask. Whether Claude names you explicitly when it answers is a separate matter — see [does Claude cite sources](/answers/does-claude-cite-sources) — but that question is moot if the fetch never happens because you blocked it. That's about as close as it gets to hanging up on a customer mid-call.
+## Should you block ClaudeBot?
 
-We've made this exact case before about [blocking GPTBot](/blog/blocking-gptbot-is-usually-a-mistake): the instinct to block AI crawlers on principle usually comes from a legitimate worry (bandwidth, content reuse, a general "why should I help a competitor's product" feeling) that doesn't actually map onto what blocking does. The bandwidth cost of a crawler is almost always negligible next to normal traffic. The content-reuse worry applies with real force to exactly one kind of business: sites whose entire value is paywalled or licensed content, where every page a crawler reads is a page nobody had to pay for. If that's you, blocking ClaudeBot (the training agent specifically) is a defensible, even obvious, call. If you're running a SaaS product, an e-commerce store, a services business, or basically anything that wants to be found and chosen — blocking is closer to self-sabotage than protection.
+For a business that wants to be found, no. Blocking ClaudeBot only keeps your future pages out of training data. Block it if your content is paywalled or licensed and you will not accept free reuse. Blocking Claude-SearchBot or Claude-User is what Anthropic says may reduce your visibility in Claude's answers.
 
-The uncomfortable part is that most site owners never find out which category they fell into, because the effect of blocking is invisible by design. Nobody gets an alert saying Claude would have recommended them and didn't. That gap — not knowing whether Claude, ChatGPT, or Perplexity currently mention you at all — is exactly what [AEOeye's free audit](/) checks before you decide whether blocking is smart or just quietly expensive.
+For a brand, a block gives up any chance of being part of what the model learns and gains little in return, though we have no data on how large that effect is.
 
-## How to Verify a Request Really Is ClaudeBot
+Our own earlier version of this page claimed that a ClaudeBot block leaves Claude unable to recommend you. That overstates it: per Anthropic's documentation ClaudeBot feeds training, and the bots that retrieve content for answers are separate. How Claude finds and cites pages is a different question, covered in [Claude SEO](/blog/claude-seo).
 
-Don't trust the user-agent string alone — anyone can set a request header to say "ClaudeBot," so the reliable check is matching the request's source against Anthropic's published crawler infrastructure, not just reading the name it claims for itself.
+Who blocks it in our study:
 
-Anthropic documents a verification method built on reverse DNS lookups against its published IP ranges: you take the IP address that hit your server, resolve it, and confirm it genuinely traces back to Anthropic's infrastructure rather than some other host that simply copied the user-agent string. If you're seeing high-volume traffic claiming to be ClaudeBot and you want to know whether it's real before you act on it — rate-limit it, block it, or investigate further — this is the check to run rather than taking the log line at face value.
+- **News publishers:** 30 of 38 (78.9%).
+- **UGC and review sites:** 6 of 20 (30%).
+- **E-commerce and consumer brands:** 5 of 90 (5.6%).
+- **SaaS:** 3 of 193 (1.6%).
+- **AI-visibility vendors:** 0 of 43. aeoeye.com allows ClaudeBot too.
 
-It's also worth knowing you're not the only one who has found ClaudeBot's crawling aggressive. Complaints about request volume and crawl rate show up from site owners often enough that it's a known pattern, not a one-off. If your server is getting hit harder than you'd like but you don't want to cut ClaudeBot off entirely, a full block isn't your only lever. Rate-limiting — via a `Crawl-delay` directive many crawlers honor as a courtesy, or via rules enforced at your web server or CDN — is the middle path between "let it hit as hard as it wants" and "block it outright." That distinction, treating volume as the problem instead of the crawler's existence as the problem, is usually the better fix.
+Treat those as counts of policy, not proof of outcome. We have no data showing that blocking ClaudeBot changes whether Claude recommends a brand, and we do not claim it does.
 
-## The Bottom Line
+Block ClaudeBot if:
 
-ClaudeBot, Claude-User, and Claude-SearchBot are three separate, well-documented Anthropic agents, not one bot with an identity crisis — and once you can tell them apart, the "should I block it" question mostly answers itself. Block training only if your content is genuinely paywalled or licensed. Otherwise, leave the door open: a crawler you can't see doing its job is a much smaller problem than an AI answer engine that has never heard of you. If you want to see the wider set of crawlers currently hitting your logs, our [list of AI crawlers](/blog/ai-crawler-list) breaks down who else is out there and why.
+- your archive is a product you sell or license;
+- you are negotiating with AI companies and want leverage;
+- your terms forbid reuse and you need a documented opt-out.
+
+Leave it open if you sell something and want Claude to know you exist. The effect of a block is invisible, so test it: our free audit covers ChatGPT, and the $29 full report adds Claude. [Run the free audit](/) to start.
+
+![A complex network of cables in a data center with a monitor in the foreground](https://images.pexels.com/photos/17489155/pexels-photo-17489155.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What is the ClaudeBot user agent, and how do you verify a request?
+
+Match the `ClaudeBot` token in the User-Agent header, then check the request's IP against Anthropic's published list. The name alone proves nothing, since anyone can send it. Anthropic says a crawler whose source IP is on its list is coming from Anthropic.
+
+Anthropic names robots.txt tokens but does not print a full User-Agent string on its page, and we found no reverse-DNS method there. RFC 9309 says the token should appear as a substring of the header, so search logs case-insensitively. `claudebot` will not match `Claude-SearchBot` or `Claude-User`, so search `claude` too.
+
+Impersonation is real. [Common Crawl](https://commoncrawl.org/ccbot) says it knows of crawlers falsely identifying as CCBot, and the same trick works for any name.
+
+1. **Pull the IP** from log lines whose User-Agent contains the token.
+2. **Fetch [Anthropic's list](https://claude.com/crawling/bots.json).** When we fetched it, it held 28 IPv4 prefixes and was dated 2 October 2026. Refetch it rather than pasting it into a rule.
+3. **Test the IP against the prefixes.** Save the file as `bots.json`, then run this:
+
+```python
+import ipaddress, json, sys
+
+with open("bots.json") as f:
+    nets = [ipaddress.ip_network(next(iter(p.values()))) for p in json.load(f)["prefixes"]]
+
+for ip in sys.argv[1:]:
+    addr = ipaddress.ip_address(ip)
+    ok = any(addr.version == n.version and addr in n for n in nets)
+    print(ip, "on Anthropic's list" if ok else "NOT on the list")
+```
+
+4. **Act on the result.** Apply your policy to real hits, and rate-limit or block hits from addresses outside the list.
+
+A verified hit shows that Anthropic reached your site. It says nothing about whether Claude recommends you. For the other AI crawlers and their verification methods, use our [AI crawler directory](/blog/ai-crawler-user-agent-directory).
+
+## What if ClaudeBot is crawling too hard?
+
+Confirm the traffic is genuine, then slow it with `Crawl-delay` before you block anything. Anthropic says it aims for minimal disruption, and it invites reports from site owners who think a bot is malfunctioning.
+
+Work through it in this order:
+
+1. **Verify the source** with the IP check above. Heavy traffic from an address outside Anthropic's published ranges is not coming from Anthropic, and a `Crawl-delay` line will not slow it.
+2. **Add `Crawl-delay`** to the `ClaudeBot` group and watch your logs for a few days.
+3. **Report it.** Anthropic asks that you write from an email on the domain concerned, because it finds reports hard to verify otherwise.
+4. **Block only as a last resort**, and only ClaudeBot. Blocking all three Anthropic bots to fix a load problem would also stop the two that serve Claude's answers.

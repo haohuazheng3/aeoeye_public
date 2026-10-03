@@ -1,0 +1,77 @@
+{
+  "contentSha256": "2614c4e50244e5b2dcb002833d551980f8e67f5f862911353914a5082aa201bb",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buyers who find LLMrefs' single capped plan, weekly refresh or keyword-first design a poor fit need alternatives with verified entry prices matched to their reason for leaving.",
+    "connection": "AEOeye's free ChatGPT audit and $29 one-time report serve the baseline job; the page routes readers needing daily tracking or a managed platform to Otterly, Peec AI, Nightwatch, AthenaHQ or Profound, and says when LLMrefs is still right."
+  },
+  "assessment": "The page replaces an older alternatives list that relied on a third-party review's scores and on outdated competitor prices (Otterly Premium, Peec EUR 89, Profound $499, Nightwatch $32 + AI add-on). It derives the reasons to leave from LLMrefs' own pages and compares entry prices read from each vendor's current pricing page, flagging billing basis and vendor-defined prompt units. It does not claim hands-on use of any product, rate data accuracy, or state the unverifiable 1-keyword free plan.",
+  "sources": [
+    {
+      "url": "https://llmrefs.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Keywords-not-prompts model; 11 listed engines; $79/month with 'Limited time only'; at-least-weekly keyword refresh; FAQ on buying more than 50 keywords; CSV/API."
+    },
+    {
+      "url": "https://llmrefs.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "$79/month, 7-day trial, 500 prompts, weekly reports, unlimited projects and team members, CSV and API."
+    },
+    {
+      "url": "https://llmrefs.com/docs/getting-started",
+      "checkedAt": "2026-10-03",
+      "supports": "Getting Started page reads 'Coming soon'."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month, 15 search prompts, four engines (ChatGPT, Google AI Overviews, Perplexity, Copilot), Claude/AI Mode/Gemini add-ons, daily tracking; Standard $189 with 100 prompts."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month (monthly), 50 prompts, choose 3 models, daily tracking, 4,500 monthly AI answers defined as prompts x models x frequency; Claude and Perplexity listed only under Enterprise."
+    },
+    {
+      "url": "https://nightwatch.io/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter EUR 99/month monthly billing, EUR 79/month billed yearly (EUR 948), 500 keywords, 50 AI prompts tracked daily, engines incl. ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview; 14-day trial no card."
+    },
+    {
+      "url": "https://athenahq.ai/plans",
+      "checkedAt": "2026-10-03",
+      "supports": "Free Essential with $25 credit (300 credits); Starter $295/month with 3,600 credits and 11 models incl. Claude."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brands: free 7-day trial (50 prompts daily; ChatGPT, Gemini, Google AI Overviews) and custom Enterprise via demo with up to nine engines."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of GEO, also called AEO."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched LLMrefs' pricing, homepage and docs on 2026-10-03 with WebFetch and as raw HTML via curl; dropped the old page's third-party review scores, 'daily on Pro', parser-breakage and '1-keyword free plan' claims because LLMrefs' own pages do not state them.",
+    "Writer (Sonnet): rendered Peec AI's and Nightwatch's JavaScript-driven pricing pages in a browser, and toggled Nightwatch to monthly billing to confirm EUR 99 monthly versus EUR 79 billed yearly; confirmed Otterly's $29 Lite, 15 prompts and daily tracking, AthenaHQ's $295 Starter and Profound's trial/Enterprise structure in the raw page text.",
+    "Writer (Sonnet): recomputed per-prompt figures ($79/500, $29/15, $95/50) and labelled them as our arithmetic with a caveat that vendors define prompts differently; did not state trial lengths I did not see (Otterly, Peec, AthenaHQ).",
+    "Writer (Sonnet): used the AEOeye product facts from the evidence pack exactly and the recommendation benchmark (127 audits, 157 of 892 answers, 17.6%) with its self-selected, unequal-sample caveat.",
+    "Writer (Sonnet): ran content-lint on content/alternatives/llmrefs.json with no errors or warnings.",
+    "Editor (Opus): read the final draft and the writer's source report; LLMrefs alternatives with current vendor-page prices; stale Peec/Profound/Nightwatch figures removed",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [],
+  "pricing": {
+    "status": "published",
+    "region": "Public USD pricing (Nightwatch in EUR)",
+    "billing": "Entry prices are monthly-billing rates except where stated (Nightwatch also shown at the yearly-billing rate); AEOeye $29 is one-time",
+    "checkedAt": "2026-10-03",
+    "verification": "Read each vendor's own pricing page on 2026-10-03, using a rendered browser for Peec and Nightwatch including the billing toggle, and recomputed per-prompt ratios from published figures."
+  }
+}

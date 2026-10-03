@@ -1,0 +1,56 @@
+{
+  "contentSha256": "46b47d1a2a5617181f9c33c180bd8686e686172225b18ec4e5df2e70fa96f1bb",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "An SEO or marketing lead who already knows Ahrefs wants to know what Brand Radar tracks, what it really costs in checks, and where it is weak before paying for it.",
+    "connection": "AEOeye audits what AI engines say about a brand; the page explains where a platform index and metered prompt checks fit versus a one-off audit, and uses AEOeye's recommendation-benchmark finding that rank matters, with its caveat."
+  },
+  "assessment": "The page explains Brand Radar's two modes (AI Visibility Index and Custom Prompts), the four metrics, platform coverage and refresh cadence, and builds a price table plus a check-math example from Ahrefs' own rules (30 checks per prompt per month, 8 checks per Claude update). It flags Ahrefs' inconsistent index-size figures (405M, 448M, 475M), the Grok data pause and the beta-to-chargeable note. It rests on Ahrefs' public pages and Google's Search Console help only, uses one AEOeye benchmark figure with its n and self-selection caveat, and makes no hands-on, accuracy or outcome claims.",
+  "sources": [
+    {
+      "url": "https://ahrefs.com/brand-radar",
+      "checkedAt": "2026-10-03",
+      "supports": "Two modes (AI Visibility Index, Custom Prompts), metric definitions, 448M+ prompts, $199/mo index, $699 for all models, custom prompts from $50/mo, Claude 8 checks per update, index limited for brands with little search demand, free quota in paid plans."
+    },
+    {
+      "url": "https://help.ahrefs.com/en/articles/11064852-what-is-brand-radar-and-how-to-use-it",
+      "checkedAt": "2026-10-03",
+      "supports": "405+ million prompts, data collection from People Also Ask via web version of each chatbot without personalization, chatbot data updated once a month, Claude via API (Sonnet 4.6 with web search) custom prompts only, Grok data temporarily paused, prices and custom-prompt tiers, beta indexes free then chargeable, plan-requirements table, no cap on brands/domains, API/MCP/Looker Studio."
+    },
+    {
+      "url": "https://ahrefs.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $129, Standard $249, Advanced $449 per month with 5/10/20 tracked AI prompts; Brand Radar from $199/mo over 475M+ prompts; custom prompt packages $50/$100/$250 with 2,500/7,000/25,000 checks and overage rates; annual billing saves up to 17%; 5 prompts on 1 platform = 150 checks a month."
+    },
+    {
+      "url": "https://ahrefs.com/ai-visibility-checker",
+      "checkedAt": "2026-10-03",
+      "supports": "Free checker, no signup, five platforms (ChatGPT, Gemini, Perplexity, Copilot, Google AI Overviews), limited preview with top 5 results per section."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console generative AI performance report shows impressions in AI Overviews and AI Mode; rolled out to all websites worldwide as of August 31, 2026."
+    },
+    {
+      "url": "https://www.semrush.com/pricing/ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush AI Visibility Base $99/mo per domain billed annually with 25 custom prompts."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched the Ahrefs Brand Radar page, help article, pricing page and free AI Visibility Checker with WebFetch and re-read the raw HTML text with curl on 2026-10-03 before using any price, platform or check figure.",
+    "Writer (Sonnet): found that Ahrefs states three different index sizes (405M help, 448M product page, 475M pricing page) and reported that inconsistency instead of picking one; kept $199 per index and $699 all-platforms as in the help article because the product-page card layout was ambiguous.",
+    "Writer (Sonnet): recomputed the check examples from Ahrefs' stated rules: 25 x 5 x 30 = 3,750 checks (Basic $50 + 1,250 x $0.020 = $75), and 25 x 30 x 8 = 6,000 Claude checks.",
+    "Writer (Sonnet): searched all fetched Ahrefs pages for white-label wording, found none for Brand Radar, and said so in a FAQ instead of asserting a feature.",
+    "Writer (Sonnet): used the AEOeye recommendation benchmark figure exactly as in the evidence pack (71.4% of 147 ranked mentions, 127 audits, 892 answers, self-selected brands) and AEOeye product facts only as listed.",
+    "Writer (Sonnet): stated near the top that the guide is based on public documentation and that the product was not tested hands-on; title does not say review.",
+    "Editor (Opus): read the final draft and the writer's source report; Ahrefs Brand Radar documentation guide; Ahrefs' three different index sizes reported rather than resolved",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

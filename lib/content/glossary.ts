@@ -345,7 +345,7 @@ export const TERM_DEEP_DIVE: Record<string, { href: string; label: string }> = {
   "llms-txt": { href: "/blog/what-is-llms-txt", label: "What is llms.txt, and does it matter?" },
   "structured-data": { href: "/blog/structured-data-for-ai", label: "Structured data for AI search" },
   "citations": { href: "/answers/what-makes-content-quotable-by-ai", label: "What makes content quotable by AI?" },
-  "competitor-gap": { href: "/answers/why-does-ai-recommend-my-competitors", label: "Why does AI recommend my competitors?" },
+  "competitor-gap": { href: "/blog/why-ai-doesnt-mention-your-brand", label: "Why AI doesn't mention your brand" },
   "prompt-intent": { href: "/blog/how-ai-assistants-choose-brands", label: "How AI assistants choose which brands to recommend" },
   "hallucination": { href: "/guides/how-to-fix-ai-getting-your-brand-wrong", label: "How to fix AI getting your brand wrong" },
   "retrieval-augmented-generation": { href: "/blog/what-is-rag", label: "What is RAG, and why does it decide who gets cited?" },

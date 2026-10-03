@@ -1,0 +1,67 @@
+{
+  "contentSha256": "a92c56c39eb1f67e22bc1c8eb6b80a85465dd9352828295d12f54099500aceda",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer or SEO lead wants to know what Semrush's AI Visibility Toolkit actually is, what it measures, what it really costs and whether to buy it or skip it.",
+    "connection": "AEOeye audits whether AI engines recommend a brand; the page explains where a suite add-on's tracking fits versus a one-off audit and where the crawler-access data from AEOeye's study applies."
+  },
+  "assessment": "The page defines the toolkit from Semrush's own knowledge base, lists its six components, the score definition and refresh cadence, and builds a price table from the pricing page and knowledge base, with per-prompt arithmetic and a bundle comparison against Semrush One. It states the inconsistencies Semrush itself shows (engine list, user price, trial) instead of picking one, and says what the pages do not document. It rests on Semrush's public pages only, uses AEOeye's crawler study with its n and caveat, and does not claim hands-on testing, accuracy or ranking outcomes.",
+  "sources": [
+    {
+      "url": "https://www.semrush.com/kb/1493-ai-visibility-toolkit",
+      "checkedAt": "2026-10-03",
+      "supports": "Toolkit components, AI Visibility Score definition, refresh cadence, $99 price and included limits, no free trial, extra prompts $60/50, extra domain $99, sub-user license $99, ChatGPT and Google AI Mode named."
+    },
+    {
+      "url": "https://www.semrush.com/pricing/ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Base $99/mo per domain billed annually; 25 custom prompts; mentions from ChatGPT, Google AI, Gemini and Perplexity; additional users from $45/mo; Base Report $10/mo, Pro Report $20/mo with white-labeling; Enterprise custom."
+    },
+    {
+      "url": "https://www.semrush.com/pricing/seo-ai-search/",
+      "checkedAt": "2026-10-03",
+      "supports": "SEO plan $117.33/mo annual ($139 monthly); Starter $165.17 annual ($199 monthly) 50 prompts; Pro+ $248.17 ($299) 100 prompts; Advanced $455.67 ($549) 200 prompts."
+    },
+    {
+      "url": "https://www.semrush.com/features/ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "Feature page names 'ChatGPT, AI Overviews, and other LLMs' without listing engines."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console generative AI performance report shows impressions in AI Overviews and AI Mode; rolled out to all websites worldwide as of August 31, 2026."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "OtterlyAI Lite $29/month (15 prompts), Standard $189/month (100 prompts) on monthly billing; free trial offered."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound pricing page: free Trial (50 prompts run daily for 7 days across ChatGPT, Gemini and Google AI Overviews) and a custom-priced Enterprise plan."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google says no new machine-readable files, AI text files or special markup are needed to appear in Google Search including its generative AI capabilities."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched the Semrush knowledge-base, AI pricing, SEO + AI Search pricing and feature pages with WebFetch and re-read the raw HTML text with curl on 2026-10-03 for every price, limit and refresh claim.",
+    "Writer (Sonnet): found that the knowledge base says no free trial while the site footer advertises a general seven-day Semrush trial, and that user pricing differs ($45 add-on vs $99 sub-user license); stated both rather than choosing one.",
+    "Writer (Sonnet): recomputed $99/25 = $3.96 and $60/50 = $1.20 per prompt, and $117.33 + $99 = $216.33 versus the $165.17 Starter bundle.",
+    "Writer (Sonnet): confirmed Claude is not named on any of the three Semrush pages and said so; left out Semrush One prompt-limit claims beyond what the pricing page lists.",
+    "Writer (Sonnet): checked Otterly's pricing page raw text (Lite $29, Standard $189, 15%-off annual toggle) and Google's Search Console and AI optimization pages before citing them.",
+    "Writer (Sonnet): used AEOeye crawler-study figures exactly as in the evidence pack (1/193 SaaS and 27/38 publishers blocking an AI retrieval bot; 384 sites; convenience-sample caveat) and AEOeye product facts only as listed (free audit ChatGPT-only 3 questions; $29 one-time).",
+    "Writer (Sonnet): stated near the top that the guide is based on public documentation and that the product was not tested hands-on; title does not say review.",
+    "Editor (Opus): read the final draft and the writer's source report; Semrush AI toolkit documentation guide; conflicting trial and seat-price statements on Semrush's own pages reported",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

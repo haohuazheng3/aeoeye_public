@@ -1,0 +1,71 @@
+{
+  "contentSha256": "6d405023b7e555e2607ca2f7facef1a684a7581fcf3cb0a14b59b9d215d7c640",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A site owner wants to know whether ChatGPT uses their website for training, for search answers or by fetching pages live, how to see each in their logs, and how to allow or block each without accidentally removing the site from ChatGPT search.",
+    "connection": "AEOeye audits whether ChatGPT and other engines name a brand; crawler access (GPTBot, OAI-SearchBot, ChatGPT-User) is the first gate. The page uses AEOeye's crawler access study (384 sites with a usable robots.txt) to show how sites actually configure the three bots, and our own robots.txt as the 'fully open' example."
+  },
+  "assessment": "The page separates OpenAI's three user agents by job, with a side-by-side table (job, trigger, effect of a Disallow, user-agent string, study counts, IP lists), and explains for each what OpenAI documents and what blocking costs. It gives a log-search recipe with IP verification, three robots.txt stances with copyable groups, traps (catch-all disallow, noindex, ChatGPT-User) and a five-step status check. It rests on OpenAI's crawler documentation and three help-center articles, RFC 9309 and Wikipedia, plus AEOeye's crawler access study quoted with its n (35, 16, 20 of 384; 19 split; 24 of 88 homepages challenged). It deliberately does not state a training cutoff date, the share of ChatGPT queries that trigger search, or any measured visibility cost of blocking GPTBot, none of which has a primary source; it labels its own inferences (training knowledge cannot link; firewall controls for ChatGPT-User) as inferences.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's crawler overview: each setting is independent; OAI-SearchBot surfaces sites in ChatGPT search and opted-out sites are not shown in answers but can appear as navigational links; GPTBot crawls content that may train foundation models and disallowing it signals no training use; ChatGPT-User is user-initiated, not automatic crawling, robots.txt rules may not apply, and OAI-SearchBot is the token for search opt-outs; OAI-AdsBot only visits pages submitted as ads; user-agent strings GPTBot/1.4, OAI-SearchBot/1.4, ChatGPT-User/1.0; robots.txt marker; published IP lists; robots.txt updates can take ~24 hours; one crawl may serve both purposes."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq",
+      "checkedAt": "2026-10-03",
+      "supports": "Any public website can appear in ChatGPT search; make sure OAI-SearchBot is not blocked; a disallowed page's link and title may surface in ChatGPT Atlas if the URL comes from a third-party provider or other crawling, and noindex (which requires the crawler to be allowed to read the page) prevents it; utm_source=chatgpt.com is added to referral URLs; ChatGPT Atlas respects the GPTBot signal for content acquired through user interactions."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt",
+      "checkedAt": "2026-10-03",
+      "supports": "To make a site eligible for ChatGPT search, allow OAI-SearchBot and confirm the host or CDN allows OpenAI's published searchbot IP addresses; ChatGPT ranks results using multiple factors and placement is not guaranteed."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
+      "checkedAt": "2026-10-03",
+      "supports": "Models are developed from publicly available internet content, partner data and user/trainer data; site owners can disallow GPTBot in robots.txt; OpenAI does not intentionally gather data from sources known to be behind paywalls; models do not store or retain copies of training data."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-03",
+      "supports": "Robots Exclusion Protocol: robots.txt rules are not a form of access authorization; crawlers must use case-insensitive matching to find the group that matches the product token."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Robots.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of robots.txt as the file indicating parts of a site for web crawling; first published 1994 and formally standardized in 2022."
+    },
+    {
+      "url": "https://openai.com/gptbot.json",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's published GPTBot IP prefix list (JSON with creationTime and ipv4Prefix entries), fetched with curl."
+    },
+    {
+      "url": "https://openai.com/searchbot.json",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's published OAI-SearchBot IP prefix list (JSON), fetched with curl."
+    },
+    {
+      "url": "https://openai.com/chatgpt-user.json",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's published ChatGPT-User IP prefix list (JSON), fetched with curl."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened OpenAI's crawler documentation and the three OpenAI help-center articles on 2026-10-03 through the built-in browser (the OpenAI pages return 403 to fetchers) and kept only claims their text states; fetched the three IP-list JSON files, RFC 9309 and Wikipedia's robots.txt page with curl.",
+    "Writer (Sonnet): recomputed every AEOeye figure from public/resources/ai-crawler-access-study-2026-10.csv with a script (384 sites with a usable robots.txt): GPTBot blocked by 35 (9.1%), OAI-SearchBot by 16 (4.2%), ChatGPT-User by 20 (5.2%, 14 of them publishers), 19 sites block GPTBot but not OAI-SearchBot, 16 block both, 0 block OAI-SearchBot but not GPTBot, 7 have a catch-all User-agent * disallow; the 24-of-88 homepage-challenge figure comes from the evidence pack. Every figure matched.",
+    "Writer (Sonnet): read the previous version and dropped claims with no primary source (June 2024 training cutoff, ChatGPT search triggered on about 34.5% of queries, 'OpenAI says content gathered by OAI-SearchBot is not used for training', the 'JavaScript renders empty to a fetcher' claim, the claim that ChatGPT search leans on Bing's index); kept the three-bot model, the 'blocking GPTBot does not stop search' point, the verify-it-yourself checks and the advice to serve real answers, now sourced or reframed as tests the reader can run.",
+    "Writer (Sonnet): checked that the robots.txt examples follow RFC 9309 group syntax, that the grep/awk one-liner fits the combined access-log format (field 1 IP, field 7 path), and that every internal link (/blog/blocking-gptbot-is-usually-a-mistake, /blog/ai-crawler-user-agent-directory, /answers/does-chatgpt-use-bing, /tools/ai-robots-txt-generator, the crawler study CSV, /) resolves to a live page or file.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs content/answers/does-chatgpt-use-my-website.json (clean).",
+    "Editor (Opus): read the final page: three-bot table, training/search/live-fetch sections, log check with IP verification, three robots.txt stances",
+    "Editor (Opus): removed the unsupported 'OAI-SearchBot content is not used for training' claim; inferences labelled as ours",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): crawler-study figures (35/16/20 of 384; 19 split sites; 0 block search only) match the public CSV and the GPTBot page",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

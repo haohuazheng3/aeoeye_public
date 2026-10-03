@@ -1,0 +1,72 @@
+{
+  "contentSha256": "de2e65837f03c531a96c6f1868c548711a7d967fd1881bec924a28a9ef52000a",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buyers choosing between AEOeye's one-off audit and LLMrefs' subscription keyword tracker need to know which fits their job, what each costs and where each is weaker.",
+    "connection": "AEOeye sells a free ChatGPT check and a $29 one-time five-engine report; the page routes readers who need weekly monitoring to LLMrefs and everyone else to a baseline audit first."
+  },
+  "assessment": "The page replaces an older comparison that called the free audit multi-engine and leaned on a third-party review's scores. It now states LLMrefs' published facts (price, prompts, engines, refresh, exports, unpublished free-plan limits) from LLMrefs' own pages, the correct AEOeye product facts, and a cost-over-a-year calculation. It does not claim hands-on use of LLMrefs, rate data accuracy, or assert unverified free-plan limits or daily refresh.",
+  "sources": [
+    {
+      "url": "https://llmrefs.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Tracks keywords not prompts; 11 listed engines; $79/month All in One plan with 500 prompts, 7-day trial, 'Limited time only'; at-least-weekly keyword refresh; dashboard data within 5 minutes; FAQ on upgrading beyond 50 keywords; CSV export and API access; unlimited projects/seats; geo coverage statements (20+ countries/10+ languages vs 50+ countries/20+ languages)."
+    },
+    {
+      "url": "https://llmrefs.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Pricing card: $79/month, 7-day free trial, 500 prompts, weekly reports, 50+ countries & 20+ languages, unlimited team members and projects, CSV and API; no free-plan limits listed."
+    },
+    {
+      "url": "https://llmrefs.com/docs/getting-started",
+      "checkedAt": "2026-10-03",
+      "supports": "Getting Started documentation page reads 'Coming soon'."
+    },
+    {
+      "url": "https://llmrefs.com/robots.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Disallows only /account, /dashboard and /api; no AI bots blocked."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month with 15 search prompts."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month monthly billing with 50 prompts (rendered in a browser; prices are JavaScript-rendered)."
+    },
+    {
+      "url": "https://blog.google/products/search/ai-mode-search/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google describes AI Mode's 'query fan-out' technique of issuing multiple related searches across subtopics and combining the results."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of GEO, also called AEO."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched LLMrefs' pricing, homepage, docs, llms.txt and robots.txt on 2026-10-03 both with WebFetch and as raw HTML via curl, and kept only what the raw text states; dropped the earlier page's third-party review scores, 'daily refresh on Pro', parser-breakage and '1-keyword free plan' claims because LLMrefs' own pages do not state them.",
+    "Writer (Sonnet): rendered Peec AI's pricing page in a browser to read the JavaScript-rendered $95 Starter / 50 prompts figures, and read Otterly's $29 Lite / 15 prompts from its pricing page.",
+    "Writer (Sonnet): recomputed $79 x 12 = $948 and $29 / $79 (just over a third) and labelled them as our arithmetic; noted that LLMrefs labels $79 'Limited time only'.",
+    "Writer (Sonnet): used the AEOeye product facts from the evidence pack exactly (free audit = 3 questions on ChatGPT only; $29 one-time = 10 questions x 5 engines) and the recommendation benchmark with its small-sample caveat; the LLMrefs site fact box comes from the crawler access study vendor table.",
+    "Writer (Sonnet): ran content-lint on content/vs/llmrefs.json with no errors or warnings.",
+    "Editor (Opus): read the final draft and the writer's source report; AEOeye vs LLMrefs; 'limited time' $79 price flagged; stale third-party scores removed",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [],
+  "pricing": {
+    "status": "published",
+    "region": "Public USD pricing",
+    "billing": "LLMrefs $79 per month on one plan with a 7-day trial; AEOeye $29 one-time; Otterly and Peec figures are monthly-billing entry prices",
+    "checkedAt": "2026-10-03",
+    "verification": "Read LLMrefs' pricing card in raw HTML and via WebFetch, confirmed the 'Limited time only' label, and recomputed twelve months at $79 as $948; read Peec's rendered pricing page in a browser and Otterly's pricing page for the comparison figures."
+  }
+}

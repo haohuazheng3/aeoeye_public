@@ -1,0 +1,133 @@
+{
+  "contentSha256": "968aae176904182d4154e39ba28d241c8ba07bab66efd377515ccc97360b434a",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "Shopify store owners want ChatGPT, Perplexity, Gemini and Google AI to name and recommend their store and products, and need to know which Shopify defaults, programs and settings actually matter.",
+    "connection": "AEOeye audits whether AI engines recommend a brand when buyers ask; the page shows a Shopify merchant how to fix what feeds those answers and how to measure the result with a free ChatGPT audit or the $29 report."
+  },
+  "assessment": "The page replaces an older Shopify playbook that rested on unverifiable claims (a quarter of stores blocking crawlers, 7x and 11x traffic and order growth, Perplexity PayPal checkout details). It now states only what Shopify's own help center, developer docs and changelog say about agentic storefronts, Shopify Catalog eligibility, robots.txt.liquid and the default llms.txt and agents.md files, adds Google's and OpenAI's own documentation, and uses AEOeye's crawler access study (e-commerce group, with its caveats) and recommendation benchmark. It does not claim any Shopify-specific crawler data, any traffic uplift, or that Catalog inclusion guarantees an AI recommendation.",
+  "sources": [
+    {
+      "url": "https://shopify.dev/docs/storefronts/themes/seo/robots-txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Shopify generates a default robots.txt that works for most stores; customize via robots.txt.liquid; use the provided Liquid objects because default rules are updated regularly; custom rules go outside the default loop."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products",
+      "checkedAt": "2026-10-03",
+      "supports": "Network-layer bot management is handled by Shopify; Shopify does not recommend a proxy in front of Shopify; robots.txt blocking affects only open-web discoverability and does not stop Catalog delivery; Catalog Mapping for metafields; Google AI Mode and Gemini via Google & YouTube channel; default agents.md, llms.txt, llms-full.txt."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts",
+      "checkedAt": "2026-10-03",
+      "supports": "Agentic storefronts active by default for eligible stores; channels ChatGPT, Google AI Mode and Gemini, Microsoft Copilot, Meta; managed in Sales channels > Agentic; per-channel checkout behavior; insights on search and sales performance; channel attribution on orders; supplemental terms."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/chatgpt",
+      "checkedAt": "2026-10-03",
+      "supports": "ChatGPT requirements (US customers, Catalog-eligible products, supplemental terms, Terms/Privacy/Return policies); checkout in ChatGPT in-app browser on the merchant store; legal disclosures in the first 6,000 characters; removing Catalog access can still leave products visible via crawling."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/promoting-marketing/seo/shopify-catalog/requirements",
+      "checkedAt": "2026-10-03",
+      "supports": "Catalog inclusion requirements: Starter plan or higher, not private mode, title and image, price above zero, published channels, identifiable URL, not Unlisted or hidden from search engines."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/shopify-catalog",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of Shopify Catalog; inclusion does not guarantee appearance, ranking or display; each channel controls ranking and wording."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/promoting-marketing/seo/shopify-catalog/optimizing-products",
+      "checkedAt": "2026-10-03",
+      "supports": "Fields considered by AI platforms: title, description, images, type, vendor, collections, tags, barcode, variants and option names."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/promoting-marketing/seo/optimizing-store-for-ai",
+      "checkedAt": "2026-10-03",
+      "supports": "Detail aimed at AI crawlers can sit lower on the product page; Knowledge Base app is free and available on all plans."
+    },
+    {
+      "url": "https://help.shopify.com/en/manual/promoting-marketing/knowledge-base",
+      "checkedAt": "2026-10-03",
+      "supports": "Knowledge Base app improves accuracy of AI answers about the store but does not affect how often the store appears."
+    },
+    {
+      "url": "https://shopify.dev/changelog/posts/customize-llmstxt-llms-fulltxt-and-agentsmd",
+      "checkedAt": "2026-10-03",
+      "supports": "May 28, 2026 changelog: every store includes a default /agents.md; /llms.txt and /llms-full.txt point to it by default; override with agents.md.liquid, llms.txt.liquid, llms-full.txt.liquid."
+    },
+    {
+      "url": "https://shopify.dev/docs/api/liquid/filters/structured_data",
+      "checkedAt": "2026-10-03",
+      "supports": "structured_data filter outputs schema.org Product (ProductGroup when variants exist) and Article; the documented example output fields (brand, category, description, image, name, Offer with price, currency, availability, url) and absence of rating, review and GTIN in that example."
+    },
+    {
+      "url": "https://www.shopify.com/blog/perplexity-shopping",
+      "checkedAt": "2026-10-03",
+      "supports": "Shopify's April 2, 2026 guide: Perplexity requires joining its Merchant Program; Perplexity has confirmed results are organic and placement cannot be bought. Perplexity's own pages returned HTTP 403 to our fetch, so this is attributed to Shopify."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No additional requirements or special schema for AI Overviews and AI Mode; no need for new machine-readable files or AI text files; structured data must match visible text; check Merchant Center information."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/product",
+      "checkedAt": "2026-10-03",
+      "supports": "Product structured data intro: more properties enable more enhancements; recommends merchant return policy markup under Organization."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
+      "checkedAt": "2026-10-03",
+      "supports": "Example Product markup with sku, mpn, brand, review, aggregateRating and Offer."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Do not mark up content that is not visible to readers; do not mark up fake reviews."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot governs appearance in ChatGPT search; GPTBot is for training; ChatGPT-User acts on user requests and robots.txt rules may not apply; settings are independent."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "Robots Exclusion Protocol rules are not a form of access authorization."
+    },
+    {
+      "url": "https://news.adobe.com/news/2026/01/adobe-holiday-shopping-season",
+      "checkedAt": "2026-10-03",
+      "supports": "Traffic to retail sites from generative AI tools rose 693.4% year over year in the 2025 holiday season; Adobe notes the base of users remains modest."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper: methods can boost visibility by up to 40% in generative engine responses; efficacy varies across domains."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/JSON-LD",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of JSON-LD."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited Shopify, Google, OpenAI, Adobe, arXiv and RFC URL on 2026-10-03 with curl and read the raw page text, and kept only claims those pages state; Shopify help pages that returned 403 on a later fetch were confirmed on the earlier raw fetch or via a second fetch tool.",
+    "Writer (Sonnet): re-checked the 'Shopify now serves llms.txt by default' claim against the shopify.dev changelog dated May 28, 2026 and the Shopify help page, and confirmed a live Shopify storefront returned the default agent-instructions document at both /llms.txt and /agents.md on 2026-10-03.",
+    "Writer (Sonnet): dropped the old page's unverifiable claims (about 27% of ecommerce sites blocking AI crawlers, 7x traffic and 11x order growth, 4.4x conversion, Perplexity Instant Buy via PayPal, GoogleOther and review-app specifics) because no primary source was confirmed this session; the 7x and 11x figures are not in Shopify's Q4 2025 press release.",
+    "Writer (Sonnet): checked the e-commerce and consumer group figures (4 of 90 block at least one AI retrieval bot; 24 of 88 homepages challenged our crawler; 27 of 38 publishers block one) against the evidence pack and the public study CSV, and stated that the group is a 95-brand convenience sample that does not record the platform.",
+    "Writer (Sonnet): checked the recommendation benchmark figure (71.4% of 147 ranked mentions first, 127 audits) against the evidence pack and kept its small-self-selected-sample caveat; did not quote per-engine rates.",
+    "Writer (Sonnet): attributed Perplexity Merchant Program facts to Shopify's April 2026 guide because Perplexity's own pages returned HTTP 403, and left out Perplexity checkout and PayPal details.",
+    "Editor (Opus): read the final page: can AI read the store, Shopify agentic channels table, product fields, structured data, citation-earning content, how to check",
+    "Editor (Opus): confirmed Shopify serves llms.txt/agents.md by default (writer fetched a live storefront and the 2026-05-28 changelog); page advises against buying an llms.txt app",
+    "Editor (Opus): re-checked every external URL on 2026-10-03; help.shopify.com pages return 403 to all scripted clients (writer read them in a browser), all others reachable",
+    "Editor (Opus): unverifiable old multipliers (7x/11x, 4.4x) and app-specific claims removed",
+    "Editor (Opus): e-commerce crawler-study figures labelled as not Shopify-only; benchmark caveat present",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

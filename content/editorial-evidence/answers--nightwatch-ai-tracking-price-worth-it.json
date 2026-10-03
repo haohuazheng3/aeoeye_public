@@ -1,0 +1,82 @@
+{
+  "contentSha256": "b01bbf0167bf3810294037d1ddcd5247b9c0022a4a380932ee1552d6353f6c7f",
+  "reviewedAt": "2026-10-03",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "People searching Nightwatch tracking, pricing and prompt tracking need the current price of its AI visibility tracking, what the plans include, and whether it is worth paying for.",
+    "connection": "AEOeye measures whether AI engines name a brand; the page explains what a daily tracker's quota can and cannot tell you and points readers to a free audit before they pay to track."
+  },
+  "assessment": "The page replaces outdated add-on pricing ($32 base, $99 AI add-on, $131+) with Nightwatch's current plan table, where AI prompts are included in every plan, and flags which amounts are derived rather than printed. It adds two clearly hypothetical worked examples, our arithmetic on answers per prompt, the SparkToro/Gumshoe consistency study as the reason to read visibility percentage rather than position, and a cheapest-first ladder. It does not claim hands-on use, rankings or outcomes for Nightwatch.",
+  "sources": [
+    {
+      "url": "https://nightwatch.io/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Plan table: keywords, AI prompts, AI answers per month, yearly rates and Save badges, same tools and six AI platforms on every plan, 14-day trial without card, auto-billing FAQ, Professional extras, Black Friday banner, euro display."
+    },
+    {
+      "url": "https://nightwatch.io/ai-tracking",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Visibility, Average Position, Share of Voice and Sentiment metrics; Citation Intelligence; daily updates."
+    },
+    {
+      "url": "https://nightwatch.io/",
+      "checkedAt": "2026-10-03",
+      "supports": "Homepage positioning: rank tracking and AI visibility in one platform."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 2,961 runs on ChatGPT, Claude and Google AI; <1 in 100 chance of the same brand list, ~1 in 1,000 for same order; visibility percentage across dozens to hundreds of runs as a reasonable metric."
+    },
+    {
+      "url": "https://www.searchenginejournal.com/ai-recommendations-change-with-nearly-every-query-sparktoro/566242",
+      "checkedAt": "2026-10-03",
+      "supports": "Dated 30 January 2026; summary of the SparkToro study and its metric recommendation."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month for 15 prompts; Standard $189/month for 100 prompts."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month for 50 prompts; Pro $245/month for 150 prompts (rendered in a real browser)."
+    },
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan with $25 credit."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free trial: 50 prompts run daily for 7 days."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of GEO/AEO."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and kept only claims the page states; read Nightwatch's pricing page raw HTML because WebFetch's summary reported the yearly rates as monthly-billing prices.",
+    "Writer (Sonnet): derived the monthly-billing prices from the page's yearly totals and Save badges (948 + 240 = 1,188 = 12 x 99; 1,908 + 480 = 2,388 = 12 x 199; 4,788 + 1,200 = 5,988 = 12 x 499) and labelled them as derived in the text and FAQ.",
+    "Writer (Sonnet): confirmed the SparkToro numbers (600 volunteers, 12 prompts, 2,961 runs, <1 in 100, ~1 in 1,000) against the original post's raw text and the Search Engine Journal article's date, rather than relying on a summary.",
+    "Writer (Sonnet): recomputed answers per prompt (1,500 / 50 = 30; about 5 per platform if split evenly across six) and labelled the even-split as our assumption; marked both worked-example buyers as hypothetical.",
+    "Writer (Sonnet): used the evidence-pack benchmark (127 audits, 892 answers, 157 mentions, 17.6%) with its self-selected, not-comparable caveat and without per-engine rates.",
+    "Editor (Opus): read the final draft and the writer's source report; Nightwatch price answer; monthly €99 derived from the page's own annual 'Save' amounts and labelled as derived; matches our vendor notes (€99/€199/€499)",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [],
+  "pricing": {
+    "status": "published",
+    "region": "Nightwatch pricing page showed euros to our fetch",
+    "billing": "Page defaults to yearly-billing monthly rates (EUR 79/159/399); monthly billing derived as EUR 99/199/499; 14-day trial then monthly auto-billing",
+    "checkedAt": "2026-10-03",
+    "verification": "Read Nightwatch's pricing page raw HTML and rendered text, recomputed yearly totals and Save badges to derive monthly-billing prices, and cross-checked Otterly and Peec entry plans in rendered pages for the worked examples."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "contentSha256": "56aaa31b700c847be638220ec8c1d5e1479d107a7e8da85d8c0aab7b263ee861",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer sees HubSpot's free AEO Grader score and wants to know what it measures, what it cannot tell them about being recommended by AI, and whether to use it or pay for something else.",
+    "connection": "AEOeye audits whether AI engines name a brand when buyers ask; the page explains where a brand-perception grade stops and a buyer-question audit starts, with honest pointers to monitoring tools."
+  },
+  "assessment": "The page is a documentation-based guide to HubSpot's AEO Grader (now titled AI Search Grader): engines, five scored dimensions with their published weights, data sources, price of the related HubSpot AEO product, and the limits of a one-time brand grade. It rests on HubSpot's own pages fetched on 2026-10-03, SparkToro's run-variance study, OpenAI's crawler documentation, an arXiv paper and AEOeye's audit records with their caveat. It does not claim hands-on use, does not reproduce a report, and does not judge the product's accuracy.",
+  "sources": [
+    {
+      "url": "https://www.hubspot.com/ai-search-grader",
+      "checkedAt": "2026-10-03",
+      "supports": "Free one-time check, no account, results under two minutes; engines GPT-5.4 mini, Perplexity, Gemini; five dimensions with 40/20/20/10/10 weights; accepts any brand; inputs; page is titled AI Search Grader and hubspot.com/aeo-grader redirects to it."
+    },
+    {
+      "url": "https://www.hubspot.com/products/aeo",
+      "checkedAt": "2026-10-03",
+      "supports": "HubSpot AEO $50/month ($45 annual), 25 prompts, ChatGPT/Gemini/Perplexity, free 25-prompt trial, beta label, included in Marketing Hub Pro/Enterprise; FAQ says the Grader runs pre-set queries and ChatGPT and Gemini pull from training data while Perplexity uses live search."
+    },
+    {
+      "url": "https://www.hubspot.com/ai-search-sensor",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Search Sensor is a free industry-level dashboard that won't show your brand's visibility."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 2,961 runs; under 1-in-100 chance ChatGPT or Google's AI gives the same brand list in any two responses."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces websites in ChatGPT's search features; GPTBot is for model training; settings are independent."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Abstract: AI search shows a systematic and overwhelming bias towards earned media over brand-owned and social content."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO is also known as answer engine optimization (AEO)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched hubspot.com/ai-search-grader, /products/aeo and /ai-search-sensor with WebFetch and curl on 2026-10-03 and confirmed engines, weights, prices, trial and the training-data versus live-search wording against the raw page text.",
+    "Writer (Sonnet): confirmed that hubspot.com/aeo-grader redirects (HTTP 200 after redirect) to /ai-search-grader, and did not submit the report form or create an account, so the page is documentation-based and says so near the top.",
+    "Writer (Sonnet): confirmed the SparkToro figures (600 volunteers, 12 prompts, 2,961 runs, under 1 in 100) in the raw page text, and the OpenAI OAI-SearchBot/GPTBot wording.",
+    "Writer (Sonnet): fetched hubspot.com/robots.txt, /llms.txt and the Grader page HTML on 2026-10-03 for the fact box (one User-agent: * group, no AI bot named, llms.txt 200, JSON-LD types WebApplication/Organization/AggregateRating/FAQPage with 10 questions); stated it is one fetch outside the 391-site study.",
+    "Writer (Sonnet): checked AEOeye figures (127 audits, 157 of 892 answers mentioned, 144 of 157 positive, 391-site study name) and product facts against docs/content/aeoeye-evidence-pack.md; dropped the old page's claims about a free five-engine audit and about HubSpot's engines not being itemized.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page and cleared all errors and warnings.",
+    "Editor (Opus): read the final draft and the writer's source report; HubSpot AI Search Grader (renamed) from its public pages; full report not submitted, so documentation-based throughout",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

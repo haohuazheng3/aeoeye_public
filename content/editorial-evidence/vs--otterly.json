@@ -1,0 +1,81 @@
+{
+  "contentSha256": "21a54020489a126e7eca2b76a1ddb719cfc9b003bf88c299dc3963af7629e89d",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A buyer comparing AEOeye with Otterly.AI wants to know which one to use: what each costs, which AI engines and how many questions each covers, whether results are one-off or daily, and how the data can be exported.",
+    "connection": "AEOeye sells a one-off AI visibility audit (free ChatGPT check, $29 five-engine report); Otterly.AI is the subscription daily-tracking alternative. The page tells the reader honestly when a snapshot is enough and when a tracker is the right purchase."
+  },
+  "assessment": "The page is documentation-based and says so in its opening lines: it uses only Otterly.AI's pricing page and help-center articles checked on 2026-10-03, with no hands-on testing. It leads with a verdict, compares price basis, refresh cadence, data access and collection method, names where Otterly.AI is stronger (daily repetition, history, exports, API/MCP/Looker Studio, Copilot, agency workflow, Recommendations), computes what covering the same five engines costs on Otterly.AI from its published add-on prices, and ties the snapshot-versus-trend argument to SparkToro's run-to-run variance research. It replaces the earlier page's wrong claims (14-day trial, a free multi-engine AEOeye audit, Otterly.AI as monitoring-only with no fixes, a quoted Reddit review, and a lumped '$9 to $149' add-on range that hid Claude's $29 to $439). It makes no claim about Otterly.AI's accuracy or interface, and it presents the otterly.ai crawler-study row as a one-day fetch, not a quality verdict.",
+  "sources": [
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29 / Standard $189 / Premium $489 a month for 15 / 100 / 400 prompts; annual toggle $25 / $160 / $422 a month; four base engines (ChatGPT, Google AI Overviews, Perplexity, Microsoft Copilot) with Claude, Google AI Mode and Gemini as add-ons at $9 / $59 / $149 (AI Mode, Gemini) and $29 / $109 / $439 (Claude); Recommendations 3 a week on Lite and unlimited above; API, MCP and Agent Analytics on Standard and Premium (2,000 API requests a month on Standard); unlimited workspaces from Standard; Agency Partner status with 150 prompts on Standard; Enterprise custom from 1,000 prompts; prices in USD excluding tax."
+    },
+    {
+      "url": "https://help.otterly.ai/free-trial",
+      "checkedAt": "2026-10-03",
+      "supports": "7-day free trial, no credit card required, 50 search prompts (article dated 4 August 2026)."
+    },
+    {
+      "url": "https://help.otterly.ai/monitoring-interval",
+      "checkedAt": "2026-10-03",
+      "supports": "Prompts run every day automatically; no manual trigger and no frequency change; AI responses are not deterministic and daily checks build the sample size."
+    },
+    {
+      "url": "https://help.otterly.ai/what-is-otterly.ai",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.AI works by defining prompts, daily automatic queries across the engines, and brand-visibility data (mention, citation, competitor comparison); GEO Audit step."
+    },
+    {
+      "url": "https://help.otterly.ai/amount-searchprompts",
+      "checkedAt": "2026-10-03",
+      "supports": "Each prompt is tied to one country, so the same question in the US and the UK uses two prompt slots."
+    },
+    {
+      "url": "https://help.otterly.ai/can-i-export-my-data-and-reports",
+      "checkedAt": "2026-10-03",
+      "supports": "CSV, JSON and PDF exports on all plans; Looker Studio connector on Standard, Premium and Enterprise (article dated 25 September 2026)."
+    },
+    {
+      "url": "https://help.otterly.ai/how-otterlyai-collects-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.AI reads engines through their public web interfaces and uses an API only for Claude."
+    },
+    {
+      "url": "https://help.otterly.ai/historical-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Tracking starts when a prompt is created; no historical data is backfilled."
+    },
+    {
+      "url": "https://help.otterly.ai/cancel-subscription",
+      "checkedAt": "2026-10-03",
+      "supports": "After cancellation, tracked data and historical data are deleted; access continues to the end of the billing cycle."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers ran 12 prompts through ChatGPT, Claude and Google's AI a combined 2,961 times; under a 1 in 100 chance that ChatGPT or Google's AI gives the same brand list in any two responses."
+    },
+    {
+      "url": "https://arxiv.org/abs/2408.04667",
+      "checkedAt": "2026-10-03",
+      "supports": "Abstract of 'Non-Determinism of Deterministic LLM Settings': outputs vary for the same input under settings expected to be deterministic (used for the non-determinism definition)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded otterly.ai/pricing and ten help.otterly.ai articles (free trial, add-ons, monitoring interval, data collection, prompt limits, cancellation, historical data, export, API, Looker Studio, Recommendations) with curl on 2026-10-03 and read the raw text before using any price, limit or plan feature.",
+    "Writer (Sonnet): recomputed the add-on totals from the pricing page (Lite 29 + 9 + 29 = 67; Standard 189 + 59 + 109 = 357) and the free trial's 50 prompts against Lite's 15.",
+    "Writer (Sonnet): found that the previous page's claims no longer match Otterly.AI's own pages (14-day trial, one lumped '$9 to $149' add-on range that hid Claude's $29 to $439, Otterly.AI as monitoring-only with no fix guidance) and replaced them; found that Otterly.AI's pricing page now lists Recommendations and a GEO Audit.",
+    "Writer (Sonnet): re-read SparkToro's post against raw text before using 600 volunteers, 12 prompts, 2,961 runs and the under 1 in 100 figure, and kept the wording to ChatGPT and Google's AI as the post states it.",
+    "Writer (Sonnet): confirmed the otterly.ai and aeoeye.com rows in public/resources/ai-crawler-access-study-2026-10.csv (otterly.ai returned 403 for robots.txt, /llms.txt and the homepage; aeoeye.com names six AI bots and serves the listed JSON-LD types) before describing them.",
+    "Writer (Sonnet): corrected AEOeye claims to the evidence-pack facts (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds four engines and ten questions; no subscription; not a daily tracker) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; AEOeye vs Otterly.AI; Lite $29/15 prompts and 7-day trial match our vendor notes; opening states public documentation",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

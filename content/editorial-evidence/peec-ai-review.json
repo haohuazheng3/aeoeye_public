@@ -1,0 +1,98 @@
+{
+  "contentSha256": "f556b43f6521b856ff7c8baa0dfdabf1150016b8d2f1264c5edff5936d4be7d9",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Understand what Peec AI is, what it does and costs, and whether a daily AI-visibility tracker is worth buying for their team, using only the vendor's own current documentation.",
+    "connection": "Helps an AEOeye reader decide between a one-off AI visibility audit and a subscription tracker such as Peec AI, and explains what the tracker's numbers can and cannot tell them."
+  },
+  "assessment": "The page explains Peec AI's metrics, data-collection method, features, plan prices and fit from Peec's own pricing page, docs and AI-instructions page as read on 2026-10-03, adds a reliability caveat from SparkToro's repeated-run research and a take on who should skip it. It states up front that it is documentation-based and not hands-on. It does not claim hands-on use, data accuracy, a trial length (none stated on Peec's pages) or that Claude is available below Enterprise; detailed pricing arithmetic is left to the dedicated pricing page.",
+  "sources": [
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plans (Starter $95 / Pro $245 / Advanced $495 monthly, 50/150/350 prompts, 1/2/5 projects, unlimited users, daily tracking, choose 3 models), Enterprise custom with API, SSO and more models, selectable model list, Perplexity add-on, 15% annual-billing FAQ, Start free trial CTA, 4,500 monthly AI answers on Starter, crawlability check across 40+ bots. Dollar amounts are JavaScript-rendered and were read in a real browser."
+    },
+    {
+      "url": "https://peec.ai/pricing-agencies",
+      "checkedAt": "2026-10-03",
+      "supports": "Agency plans Essential $245 / Growth $495 / Scale $795 per month on monthly billing, credits, trial CTAs, free pitch projects section. Read in a real browser (JavaScript-rendered)."
+    },
+    {
+      "url": "https://docs.peec.ai/intro-to-peec-ai",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec uses browser automation (UI scraping) not APIs, runs prompts daily, mirrors a logged-out user where the platform picks the model and whether to search, the three headline metrics, sources as the basis of metrics."
+    },
+    {
+      "url": "https://docs.peec.ai/metrics-overview",
+      "checkedAt": "2026-10-03",
+      "supports": "Definitions of visibility, share of voice, position, sentiment (0-100), prompt volume score 1-5, and brand visibility versus source visibility."
+    },
+    {
+      "url": "https://docs.peec.ai/actions",
+      "checkedAt": "2026-10-03",
+      "supports": "Actions grouped into Site audit, Owned and Earned; relative impact rating; separate Impact view measuring results after completion."
+    },
+    {
+      "url": "https://docs.peec.ai/mcp/introduction",
+      "checkedAt": "2026-10-03",
+      "supports": "MCP server connects Claude, Cursor and other tools to Peec data; most tools read-only; write tools need organization-owner access and confirmation. Lists Claude among monitored engines."
+    },
+    {
+      "url": "https://docs.peec.ai/ai-referrals",
+      "checkedAt": "2026-10-03",
+      "supports": "AI referrals reads Google Analytics 4 sessions, conversions and revenue from AI assistants."
+    },
+    {
+      "url": "https://docs.peec.ai/api/introduction",
+      "checkedAt": "2026-10-03",
+      "supports": "API access is currently limited to Enterprise customers."
+    },
+    {
+      "url": "https://docs.peec.ai/setting-up-your-prompts",
+      "checkedAt": "2026-10-03",
+      "supports": "AI often answers informational prompts without naming brands, so they surface fewer brand mentions."
+    },
+    {
+      "url": "https://peec.ai/legal/terms-of-use",
+      "checkedAt": "2026-10-03",
+      "supports": "Monthly plans end at the end of the payment cycle; 12-month plans need 30 days' notice at the end of the term with no automatic refund for early termination."
+    },
+    {
+      "url": "https://peec.ai/ai-instructions",
+      "checkedAt": "2026-10-03",
+      "supports": "Dated July 2026: Berlin headquarters, product launched February 2025, 3,000+ customers (company claim), Peec does not generate or publish content by design, pursuing SOC 2 and not yet certified."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, three AI tools, 2,961 runs; under 1-in-100 chance of the same brand list twice; author concluded visibility percentage across many runs is reasonable and ranking position is unreliable."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "Defines generative engine optimization (GEO) as a framework for improving content visibility in generative engine responses."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched peec.ai/pricing and peec.ai/pricing-agencies on 2026-10-03 in a real browser because dollar amounts are JavaScript-rendered (a plain fetch shows none), and read plan limits, model lists, the 15% annual FAQ and the trial CTA from the rendered page text.",
+    "Writer (Sonnet): downloaded Peec's docs pages (intro, metrics overview, actions, MCP, AI referrals, API, prompt setup) as raw markdown and re-confirmed each claim with WebFetch; kept only features and limits the docs state.",
+    "Writer (Sonnet): read Peec's AI-instructions page (dated July 2026) in raw text for the Berlin headquarters, February 2025 launch, SOC 2 status and the 'does not generate content' statement, and labelled company-reported figures as Peec's own.",
+    "Writer (Sonnet): verified the SparkToro numbers (600 volunteers, 12 prompts, 2,961 runs, under 1-in-100, visibility percentage reasonable, ranking position unreliable) against the raw post text, and recomputed 50 prompts x 3 models x 30 days = 4,500 answers and about 30 runs per prompt per model per month.",
+    "Writer (Sonnet): noted that Peec's docs name Claude as a monitored platform while the pricing table lists Claude only in the Enterprise column, and told the reader to confirm engines in the trial instead of resolving it by guess; trial length left out because Peec's pages state none.",
+    "Writer (Sonnet): used the peec.ai row of docs/content/vendor-sites-study-2026-10.md (no AI bots blocked or named, no llms.txt, no JSON-LD in served HTML) as a neutral fact box with the JavaScript caveat, and AEOeye product facts from the evidence pack only.",
+    "Editor (Opus): read the final draft and the writer's source report; documentation-based Peec AI guide; Claude-tier inconsistency on Peec's own pages stated, not resolved",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "USD list prices as displayed to us; euro prices also exist and are shown by Peec to visitors in Europe; prices net of VAT per Peec's terms (checked on the dedicated pricing page)",
+    "billing": "Monthly billing shown; annual billing about 15% cheaper per Peec's FAQ; Enterprise and Comprehensive agency plans are custom and annual.",
+    "checkedAt": "2026-10-03",
+    "verification": "Read each brand and agency plan's monthly price, prompt, project and model limits in the rendered pricing pages on 2026-10-03 and compared them with the sibling pricing guide verified the same day; detailed derived arithmetic lives on /blog/peec-ai-pricing."
+  },
+  "merged": []
+}

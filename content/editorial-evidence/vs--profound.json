@@ -1,0 +1,57 @@
+{
+  "contentSha256": "24afa9b864434a62bdf979e0e199591e723ccaa6cf1c444e42c47e63e33f3893",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buyers choosing between a free instant AI-visibility audit and Profound's sales-led monitoring platform need to know which job each tool does, what Profound's brand plans actually cost today, and where a one-off audit falls short.",
+    "connection": "AEOeye's free ChatGPT check and $29 one-time five-engine report serve the baseline job; the page says plainly where Profound's continuous tracking, history and enterprise controls are stronger and routes readers to monitors when that is the need."
+  },
+  "assessment": "The page replaces an outdated comparison (free 'multi-engine' audit, old $99/$399 Profound tiers, 'no free trial') with Profound's current public pricing: a free 7-day Trial and a custom Enterprise plan for brands, and a $99/month Agency Growth plan with $399/month client workspaces. It states the free AEOeye audit is ChatGPT-only and the $29 report adds four engines, uses SparkToro's 2,961-run study to explain why a single audit is a snapshot, and adds a neutral fact box from AEOeye's crawler access study. It does not claim hands-on use of Profound, rank the products on quality, or state anything about Profound's Enterprise price.",
+  "sources": [
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brands tab: free Trial (50 unique prompts daily for 7 days, ChatGPT/Gemini/Google AI Overviews, limited AI Marketer credits, no history/exports/API, fixed recommended prompt set) and custom Enterprise (up to 9 engines, all-time history, CSV/JSON, API, SSO/SAML, SOC 2, ChatGPT Shopping); agencies tab: Agency Growth $99/month plus add-ons, +1 client workspace $399/month; 'Is Profound only for AI search?' FAQ answered No."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/agent-analytics",
+      "checkedAt": "2026-10-03",
+      "supports": "Agent Analytics tracks AI crawler visibility and attribution of AI-driven traffic; page states Profound is SOC 2 Type II certified."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/answer-engine-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Answer Engine Insights covers prompt tracking, citation tracking, sentiment and FactCheck (inaccurate claims about a brand)."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers ran 12 prompts through ChatGPT, Claude and Google AI 2,961 times; under 1 in 100 chance ChatGPT or Google's AI repeats the same brand list; author concludes visibility % across 60-100 repeated runs is the reasonable metric."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of generative engine optimization / answer engine optimization."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched tryprofound.com/pricing as raw HTML and in a real browser, switched to the 'For agencies' tab, and confirmed the Trial/Enterprise columns, the Agency Growth '$99/month + add-ons' card and the '$399/month' client-workspace add-on; the old $99 Starter / $399 Growth brand cards do not appear on the current page.",
+    "Writer (Sonnet): fetched the Agent Analytics and Answer Engine Insights feature pages and kept only the capabilities they list; counted the nine Enterprise engines from the pricing page's 'Capability for' list.",
+    "Writer (Sonnet): read the SparkToro article's raw text to confirm 600 volunteers, 12 prompts, 2,961 runs, the <1 in 100 same-list figure and the 60-100 runs advice before quoting them.",
+    "Writer (Sonnet): took AEOeye's product facts and the vendor-site fact box (robots.txt, llms.txt, JSON-LD for aeoeye.com and tryprofound.com) from the evidence pack and the 2026-10-03 crawler access study, and re-fetched tryprofound.com/robots.txt and /llms.txt (404) to confirm.",
+    "Writer (Sonnet): dropped unverifiable claims from the old page (1-3 week learning curve, reviewer opinions, 'no free trial', Copilot-in-Starter details) and corrected the old 'multi-engine free audit' claim.",
+    "Editor (Opus): read the final draft and the writer's source report; AEOeye vs Profound; opening states public documentation and no hands-on use; old 'no free trial' and $99/$399 tiers removed",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [],
+  "pricing": {
+    "status": "quote-only",
+    "region": "Public USD pricing",
+    "billing": "Brand access: free 7-day Trial or custom Enterprise (no list price); Agency Growth $99/month plus add-ons, client workspaces $399/month, trial workspaces +5 for $199/month",
+    "checkedAt": "2026-10-03",
+    "verification": "Read Profound's pricing page raw HTML and its rendered agencies tab in a browser on 2026-10-03; Enterprise has no published price, so the page states it is quote-only and gives no estimate."
+  }
+}

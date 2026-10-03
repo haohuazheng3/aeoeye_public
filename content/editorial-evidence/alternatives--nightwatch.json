@@ -1,0 +1,72 @@
+{
+  "contentSha256": "8c78623b70e379d24403c2a6e87094a59ffa3458ec267132224206eaae83ab84",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buyers weighing Nightwatch for AI visibility tracking need to know what it really costs now, why people look elsewhere, and which AI-visibility tools fit a smaller or different need.",
+    "connection": "AEOeye's free audit and $29 one-time report serve the one-off baseline job; the page routes readers to AI-only trackers or to Nightwatch itself when ongoing monitoring or rank tracking fits better."
+  },
+  "assessment": "The page replaces an outdated Nightwatch story ($32 base plus $99 beta AI add-on, $131+) with the current pricing page, where AI prompts are included in every plan. It gives three reasons people leave, a six-column comparison from each vendor's own pricing page, a per-prompt arithmetic check labelled as ours, a neutral fact box from AEOeye's crawler access study, and when Nightwatch is still the right choice. It does not claim hands-on use, rankings or outcomes for any product, and it states AEOeye is a one-time audit, not a tracker.",
+  "sources": [
+    {
+      "url": "https://nightwatch.io/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter/Professional/Agency plans, 500/2,500/7,500 keywords, 50/150/500 AI prompts, 1,500/4,500/15,000 AI answers per month, yearly rates and Save amounts (used to derive monthly-billing prices), engines list, 14-day trial without card, auto-billing FAQ, Professional extras (white label, Looker Studio, API), Black Friday banner."
+    },
+    {
+      "url": "https://nightwatch.io/ai-tracking",
+      "checkedAt": "2026-10-03",
+      "supports": "AI tracking metrics, daily updates, platform list including Microsoft Copilot, vendor claim linking citations to Google rankings."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month, 15 prompts, four engines at entry, Claude/Gemini/AI Mode as add-ons, free trial without stated length."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month, 50 prompts, choose 3 models, daily tracking, 1 project, unlimited users; monthly AI answers defined as prompts x models x frequency; Start free trial button."
+    },
+    {
+      "url": "https://trakkr.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Growth $100/month, 1 brand, 50 prompts, 8 models incl. Claude/Gemini/Grok/Perplexity; 14-day trial, card required."
+    },
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan with $25 credit (300 credits) and five platforms; Starter $295/month, 3,600 credits, 1 credit = 1 AI response, 11 models."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plans: free 7-day trial (50 prompts) and custom Enterprise; no published paid price."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of GEO/AEO."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and kept only claims the page states; read Nightwatch's pricing page raw HTML, because its default view shows yearly-billing rates, and Peec's JavaScript-rendered prices in a real browser.",
+    "Writer (Sonnet): derived Nightwatch's monthly-billing prices from the page's own yearly totals and Save amounts (948 + 240 = 1,188 = 12 x 99; 1,908 + 480 = 2,388 = 12 x 199; 4,788 + 1,200 = 5,988 = 12 x 499), and labelled them as derived in the text.",
+    "Writer (Sonnet): recomputed price per prompt (Otterly 29/15, Peec 95/50, Trakkr 100/50, Nightwatch 99/50) and answers per prompt (1,500/50 = 30), labelled as our arithmetic and noted the dollar/euro mix.",
+    "Writer (Sonnet): used the nightwatch.io row of docs/content/vendor-sites-study-2026-10.md and the evidence-pack vendor counts (0/43 block AI bots; 27/41 valid llms.txt) with the one-fetch limit stated.",
+    "Writer (Sonnet): noted that Nightwatch's pricing page and AI tracking page list different engine sets (AI Mode/AI Overview versus Copilot) and said so instead of picking one; did not repeat the retired $32 + $99 add-on figures as current.",
+    "Editor (Opus): read the final draft and the writer's source report; Nightwatch alternatives; old $32 + $99 add-on pricing replaced (AI prompts now included in every plan per Nightwatch's pricing page)",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": [],
+  "pricing": {
+    "status": "published",
+    "region": "Nightwatch pricing page showed euros to our fetch; competitors shown in USD",
+    "billing": "Nightwatch page defaults to yearly-billing monthly rates (EUR 79/159/399); monthly billing derived as EUR 99/199/499; Otterly, Peec, Trakkr and AthenaHQ prices are monthly billing",
+    "checkedAt": "2026-10-03",
+    "verification": "Read Nightwatch's pricing page raw HTML and rendered text, recomputed yearly totals and Save amounts to derive monthly-billing prices, and checked Otterly, Peec (rendered browser), Trakkr and AthenaHQ pricing pages for entry plans, prompts and engines."
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "contentSha256": "76bd3e3593511b851bbab14e6320425a0a06b773f9ab17282c9e3e1d6f712b01",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer or founder who is leaving Quattr, or avoiding its sales-led route, wants alternatives that fit their reason, with current prices and honest limits, plus a clear view of when Quattr is still the right choice.",
+    "connection": "AEOeye sells a one-time AI visibility audit (free ChatGPT check, $29 five-engine report); the page places it honestly among daily trackers and sales-led platforms and says where AEOeye is not a substitute."
+  },
+  "assessment": "The page is based on Quattr's and each alternative's own public pricing and product pages read on 2026-10-03, and says in its first lines that we have not tested any product hands-on. It derives the reasons people leave Quattr only from Quattr's own pages (no published price, an operating-program model with a strategist, a WordPress-only native publishing path, a use-case-dependent trial route) rather than reviewer rumours. It lists six options with entry prices re-read from vendor pages today (Otterly, Peec AI and Nightwatch rendered in a browser for the monthly figures), answers the 'Quattr dashboards' query by comparing Looker-style connectors by tier, corrects the earlier version's stale Profound $99 and Nightwatch $32 plus add-on figures, and explains that Quattr's comparison page puts '$99/month for SMBs' in the Profound column which Profound's own pricing page no longer shows. It ends with when Quattr is still right. It deliberately does not state a Quattr price, rate any product's data quality, or claim hands-on use.",
+  "sources": [
+    {
+      "url": "https://www.quattr.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Quattr pricing page is a demo request form with no price or plan (confirmed in raw HTML via curl)."
+    },
+    {
+      "url": "https://www.quattr.com/compare/quattr-vs-profound",
+      "checkedAt": "2026-10-03",
+      "supports": "Quattr's comparison page: pricing 'Custom pricing'; 'Starts at $99/month for SMBs' is in the Profound column; WordPress native CMS publishing 'now', more CMS coming soon; Search Console and GA4 joins; Looker Enterprise edition embedded; FAQ listing demo, sandbox, free trial, proof of concept or paid pilot; Quattr claims it replaces multiple tools."
+    },
+    {
+      "url": "https://www.quattr.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Decide, Optimize, Create, Prove cadence; every customer works with a Strategist (biweekly typical, weekly as an upgrade); prepared work reviewed by the customer; read-only MCP; GIGA agent and Internal Linking AI."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month with 15 prompts on ChatGPT, Google AI Overviews, Perplexity and Copilot, daily tracking, Claude/Gemini/AI Mode as paid add-ons; Standard $189 for 100 prompts including a Looker Studio connector; free trial offered (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Rendered in a browser: Starter $95, Pro $245, Advanced $495 a month; 50, 150, 350 prompts; choose 3 models; daily tracking; Looker Studio integration on the Advanced card; Start free trial button."
+    },
+    {
+      "url": "https://nightwatch.io/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Rendered in a browser with the Monthly toggle: Starter EUR 99, Professional EUR 199, Agency EUR 499 billed monthly; yearly toggle shows EUR 79/month (EUR 948 billed yearly) for Starter; Starter has 50 AI prompts and 500 keywords; ChatGPT, Claude, Gemini, Perplexity, AI Mode and AI Overview; 14-day free trial, no credit card."
+    },
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan with $25 free credit / 300 credits (ChatGPT, Perplexity, AI Overviews, Gemini, Copilot); Starter $295/month with 3,600 credits, 11 models, on-page and off-page actions, content optimization agent; '1 credit = 1 AI response'; Enterprise includes an executive dashboard with BI tool support (Tableau, Power BI, Looker); page redirects to /plans (confirmed in raw HTML and in a browser)."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plans are a free Trial (50 prompts run daily for 7 days on ChatGPT, Gemini, Google AI Overviews) and a custom Enterprise plan (up to 9 answer engines, SSO/SAML and SOC 2); no $99 plan shown (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "Under 1 in 100 chance ChatGPT or Google's AI repeats the same brand list across runs; ask 60-100 times and average (confirmed in raw HTML)."
+    }
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "Quattr: none published; alternatives in USD except Nightwatch in EUR",
+    "billing": "Quattr: custom quote after a demo; alternatives compared on monthly billing (Nightwatch also yearly), AEOeye $29 one-time",
+    "checkedAt": "2026-10-03",
+    "verification": "Read Quattr's pricing page, homepage and comparison page and found no price; re-read Otterly, Athena and Profound pricing pages with curl, and loaded Peec and Nightwatch in a browser to read the rendered monthly figures (Nightwatch monthly toggle: EUR 99; yearly EUR 79 from EUR 948 billed yearly) before keeping any number; removed the earlier Profound $99 and Nightwatch $32 plus $99 add-on claims."
+  },
+  "checks": [
+    "Writer (Sonnet): downloaded quattr.com pricing, homepage, AI visibility pages and the Quattr vs Profound comparison with curl on 2026-10-03 and read the raw text; derived the 'why people leave' reasons only from what those pages state and dropped the earlier page's reviewer anecdotes (steep pricing quotes, a reviewer never granted trial access) because G2 and Capterra could not be read.",
+    "Writer (Sonnet): loaded peec.ai/pricing and nightwatch.io/pricing in a browser and clicked the Monthly toggle on Nightwatch to read EUR 99 / 199 / 499, because the static HTML shows only the yearly figures; read Otterly, AthenaHQ and Profound pricing from raw HTML and confirmed Profound's brand plans are only a Trial and Enterprise.",
+    "Writer (Sonnet): confirmed in the raw table markup that '$99/month for SMBs' on Quattr's comparison page sits in the Profound column and that Profound's own pricing page shows no such plan, then said so with attribution instead of repeating it as anyone's entry price.",
+    "Writer (Sonnet): compared Looker-style dashboard connectors from each vendor's own page (Otterly Standard, Peec Advanced, AthenaHQ Enterprise, Quattr comparison page) to answer the 'quattr dashboards' query without inventing plan inclusion for Quattr.",
+    "Writer (Sonnet): read the seven vendor rows (AEOeye, Quattr, Otterly, Peec AI, Nightwatch, AthenaHQ, Profound) of the AEOeye crawler access study CSV: none blocks an AI crawler in robots.txt (Otterly's robots.txt returned 403), only AEOeye and AthenaHQ serve llms.txt, Otterly's llms.txt returned 403 (unknown); kept the unknowns visible.",
+    "Writer (Sonnet): used only the evidence-pack product facts for AEOeye (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds Claude, Gemini, Google AI and Perplexity and ten questions; no subscription) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; Quattr alternatives; reasons to leave from Quattr's own pages; Quattr's comparison-page Profound price flagged as no longer on Profound's own page",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

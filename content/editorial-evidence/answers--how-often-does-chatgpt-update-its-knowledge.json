@@ -1,0 +1,59 @@
+{
+  "contentSha256": "a922c776e8df9cf611ffabbbd572071a846502d6fbc651db2ed725ca12e4ac5a",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A founder or marketer sees ChatGPT state outdated facts about their company and wants to know how often ChatGPT updates, whether live search saves them, and what to change first.",
+    "connection": "Separates ChatGPT's frozen training memory from live retrieval so AEOeye readers fix the pages and crawler access that AI engines can actually fetch, and check results with a repeatable with-search / without-search test."
+  },
+  "assessment": "The page answers the cutoff-versus-live-search question with OpenAI's own dated model pages and changelog (cutoffs from Aug 31, 2025 to May 18, 2026; four models released Sep 3-29, 2026), explains that the model behind ChatGPT's Instant chat has an older cutoff than the flagships, and ties retrieval to a 2026 arXiv chatbot test and to AEOeye's crawler access study with its limits. It deliberately does not state a fixed refresh schedule for ChatGPT, a recrawl frequency for content, how many pages ChatGPT reads, or how repetition is weighted in current training data, because OpenAI publishes none of these; the weighting point is labelled as our reading.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/models",
+      "checkedAt": "2026-10-03",
+      "supports": "Knowledge cutoffs: GPT-6 Astra Apr 30, 2026; GPT-6.1 Sol Apr 30, 2026; GPT-6 Luna May 18, 2026 (confirmed in the raw page text)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/models/chat-latest",
+      "checkedAt": "2026-10-03",
+      "supports": "chat-latest 'points to the latest Instant model currently used in ChatGPT', 'Aug 31, 2025 knowledge cutoff', snapshot 'will be regularly updated' (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/changelog",
+      "checkedAt": "2026-10-03",
+      "supports": "Release dates: GPT-6 Astra Sep 3, GPT-6 Sol and Luna Sep 22, GPT-6.1 Sol Sep 29 (2026 sections); chat-latest snapshots May 5 and May 28, 2026 (confirmed in raw page text)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "The model can choose to search the web or not based on the prompt; three search types (non-reasoning, agentic, deep research 'often tapping into hundreds of sources'); inline citations by default (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot: opted-out sites 'will not be shown in ChatGPT search answers, though can still appear as navigational links'; OpenAI recommends allowing it; ~24 hours for robots.txt updates to take effect in search; ChatGPT-User robots.txt rules may not apply (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2605.22785",
+      "checkedAt": "2026-10-03",
+      "supports": "Suzgun et al.: fourteen-day (Feb 9-22, 2026) evaluation of six chatbots on 2,100 same-day BBC-derived questions; best systems over 90% multiple-choice accuracy; retrieval failures drive over 70% of errors (abstract confirmed in the downloaded PDF text)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of RAG as a technique that enables LLMs to retrieve and incorporate new information from external data sources."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and curl-checked every date and number against the raw page or PDF text, not the WebFetch summary",
+    "Writer (Sonnet): recomputed from OpenAI's dated pages that the cutoff-to-release gap is about four months for GPT-6 Astra (Apr 30 to Sep 3) and GPT-6 Luna (May 18 to Sep 22), and that Sep 3 to Sep 29 is 26 days",
+    "Writer (Sonnet): recomputed the AEOeye crawler access study figures (OAI-SearchBot blocked by 16 of 384; 27 of 38 publishers block at least one retrieval bot; 60 of 375 homepages challenged) from public/resources/ai-crawler-access-study-2026-10.csv and the evidence pack",
+    "Writer (Sonnet): could not fetch help.openai.com (403), so no claim rests on the ChatGPT Help Center; the removed 'real-time browsing is default' and 'models are unreliable about their own cutoff' claims were left out because no fetched source supports them",
+    "Editor (Opus): read the final page: two clocks (model cutoff vs live search), stale-fact fixes, test-it-yourself steps",
+    "Editor (Opus): verified OpenAI models page raw text: GPT-6 Astra cutoff Apr 30 2026, GPT-6 Luna May 18 2026",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

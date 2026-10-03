@@ -1,0 +1,55 @@
+{
+  "contentSha256": "4b007b160fec86135bc4f5d6f5cd591d8ad15bea4616d62520244d2af214dee7",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer or founder shortlisting AI-visibility platforms wants to know whether AthenaHQ or Profound fits their team, what each costs today and how to test before paying.",
+    "connection": "AEOeye audits whether AI engines recommend a brand; this page helps buyers decide when continuous monitoring from a dedicated platform is worth it, and shows how to verify a tool against manual checks."
+  },
+  "assessment": "The page gives a verdict-first, documentation-based comparison of AthenaHQ and Profound using each vendor's own pricing and product pages fetched on 2026-10-03: plans, prices, engines, usage units, security statements and exports. It flags that AthenaHQ's September 9, 2026 comparison page still lists Profound plans that Profound's own page no longer shows, adds clearly labelled arithmetic on credit math, and includes a neutral fact box from AEOeye's crawler access study. It does not claim hands-on testing, does not quote an Enterprise price for either vendor, and does not verify Profound's agency plan price.",
+  "sources": [
+    {
+      "url": "https://athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "AthenaHQ Free ($25 credit, 300 credits), Starter $295/month with 3,600 credits and 11 models, Enterprise custom, API and extra credits as paid add-ons, 17% annual discount, 1 credit = 1 AI response."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound free Trial (50 prompts daily for 7 days, ChatGPT/Gemini/Google AI Overviews, no customization), custom Enterprise (up to 9 engines, SSO/SAML, SOC 2, CSV/JSON, API), Agency Growth 400 credits per client workspace."
+    },
+    {
+      "url": "https://athenahq.ai/comparison/profound",
+      "checkedAt": "2026-10-03",
+      "supports": "AthenaHQ's comparison page is dated September 9, 2026, lists Profound Starter $99 and Growth $399, and says some models cost 5 credits per response."
+    },
+    {
+      "url": "https://athenahq.ai",
+      "checkedAt": "2026-10-03",
+      "supports": "AthenaHQ's self-description as command center for AEO and GEO, platforms on all vs paid plans, AthenaHQ Content, Ask Athena, SOC II Type 2 / GDPR, GA4/Search Console/Shopify integrations."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/answer-engine-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Answer Engine Insights covers prompt tracking, citation tracking, sentiment and keyword insights, and FactCheck."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper abstract: GEO can boost visibility by up to 40% in generative engine responses; effectiveness varies by domain."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched athenahq.ai/pricing and tryprofound.com/pricing on 2026-10-03, read the raw HTML text as well as the WebFetch summary, and kept only plan names, prices and limits that both showed.",
+    "Writer (Sonnet): compared AthenaHQ's September 9, 2026 comparison page with Profound's current pricing page and stated the conflict as unresolved rather than asserting which is right.",
+    "Writer (Sonnet): recomputed the credit example (40 prompts x 3 engines x 30 days = 3,600; 3,600 / 5 = 720) and labelled it as AEOeye arithmetic, not a vendor figure.",
+    "Writer (Sonnet): took the vendor-site fact box rows from the crawler study CSV (robots, llms.txt, JSON-LD columns) and kept the JavaScript-injection caveat; dropped the agency add-on prices because the raw pricing page did not show them.",
+    "Writer (Sonnet): left out the Y Combinator claim from the old page and the question about Suede AI because neither could be verified from a vendor page.",
+    "Editor (Opus): read the final draft and the writer's source report; credit example labelled as our arithmetic; Profound legacy-price conflict left unresolved for the reader",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

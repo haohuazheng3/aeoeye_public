@@ -1,72 +1,117 @@
 ---
-title: "Ahrefs Brand Radar Review: What It Does Well (and Doesn’t)"
-description: "An honest Ahrefs Brand Radar review: what it does well, where a platform module falls short, and the best alternative for verbatim AI answers."
-date: "2026-07-17"
+title: "Ahrefs Brand Radar: What It Tracks, Costs, and Misses"
+description: "Ahrefs Brand Radar tracks AI visibility from $199 a month per index, or $50 for custom prompts. What it covers, how checks add up, and where it falls short."
+date: "2026-10-03"
+published: "2026-07-17"
 category: "Reviews"
-readingTime: "7 min read"
-keywords: ["ahrefs brand radar", "brand radar review", "ahrefs ai visibility", "ai visibility audit"]
-faqs: [{"q": "What is Ahrefs Brand Radar?", "a": "Ahrefs Brand Radar is a feature inside the Ahrefs SEO platform that shows how visible a brand is in AI search \u2014 AI Overviews and AI assistant answers \u2014 and lets you compare that visibility against competitors, using a methodology Ahrefs publishes publicly."}, {"q": "Is Ahrefs Brand Radar free?", "a": "As of this writing, Ahrefs offers a free AI visibility checker as a separate, lighter tool, while the full Brand Radar toolset sits inside the paid Ahrefs platform. Terms and access can change, so check Ahrefs directly for current pricing before assuming what\u2019s included."}, {"q": "What\u2019s the best Ahrefs Brand Radar alternative?", "a": "For teams that want to read the actual answers AI engines give buyers, rather than an aggregate score, AEOeye is a dedicated alternative: a free audit covers five AI engines, including Claude, with a $29 report for deeper detail on a specific brand\u2019s answers."}, {"q": "Brand Radar vs AEOeye \u2014 what\u2019s the difference?", "a": "Brand Radar is an aggregate AI-visibility score built into the Ahrefs SEO platform; AEOeye is a dedicated audit that shows the verbatim answer text each AI engine gives for real buyer questions. One tells you that visibility moved; the other tells you what the AI actually said and why."}]
-image: {"url": "https://images.pexels.com/photos/7877185/pexels-photo-7877185.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Business analyst in a blue shirt analyzing financial charts on a whiteboard.", "photographer": "www.kaboompics.com", "photographerUrl": "https://www.pexels.com/@karola-g"}
-sources: []
+readingTime: "6 min read"
+keywords: ["ahrefs brand radar", "ahrefs ai visibility", "brand radar ahrefs", "ahrefs brand radar pricing", "ahrefs brand radar alternatives", "ahrefs white label", "ahrefs custom prompts"]
+faqs: [{"q": "What is Ahrefs Brand Radar?", "a": "Brand Radar is Ahrefs' AI visibility product. It has two modes: an AI Visibility Index of pre-collected AI answers you can search for any brand with no setup, and Custom Prompts that you define and Ahrefs re-checks daily, weekly or monthly. It reports mentions, citations, AI share of voice and estimated impressions."}, {"q": "How much does Ahrefs Brand Radar cost?", "a": "As of October 2026, Ahrefs lists $199 a month per index, $699 a month for all platforms, and custom-prompt packages at $50, $100 and $250 a month. Every paid Ahrefs plan from Lite ($129 a month listed) also includes 5, 10 or 20 daily prompts. Check the pricing page for your region and billing cadence."}, {"q": "Does Ahrefs Brand Radar track Claude?", "a": "Only through Custom Prompts. Ahrefs' help article says Claude is tracked via API (Claude Sonnet 4.6 with web search), is available for custom prompts only, and consumes 8 checks per update. The prompt index covers AI Overviews, AI Mode, ChatGPT, Perplexity, Gemini and Copilot, not Claude."}, {"q": "Does Ahrefs Brand Radar offer white-label reporting?", "a": "We found no white-label feature on the Brand Radar page, its help article or the pricing page. It does list API access, an MCP server, Looker Studio and Report Builder integrations for getting data out. Ask Ahrefs about white-labeling in writing before you promise it to a client."}, {"q": "Is there a free way to check my brand in Ahrefs?", "a": "Yes. Ahrefs' free AI Visibility Checker needs no signup and checks ChatGPT, Gemini, Perplexity, Copilot and Google AI Overviews. It shows total mentions, a per-platform breakdown and the top 5 topics, cited domains and cited pages. It is a limited preview, not tracking."}]
+image: {"url": "https://images.pexels.com/photos/13909488/pexels-photo-13909488.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A man looks through binoculars over a lake on a clear day", "photographer": "Gergely Meszárcsek", "photographerUrl": "https://www.pexels.com/@geriart"}
+sources: [{"label": "Ahrefs — Brand Radar", "url": "https://ahrefs.com/brand-radar"}, {"label": "Ahrefs Help Center — What is Brand Radar, and how to use it?", "url": "https://help.ahrefs.com/en/articles/11064852-what-is-brand-radar-and-how-to-use-it"}, {"label": "Ahrefs — Plans & pricing", "url": "https://ahrefs.com/pricing"}, {"label": "Ahrefs — Free AI Visibility Checker", "url": "https://ahrefs.com/ai-visibility-checker"}, {"label": "Google Search Console Help — Generative AI performance report", "url": "https://support.google.com/webmasters/answer/16984139"}, {"label": "Semrush — AI Visibility Toolkit pricing", "url": "https://www.semrush.com/pricing/ai/"}]
 ---
 
-Ahrefs Brand Radar showed up right as “is our brand visible in ChatGPT” turned from a curious Slack question into a line item in marketing reviews. If you already live inside Ahrefs for rankings and backlinks, the obvious next question is whether Brand Radar covers AI visibility well enough on its own, or whether that job needs a tool built for it specifically. Here’s a straight answer.
+Ahrefs Brand Radar is Ahrefs' AI visibility product. It counts how often AI answers mention or cite a brand, for any brand you type in, with no setup. As of October 2026 it lists at $199 a month per index, $699 for all platforms, and $50 a month for tracking your own prompts. It is strong on scale and weak on your specific buyer questions.
+
+This guide is based on public documentation as of October 2026; we have not tested the product hands-on. Prices and limits come from Ahrefs' own pages, fetched on 2026-10-03.
 
 ## What is Ahrefs Brand Radar?
 
-As of this writing, Ahrefs Brand Radar is a feature inside the Ahrefs platform that shows how visible a brand is in AI search — AI Overviews and AI assistant answers — including how that visibility stacks up against competitors. In practice, that means seeing whether an AI assistant names a brand when someone asks a buying question like “best software for X,” not just whether the brand ranks on page one of Google. It’s not a separate product you sign up for on its own; it sits inside the same platform as the rest of Ahrefs’ SEO tools, as another lens on brand performance.
+It is a search-and-tracking tool built on two separate modes. The [Brand Radar page](https://ahrefs.com/brand-radar) calls them the AI Visibility Index and Custom Prompts, and they answer different questions.
 
-The core mechanic is comparison: pick a brand, yours or a competitor’s, and see how it shows up across AI search results. Ahrefs also publishes a methodology page explaining how it collects this data, which is a genuinely good habit — worth reading before trusting any AI-visibility number, from Ahrefs or anyone else, including us. Brand Radar’s whole premise is that AI visibility deserves the same rigor Ahrefs has long applied to search rankings; it’s the specific feature most people mean when they search for “Ahrefs AI visibility” as a term.
+- **AI Visibility Index.** Pre-collected AI responses you can search instantly, including history back to 2025. It suits established brands and topics with real search demand.
+- **Custom Prompts.** Questions you define, checked daily, weekly or monthly from the day you add them. Ahrefs positions them for brands that are not well known or have unusual queries.
 
-## What it does well
+Ahrefs [says](https://help.ahrefs.com/en/articles/11064852-what-is-brand-radar-and-how-to-use-it) the index prompts come from People Also Ask questions in its keyword database. It enters them into the web version of each chatbot using the default model, with no stored user data, personalization or pre-prompting.
 
-Brand Radar’s biggest edge is that it isn’t starting from nothing — it’s layered on top of the crawler and link-index infrastructure Ahrefs is already known for, which most brand-new AI-visibility tools spend a long time trying to build from scratch.
+That is a sound method for "what would a typical user see". It is also why index data reflects Ahrefs' keyword database, not your buyers' wording.
 
-A few things stand out:
+### How big is the index?
 
-- **Ahrefs-scale infrastructure.** Building a credible web-scale data pipeline is most of the hard work behind any visibility tool. Ahrefs already had one before AI search existed, and building Brand Radar on top of it is a real head start, not a marketing claim.
-- **One dashboard, less context-switching.** If your team already tracks rankings and backlinks in Ahrefs, seeing AI visibility next to that data removes a login and a spreadsheet from your weekly reporting routine.
-- **See any brand’s visibility.** Being able to check a competitor’s AI visibility next to your own, using one consistent methodology, is exactly the kind of side-by-side that’s painful to build by hand with individual prompts and screenshots.
-- **Published methodology.** Not every vendor explains how its numbers are generated. Ahrefs does, and that transparency deserves credit on its own.
+Ahrefs quotes three different sizes. The help article says 405+ million prompts, the Brand Radar page says 448M+, and the pricing page says 475M+. The figures are probably from different dates, but none of the pages says so, so treat "400 million-plus" as the claim and ignore the decimals.
 
-None of that is faint praise. For an SEO team that already trusts Ahrefs’ numbers and pulls up the dashboard every Monday anyway, Brand Radar is a low-friction way to put AI visibility on the same radar (sorry) as everything else they track — without asking anyone to learn a new tool first.
+## What does it track?
 
+It tracks mentions, citations, AI share of voice and estimated impressions across six AI surfaces in the index, plus Claude and Grok in custom prompts. The Brand Radar page defines the four metrics this way:
 
-![Vibrant and engaging code displayed on a computer screen, showcasing programming concepts.](https://images.pexels.com/photos/27427258/pexels-photo-27427258.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+- **Mentions:** how often your brand name appears in AI answer text.
+- **Citations:** how often AI links to your pages or domains.
+- **AI share of voice:** the share of responses in your topic set that mention or cite you versus competitors.
+- **Estimated impressions:** visibility weighted by the search volume behind each prompt.
 
-## The platform-module question
+![Business professional studying financial data on several computer monitors at a workspace](https://images.pexels.com/photos/5831259/pexels-photo-5831259.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-An AI-visibility module built into a larger SEO platform is genuinely good at answering “how visible are we, in aggregate, compared to competitors.” The question it answers less directly is what each AI engine actually says, word for word, when a real buyer asks a real question — and why.
+| Surface | In the index | In custom prompts | Refresh |
+|---|---|---|---|
+| Google AI Overviews, AI Mode | Yes | Yes | Index: AI Overviews every few days; question sets re-tested monthly |
+| ChatGPT, Perplexity, Gemini, Copilot | Yes | Yes | Index: once a month |
+| Claude | No | Yes (8 checks per update) | You choose daily, weekly or monthly |
+| Grok | Listed in the help article | Not stated | Ahrefs says it is temporarily unable to gather new data |
 
-That’s a category-level pattern, not a knock on Brand Radar’s specifics. Dashboards are built for scanning scores and trend lines across many brands and many queries at once, and that’s exactly the job a platform module is designed to do well. Reading the literal sentence an AI assistant wrote for “best [category] for [use case],” and understanding why it named a competitor instead of you, is a different exercise — one query, one engine, one answer at a time. Aggregate and verbatim aren’t competing approaches; they’re different lenses, and a platform module is built around the first one.
+Claude is tracked through the API as Claude Sonnet 4.6 with web search, per the help article. Note that this is a different surface from the free Claude app a buyer opens.
 
-Picture two SEO managers pulling up their Monday reports. One sees an AI-visibility score that dipped a few points against a named competitor — useful, glanceable, worth a flag in the meeting. The other reads the actual paragraph an AI assistant generated last week for “best [category] for [use case]” and sees their brand wasn’t in it, while a specific competitor was, cited by name. Same underlying problem, two different levels of detail — and most teams eventually need both.
+Brand Radar also tracks YouTube, Reddit and TikTok. These are labeled beta and free on paid plans for now. Ahrefs says that once an index leaves beta it becomes a chargeable add-on.
 
-There’s also a plain cost-shape point worth naming: a platform module is only as accessible as the platform underneath it. If the AI-visibility feature you want lives inside a paid SEO suite, you’re paying for the whole suite to reach it — a fine trade if you were already budgeting for Ahrefs, a real cost if AI visibility is the only gap you’re trying to close right now. We go deeper on this distinction, and on the broader field of options, in our guide to [LLM visibility tools](/blog/llm-visibility-tools) and our walkthrough of [how to measure AI visibility](/blog/measuring-ai-visibility) in the first place.
+## What does it cost?
 
-**SEO-platform AI module vs. dedicated AI visibility audit**
+Brand Radar has no single price: you buy index access, a custom-prompt package, or both. All figures are USD from Ahrefs' [pricing page](https://ahrefs.com/pricing) and help article, and may vary by region.
 
-| | Primary lens | Who it fits | Cost shape | When to use it |
-|---|---|---|---|---|
-| SEO-platform AI module | Aggregate visibility score, brand vs. brand | Teams already living in the platform for rankings and links | Bundled inside an existing platform subscription | You want an AI-visibility trend line next to the SEO metrics you already track |
-| Dedicated AI visibility audit | Verbatim answers, per engine, per question | Teams who need to know exactly what each AI tells a buyer | Standalone — often a free tier plus a low-cost report | You want to read the actual sentence an AI assistant wrote about you, and fix it |
+| What | Listed price | Includes |
+|---|---|---|
+| One index (single platform) | $199/mo | Access to one index |
+| All platforms | $699/mo | All indexes plus 2,500 custom-prompt checks a month; Claude available |
+| Custom prompts: Basic | $50/mo | 2,500 checks, overage $0.020 each |
+| Custom prompts: Growth | $100/mo | 7,000 checks, overage $0.015 each |
+| Custom prompts: Scale | $250/mo | 25,000 checks, overage $0.010 each |
+| Paid Ahrefs plan (Lite $129, Standard $249, Advanced $449) | Listed per month | 5, 10 or 20 tracked prompts daily |
 
-## Ahrefs Brand Radar alternatives
+The pricing page also offers annual billing that saves up to 17%, and the page text does not make clear which cadence the headline figures show. The help article's plan table lists the Brand Radar AI add-on as needed for the AI indexes on "any paid plan", so confirm whether a standalone sign-up needs a base plan.
 
-If you’re already paying for Ahrefs and want an AI-visibility trend line sitting next to your existing SEO data, Brand Radar is a reasonable default — no new vendor, no new login. If you want to read the actual words AI assistants use about your brand without adding a full SEO-platform subscription, a dedicated audit fits better.
+For a worked budget, see our [Ahrefs Brand Radar pricing guide](/blog/ahrefs-brand-radar-pricing).
 
-AEOeye takes that second approach. A free audit checks a brand across five AI engines — ChatGPT, Perplexity, Gemini, Google AI Overviews, and Claude — and shows the real answer text for the buyer questions people actually ask, not just a score. The $29 full report goes further into those same per-engine answers, so you can see exactly where you’re mentioned, where you’re missing, and who gets recommended in your place. For a wider field, including enterprise-grade monitoring platforms built for larger teams, our roundup of the [best AI visibility tools](/blog/best-ai-visibility-tools) covers the full spectrum.
+### How do checks add up?
 
-Worth noting: as of this writing, Ahrefs itself offers a free AI visibility checker separate from the full Brand Radar toolset — useful for a single quick look without touching the paid platform. We compare tools like that, including where a free checker stops being enough, in our guide to [free AI visibility checkers](/blog/free-ai-visibility-checker).
+A check is one prompt on one platform in one location for one update. Ahrefs gives the example that 5 prompts on 1 platform checked daily equals 150 checks a month, which is 30 per prompt.
 
-Honest guidance, no hedging:
+Using only those rules:
 
-- Already paying for Ahrefs, mainly want a glance-able trend line → Brand Radar.
-- Want to read the literal answers your buyers are getting, without a platform subscription → a dedicated audit, starting with [AEOeye’s free audit](/).
+1. 25 prompts on 5 platforms daily is 25 × 5 × 30 = 3,750 checks a month.
+2. On Basic that is $50 plus 1,250 overage checks at $0.020, or $75. That beats Growth's flat $100.
+3. Claude changes the picture. 25 prompts on Claude daily is 25 × 30 × 8 = 6,000 checks, more than the whole five-platform set.
 
-## Verdict
+So the model you track matters more than the number of prompts.
 
-Brand Radar landing inside one of the SEO industry’s biggest platforms is itself a signal: AI visibility has moved from experiment to table stakes, fast enough that Ahrefs built a dedicated feature for it instead of leaving the category to point solutions.
+## What does it do well, and what not?
 
-The choice between a platform module and a specialist audit comes down to which question you need answered this quarter, not which tool sounds more serious. An aggregate score tells you that you have a visibility problem — it’s good at flagging the drop, the gap versus a competitor, the trend worth a mee
-ting. It doesn’t tell you what to fix, because fixing requires reading the actual sentence an AI assistant wrote and understanding why it reached for someone else’s name instead of yours. Aggregate scores tell you that; verbatim answers tell you what. Most teams that take this seriously end up wanting both — Brand Radar next to the Ahrefs dashboard they already trust, and a dedicated audit for the answers themselves. If you’re starting from zero, start with the answers: run a [free AEOeye audit](/) and see what five AI engines are actually saying about you before deciding what else to add.
+It does scale, competitor lookups and source discovery well. It does your own buyer questions, freshness and Claude coverage less well. Both lists come from Ahrefs' stated design, not our testing.
+
+**What it does well:**
+
+- **No setup for any brand.** You can look up a competitor, a product or a category without configuring anything. There is no cap on the brands or domains you analyze.
+- **A shared index.** Everyone queries the same pre-collected responses, so comparisons are consistent.
+- **Sources next to answers.** It tracks cited pages and the YouTube and Reddit threads that feed answers.
+- **Data export.** Ahrefs lists API access, an MCP server, Report Builder widgets and a Looker Studio connector.
+
+**Where it is thinner:**
+
+- **Monthly chatbot refresh in the index.** ChatGPT and Gemini data update once a month, so a fix you ship today will not show quickly.
+- **Index coverage depends on search demand.** Ahrefs itself says the index may have limited coverage for brands with little or no search volume. That is the case where Custom Prompts, and their metered checks, are needed.
+- **Mentions without rank.** Share of voice counts presence. In AEOeye's audit records (127 audits, 892 answers, self-selected brands), when a brand was named and ranked it was first in 71.4% of 147 ranked mentions. Being named at all is the hard part, and position still matters. See [how we measure recommendations](/blog/ai-brand-recommendation-measurement).
+- **No Claude in the index and an 8x check cost.** If Claude is important to your buyers, you pay for it per check.
+
+![Close-up of hands typing on a laptop beside stock market graphs](https://images.pexels.com/photos/6771432/pexels-photo-6771432.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What are the alternatives?
+
+Start with the free options, then pick a tracker by the job. Prices are from each vendor's page, checked 2026-10-03.
+
+| Option | Best for | Listed cost |
+|---|---|---|
+| Ahrefs [AI Visibility Checker](https://ahrefs.com/ai-visibility-checker) | A first look at mentions across five platforms | Free, no signup; shows top 5 results per section |
+| [Google Search Console](https://support.google.com/webmasters/answer/16984139) | Your own impressions in AI Overviews and AI Mode | Free for all sites as of August 31, 2026 |
+| [AEOeye](/) | A one-off read of what engines say today | Free audit (3 questions, ChatGPT only); $29 one-time adds Claude, Gemini, Google AI, Perplexity and 10 questions |
+| [Semrush AI Visibility](https://www.semrush.com/pricing/ai/) | Teams already on Semrush | $99/mo per domain billed annually, 25 prompts; see our [Semrush AI toolkit guide](/blog/semrush-ai-toolkit) |
+
+For dedicated daily trackers, see our [AI visibility tracker roundup](/blog/ai-visibility-tracker) and the wider [best AI visibility tools](/blog/best-ai-visibility-tools) comparison. AEOeye is not a daily tracker, and we do not claim it replaces one.
+
+Our position: if you already pay for Ahrefs, use the free Custom Prompts quota on your 5 to 20 most important buyer questions before buying anything more. If your question is "what does AI say about us right now", a $199 index is the wrong first purchase.

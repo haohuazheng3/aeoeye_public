@@ -1,0 +1,56 @@
+{
+  "contentSha256": "3667bd54be0ccdb1f0ca718a20d989e69a03e5b5e9ab4439c00afac2948fd7e6",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A site owner who has seen ClaudeBot in their logs wants to know what it is, how it differs from Anthropic's other bots, whether to block it, and how to tell a real ClaudeBot request from a fake.",
+    "connection": "ClaudeBot, Claude-SearchBot and Claude-User are the access points through which Claude can learn about and cite a brand, which is the visibility AEOeye audits; the page uses AEOeye's October 2026 crawler access study."
+  },
+  "assessment": "The page explains ClaudeBot as Anthropic's training crawler, separates it from Claude-SearchBot and Claude-User using Anthropic's own wording, gives robots.txt rules with the group-replaces-wildcard trap, states a clear position (leave ClaudeBot open unless content is licensed; never block the other two), and shows how to verify a request against Anthropic's published IP list with a tested script. It corrects an overstated claim in the previous version of the page. It deliberately does not print a ClaudeBot User-Agent string or a reverse-DNS method because Anthropic's page documents neither, and does not claim that blocking ClaudeBot changes whether Claude recommends a brand.",
+  "sources": [
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Purposes and block effects of ClaudeBot, Claude-User and Claude-SearchBot; four crawling principles (transparent, not intrusive with Crawl-delay support, honors robots.txt, respects anti-circumvention); Disallow and Crawl-delay examples; per-subdomain rules; IP blocking warning; report-from-domain-email request."
+    },
+    {
+      "url": "https://claude.com/crawling/bots.json",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic's published crawler IP list: 28 IPv4 prefixes with creationTime 2026-10-02; the page's script was tested against it with addresses inside and outside the ranges."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "Crawlers obey the group matching their product token and fall back to * only when none matches; the token should be a substring of the User-Agent header; group matching is case-insensitive."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's parallel split of GPTBot (training), OAI-SearchBot (search) and ChatGPT-User (user actions); about 24 hours for search systems to adjust to robots.txt changes."
+    },
+    {
+      "url": "https://commoncrawl.org/ccbot",
+      "checkedAt": "2026-10-03",
+      "supports": "Common Crawl states it is aware of crawlers falsely identifying themselves as CCBot, illustrating user-agent impersonation."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Web_crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition link for 'web crawler' on first use; page opened and confirmed to exist, no specific claim rests on it."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched Anthropic's crawler help page with curl on 2026-10-03 and checked every bot description, block effect, principle, Crawl-delay example and warning against the raw page text; noted the page prints no full User-Agent string and no reverse-DNS method, and left both out.",
+    "Writer (Sonnet): downloaded https://claude.com/crawling/bots.json, confirmed 28 IPv4 prefixes and the 2026-10-02 creationTime, and ran the page's Python snippet logic against addresses inside (216.73.216.9, 160.79.106.20) and outside (8.8.8.8, an IPv6 documentation address) the ranges.",
+    "Writer (Sonnet): recomputed from public/resources/ai-crawler-access-study-2026-10.csv that 44 of 384 sites block ClaudeBot, 24 block Claude-SearchBot, 26 block Claude-User, none block Claude-SearchBot without ClaudeBot, 20 of the 44 leave Claude-SearchBot open and 18 leave both Claude-SearchBot and Claude-User open; per-segment figures match the evidence pack.",
+    "Writer (Sonnet): removed the previous page's reverse-DNS verification claim, its unsourced crawl-aggressiveness complaints, and its 'Claude cannot recommend you structurally' claim, none of which Anthropic's page supports.",
+    "Writer (Sonnet): ran scripts/content-lint.mjs on the page with no errors or warnings.",
+    "Editor (Opus): read the final draft: Anthropic's three bots with our block counts, the Allow-group trap, IP verification against claude.com/crawling/bots.json, escalation path",
+    "Editor (Opus): removed unsupported old claims (reverse-DNS method, 'Claude cannot recommend you') and the page says the earlier version overstated them",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): crawler-study ClaudeBot figures (44/384; publishers 30/38; 20 of 44 leave Claude-SearchBot open) match the public CSV",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

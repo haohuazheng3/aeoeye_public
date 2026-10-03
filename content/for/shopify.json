@@ -2,72 +2,155 @@
  "slug": "shopify",
  "type": "persona",
  "title": "AI Search Optimization for Shopify: Get Your Store Cited by ChatGPT, Perplexity & Gemini",
- "metaTitle": "AI Search Optimization for Shopify Stores",
- "metaDescription": "Get your Shopify store recommended by ChatGPT, Perplexity, and Gemini. Concrete tactics: robots.txt, Shopify Catalog, product schema, reviews, and buying",
+ "metaTitle": "AI Search Optimization for Shopify Stores (2026)",
+ "metaDescription": "How a Shopify store gets recommended by ChatGPT, Perplexity and Gemini: what agentic storefronts do, what to check in robots.txt, product data and schema.",
  "primaryKeyword": "ai search optimization for shopify",
- "shortAnswer": "AI search optimization for Shopify means making your store readable, trustworthy, and recommendable to ChatGPT, Perplexity, Gemini, and Google AI Overviews. The five moves that matter most: (1) unblock AI crawlers in your robots.txt.liquid, (2) opt into Shopify Catalog so your products auto-sync to ChatGPT and Perplexity, (3) ship complete Product, Offer, AggregateRating, and Review schema, (4) write specific, attribute-rich product copy and real buying guides, and (5) earn third-party reviews and citations so the AI trusts you exist and ship. Between Jan 2025 and Jan 2026, AI-referred Shopify traffic grew 7x and AI-attributed orders grew 11x — this is now a real channel, not a curiosity.",
- "intro": "A shopper asks ChatGPT \"best merino base layer for winter hiking under $120.\" Three brands get named. If yours isn't one of them, you didn't lose on price or product — you lost because the model couldn't read your store, couldn't parse your data, or didn't trust you enough to put your name in front of a buyer about to spend money.\n\nShopify is in a strange spot here. The platform gives you genuine advantages most sites don't have — Shopify Catalog literally syndicates your products to ChatGPT and Perplexity for you. But it also ships defaults and stacks apps that quietly sabotage you, and its templated theme structure produces thin, near-identical product pages that AI engines have nothing to grab onto. This page is the store-specific playbook: exactly what to change, where to change it, and why it moves the needle.",
+ "shortAnswer": "Shopify gives your store two routes into AI answers: agentic storefronts, which make eligible products available to ChatGPT, Google AI Mode, Gemini, Copilot and Meta, and the open web, which AI crawlers read directly. Keep both working. Complete the product fields Shopify's Catalog reads, confirm no app or proxy blocks AI retrieval bots, run one clean source of Product markup, and publish buying content that earns outside mentions. Status as of October 2026.",
+ "intro": "A shopper asks ChatGPT for \"the best merino base layer for winter hiking under $120\" and three brands come back. If yours is not one of them, the engine never received your product data, could not read your pages, or found no outside source vouching for you.\n\nMost Shopify advice opens with \"unblock the AI crawlers.\" Our data says that is seldom the problem. In AEOeye's [crawler access study](/blog/ai-crawler-user-agent-directory) (October 2026), 4 of 90 e-commerce and consumer brands blocked an AI retrieval bot in robots.txt, yet 24 of 88 homepages challenged our self-identified crawler. That is a 95-brand convenience sample, not a Shopify-only one. It still shows where to look first: bot protection, product data, then independent proof.",
  "sections": [
   {
-   "heading": "First, stop blocking the crawlers you need (most stores are)",
-   "body": "You cannot be cited if the engine can't read you. Roughly a quarter of ecommerce sites block major AI crawlers without knowing it — usually because an SEO app, a security app, or an anti-scraping tool injected blanket disallow rules. The usual culprits on Shopify are bot-blocking security apps and some SEO apps that add wildcard rules catching OAI-SearchBot, ChatGPT-User, and PerplexityBot.\n\nFix it at the source. In **Online Store > Themes > Edit code**, add a new template, choose **robots** with file type **liquid**, and Shopify creates `robots.txt.liquid`. Keep Shopify's defaults (they correctly disallow `/admin/`, `/checkout/`, `/cart/`, `/account/`, and `/search?` for everyone) and append explicit allows for the bots that matter:\n\n- **OAI-SearchBot** and **ChatGPT-User** — ChatGPT's search index and live fetches\n- **PerplexityBot** and **Perplexity-User**\n- **ClaudeBot**, **Claude-SearchBot**, **Claude-User**\n- **GoogleOther** and **Google-Extended**\n\nA blocked OAI-SearchBot means ChatGPT can't read a single page — not your product pages, not your buying guides, nothing. Verify after deploying: fetch `yourstore.com/robots.txt` in an incognito window and read the actual rules, not what the app claims they are."
+   "heading": "Can AI engines read your Shopify store?",
+   "body": "Usually yes. Shopify generates a default robots.txt that [works for most stores](https://shopify.dev/docs/storefronts/themes/seo/robots-txt) and, per its [help center](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products), handles bot management at the network layer. When an AI crawler cannot read a Shopify store, the cause is usually something added later: a robots.txt.liquid edit, a proxy or firewall in front of the store, or a security app.\n\nShopify [doesn't recommend a proxy in front of its stores](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products). A robots.txt rule is a request, not enforcement ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309)). A firewall challenge is enforcement, and robots.txt never shows it.\n\nCheck in this order:\n\n1. Open `yourstore.com/robots.txt`. Look for `OAI-SearchBot`, `PerplexityBot` and `Claude-SearchBot`, and for any `User-agent: *` group with `Disallow: /`.\n2. If a bot is blocked, edit the `robots.txt.liquid` template under Online Store > Themes > Edit code. Keep Shopify's `robots.default_groups` loop: Shopify says its [default rules update regularly](https://shopify.dev/docs/storefronts/themes/seo/robots-txt), so static text freezes yours. Add custom rules below the loop; our [AI robots.txt generator](/tools/ai-robots-txt-generator) writes rules for the main AI bots.\n3. Ask whoever runs your CDN, firewall or security app whether AI retrieval bots are challenged.\n\nKnow what each bot does. Per [OpenAI's crawler documentation](https://developers.openai.com/api/docs/bots), OAI-SearchBot decides whether you appear in ChatGPT search, GPTBot covers model training, and ChatGPT-User fetches pages on a user's request, where robots.txt rules may not apply. Blocking GPTBot does not remove you from ChatGPT search.\n\nSkip the llms.txt app. Per Shopify's May 28, 2026 changelog, every store [serves /agents.md, /llms.txt and /llms-full.txt by default](https://shopify.dev/changelog/posts/customize-llmstxt-llms-fulltxt-and-agentsmd), and Google says you [don't need AI text files](https://developers.google.com/search/docs/appearance/ai-features) to appear in AI Overviews or AI Mode. We [rate llms.txt as overrated](/blog/llms-txt-is-overrated).\n\n![Retro blue open sign hanging on the glass door of a small shop](https://images.pexels.com/photos/1376412/pexels-photo-1376412.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Turn on Shopify Catalog — your biggest unfair advantage",
-   "body": "This is the one thing non-Shopify merchants would kill for. Shopify Catalog automatically syndicates your product data to connected AI platforms including ChatGPT, Perplexity, and Google AI Mode. Your products become discoverable in ChatGPT with no manual setup — and when a buyer purchases, ChatGPT sends them to complete checkout in your own store via an in-app browser, with the order landing in your Shopify admin tagged with AI channel attribution.\n\nPerplexity works similarly through Shopify's infrastructure: your catalog syncs in, and Perplexity's Instant Buy processes the purchase through PayPal rather than your Shopify checkout. Join Perplexity's free Merchant Program — it gives the system more complete product data, which improves visibility. Placement is organic; you can't pay your way in.\n\nThe catch: garbage in, garbage out. Catalog only syndicates what's in your product records. Empty `vendor` fields, missing `google_product_category`, no GTIN, blank metafields, stale `inventory_quantity` — all of it weakens how confidently an engine can match a query to your product. Audit your product feed the way you'd audit a Google Merchant feed, because it's now feeding three answer engines at once."
+   "heading": "Which Shopify programs put your products in AI answers?",
+   "body": "Shopify's agentic storefronts. They are [active by default for eligible stores](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts), and each AI channel receives your products by a different route. You manage them under Sales channels > Agentic in your Shopify admin.\n\nThree details decide whether a product is in the feed:\n\n- **Eligibility.** Catalog [excludes products](https://help.shopify.com/en/manual/promoting-marketing/seo/shopify-catalog/requirements) that are Unlisted or hidden from search engines, stores in private mode, items priced at zero, and products without a title or image. Audit anything an app has hidden.\n- **No guarantee.** Being in Catalog [doesn't guarantee](https://help.shopify.com/en/manual/shopify-catalog) a product appears in any answer; each channel controls ranking and wording.\n- **Two layers.** Blocking AI crawlers in robots.txt [doesn't stop Catalog delivery](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products), and switching Catalog access off doesn't hide you: products [may still appear through web crawling](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/chatgpt).\n\nPerplexity sits outside Shopify's channel list. Shopify's [April 2026 guide](https://www.shopify.com/blog/perplexity-shopping) says it requires joining Perplexity's Merchant Program and that results are organic, so you cannot pay for placement. Install the free [Shopify Knowledge Base app](https://help.shopify.com/en/manual/promoting-marketing/knowledge-base) so AI agents answer policy questions correctly, but Shopify itself says it doesn't change how often your store appears."
   },
   {
-   "heading": "Make product pages specific enough to be matchable",
-   "body": "AI engines recommend products they can describe with confidence. \"Heavyweight Cotton Unisex Graphic Tee, Tour 2026\" is matchable; \"Classic Tee\" is not. The brands that consistently surface across ChatGPT, Perplexity, and Gemini all share one trait — rich, specific product data that lets the model tie a natural-language query to a SKU.\n\nThe problem on Shopify is structural. Themes render every product through one template, so it's easy to ship 400 product pages that are 90% boilerplate. Break the pattern:\n\n- **Lead with attributes a query contains** — material, weight, fit, dimensions, use case, compatibility, what it's *for*. Buyers ask AI in plain language (\"waterproof, breathable, for cycling in rain\"); your copy needs those exact concepts.\n- **Answer the implicit question.** Sizing runs small? Say so. Battery lasts 6 hours? State it. AI pulls these specifics verbatim into answers.\n- **Use Shopify metafields** to store structured attributes (material, certifications, care, compatibility) and surface them on the page — they enrich both the visible copy and your schema.\n- **Kill duplicate and thin variants** that dilute which page should rank for a query.\n\nWrite the product description you'd want quoted back to a buyer who's seconds from purchasing."
+   "heading": "How should you write product pages on Shopify?",
+   "body": "Fill every field Shopify says AI platforms read, then state specs as plain text. Shopify's [Catalog guidance](https://help.shopify.com/en/manual/promoting-marketing/seo/shopify-catalog/optimizing-products) lists title, description, images, type, vendor, collections, tags, barcode and variant option names (name options \"Size\" and \"Color\", not \"Option 1\").\n\n- **Title and description:** name the thing and who it is for. \"Merino Base Layer Crew, Men's\" matches a query; \"The Cozy One\" does not.\n- **Type, vendor, collections, tags, barcode:** an empty vendor or missing barcode is a gap you control.\n- **Custom data:** if specs live in metafields or metaobjects, use [Catalog Mapping](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products) to point title, description and category at the right source.\n- **Legal text:** ChatGPT needs relevant legal disclosures [in the first 6,000 characters](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/chatgpt) of a description.\n- **Machine-only detail:** Shopify says AI-oriented content that suits shoppers less [can sit lower on the page](https://help.shopify.com/en/manual/promoting-marketing/seo/optimizing-store-for-ai).\n\nOur position: a boilerplate paragraph repeated across hundreds of products cannot help an engine choose between them. Write the specifics per product. Our [product-page guide](/answers/how-to-optimize-product-pages-for-ai) covers the method; the [e-commerce playbook](/for/ecommerce) covers the rest.\n\n![Three cardboard boxes stacked on a dolly outside a warehouse, ready for shipping](https://images.pexels.com/photos/6169055/pexels-photo-6169055.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Ship complete, valid structured data",
-   "body": "Schema is how you hand an engine a clean, unambiguous machine-readable view of what you sell. For Shopify product pages, the stack that matters is **Product**, **Offer** (with `price`, `priceCurrency`, and `availability`), **AggregateRating**, and **Review** — plus **FAQPage** on pages where you answer real questions. Together they tell the model your price, whether you're in stock, and that real people rated the thing.\n\nMany Shopify themes emit partial or outdated Product schema, and review apps often inject their own ratings markup that conflicts with the theme's. The result is duplicate or invalid schema that engines distrust. Don't assume it's right because an app promised it — validate.\n\nConcrete steps:\n\n- Run live product URLs through Google's Rich Results Test and Schema.org validator. Fix every error and warning.\n- Make sure `AggregateRating` reflects your *real* review count and average from your actual review app (Judge.me, Loox, Okendo) — not placeholder values.\n- Keep `availability` and `price` in the markup in sync with live inventory; stale stock data is worse than none.\n- Don't run two apps that both output Product schema. Pick one source of truth.\n\nIf you want a fast read on what's missing across crawl access, schema, and AI visibility, AEOeye's free audit checks your store against exactly these signals and shows where you're invisible."
+   "heading": "How do you ship complete structured data on Shopify?",
+   "body": "Check what your theme already outputs, then add missing fields from exactly one source. Shopify's [structured_data Liquid filter](https://shopify.dev/docs/api/liquid/filters/structured_data) emits schema.org Product markup, as a ProductGroup when a product has variants, so most themes ship something. The question is what it omits.\n\nIn Shopify's own documented example, the output has fields for brand, category, description, image and name, plus one Offer with price, currency, availability and URL. It shows no rating, review or GTIN. [Google's merchant listing documentation](https://developers.google.com/search/docs/appearance/structured-data/merchant-listing) adds sku, mpn, review and aggregateRating; the [more properties you add, the more enhancements](https://developers.google.com/search/docs/appearance/structured-data/product) a page can qualify for.\n\n1. Run a live product URL through Google's Rich Results Test and count the Product blocks. Two means a theme and an app are both writing markup; remove one.\n2. Add AggregateRating only from reviews shoppers can see on the page. Google's [structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies) say not to mark up content that isn't visible, or fake reviews.\n3. Add return-policy markup under Organization, which Google [recommends for merchants](https://developers.google.com/search/docs/appearance/structured-data/product).\n\nTreat schema as a cleanliness check, not a lever: Google states there is [no special schema](https://developers.google.com/search/docs/appearance/ai-features) required for AI Overviews or AI Mode, only structured data that matches the visible text."
   },
   {
-   "heading": "Build the buying guides and FAQs that AI actually cites",
-   "body": "Product pages get you *matched*. Content gets you *recommended* in the comparison-and-research queries where real money decisions happen — \"best X for Y,\" \"X vs Z,\" \"is X worth it.\" Pure-product Shopify stores almost always under-invest here, which is exactly the gap to exploit.\n\nUse Shopify's blog and pages to publish genuinely useful, comparison-friendly content:\n\n- **Category buying guides** that compare options honestly, including trade-offs — \"how to choose a standing desk\" that names criteria, ranges, and who each option suits. Engines love structured comparisons they can lift.\n- **\"X vs Y\" pages** for the comparisons buyers actually type, including comparisons against competitors. Being the source that explains the tradeoff fairly gets you cited even when you're not the cheapest.\n- **FAQ pages with FAQPage schema** answering the specific questions buyers ask before purchase — fit, shipping, returns, compatibility, durability.\n\nFormat for extraction: clear H2 questions, direct answers in the first sentence, short scannable paragraphs, real numbers. The first sentence under each heading should stand alone as a quotable answer — that's what lands you in an AI Overview or a ChatGPT response."
+   "heading": "Which content gets a Shopify store named, not just listed?",
+   "body": "Independent, comparison-style content, on your site and elsewhere. A feed gets a product listed; for \"best X for Y\" questions the engine still picks names, and being named at all is the hard part. In AEOeye's recommendation benchmark (127 audits, June to September 2026), a named brand was usually first: 71.4% of 147 ranked mentions ([data](/resources/aeoeye-recommendation-benchmark-2026-09.json)). Small, self-selected sample: read it as direction.\n\nAdobe reported that [AI traffic to US retail sites rose 693.4%](https://news.adobe.com/news/2026/01/adobe-holiday-shopping-season) over the 2025 holiday season, while noting the base remains modest: a real channel, not one to rebuild around.\n\nPublish what engines can lift:\n\n- **Buying guides** that state criteria, price ranges and who each option suits, including when a competitor is the better pick.\n- **\"X vs Y\" pages** for comparisons shoppers type.\n- **Policy pages** (shipping, returns, sizing) in plain sentences.\n\nThe GEO paper found tactics that [lifted visibility by up to 40%](https://arxiv.org/abs/2311.09735) in generative engine responses, with results that varied by domain, so test in your own category. Outside mentions can be harder to engineer: 27 of 38 news publishers in [our study](/blog/ai-crawler-user-agent-directory) blocked at least one AI retrieval bot.\n\n![Street scene with small local shops under colorful striped awnings and outdoor plants](https://images.pexels.com/photos/8228650/pexels-photo-8228650.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Earn the trust signals that make AI confident to name you",
-   "body": "The third trait shared by frequently-cited brands is authority — signals that tell the model your brand actually exists, ships, and stands behind its products. AI engines are risk-averse about pointing a buyer at an unknown store. You reduce that risk with proof:\n\n- **Volume and recency of third-party reviews.** Reviews on your product pages (via Okendo, Loox, Judge.me) feed schema *and* give engines language to describe satisfaction. Off-site reviews on Trustpilot, Reddit, and YouTube matter even more — they're independent corroboration.\n- **Citations from real publications.** A mention in a credible roundup or review article is a strong vote. Earn them with genuinely good products and outreach, not link schemes.\n- **Consistent brand entity data** — same name, address, and details across your site, social profiles, and Google Business Profile so the model resolves you to one confident entity.\n\nThis is the slowest lever and the one that compounds. Two stores can have identical schema and crawl access; the one with 2,000 verified reviews and three independent write-ups gets named, and the one with twelve reviews and no press doesn't."
+   "heading": "How do you check whether AI recommends your store?",
+   "body": "Ask the questions your buyers ask, in each engine, and write down who gets named. Do it before changing anything, then repeat after each fix.\n\n1. Write 10 unbranded buyer questions per main category, such as \"best X for Y under $Z\".\n2. Run each in ChatGPT, Perplexity, Gemini and Google AI Mode. Log the brands named, their order and the sources shown.\n3. Compare with Shopify's own data: it says agentic storefronts give you [insights on search and sales performance](https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts), and AI orders carry channel attribution.\n4. Repeat monthly.\n\nAEOeye's [free audit](/) does the first pass: it asks three unbranded buyer questions to ChatGPT live, shows the full answers and lists the competitors named instead. The $29 report adds Claude, Gemini, Google AI and Perplexity across 10 questions. It is not a daily tracker; for monitoring across hundreds of prompts, tools such as Profound, Peec AI and Otterly do that."
   }
  ],
+ "comparisonTable": {
+  "columns": [
+   "AI channel",
+   "How your products arrive",
+   "Where the buyer pays",
+   "What Shopify requires"
+  ],
+  "rows": [
+   {
+    "label": "ChatGPT",
+    "values": [
+     "Shopify Catalog",
+     "Your own store checkout, in ChatGPT's in-app browser or a new tab",
+     "Sell to US customers (store can be based elsewhere); Catalog-eligible products; supplemental terms accepted; Terms, Privacy and Return policies completed"
+    ]
+   },
+   {
+    "label": "Google AI Mode and Gemini",
+    "values": [
+     "Google & YouTube sales channel or Merchant Center",
+     "In-channel direct checkout, if activated",
+     "Rolling out to eligible stores; direct checkout may not yet be available"
+    ]
+   },
+   {
+    "label": "Microsoft Copilot",
+    "values": [
+     "Shopify Catalog",
+     "In-channel direct checkout, if activated",
+     "Eligible stores; supplemental terms accepted"
+    ]
+   },
+   {
+    "label": "Meta",
+    "values": [
+     "Facebook and Instagram by Meta sales channel",
+     "In-channel direct checkout, if activated",
+     "Eligible stores; supplemental terms accepted"
+    ]
+   }
+  ]
+ },
  "keyTakeaways": [
-  "AI-referred Shopify traffic grew 7x and AI-attributed orders grew 11x between Jan 2025 and Jan 2026 — and ChatGPT referrals convert at ~4.4x organic search. This is a real revenue channel now.",
-  "First, unblock AI crawlers: edit robots.txt.liquid to explicitly allow OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, and Google-Extended. ~27% of ecommerce sites block them by accident via apps.",
-  "Opt into Shopify Catalog — it auto-syndicates your products to ChatGPT, Perplexity, and Google AI Mode with no setup, sending checkout back to your store with AI attribution.",
-  "Product matchability beats everything: specific, attribute-rich copy ('Heavyweight Cotton Unisex Tee') wins over boilerplate ('Classic Tee'). Use metafields and kill thin duplicate variants.",
-  "Ship and validate complete schema — Product, Offer, AggregateRating, Review, FAQPage — and don't run two apps emitting conflicting Product markup.",
-  "Buying guides, X-vs-Y pages, and FAQ schema get you cited in research queries; third-party reviews and real publication citations make engines confident enough to name you."
+  "Check before you fix: in our e-commerce sample, 4 of 90 brands blocked an AI retrieval bot in robots.txt, but 24 of 88 homepages challenged our crawler. Look at firewalls first.",
+  "Shopify already routes eligible products to ChatGPT, Google AI Mode, Gemini, Copilot and Meta. Your job is keeping products eligible and their fields complete.",
+  "Leave llms.txt alone, since Shopify serves it by default, and spend the time on product fields, one clean source of Product markup and honest buying guides.",
+  "Catalog inclusion gets you listed. Independent mentions and comparison content decide whether you are named."
  ],
  "faqs": [
   {
-   "q": "Does Shopify automatically make my products visible in ChatGPT and Perplexity?",
-   "a": "Partly. Shopify Catalog auto-syndicates your product data to ChatGPT, Perplexity, and Google AI Mode with no manual setup, so your SKUs can become discoverable. But visibility still depends on your data quality and whether AI crawlers can reach your content pages. If an app blocked OAI-SearchBot or PerplexityBot in your robots.txt, or your product records are thin and your schema is broken, Catalog has little to work with. Treat the auto-sync as a starting line, not the finish."
+   "q": "Does Shopify automatically show my products in ChatGPT?",
+   "a": "Often, yes. Shopify says agentic storefronts are active by default for eligible stores and that ChatGPT receives products through Shopify Catalog. Your store must sell to customers in the United States, products must meet Catalog requirements, you must accept the supplemental terms, and your Terms, Privacy and Return policies must be filled in. Inclusion does not guarantee any answer names you."
   },
   {
-   "q": "How do I check if my Shopify store is blocking AI crawlers?",
-   "a": "Open yourstore.com/robots.txt in an incognito window and read it directly — don't trust an app's dashboard. Look for any Disallow rules under, or wildcards affecting, OAI-SearchBot, ChatGPT-User, PerplexityBot, ClaudeBot, or Google-Extended. Common offenders are bot-blocking security apps and some SEO apps that add blanket rules. To fix it, add a robots.txt.liquid template (Themes > Edit code), keep Shopify's defaults, and append explicit Allow rules for those user-agents."
+   "q": "Do I need to edit robots.txt.liquid for AI crawlers?",
+   "a": "Usually not. Shopify's default robots.txt works for most stores, and Shopify handles bot management at the network layer. Read yourstore.com/robots.txt first, and edit the template only if OAI-SearchBot, PerplexityBot or Claude-SearchBot is blocked. Keep Shopify's Liquid loop so default rules keep updating. Also check any proxy, firewall or security app, which robots.txt cannot show."
   },
   {
-   "q": "What structured data do Shopify product pages need for AI search?",
-   "a": "At minimum: Product schema, Offer (with price, priceCurrency, and availability), AggregateRating, and Review. Add FAQPage schema on pages that answer buyer questions. Validate every product URL in Google's Rich Results Test and the Schema.org validator, and make sure ratings reflect your real review count from your review app. Critically, don't run two apps that both emit Product schema — conflicting or duplicate markup makes engines distrust it."
+   "q": "Should I install an app to generate llms.txt on Shopify?",
+   "a": "No. Shopify's May 2026 changelog says every store serves /agents.md, /llms.txt and /llms-full.txt by default, and Google says you don't need AI text files to appear in AI Overviews or AI Mode. If you want different content at those URLs, add an llms.txt.liquid or agents.md.liquid template to your theme instead of paying for an app."
   },
   {
-   "q": "Will optimizing for AI search hurt my regular Shopify SEO?",
-   "a": "No — the two reinforce each other. Specific product copy, valid schema, fast crawlable pages, real reviews, and useful buying guides are foundational for Google rankings and for AI citations alike. The main additions unique to AI search are explicitly allowing AI crawler user-agents and opting into Shopify Catalog. Nothing in the AEO playbook conflicts with good traditional SEO; it extends it."
+   "q": "Does turning off Shopify Catalog access hide my products from ChatGPT?",
+   "a": "Not completely. Shopify says products might still be displayed through other discovery methods such as web crawling and indexing. Setting a product to Unlisted hides it from AI channels, but it also removes it from sitemaps, Google and your store search, so use it only for products you truly want hidden."
   },
   {
-   "q": "How fast will I see results from AI search optimization on Shopify?",
-   "a": "Crawler access and Catalog opt-in can change what engines see within days to a couple of weeks once they re-crawl. Schema fixes and product-copy improvements take effect as pages are reindexed. The slowest lever is authority — third-party reviews and publication citations — which compounds over months. Run a baseline audit (AEOeye's free audit is one way), fix crawl and schema first for quick wins, then invest in content and reviews for durable gains."
+   "q": "Do I need a schema app on Shopify?",
+   "a": "Not by default. Themes that use the structured_data filter already output Product markup. Add an app only to fill specific gaps such as ratings or return policies, and make sure only one source writes Product markup. Validate in Google's Rich Results Test, and keep the markup matching what shoppers see on the page."
   }
  ],
- "comparisonTable": null,
+ "definitions": [
+  {
+   "term": "Shopify Catalog",
+   "definition": "A structured source of product information gathered from eligible products sold by Shopify stores, which Shop, selected AI platforms and AI agents can use to search and understand titles, descriptions, images, prices, options and availability.",
+   "sourceUrl": "https://help.shopify.com/en/manual/shopify-catalog"
+  },
+  {
+   "term": "robots.txt",
+   "definition": "A plain-text file at a site's root that tells crawlers which URLs they are requested not to fetch; it is a request, not access control.",
+   "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9309"
+  },
+  {
+   "term": "JSON-LD",
+   "definition": "A JSON-based format for linked data that sites use to embed schema.org structured data, such as Product and Offer markup, in a page.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/JSON-LD"
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/7191163/pexels-photo-7191163.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Close-up of a woman using a laptop for online shopping and holding a credit card in hand.",
-  "photographer": "Pavel Danilyuk",
-  "photographerUrl": "https://www.pexels.com/@pavel-danilyuk"
- }
+  "url": "https://images.pexels.com/photos/5031038/pexels-photo-5031038.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A person holds a credit card near a laptop while shopping online",
+  "photographer": "Joshua Woroniecki",
+  "photographerUrl": "https://www.pexels.com/@joshuaworoniecki"
+ },
+ "sources": [
+  {
+   "label": "Shopify Help Center — Shopify Catalog and product discovery for agentic storefronts",
+   "url": "https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/products"
+  },
+  {
+   "label": "Shopify Help Center — Selling on ChatGPT",
+   "url": "https://help.shopify.com/en/manual/online-sales-channels/agentic-storefronts/chatgpt"
+  },
+  {
+   "label": "Shopify.dev — Customize robots.txt",
+   "url": "https://shopify.dev/docs/storefronts/themes/seo/robots-txt"
+  },
+  {
+   "label": "Shopify developer changelog — Customize /llms.txt, /llms-full.txt and /agents.md (May 28, 2026)",
+   "url": "https://shopify.dev/changelog/posts/customize-llmstxt-llms-fulltxt-and-agentsmd"
+  },
+  {
+   "label": "Shopify.dev — Liquid structured_data filter",
+   "url": "https://shopify.dev/docs/api/liquid/filters/structured_data"
+  },
+  {
+   "label": "Google Search Central — AI features and your website",
+   "url": "https://developers.google.com/search/docs/appearance/ai-features"
+  }
+ ],
+ "updated": "2026-10-03"
 }

@@ -1,0 +1,66 @@
+{
+  "contentSha256": "73e85cb52369ed24a4cd09ed0c465496966a76ee25c8984b65d978db3b4c7168",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Someone leaving or avoiding Trakkr wants to know why people look elsewhere, which alternatives fit which need, what each really costs today and when Trakkr is still the right choice.",
+    "connection": "AEOeye's one-off audit (free ChatGPT check, $29 five-engine report) is one answer to the same buyer question that daily trackers monitor; the page places it honestly next to Otterly, Peec AI, Nightwatch, AthenaHQ and Profound and says when a tracker is the better tool."
+  },
+  "assessment": "A documentation-based alternatives guide built from each vendor's own pricing page and Trakkr's FAQ, pricing page and terms, read on 2026-10-03, with a disclosure near the top that no product was tested hands-on and that AEOeye is our own product. It derives the reasons for leaving from Trakkr's own documentation (no free plan, per-brand prompt ceiling, measurement before action), compares seven plans in one table with a labelled cost-per-answer calculation that shows Trakkr is cheap per answer and dear only per entry, and ends with when Trakkr is still the right choice. It deliberately makes no claim about data quality, accuracy or outcomes of any vendor, and replaces the old page's stale prices (Otterly 14-day trial, Peec EUR, Profound Starter/Growth, Nightwatch add-ons) and its wrong 'multi-engine free audit' wording.",
+  "sources": [
+    {
+      "url": "https://trakkr.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Growth $100/month or $1,000/year, Scale $500/month, Enterprise from $1,000/month billed annually; 50 prompts per brand and 8 models on both plans; 12,000 data points on Growth; card-required 14-day trial; billed in USD; Scale adds breadth, not per-brand depth."
+    },
+    {
+      "url": "https://trakkr.ai/learn/docs/faq",
+      "checkedAt": "2026-10-03",
+      "supports": "No free version, 14-day card-required Growth trial; eight models with no per-model fee; provider-API collection; advice to start with 5 to 20 questions; Agent permissions all off until granted; pages-actions-results workflow; Scale API and white-label portal."
+    },
+    {
+      "url": "https://trakkr.ai/terms",
+      "checkedAt": "2026-10-03",
+      "supports": "14-day money-back guarantee for new subscribers."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month (15 prompts; ChatGPT, Google AI Overviews, Perplexity, Microsoft Copilot), Standard $189, Premium $489; 15% annual discount with Lite at $25; Claude add-on $29 on Lite, Gemini and AI Mode add-ons $9 on Lite; free trial (length not stated)."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Rendered in a browser: Starter $95/month (monthly toggle), 50 prompts, choose 3 models from ChatGPT, AI Mode, AI Overviews, Microsoft Copilot, Gemini and Naver AI, daily tracking, 4,500 monthly AI answers; no price or trial details in the static HTML."
+    },
+    {
+      "url": "https://nightwatch.io/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter EUR 79/month on yearly billing (EUR 948/year, saves EUR 240 versus monthly), 500 keywords, 50 AI prompts, 1,500 AI answers a month, ChatGPT, Claude, Gemini, Perplexity, AI Mode and AI Overview; 14-day trial, no card."
+    },
+    {
+      "url": "https://www.athenahq.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free plan with $25 credit (300 credits) on 5 platforms; Starter $295/month for 3,600 credits across 11 models; 1 credit = 1 AI response; API and extra credits as paid add-ons; Enterprise custom."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Free Trial (50 prompts daily for 7 days, ChatGPT, Gemini, Google AI Overviews) and custom Enterprise (up to 9 answer engines, SSO/SAML, SOC 2); no self-serve paid brand plan listed."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded the Otterly, Peec, Profound, AthenaHQ, Nightwatch and Trakkr pricing pages with curl and fetched them with WebFetch on 2026-10-03; where WebFetch and raw text disagreed (Nightwatch monthly vs yearly, Peec JavaScript-rendered prices) I used the raw text and a rendered browser view and stated the billing basis.",
+    "Writer (Sonnet): rendered peec.ai/pricing in a browser and read Starter $95 a month, 50 prompts and 'Choose 3 models'; used no Peec Pro or Advanced price because I did not read them on the rendered page.",
+    "Writer (Sonnet): recomputed $100/12,000 = $0.0083, $95/4,500 = $0.021, EUR 79/1,500 = EUR 0.053 and $295/3,600 = $0.082 and labelled them as our arithmetic with the caveat that vendors count usage differently.",
+    "Writer (Sonnet): took Trakkr's reasons-to-leave only from Trakkr's own FAQ and pricing page (no free plan, per-brand prompt ceiling, Agent permissions) and repeated no reviewer hearsay.",
+    "Writer (Sonnet): used only AEOeye product facts from the evidence pack (free audit: 3 questions on ChatGPT only; $29 one-time report: 10 questions on 5 engines; no subscription) and the recommendation-benchmark figure 2.9 competitors per answer with its small-sample caveat; ran node scripts/content-lint.mjs (clean).",
+    "Writer (Sonnet): the Peec table cell 'not shown on pricing page' and the Otterly 'length not stated' are statements about what the pages say, not about whether a trial exists.",
+    "Editor (Opus): read the final draft and the writer's source report; Trakkr alternatives; reasons to leave from Trakkr's own pages; per-answer cost labelled as our arithmetic",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

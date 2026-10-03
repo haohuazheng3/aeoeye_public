@@ -1,0 +1,81 @@
+{
+  "contentSha256": "42325502591ddd7ababd34054d28906f34b679d9a0316c8564e5c949b5cf028d",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Someone comparing AEOeye with Evertune wants to know which one fits their budget and question: a one-time check of whether AI engines name their brand, or a continuous GEO platform.",
+    "connection": "AEOeye sells one-time AI visibility audits (free ChatGPT check, $29 five-engine report). The page explains how that differs from Evertune's demo-led, repeatedly sampled platform, says where Evertune is stronger, and points to cheaper trackers when continuous monitoring is the real need."
+  },
+  "assessment": "The page opens with a verdict by situation and discloses that it rests on Evertune's public documentation, not hands-on use. It replaces the earlier version's unverifiable claims (a ~$3,000-a-month floor, a US-only panel, a 1M-prompts-per-month figure, Miro as a client) with what Evertune's own pricing, platform, methodology, FAQ and company pages say today (Pro $800 a month, Enterprise custom, 11+ models, up to 100 samples per prompt). It tests Evertune's central sampling argument against OpenAI's documentation, SparkToro's independent run-to-run study and the standard margin-of-error formula, and flags the unclear '100,000 prompts' unit and the position-weighted AI Brand Score. It corrects the earlier AEOeye description (the free audit is ChatGPT-only with three questions; the $29 report adds four engines and ten questions) and deliberately does not rate the product, claim a trial exists or not beyond what the pricing page shows, or compare per-engine mention rates.",
+  "sources": [
+    {
+      "url": "https://www.evertune.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Pro $800 / month: 100,000 prompts tracked across 11 AI models, daily, weekly or monthly tracking, global language and country tracking, 25 AI-optimized articles per month, 3 onboarding sessions, affiliate advertising partnerships, AI Retargeting; Enterprise custom (dedicated AI Success Manager, AI website optimization, AI bot analytics for your domain, SSO); both plans use a 'Request a demo' button; no billing terms or trial shown."
+    },
+    {
+      "url": "https://www.evertune.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Homepage: Explore, Measure, Act, Advertise steps; benchmark against competitors across 11 models; samples each prompt 100 times across every AI model; EverPanel of over 150 million user prompts."
+    },
+    {
+      "url": "https://www.evertune.ai/about-us/company-overview",
+      "checkedAt": "2026-10-03",
+      "supports": "Founded 2024 by early Trade Desk team members; clients including Halo Collar, Canada Goose, HexClad, Roku and WPP; mid-market and enterprise focus."
+    },
+    {
+      "url": "https://www.evertune.ai/platform/methodology",
+      "checkedAt": "2026-10-03",
+      "supports": "Evertune's running-shoes experiment (July 2026): about 48% visibility with a ±10 point margin at 100 samples; ±9 points overall for 100 prompts asked once versus ±1 point asked 100 times; base-model versus consumer-app measurement."
+    },
+    {
+      "url": "https://www.evertune.ai/resources/faq",
+      "checkedAt": "2026-10-03",
+      "supports": "List of 11 monitored models and surfaces; Site Audit crawls up to 1,000 pages; AI Brand Score position weights (100%, 90%, 81%); Visibility Score is the percentage of responses mentioning the brand; base-model data via direct API versus consumer-app data."
+    },
+    {
+      "url": "https://www.evertune.ai/platform/act",
+      "checkedAt": "2026-10-03",
+      "supports": "Act pages: Site Audit, Content Analytics, Content Studio (export as Markdown or HTML), Partner Connect affiliate placements."
+    },
+    {
+      "url": "https://www.evertune.ai/resources/insights-on-ai/evertune-named-a-notable-vendor-in-forresters-answer-engine-optimization-technologies-landscape-q3-2026",
+      "checkedAt": "2026-10-03",
+      "supports": "Evertune's own post (17 September 2026) says Forrester named it a notable vendor in The Answer Engine Optimization Technologies Landscape, Q3 2026, and carries Forrester's non-endorsement disclaimer."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 2,961 runs; under 1 in 100 chance of the same brand list twice from ChatGPT or Google's AI; under 1 in 1,000 for the same list in the same order; advice to ask at least 60-100 times and average; ranking position is a poor metric."
+    },
+    {
+      "url": "https://cookbook.openai.com/examples/reproducible_outputs_with_the_seed_parameter",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI Cookbook: the Chat Completions API is non-deterministic by default, so model outputs may differ from request to request."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Margin_of_error",
+      "checkedAt": "2026-10-03",
+      "supports": "Margin of error formula z x sqrt(sigma squared / n) at 95% confidence; used to recompute that 100 responses at 50% give about 9.8 points."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "Abstract of the GEO paper (Aggarwal et al.) that introduces Generative Engine Optimization as a framework for improving content visibility in generative engine responses."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded evertune.ai pages (home, pricing, platform/methodology, platform/explore, measure, act, advertise, FAQ, company overview, customer stories, get-started, the Forrester post and the July 2026 sampling post) with curl on 2026-10-03 and read the raw page text; every Evertune price, plan feature, model list and sampling claim on the page comes from those pages.",
+    "Writer (Sonnet): found that Evertune's pricing page now shows a Pro plan at $800 a month and no $3,000 figure, no US-panel limit (it lists global language and country tracking) and no Miro client, so I dropped the earlier page's $3,000-a-month floor, US-centric panel, 1M-prompts-per-month and Miro claims.",
+    "Writer (Sonnet): recomputed the 95% margin of error with 1.96 x sqrt(p(1-p)/n): 9.8 points for n=100 at 50%, 8.9 points for n=100 at 29%, 0.9 points for n=10,000, 19.6 for n=25, 31 for n=10; these match Evertune's published figures, which I say on the page while noting the study is Evertune's own.",
+    "Writer (Sonnet): re-read SparkToro's post and the OpenAI Cookbook page against raw text before citing 2,961 runs, under 1 in 100, under 1 in 1,000 and the 60-100 runs advice, and the 'non-deterministic by default' statement.",
+    "Writer (Sonnet): read the aeoeye.com / evertune.ai rows of the AEOeye crawler access study CSV and fetched evertune.ai/robots.txt and /llms.txt to confirm the fact box (no AI bots blocked, Disallow /legal/ and /404, llms.txt present, JSON-LD EntryPoint/Organization/SearchAction/WebSite).",
+    "Writer (Sonnet): corrected AEOeye claims to the evidence-pack product facts (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds Claude, Gemini, Google AI and Perplexity and ten questions; no subscription; not a daily tracker) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the final draft and the writer's source report; AEOeye vs Evertune; stale ~$3,000/month floor replaced with the $800 Pro list price, consistent with /answers/how-much-does-evertune-cost",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

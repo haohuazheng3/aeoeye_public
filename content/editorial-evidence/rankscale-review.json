@@ -1,0 +1,50 @@
+{
+  "contentSha256": "0c420393b3e827e5602438e03c45e19af960c99d99618b8854496bd39d482a37",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A marketer, SEO lead or agency owner is considering Rankscale and wants to know what it does, what the credit-based pricing really costs, and what to check before paying.",
+    "connection": "AEOeye audits what AI engines say about a brand; the page helps readers decide between a recurring tracker and a one-time audit, and uses AEOeye's crawler study for a neutral fact box on Rankscale's own site."
+  },
+  "assessment": "A documentation-based guide, not a hands-on review: it reports what Rankscale's pricing page, homepage and llms.txt say (five plans, credits, rollover multipliers, per-engine credit costs, beta labels, inconsistent audit-check counts), shows the credit arithmetic with stated assumptions, and lists seven pre-purchase checks grounded in the SparkToro inconsistency study. It does not claim anything about Rankscale's data accuracy or results, does not rank it, and marks vendor claims (17+ engines, 1000+ users) as unverified.",
+  "sources": [
+    {
+      "url": "https://rankscale.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Plans: Essentials from $20 ($17 yearly, 'Yearly only'), Pro $99 (1,200 credits, up to 4,800 answers, 10 dashboards, 50 audits, 7-day free trial), Pro+ $229 (3,000 / 12,000 / 25 / 100, REST API), Growth $385 (5,500 / 22,000 / 50 / 200), Enterprise $780 (12,000 / 48,000 / 100 / 200); 15% yearly saving; rollover up to 2x (Pro, Pro+) and 3x (Growth, Enterprise); calculator credit costs 0.25 (ChatGPT, Perplexity, Gemini, AI Mode), 1 (DeepSeek), 2 (Claude); GUI vs API engine list; extra dashboard slots buyable in-app."
+    },
+    {
+      "url": "https://rankscale.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Homepage claims: 17+ engines, 1000+ active users, no per-engine upsell, '94+ technical checkpoints' and '200+ Factors' for page audits, GA4/Search Console (beta), Recommendations (beta), Query Fanouts, prompt volume by 'semantic reconstruction', sign-up required with plan or free trial."
+    },
+    {
+      "url": "https://rankscale.ai/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "llms.txt exists and links features, FAQ and terms pages; imprint names Rankscale GmbH."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google says AI Overviews and AI Mode may use a 'query fan-out' technique, issuing multiple related searches."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 3 tools, 2,961 runs; under a 1-in-100 chance of the same brand list in any two ChatGPT or Google AI responses (confirmed in raw HTML text)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched rankscale.ai/pricing, the homepage and llms.txt with WebFetch and curl on 2026-10-03; read the raw pricing HTML to confirm the plan table, the per-engine credit costs in the calculator and which plan columns carry the 2x and 3x rollover cells.",
+    "Writer (Sonnet): recomputed the credit examples (100 prompts x 30 days x 0.25 = 750; x 2 = 6,000; weekly 100 x 4.33 x 2 = about 866, 72% of 1,200) and stated their assumptions on the page; Essentials limits were rendered as placeholders in the fetched HTML, so the page says they were not readable instead of guessing.",
+    "Writer (Sonnet): confirmed rankscale.ai/robots.txt content (no blocks, seven AI bots named with Allow: /) and matched the fact box to docs/content/vendor-sites-study-2026-10.md; confirmed the SparkToro figures and Google's query fan-out sentence against the raw page text.",
+    "Writer (Sonnet): noticed that the existing /blog/rankscale-pricing page omits the Pro+ plan ($229) and linked to it only for plan-by-plan detail without repeating its table; flagged this for the editor.",
+    "Writer (Sonnet): kept the page documentation-based with no hands-on claim; AEOeye description limited to evidence-pack facts (free audit = 3 questions on ChatGPT; $29 report = 10 questions x 5 engines; not a recurring tracker); ran node scripts/content-lint.mjs: 1245 words, 2 inline images, 0 errors, 0 warnings.",
+    "Editor (Opus): read the final draft and the writer's source report; Rankscale documentation guide; credit arithmetic shown with assumptions; title no longer says pricing or review",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (bot-blocked vendor/help pages noted in the writer report)",
+    "Editor (Opus): first-hand figures and AEOeye product facts match the evidence pack (free 3-question ChatGPT audit, $29 report, no subscription)",
+    "Editor (Opus): content-lint and the content gate report no errors for this page"
+  ],
+  "merged": []
+}

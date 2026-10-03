@@ -1,69 +1,148 @@
 {
  "slug": "how-often-does-chatgpt-update-its-knowledge",
  "type": "answer",
- "title": "How Often Does ChatGPT Update Its Knowledge? (Cutoffs vs. Live Retrieval)",
- "metaTitle": "How Often Does ChatGPT Update Its Knowledge?",
- "metaDescription": "ChatGPT's baked-in knowledge updates only when OpenAI ships a new model. Here's why stale facts about your brand persist — and the fix that actually works.",
- "primaryKeyword": "how often does chatgpt update knowledge",
- "shortAnswer": "ChatGPT's core knowledge updates only when OpenAI trains and releases a new model — historically every several months to a year, not continuously. Its baked-in \"training cutoff\" is frozen until then. The exception is live web browsing: when ChatGPT searches the web (default in newer versions), it can pull facts from today. So there are two clocks running — a slow training clock and a real-time retrieval clock — and which one answers a question about your brand is mostly out of your hands.",
- "intro": "Ask ChatGPT who your CEO is and you might get the name of someone who left two years ago. Ask about your pricing and it quotes a plan you sunset last spring. That's not a bug — it's how the model's memory works, and most people misunderstand the mechanics badly enough to waste months chasing the wrong fix.\n\nThere are two completely different systems deciding what ChatGPT \"knows\" about you, and they update on totally different schedules. Get the distinction right and you stop fighting the unwinnable battle (rewriting the model's training data) and start fighting the winnable one (controlling what it retrieves live).",
+ "title": "How Often Does ChatGPT Update Its Knowledge? Cutoffs vs. Live Search",
+ "metaTitle": "How Often Does ChatGPT Update Its Knowledge? (2026)",
+ "metaDescription": "ChatGPT's built-in knowledge freezes at a training cutoff; only web search is live. See the current cutoffs and how to fix stale facts about your brand.",
+ "primaryKeyword": "how often does chatgpt update its knowledge",
+ "shortAnswer": "ChatGPT's built-in knowledge updates only when OpenAI ships a new or refreshed model, and every model is frozen at a training cutoff that sits months before its release. Anything newer reaches an answer only if ChatGPT decides to search the web. So two clocks run at once: a slow one you cannot touch and a fast one you can influence. As of October 2026, OpenAI's model pages list cutoffs from August 2025 to May 2026.",
+ "intro": "\"When does ChatGPT update?\" has no single answer, and that is why so many brand fixes fail. The model's memory, the model you happen to get, and the pages it fetches live each run on a different schedule.\n\nThis page gives you the dates OpenAI has published, shows which clock answers which kind of question, and tells you what to change first. Our position: stop waiting for the next model, and fix the pages ChatGPT can fetch today.",
  "sections": [
   {
-   "heading": "Two clocks: training cutoff vs. live retrieval",
-   "body": "ChatGPT runs on two separate knowledge systems, and conflating them is the single most common mistake.\n\n**The training cutoff (the slow clock).** Every model — GPT-4o, GPT-4.1, the o-series, GPT-5 — is trained on a frozen snapshot of text scraped up to a specific date, the *knowledge cutoff*. After that snapshot, the model learns nothing new on its own. It cannot 'notice' that you rebranded. That knowledge only refreshes when OpenAI trains a brand-new model and ships it. In practice that's been a cadence of roughly every several months to a year per major model, and even new models often carry a cutoff that lags their release by 6–12 months. So the 'memory' inside the weights can easily be a year or more behind reality.\n\n**Live retrieval (the fast clock).** When ChatGPT *browses the web* — now the default for many queries in the consumer app — it runs a real-time search, reads live pages, and answers from what it finds today. That path has effectively no cutoff. The catch: it only fires for some queries, and it pulls from whatever ranks and reads well right now."
+   "heading": "How often does ChatGPT update its knowledge?",
+   "body": "A model's knowledge never changes after training. It changes only when OpenAI releases a new or refreshed model, and each one answers from a cutoff that sits months before launch. GPT-6 Astra, for example, has an [April 30, 2026 knowledge cutoff](https://developers.openai.com/api/docs/models) and reached the API on [September 3, 2026](https://developers.openai.com/api/docs/changelog).\n\nThe release rhythm is fast. OpenAI's [API changelog](https://developers.openai.com/api/docs/changelog) shows GPT-6 Astra on September 3, GPT-6 Sol and Luna on September 22, and GPT-6.1 Sol on September 29, 2026: four models in 26 days. It also logs two refreshes of the chat-latest snapshot, which tracks the Instant model used in ChatGPT, on May 5 and May 28, 2026.\n\nA *knowledge cutoff* is the last date covered by a model's training data. The two newest releases we checked shipped about four months after their cutoffs, so a fresh model is already four months behind on day one.\n\nPlan around that gap, not around a release calendar. If your pricing, leadership or positioning changed in the last four to eight months, assume the newest model's memory has not seen it."
   },
   {
-   "heading": "What the cutoff actually means for facts about you",
-   "body": "Here's the part that trips up even smart marketing teams: the training cutoff is not when the model was *released* — it's the latest date of the data it was trained on. A model launched in 2025 might have a cutoff in 2024. Anything that happened to your brand after that date simply does not exist in the model's parameters.\n\nWorse, training data is weighted by how often something appears across the whole internet. If 'Acme was founded by Jane Smith' appears in 4,000 cached pages and 'Acme's new CEO is Raj Patel' appears in 40, the model will confidently repeat the outdated, high-frequency fact — even after a new training run — because the old version dominates the corpus. Stale facts don't persist because OpenAI is lazy; they persist because the internet still says them, loudly.\n\nThat's why 'just wait for the next model update' is a terrible strategy. The next model inherits the same internet you didn't fix. You're not waiting for ChatGPT to update — you're waiting for the *web's consensus about you* to update, then for that to get scraped, then for a training run to ingest it."
+   "heading": "Which cutoff applies to the ChatGPT your buyers use?",
+   "body": "There is no single ChatGPT cutoff. OpenAI's page for [chat-latest](https://developers.openai.com/api/docs/models/chat-latest), the alias for the latest Instant model used in ChatGPT, lists an August 31, 2025 cutoff, while the flagships on its [models page](https://developers.openai.com/api/docs/models) run to April 30 and May 18, 2026. That is an eight-month spread inside one product.\n\nWhich model a given buyer gets depends on their plan and settings, and you cannot see that from outside. So the same question can return different \"memories\" on different accounts.\n\nTreat the model's own claim about its cutoff as a hint, and OpenAI's documentation as the record. Test with several accounts or tiers before you decide a fix has failed or worked."
   },
   {
-   "heading": "Why live browsing doesn't automatically save you",
-   "body": "You'd think live web search makes the cutoff irrelevant. It doesn't, for three reasons.\n\n- **It doesn't always trigger.** Many factual questions get answered straight from the model's memory because the system judges them 'stable.' Questions about a company's basics are exactly the kind it thinks it already knows — so it skips the search and serves the stale answer with total confidence.\n- **It retrieves consensus, not truth.** When it does search, it reads the top-ranking, well-structured sources. If those still describe your old positioning, browsing faithfully repeats your old positioning.\n- **It blends both.** ChatGPT often mixes a couple of fresh snippets with its trained priors, producing answers that are half-current, half-2023. The fresh part looks authoritative enough that nobody questions the stale part.\n\nThe practical upshot: you can't control which clock answers a given question. You can only make sure that *whichever* clock fires, it lands on the correct facts. That means fixing both the trained corpus (slow, indirect) and the live-retrievable web (fast, direct)."
+   "heading": "Does ChatGPT use real-time data?",
+   "body": "Only when it searches, and searching is the model's call. OpenAI's [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) says the model can choose to search or not based on the prompt. When it does, the answer draws on pages fetched at that moment and carries inline citations by default.\n\nThe same guide describes three depths:\n\n- **Non-reasoning search:** the query goes to the search tool and the top results come back, with no planning step.\n- **Agentic search:** the model searches as part of its reasoning, reads results and decides whether to keep going.\n- **Deep research:** a longer investigation that often taps hundreds of sources and can run for several minutes.\n\nLive search fixes the clock, not the source. In a [February 2026 test of six AI chatbots](https://arxiv.org/abs/2605.22785) on 2,100 questions drawn from same-day BBC reporting, the best systems scored over 90% on multiple-choice questions about events hours old. Even so, the authors attribute over 70% of all errors to retrieval, meaning the system landed on the wrong source, not that it reasoned badly.\n\nYour pages can only be used if OpenAI's crawler may fetch them. Per [OpenAI's crawler documentation](https://developers.openai.com/api/docs/bots), sites that opt out of OAI-SearchBot are not shown in ChatGPT search answers, though they can still appear as navigational links. Search results can take about 24 hours to reflect a robots.txt change.\n\n![A hand holding a smartphone that displays a chat application, outdoors against a green background](https://images.pexels.com/photos/17888111/pexels-photo-17888111.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How to fix stale facts about your brand — fast and slow",
-   "body": "You're playing two timescales at once. Work both.\n\n**Win the fast clock (weeks).** This is where you get leverage, because retrieval reads live pages.\n\n- Make the correct fact unmissable on pages that rank: your homepage, About, and a tightly written FAQ that states the canonical answer in one clean sentence ('Acme's CEO is Raj Patel, appointed March 2025.'). Models lift sentence-level facts.\n- Add structured data (Organization, FAQ schema) so machines parse the fact unambiguously.\n- Get the corrected fact into high-authority third-party sources retrieval trusts — Wikipedia, Crunchbase, your LinkedIn company page, recent press, reputable directories. These are disproportionately read during browsing.\n- Kill the contradictions. Every old bio, outdated press release, and zombie landing page repeating the wrong fact is a vote for the wrong answer. Update or 301 them.\n\n**Win the slow clock (months+).** Volume and consistency are everything. The more places the *correct* fact appears, the heavier it weighs in the next training run. There's no shortcut — there's just making the new truth the dominant truth across the web.\n\nIf you want to see which facts ChatGPT, Perplexity, and Google's AI Overviews are currently repeating about you — and which sources they're pulling from — AEOeye runs a free audit that shows exactly where the stale answers come from, so you fix the right pages instead of guessing."
+   "heading": "What does the cutoff mean for facts about your brand?",
+   "body": "Anything that changed after the cutoff does not exist in the model's memory, and an old fact the web repeated for years can outweigh a new one. Brand errors fall into three types, and each needs a different fix:\n\n1. **Changed after the cutoff.** A new price, CEO or product name is simply absent from memory. Only live retrieval can supply it.\n2. **Changed before the cutoff, restated rarely.** Hundreds of old pages and a handful of new ones leave the old version dominant, even in a newer model.\n3. **Never stated plainly.** If no page says what you do in one clear sentence, the model fills the gap with a guess from similar companies.\n\nOpenAI does not publish a data mix for its current models, so how much weight repetition gets is our reading of the mechanism, not a measured number. The practical advice does not depend on it: the next model learns from the same web you left unfixed.\n\n![A vintage pocket watch resting on an open antique book beside dried yellow roses](https://images.pexels.com/photos/13553850/pexels-photo-13553850.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How to check what ChatGPT currently believes",
-   "body": "Don't assume — test it, the way the model actually behaves.\n\n1. **Ask it cold, then ask it to browse.** Pose the question normally, then explicitly say 'search the web and tell me your sources.' The gap between the two answers tells you whether your problem is trained memory, live retrieval, or both.\n2. **Ask for citations.** When it browses, it'll often name the URLs it read. Those pages are your fix list — they're literally what's shaping the answer.\n3. **Probe the cutoff.** Ask 'what's your knowledge cutoff date?' Treat the answer as a rough signal, not gospel — models are unreliable narrators of their own cutoffs — but it frames how stale the trained layer might be.\n4. **Repeat across engines.** Perplexity leans hard on live search; Google AI Overviews pulls from its index; Gemini and Claude have their own cutoffs and retrieval behavior. A fact that's fixed in one can still be broken in another. Audit them as a set, because your customers don't all use the same one."
+   "heading": "How do you fix stale facts about your brand?",
+   "body": "Fix the fast clock first, because it is the only one you can move this quarter. Make the correct fact easy to fetch and quote, keep crawlers allowed, and remove contradictions. The slow clock follows once the web agrees with itself.\n\n1. **Check crawler access.** OpenAI recommends allowing OAI-SearchBot. In AEOeye's crawler access study (October 2026, 384 sites), only 16 sites (4.2%) blocked it, but 60 of 375 homepages (16%) challenged our self-identifying crawler, which a bot-protection layer can also do to retrieval bots. The [study hub](/blog/ai-crawler-user-agent-directory) has the method and the per-site CSV.\n2. **State the fact in one dated sentence** on pages you own: About, pricing, FAQ. \"Acme costs $49 per month as of March 2026\" is quotable. A paragraph of positioning is not.\n3. **Update what ChatGPT cites.** Run the question, open the pages it cites, and correct or contact the pages it relied on. Publishers matter here: in our study 27 of 38 news publishers blocked at least one AI retrieval bot, so do not count on press coverage to carry your correction.\n4. **Retire contradictions.** Update or 301-redirect every old page that repeats the wrong fact.\n5. **Re-test after a week or two for live answers,** and judge memory only after a new model ships.\n\nThe full playbook is in our guide to [fixing AI that gets your brand wrong](/guides/how-to-fix-ai-getting-your-brand-wrong). To see how sources get picked, read [how ChatGPT chooses its sources](/answers/how-does-chatgpt-choose-sources)."
+  },
+  {
+   "heading": "How do you check what ChatGPT believes right now?",
+   "body": "Ask the same buyer question twice in fresh chats, once without search and once telling it to search the web, then compare. If only the first answer is wrong you have a memory problem; if both are wrong, a source it retrieves is wrong.\n\n1. **Write four questions:** three unbranded buyer questions (\"best CRM for a 10-person agency\") and one about your brand's price or leadership.\n2. **Ask each in a new chat** and note whether sources appear.\n3. **Ask again with an explicit instruction to search,** and open every cited page.\n4. **Record the model and date.** Compare against the documented cutoff before you blame the fix.\n5. **Repeat in other engines,** since a fact fixed in one can stay broken in another.\n\nAEOeye's [free audit](/) does a version of this for you: it asks ChatGPT three unbranded buyer questions live, shows the full answers and lists the competitors it recommends instead. It is a snapshot, not daily monitoring. For how this ties to getting recommended, see [ChatGPT SEO](/blog/chatgpt-seo), and for the three ways ChatGPT touches your site, [does ChatGPT use my website?](/answers/does-chatgpt-use-my-website)"
   }
  ],
+ "comparisonTable": {
+  "columns": [
+   "Model (OpenAI API name)",
+   "Knowledge cutoff",
+   "Released in the API"
+  ],
+  "rows": [
+   {
+    "label": "GPT-6 Astra",
+    "values": [
+     "Apr 30, 2026",
+     "Sep 3, 2026"
+    ]
+   },
+   {
+    "label": "GPT-6.1 Sol",
+    "values": [
+     "Apr 30, 2026",
+     "Sep 29, 2026"
+    ]
+   },
+   {
+    "label": "GPT-6 Luna",
+    "values": [
+     "May 18, 2026",
+     "Sep 22, 2026"
+    ]
+   },
+   {
+    "label": "chat-latest (latest Instant model used in ChatGPT)",
+    "values": [
+     "Aug 31, 2025",
+     "Snapshots published May 5 and May 28, 2026"
+    ]
+   }
+  ]
+ },
  "keyTakeaways": [
-  "ChatGPT's built-in knowledge only refreshes when OpenAI ships a new model — roughly every several months to a year, not continuously.",
-  "A model's training cutoff is the date of its data, not its release date, so a 2025 model can be missing everything after mid-2024.",
-  "Live web browsing has no cutoff, but it doesn't fire on every question — and it often skips searches about your company because it thinks it already knows.",
-  "Stale facts persist because the wider internet still repeats them; training weights frequency, so the loudest old fact wins.",
-  "The fast fix is controlling live-retrievable pages (homepage, FAQ, Wikipedia, press); the slow fix is making the correct fact dominant across the whole web.",
-  "Test what each engine believes by asking cold, then asking it to browse and cite sources — the gap reveals whether the problem is memory or retrieval."
+  "Built-in ChatGPT knowledge updates only when OpenAI ships a new or refreshed model, and each model's cutoff sits months before its release.",
+  "As of October 2026, OpenAI lists cutoffs from August 31, 2025 (chat-latest, the Instant model in ChatGPT) to May 18, 2026 (GPT-6 Luna), so one product spans an eight-month spread.",
+  "Live data arrives only when the model decides to search. Retrieval picking the wrong source, not bad reasoning, drove over 70% of errors in a 2026 chatbot test.",
+  "Fix live-fetchable pages first: allow OAI-SearchBot, state each fact in one dated sentence, and retire contradicting pages.",
+  "Test with and without search, in fresh chats: the gap tells you whether memory or retrieval is wrong."
  ],
  "faqs": [
   {
    "q": "How often does ChatGPT update its knowledge?",
-   "a": "Its core trained knowledge updates only when OpenAI releases a new model, which has historically happened every several months to a year. Between releases, that baked-in knowledge is frozen at the model's training cutoff. Separately, live web browsing lets ChatGPT pull current facts in real time — but only on queries where it decides to search."
+   "a": "Its built-in knowledge changes only when OpenAI releases a new or refreshed model, which in September 2026 meant four launches in 26 days. Between releases the model is frozen at its training cutoff. Live web search is the only part that reflects today's pages, and it runs only when the model chooses to search."
   },
   {
-   "q": "What is ChatGPT's knowledge cutoff date?",
-   "a": "Each model has its own cutoff — the latest date of the text it was trained on — and it's usually months earlier than the model's public release. The model itself is an unreliable source for its exact cutoff. Practically, assume the trained layer can be a year or more behind reality and verify anything time-sensitive against live sources."
+   "q": "What is ChatGPT's knowledge cutoff in 2026?",
+   "a": "It depends on the model. As of October 2026, OpenAI lists April 30, 2026 for GPT-6 Astra and GPT-6.1 Sol, May 18, 2026 for GPT-6 Luna, and August 31, 2025 for chat-latest, the alias for the Instant model used in ChatGPT. Check OpenAI's model pages for the current values."
   },
   {
-   "q": "Does ChatGPT update in real time now that it can browse the web?",
-   "a": "Partially. When ChatGPT browses, it reads live pages and answers from today's web with no cutoff. But it doesn't browse on every query — it often answers stable-seeming questions, including ones about your company, straight from frozen training memory. So 'has browsing' does not mean 'always current.'"
+   "q": "Does ChatGPT search the web for every question?",
+   "a": "No. OpenAI's documentation says the model can choose whether to search based on the prompt. Questions that look answerable from memory, including basics about a company, may skip search entirely, so you cannot assume a browsing-capable ChatGPT is reading your current pages."
   },
   {
-   "q": "Why does ChatGPT keep showing outdated information about my company?",
-   "a": "Because the wider internet still repeats the old facts. Training weights information by how often it appears, so a high-frequency outdated claim beats a low-frequency correct one. And when ChatGPT browses, it reads whatever ranks well — which is often your old pages. Fix the live web and crush the contradictions, and both clocks start landing on the right answer."
+   "q": "Why does ChatGPT still show old information about my company?",
+   "a": "Either the fact changed after the model's cutoff and only search could supply it, or the old version appears on many more pages than the new one, or a source ChatGPT retrieves still states it. Compare answers with and without search, then fix the cited pages."
   },
   {
-   "q": "How do I make ChatGPT learn the correct facts about my brand?",
-   "a": "Make the correct fact unmissable and consistent everywhere retrieval and training read: a one-sentence canonical statement on your homepage and FAQ, structured data, and corrected entries on high-authority sources like Wikipedia, Crunchbase and recent press. Then remove or redirect every old page repeating the wrong fact. Run a free AEOeye audit to see which sources are feeding the stale answer."
+   "q": "How long until a fix shows up in ChatGPT?",
+   "a": "For live search, changes can appear once pages are re-fetched; OpenAI says search results can take about 24 hours to reflect a robots.txt update, and it publishes no recrawl schedule for content. Memory only changes with a new model, so judge a memory fix by the next release, not next week."
   }
  ],
- "comparisonTable": null,
  "image": {
-  "url": "https://images.pexels.com/photos/16094043/pexels-photo-16094043.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A focused individual types on a laptop running AI software indoors.",
-  "photographer": "Matheus Bertelli",
-  "photographerUrl": "https://www.pexels.com/@bertellifotografia"
- }
+  "url": "https://images.pexels.com/photos/11873897/pexels-photo-11873897.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A close-up of a classic hourglass with sand slowly passing through, set against a textured background.",
+  "photographer": "Towfiqu barbhuiya",
+  "photographerUrl": "https://www.pexels.com/@towfiqu-barbhuiya-3440682"
+ },
+ "sources": [
+  {
+   "label": "OpenAI — Models (API documentation)",
+   "url": "https://developers.openai.com/api/docs/models"
+  },
+  {
+   "label": "OpenAI — chat-latest model page",
+   "url": "https://developers.openai.com/api/docs/models/chat-latest"
+  },
+  {
+   "label": "OpenAI — API changelog",
+   "url": "https://developers.openai.com/api/docs/changelog"
+  },
+  {
+   "label": "OpenAI — Web search guide",
+   "url": "https://developers.openai.com/api/docs/guides/tools-web-search"
+  },
+  {
+   "label": "OpenAI — Overview of OpenAI crawlers",
+   "url": "https://developers.openai.com/api/docs/bots"
+  },
+  {
+   "label": "Suzgun et al. — Evaluating Commercial AI Chatbots as News Intermediaries (arXiv, 2026)",
+   "url": "https://arxiv.org/abs/2605.22785"
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Knowledge cutoff",
+   "definition": "The last date covered by a model's training data. OpenAI lists it per model, and it is earlier than the release date.",
+   "sourceUrl": "https://developers.openai.com/api/docs/models"
+  },
+  {
+   "term": "Retrieval-augmented generation (RAG)",
+   "definition": "A technique that lets a language model retrieve and incorporate new information from external sources before answering, which is how live search supplements frozen training knowledge.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+  }
+ ],
+ "howToSteps": [],
+ "updated": "2026-10-03"
 }

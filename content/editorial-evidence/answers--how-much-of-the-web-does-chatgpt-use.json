@@ -1,0 +1,71 @@
+{
+  "contentSha256": "0bb7ec444a743c347b6f57067b351129b3979d0f1c42c57831f9728acc4190b8",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A marketer or site owner wants to know how much of the web ChatGPT actually uses, for training and for live answers, and whether their own pages are inside either slice.",
+    "connection": "Gives AEOeye readers documented scale figures for training data and live retrieval, adds AEOeye's crawler access study on who blocks CCBot, GPTBot and OAI-SearchBot, and points to the crawler and robots.txt decisions that decide whether a site can be fetched."
+  },
+  "assessment": "The page separates the training slice from the live-retrieval slice using only published figures: GPT-3's paper (45TB to 570GB for the Common Crawl portion, with the full mix and epoch counts), OpenAI's GPT-6 Astra EU training summary (text bracket above 10 trillion tokens, Common Crawl named, GPTBot respects robots.txt), Common Crawl's own FAQ and September 2026 crawl post, and a 2026 arXiv audit counting 14.7 cited sources per ChatGPT search response with its limits. It makes clear that 570GB is the Common Crawl portion only, drops the earlier unsourced '5 to 10 pages per query' figure, and uses AEOeye's crawler access study with its sample limits. It deliberately does not state a percent of the web (no authoritative count was found), exact training mixes or sizes for newer models, ranking weights for ChatGPT search, or how many pages ChatGPT reads beyond what it cites.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2005.14165",
+      "checkedAt": "2026-10-03",
+      "supports": "GPT-3: Common Crawl 45TB compressed before filtering, 570GB after, ~400 billion tokens; Table 2.2 mix (Common Crawl 410B tokens/60%/0.44 epochs, WebText2 19B/22%/2.9, Books1 12B/8%, Books2 55B/8%, Wikipedia 3B/3%/3.4); higher-quality datasets sampled more often (confirmed in the downloaded PDF text)."
+    },
+    {
+      "url": "https://cdn.openai.com/pdf/gpt-6-astra-eu-ai-act-public-summary-of-training-content.pdf",
+      "checkedAt": "2026-10-03",
+      "supports": "GPT-6 Astra text training data 'more than 10 trillion tokens'; text from Common Crawl; partnerships, synthetic data (GPT-5.6/5.5/5.4), product interactions subject to privacy settings; GPTBot crawl period approx. March 2013 - May 2026; crawler designed to respect robots.txt (confirmed with pdftotext on the downloaded PDF; WebFetch could not extract the PDF's text)."
+    },
+    {
+      "url": "https://commoncrawl.org/blog/september-2026-crawl-archive-now-available",
+      "checkedAt": "2026-10-03",
+      "supports": "September 2026 crawl: 2.17 billion pages, 361.4 TiB uncompressed, 40.4 million hosts, 33.2 million registered domains (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://commoncrawl.org/faq",
+      "checkedAt": "2026-10-03",
+      "supports": "Common Crawl's dataset is a sample of the web, not entire websites but a randomly selected subset; CCBot checks robots.txt first; opt-out registry mentioned (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2605.23684",
+      "checkedAt": "2026-10-03",
+      "supports": "Allaham and Diakopoulos: 712 queries, 2,848 responses across four engines; ChatGPT 14.68 avg cited sources per response vs Copilot 8.44, Perplexity 7.92, Gemini 7.26; ~20/12/10 for environment/health/politics; ChatGPT top-25 domain share 29.89% and 82.81% of domains cited <=2 times; UI-scraping method (confirmed in downloaded PDF text)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Model can choose to search or not; non-reasoning search returns top results with no planning; agentic search; deep research 'often tapping into hundreds of sources' and can run for several minutes (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Sites opted out of OAI-SearchBot are not shown in ChatGPT search answers; OAI-SearchBot is for ChatGPT's search features, GPTBot for training crawl (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Common_Crawl",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of Common Crawl as a nonprofit that crawls the web and freely provides its archives and datasets to the public."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of RAG as a technique enabling LLMs to retrieve and incorporate new information from external data sources."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and confirmed each number against raw page, HTML or PDF text (pdftotext for the GPT-3 paper, the GPT-6 Astra summary and the arXiv audit) rather than WebFetch summaries",
+    "Writer (Sonnet): recomputed the GPT-3 dataset total (410+19+12+55+3 = 499 billion tokens) and the 'more than 20 times' comparison with 10 trillion, and flagged it on the page as a rough comparison because the two documents define size differently",
+    "Writer (Sonnet): recomputed CCBot, GPTBot and OAI-SearchBot block counts by segment from public/resources/ai-crawler-access-study-2026-10.csv (44/384, 35/384, 16/384; publishers 29/38, e-commerce 5/90, SaaS 5/193, AI-visibility vendors 0/43) and matched them to the evidence pack",
+    "Writer (Sonnet): removed the previous page's '5 to 10 pages per query', 'over 100 billion pages' and 'Common Crawl does not crawl login-walled pages' claims because no fetched source supported them as stated (Common Crawl's FAQ does not address logins)",
+    "Writer (Sonnet): dropped a draft claim that Common Crawl's monthly crawl is shrinking, and a draft 2026 monthly page range, after January 2026 turned out to be 2.3 billion pages and the comparison would have needed an extra source",
+    "Editor (Opus): read the final page: GPT-3 570GB corrected to 'Common Crawl portion only', training-mix table, Common Crawl sample size, citation spread per answer",
+    "Editor (Opus): page quotes no 'percent of the web' figure because no authoritative count exists; Astra vs GPT-3 size comparison labelled as our rough arithmetic",
+    "Editor (Opus): crawler-study CCBot figures (44/384; publishers 29/38) recomputed from the public CSV",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

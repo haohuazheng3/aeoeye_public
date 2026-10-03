@@ -1,125 +1,191 @@
 {
  "slug": "otterly",
  "type": "vs",
- "title": "AEOeye vs Otterly.ai: An Honest Head-to-Head (2026)",
- "metaTitle": "AEOeye vs Otterly.ai: Honest 2026 Comparison",
- "metaDescription": "AEOeye vs Otterly.ai compared fairly: free instant audit vs paid monitoring, AI engine coverage, pricing tiers, add-on fees, and which tool fits your team.",
- "primaryKeyword": "aeoeye vs Otterly.ai",
- "shortAnswer": "AEOeye gives you a free, instant audit across ChatGPT, Perplexity, Google AI, Claude and Gemini in one blind query — no trial clock, no contract, no per-engine fees. Otterly.ai is a paid, mature monitoring platform with daily tracking, page-level GEO audits, an API and Looker Studio connector, but no free tier and several engines (Gemini, Google AI Mode, Claude) cost extra. Pick AEOeye to check where you stand today for free; pick Otterly to run a structured, ongoing monitoring program and you have budget for it.",
- "intro": "Both AEOeye and Otterly.ai answer the same new question: when buyers ask ChatGPT, Perplexity or Google's AI for a recommendation, does your brand show up — and who wins if it doesn't? They take different paths to that answer. AEOeye is built to give you a free, instant snapshot the moment you land on the page. Otterly.ai is a more established subscription platform built for continuous monitoring and reporting.\n\nThis page lays out the real trade-offs, including where Otterly is genuinely the stronger choice. The goal is to help you pick the right tool for where you are right now, not to win an argument.",
+ "title": "AEOeye vs Otterly.AI: Which Should You Use? (2026)",
+ "metaTitle": "AEOeye vs Otterly.AI: Which Should You Use?",
+ "metaDescription": "AEOeye is a free first check plus a $29 one-time report. Otterly.AI is daily tracking from $29 a month. Prices, engines, limits and who should pick which.",
+ "primaryKeyword": "aeoeye vs otterly.ai",
+ "shortAnswer": "Choose AEOeye if you have never checked whether AI engines name you: the free audit asks ChatGPT three buyer questions, and a $29 one-time report adds Claude, Gemini, Google AI and Perplexity. Choose Otterly.AI if you already know you need those answers refreshed daily, with history, exports and an API: its plans start at $29 a month for 15 prompts.",
+ "intro": "This comparison rests on Otterly.AI's public documentation (pricing page and help center) as of October 3, 2026. We have not used Otterly.AI hands-on, so we say nothing about its accuracy or interface. AEOeye is our product, and we say plainly where Otterly.AI is the better buy.\n\nAEOeye asks \"do the engines name me today?\" once. Otterly.AI asks \"is my share of answers changing?\" every day.",
  "sections": [
   {
-   "heading": "The core difference: free snapshot vs paid monitoring program",
-   "body": "The cleanest way to think about it: AEOeye answers \"where do I stand today?\" for free, and Otterly.ai answers \"how is my position changing over time?\" for a monthly fee.\n\nAEOeye runs a blind, multi-engine audit on demand. You enter a brand and questions, and it queries ChatGPT, Perplexity, Google AI, Claude and Gemini together, then shows whether each engine recommends you, where you rank, and which competitors come up instead. There's no trial countdown and no contract — you can run a check before deciding anything.\n\nOtterly.ai is a monitoring platform. You set up a list of tracked prompts, and it re-runs them on a schedule (daily on paid plans), building history, share-of-voice charts, citation tracking and page-level GEO audits over time. That recurring structure is its real value — and the reason it's a paid subscription rather than a free tool.\n\nNeither model is \"better\" in the abstract. If you need a fast read or you're not ready to commit budget, the free audit wins. If you need a documented trend line for a team or client, the monitoring platform earns its keep."
+   "heading": "Which should you choose, AEOeye or Otterly.AI?",
+   "body": "Choose AEOeye if you have not yet checked whether AI engines name you. Choose Otterly.AI if you already have a fixed list of buyer questions and need the answers refreshed daily, with history, exports and an API. The real question is whether you need a snapshot or a trend line.\n\n- **AEOeye fits:** a first look at your visibility, a quick check on a prospect or competitor, or a budget of $29 once rather than a monthly bill.\n- **Otterly.AI fits:** a team with a prompt list that wants to watch it move, an agency reporting to clients, or anyone who needs the data in Looker Studio or an API.\n\nOur view: paying monthly to track a gap you have never measured is paying to watch. Spend the first hour on a snapshot, then decide whether the gap deserves a subscription.\n\nThe reverse also holds. Once an audit shows you are absent and you start fixing it, a one-off report cannot tell you whether the fix worked. That is the moment a tracker earns its fee."
   },
   {
-   "heading": "AI engine coverage and the add-on question",
-   "body": "Headline numbers can mislead here, so it's worth being precise. AEOeye queries ChatGPT, Perplexity, Google AI, Claude and Gemini as part of its standard audit — there are no per-engine upgrade fees to unlock any of them.\n\nOtterly.ai's base plans (Lite, Standard, Premium) track four engines by default: ChatGPT, Google AI Overviews, Perplexity and Microsoft Copilot. Gemini, Google AI Mode and Claude are paid add-ons layered on top of your plan — roughly $9 to $149/month each depending on tier, and Claude's add-on can run higher on larger plans. Notably, Otterly covers Microsoft Copilot in its base tier, which AEOeye does not query today.\n\nSo the comparison isn't simply \"more engines vs fewer.\" Otterly can cover a broader set including Copilot, but only its first four come without extra cost; full coverage means stacking add-ons, and a $189/month plan can climb past $300 before every engine is on. AEOeye's five engines are included from the first free run, with Copilot the notable gap. Match the list against the engines your buyers actually use before deciding which breadth matters."
+   "heading": "What is each tool built for?",
+   "body": "AEOeye is a one-off audit; Otterly.AI is a monitor you subscribe to. AEOeye runs your buyer questions once and returns a report, while Otterly.AI [re-runs a saved prompt set every day](https://help.otterly.ai/monitoring-interval) and charts what changes.\n\n**AEOeye.** The [free audit](/) asks ChatGPT three unbranded buyer questions live. It shows the full answers, the competitors ChatGPT recommends instead, and starter fixes. The $29 one-time report adds Claude, Gemini, Google AI and Perplexity, grows to ten questions (the free three are kept), and adds a five-layer SEO foundation audit and a fix roadmap, with a PDF emailed to you. Each engine is tested at the default tier a free user would get. There is no subscription, and AEOeye is not a daily tracker.\n\n**Otterly.AI.** According to its [help center](https://help.otterly.ai/what-is-otterly.ai), you define prompts and it queries the engines for you every day. You then see whether your brand was mentioned, whether your site was cited and how you compare with competitors. Each prompt is tied to one country, so the same question in the US and the UK takes two prompt slots, per its [prompt-limit guide](https://help.otterly.ai/amount-searchprompts).\n\n![A young woman with braids and glasses studying on her laptop at a home table.](https://images.pexels.com/photos/27177817/pexels-photo-27177817.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Pricing and contracts, side by side",
-   "body": "AEOeye is free to start with no contract and no trial clock — you can run an audit without entering payment details or committing to a term.\n\nOtterly.ai has no free-forever plan. It offers a 14-day free trial, then three tiers: Lite at $29/month (about 15 tracked prompts), Standard at $189/month (100 prompts) and Premium at $489/month (400 prompts). Annual billing saves roughly 15%.\n\nThe pricing gap most reviewers flag is the jump from Lite to Standard. Fifteen prompts on the $29 plan is enough to dabble but, by many accounts, too few to run a serious monitoring program — and the next step up is a roughly 6x leap to $189 with nothing in between. Extra prompt packs run about $99/month each, and engine add-ons stack on top, so real-world costs can scale faster than the headline price suggests.\n\nThat said, Otterly's higher tiers buy real infrastructure: API access, an MCP server, a Looker Studio connector and large audit allowances. If you'll use those, the price reflects genuine capability rather than markup."
+   "heading": "How do AEOeye and Otterly.AI compare side by side?",
+   "body": "They differ on how you pay, how often answers refresh and how you get the data out. The full table follows the sections; these four differences decide most purchases.\n\n- **Payment.** AEOeye is a free audit, then $29 once. Otterly.AI charges [$29, $189 or $489 a month](https://otterly.ai/pricing) for 15, 100 or 400 prompts, or $25, $160 and $422 a month billed annually. Prices are US dollars before tax, as of October 3, 2026; Enterprise is custom-priced from 1,000 prompts.\n- **Refresh.** AEOeye gives one snapshot per audit. Otterly.AI runs every prompt daily, and you cannot trigger a run or change the frequency.\n- **Data access.** AEOeye delivers a report and an emailed PDF. Otterly.AI offers CSV, JSON and PDF exports on all plans, per its [export guide](https://help.otterly.ai/can-i-export-my-data-and-reports), and the Looker Studio connector from Standard up.\n- **Collection.** Otterly.AI says it reads engines through their [public web interfaces](https://help.otterly.ai/how-otterlyai-collects-data), using an API only for Claude. AEOeye tests each engine at the default free-user tier.\n\nOtterly.AI also offers a [7-day free trial](https://help.otterly.ai/free-trial) with no credit card and 50 prompts, over three times Lite's 15."
   },
   {
-   "heading": "Where Otterly.ai is genuinely stronger",
-   "body": "Being fair means naming Otterly's real advantages, because there are several.\n\nFirst, longitudinal data. Otterly's scheduled daily tracking builds the historical trend lines, share-of-voice over time and citation history that a one-shot audit can't produce. If you need to prove movement to a client or the board, that history is the deliverable.\n\nSecond, integrations and scale. The Standard and Premium tiers include an API, an MCP server and a Looker Studio connector, plus large audit and request allowances. That makes Otterly a better fit for agencies wiring AI-visibility data into existing dashboards and reporting workflows.\n\nThird, page-level GEO audits and Copilot coverage in the base plan. Otterly's GEO Audit inspects individual pages for citation-readiness, and Copilot is included without an add-on.\n\nAEOeye is newer and lighter on enterprise analytics and historical dashboards — its deeper multi-engine querying activates with usage rather than arriving fully built out on day one. If mature reporting is your priority today, Otterly is the safer pick."
+   "heading": "Where is Otterly.AI stronger?",
+   "body": "Otterly.AI is stronger wherever repetition matters: daily runs, history, exports, team reporting and integrations. A one-off audit cannot do any of these, and AEOeye does not try to.\n\nRepetition is the strongest argument. In a [SparkToro study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/), 600 volunteers ran 12 prompts 2,961 times across ChatGPT, Claude and Google's AI. There was under a 1 in 100 chance that ChatGPT or Google's AI would give the same brand list in any two responses. Otterly.AI's help center makes the same point: AI responses are not deterministic, and daily checks build the sample you need to see a signal. One audit answer is a screening result, not a measurement.\n\nMore advantages:\n\n- **History.** Tracking starts when a prompt is created, [with no backfill](https://help.otterly.ai/historical-data). A trend line exists only for the days you tracked, so starting sooner is the point.\n- **Integrations.** API access, MCP access and the Looker Studio connector come with Standard and above; Standard allows 2,000 API requests a month.\n- **Engine coverage.** Microsoft Copilot is in every plan. AEOeye does not test Copilot.\n- **Agencies.** Standard and above include unlimited workspaces, and Agency Partner status raises Standard to 150 prompts.\n\nAn older criticism says Otterly.AI only monitors and never tells you what to fix. Its current pricing page lists Recommendations (three a week on Lite, unlimited above) and a GEO Audit, so do not rule it out on fixes."
   },
   {
-   "heading": "From monitoring to action",
-   "body": "One recurring critique of monitoring-first tools is that they tell you where you stand without telling you what to do next. As one Reddit reviewer put it about Otterly, it \"tracks the source but gives zero actionable strategy on how to restructure content to get cited.\" Its GEO Audit flags issues, but reviewers note it stops short of step-by-step fixes, and it doesn't tie AI mentions to traffic or conversions — so the loop from visibility to revenue stays open.\n\nAEOeye's blind, side-by-side engine results are designed to make the gap obvious fast: you can see exactly which competitor an engine names instead of you, and on which questions, which points toward what to fix first. It's worth being honest that AEOeye is also primarily a diagnostic — neither tool is a full content-production or attribution suite, and you'll still bring your own GEO strategy to either one.\n\nThe practical takeaway: if your team already knows what to do with a visibility gap and needs ongoing measurement, Otterly's tracking is valuable. If you mainly need to see the gap clearly and cheaply right now, start with AEOeye's free audit."
-  }
- ],
- "keyTakeaways": [
-  "AEOeye is free and instant: a blind audit across ChatGPT, Perplexity, Google AI, Claude and Gemini with no trial clock, contract or per-engine add-on fees.",
-  "Otterly.ai has no free-forever plan — a 14-day trial, then Lite $29/mo (~15 prompts), Standard $189/mo (100) and Premium $489/mo (400).",
-  "Otterly's base plans cover ChatGPT, Google AI Overviews, Perplexity and Copilot; Gemini, Google AI Mode and Claude are paid add-ons ($9–$149+/mo each).",
-  "Otterly is genuinely stronger on historical trend data, scheduled daily tracking, API/MCP/Looker Studio integrations and page-level GEO audits.",
-  "AEOeye is newer and lighter on enterprise analytics and historical dashboards; its deeper querying builds up with usage.",
-  "Choose AEOeye to check your position today for free; choose Otterly to run a structured, ongoing monitoring program — if you have the budget."
- ],
- "faqs": [
-  {
-   "q": "Does Otterly.ai have a free plan?",
-   "a": "No. Otterly.ai offers a 14-day free trial but no free-forever tier. After the trial you choose Lite ($29/mo), Standard ($189/mo) or Premium ($489/mo). AEOeye, by contrast, lets you run a multi-engine audit for free with no trial countdown and no payment details required."
+   "heading": "Where is AEOeye stronger?",
+   "body": "AEOeye is stronger when you want an answer this hour without a subscription. For $29 once you get five engines; covering the same five on Otterly.AI costs $67 to $357 a month, because Claude and Gemini are paid add-ons.\n\n| Otterly.AI, monthly billing | Lite | Standard |\n|---|---:|---:|\n| Plan (ChatGPT, Google AI Overviews, Perplexity, Copilot) | $29 | $189 |\n| Gemini add-on | $9 | $59 |\n| Claude add-on | $29 | $109 |\n| Monthly total | $67 | $357 |\n\nThe comparison is rough. Otterly.AI tracks 15 or 100 prompts daily, AEOeye asks ten questions once, and Google AI Overviews is only the closest match to AEOeye's Google AI. Still, for a first answer the gap is large.\n\nThree other strengths:\n\n- **Nothing to cancel.** The free audit and the $29 report are one-time. Otterly.AI says that after you cancel, [tracked data and historical data are deleted](https://help.otterly.ai/cancel-subscription), so export first.\n- **Default-tier testing.** We test each engine as a free user would meet it, not with a stronger model than your buyers see.\n- **A starting point for fixes.** The free audit names the competitors the engine recommends instead, and the report adds a fix roadmap.\n\nWhat AEOeye does not do: daily runs, history, dashboards, or any guarantee that engines will recommend you.\n\n![A woman multitasking with her smartphone and laptop in a home office setting.](https://images.pexels.com/photos/4968547/pexels-photo-4968547.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "q": "Which AI engines does each tool cover?",
-   "a": "AEOeye queries ChatGPT, Perplexity, Google AI, Claude and Gemini in its standard audit with no per-engine fees. Otterly.ai's base plans cover ChatGPT, Google AI Overviews, Perplexity and Microsoft Copilot; Gemini, Google AI Mode and Claude are paid add-ons (roughly $9–$149+/month each). Otterly covers Copilot in its base plan, which AEOeye does not query today."
+   "heading": "What did we see on Otterly.AI's own site?",
+   "body": "In AEOeye's crawler access study (October 2026, 391 sites), our research crawler received HTTP 403 from otterly.ai for robots.txt, /llms.txt and the homepage. So we could read nothing about its AI-crawler policy or schema. That was one fetch on one day, most likely a bot challenge, and it says nothing about the product.\n\nFor comparison, aeoeye.com blocks no AI bot in robots.txt, names six of them explicitly, publishes an llms.txt and serves Organization, SoftwareApplication, Offer and FAQPage markup on its homepage. The per-site rows are in the study's [CSV](/resources/ai-crawler-access-study-2026-10.csv), and the method is on our [AI crawler directory](/blog/ai-crawler-user-agent-directory)."
   },
   {
-   "q": "Is AEOeye or Otterly.ai better for an agency?",
-   "a": "Often Otterly, if you need ongoing reporting. Its Standard and Premium tiers include an API, MCP server, Looker Studio connector and large audit allowances, plus historical trend data for client reports. AEOeye is better when you want to run quick, free audits across multiple clients or prospects without committing to a subscription."
-  },
-  {
-   "q": "Why does Otterly.ai's pricing jump so much between tiers?",
-   "a": "Otterly's Lite plan covers about 15 prompts at $29/month, and the next tier, Standard, is $189/month for 100 prompts — a roughly 6x jump with nothing in between. Extra prompt packs (~$99/month) and engine add-ons stack on top, so costs can scale quickly. The upside is that higher tiers add real infrastructure like API and integrations."
-  },
-  {
-   "q": "Can I just try AEOeye before paying for anything?",
-   "a": "Yes. That's the core difference: AEOeye is built to give you a free, instant blind audit across five AI engines before you decide anything — no contract, no trial clock. With Otterly you'd start a 14-day trial and then pick a paid plan to keep using it."
+   "heading": "How can you test both before paying?",
+   "body": "Run the free AEOeye audit first, then start Otterly.AI's trial with the same questions. Both cost nothing to try, and the comparison takes under an hour.\n\n1. Write ten buyer questions that do not contain your brand name.\n2. Run the [free audit](/) on three of them. Read the full ChatGPT answers and note who is named instead of you.\n3. If you are absent, decide whether the $29 report's five engines are worth it.\n4. Start Otterly.AI's trial and enter the same questions, one prompt per country you sell in.\n5. Check the same prompts across several days. If the brand list keeps changing, you need a tracker; if it is stable and empty, you need fixes first.\n6. Before paying Otterly.AI, read the [pricing guide](/blog/otterly-ai-pricing) for add-on totals and our [review](/blog/otterly-review) for features beyond price.\n\nIf neither fits, see the [Otterly.AI alternatives](/alternatives/otterly)."
   }
  ],
  "comparisonTable": {
   "columns": [
    "AEOeye",
-   "Otterly.ai"
+   "Otterly.AI"
   ],
   "rows": [
    {
-    "label": "Free tier",
+    "label": "What it is",
     "values": [
-     "Free instant audit, no trial clock or card required",
-     "No free-forever plan; 14-day free trial only"
+     "One-time AI visibility audit",
+     "Subscription AI search monitor"
     ]
    },
    {
-    "label": "Pricing",
+    "label": "Cost (checked Oct 3, 2026)",
     "values": [
-     "Free to start; no contract",
-     "Lite $29/mo (~15 prompts), Standard $189/mo (100), Premium $489/mo (400); ~15% off annual"
+     "$0 free audit; $29 one-time full report",
+     "$29, $189 or $489 a month (Lite, Standard, Premium); Enterprise custom-priced"
     ]
    },
    {
-    "label": "AI engines covered",
+    "label": "Engines",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini — all included, no add-ons (no Copilot)",
-     "Base: ChatGPT, Google AI Overviews, Perplexity, Copilot. Gemini, Google AI Mode, Claude are paid add-ons ($9–$149+/mo each)"
+     "Free: ChatGPT. Full report adds Claude, Gemini, Google AI, Perplexity",
+     "ChatGPT, Google AI Overviews, Perplexity, Copilot; Gemini, AI Mode, Claude as paid add-ons"
     ]
    },
    {
-    "label": "Speed to first result",
+    "label": "Questions or prompts",
     "values": [
-     "Instant — blind multi-engine audit on demand",
-     "Trial signup, then set up tracked prompts; daily scheduled tracking builds over time"
+     "3 in the free audit, 10 in the full report",
+     "15, 100 or 400 prompt slots by plan (one slot per country)"
     ]
    },
    {
-    "label": "Setup/learning curve",
+    "label": "Refresh",
     "values": [
-     "Minimal; designed for non-experts to run a check immediately",
-     "Easy to start but more configuration; full value comes from ongoing setup and dashboards"
+     "One snapshot per audit; run again for a new one",
+     "Every prompt runs daily; no manual runs"
+    ]
+   },
+   {
+    "label": "History and trends",
+    "values": [
+     "None",
+     "From the day a prompt is created; no backfill"
+    ]
+   },
+   {
+    "label": "Free way to try",
+    "values": [
+     "Free audit: 3 questions on ChatGPT",
+     "7-day trial, no card, 50 prompts"
+    ]
+   },
+   {
+    "label": "Data access",
+    "values": [
+     "On-screen report and emailed PDF",
+     "CSV, JSON and PDF exports; Looker Studio, API and MCP from Standard"
+    ]
+   },
+   {
+    "label": "Commitment",
+    "values": [
+     "None; no subscription",
+     "Monthly or annual subscription; data deleted on cancellation"
     ]
    },
    {
     "label": "Best for",
     "values": [
-     "Anyone wanting a fast, free read on AI visibility before committing",
-     "Marketers, SEO/GEO specialists and agencies running an ongoing monitoring program"
-    ]
-   },
-   {
-    "label": "Contract",
-    "values": [
-     "None",
-     "Monthly or annual subscription after the trial"
+     "A first look or a one-off check",
+     "Ongoing daily monitoring and client reporting"
     ]
    }
   ]
  },
+ "keyTakeaways": [
+  "AEOeye is a one-off audit: a free ChatGPT check, then $29 once. Otterly.AI is daily tracking from $29 a month.",
+  "Otterly.AI wins on repetition: daily runs, history, exports, and Looker Studio, API and MCP from Standard ($189 a month).",
+  "AEOeye wins on cost to a first answer: five engines on Otterly.AI is $67 (Lite) to $357 (Standard) a month.",
+  "Start with a snapshot; add a tracker once you know the gap and are fixing it."
+ ],
+ "faqs": [
+  {
+   "q": "Does Otterly.AI have a free plan?",
+   "a": "Otterly.AI's pricing page lists no free plan. It offers a 7-day free trial with no credit card and 50 prompts, per its help center. AEOeye's free audit asks ChatGPT three buyer questions with no time limit; Claude, Gemini, Google AI and Perplexity are in the $29 one-time report. Details checked October 3, 2026."
+  },
+  {
+   "q": "Can AEOeye replace Otterly.AI?",
+   "a": "Only if you need a snapshot. AEOeye runs your questions once and has no history, daily runs or dashboards. If you need to see whether your visibility is moving week to week, or report that movement to clients, a tracker such as Otterly.AI does a job AEOeye does not do."
+  },
+  {
+   "q": "How much does it cost to cover ChatGPT, Claude, Gemini, Google AI and Perplexity?",
+   "a": "AEOeye's full report covers all five for $29, once. On Otterly.AI the base plan covers ChatGPT, Google AI Overviews and Perplexity; adding the Gemini and Claude add-ons makes $67 a month on Lite or $357 on Standard, monthly billing, before tax. The two measure different things, so treat it as a rough comparison."
+  },
+  {
+   "q": "Are Claude and Gemini included in Otterly.AI plans?",
+   "a": "No. Every Otterly.AI plan tracks ChatGPT, Google AI Overviews, Perplexity and Microsoft Copilot. Google AI Mode, Gemini and Claude are paid add-ons, priced by plan tier: $9, $59 and $149 a month for Gemini and AI Mode, and $29, $109 and $439 for Claude, on Lite, Standard and Premium."
+  },
+  {
+   "q": "Which is better for an agency?",
+   "a": "Usually Otterly.AI, if you report to clients over time: Standard and above include unlimited workspaces, a Looker Studio connector, API and MCP access. AEOeye suits a different agency job, a quick one-off snapshot of a prospect's visibility before you pitch, without setting up tracked prompts."
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Tracked prompt (prompt slot)",
+   "definition": "In Otterly.AI, a saved question that runs daily. Each prompt is tied to one country, so the same question in two countries uses two slots.",
+   "sourceUrl": "https://help.otterly.ai/amount-searchprompts"
+  },
+  {
+   "term": "Non-determinism",
+   "definition": "Language models can return different outputs for the same input, even in settings meant to be deterministic, which is why one AI answer is a sample, not a measurement.",
+   "sourceUrl": "https://arxiv.org/abs/2408.04667"
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/8547191/pexels-photo-8547191.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A focused woman working at her laptop in a bright, modern office setting.",
-  "photographer": "www.kaboompics.com",
-  "photographerUrl": "https://www.pexels.com/@karola-g"
- }
+  "url": "https://images.pexels.com/photos/6975469/pexels-photo-6975469.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Top view of floor scales and a measuring tape on a white background",
+  "photographer": "SHVETS production",
+  "photographerUrl": "https://www.pexels.com/@shvets-production"
+ },
+ "sources": [
+  {
+   "label": "Otterly.AI — Pricing",
+   "url": "https://otterly.ai/pricing"
+  },
+  {
+   "label": "Otterly.AI Help Center — Free trial",
+   "url": "https://help.otterly.ai/free-trial"
+  },
+  {
+   "label": "Otterly.AI Help Center — How often does OtterlyAI check AI search engines?",
+   "url": "https://help.otterly.ai/monitoring-interval"
+  },
+  {
+   "label": "Otterly.AI Help Center — Can I export my data and reports?",
+   "url": "https://help.otterly.ai/can-i-export-my-data-and-reports"
+  },
+  {
+   "label": "Otterly.AI Help Center — Does OtterlyAI include historical data?",
+   "url": "https://help.otterly.ai/historical-data"
+  },
+  {
+   "label": "SparkToro — AIs are highly inconsistent when recommending brands",
+   "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+  }
+ ],
+ "updated": "2026-10-03"
 }
