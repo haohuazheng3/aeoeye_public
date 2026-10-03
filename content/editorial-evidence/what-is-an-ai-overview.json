@@ -1,0 +1,127 @@
+{
+  "contentSha256": "ebdf307ad9dd42a453909be5cb57884fb4c85bd7905b63bafb5273ded6a1f7b9",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "Readers searching for what a Google AI Overview (formerly SGE) is want to know why one appears, whether it is free or can be switched off, how Google picks its sources, how it differs from featured snippets and AI Mode, and whether blocking Google-Extended removes them.",
+    "connection": "Google AI Overviews are one of the AI answer surfaces that decide whether a brand is named when buyers ask; the page explains eligibility, the 2026 Search Console opt-out and report, and links to AEOeye's free audit for checking visibility in other engines."
+  },
+  "assessment": "The page now answers in its first paragraph what a Google AI Overview is, how it relates to SGE and AI Mode, and that site owners gained a Search Console opt-out in 2026. It rests on Google's current documentation (AI features, July 2026 optimization guide, Search Console help, crawler and robots meta documentation), a May 2026 arXiv measurement study for source-selection and trigger-rate figures, and AEOeye's own crawler access study for the Google-Extended finding. It deliberately does not quote vendor citation-overlap figures that use different definitions, does not claim that Google-Extended or any tool controls AI Overview selection beyond what Google documents, and does not present AEOeye as able to see inside Google.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google says AI Overviews are shown only when additive to classic Search and often don't trigger; a page needs to be indexed and snippet-eligible with no additional technical requirements; AI Overviews and AI Mode may use different models and techniques; AI-feature traffic is counted in the Performance report's Web search type (page last updated 2025-12-10)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's guide (last updated 2026-07-10): definitions of grounding/RAG and query fan-out with the lawn-weeds example; a site must also be included in Search generative AI features in Search Console to be eligible; llms.txt, chunking, AI-specific rewriting and special markup are not needed; unique non-commodity content; no third-party tool has access to Google's internal ranking or AI systems."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16908024",
+      "checkedAt": "2026-10-03",
+      "supports": "Search generative AI control in Search Console: covers AI Overviews, AI Mode and Discover generative features; include (default), exclude or inherit; excluding removes links and content and yields no traffic or impressions, while other sites' similar content remains; not a ranking signal elsewhere; does not affect AI training (use Google-Extended); takes a few days; rolled out to all websites worldwide as of 2026-08-31."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative AI performance report: impressions for AI Overviews and AI Mode by page, country, device and date; rolled out to all websites worldwide as of 2026-08-31."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended is a robots.txt product token governing Gemini model training and grounding in Gemini Apps and Vertex AI, and does not affect inclusion in Google Search or ranking (page last updated 2026-07-14)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag",
+      "checkedAt": "2026-10-03",
+      "supports": "nosnippet and max-snippet apply to AI Overviews and AI Mode as direct input; max-snippet:0 equals nosnippet; data-nosnippet works on span, div and section elements; the more restrictive rule wins (page last updated 2026-03-24)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/featured-snippets",
+      "checkedAt": "2026-10-03",
+      "supports": "Google defines featured snippets as boxes showing the descriptive snippet first, and says a page cannot be marked up for one because Google's systems decide."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/14901683",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews appear when Google's systems judge generative AI especially helpful; available to all users in the listed countries and languages; a core Search feature that cannot be turned off; the Web filter shows text-based links without features like AI Overviews."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/16011537",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Mode expands what AI Overviews can do and divides a question into subtopics searched simultaneously; opting into the AI Mode experiment in Search Labs gives first access to new and experimental features."
+    },
+    {
+      "url": "https://blog.google/products/search/generative-ai-search/",
+      "checkedAt": "2026-10-03",
+      "supports": "10 May 2023 announcement of SGE as a Search Labs experiment (US, English-only at launch) with an AI-powered snapshot, links and follow-up questions."
+    },
+    {
+      "url": "https://blog.google/products/search/generative-ai-google-search-may-2024/",
+      "checkedAt": "2026-10-03",
+      "supports": "14 May 2024: AI Overviews begin rolling out to everyone in the US; people had used them billions of times in a Search Labs experiment; the post does not use the SGE name."
+    },
+    {
+      "url": "https://techcrunch.com/2024/05/14/google-is-adding-more-ai-to-its-search-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "TechCrunch (14 May 2024) says Google had been testing AI-powered overviews through SGE since the previous year."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/ai-mode-search/",
+      "checkedAt": "2026-10-03",
+      "supports": "5 March 2025: AI Mode introduced as a Labs experiment for Google One AI Premium subscribers; AI Overviews open to teens and no longer require sign-in."
+    },
+    {
+      "url": "https://blog.google/products/search/google-search-ai-mode-update/",
+      "checkedAt": "2026-10-03",
+      "supports": "20 May 2025: AI Mode rolling out in the US with no Labs sign-up required."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/search-io-2026/",
+      "checkedAt": "2026-10-03",
+      "supports": "19 May 2026: a follow-up can be asked from an AI Overview and continues in AI Mode, live on desktop and mobile worldwide."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/new-controls-website-owners/",
+      "checkedAt": "2026-10-03",
+      "supports": "3 June 2026 (updated 31 August 2026): AI Overviews over 2.5 billion monthly active users; new Search Console control to exclude a site from generative AI features and new insights; rolled out to all websites worldwide as of 2026-08-31."
+    },
+    {
+      "url": "https://blog.google/products/search/ai-overviews-update-may-2024/",
+      "checkedAt": "2026-10-03",
+      "supports": "30 May 2024: Google explains the 'eat rocks' result as a data void where a satirical page was one of the only pages tackling the question."
+    },
+    {
+      "url": "https://arxiv.org/abs/2605.14021",
+      "checkedAt": "2026-10-03",
+      "supports": "Xu, Iqbal and Montgomery preprint (13 May 2026): 55,393 trending US English queries issued 13 March to 21 April 2026; 13.7% AI Overview rate and 64.7% for question-form queries; 29.8% of cited domains absent from the first page and 41.4% top-ten domain overlap; median 8 references; cited domains more credible; 11.0% of 98,020 claims unsupported (LLM-based check validated against human annotation)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.11560",
+      "checkedAt": "2026-10-03",
+      "supports": "Kirsten et al. abstract: outputs of generative search can vary across time and executions."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/AI_Overviews",
+      "checkedAt": "2026-10-03",
+      "supports": "Definitional reference: AI Overviews is a generative AI feature in Google Search that produces AI-generated responses at the top of search results."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened every cited URL with WebFetch on 2026-10-03 and, for Google documentation and the arXiv paper, also read the raw page text so quotes and numbers were checked against the page itself rather than a summary.",
+    "Writer (Sonnet): re-derived AEOeye's crawler-study figures from public/resources/ai-crawler-access-study-2026-10.csv and .json (31 of 384 sites block Google-Extended overall and by segment: news 20/38, UGC and review 5/20, e-commerce and consumer 4/90, SaaS 2/193, AI-visibility vendors 0/43) and counted that 30 of those 31 do not block Googlebot; that last figure is derived from the public CSV, not from the headline table.",
+    "Writer (Sonnet): checked the arXiv preprint's figures (13.7%, 64.7%, 29.8%, 41.4%, median 8 references, 11.0% of 98,020 claims, query window and set-up) against the paper's full text rather than the abstract, and noted that the claim-fidelity figure comes from an LLM-based check validated against human labels.",
+    "Writer (Sonnet): replaced claims in the previous version that Google's current documentation contradicts (no site-level opt-out, schema as an AI Overview lever, AI Overviews mostly pulling top-ranking pages) and moved the click-through discussion to a link to the existing traffic page instead of repeating unsourced remarks.",
+    "Writer (Sonnet): confirmed Pexels photo titles and photographers for the hero and three inline images on pexels.com, and ran node scripts/content-lint.mjs on the final page.",
+    "Editor (Opus): read the complete final draft (opening, dated SGE timeline table, source-selection section, comparison table, opt-out lever table, measurement steps, five FAQs) and confirmed answer-first openings and a clear stance (don't optimize for a product name; leave the AI control on unless you sell pageviews)",
+    "Editor (Opus): independently verified the key new fact on Google's help page (support.google.com/webmasters/answer/16908024: Search generative AI control excludes a site from AI Overviews, AI Mode and Discover generative features; rolled out to all sites 2026-08-31; not a ranking signal elsewhere) and re-checked all external URLs on 2026-10-03",
+    "Editor (Opus): recomputed the writer's derived figure from the public CSV: 31 sites block Google-Extended and 30 of them still allow Googlebot — correct; other study figures (20/38, 5/20, 4/90, 2/193, 0/43) match the evidence pack",
+    "Editor (Opus): confirmed AEOeye product claims (free = 3 ChatGPT questions; $29 adds Google AI, Gemini, Claude, Perplexity) and that content-lint is clean"
+  ],
+  "merged": [
+    "/blog/what-is-sge"
+  ]
+}

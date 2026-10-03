@@ -1,36 +1,100 @@
 {
-  "contentSha256": "9bff594494425b636acfdd67892900519e56d11a41bebc250f361a0e8a502a30",
-  "reviewedAt": "2026-09-23",
+  "contentSha256": "5ae7d2e4954e435d429d3e9419c52d5af1d013082881876c08049b38a6a543f4",
+  "reviewedAt": "2026-10-03",
   "kind": "pricing-guide",
   "topic": {
     "area": "aeo-buyer-decisions",
-    "readerProblem": "Calculate Otterly.AI plan and add-on cost without confusing prompts with engine coverage.",
-    "connection": "Directly supports selecting a recurring AI-search visibility tracker after defining an AEO prompt and engine scope."
+    "readerProblem": "Work out what Otterly.AI really costs once prompt slots, annual billing and the Gemini, AI Mode and Claude add-ons are counted, and decide whether it is worth paying for.",
+    "connection": "Supports choosing between a one-time AI visibility audit and a recurring AI-search tracker, which is the buying decision AEOeye's audit sits in front of."
   },
-  "assessment": "The final guide separates base prompt capacity from optional engine coverage, lists tax-exclusive USD prices, and prevents the Standard-plus-Gemini calculation from being mistaken for more prompt capacity. It makes no claim about measured accuracy or account behavior.",
+  "assessment": "The page is documentation-based and says so near the top: it uses Otterly's own pricing page, pricing calculator, prompt calculator and help-center articles as checked on 2026-10-03, with no hands-on testing. It replaces the earlier page's error that extra prompts were available on Lite, adds exact annual totals and the real discount range, a worked full-coverage total for each plan, and Otterly's own prompt-counting rules, then takes a position on Lite, Standard and the Claude add-on. It makes no claim about accuracy, output quality or product experience, and it leaves out unverifiable review-site ratings and quotes that the merged pages carried.",
   "sources": [
     {
-      "url": "https://otterly.ai/pricing/",
-      "checkedAt": "2026-09-23",
-      "supports": "Current Lite, Standard and Premium prices, prompt allowances and annual discount."
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29 / Standard $189 / Premium $489 monthly with 15 / 100 / 400 prompts, the same four base engines, annual toggle ($25 / $160 / $422 per month), plan feature differences, add-on prices per tier, extra 100 prompts $99 on Standard and Premium and 'not available' on Lite, Enterprise from 1,000 prompts, USD excluding tax."
     },
     {
       "url": "https://help.otterly.ai/pricing-of-otterlyai",
-      "checkedAt": "2026-09-23",
-      "supports": "Current extra-prompt, Gemini and Claude add-on prices and tax qualification."
+      "checkedAt": "2026-10-03",
+      "supports": "Three plans plus Enterprise, add-ons available on all plans, packs of 100 on Standard and Premium, prices shown in USD or EUR depending on location."
+    },
+    {
+      "url": "https://otterly.ai/pricingcalc/",
+      "checkedAt": "2026-10-03",
+      "supports": "Annual totals ($300 / $1,920 / $5,064), annual add-on prices, Standard ladder 100/200/300 prompts at $189/$288/$387, Premium ladder 400 to 1,000 prompts at $489 to $1,083, and add-on prices keyed to plan tier rather than prompt count."
+    },
+    {
+      "url": "https://otterly.ai/promptcalc/",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly's prompt calculator multiplies countries, languages, categories and prompts per category, with 50 prompts for a basic check and 100 for extensive monitoring."
+    },
+    {
+      "url": "https://help.otterly.ai/amount-searchprompts",
+      "checkedAt": "2026-10-03",
+      "supports": "Prompt slots are per country; one prompt feeding several brand reports counts once; 100-prompt packs only on Standard and Premium."
+    },
+    {
+      "url": "https://help.otterly.ai/free-trial",
+      "checkedAt": "2026-10-03",
+      "supports": "7-day free trial, no credit card, 50 search prompts and the other trial limits."
+    },
+    {
+      "url": "https://help.otterly.ai/how-can-i-purchase-extra-engines",
+      "checkedAt": "2026-10-03",
+      "supports": "Google AI Mode, Gemini and Claude are add-ons available on all plans, Gemini means gemini.google.com, add-ons can be removed in billing."
+    },
+    {
+      "url": "https://help.otterly.ai/monitoring-interval",
+      "checkedAt": "2026-10-03",
+      "supports": "Prompts run daily across the engines, no manual run and no frequency change, and Otterly's statement that AI responses are not deterministic."
+    },
+    {
+      "url": "https://help.otterly.ai/how-otterlyai-collects-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Engines are read through public web interfaces, Otterly says API data can differ from what users see, and Claude is the one engine tracked via API."
+    },
+    {
+      "url": "https://help.otterly.ai/cancel-subscription",
+      "checkedAt": "2026-10-03",
+      "supports": "Access continues to the end of the billing cycle; tracked data and historical data are deleted after cancellation."
+    },
+    {
+      "url": "https://help.otterly.ai/countries-otterlyai",
+      "checkedAt": "2026-10-03",
+      "supports": "'70+ countries' (updated September 24, 2026) and the four unsupported country/engine pairs named in the page."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google says AI Mode and AI Overviews may use different models and techniques, so their responses and links differ."
+    },
+    {
+      "url": "https://arxiv.org/abs/2408.04667",
+      "checkedAt": "2026-10-03",
+      "supports": "Accuracy varied by up to 15% across runs of LLMs configured to be deterministic (Atil et al., arXiv 2408.04667)."
     }
   ],
   "checks": [
-    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
-    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
-    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
-    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+    "Writer (Sonnet): fetched the Otterly pricing page raw HTML with curl on 2026-10-03 and compared every price, prompt allowance, plan feature and add-on price with the page text, its JSON-LD and the page's canonical URL (https://otterly.ai/pricing).",
+    "Writer (Sonnet): read the JavaScript data in Otterly's own pricing calculator to get the annual totals and prompt ladders, then recomputed the real annual discounts (13.8%, 15.3%, 13.7%), the full-coverage totals ($76, $416, $1,226 monthly; $786, $4,240, $12,544 yearly), per-prompt prices and the $614 and $510 comparisons.",
+    "Writer (Sonnet): fetched each cited help-center article and the Google and arXiv sources on 2026-10-03 (WebFetch plus raw-text check) and kept only claims those pages state; vendor inconsistencies (50+/65+/70+ countries, '300 additional' versus a 300-prompt calculator cap) are reported as items to confirm, not resolved.",
+    "Writer (Sonnet): corrected two errors carried by earlier pages: extra prompts are not available on Lite, and Claude on Premium ($439) costs less than the Premium plan ($489). Dropped the unsourced reviewer quote, G2/OMR rating claims (G2 returned 403 to our fetch) and the claim about who uses Claude.",
+    "Writer (Sonnet): used first-hand AEOeye evidence only from the evidence pack: the otterly.ai row of the crawler access study (no robots.txt; homepage and /llms.txt returned 403 to our crawler) and AEOeye product facts; linked /resources/ai-crawler-access-study-2026-10.json.",
+    "Editor (Opus): read the opening, pricing/plan tables and verdict sections in full; confirmed the documentation-based disclosure near the top, dated vendor prices taken from the vendor's own live pages, and conflicting or unconfirmed vendor terms stated as unverified",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): confirmed the vendor figures are consistent with the other vendor pages verified in this release (docs/content/vendor-sites-study-2026-10.md pricing notes), the neutral vendor-site fact box matches the study CSV, and AEOeye product claims match the product facts (free ChatGPT check; one-time $29 report; not a tracker)",
+    "Editor (Opus): content-lint reports no errors or warnings"
   ],
   "pricing": {
     "status": "published",
-    "region": "US / USD public prices, excluding tax",
-    "billing": "Monthly prices are shown; annual billing advertises 15% off.",
-    "verification": "Checked both official pricing sources. Recomputed Standard plus Gemini as US$189 + US$59 = US$248 monthly before tax, and the base prompt ratio as US$189 / 100 = US$1.89.",
-    "checkedAt": "2026-09-23"
-  }
+    "region": "US / USD public prices, excluding tax (Otterly says the help center may show EUR depending on location)",
+    "billing": "Monthly prices published; annual billing advertised at 15% off, with published annual totals of $300 (Lite), $1,920 (Standard) and $5,064 (Premium). Enterprise is custom.",
+    "verification": "Opened the pricing page, Otterly's pricing calculator, prompt calculator and the help-center pricing, trial, add-on, prompt and cancellation articles on 2026-10-03; recomputed annual savings, full-coverage totals and per-prompt prices from the published inputs and kept the vendor's own inconsistencies visible in the page.",
+    "checkedAt": "2026-10-03"
+  },
+  "merged": [
+    "/answers/is-otterly-worth-it",
+    "/answers/otterly-ai-gemini-claude-add-on-cost"
+  ]
 }

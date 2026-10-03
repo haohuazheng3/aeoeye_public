@@ -1,0 +1,119 @@
+{
+  "contentSha256": "ceb7f4bf33e8a21b68d27381664c91e79dff9649af9617687f0dc322ff339452",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Choose among AI visibility trackers and ChatGPT rank trackers, and learn how to track AI mentions and share of voice properly when ChatGPT has no fixed rank to read.",
+    "connection": "Supports AEOeye's audit-first position: explains when a one-off audit is enough, when a recurring tracker earns its price, and points to dedicated vendors for daily monitoring that AEOeye does not offer."
+  },
+  "assessment": "The page answers 'can you track rank in ChatGPT, and which tracker should I use' on the first screen: there is no fixed rank, so it teaches mention rate and share of voice over a fixed prompt set, matches documented entry plans to team types, gives seven questions to ask any vendor, and a free DIY protocol consistent with the site's measurement guide. It rests on vendor pricing and feature pages checked on 2026-10-03, SparkToro and Gumshoe's non-peer-reviewed study, Pew Research, Google and Microsoft help pages, and AEOeye's small self-selected benchmark (caveat kept in the text). It does not rank products by quality, claim hands-on testing, or state any accuracy result for a tracker.",
+  "sources": [
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "January 2026 study by SparkToro and Gumshoe: 600 volunteers, 12 prompts, 2,961 runs on ChatGPT, Claude and Google AI; under 1 in 100 chance two ChatGPT or Google AI responses name the same brands, about 1 in 1,000 for the same order; non-peer-reviewed; authors say a single ranking position is unreliable while visibility across many runs is meaningful; suggests dozens to hundreds of runs per prompt."
+    },
+    {
+      "url": "https://otterly.ai/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.AI Lite $29 a month ($25 billed annually), 15 prompts, ChatGPT, Google AI Overviews, Perplexity and Copilot included, Gemini, Google AI Mode and Claude as paid add-ons, free trial; Standard $189 for 100 prompts (used in the price-per-50-prompts arithmetic)."
+    },
+    {
+      "url": "https://peec.ai/ai-instructions",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI's own plan summary (pricing confirmed live 2026-07-10): Starter $95 a month with 50 prompts and 3 models of your choice from 6 including ChatGPT, daily tracking; agency Essential $245 with about 111 prompts and 3 client projects. Peec's pricing page itself showed no amounts to the fetcher."
+    },
+    {
+      "url": "https://trakkr.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Trakkr Growth $100 a month (1 brand, 50 prompts, 8 models including ChatGPT, 14-day trial); Scale $500 a month (10 brands at 50 prompts each, unlimited seats)."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound pricing page shows only a free 7-day Trial (50 prompts run daily on ChatGPT, Gemini and Google AI Overviews) and a custom-priced Enterprise plan (up to 9 engines, SSO/SAML, SOC 2); no dollar amount published."
+    },
+    {
+      "url": "https://www.semrush.com/pricing/ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush AI Visibility Toolkit $99 a month per domain billed annually, 25 custom prompts, mentions from ChatGPT, Google AI, Gemini and Perplexity."
+    },
+    {
+      "url": "https://ahrefs.com/brand-radar",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs Brand Radar custom prompts are included with paid Ahrefs plans from Lite (5 prompts a day on Lite, up to 20 on Advanced); add-ons start at $50 a month."
+    },
+    {
+      "url": "https://seranking.com/ai-overviews-tracker.html",
+      "checkedAt": "2026-10-03",
+      "supports": "SE Ranking's AI Overviews tracker works by keyword and lists the domains and URLs cited as sources in AI Overviews; included in Core and Growth plans."
+    },
+    {
+      "url": "https://seranking.com/subscription.html",
+      "checkedAt": "2026-10-03",
+      "supports": "SE Ranking Core plan $129 a month on monthly billing, $103.20 a month billed annually."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console Generative AI performance report: impressions in AI Overviews and AI Mode by page, country, device and date; rolled out to all websites worldwide as of 31 August 2026; the page lists no query or click data for it."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Tools AI Performance report (public preview): citations in Microsoft Copilot, AI summaries in Bing and select partner integrations, with total citations, page-level citation counts and grounding queries; citations only, not clicks, impressions or ranking."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Share_of_voice",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of share of voice as a company's percentage of media spend relative to total category spend, the basis for the AI share of voice analogy."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew Research (March 2025 browsing data, 900 US adults, 68,879 searches): users clicked a link inside a Google AI summary in 1% of visits to pages with one."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "In OpenAI's API, web search is an optional tool configured in the request and the model can choose whether to search, so a run without it reflects model memory rather than live retrieval."
+    },
+    {
+      "url": "https://www.evertune.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Evertune states it samples each prompt 100 times across every AI model; no pricing published, demo requested."
+    },
+    {
+      "url": "https://www.searchenginejournal.com/ai-prompt-intent-keywords-peec-spa/576201/",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI's analysis of 1,754 prompts and 37,804 AI responses reported by Search Engine Journal: ranking-style prompts gave about 20% higher average brand visibility."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every URL cited in the page on 2026-10-03 and kept only what the fetched page states; OpenAI's help-center and openai.com announcement pages returned 403 and were therefore not cited.",
+    "Writer (Sonnet): fetched Profound's pricing page three times; each time it showed only a free 7-day Trial and a custom Enterprise plan with no dollar amount, so the page says 'quote only'. The 2026-09-23 /blog/profound-pricing page records Starter $99 and Growth $399 billed yearly, so that conflict is flagged for the editor.",
+    "Writer (Sonnet): Peec AI's pricing page returned no amounts to the fetcher, so Peec figures come from Peec's own plan summary (peec.ai/ai-instructions, 'pricing confirmed live 2026-07-10'); the page discloses this under the table.",
+    "Writer (Sonnet): recomputed price per 50 prompts from the published inputs (Peec Starter $95 for 50 = $95; Otterly Lite $29 for 15 = $96.67 and Standard $189 for 100 = $94.50; Trakkr Growth $100 for 50 = $100) and stated only the range 'roughly $95 to $100'.",
+    "Writer (Sonnet): checked every AEOeye benchmark figure used (127 audits, 27 brand names, 892 answers, 157 mentions = 17.6%, 147 ranked mentions, 71.4% first place, 144 of 157 positive) against public/resources/aeoeye-recommendation-benchmark-2026-09.json and kept its self-selected-sample caveat; no per-engine rates are quoted.",
+    "Writer (Sonnet): read the already-rewritten /blog/measuring-ai-visibility so the DIY protocol (30 prompts, three runs, monthly full wave, weekly 10 to 15 prompt alarm, per-engine results) agrees with it and links to it for formulas instead of restating them.",
+    "Writer (Sonnet): confirmed on Google's help page and Microsoft's announcement what the Search Console and Bing reports show and worded the page to match, including that neither names ChatGPT, Claude, Gemini or Perplexity.",
+    "Writer (Sonnet): read all nine merged pages in full and mapped each unique point to this page or to an explicit drop; no Pro-plan, subscription or daily-tracking claims about AEOeye were carried over from the old versions.",
+    "Writer (Sonnet): labelled SparkToro's study as not peer-reviewed in the page and named its co-author Gumshoe; Gumshoe.ai is itself an AI-visibility vendor, noted here so the editor can judge the source.",
+    "Editor (Opus): reviewed the final draft: read the opening and every H2 opening sentence for a direct answer, read the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison, no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/chatgpt-rank-tracker",
+    "/blog/llm-rank-tracker",
+    "/blog/ai-rank-tracking",
+    "/blog/ai-search-monitoring",
+    "/blog/ai-overview-tracker",
+    "/blog/prompt-monitoring",
+    "/blog/ai-brand-monitoring-tools",
+    "/blog/share-of-voice-tool",
+    "/guides/how-to-track-brand-mentions-in-ai"
+  ]
+}

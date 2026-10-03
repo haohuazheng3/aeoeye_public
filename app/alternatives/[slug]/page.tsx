@@ -24,7 +24,7 @@ export default function AlternativesPage({ params }: { params: { slug: string } 
       <ContentPageView page={page} type="alternatives" related={related} />
       <JsonLd
         data={[
-          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/alternatives/${page.slug}`, date: "2026-06-25" }),
+          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/alternatives/${page.slug}`, date: page.updated || "2026-06-25", published: "2026-06-25" }),
           breadcrumbJsonLd([{ name: "Alternatives", path: "/alternatives" }, { name: page.title, path: `/alternatives/${page.slug}` }]),
           ...(page.faqs.length ? [faqJsonLd(page.faqs)] : []),
         ]}

@@ -46,6 +46,9 @@ export const metadata: Metadata = pageMeta({
  * og:image 1、入口 canonical 目标 1。只用来给出"大约多少请求"的量级。
  */
 const PROBE_OVERHEAD = 2 + 3 + 8 + 1 + 1 + 1;
+
+/** 一次性研究抓取的 UA(scripts/research/ai-crawler-access-study.mts 的 UA,保持一致) */
+const RESEARCH_UA = "Mozilla/5.0 (compatible; AEOeyeResearch/1.0; +https://aeoeye.com/bot)";
 /** 探针阶段先查入口页自己的 canonical 目标,补全阶段再查至多 CANONICAL_TARGETS_MAX 个 —— 合计上限要 +1 */
 const CANONICAL_TARGETS = CANONICAL_TARGETS_MAX + 1;
 const SITE_CHECKS = SITEMAP_SAMPLE_SIZE + CANONICAL_TARGETS_MAX + BROKEN_INTERNAL_MAX + LARGE_IMAGES_MAX;
@@ -118,6 +121,31 @@ export default function BotPage() {
             Mobile — one extra request for the audited page, to compare mobile and desktop HTML
           </p>
           <code className="mt-1.5 block break-all rounded-xl bg-paper-soft px-3 py-2 text-sm text-ink">{SEO_BOT_MOBILE_UA}</code>
+        </div>
+      </section>
+
+      {/* 一次性研究抓取(2026-10-03 起):不是 AEOeyeBot,单独的 UA。与 scripts/research/ai-crawler-access-study.mts 的
+          UA / 请求数 / 间隔逐条对应 —— 那边改了这里必须一起改(同 C36 的原则:说的每一句都要和日志对得上)。 */}
+      <section className="card mt-4 p-6 sm:p-7" aria-labelledby="research">
+        <div className="relative z-10">
+          <h2 id="research" className="font-display text-xl font-semibold tracking-tight">
+            Research crawls (AEOeyeResearch)
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-ink/65">
+            Separately from audits, we occasionally run a one-off study of how sites treat AI crawlers. The first covered
+            391 well-known sites on 3 October 2026 (three passes that day while we fixed our own script); the method and
+            the per-site data are published in our{" "}
+            <Link href="/blog/ai-crawler-user-agent-directory" className="font-medium text-iris hover:underline">
+              AI crawler access study
+            </Link>
+            . Per site and pass it fetches at most four URLs (following redirects): <Code>/robots.txt</Code> (retried
+            once on the www host if the first attempt fails), then <Code>/llms.txt</Code> and the homepage only if
+            robots.txt allows them for this user agent — one at a time, a second apart, nothing else.
+          </p>
+          <code className="mt-3 block break-all rounded-xl bg-paper-soft px-3 py-2 text-sm text-ink">{RESEARCH_UA}</code>
+          <p className="mt-2 text-xs leading-relaxed text-ink/45">
+            To opt out of future studies: <Code>User-agent: AEOeyeResearch</Code> / <Code>Disallow: /</Code>.
+          </p>
         </div>
       </section>
 

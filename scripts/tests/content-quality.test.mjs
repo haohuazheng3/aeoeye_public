@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
-import { checkPost, offTopicReason, RETIRED_SLUGS } from '../verify-content-quality.mjs';
+import { checkPost, offTopicReason, RETIRED_SLUGS, RETIRED_PATHS } from '../verify-content-quality.mjs';
 
 const hash = (raw) => crypto.createHash('sha256').update(raw).digest('hex');
 const source = 'https://example.com/official-pricing';
@@ -93,7 +93,7 @@ test('retired slugs cannot be re-created even with full evidence', () => {
   assert.ok(RETIRED_SLUGS.has('zoom-pricing') && RETIRED_SLUGS.has('profound-ai-review'));
   const raw = article();
   const out = checkPost({ file: 'content/blog/zoom-pricing.mdx', raw, evidence: evidence(raw) }).join('\n');
-  assert.match(out, /retired on 2026-09-24/);
+  assert.match(out, /was retired/);
 });
 test('generic SaaS and SEO-tool pricing/review pages are off-topic', () => {
   for (const slug of ['slack-pricing', 'midjourney-pricing', 'semrush-review', 'ahrefs-alternatives', 'grammarly-review', 'best-keyword-research-tools']) assert.ok(offTopicReason(slug), slug);
@@ -102,7 +102,7 @@ test('AI assistant plans, features and assistant-vs-assistant pages are off-topi
   for (const slug of ['claude-max-pricing', 'chatgpt-projects', 'gemini-gems', 'grok-vs-gemini', 'chatgpt-review', 'what-is-fine-tuning', 'prompt-engineer-salary']) assert.ok(offTopicReason(slug), slug);
 });
 test('AEO tools, engine search behaviour and AI-visibility topics stay allowed', () => {
-  for (const slug of ['peec-ai-pricing', 'profound-vs-semrush', 'perplexity-vs-chatgpt', 'how-does-perplexity-work', 'does-chatgpt-cite-wikipedia', 'ai-citation-freshness-metrics', 'aeo-vs-seo', 'google-ai-mode-vs-chatgpt', 'how-to-get-recommended-by-chatgpt', 'bluefish-ai-pricing', 'geneo-pricing', 'igeo-ai-pricing', 'xfunnel-pricing', 'geordy-pricing', 'serprecon-pricing', 'koalr-pricing', 'scope-ai-visibility-pricing', 'rank-prompt-pricing', 'airank-pricing', 'aerank-pricing', 'geostars-pricing', 'geopher-ai-pricing', 'geopta-pricing', 'se-ranking-ai-search-pricing', 'yext-scout-pricing']) assert.equal(offTopicReason(slug), null, slug);
+  for (const slug of ['peec-ai-pricing', 'profound-vs-semrush', 'perplexity-vs-chatgpt-for-brand-visibility', 'how-does-chatgpt-choose-sources', 'does-chatgpt-cite-wikipedia', 'ai-search-citation-evaluation-metrics', 'aeo-vs-seo', 'chatgpt-vs-google-ai-overviews-citations', 'how-to-rank-in-perplexity', 'ai-search-statistics', 'perplexity-citation-patterns', 'bluefish-ai-pricing', 'geneo-pricing', 'igeo-ai-pricing', 'xfunnel-pricing', 'geordy-pricing', 'serprecon-pricing', 'koalr-pricing', 'scope-ai-visibility-pricing', 'rank-prompt-pricing', 'airank-pricing', 'aerank-pricing', 'geostars-pricing', 'geopher-ai-pricing', 'geopta-pricing', 'se-ranking-ai-search-pricing', 'yext-scout-pricing']) assert.equal(offTopicReason(slug), null, slug);
 });
 test('published INR pricing is accepted as a concrete visible amount', () => {
   const raw = article(`GEOpta is ₹4,999 per month. See [official pricing](${source}).`, 'GEOpta Pricing');
@@ -114,3 +114,31 @@ test('a new off-topic page fails the gate with the reason spelled out', () => {
   const out = checkPost({ file: 'content/blog/slack-pricing-2027.mdx', raw, evidence: evidence(raw) }).join('\n');
   assert.match(out, /off-topic for AEOeye/);
 });
+
+// ---- 2026-10-03 第二轮清理:规则扩到全部内容栏目,并补上第一轮漏掉的几类跑题 ----
+test('round-two retirements cover every content section, not just the blog', () => {
+  for (const p of ['/answers/what-is-llm-visibility', '/guides/how-to-rank-in-chatgpt', '/compare/geo-vs-seo', '/glossary/ai-agent', '/blog/chatgpt-market-share', '/blog/perplexity-vs-claude']) assert.ok(RETIRED_PATHS.has(p), p);
+  assert.ok(RETIRED_SLUGS.has('chatgpt-market-share') && !RETIRED_SLUGS.has('what-is-llm-visibility'), 'blog view only holds blog slugs');
+  assert.ok(offTopicReason('what-is-llm-visibility', 'answers'));
+  assert.equal(offTopicReason('what-is-ai-visibility', 'answers'), null);
+});
+test('assistant or search-engine comparisons need a brand-visibility angle', () => {
+  for (const slug of ['grok-vs-perplexity', 'copilot-vs-chatgpt', 'google-vs-perplexity', 'claude-vs-gemini-for-coding']) assert.ok(offTopicReason(slug), slug);
+  for (const slug of ['chatgpt-vs-perplexity-citations', 'gemini-vs-chatgpt-brand-recommendations', 'perplexity-vs-google-ai-overviews-seo']) assert.equal(offTopicReason(slug), null, slug);
+});
+test('AI company revenue, market share and usage statistics are off-topic', () => {
+  for (const slug of ['deepseek-revenue', 'grok-market-share', 'copilot-statistics', 'ai-adoption-statistics', 'gemini-users']) assert.ok(offTopicReason(slug), slug);
+});
+test('generic AI explainers and SEO utilities stay out', () => {
+  for (const slug of ['what-is-a-vector-database', 'how-does-gemini-work', 'json-ld-generator', 'people-also-ask', 'turn-off-ai-mode']) assert.ok(offTopicReason(slug), slug);
+});
+test('JSON content pages are checked like posts: fields are read as visible text, evidence and retirement apply', () => {
+  const page = { slug: 'is-peec-ai-worth-it-for-agencies', title: 'Is Peec AI Worth It for Agencies?', shortAnswer: 'Peec AI starts at $20 per month.', intro: 'See [official pricing](' + source + ').', sections: [{ heading: 'Price', body: 'The plan is $20 per month in the US.' }], faqs: [] };
+  const raw = JSON.stringify(page, null, 1);
+  const file = 'content/answers/is-peec-ai-worth-it-for-agencies.json';
+  assert.deepEqual(checkPost({ file, raw, evidence: evidence(raw) }), []);
+  assert.match(checkPost({ file, raw }).join('\n'), /needs content\/editorial-evidence/);
+  assert.match(checkPost({ file: 'content/answers/what-is-llm-visibility.json', raw, evidence: evidence(raw) }).join('\n'), /was retired/);
+  assert.match(checkPost({ file, raw: '{not json' }).join('\n'), /malformed content file/);
+});
+

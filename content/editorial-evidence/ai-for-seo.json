@@ -1,0 +1,85 @@
+{
+  "contentSha256": "79054f83728d84b00490c38771f23f2d9d90e1883f46d86ef6f9587acbcb4cc3",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "Someone searching 'AI SEO' or 'AI for SEO' does not know whether it means using AI tools in SEO work or optimizing to be named by AI engines, and needs to know how to do both well without publishing scaled thin content.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity recommend a brand; this page defines both meanings of AI SEO, points the optimization half to AEOeye's AEO guide, and uses AEOeye's crawler access study and its own 2026 content clean-up as first-hand evidence."
+  },
+  "assessment": "The page defines AI SEO as two jobs (AI as a tool, AI as the audience) in a table, then shows where AI genuinely helps SEO work (clustering, gap briefs, merge candidates, schema drafts, crawl QA), where it hurts (scaled content abuse per Google's spam policy, hallucinated facts, unreviewed decisions), how to optimize for AI answers (index and snippet eligibility, retrieval-bot access, answer-first passages, off-site mentions, click reality), a weekly workflow and a category-level tools table. It rests on Google Search Central documentation, Pew browsing data, the GEO paper, OpenAI crawler documentation and AEOeye's crawler study (n and sample caveat stated) and clean-up history. It deliberately does not claim any engine rewards AI-written content or specific schema, quotes no vendor prices, and does not say the retired posts were AI-generated.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Last updated 2026-10-01: generative AI can be useful when researching a topic and to add structure to original content; using it to generate many pages without adding value may violate the scaled content abuse policy; generative models predict likely word sequences rather than retrieve facts and can hallucinate; fact-check content including title elements, meta descriptions, structured data and alt text."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Last updated 2026-08-28: scaled content abuse is many pages generated for the primary purpose of manipulating rankings and not helping users, no matter how created; examples include using generative AI tools to generate many pages without adding value."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No additional requirements to appear in AI Overviews or AI Mode; a page must be indexed and snippet-eligible; no new machine-readable files, AI text files, markup or special schema.org data needed; AI-feature traffic is reported in Search Console's Performance report within the Web search type."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Last updated 2026-10-01: in the attributes quality raters evaluate, using generative AI to produce large amounts of text without manual oversight represents little to no effort."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Structured data policy: do not mark up content that is not visible to readers of the page; the markup must describe the same content the HTML body shows."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/9128668",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Console is described as a free service that helps monitor, maintain and troubleshoot a site's presence in Google Search."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Browsing data from 900 US adults, March 2025: a traditional result was clicked in 8% of visits with an AI summary versus 15% without; a link inside the summary in 1% of visits; Wikipedia, YouTube and Reddit made up 15% of sources listed in AI summaries."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper abstract: GEO methods can boost visibility by up to 40% in generative engine responses on the authors' GEO-bench, and efficacy varies across domains."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; opted-out sites will not be shown in ChatGPT search answers though they can still appear as navigational links; OAI-SearchBot and GPTBot settings are independent."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Lists AEO, LLMO, AIO and AI SEO as other terms for the same concept as generative engine optimization."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)",
+      "checkedAt": "2026-10-03",
+      "supports": "Defines AI hallucination as plausible-sounding falsehoods generated by a model, including fabricated citations; used to define the term on first use."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026-284b440771373a5a245425a5d31a8ad6/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft's February 2026 announcement of the AI Performance report in public preview, showing how publisher content is cited across Microsoft Copilot, AI-generated summaries in Bing and select partner integrations."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and extracted the raw page text with curl before stating any claim; re-read Google's spam-policy definition of scaled content abuse and the generative-AI guidance verbatim and paraphrased only what they say.",
+    "Writer (Sonnet): confirmed Pew's 8% versus 15%, 1% and 15% (Wikipedia, YouTube, Reddit) figures and the 900-adult, March 2025 sample against the raw page text, and limited the GEO paper claim to the abstract's 'up to 40%' and 'varies across domains'.",
+    "Writer (Sonnet): recomputed the crawler-study figures used (1 of 193 SaaS sites and 27 of 38 publishers block at least one AI retrieval bot, including user-triggered fetchers) from public/resources/ai-crawler-access-study-2026-10.csv and confirmed the retrieval definition in the study's JSON summary; stated the single-fetch convenience-sample limit beside them.",
+    "Writer (Sonnet): used the 2026-09-24 retirement (234 posts, 27 merged, about half of 496 unrelated to AI visibility with zero clicks in 90 days) and 2026-10-03 merge (165 pages into 42) exactly as in the evidence pack, without claiming the retired posts were AI-written.",
+    "Writer (Sonnet): viewed the three Pexels photos and wrote alt text describing only what is visible; replaced the old page's outdated hero and dropped links to retired pages; ran node scripts/content-lint.mjs and cleared every finding.",
+    "Editor (Opus): reviewed the final draft: the two-meanings opening and table, the helps/hurts sections (Google's scaled-content and gen-AI guidance quoted accurately), the workflow and the tools-by-category section",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): matched first-hand figures to the evidence pack (1 of 193 SaaS vs 27 of 38 publishers) and our cleanup history (234 retired, 27 merged on 2026-09-24; 165 into 42 on 2026-10-03); AEOeye product claims incl. the $10 SEO report match the product facts",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

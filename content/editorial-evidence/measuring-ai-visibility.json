@@ -1,0 +1,108 @@
+{
+  "contentSha256": "32c7c8d12e7d33aee8ee0c03d2f109812c7b3c89730493852109f9165f1618f0",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "A founder or marketer wants to know how to measure whether AI engines name their brand: which metrics to track, how to calculate them, how many prompts and repeats are enough, how often to re-measure, and how to tell a real change from run-to-run noise.",
+    "connection": "Measuring mentions, position, share of voice and citations across engines from unbranded buyer questions is exactly what AEOeye's audit does; the page explains the design behind that measurement, uses AEOeye's own benchmark as a denominator lesson, and says when a dedicated tracker fits better."
+  },
+  "assessment": "The page replaces an 18-term metrics dictionary and a statistics-roundup style guide with one checkable measurement design: four metrics plus an accuracy check with formulas, a minimum sampling design (30+ unbranded prompts, 3 to 5 runs, Wilson intervals with n set to the number of prompts), engine-by-engine test conditions taken from vendor documentation, a paired-prompt rule for calling a change real, and a build/buy/audit-once decision. It rests on vendor documentation checked on 3 October 2026, three 2026 arXiv preprints, the NIST handbook and AEOeye's own recommendation benchmark with its self-selection caveat. It deliberately does not quote third-party AI-visibility statistics, give a 'good score' target, compare engines from the benchmark, or claim anything about the ChatGPT or Claude apps beyond what the vendors document (it says apps can differ from APIs).",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2607.13304",
+      "checkedAt": "2026-10-03",
+      "supports": "Single-author July 2026 preprint on 12,933 brand answers (3 models, 8 languages): one answer carries almost no brand-discriminating signal, repeats past the fifth barely help, spreading the budget across models or languages helps several times more."
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.16304",
+      "checkedAt": "2026-10-03",
+      "supports": "Competitive set must be defined independently of model outputs because defining it from observed recommendations excludes brands LLMs rarely recommend (selection bias); recommendation is a stochastic process, not a single list."
+    },
+    {
+      "url": "https://arxiv.org/abs/2408.04667",
+      "checkedAt": "2026-10-03",
+      "supports": "Five LLMs configured to be deterministic still showed accuracy variations of up to 15% across 10 runs of the same tasks."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/messages/create",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic Messages API reference: models released after Claude Opus 4.6 do not support setting temperature (only 1.0 accepted for backwards compatibility)."
+    },
+    {
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm",
+      "checkedAt": "2026-10-03",
+      "supports": "NIST Engineering Statistics Handbook 7.2.4.1 gives the Wilson method for confidence intervals for proportions and notes the common simple formula can produce a negative lower limit."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/McNemar%27s_test",
+      "checkedAt": "2026-10-03",
+      "supports": "McNemar's test applies to paired dichotomous data and uses only discordant pairs; for few discordant pairs an exact binomial test with p = 0.5 on b + c is used."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Traffic from AI Overviews and AI Mode is included in Search Console's Web search type reporting; AI Overviews are only shown when Google's systems judge them additive and often do not trigger."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/14901683",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's help page for AI Overviews warns that AI responses can include mistakes."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/17212611?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Mode personalization references previous searches and activity saved in Search history when history and personalized recommendations are enabled."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI API web search tool: the model can choose whether to search; inline citations show only the most relevant references while a sources field lists every URL consulted; tool_choice required forces a search."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "checkedAt": "2026-10-03",
+      "supports": "Claude determines when to search, searches for current information including about products and organizations, triggering is steerable through the system prompt, citations are always on, and an approximate user location can be set."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/google-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini API grounding: the model analyzes the prompt and determines whether Google Search can improve the answer."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/16413516",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini Apps can use saved info (personal context) and, gradually, past chats to shape responses, and users can switch personal context off or on."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/overview",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity's migration page: Sonar Chat Completions support ended on 27 September 2026 and existing requests are being reformulated as Agent API requests, rolling out gradually by model."
+    },
+    {
+      "url": "https://docs.peec.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI documentation: it runs prompts daily, and defines Visibility as how often the brand gets mentioned across AI responses."
+    },
+    {
+      "url": "https://otterly.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly homepage describes Share of AI Voice as the percentage of citations you own versus competitors."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each of the 16 external URLs cited in the page on 2026-10-03, kept only claims the fetched page states, and re-fetched the load-bearing quotes (Atil abstract, Malthouse selection-bias sentence, Zatuchin repeat finding, OpenAI sources-versus-citations wording, Perplexity 27 September 2026 sentence, Anthropic temperature sentence, Google Search Console sentence) with verbatim-quote prompts; also confirmed all 16 return HTTP 200.",
+    "Writer (Sonnet): the OpenAI help-center pages (ChatGPT search, memory) and the Perplexity help center returned HTTP 403 to the fetch tool, so no claim about the ChatGPT or Perplexity apps' own settings is made; the ChatGPT and Perplexity rows rely only on the OpenAI API docs and the Perplexity API migration page, and the page says apps can differ from APIs.",
+    "Writer (Sonnet): recomputed every interval and probability in the page with a short script: Wilson 95% intervals for 0/30, 6/30, 20/100, 3/12 and 3/74 (and 30/100, 12/30, 3/30 used in reasoning), 1 - 0.7^3 = 65.7%, and exact two-sided binomial p-values for the 6-0, 8-1, 10-2, 12-3 and 5-2 gain/loss splits (0.031, 0.039, 0.039, 0.035 and 0.453; 5-0, 7-1, 9-2 and 11-3 miss the 5% bar).",
+    "Writer (Sonnet): checked every AEOeye figure against the AEOeye evidence pack and public/resources/aeoeye-recommendation-benchmark-2026-09.json (157 mentions in 892 answers = 17.6%; 127 audits; 27 brand names; 509 answers from one engine and 74 from each of three others; four engines under 10 mentions; 71.4% of 147 ranked mentions first; 144 positive, 12 neutral, 1 negative of 157) and kept the self-selection caveat and the no-engine-comparison rule.",
+    "Writer (Sonnet): read the page being merged (ai-visibility-metrics-dictionary) and the previous measuring-ai-visibility page in full and mapped each of the 18 dictionary terms to a kept metric, a derivative, part of the sampling design, or a separate audit; dropped the old page's secondary-source statistics (Rankfender, BrightEdge, Profound, Position Digital, Stackmatix, PR Newswire, TechnologyChecker) rather than re-citing numbers not verified against a primary source in this session.",
+    "Writer (Sonnet): rendered the body with the site's markdown-to-jsx to confirm the three tables, the numbered list, the code block and three inline images render; confirmed the hero and three inline Pexels photos resolve (HTTP 200) and are not used elsewhere on the site; ran scripts/content-lint.mjs (only the expected missing /blog/ai-brand-recommendation-measurement hub error remains, because that page is being written in parallel).",
+    "Editor (Opus): read the complete final draft (opening, metric formula table, sampling section with the Wilson formula and interval table, per-engine conditions table, re-measurement rules, build/buy/audit section, five FAQs)",
+    "Editor (Opus): recomputed every statistic myself: Wilson 95% intervals for 0/30 (0–11.4%), 6/30 (9.5–37.3%), 20/100 (13.3–28.9%), 3/12 (8.9–53.2%) and 3/74 (1.4–11.3%); exact McNemar two-sided p for 6–0 (0.031), 8–1 (0.039), 10–2 (0.039), 12–3 (0.035) and 5–2 (0.45); and 1−0.7³ = 66% — all correct",
+    "Editor (Opus): independently verified the two unusual product facts on the vendors' own docs: Anthropic's Messages API marks temperature deprecated ('Models released after Claude Opus 4.6 do not support setting temperature') and Perplexity says Sonar Chat Completions support ended 27 September 2026 with requests reformulated as Agent API requests",
+    "Editor (Opus): matched benchmark figures and caveats to the evidence pack (157/892, 127 audits, 27 names, 509 vs 74 answers, four engines under 10 mentions, 71.4% of 147, 144/12/1) and AEOeye product facts; the only content-lint error is the link to /blog/ai-brand-recommendation-measurement, created in this release"
+  ],
+  "merged": [
+    "/blog/ai-visibility-metrics-dictionary"
+  ]
+}

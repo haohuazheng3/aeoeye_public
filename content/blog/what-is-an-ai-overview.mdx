@@ -1,92 +1,98 @@
 ---
-title: "What Is an AI Overview? Google's AI Search Summaries Explained"
-description: "What is an AI Overview? See how Google's AI-generated search summaries work, how they differ from snippets and AI Mode, and how to get cited in one."
-date: "2026-07-18"
+title: "What Is an AI Overview? How Google Picks Its Sources (2026)"
+description: "A Google AI Overview is an AI-written answer above search results, built from indexed pages. See how it grew out of SGE, picks sources and differs from AI Mode."
+date: "2026-10-03"
+published: "2026-07-18"
 category: "AI Search"
-readingTime: "8 min read"
-keywords: ["what is an ai overview", "what are ai overviews", "ai overviews", "google ai overview", "ai overview vs featured snippet", "ai overview seo", "how do ai overviews work"]
-faqs: [{"q": "What is an AI Overview?", "a": "An AI Overview is Google's AI-generated summary that appears at the top of many search results. It synthesizes an answer from multiple web pages and cites its sources, instead of showing only a list of blue links. Google evolved AI Overviews from an earlier experiment called the Search Generative Experience (SGE)."}, {"q": "What is the difference between an AI Overview and a featured snippet?", "a": "A featured snippet quotes one exact passage from a single ranking page. An AI Overview is different: it's AI-generated text that blends information from several pages into a new summary, then links out to each source it used. Snippets quote; Overviews synthesize."}, {"q": "Do AI Overviews hurt website traffic?", "a": "For some queries, yes. When an AI Overview fully answers a question on the results page, users often don't click through, and research from Ahrefs has found lower click-through rates on positions below an AI Overview. Zero-click search is growing, though being cited in the Overview still carries visibility value."}, {"q": "How do I show up in AI Overviews?", "a": "Start with strong organic rankings, since AI Overviews mostly pull from top-ranking pages. Then write answer-first content: a direct answer in the first sentence, clear structure with headers and bullets, FAQ or HowTo schema, and consistent naming for your brand and key terms so the AI can identify them confidently."}]
-image: {"url": "https://images.pexels.com/photos/16094049/pexels-photo-16094049.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Close-up of a person holding a smartphone displaying the ChatGPT application interface on a patterned table.", "photographer": "Matheus Bertelli", "photographerUrl": "https://www.pexels.com/@bertellifotografia"}
-sources: []
+readingTime: "6 min read"
+keywords: ["google ai overview", "google ai overviews", "ai overviews", "what is an ai overview", "why is there an ai overview", "is ai overview free", "what is sge", "search generative experience"]
+faqs: [{"q": "What is a Google AI Overview, and why is there one on my search?", "a": "A Google AI Overview is an AI-written summary shown above the regular results, linking the pages it drew on. You see one because Google's systems judged it would add something beyond the regular results for that query. Most searches don't get one, and Google builds each from pages in its Search index."}, {"q": "Is an AI Overview the same as SGE?", "a": "Effectively yes. SGE, the Search Generative Experience, was the opt-in Search Labs test Google announced on 10 May 2023. Google released the same idea to everyone in the US as AI Overviews on 14 May 2024, and the SGE name faded. AI Mode, launched in 2025, is a separate conversational experience."}, {"q": "Is AI Overview free, and can I turn it off?", "a": "AI Overviews are part of regular Google Search: Google lists them as available to all users and dropped the sign-in requirement in March 2025, so there is nothing to buy. Searchers can't turn them off, because Google treats them as a core Search feature, but the Web filter shows text links without them. Site owners can opt out through the Search generative AI control in Search Console."}, {"q": "Does blocking Google-Extended remove my site from AI Overviews?", "a": "No. Google says Google-Extended governs whether your content trains Gemini models and grounds answers in Gemini Apps and Vertex AI, and that it doesn't affect inclusion in Google Search. To leave AI Overviews, use the Search generative AI control in Search Console. In AEOeye's October 2026 study, 31 of 384 sites blocked Google-Extended, and 30 of them still allowed Googlebot."}, {"q": "How do AI Overviews differ from featured snippets and AI Mode?", "a": "A featured snippet quotes one passage from one page. An AI Overview writes a new summary from several pages and links them. AI Mode is a separate chat-style experience that searches subtopics, and each follow-up is a new query. Since May 2026 a follow-up asked in an AI Overview continues in AI Mode. Both share the same eligibility rules and Search Console control."}]
+image: {"url": "https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Close-up of a tablet displaying Google's search screen, emphasizing technology and internet browsing.", "photographer": "AS Photography", "photographerUrl": "https://www.pexels.com/@asphotography"}
+sources: [{"label": "Google Search Central — AI features and your website", "url": "https://developers.google.com/search/docs/appearance/ai-features"}, {"label": "Google Search Central — Optimizing your website for generative AI features on Google Search", "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"}, {"label": "Google Search Console Help — Search generative AI control", "url": "https://support.google.com/webmasters/answer/16908024"}, {"label": "Google Search Central — Google's common crawlers (Google-Extended)", "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers"}, {"label": "Google — AI Overviews: About last week (May 2024)", "url": "https://blog.google/products/search/ai-overviews-update-may-2024/"}, {"label": "Xu, Iqbal and Montgomery — Measuring Google AI Overviews (arXiv, 2026)", "url": "https://arxiv.org/abs/2605.14021"}]
 ---
 
-## What Is an AI Overview?
+A Google AI Overview is a short AI-written answer Google puts above the regular results for some searches, linking the pages it drew on. It is the public successor to the 2023 [Search Generative Experience (SGE)](https://blog.google/products/search/generative-ai-search/) test, available to all users in supported countries, and searchers can't turn it off. Site owners, though, gained an opt-out in Search Console in 2026.
 
-**An AI Overview is Google's AI-generated summary that appears at the top of many search results, pulling an answer together from several web pages instead of just listing blue links.** It sits above the normal organic results, usually with a handful of source links attached directly to the summary.
+## What is an AI Overview?
 
-Google introduced AI Overviews as the public, default version of what it had spent over a year testing as the Search Generative Experience (SGE) — an opt-in feature tucked inside Google Labs. As of this writing, AI Overviews are no longer experimental or optional for most U.S. searchers; they're just part of how Google search looks now.
+An [AI Overview](https://en.wikipedia.org/wiki/AI_Overviews) is a generated summary at the top of the results page that answers a query in a few lines and links to the pages behind it. Google shows one only when its systems judge it [adds something beyond classic results](https://developers.google.com/search/docs/appearance/ai-features), so many searches never get one.
 
-The short version: you type a question, Google's AI reads across the top-ranking pages for that query, and it writes you a synthesized answer instead of making you click through and piece one together yourself.
+How often? In a [May 2026 arXiv preprint](https://arxiv.org/abs/2605.14021), 55,393 trending US English queries run in March and April 2026 produced an AI Overview 13.7% of the time, and 64.7% of the time when phrased as questions. Trending queries aren't your keywords; read that as a direction.
 
-That's a bigger shift than it sounds. For two decades, ranking #1 meant your blue link sat at the top of the page. Now the top of the page is a generated paragraph, and your site's job isn't just to outrank the competition — it's to be one of the sources that paragraph is built from.
+There is nothing to buy. Google lists AI Overviews as [available to all users](https://support.google.com/websearch/answer/14901683) and [dropped the sign-in requirement](https://blog.google/products-and-platforms/products/search/ai-mode-search/) in March 2025. It reported [over 2.5 billion monthly active users](https://blog.google/products-and-platforms/products/search/new-controls-website-owners/) in June 2026.
 
-## How Do AI Overviews Work?
+## What happened to SGE?
 
-**AI Overviews work in three steps: Google retrieves the most relevant pages for a query, a language model reads and summarizes them, and the summary cites the sources it drew from.** It's retrieval-augmented generation applied to search — the AI isn't inventing an answer from whatever it memorized during training, it's grounding the response in pages that are actually ranking right now.
+SGE, the Search Generative Experience, was Google's opt-in Search Labs test of AI answers in Search. Google released the same idea to everyone in the US as AI Overviews in May 2024, and the SGE name faded while the feature stayed.
 
-Broken down, that looks like:
+| When | What changed |
+|---|---|
+| [10 May 2023](https://blog.google/products/search/generative-ai-search/) | SGE announced as an opt-in Search Labs test, US and English only at launch |
+| [14 May 2024](https://blog.google/products/search/generative-ai-google-search-may-2024/) | AI Overviews roll out to everyone in the US |
+| [5 Mar 2025](https://blog.google/products-and-platforms/products/search/ai-mode-search/) | AI Mode debuts in Labs; [US rollout follows on 20 May](https://blog.google/products/search/google-search-ai-mode-update/) |
+| [19 May 2026](https://blog.google/products-and-platforms/products/search/search-io-2026/) | Follow-ups flow from an AI Overview into AI Mode, worldwide |
+| [3 Jun 2026](https://blog.google/products-and-platforms/products/search/new-controls-website-owners/) | Search Console opt-out and AI report begin rolling out; all sites by 31 August |
 
-- **Retrieval.** Google's normal ranking systems pull a set of candidate pages for the query, the same way they would for a standard search.
-- **Synthesis.** An AI model reads those pages and drafts a short, direct answer, often blending facts from more than one source into a single response.
-- **Citation.** The Overview links out to the pages it used, typically shown as a small carousel of source links next to or beneath the summary.
-- **Display.** The result renders above the standard organic listings, so it's the first thing most users see before anything else.
+Google's launch post never says "SGE", but notes billions of uses in a Search Labs experiment, and [TechCrunch](https://techcrunch.com/2024/05/14/google-is-adding-more-ai-to-its-search-results/) tied that experiment to SGE the same day. SGE already showed links and took follow-up questions, which AI Mode later expanded.
 
-This whole system is the shipped version of a concept Google spent years testing as SGE. For the fuller backstory on how that experiment became today's AI Overviews, see our guide to [what SGE is](/blog/what-is-sge). AI Overviews are also just one piece of a much bigger shift — search engines answering questions directly instead of only indexing pages for you to search through yourself — which we unpack in our explainer on [generative search](/blog/generative-search).
+Our advice: don't optimize for a product name. The labels changed; the core loop stayed: retrieve pages from Search, write a synthesis, link the sources. To spot the next experiment early, watch the [AI Mode opt-in in Search Labs](https://support.google.com/websearch/answer/16011537).
 
-## AI Overviews vs. Featured Snippets vs. AI Mode: What's the Difference?
+## How do AI Overviews choose their sources?
 
-**AI Overviews, featured snippets, and AI Mode all put an answer near the top of the results page, but they're built differently and they behave differently.** A featured snippet quotes one passage from one page. An AI Overview blends information from several pages into new, generated text. AI Mode goes further still, turning search into an ongoing conversation.
+Google says AI Overviews retrieve pages through its normal Search ranking systems, may [fan one query out into several related searches](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), then write an answer grounded in those pages and link them. A page is eligible if it is [indexed, can show a snippet, and sits on a site not excluded in Search Console](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide).
 
-| Feature | What It Is | How It Differs |
+Google's example: a question about fixing a weedy lawn can fan out into searches for herbicides, chemical-free removal and prevention. There are no extra technical requirements, and Google says it [ignores llms.txt files](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) and needs no special markup, chunking or AI-specific rewriting. It asks for unique, non-commodity content. We write answer-first for readers, not because Google requires it.
+
+Cited pages are not simply the top results. In the preprint, 29.8% of cited domains were absent from the first results page for the same query, only 41.4% matched a top-ten result, and the median Overview carried 8 references.
+
+Our read: a top-ten ranking is neither required nor sufficient. With fan-out, the cited page is often the clearest answer to a sub-question, not the head query's top result. Cited domains also scored higher on a credibility scale than the page-one domains beside them.
+
+Thin topics are where retrieval turns odd. Google explained its May 2024 "eat rocks" answer as a [data void](https://blog.google/products/search/ai-overviews-update-may-2024/): with almost no serious content, the Overview linked one of the few pages on the question, a satirical one. Where good answers are scarce, one clear, accurate page can become the source.
+
+![Detailed view of a book page magnified by a glass, enhancing text clarity.](https://images.pexels.com/photos/247781/pexels-photo-247781.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## How are AI Overviews different from featured snippets and AI Mode?
+
+A featured snippet quotes one passage from one page. An AI Overview writes a new summary from several pages and links them. AI Mode is a separate, conversational experience that searches subtopics, and every follow-up runs new searches.
+
+| Feature | What the searcher sees | How sources are picked | What wins (our read) |
+|---|---|---|---|
+| [Featured snippet](https://developers.google.com/search/docs/appearance/featured-snippets) | One excerpt from one page | Google's systems pick the best answer; you can't mark a page for it | The single clearest passage |
+| AI Overview | A generated summary linking several pages | Search ranking retrieval, possibly with query fan-out | A credible page on any sub-question |
+| [AI Mode](https://support.google.com/websearch/answer/16011537) | A chat-style experience; each follow-up is a new query | Same eligibility; [models and techniques may differ](https://developers.google.com/search/docs/appearance/ai-features) | A page that stays useful across follow-ups |
+
+Since 19 May 2026 a [follow-up asked inside an AI Overview](https://blog.google/products-and-platforms/products/search/search-io-2026/) continues in AI Mode, blurring the line for users. For site owners the rules are shared: the same indexed, snippet-eligible page, one Search Console control, one report. Tactics specific to AI Mode are in our [AI Mode playbook](/blog/how-to-rank-in-google-ai-mode).
+
+![Wooden cutouts of Q&A with question and exclamation marks on a brown backdrop.](https://images.pexels.com/photos/11183364/pexels-photo-11183364.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Can you opt out of AI Overviews, and should you?
+
+As of October 2026, searchers can't turn AI Overviews off: Google calls them a [core Search feature](https://support.google.com/websearch/answer/14901683), and the Web filter, chosen after a search, shows text links without them. Site owners got a real control in 2026, the [Search generative AI control in Search Console](https://support.google.com/webmasters/answer/16908024), but most brands should leave it on.
+
+| Lever | What it does | What it costs you |
 |---|---|---|
-| Featured snippet | A single passage or list quoted directly from one ranking page | No generation involved — it's a verbatim quote tied to one URL, so attribution is simple |
-| AI Overview | An AI-generated summary synthesized from multiple pages, with linked sources | Combines several sources into new text; it's not a quote from any single page |
-| AI Mode | A conversational, chat-style search experience built for multi-step questions | Supports follow-up questions in a thread, closer to a chatbot than a static results page |
+| Search generative AI control (Search Console) | Removes your links and content from AI Overviews, AI Mode and Discover's generative features within days | No impressions or traffic from them; Google says it isn't a ranking signal elsewhere |
+| [`nosnippet`, `max-snippet`, `data-nosnippet`](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag) | Block or cap the text Google may show or feed to AI Overviews and AI Mode | Your normal snippet shrinks too |
+| `noindex` | Removes the page from Google Search | All Google visibility for that page |
+| [Google-Extended](https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers) (robots.txt) | Limits Gemini model training and grounding in Gemini Apps | Doesn't control whether you appear in Search or AI Overviews |
 
-The practical difference for site owners: a featured snippet rewards having the single clearest passage on the page. An AI Overview rewards being one of several credible sources on a topic. AI Mode rewards being useful across a whole line of follow-up questions, not just the first one someone asks.
+Leave the control on if you sell something other than the page view. Excluding your site removes your links from the answers your buyers read, while similar content from other sites stays. Publishers who live on pageviews face a real trade-off; read the new report first. Click studies are in [AI Overviews and your traffic](/blog/ai-overviews-and-your-traffic).
 
+People reach for Google-Extended first, and it is the wrong lever. Google says it governs training and grounding in Gemini products and does not affect inclusion in Google Search; appearing in AI Overviews is the Search Console control's job.
 
-![A robotic hand reaching into a digital network, symbolizing AI monitoring and action.](https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+In AEOeye's crawler access study (3 October 2026), 31 of 384 sites (8.1%) blocked it from their homepage: 20 of 38 news publishers, 5 of 20 UGC and review sites, 4 of 90 e-commerce and consumer brands, 2 of 193 SaaS brands and none of 43 AI-visibility vendors. And 30 of those 31 still let Googlebot fetch their homepage, so as far as robots.txt shows they remain open to AI Overviews. Training and appearing are separate decisions with separate switches.
 
-## What Do AI Overviews Do to Your Traffic?
+Treat that as a snapshot, not a census: a convenience sample of well-known sites, fetched once from the main host, with [per-site data](/resources/ai-crawler-access-study-2026-10.csv) public. aeoeye.com's own robots.txt allows Google-Extended and the other major AI crawlers, because our business is being found. More on each bot is in our [AI crawler user-agent directory](/blog/ai-crawler-user-agent-directory).
 
-**Honest answer: AI Overviews can reduce clicks on queries where the summary already answers the question, because users get what they need without ever visiting a site.** That's not speculation — it's the pattern showing up across independent studies of AI Overview click behavior.
+![Business analyst writing with laptop and smartphone showing trend graphs on a white desk.](https://images.pexels.com/photos/5834208/pexels-photo-5834208.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-Ahrefs, for one, has published research finding that pages ranking below an AI Overview see meaningfully lower click-through rates than the same positions earned before AI Overviews existed, especially on informational queries with a short, factual answer. Directionally, that matches what most SEOs are reporting from their own data, as of this writing.
+## How do you know whether you appear in AI Overviews?
 
-A few things worth keeping straight:
+Open the [generative AI performance report](https://support.google.com/webmasters/answer/16984139) in Search Console. It shows how often your pages appeared in AI Overviews and AI Mode, by page, country, device and date, and Google says it reached all websites by 31 August 2026.
 
-- **Zero-click search keeps growing.** More searches now end with no click at all, because the AI Overview, the snippet, or the knowledge panel already answered the question.
-- **Not every query loses equally.** Simple factual questions lose more clicks than complex, comparative, or commercial queries, where people still want to read a full page before deciding anything.
-- **Visibility is shifting, not vanishing.** Getting cited inside an AI Overview is a new form of visibility — you're in front of the user even without a click, and that still matters for brand recall and trust.
-- **Being the cited source beats being invisible.** Pages that get cited in the Overview generally fare better than pages that rank on page one but get skipped by the AI entirely.
+1. **Check impressions.** The report counts impressions; clicks still sit in the [main Performance report](https://developers.google.com/search/docs/appearance/ai-features).
+2. **Spot-check by hand.** Search your buyers' questions in a private window, in their country and language, with several phrasings. A [comparison of generative search systems](https://arxiv.org/abs/2510.11560) found outputs vary across time and repeat runs, so one screenshot proves little.
+3. **Read what it says about you.** A link isn't an endorsement of the paragraph beside it: in the preprint's automated check, validated against human labels, 11.0% of 98,020 claims weren't supported by the pages cited, usually because the page never addressed them.
+4. **Test the other engines.** No third-party tool sees inside Google, as [Google itself points out](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), and ours doesn't either. We can ask the engines your buyers use: our free audit at [AEOeye](/) puts three unbranded buyer questions to ChatGPT and shows the full answers; the $29 full report adds Google AI, Gemini, Claude and Perplexity.
 
-We don't think the right response to any of this is panic. Ranking is no longer the whole game — it's table stakes. Getting cited inside the Overview is the second, parallel goal now, and it's the one most sites haven't started optimizing for yet.
-
-## How Do You Appear in AI Overviews?
-
-**To show up in an AI Overview, you generally need to already rank well, write in a format the AI can lift cleanly, and make your site's topic and entity unmistakable.** AI Overviews draw heavily from pages that are already ranking near the top of page one, so there's no shortcut around solid, relevant rankings first.
-
-Past that baseline, a handful of things consistently help:
-
-- **Answer-first content.** Put the direct answer to the query in the first sentence or two of the relevant section, then explain further. AI systems lift cleanly written, self-contained answers far more easily than answers buried under a long lead-up.
-- **Clear structure.** Use headers phrased as real questions, short paragraphs, bullet points, and tables. Structured content is simply easier for an AI model to parse and quote accurately.
-- **Schema markup.** FAQ, HowTo, and Article structured data give the AI explicit signals about exactly what a page is answering, which can improve how cleanly it gets summarized.
-- **Entity clarity.** Use consistent naming for your brand, product, and key terms, and define concepts plainly on first use. Ambiguous entities are hard for an AI to cite with any confidence.
-- **Topical depth.** Pages that thoroughly cover a subject, rather than skimming it in one thin paragraph, give the AI more accurate material to pull from — and lower the odds it reaches for a competitor instead.
-
-We go deeper on the tactics in our full guide to [how to rank in AI Overviews](/blog/how-to-rank-in-ai-overviews), including the specific content patterns that tend to get cited most often.
-
-## Can You Turn AI Overviews Off?
-
-**Users can sometimes reduce how often they see AI Overviews — through certain search settings, browser extensions, or search operators that tend to suppress them — but there's no permanent, official Google toggle that turns them off everywhere.** Google has also tested, in some markets, a separate 'Web' results filter that shows a more traditional, link-only page, as of this writing.
-
-For businesses, though, hunting for a way to turn AI Overviews off is energy spent in the wrong place. You can't opt your site out of being summarized, and most of your customers have no plans to turn Overviews off either. The only lever that actually matters for a business is adapting — earning a spot as a cited source when the Overview appears — rather than wishing the feature away.
-
-## Is Your Brand Showing Up in AI Overviews?
-
-**The only real way to know if AI Overviews are citing your site is to check, query by query, the way an actual customer would search.** Most site owners find out they're missing from an Overview only after traffic has already dropped — and by then, you've lost the visibility, not just the click.
-
-That's the gap AEOeye is built to close. It audits how AI systems — including Google's AI Overviews, ChatGPT, Perplexity, Gemini, and Claude — actually answer questions about your brand, and whether they cite you or hand the answer to a competitor instead. You can also track your AI Overview appearances over time with our [AI Overview tracker](/blog/ai-overview-tracker), instead of guessing from organic rankings alone.
-
-Start with a free audit at [AEOeye](/) to see exactly where your brand stands right now.
+To act on what you find, start with [how to rank in AI Overviews](/guides/how-to-rank-in-ai-overviews) and [what triggers one](/answers/what-triggers-a-google-ai-overview).

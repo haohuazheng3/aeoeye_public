@@ -1,0 +1,129 @@
+{
+  "contentSha256": "27643c4145188bd835b57a459f72c1f792fc5f972b53d77d8f09fdbe67a17fd7",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "A founder, marketer or agency lead wants to run an AEO / GEO / AI SEO audit and needs the checks, a way to score them and a fix order, without paying for an audit first.",
+    "connection": "The checklist is the do-it-yourself version of what AEOeye's audits measure: what AI engines say about a brand, whether their crawlers can reach it, and whether the content and off-site sources support being named."
+  },
+  "assessment": "The page gives a four-layer, 20-check audit with pass/fail tests, a symptom-to-layer scoring table, a mistakes list and a DIY / tool / agency cost comparison. It rests on vendor documentation (Google, OpenAI, Anthropic, Perplexity, Microsoft), RFC 9309, the GEO paper and AEOeye's own crawler study and audit records, each with its sample size and caveat. It does not claim any tactic guarantees citations, it tells readers not to score llms.txt or special markup, and it does not compare engines from the self-selected benchmark.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "SEO best practices still apply to Google's generative AI features; no need for llms.txt, special markup, schema or content chunking."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "A page must be indexed and eligible to show with a snippet to appear in AI Overviews or AI Mode; nosnippet/max-snippet/noindex limit it."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console's Generative AI performance report shows impressions of site links in generative AI features; rolled out to all websites worldwide as of August 31, 2026."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Tools AI Performance reports citations in Microsoft Copilot, Bing AI summaries and select partner integrations (announced February 10, 2026)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot and GPTBot are independent settings; allowing OAI-SearchBot while disallowing GPTBot is supported; OpenAI publishes bot IP lists."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Claude-SearchBot exists as a search-quality crawler, Anthropic's bots honor robots.txt and Anthropic publishes an IP list."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces sites in search results; a web application firewall may need explicit allowlisting; IP ranges are published."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended does not affect inclusion in Google Search nor is it a ranking signal."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "A 5xx on robots.txt means crawlers must assume complete disallow; a crawler obeys the group matching its product token and falls back to * only if none matches."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "December 2024 analysis: OpenAI and Anthropic crawlers fetch JavaScript files but do not execute them; Googlebot-based Gemini renders JavaScript."
+    },
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers",
+      "checkedAt": "2026-10-03",
+      "supports": "A Microsoft Bing product manager recommends self-contained phrasing that makes sense when pulled out of context."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper: 10,000-query benchmark; citations, quotations and statistics gave 30-40% relative gain on position-adjusted word count; keyword stuffing gave little or no gain; 2023-era setup."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "2025 study: AI search shows a systematic and overwhelming bias toward earned media over brand-owned and social content."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "January 2026 study, 2,961 runs: under a 1-in-100 chance of the same brand list in any two ChatGPT or Google AI responses."
+    },
+    {
+      "url": "https://schema.org/sameAs",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of sameAs as a reference page that unambiguously indicates the item's identity (Wikipedia, Wikidata, official site)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Structured data must not mark up content that is not visible to readers of the page."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Google says trust is the most important aspect of E-E-A-T; who/how/why guidance on authorship."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO is also known as AEO and AI SEO; the lead states there is no consensus definition."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Authorized_economic_operator",
+      "checkedAt": "2026-10-03",
+      "supports": "In customs, AEO means Authorized Economic Operator (WCO SAFE Framework), an unrelated meaning."
+    },
+    {
+      "url": "https://docs.peec.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI's documentation says it runs prompts across AI platforms daily."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims the fetched page states; sources that returned 403 (OpenAI help center, openai.com) or were paywalled (Growth Memo) were not cited.",
+    "Writer (Sonnet): read the GEO paper PDF itself (results text, Table 1 and Table 2, Section 3.1) to confirm the 30-40% Position-Adjusted Word Count gain, the keyword-stuffing result and the gpt-3.5-turbo / Perplexity test setup before describing the caveat.",
+    "Writer (Sonnet): checked every AEOeye number (crawler study 1/193, 19 not used, 60/375, 24/88, 27/38, 5/20, 52.4% of 330; benchmark 17.6% of 892 with its self-selection caveat; 165 pages merged into 37) against the evidence pack and the public JSON artifacts.",
+    "Writer (Sonnet): dropped claims from the merged pages that could not be verified or were wrong for AEOeye (Ahrefs 38%, 31% AI Overview share, 15.9% conversion, 44% first-third citations, 'free audit runs all five engines', Pro subscription).",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page: 1485 words, 3 inline images, 0 errors, 0 warnings.",
+    "Editor (Opus): reviewed the final draft: read the opening and every H2 opening sentence for a direct answer, read the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison, no Pro/subscription/daily-tracking claim) and that the consolidation figure reads '165 … into 42'",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/guides/how-to-do-an-aeo-audit",
+    "/blog/geo-audit",
+    "/blog/ai-seo-checklist"
+  ]
+}

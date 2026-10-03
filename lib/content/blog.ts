@@ -13,6 +13,8 @@ export type PostMeta = {
   title: string;
   description: string;
   date: string;
+  /** 首次发布日期(改写过的老文章才有;date 是最近一次实质修订) */
+  published?: string;
   category: string;
   readingTime: string;
   keywords: string[];
@@ -44,6 +46,7 @@ function toMeta(slug: string, data: Record<string, unknown>): PostMeta {
     title: String(data.title || slug),
     description: String(data.description || ""),
     date: String(data.date || "2026-06-25"),
+    ...(data.published ? { published: String(data.published) } : {}),
     category: String(data.category || "Fundamentals"),
     readingTime: String(data.readingTime || "5 min read"),
     keywords: Array.isArray(data.keywords) ? (data.keywords as string[]) : [],

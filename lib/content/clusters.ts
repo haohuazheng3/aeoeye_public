@@ -11,6 +11,7 @@ export type Pillar = {
   clusters: ClusterLink[];
 };
 
+// 2026-10-03 清理后重排:所有链接都指向合并后的规范页(被合并的页已 301,不再进拓扑)
 export const PILLARS: Pillar[] = [
   {
     blogSlug: "what-is-answer-engine-optimization",
@@ -19,10 +20,9 @@ export const PILLARS: Pillar[] = [
     clusters: [
       { href: "/blog/aeo-vs-seo", label: "AEO vs SEO" },
       { href: "/compare/aeo-vs-geo-vs-seo", label: "AEO vs GEO vs SEO" },
-      { href: "/answers/what-is-an-answer-engine", label: "What is an answer engine?" },
-      { href: "/answers/what-is-an-aeo-strategy", label: "What is an AEO strategy?" },
-      { href: "/answers/can-you-do-seo-for-chatgpt", label: "Can you do SEO for ChatGPT?" },
-      { href: "/guides/how-to-do-an-aeo-audit", label: "How to do an AEO audit" },
+      { href: "/blog/what-is-an-answer-engine", label: "What is an answer engine?" },
+      { href: "/blog/aeo-strategy", label: "Build an AEO strategy" },
+      { href: "/blog/aeo-audit-checklist", label: "AEO audit checklist" },
       { href: "/blog/answer-engine-optimization-agency", label: "Choose an AEO agency" },
       { href: "/glossary/answer-engine-optimization", label: "AEO — glossary" },
     ],
@@ -32,9 +32,9 @@ export const PILLARS: Pillar[] = [
     name: "Generative Engine Optimization (GEO)",
     blurb: "What GEO is, how it differs from SEO, and the tactics that get you cited by generative engines.",
     clusters: [
-      { href: "/compare/geo-vs-seo", label: "GEO vs SEO" },
-      { href: "/blog/llm-seo", label: "LLM SEO" },
-      { href: "/answers/what-is-ai-content-optimization", label: "AI content optimization" },
+      { href: "/compare/aeo-vs-geo-vs-seo", label: "AEO vs GEO vs SEO" },
+      { href: "/blog/geo-examples", label: "GEO examples" },
+      { href: "/blog/geo-services-scope-deliverables", label: "What GEO services include" },
       { href: "/blog/most-aeo-advice-is-recycled-seo", label: "Most AEO advice is recycled SEO" },
       { href: "/glossary/generative-engine-optimization", label: "GEO — glossary" },
     ],
@@ -45,37 +45,42 @@ export const PILLARS: Pillar[] = [
     blurb: "How to measure whether AI recommends you — the metrics, tools and tracking that matter.",
     clusters: [
       { href: "/answers/what-is-ai-visibility", label: "What is AI visibility?" },
-      { href: "/answers/what-is-llm-visibility", label: "What is LLM visibility?" },
       { href: "/answers/what-is-ai-citation-tracking", label: "AI citation tracking" },
-      { href: "/answers/how-to-check-if-ai-mentions-your-brand", label: "Check if AI mentions you" },
-      { href: "/guides/how-to-track-brand-mentions-in-ai", label: "Track brand mentions in AI" },
-      { href: "/blog/generative-search-source-taxonomy", label: "Classify AI answer sources" },
+      { href: "/blog/free-ai-visibility-checker", label: "Free AI visibility check" },
+      { href: "/blog/ai-visibility-tracker", label: "AI visibility trackers" },
+      { href: "/blog/ai-visibility-score-methodology", label: "How AI visibility scores work" },
+      { href: "/blog/ai-traffic-analytics", label: "Track AI referral traffic" },
+      { href: "/blog/ai-brand-recommendation-measurement", label: "Measure AI brand recommendations" },
       { href: "/glossary/ai-visibility", label: "AI visibility — glossary" },
     ],
   },
   {
-    blogSlug: "how-to-get-recommended-by-chatgpt",
+    blogSlug: "chatgpt-seo",
     name: "Getting Recommended by AI Engines",
-    blurb: "Engine-by-engine playbooks for getting named and cited by ChatGPT, Perplexity and Google AI.",
+    blurb: "Engine-by-engine playbooks for getting named and cited by ChatGPT, Perplexity, Gemini, Claude and Google AI.",
     clusters: [
-      { href: "/guides/how-to-rank-in-chatgpt", label: "How to rank in ChatGPT" },
+      { href: "/blog/how-to-get-your-business-recommended-by-ai", label: "Get your business recommended by AI" },
       { href: "/guides/how-to-rank-in-ai-overviews", label: "How to rank in AI Overviews" },
-      { href: "/answers/how-to-get-cited-by-perplexity", label: "Get cited by Perplexity" },
-      { href: "/answers/how-to-appear-in-google-ai-overviews", label: "Appear in Google AI Overviews" },
-      { href: "/guides/how-to-optimize-for-ai-search", label: "Optimize for AI search" },
+      { href: "/blog/how-to-rank-in-google-ai-mode", label: "How to show up in Google AI Mode" },
+      { href: "/blog/how-to-rank-in-perplexity", label: "How to rank in Perplexity" },
+      { href: "/blog/how-to-rank-in-gemini", label: "How to rank in Gemini" },
+      { href: "/blog/claude-seo", label: "How to get cited by Claude" },
       { href: "/answers/does-chatgpt-use-my-website", label: "Does ChatGPT use my website?" },
+      { href: "/answers/why-does-ai-recommend-my-competitors", label: "Why AI recommends your competitors" },
     ],
   },
   {
     blogSlug: "structured-data-for-ai",
     name: "Content & Technical AEO",
-    blurb: "The content structure, schema and files that make your site machine-readable and quotable.",
+    blurb: "The content structure, schema, crawler access and files that make your site machine-readable and quotable.",
     clusters: [
       { href: "/guides/how-to-optimize-content-for-ai-search", label: "Optimize content for AI search" },
-      { href: "/guides/how-to-add-llms-txt", label: "How to add llms.txt" },
-      { href: "/answers/do-ai-assistants-use-schema-markup", label: "Do AI assistants use schema?" },
       { href: "/answers/what-makes-content-quotable-by-ai", label: "What makes content quotable" },
-      { href: "/blog/llms-txt-explained", label: "llms.txt explained" },
+      { href: "/answers/do-ai-assistants-use-schema-markup", label: "Do AI assistants use schema?" },
+      { href: "/blog/what-is-llms-txt", label: "What is llms.txt?" },
+      { href: "/guides/how-to-add-llms-txt", label: "How to add llms.txt" },
+      { href: "/blog/ai-crawler-user-agent-directory", label: "AI crawler directory" },
+      { href: "/blog/blocking-gptbot-is-usually-a-mistake", label: "Should you block GPTBot?" },
       { href: "/glossary/structured-data", label: "Structured data — glossary" },
     ],
   },
@@ -84,6 +89,8 @@ export const PILLARS: Pillar[] = [
     name: "AI Visibility Tools",
     blurb: "Honest comparisons and alternatives across every major AI visibility platform.",
     clusters: [
+      { href: "/blog/ai-search-optimization-tools-buyers-guide", label: "How to choose an AI visibility tool" },
+      { href: "/blog/ai-visibility-tracker", label: "AI visibility trackers" },
       { href: "/vs/profound", label: "AEOeye vs Profound" },
       { href: "/vs/otterly", label: "AEOeye vs Otterly" },
       { href: "/alternatives/profound", label: "Profound alternatives" },
@@ -104,7 +111,7 @@ export function pillarForBlog(slug: string): Pillar | undefined {
 const PILLAR_BY_CLUSTER: Record<string, Pillar> = {};
 for (const p of PILLARS) for (const c of p.clusters) if (!PILLAR_BY_CLUSTER[c.href]) PILLAR_BY_CLUSTER[c.href] = p;
 
-/** 取某集群页(by href,如 "/guides/how-to-rank-in-chatgpt")所属的支柱 */
+/** 取某集群页(by href,如 "/guides/how-to-rank-in-ai-overviews")所属的支柱 */
 export function pillarForCluster(href: string): Pillar | undefined {
   return PILLAR_BY_CLUSTER[href];
 }

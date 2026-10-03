@@ -1,0 +1,138 @@
+{
+  "contentSha256": "f2c169070fa4812d0405c049be7e5708bffcd8ea5fe9f399009d4f72d79fd4c2",
+  "reviewedAt": "2026-10-03",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "How to run an AI visibility audit or AI search study that other people can trust, repeat and check, from prompt design through reporting.",
+    "connection": "AEOeye audits whether AI engines recommend a brand; this hub gives the method, templates and tools that make such an audit's mention rates and denominators defensible."
+  },
+  "assessment": "The page condenses twenty single-purpose method pages into one eight-decision protocol (prompt set, conditions, sample size, coding, exclusions and missing data, versioning, reporting, minimum viable audit) and links every downloadable tool. It rests on documented sources (NIST, Google Search Help, ACL and arXiv papers, SemVer, Zenodo, PRISMA) and on AEOeye's own crawler study and recommendation benchmark, reported with their denominators and caveats. It deliberately does not claim a universal sample size, kappa threshold or standard, and the tool fixtures are synthetic, not provider measurements.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper reports visibility boosts of up to 40% in generative engine responses on its own GEO-bench setup."
+    },
+    {
+      "url": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology",
+      "checkedAt": "2026-10-03",
+      "supports": "Definitions of repeatability (same conditions) and reproducibility (changed conditions) of measurements."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/12412910",
+      "checkedAt": "2026-10-03",
+      "supports": "Google lists location, language, device, recent searches and account personalization among reasons Search results differ between people."
+    },
+    {
+      "url": "https://aclanthology.org/2022.acl-long.556/",
+      "checkedAt": "2026-10-03",
+      "supports": "Order of few-shot examples can move performance between near state-of-the-art and chance, and good orderings are model-specific."
+    },
+    {
+      "url": "https://aclanthology.org/J08-4004/",
+      "checkedAt": "2026-10-03",
+      "supports": "Artstein and Poesio survey of inter-coder agreement coefficients (alpha, pi, kappa) and their assumptions; abstract confirmed from the PDF."
+    },
+    {
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm",
+      "checkedAt": "2026-10-03",
+      "supports": "NIST handbook presents the Wilson interval and an exact binomial interval for very small samples where normal-approximation limits may be inaccurate."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Cohen%27s_kappa",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of Cohen's kappa as chance-corrected inter-rater agreement for categorical data, kappa = (p_o - p_e) / (1 - p_e)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Design_effect",
+      "checkedAt": "2026-10-03",
+      "supports": "Design effect definition and the cluster-sampling formula Deff = 1 + (n* - 1) rho."
+    },
+    {
+      "url": "https://www.prisma-statement.org/prisma-2020-flow-diagram",
+      "checkedAt": "2026-10-03",
+      "supports": "PRISMA flow diagram maps records identified, included and excluded, with reasons for exclusions."
+    },
+    {
+      "url": "https://semver.org/spec/v2.0.0.html",
+      "checkedAt": "2026-10-03",
+      "supports": "MAJOR/MINOR/PATCH meanings and the rule that released version contents must not be modified."
+    },
+    {
+      "url": "https://zenodo.org/help/versioning",
+      "checkedAt": "2026-10-03",
+      "supports": "Cite the specific version DOI for reproducibility; the concept DOI represents all versions."
+    },
+    {
+      "url": "https://arxiv.org/abs/1803.09010",
+      "checkedAt": "2026-10-03",
+      "supports": "Datasheets for Datasets document motivation, composition, collection process and recommended uses."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited external URL on 2026-10-03 and kept only claims the fetched page states; confirmed key wording from raw page text via curl for the NIST handbook, SemVer, PRISMA, Wikipedia kappa and arXiv GEO pages and from the PDF for Artstein and Poesio.",
+    "Writer (Sonnet): dropped the OpenAI Memory FAQ, Temporary Chat FAQ and BMJ PRISMA statement from the merged pages because they returned HTTP 403 and could not be verified; replaced them with fetchable Google Search Help and PRISMA site pages.",
+    "Writer (Sonnet): recomputed the sample-size figures (385 for a plus or minus 5-point margin; 294, 199 and 2,609 per group) with Python's NormalDist and matched them to the checked-in expected-report.json; this also exposed an arithmetic error in a merged page (p = 0.20, MOE 0.07 gives 126, not 127), which was dropped.",
+    "Writer (Sonnet): read the agreement calculator's expected-report.json confusion matrix and corrected a merged page's disagreement breakdown to four mentioned/recommended and two not_mentioned/mentioned cases.",
+    "Writer (Sonnet): removed an impossible example (7 mentions among 6 runs) from the prompt-order page and ran the lint script, which passed with no errors or warnings.",
+    "Editor (Opus): reviewed the final hub: opening, every H2 opening, the conditions table, sample-size section and minimum-viable-audit box; confirmed every downloadable artifact folder named in the spec is linked in the body",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable) and confirmed the writer recomputed the sample-size figures (385; 294 / 199 / 2,609) against the shipped expected-report.json",
+    "Editor (Opus): matched benchmark and crawler-study figures to the evidence pack with caveats (no engine ranking; analysis-model coding disclosed)",
+    "Editor (Opus): content-lint reports no errors or warnings; research-asset evidence lists artifacts, methodology and limitations"
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/ai-search-audit-csv-validator/README.md",
+      "description": "Dependency-free CSV validator and synthetic valid/invalid fixtures that keep missing answers out of rate denominators."
+    },
+    {
+      "path": "/resources/ai-search-metrics-sql/README.md",
+      "description": "SQLite query pack, runner and synthetic export computing availability, mention, recommendation and citation rates with explicit denominators."
+    },
+    {
+      "path": "/resources/ai-search-prompt-coverage-auditor/README.md",
+      "description": "Prompt-register auditor counting only active prompts against declared minimums across stage, persona, topic, locale and engine."
+    },
+    {
+      "path": "/resources/ai-visibility-experiment-sample-size-calculator/README.md",
+      "description": "Two-proportion sample-size calculator with synthetic scenarios and a byte-checked expected report."
+    },
+    {
+      "path": "/resources/ai-recommendation-coding-agreement-calculator/README.md",
+      "description": "Cohen's kappa calculator for two reviewers coding answers as not mentioned, mentioned or recommended, with a 24-row synthetic fixture."
+    },
+    {
+      "path": "/resources/ai-crawler-access-study-2026-10.csv",
+      "description": "Per-site data of AEOeye's October 2026 AI crawler access study, cited as an example of a published method plus data release."
+    },
+    {
+      "path": "/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "description": "Aggregate-only AEOeye recommendation benchmark (127 audits, 892 answers) used as the worked example of reporting denominators and caveats."
+    }
+  ],
+  "methodology": "The page was rebuilt from twenty merged method pages. Every unique, checkable point was kept in condensed form and regrouped into eight decisions. External claims were re-verified against fetched primary or standards pages, numeric examples were recomputed from the shipped fixtures, and AEOeye first-hand numbers (crawler study: 391 fetched, 384 usable for robots.txt metrics; benchmark: 127 audits, 892 answers, 157 mentions) are quoted with their denominators.",
+  "limitations": "The tool fixtures are synthetic and demonstrate mechanics only. The page's templates are AEOeye's operating proposals, not standards. The AEOeye benchmark is small and self-selected and its mention flag came from an analysis model rather than human double-coding; no per-engine comparison is made.",
+  "merged": [
+    "/blog/ai-search-experiment-reporting-checklist",
+    "/blog/ai-search-reproduction-package-manifest",
+    "/blog/ai-search-study-dataset-card-template",
+    "/blog/ai-search-audit-version-change-log",
+    "/blog/ai-search-audit-exclusion-register",
+    "/blog/ai-search-audit-csv-validator",
+    "/blog/ai-search-metrics-sql-starter-kit",
+    "/blog/ai-search-locale-testing-matrix",
+    "/blog/ai-search-personalization-confounders-checklist",
+    "/blog/ai-search-multi-turn-context-leakage-test",
+    "/blog/ai-search-prompt-order-effects-protocol",
+    "/blog/ai-search-prompt-paraphrase-equivalence-protocol",
+    "/blog/ai-search-prompt-taxonomy",
+    "/blog/ai-search-prompt-coverage-auditor",
+    "/blog/ai-search-sample-size-planning",
+    "/blog/ai-search-inter-rater-reliability-guide",
+    "/blog/ai-recommendation-coding-agreement-calculator",
+    "/blog/ai-search-research-evidence-grading-scale",
+    "/blog/ai-search-missing-data-codebook",
+    "/blog/ai-visibility-experiment-sample-size-calculator"
+  ]
+}

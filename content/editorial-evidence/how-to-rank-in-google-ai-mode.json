@@ -1,0 +1,75 @@
+{
+  "contentSha256": "90abadf1ebb9030401a0429ae088594063509b6c6cb55ebafbb67a1939be0f46",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A site owner wants to know how to get their pages linked in Google AI Mode, and how to see whether it is working, without wasting effort on myths or outdated advice.",
+    "connection": "Google AI Mode is one of the engines whose recommendations AEOeye's audit measures; the page explains how Google says it picks links and how to measure and sample visibility, and where a one-time AEOeye baseline fits."
+  },
+  "assessment": "The page rests on Google's own documentation as fetched on 2026-10-03: the Search Central AI features page and May 2026 generative AI guide (eligibility, query fan-out, RAG, what to ignore), the Search generative AI control, the Generative AI performance report, the Performance report's AI Mode counting rules and the I/O 2026 post (AI Overviews and AI Mode as one flow). It adds AEOeye's crawler access study (n=384/330/375, with limits stated) and the recommendation benchmark with its caveat, plus Pew and SparkToro for click and answer-variability context. It corrects the earlier page (AI Mode as a separate page, no opt-out, one page per sub-question). It does not claim to know how Google ranks links across fan-out queries, does not make claims about third-party trackers, and labels the Pew data as AI Overviews, not AI Mode.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Mode suits queries needing exploration, reasoning or comparison; AI Overviews often do not trigger; both may use query fan-out and may use different models; eligibility = indexed and snippet-eligible, no extra technical requirements; clicks from AI Overview pages higher quality (Google's claim); page last updated 2025-12-10."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "RAG and query fan-out definitions and the lawn-weeds fan-out example; non-commodity content; scaled content abuse warning for per-fan-out pages; Merchant Center / Business Profile; items to ignore (llms.txt, chunking, special writing, inauthentic mentions, overfocus on structured data); Generative AI performance report; no third-party tool has access to Google's internal systems; page last updated 2026-07-10."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/search-io-2026/",
+      "checkedAt": "2026-10-03",
+      "supports": "I/O 2026 (19 May 2026): follow-up from an AI Overview flows into AI Mode with context kept, live on desktop and mobile worldwide; Personal Intelligence in AI Mode lets users connect Gmail and Photos."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16908024",
+      "checkedAt": "2026-10-03",
+      "supports": "Search generative AI control covers AI Overviews, AI Mode and Discover generative AI features; rolled out to all websites on 2026-08-31; excluded sites get no impressions or traffic from them; not a ranking signal for other Search; takes a few days; does not affect AI training (Google-Extended); noindex blocks Search entirely."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative AI performance report: impressions for AI Overviews and AI Mode by page, country, device, date; rolled out to all websites 2026-08-31; report may be missing if too few impressions or the site is excluded; documentation describes impressions, not clicks."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/7042828",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Mode data in the Performance report: AI Mode groups a question into subtopics and searches each simultaneously; follow-up questions count as new queries."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended governs use of content for Gemini training and grounding in Gemini Apps and Vertex AI; does not impact Search inclusion or ranking."
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "checkedAt": "2026-10-03",
+      "supports": "Original retrieval-augmented generation paper (Lewis et al.): models combining parametric memory with retrieved documents."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "900 US adults, March 2025: clicks on a result in 8% of visits with an AI summary vs 15% without; 1% clicked a link in the summary (AI Overviews, not AI Mode)."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 2,961 runs across ChatGPT, Claude and Google's AI; under 1-in-100 chance of the same brand list in two responses on ChatGPT or Google's AI; visibility percentage over many runs suggested over rank (survey run Nov-Dec 2025)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited Google page on 2026-10-03 and re-read the raw page text with curl (not only the summary) before stating dates, rollout status and what each report documents.",
+    "Writer (Sonnet): replaced the old page's claims that AI Mode replaces the results page and has no opt-out, and its advice to build a page per sub-question, with Google's current wording (I/O 2026 post, Search generative AI control, scaled content abuse warning).",
+    "Writer (Sonnet): verified AEOeye's own figures against public/resources/ai-crawler-access-study-2026-10.csv/json (31 of 384 block Google-Extended, 1 of 384 blocks Googlebot, 173 of 330 have llms.txt, 60 of 375 homepages challenged our crawler) and the benchmark caveat (Google AI 1 of 74 answers, small self-selected sample).",
+    "Writer (Sonnet): kept Pew and SparkToro claims to what the fetched pages state and labelled the Pew data as AI Overviews in March 2025, not AI Mode.",
+    "Writer (Sonnet): made no statements about third-party trackers' AI Mode coverage because their pages were not checked; told readers to confirm it themselves.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable apart from bot-blocked spec/docs pages that open in a browser and example.com placeholders inside code samples)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison; per-engine audit figures carry the small-sample caveat; no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

@@ -1,0 +1,118 @@
+{
+  "contentSha256": "48fb314ef0dccdf81f9d8fd5a9d99b4a156afe3213ebf854266f0d95acb34de6",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "A marketer wants to see in GA4 how much traffic ChatGPT, Perplexity, Gemini, Copilot and Claude send to their site, and needs to know what that number cannot show.",
+    "connection": "AI referral traffic is the lagging, click-only readout of AI visibility; the page shows how to measure it in GA4 and why it must be paired with direct testing of the buyer questions AEOeye audits."
+  },
+  "assessment": "The page now opens with the direct answer (use GA4's native AI Assistant channel plus a custom channel group built on a tested hostname regex, and read the result as a floor), then gives the exact GA4 steps, explains why AI referrals are undercounted, says which numbers to report and how to caveat them, and ties traffic back to AI visibility with AEOeye's audit-record benchmark and its mandatory caveat. It rests on Google Analytics documentation, Pew's browsing study, Seer Interactive's UTM testing, Microsoft's Bing AI Performance announcement and AEOeye's own records. It deliberately does not claim the setup steps or regex were run inside a live GA4 property, does not quote per-assistant click-through rates, and does not repeat vendor conversion multipliers.",
+  "sources": [
+    {
+      "url": "https://support.google.com/analytics/answer/9164320?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's 13 May 2026 release note: new AI Assistant channel in the Default Channel Group, medium 'ai-assistant' set when the referrer matches a recognized assistant, campaign '(ai-assistant)', ChatGPT, Gemini and Claude named."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/9756891?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Default channel group definitions: AI Assistant names ChatGPT, Gemini, DeepSeek, Copilot and Grok and excludes Google AI Overviews and AI Mode; Organic Search includes AI Overviews and AI Mode."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/13051316?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Custom channel groups: Admin > Data display > Channel groups steps, Source with 'matches regex', reordering above Referrals, retroactive application to reports, and the AI assistants example."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/1034324?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "GA4 regex is full-match and case-sensitive by default, and the page links Google's RE2 syntax reference; custom channel groups support regex."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/12923437?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Traffic acquisition report path, switching the primary dimension to Session source / medium, the search bar, session-scoped reporting versus User acquisition."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/15258820?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Causes of (direct) / (none) traffic: missing UTM parameters, redirects, URL shorteners and ad blockers."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/12195621?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Engaged session definition (longer than 10 seconds, a key event, or 2+ page or screen views) and engagement rate."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/9267568?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of a key event as an action particularly important to the success of the business."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/10327750?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "List unwanted referrals: a payment or login domain can take attribution for a returning visit, and the setting should not be applied broadly."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/9271392?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "The Realtime report covers the last 30 minutes and includes a first-user-source card."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Traffic from AI Overviews and AI Mode is included in Search Console's Performance report under the Web search type (page last updated 2025-12-10)."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI says ChatGPT may visit a web page with the ChatGPT-User agent when a user asks a question, a user-triggered fetch distinct from crawling."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referer",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of the Referer request header as the address from which a resource was requested."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy",
+      "checkedAt": "2026-10-03",
+      "supports": "Default policy sends only the origin on cross-origin HTTPS requests; no-referrer and the noreferrer link relation omit the referrer."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/UTM_parameters",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of UTM parameters and that Google Analytics supports them out of the box."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew's March 2025 browsing study of 900 U.S. adults: clicks on a result in 8% of visits with an AI summary versus 15% without; 1% clicked a link inside the summary."
+    },
+    {
+      "url": "https://www.seerinteractive.com/insights/are-ai-sites-like-chatgpt-sending-your-website-traffic",
+      "checkedAt": "2026-10-03",
+      "supports": "Seer's testing as of June 2025: ChatGPT tends to add utm_source=chatgpt.com to links supplied as sources but not reliably; in-app browsers and copied links land in Direct; a UTM source shows as Session Source."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Tools AI Performance (public preview, 10 Feb 2026) reports citations across Copilot, Bing AI summaries and select partners; the post describes no click data."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every external URL cited in the page on 2026-10-03 and kept only claims the fetched page states; OpenAI's help-center Publishers and Developers FAQ returned HTTP 403 to the fetcher, so it is not cited and the utm_source=chatgpt.com statement rests on Seer Interactive's fetched testing instead.",
+    "Writer (Sonnet): confirmed in Google's default channel group page and its 13 May 2026 release note that the AI Assistant channel excludes AI Overviews and AI Mode, names ChatGPT, Gemini, DeepSeek, Copilot and Grok (channel page) and ChatGPT, Gemini and Claude (release note), and never names Perplexity.",
+    "Writer (Sonnet): downloaded Google's published default-channel-group source-category spreadsheet (linked from the default channel group page) and searched it for AI assistant hostnames; it lists search, social, shopping and video sources only (no AI assistants), consistent with the AI referrer list not being published.",
+    "Writer (Sonnet): ran the exact regex printed in the page through an RE2 engine (re2-wasm) against 15 AI hostnames expected to match and 27 look-alikes expected not to match; all 42 results were as expected. Neither the regex nor the setup steps were run inside a live GA4 property, and the page says so.",
+    "Writer (Sonnet): checked the AEOeye benchmark figures (127 audits, 157 mentions in 892 answers, 17.6%) against public/resources/aeoeye-recommendation-benchmark-2026-09.json and kept the mandatory caveat; no per-engine rates are shown.",
+    "Writer (Sonnet): removed the earlier Semrush growth and conversion statistics (vendor study, not independently verified) and did not use Adobe's AI conversion comparison because Adobe's blog pages timed out on fetch; fetched Google's PII best-practice page (support.google.com/analytics/answer/6366371) to verify the FAQ statement about personal data in UTM values.",
+    "Editor (Opus): reviewed the final draft: read the opening and every H2 opening sentence for a direct answer, read the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison, no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/ai-referral-traffic-measurement-glossary"
+  ]
+}

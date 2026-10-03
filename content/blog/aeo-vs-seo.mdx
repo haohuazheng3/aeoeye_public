@@ -1,92 +1,99 @@
 ---
-title: "AEO vs SEO: What Actually Changes"
-description: "A sharp, opinionated breakdown of AEO vs SEO — what carries over from search optimization, what's genuinely new, and what to stop doing to get cited by AI."
-date: "2026-06-25"
+title: "AEO vs SEO (and GEO): What Changes, What Carries Over"
+description: "AEO and GEO build on SEO. Crawl access, helpful content and trust carry over; prompt-level measurement is new. What to stop, and the order to act in."
+date: "2026-10-03"
+published: "2026-06-25"
 category: "Strategy"
-readingTime: "8 min read"
-keywords: ["AEO vs SEO", "answer engine optimization", "AI visibility", "ChatGPT SEO", "Perplexity optimization", "Google AI Overview", "generative engine optimization", "brand citations in AI"]
-faqs: [{"q": "Is AEO replacing SEO?", "a": "No. AEO builds on SEO rather than replacing it. Crawlability, topical authority, trust signals, and backlinks all still matter and form the foundation. What changes is that being recommended inside a synthesized AI answer requires additional work — answer-shaped content, off-site presence on the pages models cite, and tracking what the engines actually say about you. SEO is necessary but no longer sufficient."}, {"q": "What's the single biggest difference between optimizing for Google search and optimizing for ChatGPT or Perplexity?", "a": "Search returns a ranked list and the user picks; answer engines return one synthesized response and name only two or three brands inside it. There's no consolation traffic for being fourth-best. You're either cited in the answer or functionally invisible for that query, which makes the bar far higher than earning a page-one ranking."}, {"q": "Can I see how AI assistants describe my brand the way I see rankings in Search Console?", "a": "Not in your existing analytics — Search Console and rank trackers don't show what models say in their answers. You have to prompt the assistants with real buyer questions and read the output, or use a tool like AEOeye's free audit that runs those prompts across ChatGPT, Perplexity, Gemini, and AI Overviews and reports where you're named versus missing."}, {"q": "Does keyword research still matter for AEO?", "a": "The questions still matter, but keyword volume as a primary KPI does not. Answer engines retrieve passages that answer specific sub-questions, so you optimize for the real questions buyers ask and structure direct answers to them. Chasing high-volume head terms and tracking ranking position tells you progressively less as AI Overviews absorb the clicks."}, {"q": "Why does my competitor get recommended by AI when my content is better?", "a": "Answer engines synthesize from the whole web and lean on third-party consensus — listicles, review sites like G2, comparison articles, and community threads. If those sources name your competitor and not you, the model often follows that consensus regardless of how strong your own landing page is. Earning accurate representation on those off-site pages is frequently the missing lever."}]
-image: {"url": "https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Wooden blocks spelling SEO on a laptop keyboard convey digital marketing concepts.", "photographer": "Atlantic Ambience", "photographerUrl": "https://www.pexels.com/@freestockpro"}
+readingTime: "6 min read"
+keywords: ["aeo vs seo", "geo vs seo", "seo vs geo", "seo vs aeo", "difference between seo and geo", "answer engine optimization", "generative engine optimization", "seo for ai search"]
+faqs: [{"q": "Is AEO replacing SEO?", "a": "No. Google's documentation says the best practices for SEO remain relevant to AI Overviews and AI Mode, and that a page must be indexed and eligible to show a snippet to appear as a supporting link. AEO/GEO adds a second scoreboard on top of that foundation: prompt-level measurement, third-party proof and quotable passages. Dropping SEO would remove the eligibility layer the new work depends on."}, {"q": "What is the difference between GEO and SEO?", "a": "SEO aims to rank a page in a list people click through. GEO aims to get your brand named and cited inside an answer an AI engine writes. Crawling, content quality and trust are shared. GEO adds sampled prompt measurement, corroboration on third-party pages and passage-level writing. AEO is a near-synonym for GEO here; our AEO vs GEO vs SEO page covers the stricter split."}, {"q": "Can I do AEO or GEO without doing SEO first?", "a": "Not in practice. For Google's AI features a page must be indexed and eligible to show a snippet, and OpenAI says sites that disallow OAI-SearchBot will not be shown in ChatGPT search answers. Fix crawl access and basic content quality first, then measure prompts, then do the new work. Skipping the foundation means optimizing pages the engines cannot use."}, {"q": "How do I measure AEO if there is no ranking?", "a": "Sample it. Write a fixed set of buyer questions, run each several times per engine, and report the share of runs that name you, with engines, dates and run counts. SparkToro found exact brand lists almost never repeat, yet its authors called visibility percentage across dozens to hundreds of prompts a reasonable metric. Pair it with Search Console, Bing Webmaster Tools and AI referral sessions in your analytics."}, {"q": "Should an SEO team block AI crawlers?", "a": "Usually not the search bots. OpenAI says disallowing OAI-SearchBot keeps a site out of ChatGPT search answers, and blocking a training bot such as GPTBot is a separate setting. In AEOeye's October 2026 study, 1 of 193 SaaS sites blocked any AI retrieval bot, against 27 of 38 news publishers. Publishers that sell content have a reason to restrict; most brands do not."}]
+image: {"url": "https://images.pexels.com/photos/6077520/pexels-photo-6077520.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Brass balance scales on a glass desk, with a blurred person in a dark blazer paging through documents behind them.", "photographer": "Katrin Bolovtsova", "photographerUrl": "https://www.pexels.com/@ekaterina-bolovtsova"}
+sources: [{"label": "Google Search Central — AI features and your website", "url": "https://developers.google.com/search/docs/appearance/ai-features"}, {"label": "Aggarwal et al. — GEO: Generative Engine Optimization (KDD 2024)", "url": "https://arxiv.org/abs/2311.09735"}, {"label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (arXiv, 2025)", "url": "https://arxiv.org/abs/2509.08919"}, {"label": "Pew Research Center — Google users are less likely to click on links when an AI summary appears (2025)", "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"}, {"label": "SparkToro — AIs are highly inconsistent when recommending brands or products (2026)", "url": "https://www.sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"}, {"label": "OpenAI — Overview of OpenAI crawlers", "url": "https://developers.openai.com/api/docs/bots"}]
 ---
 
-You probably landed here because something stopped working. Traffic from a few money keywords flattened or dipped, and when you asked ChatGPT or Perplexity a question your product clearly answers, a competitor got named instead of you. So you went looking for "AEO vs SEO" to figure out whether this is a new game or the old one with a fresh coat of paint.
+AEO and GEO are SEO's second scoreboard, not its replacement. SEO makes a page eligible to be retrieved; the new work decides whether an engine chooses it. Crawl access, helpful content and trust carry over. Prompt-level measurement, third-party proof, quotable passages and per-engine testing are new. Chasing hidden AI "rankings" and publishing near-duplicate pages should stop.
 
-Short answer: it's the old game plus a second scoreboard you can't see. Most of your SEO work still matters. But the things that *win* in an answer engine are different enough that treating AEO as "SEO with better schema" will quietly cost you the recommendation.
+AEO (answer engine optimization) and GEO (generative engine optimization) are [two names for one practice](https://en.wikipedia.org/wiki/Generative_engine_optimization): improving how often AI answers name and cite you. [Some writers split them](/compare/aeo-vs-geo-vs-seo); for an SEO team the work overlaps almost entirely, so we write "AEO/GEO" ([definition](/blog/what-is-answer-engine-optimization)).
 
-Let me be precise about what carries over, what's actually new, and what you should stop wasting time on.
+## What is the real difference between AEO/GEO and SEO?
 
+SEO competes for a position in a list that people click through. AEO/GEO competes to be named and cited inside an answer the engine writes itself. Crawling, content and trust are shared; what you win, what you can observe and where the proof lives are not.
 
-> **The core difference:** SEO optimizes for a ranked list of ten links a human scans and clicks; AEO optimizes for a single synthesized answer that names only two or three brands. In an answer engine, there is no consolation traffic for being fourth-best.
-## The mental model that matters
+| | SEO | AEO/GEO |
+|---|---|---|
+| What you win | A ranked position | A mention or citation inside an answer |
+| What gets picked | Whole pages | Passages quoted into an answer |
+| What you can observe | Rank and clicks in Search Console | Mostly what you sample yourself |
+| Where the proof lives | Your pages, plus links pointing to them | Often third-party pages that mention you |
 
-SEO optimizes for a **ranked list**. You're competing for position on a results page, and the user does the final selection — they scan ten blue links and click one. Your job was to earn a slot and write a title good enough to win the click.
+Clicks change too. In [Pew Research Center's browsing study](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/) of 900 US adults (March 2025), people clicked a traditional result in 8% of visits when Google showed an AI summary and 15% when it did not, and clicked a link inside the summary in 1% of those visits.
 
-AEO optimizes for a **synthesized answer**. There's no list to scan. A model reads a pile of sources, decides which claims to trust, and hands the user one composed response with a handful of brands named inside it. The user often never sees a link at all. The model *is* the click.
+## What carries straight over from SEO?
 
-That single shift cascades into everything. In search, being #4 still gets you traffic. In an answer engine, being "the fourth-best source the model considered" usually gets you nothing, because the model only surfaces two or three. AEO is closer to winning a citation in a literature review than ranking in a directory.
+Everything that makes a page eligible to be retrieved: crawl access, indexable text and content people trust. Google's documentation (updated December 2025) says [the best practices for SEO remain relevant](https://developers.google.com/search/docs/appearance/ai-features) to Google AI Overviews and AI Mode, with no extra requirements beyond a page being indexed and eligible to show a snippet.
 
-> The hardest thing for SEO veterans to accept: in an answer engine, there is no long tail of consolation traffic. You are either named in the answer or you functionally do not exist for that query. Page-two thinking is dead.
+- **Crawl access, CDN included.** Google's list says crawling must be allowed "in robots.txt, and by any CDN or hosting infrastructure". In AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.json) (384 well-known sites fetched once in October 2026; not a random sample), one site, Reddit, disallowed Googlebot or Bingbot at the homepage, while 37 (9.6%) disallowed at least one AI retrieval bot: 27 of 38 publishers but 1 of 193 SaaS sites. Another 24 of 88 e-commerce homepages challenged our self-identified crawler, something robots.txt never reveals.
+- **Trust and indexing.** Google's [people-first guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) still calls trust the most important E-E-A-T quality, and a page Google has not indexed cannot be a supporting link in its AI features. That is also why [SEO is not dead](/blog/is-seo-dead).
 
-## What carries straight over from SEO
+![Colorful sticky-note tabs labeled SEO, SEA, Google AdWords and online marketing on an orange notebook beside a laptop.](https://images.pexels.com/photos/927576/pexels-photo-927576.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-Good news first, because it's a lot. The fundamentals didn't get repealed.
+## What is genuinely new for an SEO team?
 
-- **Crawlability and clean HTML.** If GPTBot, ClaudeBot, PerplexityBot, or Google's crawlers can't fetch and parse your page, you can't be cited. Content stranded behind heavy client-side JS, or blocked in robots.txt, is invisible. This is table stakes, exactly as it was.
-- **Topical authority.** Models lean on sources that demonstrably know a domain deeply. A site with thirty thin posts on everything loses to a site with thirty deep posts on one thing. The "topic cluster" strategy SEOs have run for a decade transfers cleanly.
-- **Real expertise and trust signals.** Google's E-E-A-T was a preview of how LLMs weight sources. Named authors with credentials, citations to primary data, an "about" page that proves you're a real operation — all of it raises the odds a model treats you as quotable.
-- **Backlinks and brand mentions, reframed.** Links still matter as a trust proxy, but unlinked brand mentions now matter almost as much. When forums, review sites, and reputable articles say "[your brand] does X well," that co-occurrence is training and retrieval signal even without an `<a href>`.
-- **Page speed and Core Web Vitals.** Less directly tied to citation, but a slow, broken page is a page that gets crawled less reliably and trusted less.
+Four things have no direct SEO equivalent: measuring by prompt, earning proof on third-party pages, writing passages that stand alone, and testing each engine separately.
 
-If your SEO house is a mess, fix it first. AEO does not let you skip the basics — it raises the penalty for not having them.
+### Why can't you track an AI ranking?
 
-## What is genuinely new
+Because answers change between runs, there is no stable position to track. In [SparkToro's study](https://www.sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) with AI-tracking startup Gumshoe.ai (600 volunteers, 2,961 runs, late 2025), the chance that two responses to one prompt from ChatGPT or Google's AI contained the same list of brands was under 1 in 100. The authors still judged visibility percentage across dozens to hundreds of prompts, run repeatedly, a reasonable metric.
 
-Here's where the playbooks diverge, and where most teams are underinvested.
+Google counts AI features inside the Web search type of Search Console. Bing's AI Performance report (public preview, February 2026) shows [citation counts for Copilot and Bing summaries](https://blogs.bing.com/webmaster/February-2026-284b440771373a5a245425a5d31a8ad6/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview). For other engines, [sample answers yourself](/blog/measuring-ai-visibility).
 
-### Answer-shaped content, not keyword-shaped content
+### Why do third-party pages matter more?
 
-SEO trained us to build pages around keywords and search volume. Answer engines retrieve **passages**, not pages. A model pulls the specific paragraph that directly answers a sub-question and drops it into its response.
+Because AI engines lean on independent sources more than Google does. In a [September 2025 preprint](https://arxiv.org/abs/2509.08919) that sent ranking-style prompts to Google and a search-enabled GPT-4o, 72.7% of domains cited for US software-product prompts were earned media (reviews, comparisons, independent publishers), against 45.4% in Google's results. Only 15% to 33% of top-five domains matched Google's in the product categories it reports.
 
-That means the unit of optimization shrank. You want self-contained, extractable chunks: a question stated plainly as a heading, followed by a direct two-to-four-sentence answer *before* any throat-clearing. The 1,200-word "ultimate guide" that buries the actual answer under an intro about why the topic matters is structurally hostile to retrieval. Lead with the answer. Add nuance after.
+For link builders, the target list becomes the review and comparison pages engines cite for your prompts, and their access rules matter. As of October 2026, OpenAI says sites that disallow OAI-SearchBot [will not be shown in ChatGPT search answers](https://developers.openai.com/api/docs/bots), and 11 of 38 news publishers in our study did. Check an outlet's robots.txt before paying for a placement.
 
-### You're optimizing for claims, not rankings
+### What makes a passage quotable?
 
-A model doesn't rank you — it decides whether to *believe and repeat* a specific factual claim. So the new question is: "What does the AI currently say about my category, and is my brand part of that answer?" You can't see this in Search Console. You have to actually prompt the engines with the questions your buyers ask and read what comes back. (This is the gap an AEOeye audit is built to close — it runs the real buyer prompts across ChatGPT, Perplexity, Gemini, and AI Overviews and shows you where you're named, where you're missing, and who's getting recommended instead.)
+A quotable passage answers one question completely, with specifics, so it still makes sense lifted out of the page. "Flexible pricing for every team" gives an engine nothing to quote; a sentence with the plan, price, billing period and date does. Engines [retrieve sources, then write from them](https://arxiv.org/abs/2311.09735), and Google's AI features may also use [query fan-out](https://developers.google.com/search/docs/appearance/ai-features), running related searches across subtopics, so your page can be pulled in for a sub-question nobody typed.
 
-### Off-site presence is now load-bearing
+In the peer-reviewed [GEO study](https://arxiv.org/abs/2311.09735) (KDD 2024), adding statistics, quotations or cited sources lifted a source's visibility by 30% to 40% on one measure in a research-built engine, while keyword stuffing did not help. The authors did not test effects on search rankings.
 
-In classic SEO, your own domain was the asset and links pointed to it. In AEO, models synthesize from the *whole web*, and they lean heavily on third-party consensus. Where you sit on a "best X tools" listicle, what Reddit threads say about you, how you're described on G2 or in a comparison article — these often influence the answer more than your own landing page. You can write the perfect homepage and still lose because the broader web hasn't been told you belong in the consideration set.
+### Do all engines behave the same way?
 
-### Structured data does heavier lifting
+No. Each has its own source habits, so test them one at a time. In the preprint's consumer-electronics test, Claude and GPT drew about 94% of cited domains from earned media, while Perplexity drew about 53%, with roughly 32% brand-owned and 15% social. Those were 2025 models, so re-test.
 
-Schema markup was a nice-to-have for rich snippets. For AEO it's a clarity tool: FAQ, HowTo, Product, and Organization schema spell out entities and relationships in a form machines parse without ambiguity. It won't manufacture authority you don't have, but it removes the friction that makes a model uncertain about what you are.
+## What should SEO teams stop doing?
 
-## What to stop doing
+Stop tracking positions you cannot observe, stop publishing near-duplicate pages, and stop reaching for AI-only fixes.
 
-This is the part SEO blogs won't tell you, because it deprecates work people still bill for.
+- **Stop reporting an "AI rank."** A single position is noise; report the share of runs that name you.
+- **Stop publishing near-duplicate pages.** On September 24, 2026 we merged 27 duplicates, and on October 3, 2026 another 165 pages into 42 (37 canonical pages plus 5 research hubs). This page is one result: "SEO vs AEO", "SEO vs GEO" and "GEO vs SEO" pages now redirect here. Google calls a redirect [a strong signal](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls) for the canonical URL and says consolidating lets it merge signals such as links. Our position, not a measured result: one strong page per question serves Google and AI retrieval alike.
+- **Stop reaching for AI-only fixes.** Google says you [need no new machine-readable files, AI text files, markup or special schema](https://developers.google.com/search/docs/appearance/ai-features) for its AI features. We publish an llms.txt because it is cheap, not because we have seen it move citations ([why](/blog/llms-txt-is-overrated)).
 
-**Stop chasing keyword-volume rankings as the primary KPI.** Position tracking on a hundred head terms tells you less every quarter. A query can have a thriving AI Overview that vaporizes the clicks your #1 ranking used to earn. Rankings are now a leading indicator at best, not the scoreboard.
+## In what order should you act?
 
-**Stop writing intro fluff.** Every sentence before the answer is a sentence that lowers the chance your answer gets extracted cleanly. The "in today's fast-paced world" opener isn't just bad writing — it's an AEO liability.
+Check access first, measure before you edit, fix pages that already rank, then close third-party gaps. That order stops you rewriting fine pages or paying for placements engines cannot read.
 
-**Stop over-producing thin content for the long tail.** Pumping out 200 lightweight pages to catch low-volume queries was a defensible SEO move. In AEO it's actively harmful: it dilutes your topical authority and trains models to see you as shallow. Fewer, deeper, genuinely authoritative pages win.
+1. **Check access.** Read robots.txt, then CDN or firewall logs, for Googlebot, Bingbot, OAI-SearchBot, [PerplexityBot](https://docs.perplexity.ai/guides/bots) and [Claude-SearchBot](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler). Allow the search bots; decide training bots separately. Our own robots.txt blocks none of these bots from public pages. The [AEO audit checklist](/blog/aeo-audit-checklist) covers the rest.
+2. **Write the prompt set.** Draft a few dozen real buyer questions from Search Console, sales calls and support tickets, including "best", "vs" and "alternative" ones.
+3. **Baseline every engine.** Run each prompt several times per engine; record whether you are named, where, which competitors appear and which URLs are cited. The free AEOeye audit [runs three unbranded buyer questions in ChatGPT](/); as of October 2026 the $29 report covers five engines and ten questions.
+4. **Fix pages that already rank.** For each prompt that omits you, open the pages the answer cited, then rewrite your matching page: answer first, self-contained sections, dated figures with sources. Merge pages that answer one question.
+5. **Close third-party gaps.** List the review, comparison and community pages engines cite instead of you; earn accurate inclusion on those that let AI search bots in.
+6. **Re-measure monthly on the same prompts.** Change one lever at a time. AEOeye is a snapshot audit, not a daily tracker; for daily tracking across hundreds of prompts, use a dedicated tool.
 
-**Stop treating your domain as the whole battlefield.** If your entire content budget goes to on-site blog posts and none to earning mentions, reviews, and placements where models actually look, you're optimizing the one surface that matters least in a synthesized answer.
+![Three colleagues talking over a laptop at a shared desk in an office with large windows and desk lamps.](https://images.pexels.com/photos/7212946/pexels-photo-7212946.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-**Stop optimizing exclusively for Google.** ChatGPT, Perplexity, Claude, and Gemini each retrieve and weight sources differently. Perplexity is citation-hungry and rewards fresh, well-sourced pages. ChatGPT leans on a mix of training data and live browsing. AI Overviews still skew toward Google's existing index. One-size optimization leaves coverage on the table.
+## How do you report AEO/GEO to leadership?
 
-## A practical sequence to act on
+Put three numbers on one page, beside the organic numbers leadership already sees: coverage, quality and outcome. Label every AI figure as a sampled estimate, with prompt count and runs per prompt, and never convert it into a rank.
 
-If you want a concrete order of operations rather than a vibe:
+| Number | Question it answers | Where it comes from |
+|---|---|---|
+| Coverage | In what share of tracked prompts are we named? | Your prompt set, per engine, repeated runs |
+| Quality | Are we described correctly, and ahead of or behind which competitors? | The same runs, read by a person |
+| Outcome | Are visits and revenue following? | AI referral sessions, conversions, Search Console, Bing Webmaster Tools |
 
-1. **Audit what the engines say about you now.** Prompt the major assistants with your real buyer questions — category comparisons, "best tool for X," "alternatives to [competitor]." Note where you're absent. A free AEOeye audit will do this systematically across engines so you're working from data, not anecdote.
-2. **Fix extractability.** Restructure your top pages so each sub-question has a heading and a direct answer up top. Add FAQ/Product schema. Make sure AI crawlers aren't blocked.
-3. **Find the consensus pages that decide your category.** The listicles, comparison posts, and community threads the models cite. Get accurately represented there — correct outdated mentions, earn inclusion in the relevant "best of" content.
-4. **Build genuine depth on your core topics** instead of breadth across shallow ones.
-5. **Re-measure monthly.** AEO results move with model updates and fresh crawls. This is a tracking discipline, not a one-time fix.
+Outcome will understate influence, because few people click an AI summary's links. Lead with the trend, say what you cannot see, and claim only what the samples support: "we are named in X of Y sampled answers over Z runs, up from last month", not "we rank second in ChatGPT".
 
-## The honest takeaway
-
-AEO is not a replacement for SEO and anyone selling it as a clean break is overselling. The crawlability, authority, and trust work you've done is the *foundation* — none of it is wasted. But it is no longer sufficient. The moment a model composes the answer instead of listing options, "rank well and earn the click" stops being the whole job. The new job is being the source a machine trusts enough to name.
-
-Treat your SEO playbook as necessary infrastructure and your AEO work as the layer that decides whether you're in the answer or invisible. The brands that win the next few years will be the ones who stopped arguing about which discipline is "real" and just measured what the AI actually says about them — then went and fixed it.
+![Printed bar chart and semicircle infographics held on a whiteboard with binder clips.](https://images.pexels.com/photos/7654493/pexels-photo-7654493.jpeg?auto=compress&cs=tinysrgb&w=1200)

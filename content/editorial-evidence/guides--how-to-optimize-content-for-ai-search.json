@@ -1,0 +1,135 @@
+{
+  "contentSha256": "3a93fe00a7da824bd7dbd7b63fa0954fa43b9f9f0897fd5e5ba5755f2f44bed2",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A marketer or founder wants to know how to edit their content and content strategy so AI search engines retrieve, trust and quote it, and which popular tactics are evidenced.",
+    "connection": "Core AEOeye topic: it turns the AI visibility audit's findings into concrete content changes and separates documented, measured and judgment-based advice."
+  },
+  "assessment": "The page answers the optimization question passage-first, labels each recommendation as documented by an engine, measured in published research or our judgment, reports the GEO paper's numbers with its setup and limits, and states Google's July 2026 guidance. It uses AEOeye's crawler access study and our own consolidation. It deliberately does not claim answer-first, schema or llms.txt cause citations, nor any result from our merges.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (Aggarwal et al., KDD 2024): title, authors, venue and abstract's 'up to 40%' visibility claim."
+    },
+    {
+      "url": "https://arxiv.org/html/2311.09735v3",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper full text: 10,000-query benchmark, GPT-3.5-turbo engine with top five Google results, one source rewritten per query, 30-40% / 15-30% relative improvements for citations, quotations and statistics, keyword stuffing little to no improvement."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's July 2026 guide: AI features rooted in core ranking, RAG and query fan-out definitions, indexed and snippet-eligible requirement, non-commodity content, no requirement to chunk, structured data and llms.txt not needed, scaled content abuse and fan-out warning, Search Console report."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ranking-systems-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google ranking systems guide: passage ranking system identifies individual sections of a page."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler docs: sites opted out of OAI-SearchBot are not shown in ChatGPT search answers; GPTBot and OAI-SearchBot are independent."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity docs: PerplexityBot surfaces and links sites in Perplexity search results; allow it in robots.txt."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic support: disabling Claude-SearchBot may reduce visibility in search results."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic web search tool docs: citations carry up to 150 characters of cited text."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation."
+    },
+    {
+      "url": "https://ar5iv.labs.arxiv.org/html/2005.11401",
+      "checkedAt": "2026-10-03",
+      "supports": "Lewis et al. 2020 RAG paper full text: Wikipedia split into disjoint 100-word chunks."
+    },
+    {
+      "url": "https://arxiv.org/abs/2505.13950",
+      "checkedAt": "2026-10-03",
+      "supports": "Zeng et al., EMNLP 2025 Findings: dense embedding and ColBERT-style models lose 15.6% on average when relevant information appears later in a passage; BM25 and rerankers more robust."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew: AI summaries on 53% of searches of 10+ words vs 8% of 1-2 word searches; clicks in 8% vs 15% of visits (March 2025, 900 US adults)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.10762",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO-16 preprint: observational study of 1,100 B2B SaaS URLs; metadata and freshness, semantic HTML and structured data most associated with citation; confounding caveat."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization markup helps Google understand and disambiguate an organization; sameAs property."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Structured data definition; Google recommends JSON-LD; do not mark up invisible information."
+    },
+    {
+      "url": "https://developers.google.com/search/updates",
+      "checkedAt": "2026-10-03",
+      "supports": "Changelog: FAQ rich result no longer appears in Google Search from May 7, 2026."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/publication-dates",
+      "checkedAt": "2026-10-03",
+      "supports": "Visible dates should match structured date values."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative AI useful for research and structure; models predict words not retrieve facts; fact-check; scaled content abuse."
+    },
+    {
+      "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console generative AI performance report: impressions in AI Overviews and AI Mode; rolled out to all sites by Aug 31, 2026."
+    },
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "llms.txt is a proposal for a Markdown file at /llms.txt."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)",
+      "checkedAt": "2026-10-03",
+      "supports": "Inverted pyramid / BLUF definition."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 (several also read as raw HTML via curl) and kept only claims the page states; OpenAI and Perplexity help-centre pages that returned 403 were not cited.",
+    "Writer (Sonnet): recounted the crawler study's schema numbers (FAQPage 13/176 SaaS, 18/42 AI-visibility vendors; Organization 129/176) from public/resources CSV and matched the evidence summary.",
+    "Writer (Sonnet): replaced unsourced figures from the five merged pages (vendor-blog statistics, conflicting GEO percentages) with the GEO paper's own wording and verified numbers.",
+    "Writer (Sonnet): ran scripts/content-lint.mjs; clean at 1,491 words with 3 inline images and unique Pexels photos.",
+    "Editor (Opus): reviewed the final page: read the short answer, intro and every section opening for a direct answer, the checklist table and the eight how-to steps, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified first-hand figures against the study CSV (13 of 176 vs 18 of 42 FAQPage; 129 of 176 Organization; 108 of 180 llms.txt) and corrected the consolidation figure myself to '165 … into 42'",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/guides/how-to-optimize-for-ai-search",
+    "/blog/ai-content-optimization",
+    "/answers/what-is-ai-content-optimization",
+    "/blog/ai-search-optimization",
+    "/blog/ai-content-strategy"
+  ]
+}

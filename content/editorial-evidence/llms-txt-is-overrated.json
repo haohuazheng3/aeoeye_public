@@ -1,0 +1,90 @@
+{
+  "contentSha256": "65c81169bd5fdf2f278524fd76f09428eccfc57b29cd62d62847926af37ab545",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A founder or marketer asking whether creating an llms.txt file is worth the effort and whether it helps their brand appear in ChatGPT, Perplexity or Google AI answers.",
+    "connection": "AEOeye audits whether AI engines recommend a brand and offers an llms.txt generator; this opinion page tells readers when the file is worth having and which crawl-access and content moves matter more, and it links the crawler access study."
+  },
+  "assessment": "The page opens with the decision (create one only if it is cheap; do not expect citations), gives a situation table, then lays out what Google, Mueller, OpenAI, Anthropic and Perplexity have published and what the Ahrefs and SIGCOMM CCR measurements found, followed by AEOeye's own adoption numbers with their denominators and sampling caveats. It explains why the advice persists, names the one place the file is useful (developer docs read by coding agents) and ends with five higher-leverage moves. It deliberately does not claim any engine ignores or reads the file beyond what vendor documentation and the cited logs show, does not claim AEOeye has measured fetches of its own file, and labels the 165-into-42 consolidation as judgment, not a measured citation gain.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central generative AI guide (updated 2026-07-10): you don't need new machine-readable files, AI text files, markup or Markdown to appear in Google Search including generative AI capabilities, as Search itself doesn't use them. Confirmed in raw HTML and WebFetch."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "To be a supporting link in AI Overviews or AI Mode a page must be indexed and eligible to be shown in Search with a snippet; no additional technical requirements; no special schema.org structured data or AI text files needed. Confirmed in raw HTML."
+    },
+    {
+      "url": "https://www.searchenginejournal.com/google-says-llms-txt-comparable-to-keywords-meta-tag/544804/",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Engine Journal (April 2025) quotes John Mueller on Reddit: none of the AI services have said they use llms.txt, server logs show they don't check for it, comparable to the keywords meta tag. Quote confirmed in raw HTML."
+    },
+    {
+      "url": "https://ahrefs.com/blog/llmstxt-study/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs study (published 2026-06-15): 137,210 domains with May 2026 traffic; 97% of llms.txt files got zero requests; 96% of requests that arrived were bots; AI retrieval bots 1.1% of requests; 12% of fetches from GEO/AEO tools, checkers and researchers; GPTBot first and Claude-Code second among named AI fetchers; zero AI-bot requests for non-existent files; agents fetch it when directed; prompt-injection probing and stale-file risk; fetched is not read; Mueller 'not done for search' stopgap for coding tools; verdict that cons outweigh pros; 'AI visibility' framing added later by the SEO industry on speculation. Numbers confirmed in the page's raw text."
+    },
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "Proposal (published 2024-09-03, modified 2026-08-10): llms.txt is used most heavily for software documentation where coding agents follow it; Wix, Yoast SEO, AIOSEO, Mintlify and GitBook generate it; test by giving an agent only the file."
+    },
+    {
+      "url": "https://hpi.de/en/article/paper-accepted-at-sigcomm-ccr/",
+      "checkedAt": "2026-10-03",
+      "supports": "HPI summary of Hoffmann et al., ACM SIGCOMM CCR 56(2), July 2026: about 4 million Tranco domains, llms.txt on about 49,600, nearly 19% of llms.txt files link to content blocked by robots.txt or ai.txt, adoption concentrated in tech and business. Numbers confirmed in raw HTML."
+    },
+    {
+      "url": "https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Lighthouse llms.txt audit: server errors are flagged, a 404 is marked Not Applicable because providing the file is optional at the moment. Confirmed in raw HTML."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler documentation: sites that disallow OAI-SearchBot won't appear in ChatGPT search answers (may still show as navigational links); robots.txt controls; llms.txt appears only as a pointer to OpenAI's own documentation index."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic support article on its crawlers and robots.txt controls; the raw page contains no mention of llms.txt."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity crawler documentation covers robots.txt controls; llms.txt appears only as a banner and link to Perplexity's own documentation index for AI agents."
+    },
+    {
+      "url": "https://developers.openai.com/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI publishes an llms.txt for its developer docs (HTTP 200)."
+    },
+    {
+      "url": "https://platform.claude.com/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic publishes an llms.txt for its developer docs (HTTP 200)."
+    },
+    {
+      "url": "https://docs.perplexity.ai/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity publishes an llms.txt for its documentation (HTTP 200)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each external URL cited in the page on 2026-10-03 with WebFetch or curl and kept only claims the fetched text states; re-extracted the Google guide, Google AI features page, SEJ Mueller quote, Ahrefs study and HPI summary from raw HTML to confirm exact wording and numbers (137,210 domains, 97%, 96%, 1.1%, 12%, nearly 19%, about 49,600).",
+    "Writer (Sonnet): grepped the raw OpenAI, Anthropic and Perplexity crawler pages for 'llms.txt' and confirmed OpenAI and Perplexity mention it only as their own documentation index and Anthropic's page does not mention it; confirmed all three vendors' llms.txt files and aeoeye.com/llms.txt return HTTP 200.",
+    "Writer (Sonnet): matched every AEOeye figure (173/330, 108/180, 27/41, 33/70, 1/29, 28/384, 24/88, 1/193 SaaS and 27/38 publishers blocking a retrieval bot) to the evidence pack and the study JSON, and kept the study's sampling limits next to the numbers.",
+    "Writer (Sonnet): read the sibling page /blog/what-is-llms-txt and the old version of this page; kept format and how-to detail on the sibling (linked) and moved the opinion, the decision table, the docs use case and the five alternatives here; corrected the old claim that schema markup is a signal engines use, because Google's AI features page says no special schema is needed.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean, 1,427 words) and confirmed the three Pexels photos are not used elsewhere in content/ or app/.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable; the only failures are bot-blocked homepages/specs such as w3.org or pexels.com that open in a browser)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md and the vendor pricing notes verified in this release (no per-engine benchmark comparison; no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

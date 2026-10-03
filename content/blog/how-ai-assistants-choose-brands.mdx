@@ -1,84 +1,97 @@
 ---
 title: "How AI Assistants Decide Which Brands to Recommend"
-description: "A mechanism-level look at how ChatGPT, Perplexity, Gemini and Claude pick which brands to name — training data vs. live retrieval, shortlists, authority"
-date: "2026-06-25"
+description: "AI assistants name brands from memory or live search, then keep the names independent sources back up. How the shortlist forms and what to do about it."
+date: "2026-10-03"
+published: "2026-06-25"
 category: "Fundamentals"
-readingTime: "8 min read"
-keywords: ["how AI assistants recommend brands", "answer engine optimization", "AEO", "AI brand visibility", "ChatGPT brand recommendations", "Perplexity citations", "retrieval augmented generation", "LLM training data", "AI Overview ranking", "brand consensus"]
-faqs: [{"q": "Do AI assistants recommend brands from their training data or from live web search?", "a": "Both, and the mix varies by assistant and query. Training data is the model's frozen long-term memory from its data cutoff; retrieval is a live web search run while you wait. Perplexity is retrieval-heavy, base ChatGPT answers lean on training data, and ChatGPT-with-search or Google AI Overviews blend the two. The retrieval layer is where you have near-term influence, since it reflects what the web says today."}, {"q": "Why doesn't my brand get recommended even though it's a strong product?", "a": "Usually because it never enters the candidate pool. The model can only recommend names present in its training associations or in the pages it retrieves. If you're absent from the comparison listicles, community threads, and review sites that rank for your category, there's no path for the assistant to surface you — regardless of product quality."}, {"q": "What matters more for AI recommendations, backlinks or consensus?", "a": "Consensus. LLMs are agreement-detection machines: when many independent sources describe you the same way, that repetition becomes a strong, trusted signal. Backlinks and domain authority still help feed retrieval, but being named consistently across roundups, forums, and review sites is the dominant lever for getting onto an assistant's shortlist."}, {"q": "Why do recency and citations matter so much for AI brand visibility?", "a": "In retrieval mode the assistant reads fresh pages, and both it and the search index treat newer sources as more likely correct, so a recently updated article often outranks an older definitive one. Citations matter because cited-mode assistants constrain themselves to claims their sources support — so well-sourced, citable facts about your brand are the raw material the assistant is allowed to repeat."}, {"q": "How do I find out what AI assistants currently say about my brand?", "a": "Ask the same buying question across ChatGPT, Perplexity, Gemini and Claude, and record who gets named, in what order, and with what framing. That's your real baseline. A free AEOeye audit automates this by querying the major assistants for your category and showing where you appear, where you're invisible, and which competitors hold the shortlist slots."}]
-image: {"url": "https://images.pexels.com/photos/7877185/pexels-photo-7877185.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Business analyst in a blue shirt analyzing financial charts on a whiteboard.", "photographer": "www.kaboompics.com", "photographerUrl": "https://www.pexels.com/@karola-g"}
+readingTime: "6 min read"
+keywords: ["how AI assistants recommend brands", "how does AI choose which brands to recommend", "how ChatGPT recommends brands", "AI brand recommendations", "training data vs live search", "retrieval-augmented generation", "brand consensus AI", "AI shortlist", "answer engine optimization"]
+faqs: [{"q": "Do AI assistants recommend brands from training data or live web search?", "a": "Both, and the mix depends on the question. Anthropic's documentation says Claude searches when a request involves current or changing information, such as products that may have changed, and answers stable-knowledge questions directly. Google's AI Overviews and AI Mode retrieve pages from Google's index. For a buyer question like 'best tool for X', assume live search is involved and memory is the fallback."}, {"q": "Why does an assistant name my competitor but not me?", "a": "Usually because your competitor is in the candidate pool and you are not. The pool comes from what the model associates with the question and from the pages it retrieves. If independent reviews, roundups and comparison pages name your competitor and not you, there is no path for your name to reach the answer, whatever the product quality."}, {"q": "Will the same question give the same brands every time?", "a": "No. SparkToro's study of 2,961 runs across ChatGPT, Claude and Google's AI features found under a 1 in 100 chance of getting the same list of brands twice, and about 1 in 1,000 for the same list in the same order. Treat one answer as a sample. Run each question several times and track how often you appear."}, {"q": "Do I need to allow OpenAI's crawlers to appear in ChatGPT answers?", "a": "To appear in ChatGPT search, yes: OpenAI says sites opted out of OAI-SearchBot are not shown in ChatGPT search answers, though they can still appear as navigational links. The setting is independent of GPTBot, which is for training, so you can allow search and still disallow training. Check your robots.txt for both."}, {"q": "How can I see what AI assistants currently say about my brand?", "a": "Ask the buyer questions your customers ask, in each assistant, several times, and record who is named, in what order, and which sources are cited. AEOeye's free audit does a first pass: three unbranded buyer questions asked to ChatGPT live, the real answers shown in full, and the competitors it recommends instead."}]
+image: {"url": "https://images.pexels.com/photos/30479284/pexels-photo-30479284.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A person interacting with an AI assistant on a smartphone indoors.", "photographer": "Airam Dato-on", "photographerUrl": "https://www.pexels.com/@airamdphoto"}
+sources: [{"label": "Google Search Central — Optimizing your website for generative AI features on Google Search", "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"}, {"label": "Anthropic — Web search tool (Claude documentation)", "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool"}, {"label": "OpenAI — Overview of OpenAI crawlers", "url": "https://developers.openai.com/api/docs/bots"}, {"label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (arXiv)", "url": "https://arxiv.org/abs/2509.08919"}, {"label": "SparkToro — AIs are highly inconsistent when recommending brands or products", "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"}, {"label": "Lewis et al. — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (arXiv)", "url": "https://arxiv.org/abs/2005.11401"}]
 ---
 
-When someone asks ChatGPT "what's the best project management tool for a small agency," a name comes out the other end in two seconds. The interesting question isn't *what* it answered — it's *how*. Was that name baked into the model months ago during training? Pulled from a web search that ran while you waited? Both? Neither?
+An AI assistant names brands by one of two routes: it recalls them from training data, or it runs a live web search and reads the results. Either way it builds a small pool of candidates, drops names that independent sources don't back up, and orders what is left. No engine publishes its ranking weights, so this page sticks to what documentation and research support, and marks our own reading as ours.
 
-Getting this wrong is expensive. Teams pour effort into tactics that target the wrong mechanism — optimizing for a retrieval layer the assistant didn't even use, or chasing a training-data effect they can't influence on a useful timescale. So let's open the box. Not all the way — nobody outside the labs can — but far enough that you can make decisions instead of guesses.
+## How do AI assistants decide which brands to recommend?
 
+They work in four steps: choose a route, gather candidate names, test each name against sources, then order and describe the survivors. The first two steps decide whether you are considered at all. The last two decide how you come across.
 
-> **AI assistants weigh third-party consensus** as heavily as your own site: reviews, comparison pages, and forum threads that describe you consistently often influence an AI recommendation more than your own marketing copy does.
-## Two completely different machines wear the same face
+1. **Route.** The assistant decides whether to answer from memory or to search. Anthropic's documentation says [Claude searches when a request depends on current or changing information](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool), including organizations and products that might have changed, and answers stable-knowledge questions directly.
+2. **Candidate pool.** Names come from associations learned in training, from pages retrieved for this question, or from both.
+3. **Corroboration.** Names that several independent sources support survive. A name mentioned once, or only on its own site, is easy to drop.
+4. **Ordering and framing.** The survivors get ranked and labelled ("best for small teams", "cheaper alternative"), and the label comes from how sources describe you.
 
-Every modern assistant blends two sources of knowledge, and they behave nothing alike.
+Buyer questions like "best CRM for a five-person agency" sit squarely in the "products that might have changed" group. In our reading, search is often part of the answer, with memory as the fallback.
 
-**Training data** is the model's long-term memory. During pretraining, the model ingested a huge slice of the web, books, forums, documentation, and code, then compressed all of it into weights. It doesn't store sentences; it stores statistical associations. So when you ask about CRMs, the model has a learned sense that "Salesforce," "HubSpot," and "Pipedrive" are strongly co-associated with that category — because they appeared near those concepts thousands of times across the corpus. This is frozen. It reflects the web as it looked at the data cutoff, not today.
+## What is the difference between memory and live search?
 
-**Retrieval** is short-term, live memory. The assistant runs a search (its own index, Bing, Google, a partner API), pulls a handful of pages, and feeds the text into the prompt alongside your question. The model then reads those pages *right now* and answers partly from them. This is what powers Perplexity end-to-end, what ChatGPT does when it decides to "search the web," and what Google's AI Overviews lean on heavily.
+Memory is what the model absorbed during training; live search fetches current pages and feeds them to the model as it writes. Memory is frozen at the training cutoff. Search reflects the web today, which makes it the layer where a brand can change its odds this quarter.
 
-Here's the distinction that actually matters for your work:
+The research name for the second pattern is retrieval-augmented generation (RAG): [a model's built-in "parametric" memory combined with an external index it can look things up in](https://arxiv.org/abs/2005.11401). Google says its AI Overviews and AI Mode use RAG, also called grounding, to [retrieve relevant, up-to-date pages from its Search index](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) before generating a response.
 
-> If a brand is recommended from **training data**, you influenced that 6 to 18 months ago and you can't change it this quarter. If it's recommended from **retrieval**, you can influence it this week — by changing what the open web says about you *right now*. Almost all the leverage you have lives in the retrieval layer. Optimize there first.
+| | Memory (training data) | Live search (retrieval) |
+|---|---|---|
+| Where names come from | Associations learned in training | Pages retrieved for this question |
+| Freshness | Frozen at the training cutoff | Current index |
+| How you influence it | Slowly: broad, consistent presence that a future model may absorb | Directly: appear on pages that get retrieved |
+| Crawler involved | Training crawlers such as GPTBot | Search crawlers such as OAI-SearchBot |
 
-## How a shortlist actually forms
+OpenAI keeps the two separate: [GPTBot crawls content that may be used in training, while OAI-SearchBot surfaces sites in ChatGPT search](https://developers.openai.com/api/docs/bots), and each can be allowed or disallowed independently. Our position: spend your effort on the search path. You cannot edit a model that has already been trained.
 
-The model doesn't "look up the best tool." It generates a list, and that list is shaped before a single word is produced. Roughly, three things happen in sequence.
+![Ethernet cables connected to server ports](https://images.pexels.com/photos/2881233/pexels-photo-2881233.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-**1. Candidate generation.** The model assembles a pool of names that are plausibly relevant. From training data, this is whatever has the strongest associative pull for the query's concepts. From retrieval, it's whoever shows up in the fetched pages. A brand absent from both simply cannot be recommended — there is no path. This is the single most common reason a good product never gets named: it never entered the candidate pool.
+## How does a shortlist form?
 
-**2. Filtering and ranking.** The model down-weights candidates that look risky, contradicted, or thinly supported, and up-weights ones that are corroborated across multiple sources, recently mentioned, and described in concrete terms. A brand named once in one blog post is fragile. A brand named across ten independent sources, with consistent positioning, is hard to dislodge.
+A shortlist forms when the assistant collects every name it can tie to the question, removes names it cannot back up, and keeps a handful. In AEOeye's audit records, answers named about three competitors each, and a brand that was named and ranked was usually named first.
 
-**3. Framing.** The survivors get ordered and described. Whether you're listed first, called "best for enterprise," or buried as "another option" depends on the *language* the sources used about you, not just whether they mentioned you.
+The pool is wider than your headline question. Google describes [query fan-out](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) as a set of concurrent, related queries the model generates to fetch more results: its example turns "how to fix a lawn that's full of weeds" into searches for herbicides and chemical-free removal. Our reading: you need to show up for the sub-questions behind a buying decision (price, fit, alternatives), not only for the main phrase.
 
-The uncomfortable implication: you can be in the candidate pool and still lose at step two or three. Being mentioned isn't the goal. Being mentioned *consistently, recently, and concretely* is.
+In AEOeye's recommendation benchmark (127 completed audits created 26 June to 7 September 2026, 892 engine answers; [aggregates published here](/resources/aeoeye-recommendation-benchmark-2026-09.json)):
 
-## Authority and consensus: the real ranking signals
+- The audited brand was named in 157 answers (17.6%).
+- Answers named 2.9 competitors on average.
+- Of 147 ranked mentions, 71.4% were first place (average position 1.54).
+- 144 of the 157 mentions were positive and 1 negative: invisibility, not bad press, is the common problem.
 
-Classic SEO trained everyone to think about backlinks and domain authority. Those still matter, but for answer engines the dominant signal is **consensus** — does the open web broadly agree that you belong in this category?
+The caveat is mandatory. This is a small, self-selected sample (27 brand names, repeat audits included). Engine samples are unequal and not comparable, and four of the five engines have fewer than 10 mentions. So we make no claim about which engine recommends more, and you should test your own questions.
 
-LLMs are, at their core, agreement-detection machines. When twelve different sources independently say "Notion is good for team wikis," that repetition becomes a strong statistical signal the model trusts. One source making a bold claim about itself is noise. Many independent sources converging is signal. This is why a single brilliant landing page rarely moves the needle and why being named in roundups, comparison articles, Reddit threads, and review sites does.
+Answers are winner-take-most, so being named at all is the hard part. Lists also move. [SparkToro's study of 2,961 runs of 12 prompts](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) across ChatGPT, Claude and Google's AI features and found under a 1 in 100 chance of the same brand list twice, and about 1 in 1,000 for the same list in the same order. A shortlist is a probability, so aim to be in the pool often rather than to win one run.
 
-A few specific authority signals that punch above their weight:
+![Moody black and white photograph of a chess pawn](https://images.pexels.com/photos/136351/pexels-photo-136351.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-- **Third-party comparison and "best X for Y" listicles.** These are retrieval gold because they're literally structured as candidate lists. If you're absent from the listicles that rank for your category, you're absent from the shortlist.
-- **Community and forum content** — Reddit, Hacker News, Stack Overflow, niche Discords that get indexed. Assistants weight these heavily because they read as unbiased peer opinion. They're also where consensus visibly forms.
-- **Structured, citable facts** — Wikipedia, Crunchbase, G2, Capterra, well-maintained docs. These give the model unambiguous, low-risk statements to anchor on.
-- **Your own site, but only the parts that read like reference material.** Specs, pricing, comparison pages, FAQs. Marketing prose gets paraphrased away; concrete facts get quoted.
+## Which signals matter most?
 
-Notice what's missing: clever copywriting, brand voice, hero animations. The model can't see your design. It reads text and weighs how often, how consistently, and how recently that text appears across the corpus and the live web.
+Independent corroboration matters most for any brand that is not the category leader. Research comparing web-enabled ChatGPT with Google found AI answers drawing mostly on third-party sources, and a few other signals either gate or break ties. These are our readings of that evidence, not published ranking factors.
 
-## Why recency and citations carry so much weight
+- **Third-party corroboration.** In [Chen et al.'s comparison](https://arxiv.org/abs/2509.08919) (data collected August 2025), software queries in Canada drew 74.2% of AI search sources from earned media and 25.8% from brand-owned sites. Google's mix for the same queries was 53.8% brand and 31.8% earned. The authors call the absolute percentages illustrative.
+- **Category leadership.** The same paper ran fifty unbranded "most popular" and "best" cola prompts: major brands made up 56.3% of ChatGPT's brand mentions (274 of 487) and 67.9% of Perplexity's (339 of 499). Popularity-framed prompts probably exaggerate the effect, yet the paper concludes that unbranded queries default to market leaders.
+- **Specificity.** For niche brands the authors recommend dominating a narrow niche with deep expert content and targeted earned media. We agree: "project management for five-person design agencies" is a much smaller pool to win than "project management software".
+- **Freshness.** Google says retrieval improves the freshness of responses, and Chen et al. found engines differ significantly in freshness. We have no data on how heavily any engine weights recency, so don't build a plan on it.
+- **Access.** This is a gate, not a lever. OpenAI says sites opted out of OAI-SearchBot [are not shown in ChatGPT search answers](https://developers.openai.com/api/docs/bots), so a blocked crawler makes the rest irrelevant. Check it first, though it is rarely the real cause.
 
-In retrieval mode, the assistant is reading fresh pages, so **recency is a tiebreaker that often decides everything.** A comparison article updated last month outranks a definitive one from 2023, because the model — and the search index feeding it — both treat freshness as a proxy for correctness. Categories move fast; the assistant assumes the newest source knows about the latest entrant or price change. If your category's top sources haven't mentioned you since your last rebrand, the assistant is describing a version of you that no longer exists.
+The diagnosis lives on [why AI doesn't mention your brand](/blog/why-ai-doesnt-mention-your-brand). For the ChatGPT-specific logic see [how ChatGPT chooses its sources](/answers/how-does-chatgpt-choose-sources), and for a ranked factor list see [AI search ranking factors](/answers/ai-search-ranking-factors).
 
-Citations matter for a structural reason people miss. When an assistant cites sources (Perplexity always, ChatGPT and Gemini often), it is *constraining itself* to say things those sources support. That makes citable, well-sourced claims about your brand disproportionately powerful: they're the raw material the assistant is allowed to repeat. A claim no source backs up is a claim the cited-mode assistant won't make, no matter how true it is.
+## What should you do about it?
 
-There's a second-order effect. Once an assistant cites a page that positions you well, users click it, other writers find it, and it gets re-cited. Citations compound. The brands that win in answer engines tend to win progressively — each mention makes the next one likelier.
+Check what the assistants say now, find the pages they pull from, then earn a place on those pages and state one narrow claim the same way everywhere. Don't write content "for AI": Google's own guide says [SEO best practices continue to apply to its generative AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide).
 
-## What this means you should actually do
+1. **Ask your buyer questions in each assistant, several times.** Log which names appear, in what order, and which sources are cited. Our [free audit](/) does a first pass on ChatGPT; repeat the questions by hand elsewhere.
+2. **Separate memory from search.** If the answer cites sources, search ran, and those cited domains are your real candidate pool. If it cites nothing, you are looking at memory.
+3. **Rule out the gate.** Confirm robots.txt allows OAI-SearchBot and that your CDN or firewall isn't challenging search bots.
+4. **Get onto the cited pages.** Reviews, roundups and comparisons that already get retrieved are usually a better target than another post on your own domain. [Brand mentions](/blog/brand-mentions) explains how to earn them.
+5. **Own one narrow claim.** Use the same name, category and "who it's for" wording on your site, profiles and third-party listings, so sources agree.
+6. **Re-run the same questions after changes.** Judge by how often you appear across runs, not by one answer.
 
-Stop optimizing for one monolithic "AI." Different assistants weight the two machines differently, and your tactics should follow.
+![A chat interface on a laptop screen in a dimly lit room](https://images.pexels.com/photos/30530406/pexels-photo-30530406.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-**For retrieval-heavy assistants (Perplexity, AI Overviews, ChatGPT-with-search):** Win the open web *now*. Get into the comparison listicles. Earn genuine community mentions. Keep your reference pages — pricing, specs, comparisons, FAQs — accurate, dated, and crawlable. Make sure third parties describe you in the exact language you want repeated, because that language *is* what gets repeated.
+## What don't we know?
 
-**For training-heavy answers (ChatGPT with search off, base-model responses):** Play the long game. Consistent, broad presence across the web over months is what eventually gets compressed into the weights. There's no shortcut, and anyone selling you one is selling you nothing.
+No engine publishes how it weights memory, retrieval, recency or source type, and the studies we lean on are snapshots. Treat each signal above as a hypothesis you can test on your own questions, not a guaranteed factor.
 
-A practical sequence I'd run:
+- **Weights are unpublished.** Google names the components, not how heavily each counts.
+- **The research ages.** Chen et al. collected data in August 2025 and say their findings should not be treated as permanent truths, because engines keep changing.
+- **Our benchmark is small.** It shows the shape of answers, not a market-wide rate.
+- **Answers vary run to run.** One output can't tell you whether memory or search produced it; only cited sources hint at that.
 
-- **Audit what assistants currently say about you and your category.** Ask the same buying question across ChatGPT, Perplexity, Gemini and Claude. Note who gets named, in what order, with what framing. This is your real baseline — not your search rankings. (This is exactly what a [free AEOeye audit](https://aeoeye.com) automates: it queries the major assistants for your category and shows where you appear, where you're invisible, and who's eating your shortlist slots.)
-- **Find the sources the assistants cite.** Those pages are your highest-leverage targets. Getting added to, or favorably updated in, a frequently-cited comparison article moves you faster than ten new blog posts on your own domain.
-- **Fix the consensus gap.** If the web's language about you is stale, inconsistent, or thin, that's your work. Align how third parties describe you, and refresh the facts that matter.
-- **Re-measure monthly.** Retrieval-driven answers shift week to week. Treat AI visibility as a metric you track, not a project you finish.
-
-## The honest limits
-
-Be skeptical of anyone claiming a deterministic playbook. These systems are partly stochastic — ask the same question twice and the wording, sometimes the names, shift. The labs change retrieval logic and ranking without announcement. No one outside Anthropic, OpenAI, or Google knows the exact weighting between training and retrieval for a given query.
-
-But the mechanism is knowable enough to act on. Candidate pool, consensus, recency, citability — those four levers are real, observable, and influenceable. You don't need to crack the black box. You need to make sure that when the assistant assembles its shortlist, you're in the pool, you're corroborated, you're current, and you're described in words you'd be happy to have repeated to a buyer. Do that consistently and you stop hoping to get recommended. You start engineering it.
+What we do stand behind: you cannot be recommended from a pool you are not in, and the pool is built by other people's pages. Start there.

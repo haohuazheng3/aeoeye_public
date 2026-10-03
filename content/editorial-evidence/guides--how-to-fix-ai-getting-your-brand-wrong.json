@@ -1,0 +1,131 @@
+{
+  "contentSha256": "f5c3359312aeb41070e2261681458ab547dcb5ab5f4bacdae864d1be3c36efe0",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A brand owner finds ChatGPT, Gemini, Perplexity, Claude or Google AI quoting old pricing or retired features and needs to know where the error comes from, what to correct, which feedback channels exist and how long it realistically takes.",
+    "connection": "AEOeye audits what AI engines say about and recommend for a brand; this guide covers the next step when the answers name the brand but get facts wrong, and uses AEOeye's recommendation benchmark and crawler access study to separate invisibility from error and to flag bot-blocking."
+  },
+  "assessment": "The rewritten guide gives a diagnosis routine (match each wrong claim to a shown source), a priority order of places the correct fact must live, how to write the correction, the feedback route in each product with what each vendor's own help page says, and an honest timing section. It rests on vendor documentation from OpenAI, Anthropic, Google, Perplexity, Wikidata and Wikipedia plus AEOeye's benchmark and crawler study with their caveats. It corrects two claims in the old page (Wikidata has a notability bar; the 2 to 8 week timeline was unsourced) and deliberately makes no claim that schema markup, feedback buttons or any tactic reliably changes an answer or how fast.",
+  "sources": [
+    {
+      "url": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Each Claude model has a knowledge cutoff; the list runs from Claude Opus 3 (August 2023) to Claude Sonnet 5.5 (June 2026); models may be unaware of later information."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8525154-claude-is-providing-incorrect-or-misleading-responses-what-s-going-on",
+      "checkedAt": "2026-10-03",
+      "supports": "Quality of Claude's answers depends on the sources it references when using web search; the thumbs-down button is the feedback route."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.04664",
+      "checkedAt": "2026-10-03",
+      "supports": "Abstract (submitted 4 Sep 2025): training and evaluation procedures reward guessing over acknowledging uncertainty, so hallucinations persist."
+    },
+    {
+      "url": "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php",
+      "checkedAt": "2026-10-03",
+      "supports": "Tow Center test (February 2025) of eight AI search tools asked to identify news excerpts: more than 60 percent of 1,600 queries answered incorrectly; ChatGPT identified 134 articles incorrectly and signalled low confidence 15 times out of 200 responses. A news-attribution task, not brand facts."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No additional requirements to appear in AI Overviews or AI Mode; a page must be indexed and eligible to show in Search with a snippet."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/14901683",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews feedback: thumbs down then Report a problem; submitted feedback includes the most recent query and its search results; AI responses may include mistakes."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/13275746",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini Apps: Bad response and Send feedback require sign-in; Report legal issue is under More below the response."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; sites opted out are not shown in ChatGPT search answers but can appear as navigational links; about 24 hours for robots.txt changes to reach search."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/10245791-reporting-content-in-chatgpt-and-openai-platforms",
+      "checkedAt": "2026-10-03",
+      "supports": "Thumbs down under a ChatGPT message then Select an issue; reporting form covers content that may violate the Terms of Use or applicable laws; reported domains and content may be reviewed by the Model Quality team. Direct fetch returned 403, so the text was read from an Internet Archive copy of this exact URL."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links websites in Perplexity search results; robots.txt changes may take up to 24 hours to be reflected."
+    },
+    {
+      "url": "https://intercom.help/perplexity-ai/en/articles/10354888-need-support",
+      "checkedAt": "2026-10-03",
+      "supports": "For incorrect responses: click the three-dot menu below the response and select Report (article dated March 3, 2026)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl",
+      "checkedAt": "2026-10-03",
+      "supports": "Crawling can take a few days to a few weeks; a recrawl request does not guarantee inclusion."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/remove-information",
+      "checkedAt": "2026-10-03",
+      "supports": "Removals tool removes a page hosted on your site from Search results within a day; requests last about six months; removing or updating the page itself is the more secure route."
+    },
+    {
+      "url": "https://support.google.com/knowledgepanel/answer/7534842",
+      "checkedAt": "2026-10-03",
+      "supports": "Knowledge panels generate automatically from public information; Google does not manually create or delete them; verified users can suggest edits and Google reviews verified feedback within a few days."
+    },
+    {
+      "url": "https://support.google.com/business/answer/3039617",
+      "checkedAt": "2026-10-03",
+      "supports": "Owners can edit a verified Business Profile on Search or Maps."
+    },
+    {
+      "url": "https://www.wikidata.org/wiki/Wikidata:Notability",
+      "checkedAt": "2026-10-03",
+      "supports": "An item is acceptable if it has a valid sitelink, or refers to a clearly identifiable entity described using serious and publicly available references, or fulfills a structural need."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest",
+      "checkedAt": "2026-10-03",
+      "supports": "COI editing is strongly discouraged; COI editors are strongly discouraged from editing affected articles directly and can propose changes on talk pages; paid editing must be disclosed."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization markup helps Google understand and disambiguate your organization; there are no required properties; sameAs points to other pages about the organization."
+    },
+    {
+      "url": "https://schema.org/Offer",
+      "checkedAt": "2026-10-03",
+      "supports": "Offer defines price, priceCurrency and priceValidUntil (the date after which the price is no longer available). Read via WebFetch because the raw HTML is client-rendered."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation as a technique that blends model generation with document lookup."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Wikidata",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of Wikidata as a collaboratively edited knowledge base."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 (curl for raw text, WebFetch for schema.org/Offer) and kept only claims the page states; OpenAI's help-center article returned 403 directly, so its text was read from an Internet Archive copy of the same URL and the page tells readers to check current labels in the app.",
+    "Writer (Sonnet): replaced two unsupported claims from the old page: 'Wikidata has no notability bar' (Wikidata:Notability sets criteria) and the unsourced '2 to 8 weeks' fix timeline, now stated as an unpublished figure; also dropped the old Wikipedia 7.8 percent and 11 percent overlap statistics, which came from non-primary blogs.",
+    "Writer (Sonnet): used the AEOeye recommendation benchmark exactly as in the evidence pack (157 of 892 answers, 144 positive, 12 neutral, 1 negative; 127 audits, 27 brands, 2026-06-26 to 2026-09-07) with the self-selection and unequal-engine caveats, and said the audit does not measure factual accuracy; used the crawler study figure 60 of 375 (24 of 88 e-commerce) with its convenience-sample limit.",
+    "Writer (Sonnet): verified the linked AEOeye pages and resource files exist in the repository and ran scripts/content-lint.mjs (clean, 1,486 words).",
+    "Editor (Opus): read the final guide: diagnose memory vs retrieval errors, fix the source pages, per-engine feedback routes table, Knowledge Panel/Business Profile/Wikidata steps, re-test routine",
+    "Editor (Opus): corrected the old 'Wikidata has no notability bar' error and removed the invented 2–8 week timeline",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): benchmark figures carry the mandatory caveat; page states the audit does not measure factual accuracy",
+    "Editor (Opus): content-lint reports no errors or warnings",
+    "Editor (Opus): retitled to 'Old Prices' so the guide is not mistaken for a pricing page by the content gate"
+  ],
+  "merged": []
+}

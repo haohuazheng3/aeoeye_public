@@ -172,7 +172,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
       <JsonLd
         data={[
-          articleJsonLd({ title: post.meta.title, description: post.meta.description, path: `/blog/${post.meta.slug}`, date: post.meta.date }),
+          articleJsonLd({ title: post.meta.title, description: post.meta.description, path: `/blog/${post.meta.slug}`, date: post.meta.date, published: post.meta.published }),
           breadcrumbJsonLd([
             { name: "Blog", path: "/blog" },
             { name: post.meta.title, path: `/blog/${post.meta.slug}` },

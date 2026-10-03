@@ -1,209 +1,207 @@
 {
- "slug": "how-to-fix-ai-getting-your-brand-wrong",
- "type": "guides",
- "title": "How to Fix AI Getting Your Brand Wrong (Stale Pricing, Wrong Features)",
- "metaTitle": "Fix AI Wrong About My Brand: A 2026 Playbook",
- "metaDescription": "AI tools quoting stale pricing or dead features about your brand? Here's the exact 7-step playbook to correct ChatGPT, Perplexity, Google AI, Claude and Gemini.",
- "primaryKeyword": "fix ai wrong about my brand",
- "shortAnswer": "You can't edit an AI's brain, so you fix the sources it reads. Publish a clear, dated correction on a page you own, mark it up with Organization/Product schema, update Wikipedia/Wikidata, and refresh third-party listings the model trusts. Retrieval-based tools (Perplexity, AI Overviews) update in weeks; base-model memory takes longer.",
- "intro": "Here's the uncomfortable truth: an AI assistant confidently telling people your plan costs $29 when you charge $49, or that you still ship a feature you killed last year, is not a bug you can file a ticket for. There's no \"report incorrect info\" button that reaches the model. So most brands either rage at the screen or do nothing.\n\nThat's the wrong move. AI models don't store a verified record of your company — they pattern-match across whatever they ingested, and they can't tell \"official\" from \"frequently repeated.\" Which means the fix is mechanical and learnable: change the sources, and the answer changes. This guide is the playbook I'd run, in order.",
- "sections": [
-  {
-   "heading": "Why does AI get my brand wrong in the first place?",
-   "body": "Because LLMs don't have a database of facts about you — they generate answers by predicting likely text from training data and, when browsing is on, from whatever pages they retrieve in that moment. Neither path guarantees your *current* truth.\n\nThree root causes do most of the damage:\n\n- **Stale training data.** A base model has a knowledge cutoff. Claude's training data, for example, runs to a fixed cutoff date, so anything you changed after that simply doesn't exist to the un-browsing model. It will happily quote last year's pricing.\n- **Bad retrieval, repeated loudly.** When a model browses, it pulls from a handful of sources. If an outdated review, a competitor's comparison page, or an old press release ranks well, that becomes 'truth.' One [Columbia Tow Center study found generative search tools gave incorrect answers more than 60% of the time](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php) when asked about news content.\n- **Hallucination, plain and simple.** Even good models invent specifics. [Reported hallucination rates cluster around 10–20% for leading models](https://sqmagazine.co.uk/llm-hallucination-statistics/) and spike far higher on open-ended questions — exactly the kind people ask about brands.\n\nThe upshot: you're not arguing with a mind. You're editing a corpus."
-  },
-  {
-   "heading": "How fast can I actually fix it? (Set expectations first)",
-   "body": "It depends on whether the platform retrieves live or relies on baked-in memory. Retrieval-based engines update in weeks; base-model knowledge updates on training cycles you don't control — months, sometimes a major version.\n\nSplit your targets into two buckets and stop expecting them to behave alike:\n\n- **Live-retrieval (fast lane):** Perplexity crawls the web continuously; Google AI Overviews and ChatGPT's web-search mode pull from a live index. Correct the underlying source and these can reflect it in roughly **two to eight weeks**.\n- **Baked-in memory (slow lane):** Ask ChatGPT or Claude with browsing *off* and you're querying frozen training data. Your correction only lands when that data is re-scraped and the model is retrained.\n\nThis is why a single 'it's still wrong' test in one chatbot tells you almost nothing. You have to check each engine, in its retrieval mode, and track over time. (AEOeye's free audit runs the same brand prompts across ChatGPT, Perplexity, Google AI, Claude and Gemini at once, so you can see *which* engine is wrong and *which* source it's leaning on — that's the part that turns guessing into fixing.)"
-  },
-  {
-   "heading": "Where does the corrected fact actually need to live?",
-   "body": "On a page you control, stated plainly, dated, and machine-readable — then mirrored on the third-party sources the models trust most. A correction buried in a blog post nobody links to won't move anything.\n\nPriority order, highest leverage first:\n\n1. **Your own canonical page** (pricing page, product page, or a dedicated facts/FAQ page). This is the source you fully control.\n2. **Wikipedia and Wikidata.** [Wikidata feeds Google's Knowledge Graph and is queried directly by Copilot, Alexa, Siri and other AI systems to resolve brand identity](https://www.mlforseo.com/knowledge-graph-strategy/wikidata-for-brands-notability-criteria-and-a-realistic-path/). Wikidata has no notability bar, so most brands can create an entry today. [Wikipedia accounts for 7.8% of all citations in ChatGPT's browsing mode](https://ziptie.dev/blog/how-does-chatgpt-choose-its-sources/) — disproportionate influence for one site.\n3. **High-authority third-party listings** — your Crunchbase, G2, LinkedIn, app-store listing, and the review sites that rank for your name. Models cross-reference these.\n4. **Recent, well-distributed content** that repeats the correct fact in plain language, so retrieval has fresh, consistent signal to grab.\n\nConsistency across these is the whole game. When every source agrees, the model answers with confidence. When they conflict, it guesses — and guesses are where wrong pricing comes from."
-  },
-  {
-   "heading": "What's the single highest-leverage technical move?",
-   "body": "Add structured data — specifically Organization, Product, and Offer schema — so AI crawlers read your facts as machine-readable data instead of inferring them from prose. This is the closest thing to handing the model a fact sheet.\n\nFor wrong pricing, the fix is concrete: put explicit `Product` and `Offer` schema on your pricing page with the current `price`, `priceCurrency`, and `priceValidUntil`. For wrong identity facts (founding date, CEO, what you actually do), use `Organization` schema with `name`, `foundingDate`, `founder`, `sameAs` (linking to your Wikidata, LinkedIn, Crunchbase), and `description`.\n\nWhy it works: schema removes ambiguity. The model doesn't have to parse a marketing sentence to guess your price — it reads a field. Pair that with an `FAQPage` schema block that asks and answers the exact wrong question ('How much does X cost?') with the right answer in the first sentence. Validate everything with [Google's Rich Results Test](https://search.google.com/test/rich-results) and reference the [schema.org Organization spec](https://schema.org/Organization) for valid properties. This is table stakes for [AEO/GEO](https://en.wikipedia.org/wiki/Generative_engine_optimization), not an advanced tactic."
-  },
-  {
-   "heading": "How do I write the correction so AI actually picks it up?",
-   "body": "Lead with the answer, name the wrong claim explicitly, and date it. AI retrieval rewards pages that state the fact in the first 50 words and match the phrasing of the question being asked.\n\nDo this:\n\n- **Front-load the fact.** First sentence: 'As of June 2026, [Product] Pro costs $49/month.' Don't make the crawler hunt.\n- **Name and bury the old claim.** Add a line like 'Some older sources list $29/month — that pricing ended in 2025.' This gives the model a disambiguation signal so it can resolve the conflict in your favor instead of averaging the two.\n- **Match real questions.** Use the exact phrasing people (and AI) use: 'Does [Brand] still offer [dead feature]?' → 'No. [Feature] was discontinued in March 2026. Here's the current alternative…'\n- **Date the page visibly** and update the `dateModified` in your schema. Freshness is a ranking signal in the fast lane.\n\nKeep it plain. The flowery brand-voice paragraph is for humans; the crawler wants the unambiguous statement. Write both, but make sure the unambiguous one comes first."
-  },
-  {
-   "heading": "Which engines should I check, and how often?",
-   "body": "Check all five major engines — ChatGPT, Perplexity, Google AI, Claude, Gemini — separately, because they cite wildly different sources and a fix in one rarely means a fix in all. Re-check every two to four weeks after you ship a correction.\n\nThe fragmentation is real: [only about 11% of domains are cited by both ChatGPT and Perplexity](https://discoveredlabs.com/blog/ai-citation-patterns-how-chatgpt-claude-and-perplexity-choose-sources), and [Perplexity averages 7.42 citations per response versus ChatGPT's 3.86](https://discoveredlabs.com/blog/chatgpt-claude-perplexity-and-google-ai-overviews-how-each-platform-cites-sources-differently). So the source you need to fix for Perplexity may be invisible to ChatGPT entirely.\n\nPractical monitoring routine:\n\n- Ask each engine the same 3–5 brand questions (pricing, features, 'what is [Brand]', 'is [Brand] legit').\n- Note the wrong answer *and the source it cited* — the citation tells you exactly which page to fix next.\n- Run it again after each fix lands, on a calendar reminder.\n\nDoing this by hand across five tools is tedious and easy to drop. A free [AEOeye audit](https://aeoeye.com) automates the sweep and surfaces the cited source per engine, which is the data point that actually directs your next move."
-  },
-  {
-   "heading": "What if the wrong info is on a site I don't control?",
-   "body": "Go to the source directly: request a correction or removal, and if that fails, drown it out with stronger, fresher, more authoritative signals. You can't edit a competitor's comparison page, but you can outrank and out-cite it.\n\nYour options, in order:\n\n- **Wikipedia/Wikidata:** edit it yourself following their sourcing rules, or flag the error on the article's Talk page with a citation. This propagates widely because so many systems read it.\n- **Review/listing sites (G2, Crunchbase, app stores):** most have a 'claim this profile' or 'suggest an edit' flow. Claim it and fix the facts.\n- **Press/blog errors:** email the author or outlet with the correction and a link to your canonical source. Many will update.\n- **Can't get it changed?** Publish more authoritative, more recent content with the right fact and earn links to it. When the weight of fresh, consistent sources tips the model's way, the stale outlier stops winning retrieval. This is slower but it's how you win the long game when you don't own the page."
-  }
- ],
- "keyTakeaways": [
-  "You can't edit the model — you edit its sources. Fix the underlying pages and the AI answer follows.",
-  "Split targets into fast lane (Perplexity, AI Overviews, ChatGPT web search — weeks) and slow lane (frozen base-model memory — training cycles).",
-  "Structured data is the highest-leverage move: Organization, Product, and Offer schema hand the model machine-readable facts instead of guesses.",
-  "Wikidata and Wikipedia punch above their weight — Wikidata feeds Google's Knowledge Graph and Wikipedia is ~7.8% of ChatGPT browsing citations.",
-  "Write corrections answer-first: state the current fact in the first sentence, name and date the old claim so the model can resolve the conflict.",
-  "Engines cite different sources (only ~11% domain overlap between ChatGPT and Perplexity), so check and fix all five separately, then re-check every 2–4 weeks."
- ],
- "faqs": [
-  {
-   "q": "Can I directly tell ChatGPT or Gemini that a fact about my brand is wrong?",
-   "a": "Not in any way that sticks. Correcting it inside a chat changes that one conversation, not the model. There's no official 'report wrong brand fact' channel that updates the model's knowledge. The durable fix is to change the public sources the model reads — your own pages, Wikidata/Wikipedia, and trusted third-party listings."
-  },
-  {
-   "q": "How long until the AI shows the corrected information?",
-   "a": "For live-retrieval engines (Perplexity, Google AI Overviews, ChatGPT/Gemini with web search), typically two to eight weeks after the underlying source is fixed and re-crawled. For answers drawn from frozen training data (browsing off), it can take until the model's next training cycle — months, or a new model version."
-  },
-  {
-   "q": "Will adding schema markup alone fix wrong pricing?",
-   "a": "It's the single biggest lever, but not a silver bullet on its own. Product/Offer schema gives crawlers your exact current price as machine-readable data, which strongly helps. But if outdated prices still dominate third-party sources, you also need consistency across Wikidata, listings, and fresh content so nothing contradicts your schema."
-  },
-  {
-   "q": "Why does only one AI tool show the wrong fact while others are correct?",
-   "a": "Because each engine cites different sources — only about 11% of domains overlap between ChatGPT and Perplexity. The wrong engine is leaning on a stale source the others don't use. Find that specific cited source (an audit makes this fast) and fix it directly rather than assuming all five share one problem."
-  },
-  {
-   "q": "What if the wrong information is on a website I don't own?",
-   "a": "Request a correction first: most review and listing sites (G2, Crunchbase, app stores) let you claim a profile and edit it, and Wikipedia errors can be flagged on the Talk page. If you can't get it changed, publish fresher, more authoritative content with the correct fact and earn links until consistent signals outweigh the stale one."
-  }
- ],
- "comparisonTable": {
-  "columns": [
-   "Engine",
-   "How it gets facts",
-   "Update speed after you fix the source",
-   "Best lever"
+  "slug": "how-to-fix-ai-getting-your-brand-wrong",
+  "type": "guides",
+  "title": "How to Fix AI Getting Your Brand Wrong (Old Prices, Wrong Features)",
+  "metaTitle": "Fix Wrong Brand Facts in ChatGPT, Gemini, Perplexity",
+  "metaDescription": "AI quoting old pricing or dead features about your brand? Find the source of the wrong fact, fix it, and use each engine's feedback channel. Steps and timing.",
+  "primaryKeyword": "fix ai wrong about my brand",
+  "shortAnswer": "You can't edit what an AI believes, so you fix what it reads. Work out which engine is wrong and whether the error comes from stale training memory or a retrieved page. Then correct the fact on a page you own and on the third-party sources engines pull from. Use each product's feedback button as a signal, not a fix. No vendor publishes a correction timeline.",
+  "intro": "An assistant telling buyers your plan costs $29 when it costs $49, or crediting you with a feature you retired, is not a ticket you can file. Every major product has a feedback button. None of the help pages we read promises to change a specific answer.\n\nWhat works is mechanical: find where the wrong fact came from, fix that source, make the right fact easy to quote, then re-test.",
+  "sections": [
+    {
+      "heading": "Why does AI get your brand wrong?",
+      "body": "AI gets brands wrong by two routes: stale memory from training, and weak pages pulled in at answer time. Neither checks your current price list.\n\n- **Stale memory.** Every model has a knowledge cutoff. Anthropic's list (October 2026) runs from [August 2023 for Claude Opus 3 to June 2026 for Claude Sonnet 5.5](https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data), so a model in use today can predate your last pricing change.\n- **Weak retrieval.** When an engine searches, Anthropic says [answer quality depends on the sources it reads](https://support.claude.com/en/articles/8525154-claude-is-providing-incorrect-or-misleading-responses-what-s-going-on). An old review or comparison page that still ranks becomes the answer.\n- **Confident guessing.** A [September 2025 arXiv paper](https://arxiv.org/abs/2509.04664) argues that training and evaluation reward guessing over admitting uncertainty. In a [Columbia Tow Center test](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php) of eight AI search tools identifying news excerpts, ChatGPT misidentified 134 of 200 articles but signalled low confidence only 15 times. That was a news task, not brand facts."
+    },
+    {
+      "heading": "Is AI wrong about you, or just not naming you?",
+      "body": "Check both, because the fixes differ: no mention is a visibility problem, a wrong mention is a source problem.\n\nIn AEOeye's audit records, absence was the bigger problem: 157 of 892 answers named the audited brand, and only 1 of those 157 mentions was negative (144 positive, 12 neutral). The snapshot covers 127 self-selected audits of 27 brands from June 26 to September 7, 2026. Read it as a pattern in our data, not a market statistic or engine comparison: over half the answers are Claude's ([aggregates](/resources/aeoeye-recommendation-benchmark-2026-09.json), [method](/blog/ai-brand-recommendation-measurement)).\n\nOur [free audit](/) shows ChatGPT's real answers to three unbranded buyer questions, so it shows whether you are named, not whether your price is right. If AI never names you, start with [why AI doesn't mention your brand](/blog/why-ai-doesnt-mention-your-brand). If it names you wrongly, keep reading."
+    },
+    {
+      "heading": "How do you find where the wrong fact comes from?",
+      "body": "Ask the same branded questions in every engine, log each wrong claim with the sources the answer shows, and match each claim to a page. A claim that matches a shown source is a retrieval error. A claim with no matching source is usually stale memory or a guess.\n\n1. Write five branded questions: price, features, audience, alternatives, and whether a retired product still exists.\n2. Ask each in ChatGPT, Gemini, Perplexity, Claude and Google AI, with web search on where offered.\n3. Log the claim, engine, date and every linked source.\n4. Open each source and find the wrong claim on it.\n5. Mark claims with no source as memory errors. Those are the slow ones.\n\nStart with your own site. Old pricing pages, archived PDFs and retired product posts are the one source you can fix today. Google says the [Removals tool takes a page out of its results within a day](https://developers.google.com/search/docs/crawling-indexing/remove-information), but the effect lasts about six months, so update or remove the page itself.\n\n![A man with eyeglasses holding a magnifying glass up to his eye in a grassy field](https://images.pexels.com/photos/6033828/pexels-photo-6033828.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "Where does the correct fact need to live?",
+      "body": "On a page you control, in plain text, and then on the few third-party profiles that describe you. Consistency matters more than any single listing, because conflicting sources make engines guess ([entity SEO](/blog/what-is-entity-seo) explains why).\n\n1. **Your canonical page.** Put the current fact in the first sentence of your pricing, product or about page, with a visible date.\n2. **Make it readable.** OpenAI says sites opted out of OAI-SearchBot [will not be shown in ChatGPT search answers](https://developers.openai.com/api/docs/bots), and Perplexity says [PerplexityBot surfaces and links websites](https://docs.perplexity.ai/guides/bots). In AEOeye's crawler access study (October 2026), 60 of 375 homepages, including 24 of 88 e-commerce sites, blocked or challenged our self-identified crawler. It is a convenience sample with one fetch each ([data](/resources/ai-crawler-access-study-2026-10.csv)), but check your firewall logs.\n3. **Google's own surfaces.** Google says knowledge panels are [generated automatically from public information](https://support.google.com/knowledgepanel/answer/7534842) and are not created or deleted by hand, but verified owners can suggest edits and get a review within a few days. Local businesses can [edit their verified Business Profile](https://support.google.com/business/answer/3039617).\n4. **Wikidata and Wikipedia.** Wikidata is not open to every brand. An item needs a sitelink, or a clearly identifiable entity with [serious and publicly available references](https://www.wikidata.org/wiki/Wikidata:Notability), or a structural need. Wikipedia [strongly discourages conflicted editors](https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest) from editing directly and lets them propose changes on talk pages.\n5. **Directories.** Claim and correct G2, Crunchbase, LinkedIn and app-store listings.\n\n![Two professionals reviewing printed documents together at a table in an office](https://images.pexels.com/photos/4963426/pexels-photo-4963426.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do you write a correction AI will pick up?",
+      "body": "State the current fact in the first sentence, date it, name the old value once, and keep the wording identical everywhere. Retrieval quotes passages, so each fact must make sense when lifted out of the page.\n\n- **Front-load.** \"As of October 2026, Acme Pro costs $49 per month, billed monthly.\"\n- **Name the old value in one dated line.** \"Before March 2026, Pro cost $29.\" Our view, untested: a whole page about the wrong claim risks becoming the passage that gets quoted.\n- **Mirror the question.** Add a short FAQ asking \"How much does Acme cost?\" and answer in the first sentence.\n- **Add markup second.** Google says [Organization markup helps it disambiguate your organization](https://developers.google.com/search/docs/appearance/structured-data/organization), and schema.org's [Offer type](https://schema.org/Offer) defines `price`, `priceCurrency` and `priceValidUntil`. But Google also says AI Overviews need [no special optimizations beyond being indexed and snippet-eligible](https://developers.google.com/search/docs/appearance/ai-features).\n\nSo fix visible text first; schema is cheap insurance, not the lever ([structured data guide](/blog/structured-data-for-ai))."
+    },
+    {
+      "heading": "What feedback channels exist in each AI product?",
+      "body": "Every major product has a thumbs-down or report control. Use it once per wrong answer, but treat it as a signal: no help page we read promises a fix.\n\n- **ChatGPT:** thumbs down under the message. OpenAI says [reported domains and content may be reviewed by its Model Quality team](https://help.openai.com/en/articles/10245791-reporting-content-in-chatgpt-and-openai-platforms), but that form covers Terms of Use and legal violations, so a stale price may not qualify. We read an archived copy of that page, so check current labels in the app.\n- **Google AI Overviews:** thumbs down, then Report a problem. Google says the report [includes your query and its search results](https://support.google.com/websearch/answer/14901683).\n- **Gemini:** Bad response or Send feedback, both [requiring sign-in](https://support.google.com/gemini/answer/13275746); a Report legal issue option sits under More.\n- **Perplexity:** three-dot menu, then [Report](https://intercom.help/perplexity-ai/en/articles/10354888-need-support).\n- **Claude:** [thumbs down](https://support.claude.com/en/articles/8525154-claude-is-providing-incorrect-or-misleading-responses-what-s-going-on) on the response."
+    },
+    {
+      "heading": "How fast can you fix it?",
+      "body": "Nobody publishes a correction timeline for brand facts, so any \"2 to 8 weeks\" claim is a guess, including the one on this page's previous version. What vendors do document is narrower: Google says [crawling takes a few days to a few weeks](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl) with no guarantee, and OpenAI and Perplexity say robots.txt changes reach their systems within about a day.\n\nRetrieval-backed answers can change once your page is recrawled. Memory-backed answers change only when a new model ships ([how ChatGPT's two clocks work](/answers/how-often-does-chatgpt-update-its-knowledge)).\n\nMeasure it yourself: ask the same five questions weekly for six weeks and log which engines moved and which cited your page. Request a recrawl of the corrected page in Search Console."
+    },
+    {
+      "heading": "What if the wrong info is on a site you don't control?",
+      "body": "Ask the owner to correct it, send a dated source, and if that fails, out-publish it. You cannot remove someone else's page: Google's Removals tool covers pages hosted on your own site.\n\n- **Press and blogs:** email the author with the correct fact and a link to your canonical page.\n- **Wikipedia:** if you are connected to the brand, disclose it and propose the change on the talk page.\n- **Review sites:** claim the profile and edit it.\n- **Defamatory or unlawful claims:** ChatGPT and Gemini both have legal-report routes, but take advice from a lawyer first.\n- **Nothing works:** publish a fresher, consistent page for the same question and earn links to it. Stale pages stay quotable until something stronger replaces them.\n\n![A warning sign standing on a coastal cliff above the ocean on a clear day](https://images.pexels.com/photos/8849933/pexels-photo-8849933.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    }
   ],
-  "rows": [
-   {
-    "label": "Perplexity",
-    "values": [
-     "Crawls the web continuously, cites heavily (~7.4 sources/answer)",
-     "Fast — often 2–4 weeks",
-     "Fresh, well-linked owned page + schema"
+  "comparisonTable": {
+    "columns": [
+      "Engine",
+      "Where answers come from (per vendor docs)",
+      "What you can fix",
+      "Timing signal in the docs"
+    ],
+    "rows": [
+      {
+        "label": "ChatGPT",
+        "values": [
+          "Training memory plus ChatGPT search; OAI-SearchBot surfaces sites in search features",
+          "Your pages (allow OAI-SearchBot) and the third-party pages it cites",
+          "robots.txt changes take about 24 hours to reach search; no figure for content changes"
+        ]
+      },
+      {
+        "label": "Google AI Overviews and AI Mode",
+        "values": [
+          "Google Search; supporting pages must be indexed and snippet-eligible",
+          "Page text, knowledge panel, Business Profile",
+          "Recrawl takes a few days to a few weeks, no guarantee"
+        ]
+      },
+      {
+        "label": "Gemini",
+        "values": [
+          "Not described on the Gemini Apps help page we read",
+          "Test with your branded questions; fix whatever it shows or cites",
+          "None documented"
+        ]
+      },
+      {
+        "label": "Perplexity",
+        "values": [
+          "Live search; PerplexityBot surfaces and links websites",
+          "Your pages and the cited third-party pages",
+          "robots.txt changes take up to 24 hours; no figure for content changes"
+        ]
+      },
+      {
+        "label": "Claude",
+        "values": [
+          "Training data with a stated cutoff; cited sources when it uses web search",
+          "Your pages for search; memory errors wait for a new model",
+          "Listed cutoffs range from August 2023 to June 2026"
+        ]
+      }
     ]
-   },
-   {
-    "label": "Google AI Overviews",
-    "values": [
-     "Live index + Knowledge Graph",
-     "Fast — 2–8 weeks",
-     "Schema + Wikidata/Knowledge Graph entry"
-    ]
-   },
-   {
-    "label": "ChatGPT (web search on)",
-    "values": [
-     "Live Bing-backed index, ~3.9 sources/answer",
-     "Fast — weeks",
-     "Authoritative source that ranks in Bing"
-    ]
-   },
-   {
-    "label": "ChatGPT / Claude (browsing off)",
-    "values": [
-     "Frozen training data to a cutoff date",
-     "Slow — next training cycle",
-     "Be in the corpus everywhere, consistently"
-    ]
-   },
-   {
-    "label": "Gemini",
-    "values": [
-     "Google index + Knowledge Graph signals",
-     "Fast for retrieved facts; slow for baked-in",
-     "Schema + Knowledge Graph consistency"
-    ]
-   }
-  ]
- },
- "sources": [
-  {
-   "label": "LLM Hallucination Statistics 2026 — SQ Magazine",
-   "url": "https://sqmagazine.co.uk/llm-hallucination-statistics/"
   },
-  {
-   "label": "How ChatGPT Chooses Its Sources — ZipTie.dev",
-   "url": "https://ziptie.dev/blog/how-does-chatgpt-choose-its-sources/"
+  "keyTakeaways": [
+    "You can't edit a model's belief; you can fix the pages and profiles it reads.",
+    "Diagnose first: a wrong claim that matches a shown source is a retrieval error, one with no source is memory.",
+    "Fix your own stale pages first, then Google's surfaces, Wikidata, and directory profiles.",
+    "Write the fact answer-first with a date, name the old value once, and treat schema as secondary.",
+    "Feedback buttons are signals, not corrections. Nobody publishes a fix timeline, so measure weekly."
+  ],
+  "faqs": [
+    {
+      "q": "Can I tell ChatGPT or Gemini directly that a fact about my brand is wrong?",
+      "a": "You can send feedback, but you cannot edit the answer. ChatGPT, Gemini and Google AI Overviews all offer thumbs-down or report controls, and Google says feedback helps it improve AI Overviews. None of the help pages we read promises to correct a specific brand fact, so fix the underlying sources as well."
+    },
+    {
+      "q": "Will schema markup fix wrong pricing in AI answers?",
+      "a": "Not on its own. Offer markup can state your current price in a machine-readable way, and Organization markup helps Google disambiguate you. But Google says AI Overviews need no special optimization beyond indexing and snippet eligibility. Put the current price in visible text first, then add markup so the two agree."
+    },
+    {
+      "q": "How long until AI shows the corrected information?",
+      "a": "No vendor publishes a timeline for brand facts. Google says crawling takes a few days to a few weeks, and OpenAI and Perplexity say robots.txt changes take about a day to reach their systems. Memory-based answers change when a new model ships. Re-ask the same questions weekly and log the results."
+    },
+    {
+      "q": "Why does only one AI engine get my brand wrong?",
+      "a": "Engines read different sources and carry different knowledge cutoffs. One may cite a stale review while another answers from newer memory. Anthropic's list of Claude cutoffs alone spans August 2023 to June 2026. Find the source or cutoff behind the specific wrong engine instead of assuming all five share one cause."
+    },
+    {
+      "q": "What should I do if the error is on my Wikipedia article?",
+      "a": "Do not edit it directly if you are connected to the brand. Wikipedia strongly discourages conflicted editors from changing affected articles directly. They can propose changes on the article's talk page, and paid editing must be disclosed."
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/8134196/pexels-photo-8134196.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "Two professionals reviewing printed documents during a business meeting in a modern office",
+    "photographer": "Alena Darmel",
+    "photographerUrl": "https://www.pexels.com/@a-darmel"
   },
-  {
-   "label": "AI Citation Patterns Across ChatGPT, Claude & Perplexity — Discovered Labs",
-   "url": "https://discoveredlabs.com/blog/ai-citation-patterns-how-chatgpt-claude-and-perplexity-choose-sources"
-  },
-  {
-   "label": "Wikidata for Brands: Notability & a Realistic Path — MLforSEO",
-   "url": "https://www.mlforseo.com/knowledge-graph-strategy/wikidata-for-brands-notability-criteria-and-a-realistic-path/"
-  },
-  {
-   "label": "schema.org Organization specification",
-   "url": "https://schema.org/Organization"
-  },
-  {
-   "label": "Generative Engine Optimization — Wikipedia",
-   "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
-  }
- ],
- "definitions": [
-  {
-   "term": "Answer Engine Optimization (AEO)",
-   "definition": "The practice of optimizing content and structured data so AI answer engines (ChatGPT, Perplexity, Google AI Overviews) surface and cite your information accurately, rather than optimizing for traditional ranked links.",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
-  },
-  {
-   "term": "Retrieval-Augmented Generation (RAG)",
-   "definition": "A technique where an AI model fetches relevant external documents at query time and grounds its answer in them, instead of relying solely on frozen training data — which is why correcting live sources updates these answers quickly.",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
-  },
-  {
-   "term": "Wikidata",
-   "definition": "A free, collaborative, machine-readable knowledge base that feeds Google's Knowledge Graph and is queried directly by many AI assistants to resolve facts about entities like brands and people.",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Wikidata"
-  },
-  {
-   "term": "Schema.org structured data",
-   "definition": "A shared vocabulary of machine-readable tags (e.g. Organization, Product, Offer) embedded in web pages so search engines and AI crawlers can read facts as data rather than inferring them from prose.",
-   "sourceUrl": "https://schema.org/Organization"
-  }
- ],
- "howToSteps": [
-  {
-   "name": "Confirm exactly what's wrong, in which engine, and from which source",
-   "text": "Ask ChatGPT, Perplexity, Google AI, Claude and Gemini the same brand questions (pricing, features, 'what is [Brand]'). Record the wrong answer AND the cited source for each — that citation is your fix target. A free AEOeye audit runs all five at once and surfaces the cited source per engine."
-  },
-  {
-   "name": "Publish an answer-first correction on a page you own",
-   "text": "On your pricing or product page (or a dedicated facts/FAQ page), state the correct fact in the first sentence, then explicitly name the outdated claim and when it ended (e.g. 'Some older sources list $29 — that ended in 2025'). Add a visible last-updated date."
-  },
-  {
-   "name": "Add Organization, Product, and Offer schema",
-   "text": "Mark up the page with schema.org structured data: Product/Offer with current price, priceCurrency and priceValidUntil for pricing; Organization with name, foundingDate, founder, description and sameAs links for identity. Validate with Google's Rich Results Test."
-  },
-  {
-   "name": "Fix Wikidata and Wikipedia",
-   "text": "Create or update your Wikidata entry (no notability bar) and correct any Wikipedia errors via the article or its Talk page with citations. These feed the Knowledge Graph and are read directly by many AI systems, so corrections propagate widely."
-  },
-  {
-   "name": "Update high-authority third-party listings",
-   "text": "Claim and correct your profiles on Crunchbase, G2, LinkedIn, app stores, and the review sites that rank for your brand name. Make every source state the same current fact — consistency is what gives the model confidence."
-  },
-  {
-   "name": "Add an FAQPage block matching the exact wrong question",
-   "text": "Publish FAQ content (with FAQPage schema) that asks the question people and AI actually use ('How much does [Brand] cost?', 'Does [Brand] still offer [feature]?') and answers correctly in the first sentence, so retrieval grabs the right phrasing."
-  },
-  {
-   "name": "Wait the right amount of time, then re-test per engine",
-   "text": "Give live-retrieval engines (Perplexity, AI Overviews, ChatGPT web search) two to eight weeks; expect base-model memory to lag until the next training cycle. Re-run the same prompts every 2–4 weeks and confirm the cited source has shifted to yours."
-  },
-  {
-   "name": "If you can't change a third-party source, outweigh it",
-   "text": "When you can't get a correction (a competitor page, an outlet that won't update), publish fresher, more authoritative content with the right fact and earn links to it until consistent, recent signals outweigh the stale outlier in retrieval."
-  }
- ],
- "updated": "2026-06-26",
- "image": {
-  "url": "https://images.pexels.com/photos/7605197/pexels-photo-7605197.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A tired woman with curly hair and glasses experiencing stress while working on a laptop.",
-  "photographer": "MART  PRODUCTION",
-  "photographerUrl": "https://www.pexels.com/@mart-production"
- }
+  "sources": [
+    {
+      "label": "Anthropic — How up-to-date is Claude's training data?",
+      "url": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data"
+    },
+    {
+      "label": "Google Search Central — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "label": "Google Search Help — AI Overviews (feedback)",
+      "url": "https://support.google.com/websearch/answer/14901683"
+    },
+    {
+      "label": "Wikidata — Notability",
+      "url": "https://www.wikidata.org/wiki/Wikidata:Notability"
+    },
+    {
+      "label": "Google Knowledge Panel Help — Submit feedback",
+      "url": "https://support.google.com/knowledgepanel/answer/7534842"
+    },
+    {
+      "label": "Kalai et al. — Why Language Models Hallucinate (arXiv)",
+      "url": "https://arxiv.org/abs/2509.04664"
+    }
+  ],
+  "definitions": [
+    {
+      "term": "Knowledge cutoff",
+      "definition": "The date after which a model's training data stops. Anthropic says each Claude model has one, so facts that changed later are missing from the model's memory unless it searches the web.",
+      "sourceUrl": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data"
+    },
+    {
+      "term": "Retrieval-augmented generation (RAG)",
+      "definition": "A technique where a model fetches external documents at answer time and grounds its response in them, instead of relying only on training memory. Fixing a retrieved source can change these answers faster than waiting for a new model.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+    },
+    {
+      "term": "Wikidata",
+      "definition": "A free, collaboratively edited knowledge base that stores structured facts about entities such as companies. Items need a Wikimedia sitelink or serious, publicly available references.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Wikidata"
+    }
+  ],
+  "howToSteps": [
+    {
+      "name": "Write five branded questions",
+      "text": "Cover price, features, who the product is for, closest alternatives, and whether a retired product still exists."
+    },
+    {
+      "name": "Ask every engine and log the evidence",
+      "text": "Ask ChatGPT, Gemini, Perplexity, Claude and Google AI the same questions. Record each wrong claim, the engine, the date and every linked source."
+    },
+    {
+      "name": "Match each wrong claim to a source",
+      "text": "Open the linked sources. A claim found on a shown page is a retrieval error; a claim with no source is a memory error or a guess."
+    },
+    {
+      "name": "Fix or remove your own stale pages",
+      "text": "Update or remove old pricing pages, PDFs and retired-product posts. Request a recrawl of the corrected page in Search Console."
+    },
+    {
+      "name": "Publish the current fact answer-first",
+      "text": "Put the fact and a visible date in the first sentence of the canonical page, name the old value once, and add a short FAQ that mirrors the question."
+    },
+    {
+      "name": "Correct third-party profiles",
+      "text": "Suggest edits to your knowledge panel, update your Business Profile, claim directory and review listings, and follow Wikidata and Wikipedia rules for conflicts of interest."
+    },
+    {
+      "name": "Send feedback in each product",
+      "text": "Use the thumbs-down or report control in ChatGPT, Google AI Overviews, Gemini, Perplexity and Claude, once per wrong answer."
+    },
+    {
+      "name": "Re-test weekly for six weeks",
+      "text": "Re-ask the same questions every week, log which engines changed and which sources they now cite, and keep working on any source that is still stale."
+    }
+  ],
+  "updated": "2026-10-03"
 }

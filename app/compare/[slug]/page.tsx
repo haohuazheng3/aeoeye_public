@@ -25,7 +25,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       <ContentPageView page={page} type="compare" related={related} />
       <JsonLd
         data={[
-          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/compare/${page.slug}`, date: "2026-06-25" }),
+          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/compare/${page.slug}`, date: page.updated || "2026-06-25", published: "2026-06-25" }),
           breadcrumbJsonLd([{ name: "Compare", path: "/compare" }, { name: page.title, path: `/compare/${page.slug}` }]),
           ...(page.faqs.length ? [faqJsonLd(page.faqs)] : []),
         ]}

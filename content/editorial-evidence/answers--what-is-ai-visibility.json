@@ -1,0 +1,79 @@
+{
+  "contentSha256": "9abeb152b7e500bbde221d241f52b48ae03610d4b1efd4917138cfa10c04562d",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A founder or marketer has heard the terms AI visibility and LLM visibility and wants to know what they mean, how they differ from SEO rankings and AI referral traffic, and how to find out whether ChatGPT, Claude, Gemini, Perplexity and Google AI name their brand when buyers ask.",
+    "connection": "AI visibility is the metric AEOeye's free audit and full report measure (how often AI engines name a brand for unbranded buyer questions). The page defines it, explains why a single check is an anecdote, and gives a manual way to check it, backed by AEOeye's own crawler access study and recommendation benchmark."
+  },
+  "assessment": "The page now answers 'what is AI visibility (LLM visibility) and where does my brand stand' in the first screen, separates visibility from SEO rankings and AI referral traffic, explains the two routes by which an engine names a brand (training memory and live retrieval), defines four measurable metrics, and gives a 15-minute manual check plus honest limits of the free audit. It rests on Pew Research, Google Search Central, OpenAI/Anthropic/Perplexity crawler documentation, three arXiv papers, SparkToro's January 2026 consistency study and two AEOeye datasets quoted with their n and caveats. It deliberately does not state an industry-average mention rate, compare engines using AEOeye's unequal samples, claim ranking-factor weights, or repeat the unverifiable statistics of the two merged pages.",
+  "sources": [
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew Research Center browsing data for 900 US adults in March 2025: result-link clicks in 8% of visits with an AI summary vs 15% without, and a click on a link inside the summary in 1% of visits."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google AI Overviews and AI Mode may use query fan-out and show a wider, more diverse set of links than classic search; supporting-link eligibility is indexed + snippet-eligible with no additional technical requirements or special schema; AI-feature traffic is counted in Search Console's Web totals."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "GPTBot is OpenAI's training crawler; OAI-SearchBot surfaces sites in ChatGPT search, and sites opted out of OAI-SearchBot are not shown in ChatGPT search answers."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Claude-SearchBot is Anthropic's search crawler (named as an example of an AI retrieval bot in the crawler study); disabling it may reduce visibility in Claude search results."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search results and is not used to crawl content for AI foundation models (named as an example of an AI retrieval bot)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "KDD 2024 paper that introduced generative engine optimization; adding statistics, quotations or cited sources improved visibility by 30-40% on position-adjusted word count and 15-30% on subjective impression in its benchmark, while keyword stuffing gave little to no improvement."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "September 2025 University of Toronto paper: AI search shows a systematic bias toward earned media over brand-owned and social content; US software-product test with a web-enabled GPT: 72.7% earned and 26.7% brand citations vs Google's 45.4% earned and 43.7% brand; engines differ in domain diversity, freshness and sensitivity to phrasing."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro, January 2026 (data from November-December 2025): 600 volunteers, 2,961 runs on ChatGPT, Claude and Google's AI; under 1 in 100 chance of the same brand list in two responses for ChatGPT and Google; one hospital in 69 of 71 ChatGPT answers but top mention in 25; visibility percentage across many runs judged reasonable, 60-100 runs per prompt suggested."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of a large language model as an AI model trained on a vast amount of text, the basis for chatbots such as ChatGPT, Claude and Gemini."
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "checkedAt": "2026-10-03",
+      "supports": "Retrieval-augmented generation combines a model's pre-trained parametric memory with retrieved non-parametric memory for language generation."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 (Pew, Google Search Central, OpenAI bots, Anthropic crawler page, Perplexity bots, SparkToro, the GEO, University of Toronto and RAG arXiv pages, Wikipedia) and kept only claims those pages state; re-checked the figures and their conditions against raw page text downloaded with curl.",
+    "Writer (Sonnet): read the setup, metric and results sections of the GEO paper and the University of Toronto paper to confirm what the numbers measure: the 15-40% GEO lift is two metrics in a simulated engine, and 72.7% / 26.7% / 45.4% / 43.7% is the US software-product result for a web-enabled GPT versus Google.",
+    "Writer (Sonnet): checked every AEOeye figure against the public artifacts, recounting retrieval-bot blocks and homepage challenges per segment from ai-crawler-access-study-2026-10.csv (SaaS 1/193, publishers 27/38, e-commerce and consumer homepages 24/88) and reading the audit aggregates in aeoeye-recommendation-benchmark-2026-09.json (127 audits, 27 brands, 892 answers, 157 mentions, 147 ranked, 71.4% first, 1.54 average position, 2.93 competitors, 144/12/1 sentiment); kept the self-selection and convenience-sample caveats.",
+    "Writer (Sonnet): read both merged pages and the previous version of this page and carried over the definition, the LLM-visibility synonym, mention versus citation, visibility versus traffic, the four metrics with formulas, run-to-run variance, the SEO comparison and the manual check; dropped statistics with no primary source (cross-engine 17% average, 44% and 4% consensus figures, 3x mentions-versus-backlinks, ghost-citation 61.7%, 30% and 20% stability figures, 900M weekly users, AI Mode 93% zero-click, conversion-rate claims, per-engine citation shares).",
+    "Writer (Sonnet): corrected AEOeye product claims to the evidence-pack facts (free audit = 3 unbranded questions on ChatGPT; full report $29 one-time adds Claude, Gemini, Google AI and Perplexity) and removed the earlier claims that the free audit covers five engines and computes share of voice.",
+    "Writer (Sonnet): opened the four chosen Pexels photos and confirmed each alt text describes what is visible; rendered the section Markdown (table, lists, links) with markdown-to-jsx; ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): read the complete final page (short answer, intro, six sections, four takeaways, five FAQs, five definitions, image alt text) and confirmed answer-first openings, a clear stance (presence metric, never trust one check) and no per-engine benchmark comparison",
+    "Editor (Opus): re-checked all 10 external URLs on 2026-10-03 (all reachable) and independently re-fetched the two most load-bearing sources: arXiv 2509.08919 (72.7% earned / 26.7% brand for GPT vs 45.4% / 43.7% for Google, US software) and SparkToro (600 volunteers, 2,961 runs, <1 in 100 same brand list, City of Hope 69/71 but top in 25, 60–100 runs advised) — all figures match",
+    "Editor (Opus): corrected the SparkToro dating myself: the page now says the study ran November–December 2025 with Gumshoe.ai (the post's own wording) instead of 'January 2026 study'",
+    "Editor (Opus): matched first-hand figures to the evidence pack (1 of 193 SaaS, 27 of 38 publishers, 24 of 88 e-commerce homepages challenged; 127 audits, 892 answers, 157 mentions, 71.4% of 147, 1.54, 2.9, 144 of 157) and confirmed AEOeye product claims (free = 3 ChatGPT questions; $29 one-time adds four engines)"
+  ],
+  "merged": [
+    "/blog/what-is-ai-visibility",
+    "/answers/what-is-llm-visibility"
+  ]
+}

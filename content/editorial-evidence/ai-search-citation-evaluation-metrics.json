@@ -1,0 +1,141 @@
+{
+  "contentSha256": "85c00edc9275ad0690491e85c5838f4a4a3b001c07650247da1a1f87d8eb0007",
+  "reviewedAt": "2026-10-03",
+  "kind": "research-asset",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A marketer or analyst wants to audit the citations in AI answers: whether they are correct, whose sources get cited, and whether their own domain is among them.",
+    "connection": "Citation share of a brand's domain on its buyer questions is the measurable outcome of AEOeye-style AI visibility audits; this hub gives the record-keeping, support judgment and metric definitions behind it."
+  },
+  "assessment": "The page consolidates twenty narrow citation-methodology pages into one reference: what to record per citation, how to judge claim support, which aggregate metrics to report (with formulas and a worked HHI example), how to test source independence and freshness, a four-family failure taxonomy, and what a brand should track. It rests on peer-reviewed or arXiv evaluation research, standards and vendor documentation, plus AEOeye's crawler access study. It deliberately does not claim any current engine's citation accuracy, set a 'healthy' HHI threshold, or present the synthetic fixtures as data about real engines.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2304.09848",
+      "checkedAt": "2026-10-03",
+      "supports": "Human audit of four generative search engines: on average 51.5% of sentences fully supported by citations and 74.5% of citations support their sentence (abstract, confirmed in raw text)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.14627",
+      "checkedAt": "2026-10-03",
+      "supports": "ALCE benchmark: fluency, correctness and citation quality metrics; on ELI5 even the best models lack complete citation support 50% of the time."
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.14251",
+      "checkedAt": "2026-10-03",
+      "supports": "FActScore: breaks a generation into atomic facts and computes the percentage supported by a reliable knowledge source."
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.16138",
+      "checkedAt": "2026-10-03",
+      "supports": "Answer Bubbles: 11,000 queries across five systems; Wikipedia and longer sources over-represented, cited social media under-represented."
+    },
+    {
+      "url": "https://www.justice.gov/atr/herfindahl-hirschman-index",
+      "checkedAt": "2026-10-03",
+      "supports": "HHI is computed by squaring each share and summing; described as a measure of market concentration."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "checkedAt": "2026-10-03",
+      "supports": "403 means the server understood but refuses the request; 301 means a new permanent URI; Last-Modified is when the origin server believes the representation was last modified."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "checkedAt": "2026-10-03",
+      "supports": "Redirects, rel=canonical and sitemaps are canonicalization signals of differing strength, not commands."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/publication-dates",
+      "checkedAt": "2026-10-03",
+      "supports": "Google estimates page dates from several factors rather than relying on one."
+    },
+    {
+      "url": "https://schema.org/datePublished",
+      "checkedAt": "2026-10-03",
+      "supports": "datePublished means date of first publication or broadcast."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Web search API returns url_citation annotations with URL, title and start/end character indices."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Sites opted out of OAI-SearchBot are not shown in ChatGPT search answers though can appear as navigational links."
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.03214",
+      "checkedAt": "2026-10-03",
+      "supports": "FreshQA: models of all sizes struggle with questions involving fast-changing knowledge."
+    },
+    {
+      "url": "https://www.w3.org/TR/prov-o/",
+      "checkedAt": "2026-10-03",
+      "supports": "PROV-O models entities, activities and agents."
+    },
+    {
+      "url": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+      "checkedAt": "2026-10-03",
+      "supports": "C2PA validates that assertions are associated with the asset and untampered; it does not judge whether they are good or bad."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Textual_entailment",
+      "checkedAt": "2026-10-03",
+      "supports": "Textual entailment: a human reading the text would infer the hypothesis is most likely true."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): read the target page and all 20 pages being merged in full and kept the record fields, support labels, metric formulas, independence and freshness rules, failure families and crawler-evidence angle.",
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and kept only claims the page states; confirmed the 51.5%, 74.5%, 50% and 11,000-query figures against the arXiv abstracts' raw text.",
+    "Writer (Sonnet): dropped the 'Citation Correctness Without Entailment' ACL link the old pages cited, because the page at that URL is an unrelated RAG paper (R2AG).",
+    "Writer (Sonnet): ran all four downloadable fixtures locally (URL suite byte-match on 20 cases, parser corpus 24 cases / 27 claims, bundle validator, concentration calculator) and recomputed the worked HHI example (0.4/0.4/0.2 gives 0.36 and 2.78 effective domains).",
+    "Writer (Sonnet): checked the crawler-study figures (27/38 publishers, 1/193 SaaS, 4/90 e-commerce, n=384) against the evidence pack and the published summary JSON.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable; the only failures are bot-blocked homepages/specs such as w3.org or pexels.com that open in a browser)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md and the vendor pricing notes verified in this release (no per-engine benchmark comparison; no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/ai-citation-url-normalization-test-suite/README.md",
+      "description": "20-case synthetic URL normalization regression suite with byte-matched expected output and a dependency-free Python script."
+    },
+    {
+      "path": "/resources/ai-citation-parser-test-corpus/README.md",
+      "description": "24 synthetic JSONL citation-extraction cases (27 claims, eight categories) with expected labels and a validator."
+    },
+    {
+      "path": "/resources/ai-citation-evidence-bundle-validator/README.md",
+      "description": "Synthetic evidence bundle with manifest, SHA-256 digests and citation-ID closure check, plus tamper-detection test."
+    },
+    {
+      "path": "/resources/ai-citation-source-concentration-calculator/README.md",
+      "description": "Host-level concentration calculator (top-source share, HHI, effective domains) with a 30-row synthetic citation CSV."
+    }
+  ],
+  "methodology": "Consolidation of twenty citation-methodology pages into one reference. Every cited source was opened on 2026-10-03 and only its stated claims retained; headline numbers were confirmed against raw page text. The four downloadable fixtures were executed locally and their published outputs and the worked HHI example were recomputed. First-hand data is limited to AEOeye's October 2026 crawler access study as published in the evidence pack and its public JSON/CSV.",
+  "limitations": "The fixtures are synthetic regression tests, not observations of any AI engine. Cited research (2023 audits, benchmark studies) covers specific systems and datasets and does not measure current engines. The crawler study is a convenience sample of 391 well-known sites fetched once; robots.txt blocks are requests, not enforcement. Labels, thresholds and the 30-day check cadence are AEOeye operating proposals, not standards.",
+  "merged": [
+    "/blog/ai-citation-data-schema",
+    "/blog/ai-citation-url-normalization-rules",
+    "/blog/ai-citation-url-normalization-test-suite",
+    "/blog/ai-citation-marker-position-codebook",
+    "/blog/ai-citation-snippet-support-rubric",
+    "/blog/ai-citation-accessibility-status-codebook",
+    "/blog/ai-citation-evidence-preservation-protocol",
+    "/blog/ai-citation-evidence-bundle-validator",
+    "/blog/ai-citation-publication-date-verification-protocol",
+    "/blog/ai-citation-redirect-chain-audit-protocol",
+    "/blog/ai-citation-source-concentration-calculator",
+    "/blog/ai-citation-freshness-metrics",
+    "/blog/ai-search-source-diversity-metrics",
+    "/blog/ai-search-source-independence-audit",
+    "/blog/ai-source-ownership-syndication-register",
+    "/blog/ai-source-update-propagation-lag-protocol",
+    "/blog/ai-citation-parser-test-corpus",
+    "/blog/ai-answer-citation-failure-taxonomy",
+    "/blog/generative-search-source-taxonomy",
+    "/blog/ai-content-provenance-standards-directory"
+  ]
+}

@@ -30,6 +30,7 @@ export default function ForPage({ params }: { params: { slug: string } }) {
             description: page.metaDescription,
             path: `/for/${page.slug}`,
             date: page.updated || "2026-06-25",
+            published: "2026-06-25",
           }),
           breadcrumbJsonLd([{ name: "Solutions", path: "/for" }, { name: page.title, path: `/for/${page.slug}` }]),
           ...(page.faqs.length ? [faqJsonLd(page.faqs)] : []),

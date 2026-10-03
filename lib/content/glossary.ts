@@ -160,10 +160,10 @@ export const GLOSSARY: Term[] = [
   {
     slug: "gptbot",
     term: "GPTBot",
-    short: "OpenAI's web crawler that gathers content to help train and inform ChatGPT and its search features.",
+    short: "OpenAI's crawler that collects web content for training its models. ChatGPT search uses a separate crawler, OAI-SearchBot.",
     body: [
-      "GPTBot is the user agent OpenAI uses to crawl the web for ChatGPT. If GPTBot can access your pages, your content can inform how ChatGPT describes and recommends brands in your category; if you block it in robots.txt, you opt out of that visibility.",
-      "Blocking GPTBot is a real tradeoff, not an obvious win — it protects content from training use but also removes you from a fast-growing discovery surface. Most brands that want AI visibility should allow reputable AI crawlers like GPTBot, ClaudeBot and PerplexityBot.",
+      "GPTBot is the user agent OpenAI uses to collect content that may be used to train its foundation models. OpenAI documents it separately from OAI-SearchBot, which surfaces sites in ChatGPT search answers, and the two robots.txt settings are independent: blocking GPTBot does not remove you from ChatGPT search.",
+      "Blocking GPTBot keeps future crawls out of training data; it is a reasonable choice for publishers with licensable content. For most brands we think it is the wrong default, because model memory is part of how ChatGPT describes a category. If you want to stay visible in ChatGPT search, never block OAI-SearchBot.",
     ],
     related: ["ai-crawler", "llms-txt", "ai-visibility"],
   },
@@ -258,36 +258,6 @@ export const GLOSSARY: Term[] = [
     related: ["share-of-model", "mention-rate", "ai-visibility"],
   },
   {
-    slug: "crawl-budget",
-    term: "Crawl Budget",
-    short: "The amount of attention a crawler — search or AI — spends fetching your pages before it moves on.",
-    body: [
-      "Crawl budget is the practical limit on how many of your pages a bot fetches and how often. Large or slow sites can exhaust it on low-value URLs (filters, duplicates, thin pages), leaving important pages crawled late or not at all — which matters twice over now that AI crawlers like GPTBot and PerplexityBot fetch pages alongside Googlebot.",
-      "For AI visibility, the logic is the same as classic SEO: if a crawler never reaches your best answer page, no engine can cite it. Clean sitemaps, fast responses, and pruning low-value URLs keep the budget flowing to pages that deserve it.",
-    ],
-    related: ["ai-crawler", "gptbot", "answer-engine-optimization"],
-  },
-  {
-    slug: "prompt-engineering",
-    term: "Prompt Engineering",
-    short: "Crafting the instructions given to an AI model to get more accurate, useful output — the user-side skill of the LLM era.",
-    body: [
-      "Prompt engineering is the practice of writing better inputs for AI models: phrasing, context, constraints and examples that steer the answer. It grew from a hack into a discipline because the same model gives noticeably different answers depending on how the question is asked.",
-      "For brands, prompt engineering matters in reverse: buyers phrase the same buying question a dozen ways, and AI answers can differ with each phrasing. That's why measuring AI visibility across many prompt variants — not one lucky phrasing — is the honest way to know where you stand.",
-    ],
-    related: ["large-language-model", "prompt-intent", "ai-visibility"],
-  },
-  {
-    slug: "ai-agent",
-    term: "AI Agent",
-    short: "An AI system that doesn't just answer — it takes multi-step actions like browsing, comparing and booking on a user's behalf.",
-    body: [
-      "An AI agent is a model wired to tools so it can act: search the web, open pages, fill forms, compare options and complete tasks with minimal supervision. Where a chatbot answers a question, an agent completes an errand — including shopping research that used to mean ten open tabs.",
-      "Agents raise the stakes for AI visibility: when software makes the shortlist, brands the agent's underlying model doesn't know or trust may never be surfaced to the human at all. Clear entity signals, structured data and consistent third-party descriptions are what agents have to work with.",
-    ],
-    related: ["large-language-model", "agentic-search", "entity-seo"],
-  },
-  {
     slug: "agentic-search",
     term: "Agentic Search",
     short: "Search performed by an AI agent that plans, runs multiple queries, reads results and synthesizes — instead of a human scanning links.",
@@ -295,7 +265,7 @@ export const GLOSSARY: Term[] = [
       "Agentic search is what happens when an AI agent handles the searching: it decomposes a task into sub-queries, fetches and reads pages, cross-checks claims, and returns a conclusion or action rather than a results page. Google's query fan-out in AI Mode is an early mainstream version of the pattern.",
       "For content, agentic search rewards machine-legible thoroughness: pages that answer sub-questions directly, carry verifiable facts, and parse cleanly get pulled into the agent's synthesis — while pages built to win a human glance on a results page may never be seen by a human at all.",
     ],
-    related: ["ai-agent", "query-fan-out", "retrieval-augmented-generation"],
+    related: ["query-fan-out", "google-ai-mode", "retrieval-augmented-generation"],
   },
   {
     slug: "vector-search",
@@ -316,13 +286,10 @@ export function getTerm(slug: string): Term | undefined {
 /** 每个术语的权威来源(均为已校验真实存在的 URL),提升被引与 E-E-A-T */
 export const TERM_SOURCES: Record<string, { label: string; url: string }[]> = {
   "share-of-voice-ai": [{ label: "Share of voice — Wikipedia", url: "https://en.wikipedia.org/wiki/Share_of_voice" }],
-  "crawl-budget": [{ label: "Crawl budget management — Google Search Central", url: "https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget" }],
-  "prompt-engineering": [{ label: "Prompt engineering — Wikipedia", url: "https://en.wikipedia.org/wiki/Prompt_engineering" }],
-  "ai-agent": [{ label: "Intelligent agent — Wikipedia", url: "https://en.wikipedia.org/wiki/Intelligent_agent" }],
   "vector-search": [{ label: "Word embedding — Wikipedia", url: "https://en.wikipedia.org/wiki/Word_embedding" }],
   "query-fan-out": [{ label: "AI features in Google Search — Google Search Central", url: "https://developers.google.com/search/docs/appearance/ai-features" }],
   "retrieval-augmented-generation": [{ label: "Retrieval-augmented generation — Wikipedia", url: "https://en.wikipedia.org/wiki/Retrieval-augmented_generation" }],
-  "gptbot": [{ label: "OpenAI bots and crawlers — OpenAI", url: "https://platform.openai.com/docs/bots" }],
+  "gptbot": [{ label: "Overview of OpenAI crawlers — OpenAI", url: "https://developers.openai.com/api/docs/bots" }],
   "ai-crawler": [{ label: "Web crawler — Wikipedia", url: "https://en.wikipedia.org/wiki/Web_crawler" }],
   "semantic-search": [{ label: "Semantic search — Wikipedia", url: "https://en.wikipedia.org/wiki/Semantic_search" }],
   "knowledge-graph": [{ label: "Knowledge graph — Wikipedia", url: "https://en.wikipedia.org/wiki/Knowledge_graph" }],
@@ -357,4 +324,39 @@ export const TERM_SOURCES: Record<string, { label: string; url: string }[]> = {
   hallucination: [
     { label: "Hallucination (artificial intelligence) — Wikipedia", url: "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)" },
   ],
+};
+
+/**
+ * 每个术语的"深读"去处:术语页只给定义,完整的做法与证据在对应的主文章里。
+ * 2026-10-03 清理后约 12 个词条与博客的 "what is X" 重复 —— 不再各写一遍,而是让术语页把读者送到那一篇。
+ * 目标必须是现存页(scripts/verify-content-quality.mjs 会核对)。
+ */
+export const TERM_DEEP_DIVE: Record<string, { href: string; label: string }> = {
+  "answer-engine-optimization": { href: "/blog/what-is-answer-engine-optimization", label: "What is answer engine optimization, and how do you do it?" },
+  "generative-engine-optimization": { href: "/blog/generative-engine-optimization", label: "Generative engine optimization: what works and what doesn't" },
+  "ai-visibility": { href: "/answers/what-is-ai-visibility", label: "AI visibility: what it is and how to measure it" },
+  "share-of-model": { href: "/blog/measuring-ai-visibility", label: "How to measure AI visibility" },
+  "mention-rate": { href: "/blog/measuring-ai-visibility", label: "How to measure AI visibility" },
+  "share-of-voice-ai": { href: "/blog/measuring-ai-visibility", label: "How to measure AI visibility" },
+  "ai-overview": { href: "/blog/what-is-an-ai-overview", label: "What is a Google AI Overview?" },
+  "zero-click-search": { href: "/blog/ai-overviews-and-your-traffic", label: "What AI Overviews do to your traffic" },
+  "google-ai-mode": { href: "/blog/how-to-rank-in-google-ai-mode", label: "How to show up in Google AI Mode" },
+  "query-fan-out": { href: "/blog/how-to-rank-in-google-ai-mode", label: "How to show up in Google AI Mode" },
+  "llms-txt": { href: "/blog/what-is-llms-txt", label: "What is llms.txt, and does it matter?" },
+  "structured-data": { href: "/blog/structured-data-for-ai", label: "Structured data for AI search" },
+  "citations": { href: "/answers/what-makes-content-quotable-by-ai", label: "What makes content quotable by AI?" },
+  "competitor-gap": { href: "/answers/why-does-ai-recommend-my-competitors", label: "Why does AI recommend my competitors?" },
+  "prompt-intent": { href: "/blog/how-ai-assistants-choose-brands", label: "How AI assistants choose which brands to recommend" },
+  "hallucination": { href: "/guides/how-to-fix-ai-getting-your-brand-wrong", label: "How to fix AI getting your brand wrong" },
+  "retrieval-augmented-generation": { href: "/blog/what-is-rag", label: "What is RAG, and why does it decide who gets cited?" },
+  "grounding": { href: "/blog/what-is-rag", label: "What is RAG, and why does it decide who gets cited?" },
+  "vector-search": { href: "/blog/what-is-rag", label: "What is RAG, and why does it decide who gets cited?" },
+  "semantic-search": { href: "/blog/what-is-ai-search", label: "What is AI search?" },
+  "agentic-search": { href: "/blog/what-is-ai-search", label: "What is AI search?" },
+  "large-language-model": { href: "/answers/how-does-chatgpt-choose-sources", label: "How does ChatGPT choose its sources?" },
+  "gptbot": { href: "/blog/blocking-gptbot-is-usually-a-mistake", label: "Blocking GPTBot is usually a mistake" },
+  "ai-crawler": { href: "/blog/ai-crawler-user-agent-directory", label: "AI crawler user-agent directory" },
+  "knowledge-graph": { href: "/blog/what-is-entity-seo", label: "What is entity SEO?" },
+  "entity-seo": { href: "/blog/what-is-entity-seo", label: "What is entity SEO?" },
+  "e-e-a-t": { href: "/answers/ai-search-ranking-factors", label: "AI search ranking factors" },
 };

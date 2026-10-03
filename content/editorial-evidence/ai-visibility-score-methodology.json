@@ -1,0 +1,60 @@
+{
+  "contentSha256": "f323ce6d2c2892fffa9d8f692a79aa87fe54ba514fd2fada8fc29227a79f7cce",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Understand exactly how AEOeye's 0-100 AI visibility score is calculated, what a good score is, and how far to trust it before acting on it.",
+    "connection": "This is the methodology of AEOeye's own audit: the page documents the scoring code in lib/engine (per-answer scoring, engine averaging, eight site signals, 75/25 weighting, grade bands) so readers can interpret their report."
+  },
+  "assessment": "The page rewrites the old methodology post against the current scoring code. It states the 75/25 formula and fallbacks, the free (3 questions, ChatGPT) versus full (10 questions, five engines) setup, the rank-by-sentiment per-answer table, all eight site signals with their pass/warn/fail rules, the 31-point floor of the site component, grade bands and the engine score each grade requires, and a worked illustrative example. It lists limits (single answers, LLM judge, 1,800-character judging window, three-question volatility, homepage-only signals). It does not claim the weights were validated against traffic or sales, does not rank customers by percentile, and uses the AEOeye benchmark only as direction with its caveat.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "The GEO paper defines a position-adjusted word count that reduces citation weight by an exponentially decaying function of citation position (confirmed in the PDF text); used to contextualise rank weighting."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's guide states the model can choose to search the web or not based on the input prompt, which is why ChatGPT answers may or may not use search."
+    },
+    {
+      "url": "https://arxiv.org/abs/2306.05685",
+      "checkedAt": "2026-10-03",
+      "supports": "LLM-as-a-judge has position, verbosity and self-enhancement biases, while strong judges reach over 80% agreement with human preferences."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers ran 12 prompts a combined 2,961 times; under a 1-in-100 chance that ChatGPT or Google's AI returns the same brand list in any two responses."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-03",
+      "supports": "When robots.txt is unavailable (4xx), crawlers may access any resource, so a missing file is a warning rather than a block."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization structured data on the home page helps Google understand and disambiguate an organization."
+    },
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "llms.txt is described as a proposal to place a markdown file at /llms.txt to help agents use a website."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): read lib/engine/score.ts, run.ts, analyze.ts, prepare.ts, extract.ts, probe.ts, gpt-engine.ts and gradeFor in lib/utils.ts, and stated only constants and rules that appear there (0.75/0.25, rankFactor 1 - 0.12 per rank floored at 0.30 and 0.60 when unranked, sentiment 1/0.85/0.5, pass/warn/fail 1/0.5/0, grade cutoffs 85/70/55/40, gauge colours at 70 and 40).",
+    "Writer (Sonnet): recomputed the per-answer score table, the worked example (31, 23, 88, 39.25 -> 39), the 31 site-component floor (five signals cannot fail), the engine component each grade needs, and the points-per-answer figures (33 engine points / about 25 overall for 3 questions; 1.5 overall for 50 answers) with a script and by hand.",
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 (GEO and LLM-judge abstracts and the GEO PDF text, OpenAI web search guide, RFC 9309, Google Organization docs, llmstxt.org, SparkToro study raw text) and kept only claims those pages state.",
+    "Writer (Sonnet): used the AEOeye recommendation benchmark (892 answers, 17.6%, 147 ranked mentions with 71.4% first place, 144 of 157 positive) only with its self-selected / unequal-sample caveat and linked the aggregate JSON; checked that the linked resource file and all internal links exist.",
+    "Writer (Sonnet): checked the page contains no Pro, subscription or daily-tracking claim, and that the free audit is described as ChatGPT-only (3 questions) and the $29 report as five engines with 10 questions.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): verified the published formula against the code myself: lib/engine/score.ts uses 0.75 × engine + 0.25 × site (line 282), rankFactor = clamp(1 − (rank−1)·0.12, 0.3, 1) with 0.6 when unranked, and sentiment multipliers 1 / 0.85 / 0.5",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

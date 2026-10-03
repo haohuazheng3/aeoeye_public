@@ -24,7 +24,7 @@ export default function VsPage({ params }: { params: { slug: string } }) {
       <ContentPageView page={page} type="vs" related={related} />
       <JsonLd
         data={[
-          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/vs/${page.slug}`, date: "2026-06-25" }),
+          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/vs/${page.slug}`, date: page.updated || "2026-06-25", published: "2026-06-25" }),
           breadcrumbJsonLd([{ name: "Comparisons", path: "/vs" }, { name: page.title, path: `/vs/${page.slug}` }]),
           ...(page.faqs.length ? [faqJsonLd(page.faqs)] : []),
         ]}

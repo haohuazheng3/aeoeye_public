@@ -1,0 +1,127 @@
+{
+  "contentSha256": "37f7f9bb0610392ba8e542bfeeb2193862979963e26ecc37b23fa2daf08af8ba",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer wants Google Gemini to name their business when buyers ask, and needs to know what actually influences that and what Google-Extended really does.",
+    "connection": "AEOeye audits whether Gemini and four other engines recommend a brand; this page explains the Gemini mechanism and how to test it with the same unbranded-question method."
+  },
+  "assessment": "Rewrites the Gemini ranking guide around what Google documents (Search grounding, Gemini Apps public-information sources, Business Profile, Merchant Center, Google-Extended scope) and separates it from inference. Merges the can-you-do-seo-for-gemini answer. Rests on Google documentation fetched 2026-10-03, one arXiv preprint and AEOeye's crawler study. Deliberately does not claim that Gemini uses the Knowledge Graph (not found in Google's documentation), that Google-Extended is training-only, or that Gemini and AI Mode share identical sources.",
+  "sources": [
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/google-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Model analyzes prompt, decides whether Google Search can improve the answer and generates queries (Gemini API)."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/13695044",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini Apps automatically uses public information from Google Search, Flights, Hotels, Maps, YouTube."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/14143489",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini Apps may provide source links; not all responses include them."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "gemini-2.5-flash with Google Search grounding: 63.4% earned / 25.1% brand / 11.5% social for well-known brands vs ChatGPT 93.5% / 6.5%."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "SEO best practices remain relevant for generative AI features in Search; list of things you do not need (llms.txt, chunking, etc.); inauthentic mentions not helpful."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/16622866",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini uses public Google Maps information including ratings, websites, opening hours."
+    },
+    {
+      "url": "https://support.google.com/merchants/answer/9199328",
+      "checkedAt": "2026-10-03",
+      "supports": "Free product listings can appear on Google Search, Maps, Gemini, YouTube and other surfaces; required attributes."
+    },
+    {
+      "url": "https://support.google.com/business/answer/7091",
+      "checkedAt": "2026-10-03",
+      "supports": "Complete and accurate Business Profile info and reviews/ratings help local results."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization structured data helps Google understand and disambiguate an organization; sameAs guidance."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/16622858",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini uses public YouTube information to find videos and understand video content."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended scope: Gemini training and grounding in Gemini Apps / Vertex AI; no effect on Search inclusion or ranking."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16908024",
+      "checkedAt": "2026-10-03",
+      "supports": "Search generative AI control covers AI Overviews, AI Mode and Discover generative features and does not affect training."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-user-triggered-fetchers",
+      "checkedAt": "2026-10-03",
+      "supports": "User-triggered fetchers (incl. Gemini Notebook) generally ignore robots.txt."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/16011537",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Mode uses query fan-out across subtopics and shows links."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/14901683",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews are an AI snapshot with links in Google Search."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative AI performance report covers AI Overviews and AI Mode impressions; page does not mention Gemini."
+    },
+    {
+      "url": "https://support.google.com/analytics/answer/9756891",
+      "checkedAt": "2026-10-03",
+      "supports": "GA4 default channel group AI Assistant lists Gemini among sources; medium ai-assistant."
+    },
+    {
+      "url": "https://blog.google/products/gemini/temporary-chats-privacy-controls/",
+      "checkedAt": "2026-10-03",
+      "supports": "Temporary Chats are not used to personalize the Gemini experience."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "2025 study of ChatGPT, Claude and Google AI: visibility % reasonable, ranking position unreliable; Gemini app not tested."
+    },
+    {
+      "url": "https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/",
+      "checkedAt": "2026-10-03",
+      "supports": "More than 1 billion people use the Gemini app every month (Aug 11, 2026)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited Google documentation URL on 2026-10-03 and kept only what each page states; dropped the old page's Knowledge Graph claim because no Google page fetched supports it.",
+    "Writer (Sonnet): downloaded the arXiv HTML of 2509.08919 and read the engine setup (gemini-2.5-flash with google_search grounding) and the 63.4/25.1/11.5 vs 93.5/6.5 brand-query figures directly before quoting them.",
+    "Writer (Sonnet): checked the Google-Extended, Search generative AI control and Search Console report pages separately to confirm none of them covers the other's scope, and labeled the app-versus-Search comparison as unpublished where Google is silent.",
+    "Writer (Sonnet): used AEOeye crawler study counts (31/384 Google-Extended blockers; 20/38, 5/20, 4/90, 2/193, 0/43 by group) and the benchmark figure (2/74 Gemini answers) exactly as in the evidence pack, with the sample caveats stated on the page.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page; result clean (1343 words, 20 source links, 8 internal links, 5 FAQs).",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, the Google-Extended / Search generative AI control distinctions (both match Google's docs as independently fetched by me earlier on 2026-10-03), and the measurement section",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable; the Gemini API docs URL fails intermittently in Node and was verified 200 with curl)",
+    "Editor (Opus): matched first-hand figures to the evidence pack (31 of 384 block Google-Extended; 20/38, 5/20, 4/90, 2/193, 0/43) and confirmed the single Gemini audit figure (2 of 74 answers) is stated with the tiny-sample, not-comparable caveat",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/can-you-do-seo-for-gemini"
+  ]
+}

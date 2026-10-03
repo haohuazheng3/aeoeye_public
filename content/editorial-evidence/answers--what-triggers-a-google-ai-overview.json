@@ -1,0 +1,67 @@
+{
+  "contentSha256": "388f324f8b32c36ef1e982321560160ff9bb64d44a1225a9ffe98385f4ecce52",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A marketer or site owner wants to know what makes Google show an AI Overview for a query, when none appears, whether they can opt out, and how to find which of their own queries trigger one.",
+    "connection": "AI Overviews are one of the five AI surfaces AEOeye's audits examine; the page explains the trigger pattern and eligibility, and points readers to the free audit and full report to see whether AI engines name their brand."
+  },
+  "assessment": "The page gives Google's own wording on when AI Overviews appear and what makes a page eligible, then measured trigger rates from Ahrefs (146 million desktop SERPs, September 2025), Pew Research Center (68,879 searches, March 2025) and Semrush (monthly rates 2025), each with its date and method. It corrects the older claims that sensitive topics are exempt and that sites cannot opt out. It does not publish any trigger rates of our own, does not claim any tactic makes an overview appear, and tells readers to check their own queries because rates and intent splits differ between studies.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews are only shown when Google's systems determine it is additive to classic Search; a page must be indexed and snippet-eligible, no additional technical requirements; query fan-out; nosnippet/max-snippet/noindex controls."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/14901683",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews appear when Google's systems determine generative AI can be especially helpful, e.g. understanding information from a range of sources; availability by country and language."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition and lawn-weeds example of query fan-out; separate pages for every fan-out variation to manipulate AI responses violates the scaled content abuse policy."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16908024",
+      "checkedAt": "2026-10-03",
+      "supports": "Search generative AI control rolled out to all websites as of August 31, 2026; what excluding a site means; not a ranking signal; does not affect AI training (Google-Extended); takes a few days."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative AI performance report: impressions in AI Overviews and AI Mode; dimensions pages, countries, dates, devices; rolled out to all websites as of August 31, 2026; needs enough impressions."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overview-triggers/",
+      "checkedAt": "2026-10-03",
+      "supports": "146,122,391 desktop SERPs from September 2025: 20.5% baseline; informational 21.4%, navigational 0.9%, commercial 4.3%, transactional 2.1%; question 57.9%; 7+ words 46.4%; local 7.9%; YMYL 34.3%, medical 44.1%; branded 13.1% vs non-branded 24.9%; Keywords Explorer SERP-features filter."
+    },
+    {
+      "url": "https://www.semrush.com/blog/semrush-ai-overviews-study/",
+      "checkedAt": "2026-10-03",
+      "supports": "10M+ keywords; AI Overviews on 6.49% of queries in January 2025, 24.61% in July, 15.69% in November; informational share of triggering queries 91.3% in January vs 57.1% in October 2025."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "900 US adults, 68,879 Google searches, March 2025: 18% had an AI summary; 8% of 1-2 word searches vs 53% of 10+ word searches; 60% of who/what/when/why queries; result click in 8% of visits with a summary vs 15% without."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 (WebFetch plus raw-HTML text via curl) and kept only numbers and statements that appear in the fetched page text.",
+    "Writer (Sonnet): confirmed the Ahrefs percentages (intent, length, question, YMYL, local, branded) against the raw article text and its data tables, and noted the dataset is desktop-only September 2025.",
+    "Writer (Sonnet): rejected a statistics-roundup site that quoted unsourced trigger rates by intent; none of its figures were used.",
+    "Writer (Sonnet): replaced the old page's claims that sensitive/YMYL queries usually skip AI Overviews and that publishers cannot opt out, using Ahrefs' YMYL data and Google's Search generative AI control page.",
+    "Writer (Sonnet): used only the AEOeye facts from the evidence pack (free audit tests ChatGPT; $29 full report adds Google AI, Claude, Gemini and Perplexity; 165 pages merged into 42 on 2026-10-03).",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page: 0 errors, 0 warnings.",
+    "Editor (Opus): read the final page: 'additive' trigger rule, query length/intent/YMYL patterns, Search Console opt-out control and what it costs",
+    "Editor (Opus): verified Ahrefs figures in its raw page text (20.5% of 146,122,391 SERPs; 34.3% YMYL; 44.1% medical) and corrected the old claim that YMYL topics usually skip AI Overviews",
+    "Editor (Opus): added the Search Console generative AI control (all sites since 2026-08-31), replacing the old 'you can't opt out' claim",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

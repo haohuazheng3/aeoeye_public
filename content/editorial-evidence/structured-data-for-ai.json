@@ -1,0 +1,139 @@
+{
+  "contentSha256": "daccd0bd07db80f6cb16aade98268ef217f724dbee04acee4a31d98d3ee4da66",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A founder, marketer or developer wants to know whether schema markup helps ChatGPT, Perplexity and Google AI cite their site, which types to implement first and how to write and check the JSON-LD correctly.",
+    "connection": "Structured data is part of the entity and fact layer AEOeye's audits look at. The page uses AEOeye's crawler access study (homepage schema adoption) and aeoeye.com's own live JSON-LD as first-hand material."
+  },
+  "assessment": "The page separates what Google and Microsoft document, what OpenAI and Perplexity do not document, and what two studies (Ahrefs, searchVIU) measured, with each study's sample and limits stated. It gives a priority table for schema types based on what Google still documents, copy-paste JSON-LD taken from aeoeye.com's live homepage, a schema drift checklist and a verification routine. It does not claim schema earns citations, does not cite unverifiable multipliers or quotes from the merged answer page, and does not claim anything about how ChatGPT or Perplexity use markup internally.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Structured data isn't required for generative AI search and there is no special schema.org markup to add; Google Search does not use llms.txt or other special AI files (page last updated 2026-07-10)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No special schema.org structured data is needed for AI Overviews and AI Mode; structured data must match the visible text on the page."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
+      "checkedAt": "2026-10-03",
+      "supports": "Google uses structured data to understand page content and facts about people, books and companies; Google recommends JSON-LD as the easiest format to maintain at scale; rich result status reports should be checked after deployment."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Do not mark up content not visible to readers; violations can prevent rich results or be treated as spam; a structured data manual action removes rich result eligibility and does not affect web ranking."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Place Organization markup on the homepage or an about page, not necessarily every page; no required properties; use the most specific subtype such as OnlineStore; sameAs is a URL to a page on another site about the organization."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/software-app",
+      "checkedAt": "2026-10-03",
+      "supports": "Software app rich result requires name, offers.price and one of aggregateRating or review."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+      "checkedAt": "2026-10-03",
+      "supports": "Gallery last updated 2026-06-15 lists Article, Breadcrumb, Organization, Product, Software app and others, and does not list FAQ or HowTo."
+    },
+    {
+      "url": "https://developers.google.com/search/updates",
+      "checkedAt": "2026-10-03",
+      "supports": "FAQ rich result deprecated, no longer appearing from May 7, 2026; documentation removed in June 2026."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/generate-structured-data-with-javascript",
+      "checkedAt": "2026-10-03",
+      "supports": "Google documents Google Tag Manager and custom JavaScript for generating structured data, and warns dynamically generated Product markup can make Shopping crawls less frequent and less reliable."
+    },
+    {
+      "url": "https://ahrefs.com/blog/schema-ai-citations/",
+      "checkedAt": "2026-10-03",
+      "supports": "May 11, 2026 study: 1,885 pages adding JSON-LD (Aug 2025 to Mar 2026) vs 4,000 controls; AI Overviews -4.6%, AI Mode +2.4%, ChatGPT +2.2% (last two not distinguishable from zero); pages already had 100+ AI Overview citations; 30-day window; 6 million URL analysis found AI-cited pages almost three times more likely to have JSON-LD, described as correlation."
+    },
+    {
+      "url": "https://www.searchviu.com/en/schema-markup-and-ai-in-2025-what-chatgpt-claude-perplexity-gemini-really-see/",
+      "checkedAt": "2026-10-03",
+      "supports": "Test dated October 30, 2025 on a single test page: a price present only in JSON-LD was not found by ChatGPT, Claude, Gemini, Perplexity or Google AI Mode; the post says schema may be used at indexing, which the test did not observe."
+    },
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing principal product manager, October 8, 2025: lists using schema among core practices for AI search visibility; recommends concise self-contained phrasing; warns AI systems may not render content hidden in tabs or expandable menus."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Describes OAI-SearchBot and robots.txt access; the documentation text contains no mention of schema, JSON-LD or structured data (grep of the raw page)."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Describes PerplexityBot, robots.txt and IP ranges; the guide text contains no mention of schema, JSON-LD or structured data (hits in the raw page were only the site's own JSON-LD and config)."
+    },
+    {
+      "url": "https://webdatacommons.org/structureddata/",
+      "checkedAt": "2026-10-03",
+      "supports": "Web Data Commons extracts Microdata, RDFa, JSON-LD and Microformat data from Common Crawl corpora (release from the October 2024 corpus announced 2025-01-10)."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Published 2024-12-17: ChatGPT and Claude crawlers do not execute JavaScript; Gemini uses Googlebot infrastructure and renders JavaScript."
+    },
+    {
+      "url": "https://almanac.httparchive.org/en/2024/structured-data",
+      "checkedAt": "2026-10-03",
+      "supports": "2024 Web Almanac: JSON-LD on 41% of pages (34% in 2022); Organization on 7.16% of mobile pages; sameAs links to Wikidata 0.17% and Wikipedia 0.13%."
+    },
+    {
+      "url": "https://schema.org/sameAs",
+      "checkedAt": "2026-10-03",
+      "supports": "sameAs is the URL of a reference web page that unambiguously indicates the item's identity, e.g. its Wikipedia page, Wikidata entry or official website."
+    },
+    {
+      "url": "https://schema.org/docs/about.html",
+      "checkedAt": "2026-10-03",
+      "supports": "Schema.org is a collaborative community activity whose founding companies are Google, Microsoft, Yahoo and Yandex."
+    },
+    {
+      "url": "https://www.w3.org/TR/json-ld11/",
+      "checkedAt": "2026-10-03",
+      "supports": "JSON-LD 1.1 is a lightweight syntax to serialize Linked Data in JSON."
+    },
+    {
+      "url": "https://search.google.com/test/rich-results",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's Rich Results Test, named as a validation tool (reachability checked, HTTP 200)."
+    },
+    {
+      "url": "https://validator.schema.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "Schema Markup Validator, named as a general syntax validation tool (reachability checked, HTTP 200)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 with curl and kept only claims the fetched page's text states; Search Engine Land pages cited by the old version returned a Cloudflare 403 and were dropped.",
+    "Writer (Sonnet): confirmed every Ahrefs number (1,885 pages, 4,000 controls, -4.6% / +2.4% / +2.2%, 100+ citations caveat, 30-day window, almost three times more likely) against the raw page text, and the searchVIU test date, five systems and schema-only price result against its raw text.",
+    "Writer (Sonnet): grepped OpenAI's bot documentation and Perplexity's bot guide for schema, JSON-LD and structured data before writing the 'not documented' statements; OpenAI had no matches and Perplexity's only matches were its own page markup.",
+    "Writer (Sonnet): fetched the live aeoeye.com homepage on 2026-10-03, copied the Organization and SoftwareApplication JSON-LD (trimmed) and confirmed all six FAQPage questions and answers also appear in the visible page text.",
+    "Writer (Sonnet): checked the AEOeye crawler study figures (73.3%, 129/176, 68.8%, 7.4%, 13/176, 42.9%, 18/42, 3.3%, 2/61, 312 homepages) against the evidence pack and public/resources/ai-crawler-access-study-2026-10.json.",
+    "Writer (Sonnet): dropped unverifiable claims from the merged answer page (Mueller 'yes, no, and it depends' quote, duck-test anecdote, 2.5x/2.7x/180% multipliers, 'ChatGPT Search rides Bing's index', 'LLMs tokenize JSON-LD as plain text') and the old pillar's llms.txt-as-real-signal claim and unverified AEOeye LinkedIn/X sameAs example.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page: 1493 words, 3 inline images, 0 errors, 0 warnings.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable apart from bot-blocked spec/docs pages that open in a browser and example.com placeholders inside code samples)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison; per-engine audit figures carry the small-sample caveat; no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/do-ai-assistants-use-schema-markup"
+  ]
+}

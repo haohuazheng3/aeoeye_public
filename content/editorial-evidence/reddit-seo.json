@@ -1,0 +1,119 @@
+{
+  "contentSha256": "1adb72c9fa7b8109d32c11ef0e68471e11d7f6c9e5620a3ce2dc13a4408f3bb7",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A marketer sees Reddit threads dominating Google and AI answers for their category and needs to know why, how AI engines get Reddit content, and how a brand can take part without spam, bans or wasted effort on backlinks.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand; third-party discussion threads are part of the evidence those answers draw on, so this guide explains the mechanism and how to check which sources cite or mention your brand."
+  },
+  "assessment": "The page explains why Reddit surfaces so often (Google's own statements, licensing deals, Reddit's access policy), maps what is publicly documented about how Google, ChatGPT and Perplexity reach Reddit content, says plainly that links are poor for link equity, gives a participation playbook anchored in Reddit's own rules, and lists what gets brands banned with the policy text. It rests on Google, Reddit, Google Search Central, an AP report, TechCrunch, a law-firm summary of the Reddit v. SerpApi complaint, two arXiv papers and AEOeye's crawler access study. It deliberately does not claim that Reddit activity raises AI recommendations, state how Claude or Gemini obtain Reddit content, quote deal values, or report any result of the Perplexity lawsuit.",
+  "sources": [
+    {
+      "url": "https://blog.google/inside-google/company-announcements/expanded-reddit-partnership/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's announcement (22 Feb 2024): people increasingly use Google to find product recommendations and travel advice on Reddit; Google has access to Reddit's Data API; the partnership does not change Google's use of publicly crawlable content."
+    },
+    {
+      "url": "https://blog.google/products/search/google-search-perspectives/",
+      "checkedAt": "2026-10-03",
+      "supports": "May 2023 Search update: Perspectives filter showing advice from other people including forum commenters; stated emphasis on pages based on first-hand experience."
+    },
+    {
+      "url": "https://techcrunch.com/2024/05/09/reddit-locks-down-its-public-data-in-new-content-policy-says-use-now-requires-a-contract",
+      "checkedAt": "2026-10-03",
+      "supports": "Reddit's May 2024 Public Content Policy announcement: restrict bulk access to trusted actors who have agreed to abide by Reddit's policies; non-commercial access continues."
+    },
+    {
+      "url": "https://support.reddithelp.com/hc/en-us/articles/26410290525844-Public-Content-Policy",
+      "checkedAt": "2026-10-03",
+      "supports": "Reddit's Public Content Policy (updated 29 May 2025): non-commercial use allowed, talk to Reddit for commercial purposes; licensing arrangements with data licensees."
+    },
+    {
+      "url": "https://www.reddit.com/robots.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Served to a self-identifying research crawler: User-agent: * / Disallow: /, with comments pointing to the Public Content Policy."
+    },
+    {
+      "url": "https://ny1.com/nyc/all-boroughs/ap-top-news/2024/05/17/openai-reddit-teaming-in-deal-that-will-bring-reddits-content-to-chatgpt",
+      "checkedAt": "2026-10-03",
+      "supports": "AP, 17 May 2024: OpenAI and Reddit deal gives OpenAI access to Reddit's data API to bring Reddit content to ChatGPT."
+    },
+    {
+      "url": "https://bannerwitcoff.com/ip-alert-reddit-sues-perplexity-alleging-illegal-scraping-of-google-excerpts-of-copyrighted-reddit-posts-setting-up-yet-another-ai-copyright-battle",
+      "checkedAt": "2026-10-03",
+      "supports": "Reddit, Inc. v. SerpApi LLC et al., No. 1:25-cv-08736 (S.D.N.Y., 22 Oct 2025): Reddit alleges scraping of Google results excerpts to power Perplexity; Perplexity disputes it."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "checkedAt": "2026-10-03",
+      "supports": "Google recommends rel=\"ugc\" for user-generated links such as comments and forum posts; links marked with these values will generally not be followed."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Nofollow",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of nofollow."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Reddit",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of Reddit, upvotes and subreddits."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Astroturfing",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of astroturfing."
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.14575",
+      "checkedAt": "2026-10-03",
+      "supports": "Audit of Reddit Answers (10,000 queries, 30,000 answers, 14.68M comments): selection strongly favors already-visible, top-level comments."
+    },
+    {
+      "url": "https://arxiv.org/abs/2605.23684",
+      "checkedAt": "2026-10-03",
+      "supports": "Audit of ChatGPT, Copilot, Gemini and Perplexity on 712 politics/health/environment queries: social media incl. Reddit and YouTube 8.8% of citations among the top 25 domains; Wikipedia 15.2%; government 33.0%."
+    },
+    {
+      "url": "https://www.redditinc.com/policies/reddit-rules",
+      "checkedAt": "2026-10-03",
+      "supports": "Reddit Rules 2 (participate authentically, no spam or content manipulation) and 5 (do not mislead or impersonate); enforcement options including suspension and content removal."
+    },
+    {
+      "url": "https://support.reddithelp.com/hc/en-us/articles/360043504051-Spam",
+      "checkedAt": "2026-10-03",
+      "supports": "Spam policy (updated 19 May 2026): bot-driven product promotion, mass-posting, be thoughtful about posting links to your own business, moderators adjudicate spam in their communities."
+    },
+    {
+      "url": "https://support.reddithelp.com/hc/en-us/articles/360043066412-Disrupting-Communities",
+      "checkedAt": "2026-10-03",
+      "supports": "Vote manipulation via multiple accounts, voting services or coordinated voting is prohibited."
+    },
+    {
+      "url": "https://support.reddithelp.com/hc/en-us/articles/360043075032-Impersonation",
+      "checkedAt": "2026-10-03",
+      "supports": "Misrepresenting identity or affiliation is impersonation; an official brand community is acceptable; a fake spokesperson AMA is a violation."
+    },
+    {
+      "url": "https://support.reddithelp.com/hc/en-us/articles/41180423371156-Manipulated-Content-and-Misleading-Behavior",
+      "checkedAt": "2026-10-03",
+      "supports": "AI-generated content is generally allowed but not when it presents itself as human-generated; tag AI content."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched Google's Reddit partnership post and the Google Perspectives post on 2026-10-03 and confirmed the quoted statements (product recommendations and travel advice, Data API access, no change to crawlable-content use; Perspectives filter, forum commenters, first-hand experience emphasis; published 2023-05-10 per page metadata).",
+    "Writer (Sonnet): pulled reddit.com/robots.txt with AEOeye's research user agent and confirmed it is User-agent: * / Disallow: /, and read the Reddit row of public/resources/ai-crawler-access-study-2026-10.csv (all four of GPTBot, OAI-SearchBot, PerplexityBot, Claude-SearchBot blocked) and the UGC group of 20: only Reddit, Quora and Yelp block all four; G2, Capterra, Trustpilot, Wikipedia and YouTube block none of the four.",
+    "Writer (Sonnet): read Reddit's Public Content Policy, Spam, Disrupting Communities, Impersonation and Manipulated Content help pages through Internet Archive copies (Reddit's help center returns 403 to direct fetches) and the Reddit Rules page directly, and quoted only phrases that appear in them.",
+    "Writer (Sonnet): confirmed the AP/NY1 text and the TechCrunch text on the raw HTML; the OpenAI announcement page itself returned 403 and was not cited, and no deal value is stated because no primary source for it could be fetched.",
+    "Writer (Sonnet): checked the arXiv abstract of 2609.14575 and the HTML of 2605.23684 (8.8%, 15.2% and 33.0% figures and the topic scope of politics, health and environment) and labelled the second as a different query domain from product recommendations.",
+    "Writer (Sonnet): dropped unsourced claims from the old page (accounts removed within minutes, Reddit suppresses detected manipulation, all Reddit links nofollow, Google licensing described as 'publicly reported') and replaced the nofollow claim with Google's UGC link guidance plus an instruction to check a live thread's source; left Claude and Gemini app access marked as unverified and the lawsuit's current status unchecked.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page (clean).",
+    "Editor (Opus): read the final draft: why Reddit surfaces, how engines get Reddit content (contracts vs crawling), honest participation playbook and the 'what gets brands banned' table quoting Reddit policy",
+    "Editor (Opus): confirmed arXiv 2609.14575 (Reddit Answers audit, 13 Sep 2026) and 2605.23684 (22 May 2026) exist with the cited titles",
+    "Editor (Opus): re-checked every external URL on 2026-10-03; Reddit Help Center articles return 403 to all scripted clients (writer read archived copies), all others reachable",
+    "Editor (Opus): unverifiable old claims (instant removals, nofollow-everywhere, deal value) were dropped; per-engine Reddit access marked not verified where undocumented",
+    "Editor (Opus): crawler-study figures (Reddit blocks all four retrieval bots; 3 of 20 UGC/review sites) match the public CSV",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

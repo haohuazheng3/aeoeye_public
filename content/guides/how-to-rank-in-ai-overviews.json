@@ -1,202 +1,218 @@
 {
- "slug": "how-to-rank-in-ai-overviews",
- "type": "guides",
- "title": "How to Rank in Google AI Overviews: A Step-by-Step Playbook (2026)",
- "metaTitle": "How to Rank in AI Overviews: 2026 Playbook",
- "metaDescription": "A practitioner's step-by-step guide to getting cited in Google AI Overviews and AI Mode in 2026 — what actually works, and the SEO snake oil to ignore.",
- "primaryKeyword": "how to rank in ai overviews",
- "shortAnswer": "To rank in Google AI Overviews, get a page into the organic top 20 for the query, then make a single passage answer the question in 2-3 self-contained sentences directly under a question-style heading. AI Overviews pull from pages that already rank, so traditional SEO plus extractable, answer-first formatting is the whole game.",
- "intro": "Let me save you a week of reading conflicting advice: you don't \"rank in AI Overviews\" the way you rank #1 in blue links. You get *cited*. And the single biggest predictor of being cited is already ranking on page one or two for that query — BrightEdge's 16-month study found [54.5% of AI Overview citations now also rank organically](https://www.brightedge.com/resources/weekly-ai-search-insights/rank-overlap-after-16-months-of-aio), up from 32% in early 2024.\n\nSo the honest version of this guide is two ideas stacked: rank well, then format so a machine can lift one clean sentence out of your page and trust it. Everything below is the ordered, no-fluff version of that. I'll flag the snake oil as we go.",
- "sections": [
-  {
-   "heading": "What is a Google AI Overview, and how is it different from AI Mode?",
-   "body": "An AI Overview is the AI-generated summary box Google places at the top of search results, stitched together from multiple web pages with citation links. AI Mode is the separate, full-conversational search experience. Both pull citations from indexed pages, so the optimization playbook is nearly identical.\n\nThe scale is no longer niche. By early 2026, AI Overviews appeared across roughly **48% of industries** tracked by BrightEdge, and in verticals like health, education, and research they trigger on the majority of informational queries. If your audience asks questions, an AI Overview is increasingly the first thing they see — and often the only thing.\n\nThe mechanism that matters: an AI Overview is a synthesis layer sitting *on top of* Google's existing index. It does not crawl the web fresh for each query. It retrieves pages Google already ranks, then extracts and rewrites passages. That single fact dictates the entire strategy."
-  },
-  {
-   "heading": "Why is ranking organically still the price of admission?",
-   "body": "Because AI Overviews overwhelmingly cite pages that already rank. You cannot skip SEO and \"optimize for AI\" as a shortcut — the AI is reading the same index. If you're invisible in organic search, you're invisible in the Overview.\n\nThe data is blunt. BrightEdge found [54.5% of AIO citations rank organically](https://www.brightedge.com/resources/weekly-ai-search-insights/rank-overlap-after-16-months-of-aio), and in trust-sensitive verticals like insurance and education the overlap is far higher. The nuance most guides miss: only **16.7% of citations come from the top 10** — the real sweet spot is **positions 21-100**. That's genuinely good news. You don't need the #1 ranking. You need to be *in the consideration set* (roughly the top 20-30) with a passage worth lifting.\n\nMy stance: anyone selling \"AI Overview optimization\" that ignores your organic rankings is selling you a hat for a fish. Fix the foundation first."
-  },
-  {
-   "heading": "How do you write a passage an AI Overview will actually lift?",
-   "body": "Write the answer as a self-contained, 2-3 sentence block placed immediately under a question-style heading — no setup, no \"in this article we'll explore.\" The model extracts passages, not pages, so a sentence that makes sense pulled out of context is a sentence that gets cited.\n\nConcretely, this is the answer-first (BLUF) pattern:\n\n- **Heading mirrors the query.** Use the actual question a person types: \"How much does X cost?\" not \"Pricing.\"\n- **First sentence answers it completely.** Include the entity name so the passage stands alone: \"A standard home EV charger installation costs $1,200-$2,000 in the US,\" not \"It usually costs around that much.\"\n- **Keep it tight.** AIOs under ~600 characters cite around five sources; the model favors crisp, definitional statements.\n- **One idea per paragraph.** Two to four sentences. Walls of text don't get extracted.\n\nThis is the same structure you're reading right now. It's not a coincidence."
-  },
-  {
-   "heading": "What about schema, E-E-A-T, and the stuff Google actually rewards?",
-   "body": "Use structured data to remove ambiguity, and back claims with visible expertise and sources — but treat schema as a clarifier, not a magic ranking lever. There is no \"AI Overview schema.\" FAQPage, HowTo, Article, and Organization markup help machines parse your page; they do not bribe the model into citing you.\n\nWhat genuinely moves the needle:\n\n- **First-hand evidence.** Original data, screenshots, test results, named authors with real credentials. Google's [helpful content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) is explicit that experience and expertise are signals.\n- **Cited facts with sources.** AI Overviews favor verifiable claims. Link to primary sources (Wikipedia, .gov, official docs) — government domains appear in [6% of AI summary citations vs 2% of standard results](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/).\n- **Schema where it maps to reality.** Mark up FAQs you genuinely answer, not keyword-stuffed fakes.\n\nSnake oil alert: \"semantic completeness scores,\" \"vector embedding alignment services,\" and r=0.87 correlation claims floating around vendor blogs are mostly invented precision. Nobody outside Google has the model weights. Write clearly, prove your claims, and stop chasing phantom metrics."
-  },
-  {
-   "heading": "How do you cover the whole question, not just the keyword?",
-   "body": "Answer the question *and* its obvious follow-ups on the same page, because AI Overviews synthesize a complete answer and reward pages that resolve the entire intent. A page that answers \"what is X,\" \"how much does X cost,\" and \"is X worth it\" can get cited across several related Overviews.\n\nThink in question clusters, not keywords:\n\n1. Map the primary question and the 5-10 follow-ups a real person would ask next.\n2. Give each a question-style subheading with its own answer-first passage.\n3. Add a genuine FAQ block at the end for the long-tail variants.\n\nThis is also why freshness matters — informational answers decay. Pages left stale lose citations as competitors publish updated numbers. Revisit cornerstone pages quarterly and update the stats, dates, and any \"as of\" language."
-  },
-  {
-   "heading": "How do you know if it's working, and how do you track it?",
-   "body": "You measure citation presence and share of voice across engines, not just rankings — because being cited in an Overview can drive traffic even when classic CTR collapses. Set a baseline now, then re-check the same query set monthly.\n\nHere's the uncomfortable context. Pew Research found that on pages with an AI summary, only **8% of users clicked any traditional link** (vs 15% without one), and just **1% clicked a cited source** — [their analysis of 68,879 searches](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/). So the click math is brutal *if you're not the citation*. The flip side: getting cited is now the prize itself — it's brand visibility at the moment of decision, even on zero-click queries.\n\nWhat to track: which queries trigger an Overview, whether you're cited, which competitors are cited instead, and across which engines (ChatGPT, Perplexity, Google AI, Gemini, Claude don't agree with each other). AEOeye's [free AI visibility audit](https://aeoeye.com) runs exactly this check across all five engines so you can see where you're cited, where you're missing, and who's taking your spot — a faster baseline than manually running queries by hand."
-  }
- ],
- "keyTakeaways": [
-  "Ranking organically (top ~30, not just top 10) is the price of admission — 54.5% of AI Overview citations also rank organically.",
-  "Positions 21-100 are the citation sweet spot; only 16.7% of citations come from the top 10, so you don't need the #1 spot.",
-  "Write answer-first: a 2-3 sentence self-contained passage under a question-style heading is what gets lifted and cited.",
-  "Cited, verifiable facts and real expertise (E-E-A-T) beat schema tricks and invented \"AI scores.\"",
-  "Getting cited is now the prize — Pew found only 1% of users click a cited source, so visibility inside the Overview matters more than the click.",
-  "Track citation share across ChatGPT, Perplexity, Google AI, Gemini and Claude, and refresh cornerstone pages quarterly."
- ],
- "faqs": [
-  {
-   "q": "Do I need to rank #1 to appear in an AI Overview?",
-   "a": "No. BrightEdge found only 16.7% of AI Overview citations come from the top 10, and the real sweet spot is positions 21-100. You need to be in the consideration set — roughly the top 20-30 — with a passage clean enough to extract, not necessarily the top blue link."
-  },
-  {
-   "q": "Does schema markup get me into AI Overviews?",
-   "a": "It helps machines parse your page, but it does not force a citation. There is no special \"AI Overview schema.\" Use FAQPage, HowTo and Article markup honestly for content you actually provide, and treat it as a clarifier — not a magic ranking lever."
-  },
-  {
-   "q": "If users barely click AI Overview citations, why bother optimizing?",
-   "a": "Because being cited is the brand visibility, even on zero-click queries. Pew found only about 1% of users click a cited source — so if you're NOT the citation, you get almost nothing. The citation itself puts your name in front of the user at the moment of decision."
-  },
-  {
-   "q": "How is ranking in AI Overviews different from ranking in ChatGPT or Perplexity?",
-   "a": "Google AI Overviews lean heavily on Google's existing organic index, so traditional SEO carries over directly. ChatGPT, Perplexity and others weight different signals and citation sources, so the five engines often disagree. Optimize for all of them and measure each separately."
-  },
-  {
-   "q": "How often should I update content to stay cited?",
-   "a": "Roughly quarterly for cornerstone pages. Informational answers decay as competitors publish fresher numbers, and stale pages lose citations over time. Refresh your statistics, dates, and any 'as of' language, and re-check which queries you're being cited on."
-  }
- ],
- "comparisonTable": {
-  "columns": [
-   "Tactic",
-   "What people believe",
-   "What actually works"
+  "slug": "how-to-rank-in-ai-overviews",
+  "type": "guides",
+  "title": "How to Rank in Google AI Overviews: A Step-by-Step Playbook (2026)",
+  "metaTitle": "How to Rank in AI Overviews: 8 Steps (2026 Playbook)",
+  "metaDescription": "Google says AI Overviews need no special markup. These 8 steps cover what does matter: eligibility, ranking for sub-questions, first-hand answers and tracking.",
+  "primaryKeyword": "how to rank in ai overviews",
+  "shortAnswer": "To appear in a Google AI Overview or AI Mode, a page must be indexed and eligible to show a snippet. Google names no other requirement and says no special markup, files or AI-only rewrites are needed. Getting cited then comes down to ranking work: cover the sub-questions behind the query, answer each first-hand under its own heading, and track impressions in Search Console.",
+  "intro": "You don't rank in an AI Overview the way you rank in blue links. Google builds each summary while the search runs and picks supporting links from its own index, so there is nothing to submit, buy or lock in. Google's own guide calls optimizing for it \"still SEO\". We agree, with one twist: you rank for the sub-question, not the keyword.\n\nWe haven't run controlled AI Overview experiments; this guide rests on Google's documentation, published studies and our own crawler data.",
+  "sections": [
+    {
+      "heading": "What is a Google AI Overview, and how is AI Mode different?",
+      "body": "An [AI Overview](/blog/what-is-an-ai-overview) is an AI-generated summary shown with some results, linking to supporting pages. [AI Mode](/blog/how-to-rank-in-google-ai-mode) is a separate Search experience for questions that need more exploration or comparison. Both draw on Google's index, share the same eligibility rules and may use query fan-out: several related searches across subtopics ([Google Search Central](https://developers.google.com/search/docs/appearance/ai-features)). Which queries trigger an Overview is covered in [what triggers one](/answers/what-triggers-a-google-ai-overview).\n\n![A close-up of a hand holding a smartphone with Google search displayed on the screen](https://images.pexels.com/photos/16629436/pexels-photo-16629436.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "What must be true before any tactic can work?",
+      "body": "The page must be indexed and eligible to appear with a snippet. Google lists no additional requirement, and even a page that meets every requirement may not be indexed or served ([Google's guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), updated July 2026). Check three things:\n\n- **Crawlable:** robots.txt doesn't block Googlebot, and key facts sit in rendered text, not only in images or behind a login.\n- **Indexed:** Search Console's [URL Inspection tool](https://support.google.com/webmasters/answer/9012289) reports it as indexed.\n- **Snippet-eligible:** no `noindex`, and no `nosnippet`, tiny `max-snippet` or `data-nosnippet` on the key passage. `nosnippet` also blocks direct use in AI Overviews and AI Mode ([Google](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag)).\n\nGoogle-Extended is a different control. Google says it doesn't affect inclusion in Google Search ([Google](https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers)) and points to the controls above, plus Search Console's site-wide [Search generative AI control](https://support.google.com/webmasters/answer/16908024), for limiting AI features ([Google](https://developers.google.com/search/docs/appearance/ai-features)). In AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.json) (October 2026, a convenience sample of 384 well-known sites), 31 sites (8.1%) block it, including 20 of 38 news publishers, yet by Google's documentation that doesn't decide whether they appear in AI Overviews."
+    },
+    {
+      "heading": "Is ranking in organic results still the price of admission?",
+      "body": "Partly. Google says its AI features are rooted in its core ranking and quality systems, so indexing and relevance still decide who is considered. But the top spot for the head keyword isn't the ticket: Google says its models find extra supporting pages, so AI features link to a wider, more diverse set of pages than classic results ([Google](https://developers.google.com/search/docs/appearance/ai-features)).\n\nTwo vendor studies show how loose the link is:\n\n- **BrightEdge** (September 2025, nine industries): 54.5% of AI Overview citations also ranked organically, up from 32.3% in May 2024, yet only 16.7% came from the top 10. Overlap was 75.3% in healthcare but 22.9% in e-commerce, so rankings matter most where trust does ([BrightEdge](https://www.brightedge.com/resources/weekly-ai-search-insights/rank-overlap-after-16-months-of-aio)).\n- **Ahrefs** (March 2026, 863,000 keyword SERPs): 37.9% of cited URLs ranked top 10, 31.2% ranked 11 to 100 and 31.0% beyond 100, against about 76% in the top 10 in July 2025 ([Ahrefs](https://ahrefs.com/blog/ai-overview-citations-top-10/)).\n\nNeither is Google data; BrightEdge states no sample size or rank cutoff, and Search Engine Journal reports Ahrefs improved its parsing between studies ([SEJ](https://www.searchenginejournal.com/google-ai-overview-citations-from-top-ranking-pages-drop-sharply/568637/)), so don't compare them. Ahrefs explains the shift with fan-out: Overviews lean on pages that surface in sub-question results. Our reading: a page can rank first for the head query and be skipped, while one that ranks well for a sub-question gets the link."
+    },
+    {
+      "heading": "How do you write passages an AI Overview will lift?",
+      "body": "Lead each section with a direct answer under a question-style heading, so the passage works on its own. Google says you needn't write or chunk content specially for AI, and it already ranks individual passages in Search ([ranking systems guide](https://developers.google.com/search/docs/appearance/ranking-systems-guide)), so treat this as courtesy to readers, not a hack.\n\n- **Heading = the question** a person would type.\n- **Lead with a 40-60 word answer** that includes the number or condition, then one idea per paragraph.\n- **Name the entity:** \"Search Console's Generative AI performance report shows impressions\", not \"it shows impressions\".\n- **Add what only you have:** your data, screenshots, method. Google says original, helpful content will likely matter more in the long run than any other tip in its guide.\n\nDistrust \"ideal passage length\" numbers and \"AI Overview scores\": Google's guide gives none. The peer-reviewed GEO study (KDD 2024) found that statistics, quotations and citations raised visibility, but it didn't test AI Overviews ([arXiv](https://arxiv.org/abs/2311.09735))."
+    },
+    {
+      "heading": "Do schema, llms.txt or E-E-A-T help?",
+      "body": "Not as levers. Google says no special schema is needed, its Search ignores llms.txt and similar files, and E-E-A-T (experience, expertise, authoritativeness, trust) isn't itself a ranking factor ([Google's guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide); [Google](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)).\n\n- **Schema:** keep it accurate and generated from the same data as the visible page, as ours is for FAQs. It still supports rich results, but 74.7% of the 312 well-known-brand homepages we parsed already carry JSON-LD, so it rarely differentiates. See [structured data for AI](/blog/structured-data-for-ai).\n- **llms.txt:** Google says it's fine to publish one for other systems. We do, but it won't get you into an AI Overview.\n- **E-E-A-T:** trust matters most. Show who wrote the page and cite primary sources. Never invent authors or credentials; Google calls fabricated creator profiles deception. Earn real mentions; chasing inauthentic ones is less helpful than it looks."
+    },
+    {
+      "heading": "How do you cover the whole question, not just the keyword?",
+      "body": "Treat each query as a cluster of sub-questions and answer each one on a single page. Google's example: \"how to fix a lawn that's full of weeds\" fans out into searches like \"best herbicides for lawns\" and \"remove weeds without chemicals\" ([Google](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)).\n\n1. **List the sub-questions:** People Also Ask, related searches, the topics the Overview covers and the queries Search Console already shows. Google doesn't publish its real fan-out queries, so these are proxies.\n2. **Check who ranks for each.** Wikipedia, YouTube and Reddit were 15% of the sources in Pew's March 2025 AI summaries ([Pew](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/)); where they dominate, find another angle.\n3. **Give each sub-question its own heading and answer.** Same-intent questions share a page; a different intent gets its own, linked. Google says separate content for every phrasing, made mainly to manipulate AI responses, violates its scaled content abuse policy.\n4. **Keep time-sensitive facts current,** and change a visible date only when the content really changed ([Google](https://developers.google.com/search/docs/appearance/publication-dates)).\n\nWe follow the one-page rule ourselves: on 2026-10-03 we merged 165 duplicate-intent pages into 37, and this guide replaces two earlier pages of ours. We haven't measured the effect on AI Overview citations yet, but we bet one strong page per question beats five thin ones.\n\n![Close-up of a hand writing in a notebook with a checklist](https://images.pexels.com/photos/35719566/pexels-photo-35719566.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do you track whether you're cited?",
+      "body": "Use Search Console's Generative AI performance report for impressions, then spot-check queries by hand and repeat weekly. The report counts how often links to your site appeared in AI Overviews and AI Mode.\n\nGoogle's help page describes impressions only and says the report reached all websites worldwide as of August 31, 2026, though sites need enough impressions to see it ([Search Console Help](https://support.google.com/webmasters/answer/16984139)). AI-feature clicks stay inside the standard Performance report's Web totals ([Google](https://developers.google.com/search/docs/appearance/ai-features)).\n\nSpot-check 20 to 30 fixed queries while logged out, from one location, and record whether an Overview appears, whether you're cited and who is cited instead. Repeat weekly: Ahrefs (November 2025) tracked over 43,000 keywords and found a 70% chance an Overview changed between observations, with only 54.5% of cited URLs shared between consecutive responses ([Ahrefs](https://ahrefs.com/blog/ai-overview-change)).\n\nJudge by impressions and branded search, not clicks: in Pew's March 2025 data, people clicked a link inside an AI summary in just 1% of visits ([Pew](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/)). See [AI Overviews and your traffic](/blog/ai-overviews-and-your-traffic).\n\nAEOeye answers a different question: do AI engines name your brand when buyers ask? The [free audit](/) tests ChatGPT; the $29 one-time report adds Google AI, Gemini, Claude and Perplexity. For scheduled tracking of many queries, a dedicated tracker fits better: [Profound](https://www.tryprofound.com/) and [Otterly.AI](https://otterly.ai/) both name Google AI Overviews on their sites as of October 2026; we haven't tested either.\n\n![A professional workspace with computers and analytical graphs on a monitor](https://images.pexels.com/photos/8636589/pexels-photo-8636589.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    }
   ],
-  "rows": [
-   {
-    "label": "Organic ranking",
-    "values": [
-     "You can skip SEO and optimize \"for AI\" directly",
-     "AI Overviews cite indexed pages — being in the top ~30 is the entry ticket"
+  "comparisonTable": {
+    "columns": [
+      "What Google or the data says",
+      "Our call"
+    ],
+    "rows": [
+      {
+        "label": "llms.txt and other special AI files",
+        "values": [
+          "Google says its Search doesn't use them; they neither help nor harm",
+          "Skip for Google; harmless to keep for other tools"
+        ]
+      },
+      {
+        "label": "Chunking pages into tiny pieces",
+        "values": [
+          "Google says there is no requirement and its systems surface the relevant piece",
+          "Skip"
+        ]
+      },
+      {
+        "label": "Special schema for AI Overviews",
+        "values": [
+          "Google says structured data isn't required and no special markup exists",
+          "Keep it accurate for rich results; expect no lift"
+        ]
+      },
+      {
+        "label": "Blocking Google-Extended to opt out",
+        "values": [
+          "Google says it doesn't affect inclusion in Google Search",
+          "Doesn't opt you out; use Search Console's Search generative AI control or snippet controls"
+        ]
+      },
+      {
+        "label": "Ranking first for the head keyword",
+        "values": [
+          "37.9% of cited URLs ranked top 10 in Ahrefs' March 2026 data",
+          "Rank for the sub-questions too"
+        ]
+      },
+      {
+        "label": "First-hand, original content",
+        "values": [
+          "Google says it will likely matter more over time than its other tips",
+          "Do this first"
+        ]
+      },
+      {
+        "label": "Counting clicks as success",
+        "values": [
+          "Pew: 1% of visits clicked a link inside an AI summary",
+          "Count impressions and branded search"
+        ]
+      }
     ]
-   },
-   {
-    "label": "Position needed",
-    "values": [
-     "You must rank #1 to get cited",
-     "Only 16.7% of citations are top 10; positions 21-100 are the sweet spot"
-    ]
-   },
-   {
-    "label": "Schema markup",
-    "values": [
-     "Special \"AI schema\" forces citations",
-     "Schema clarifies parsing; it helps but never guarantees a citation"
-    ]
-   },
-   {
-    "label": "Content format",
-    "values": [
-     "Long, keyword-dense articles win",
-     "Self-contained answer-first passages under question headings get extracted"
-    ]
-   },
-   {
-    "label": "Vendor \"AI scores\"",
-    "values": [
-     "Semantic completeness / embedding-alignment metrics are real levers",
-     "Mostly invented precision — nobody outside Google has the weights"
-    ]
-   },
-   {
-    "label": "Success metric",
-    "values": [
-     "Track rankings and clicks",
-     "Track citation presence and share of voice across engines"
-    ]
-   }
-  ]
- },
- "sources": [
-  {
-   "label": "BrightEdge — AI Overview citation/organic rank overlap after 16 months",
-   "url": "https://www.brightedge.com/resources/weekly-ai-search-insights/rank-overlap-after-16-months-of-aio"
   },
-  {
-   "label": "Pew Research Center — Do people click links in Google AI summaries?",
-   "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
-  },
-  {
-   "label": "Google Search Central — Creating helpful, reliable, people-first content (E-E-A-T)",
-   "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  },
-  {
-   "label": "Google Search Central — AI features in Google Search",
-   "url": "https://developers.google.com/search/docs/appearance/ai-features"
-  },
-  {
-   "label": "Search Engine Land — Google AI Overviews hurting clicks (Pew study coverage)",
-   "url": "https://searchengineland.com/google-ai-overviews-hurting-clicks-study-459434"
+  "keyTakeaways": [
+    "Eligibility is the only hard gate: indexed and snippet-eligible. Skip llms.txt, chunking and \"AI Overview scores\" for Google.",
+    "Cited pages often rank outside the top 10 for the main query, so rank for the sub-questions.",
+    "Give each sub-question an answer-first section with first-hand proof, on one strong page.",
+    "Track impressions in Search Console and repeat spot-checks; Overviews change often and cited links rarely get clicks."
+  ],
+  "faqs": [
+    {
+      "q": "Do I need to rank in the top 10 to be cited in an AI Overview?",
+      "a": "No, but ranking for the related searches helps. Ahrefs found 37.9% of cited URLs ranked in the top 10 for the original query and 31.0% ranked beyond position 100 (March 2026, 863,000 keyword SERPs). Ahrefs attributes this to Overviews pulling from sub-question results, so aim to rank for the sub-questions, not only the head term."
+    },
+    {
+      "q": "Do I need schema markup, llms.txt or special formatting?",
+      "a": "No. Google says structured data isn't required, no special schema exists, and its Search doesn't use llms.txt or similar files. Chunking and AI-only rewrites aren't required either. Keep structured data accurate and matching the visible text for rich results, and write answer-first because it helps readers."
+    },
+    {
+      "q": "Does blocking Google-Extended keep me out of AI Overviews?",
+      "a": "No. Google says Google-Extended doesn't affect inclusion in Google Search and isn't a ranking signal; it limits training of Google's models. To keep a whole site out of AI Overviews and AI Mode, use Search Console's Search generative AI control, rolled out to all sites on August 31, 2026; Google says it doesn't affect other parts of Search. Page-level nosnippet, max-snippet and data-nosnippet also work but shrink your regular snippets. In AEOeye's October 2026 study, 31 of 384 sites blocked Google-Extended."
+    },
+    {
+      "q": "Can I pay or submit a page to get cited in AI Overviews?",
+      "a": "Google's documentation describes no such route. It lists indexing and snippet eligibility as the requirements, says no other special optimizations are needed, and warns that indexing and serving aren't guaranteed even when a page meets every requirement. Treat any offer of guaranteed AI Overview placement with suspicion."
+    },
+    {
+      "q": "How do I know whether my pages appear in AI Overviews?",
+      "a": "Open Search Console's Generative AI performance report for impressions in AI Overviews and AI Mode by page, country, device and date. Then spot-check a fixed list of queries while logged out and repeat weekly. Google says the report reached all websites worldwide as of August 31, 2026, but sites need enough impressions to see it."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google Search Central — Optimizing your website for generative AI features on Google Search",
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+    },
+    {
+      "label": "Google Search Central — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "label": "Search Console Help — Generative AI performance report (Search)",
+      "url": "https://support.google.com/webmasters/answer/16984139"
+    },
+    {
+      "label": "Pew Research Center — Google users are less likely to click on links when an AI summary appears in the results",
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
+    },
+    {
+      "label": "Ahrefs — Update: 38% of AI Overview Citations Pull From The Top 10",
+      "url": "https://ahrefs.com/blog/ai-overview-citations-top-10/"
+    },
+    {
+      "label": "BrightEdge — AI Overview citation and organic rank overlap after 16 months",
+      "url": "https://www.brightedge.com/resources/weekly-ai-search-insights/rank-overlap-after-16-months-of-aio"
+    },
+    {
+      "label": "Google Search Console Help — Search generative AI control",
+      "url": "https://support.google.com/webmasters/answer/16908024"
+    }
+  ],
+  "definitions": [
+    {
+      "term": "AI Overview",
+      "definition": "A Google-generated summary shown with some search results, with links to supporting pages. To appear as a link, a page must be indexed and eligible to show a snippet.",
+      "sourceUrl": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "term": "AI Mode",
+      "definition": "A separate Google Search experience for questions that need more exploration, reasoning or comparison. It follows the same eligibility rules as AI Overviews.",
+      "sourceUrl": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "term": "Query fan-out",
+      "definition": "A technique where Google's models issue several related searches across subtopics and data sources to build a response, such as turning a lawn-weed question into herbicide, chemical-free and prevention searches.",
+      "sourceUrl": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+    },
+    {
+      "term": "E-E-A-T",
+      "definition": "Experience, Expertise, Authoritativeness and Trust: Google's framework for judging content quality, with trust the most important element. Google says it is not itself a ranking factor.",
+      "sourceUrl": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+  ],
+  "howToSteps": [
+    {
+      "name": "Confirm the page is eligible",
+      "text": "In Search Console's URL Inspection, check that the page is indexed, that robots.txt allows Googlebot and that no noindex, nosnippet, low max-snippet or data-nosnippet limits it. Google lists indexing plus snippet eligibility as the requirement."
+    },
+    {
+      "name": "List the sub-questions behind the query",
+      "text": "Write down the searches a person would run next: People Also Ask, related searches, the topics the Overview covers and the queries Search Console already shows. Google doesn't publish its real fan-out queries, so these are proxies."
+    },
+    {
+      "name": "Check who ranks for each sub-question",
+      "text": "Read the top results for each one. Keep the sub-questions where you can add original data or first-hand experience, and skip those dominated by Wikipedia, YouTube or Reddit unless you have a new angle."
+    },
+    {
+      "name": "Answer each one first, under its own heading",
+      "text": "Use the question as the heading, then give a direct 40-60 word answer that names its subject and includes the number or condition, followed by evidence. Keep same-intent sub-questions on one page rather than one page per phrasing."
+    },
+    {
+      "name": "Add what only you can add",
+      "text": "Include your own data, screenshots, method or hands-on experience, and link a primary source for every statistic. Google says original, helpful content will likely matter more over time than any other tip in its guide."
+    },
+    {
+      "name": "Keep markup honest and skip the myths",
+      "text": "Keep structured data accurate and identical to the visible text. Don't spend time on llms.txt, content chunking or AI-only rewrites for Google, which says its Search doesn't need them."
+    },
+    {
+      "name": "Keep time-sensitive facts current",
+      "text": "Update prices, dates and statistics when they change, and change the visible date only when the content really changed. Google runs freshness systems that surface newer content for queries that need it."
+    },
+    {
+      "name": "Measure impressions, then repeat",
+      "text": "Check Search Console's Generative AI performance report for impressions, spot-check a fixed query list while logged out, and repeat weekly because AI Overviews change often. Track your citation rate: queries where you're cited divided by queries where an Overview appears."
+    }
+  ],
+  "updated": "2026-10-03",
+  "image": {
+    "url": "https://images.pexels.com/photos/6155000/pexels-photo-6155000.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "Hands typing on a laptop with Google on screen in a remote-work setup",
+    "photographer": "Luca Sammarco",
+    "photographerUrl": "https://www.pexels.com/@samma97"
   }
- ],
- "definitions": [
-  {
-   "term": "AI Overview (AIO)",
-   "definition": "Google's AI-generated summary box at the top of search results, synthesized from multiple indexed web pages with citation links.",
-   "sourceUrl": "https://developers.google.com/search/docs/appearance/ai-features"
-  },
-  {
-   "term": "Answer Engine Optimization (AEO)",
-   "definition": "Optimizing content to be surfaced and cited by AI answer engines like AI Overviews, ChatGPT and Perplexity, rather than only ranking in classic blue links.",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Search_engine_optimization"
-  },
-  {
-   "term": "E-E-A-T",
-   "definition": "Google's quality framework — Experience, Expertise, Authoritativeness, and Trustworthiness — used to assess content quality and creator credibility.",
-   "sourceUrl": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
-  },
-  {
-   "term": "BLUF (answer-first)",
-   "definition": "Bottom Line Up Front: a writing structure that states the direct answer in the first sentence or two, which AI systems extract and cite more readily.",
-   "sourceUrl": "https://en.wikipedia.org/wiki/BLUF_(communication)"
-  }
- ],
- "howToSteps": [
-  {
-   "name": "Rank in the organic top 20-30 first",
-   "text": "AI Overviews cite pages already in Google's index, with positions 21-100 being the citation sweet spot. Fix technical SEO, internal links, and core content so the page is genuinely competitive for the target query before worrying about AI formatting."
-  },
-  {
-   "name": "Map the question and its follow-ups",
-   "text": "Identify the exact question users type plus the 5-10 obvious follow-ups. These become your subheadings. AI Overviews synthesize complete answers, so a page that resolves the full intent gets cited across multiple related Overviews."
-  },
-  {
-   "name": "Open every section with a self-contained answer",
-   "text": "Place a 2-3 sentence direct answer immediately under each question-style heading. Include the entity name so the passage makes sense lifted out of context. This BLUF structure is what the model extracts and cites."
-  },
-  {
-   "name": "Use question-style headings that mirror real queries",
-   "text": "Write headings as the actual questions people ask ('How much does X cost?') rather than label-style headings ('Pricing'). This aligns your passage with the query the Overview is answering."
-  },
-  {
-   "name": "Back claims with cited, verifiable facts",
-   "text": "Link statistics and assertions to primary sources — official docs, .gov, Wikipedia, research. AI Overviews favor verifiable content, and government and authoritative domains are over-represented in citations relative to standard results."
-  },
-  {
-   "name": "Show real experience and expertise",
-   "text": "Add named authors with credentials, original data, screenshots, and first-hand testing. This satisfies Google's E-E-A-T guidance and is far more durable than schema tricks for earning trust and citations."
-  },
-  {
-   "name": "Add structured data that maps to reality",
-   "text": "Implement FAQPage, HowTo, and Article schema only for content you genuinely provide. Schema clarifies your page for machines; it does not force a citation. Don't fake markup — treat it as a parser aid, not a ranking lever."
-  },
-  {
-   "name": "Track citation share monthly and refresh quarterly",
-   "text": "Re-run your target queries across ChatGPT, Perplexity, Google AI, Gemini and Claude to see where you're cited and who's taking your spot. Update stats and dates on cornerstone pages quarterly, since stale pages lose citations to fresher competitors."
-  }
- ],
- "updated": "2026-06-26",
- "image": {
-  "url": "https://images.pexels.com/photos/6963740/pexels-photo-6963740.png?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Individual typing on a laptop outdoors with snow, accessing the internet.",
-  "photographer": "Firmbee.com",
-  "photographerUrl": "https://www.pexels.com/@firmbee-com-22729701"
- }
 }

@@ -1,0 +1,110 @@
+{
+  "contentSha256": "8970ef273c81c3f4e167b1ff80e6c1a89f576403ba5eba7586c7cb4ec445f570",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "A founder or marketer wants to know, without paying or booking a demo, whether ChatGPT and other AI engines name or cite their brand, and how far to trust a free checker's score.",
+    "connection": "It is the entry point to AEOeye's free AI visibility audit and explains the measurement method behind AEOeye's reports: unbranded buyer questions, clean sessions, repeated runs, and logging named, cited, position and competitors."
+  },
+  "assessment": "The page gives the reader a complete free method (clean session, five to ten unbranded buyer questions, three runs each, a log template), compares the free checkers by what each one actually measures using each vendor's own page, separates the two meanings of 'AI citation checker', and maps outcomes to fixes. It rests on a University of St. Gallen preprint for run-count statistics, vendor and platform documentation for free-tier facts, and AEOeye's own audit records with their self-selection caveat. It deliberately does not claim that three runs give a rate, that any free tool shows a trend, or that engines can be ranked by mention rate, and it drops the older claims that AEOeye's free audit covers five engines or tracks over time.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2604.07585",
+      "checkedAt": "2026-10-03",
+      "supports": "Schulte, Bleeker and Kaufmann (University of St. Gallen, April 2026): visibility is defined as the frequency and prominence of brand mentions in generated responses; one-off observations of AI search visibility are unreliable and answers vary across runs, prompts and time."
+    },
+    {
+      "url": "https://arxiv.org/pdf/2604.07585",
+      "checkedAt": "2026-10-03",
+      "supports": "Full text of the same preprint: 57.8% of ChatGPT runs had zero citations in the repeated-run test; cited-source sets overlapped by only 34-42% between consecutive days; Table 16 gives 95% intervals of +/-0.369 after 3 runs and +/-0.158 after 7; authors advise at least 7 runs per prompt per day and two to four weeks of aggregation."
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.08924",
+      "checkedAt": "2026-10-03",
+      "supports": "Sielinski (March 2026): AI answer engines are inherently non-deterministic, so identical queries at different times can produce different responses and cite different sources; single-run visibility metrics are misleadingly precise."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central: AI Overviews are shown only when additive and often don't trigger; AI Overviews and AI Mode may use query fan-out; their traffic is counted in the Search Console Performance report under the Web search type."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/7576553",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console Performance report: the Queries dimension groups data by the search query users typed and shows which queries bring traffic."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/12260368-using-incognito-chats",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic: incognito chats are available to all Claude users and do not use Claude's existing memory."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/13275745",
+      "checkedAt": "2026-10-03",
+      "supports": "Google: Temporary chat in Gemini Apps lists 'get personalized responses' among the things you can't do, and requires sign-in with a personal Google Account."
+    },
+    {
+      "url": "https://www.semrush.com/free-tools/ai-search-visibility-checker/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush: free checker usable three times per day without registering; draws on a database of 26M+ prompts and responses across ChatGPT, Gemini, AI Mode and AI Overviews; lists score, mentions, citations, platform coverage, top cited pages, topics and competitor comparison."
+    },
+    {
+      "url": "https://ahrefs.com/ai-visibility-checker",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs: free checker with no signup, a limited preview (top 5 per section), search-backed prompts across ChatGPT, Gemini, Perplexity, Copilot, AI Overviews and AI Mode, described as a one-time snapshot."
+    },
+    {
+      "url": "https://www.hubspot.com/ai-search-grader",
+      "checkedAt": "2026-10-03",
+      "supports": "HubSpot AI Search Grader: free one-time check, no account required, form fields for company, location, industry and product, asks ChatGPT, Perplexity and Gemini how they describe the brand based on their training data."
+    },
+    {
+      "url": "https://www.aerank.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "AERank: Free Scan at $0, no signup, one-time; queries ChatGPT, Gemini, Perplexity and Claude live with a 'best [category] in [city]' question; includes score, competitor snapshot and basic playbook."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft Bing Blog (10 February 2026): AI Performance report in Bing Webmaster Tools shows citation counts, cited pages and a sample of grounding queries across Copilot, Bing AI summaries and select partners; public preview."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/2025/6/Start-Using-Bing-Webmaster-Tools-to-Improve-Your-Site-Visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft Bing Blog (June 2025): describes Bing Webmaster Tools as free and explains sign-up and site verification."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-41032-5",
+      "checkedAt": "2026-10-03",
+      "supports": "Walters and Wilder, Scientific Reports 2023: of 636 citations in 84 ChatGPT-written papers, 55% of GPT-3.5 and 18% of GPT-4 citations were fabricated, and 43% and 24% of the real ones had substantive errors."
+    },
+    {
+      "url": "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php",
+      "checkedAt": "2026-10-03",
+      "supports": "Tow Center for Digital Journalism (March 2025): eight AI search tools asked to identify the source of news excerpts answered more than 60% of queries incorrectly and fabricated links."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler documentation: sites opted out of OAI-SearchBot are not shown in ChatGPT search answers; OpenAI recommends allowing OAI-SearchBot in robots.txt and allowing its published IP ranges."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded the St. Gallen preprint PDF and read it directly (Appendix J, Table 16); the 57.8% no-citation share, 34-42% day-to-day source-set overlap, +/-0.369 (3 runs) and +/-0.158 (7 runs) intervals and the 'at least 7 runs per prompt per day' advice were taken from the paper text, not from an abstract summary.",
+    "Writer (Sonnet): fetched the Claude incognito, Gemini Temporary chat, Search Console Performance and Bing Webmaster Tools pages on 2026-10-03 and re-read the raw page text to confirm each parenthetical (no Claude memory use, no personalised Gemini responses, Queries dimension, Bing Webmaster Tools described as free).",
+    "Writer (Sonnet): recomputed the AEOeye benchmark figures against public/resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 27 brand names, 157 of 892 answers = 17.6%, 71.4% first place of 147 ranked mentions, 2.93 competitors per answer) and confirmed that four of five engines have fewer than 10 mentions (ChatGPT 8, Perplexity 3, Google AI 1, Gemini 2); no per-engine rates are quoted.",
+    "Writer (Sonnet): kept free-tool table cells to what each vendor's own public page states, said on the page that this comes from public pages and not hands-on testing, and removed claims that AEOeye's free audit covers five engines or tracks over time (it is three ChatGPT questions).",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page and cleared all errors and warnings; rendered the markdown with the site's markdown-to-jsx to confirm six H2s, one ordered list, three tables and two images render.",
+    "Editor (Opus): reviewed the final draft: read the opening and every H2 opening sentence for a direct answer, read the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison, no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/ai-visibility-check",
+    "/answers/how-to-check-if-ai-mentions-your-brand",
+    "/blog/free-ai-seo-tools",
+    "/blog/ai-citation-checker"
+  ]
+}

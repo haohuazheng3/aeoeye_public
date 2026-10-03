@@ -1,0 +1,54 @@
+{
+  "contentSha256": "b89c6a7719fe03951dec85dbf8e21f3db69b2974d8e5b18ad4c1e22bd020a958",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Site owners are told to block GPTBot and need to know what it actually controls, whether it affects ChatGPT search, and when a block is justified.",
+    "connection": "Crawler access is the first technical gate for ChatGPT retrieving and naming a brand, which is the visibility AEOeye audits; the page ties it to AEOeye's crawler access study."
+  },
+  "assessment": "The page argues that blocking GPTBot is usually the wrong default for brands but right for publishers with licensable content, resting on OpenAI's own crawler documentation (GPTBot = training, OAI-SearchBot = ChatGPT search, independent settings) and AEOeye's October 2026 crawler access study (384 sites; GPTBot, OAI-SearchBot and split-setup counts recomputed from the published CSV). It openly says no one can show that allowing GPTBot raises mentions, treats robots.txt as advisory, and does not claim any setting changes whether ChatGPT recommends a site. Older unsourced claims (a Search Engine Journal 70% figure, a GPTBot allow-share reversal, BuzzStream's 49%) were dropped because they could not be verified.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Purposes of GPTBot, OAI-SearchBot and ChatGPT-User; independence of settings; opted-out sites not shown in ChatGPT search answers but may appear as navigational links; ChatGPT-User robots.txt caveat and not used for Search eligibility; ~24 hour adjustment."
+    },
+    {
+      "url": "https://blog.cloudflare.com/crawlers-click-ai-bots-training/",
+      "checkedAt": "2026-10-03",
+      "supports": "July 2025 crawl-to-refer ratios: Anthropic 38,065, OpenAI 1,091.4, Google 5.4."
+    },
+    {
+      "url": "https://blog.cloudflare.com/agentic-internet-bot-report/",
+      "checkedAt": "2026-10-03",
+      "supports": "52% of crawler requests were for AI training as of June 2026, up from 22% in spring 2025; Cloudflare blocks AI training crawlers by default for new domains unless owners choose otherwise."
+    },
+    {
+      "url": "https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/",
+      "checkedAt": "2026-10-03",
+      "supports": "Managed robots.txt prepends Disallow rules for known AI crawlers (GPTBot among them); compliance is voluntary; content-signal text frames restrictions as reservations of rights under Article 4 of EU Directive 2019/790."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "Crawlers obey the group matching their product token; rules are not a form of access authorization."
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.10315",
+      "checkedAt": "2026-10-03",
+      "supports": "60.0% of reputable news sites disallow at least one AI crawler versus 9.1% of misinformation sites."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched OpenAI's crawler documentation (rendered page and .md version) on 2026-10-03 and quoted only wording it contains; did not cite OpenAI's help-center FAQ because it returned HTTP 403.",
+    "Writer (Sonnet): recomputed every study figure (GPTBot and OAI-SearchBot blocks by group, the 19 split sites, 16 of 35 GPTBot blockers also blocking OAI-SearchBot, 3 blockers not naming GPTBot, 90 sites naming GPTBot with 58 allowing it) from public/resources/ai-crawler-access-study-2026-10.csv.",
+    "Writer (Sonnet): confirmed the Cloudflare ratios, the 52% June 2026 figure, the new-domain default and the managed robots.txt behaviour against the raw HTML of each Cloudflare page, and the 60.0% / 9.1% figures against the arXiv abstract.",
+    "Writer (Sonnet): removed unverifiable older claims (Search Engine Journal 70% citation figure, GPTBot allow-share reversal, BuzzStream 49%) and read the rewritten page against the AI crawler directory hub for consistent numbers and wording.",
+    "Editor (Opus): read the final draft: stance (usually the wrong default for brands, right for publishers with licensable content), OpenAI bot roles, our crawler data and decision steps",
+    "Editor (Opus): confirmed figures agree with the /blog/ai-crawler-user-agent-directory hub (35 GPTBot blockers, 19 split sites, 20 of 38 publishers) and corrected the conflicting /glossary/gptbot entry",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

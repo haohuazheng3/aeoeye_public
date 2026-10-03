@@ -1,0 +1,100 @@
+{
+  "contentSha256": "22eae46441affe77d64ade43ce73fed91aeb8ebd9e5ed5e0c0977bc45aebd0e7",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A founder or marketer sees organic clicks fall and wants to know whether Google AI Overviews are the cause, whether a citation sends any visits, which pages are exposed, and what to do about it.",
+    "connection": "AEOeye audits whether AI engines name a brand; this page explains why being named in the answer matters when clicks fall, using AEOeye's own crawler access study and content consolidation."
+  },
+  "assessment": "Merges three overlapping pages (do AI Overviews hurt SEO traffic, do they send any traffic, zero-click marketing) into one answer. It ranks the evidence by strength (randomized experiments, Pew browsing panel, vendor and agency data, Google claims) and labels who produced each number, separates per-query click loss from site-wide loss, and turns zero-click marketing into a measurement and action plan. It rests on Pew, an arXiv preregistered experiment, trade-press coverage of a second randomized working paper, Ahrefs and Seer data, Chartbeat via the Reuters Institute, SparkToro, Google documentation and AEOeye's crawler study. It deliberately does not claim that lost clicks were low value, that citations cause more clicks, or a precise click value per citation; the 13% blended-loss figure is labelled as our arithmetic.",
+  "sources": [
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew (22 Jul 2025): 900 U.S. adults, March 2025, 68,879 searches; clicks on a traditional result in 8% of visits with an AI summary vs 15% without; 1% click a link inside the summary; 60% of who/what/when/why searches had a summary; search results re-collected 7-17 April 2025."
+    },
+    {
+      "url": "https://arxiv.org/abs/2608.18352",
+      "checkedAt": "2026-10-03",
+      "supports": "Wang et al. (arXiv 18 Aug 2026, preprint): preregistered field experiment, N=1,100; removing AI Overviews increases click-through to publishers. Full text read: LATE +8.8 points, ITT +2.7 points (not significant), only 51.1% of Overviews hidden after a Google interface change."
+    },
+    {
+      "url": "https://www.searchenginejournal.com/ai-overviews-cut-organic-clicks-38-field-study-finds/573145/",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Engine Journal (27 Apr 2026) on the Agarwal and Sen SSRN working paper: 1,065 U.S. users, randomized, Jan-Feb 2026, organic clicks -38% on triggered queries, zero-click 54% to 72%; draft, not peer reviewed."
+    },
+    {
+      "url": "https://ppc.land/researchers-find-google-ai-overviews-cut-publisher-clicks-39-8/",
+      "checkedAt": "2026-10-03",
+      "supports": "PPC Land on the June 2026 revision of Agarwal and Sen: click-quality tests (back-button, bounce, time on page) showed no difference; navigational and transactional effects not distinguishable from zero but noisy."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs (4 Feb 2026): 300,000 keywords, aggregated Search Console data, Dec 2023 vs Dec 2025; Overview presence correlates with a 58% lower position-one click-through rate (modelled counterfactual, desktop)."
+    },
+    {
+      "url": "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-2026-update",
+      "checkedAt": "2026-10-03",
+      "supports": "Seer Interactive (24 Apr 2026): 53 brands, 5.47M queries; per million informational impressions about 33,500 / 20,743 / 9,445 clicks (no Overview / cited / not cited); Overviews on 36% informational, 8% commercial, 5% transactional queries; 95.4% comparison, 85.9% question, 27.3% single-word informational; organic CTR on Overview queries 1.3% (Dec 2025) to 2.4% (Feb 2026)."
+    },
+    {
+      "url": "https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-september-2025-update",
+      "checkedAt": "2026-10-03",
+      "supports": "Seer (4 Nov 2025): Overview queries already had lower organic CTR in June 2024; Seer cannot prove citation causes higher CTR."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/ai-search-driving-more-queries-higher-quality-clicks/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google, Liz Reid (6 Aug 2025): total organic click volume relatively stable year over year, slightly more quality clicks (users who do not quickly click back); no figures; people click in-depth reviews, original posts, first-person analysis."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central (last updated 2025-12-10): AI Overviews and AI Mode traffic is reported in the Search Console Performance report within the Web search type; Google says clicks from Overviews are higher quality."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console Help: generative AI performance report shows impressions in AI Overviews and AI Mode by page, country, date and device; rolled out to all websites as of 31 August 2026; may not show without enough impressions."
+    },
+    {
+      "url": "https://developers.google.com/search/blog/2025/05/succeeding-in-ai-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central blog (May 2025): look at conversion indicators (sales, signups, engaged audience) rather than clicks alone."
+    },
+    {
+      "url": "https://reutersinstitute.politics.ox.ac.uk/journalism-media-and-technology-trends-and-predictions-2026",
+      "checkedAt": "2026-10-03",
+      "supports": "Reuters Institute (Jan 2026): Chartbeat data, Google organic traffic to 2,500+ sites down 33% globally and 38% in the U.S., Nov 2024 to Nov 2025; unclear how much is due to AI Overviews; lifestyle and utility content more likely affected."
+    },
+    {
+      "url": "https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro (8 Jun 2026): 68.01% of Google searches ended without a click Jan-Apr 2026 (Similarweb panel) vs 60.45% in 2024 (Datos); different panels; traffic can fall while revenue rises; branded, local and transactional searches still benefit from SEO."
+    },
+    {
+      "url": "https://sparktoro.com/blog/why-do-we-need-zero-click-marketing/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro (14 Jan 2025): definition of zero-click marketing as standalone value on platforms rather than teasers and links, not dependent on referral clicks; says the term originated there."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and checked each number against the raw page text with curl, not only the WebFetch summary (Pew, Ahrefs, Seer 2026 and 2025, Google, Reuters Institute, SparkToro, Search Console help, SEJ, PPC Land). Search Engine Land (HTTP 403) and SSRN (HTTP 403) could not be opened, so neither is cited.",
+    "Writer (Sonnet): read the Wang et al. full text and Table S1: the headline +8.8 point effect is a LATE estimate (ITT +2.7, p=0.124) because a Google interface change let the extension hide only 51.1% of Overviews; the page states both and calls it a preprint.",
+    "Writer (Sonnet): the Agarwal and Sen paper could not be opened on SSRN, so its numbers are cited only as reported by Search Engine Journal (38%, April 2026); PPC Land reports 39.8% for the June revision, so the page uses 38% and labels it a draft reported by trade press.",
+    "Writer (Sonnet): replaced two claims from the merged pages that failed checking: the 10% publisher decline had been attributed to Semrush but comes from Digital Content Next (a trade body), so it was dropped in favour of Chartbeat data via the Reuters Institute; the 'lost clicks were junk' argument was rewritten because the randomized experiment found no engagement difference. The 1.9x branded-versus-non-branded Overview figure and the platform link-throttling claims could not be verified from primary sources and were left out.",
+    "Writer (Sonnet): recomputed the crawler-study figures from public/resources/ai-crawler-access-study-2026-10.json (publishers 84.2% block at least one training bot, SaaS 6.2%) and kept the sample, one-fetch and robots.txt-is-a-request caveats; the 13% blended-loss example (one third of clicks x 40%) is labelled as our arithmetic.",
+    "Writer (Sonnet): corrected the consolidation figure to 165 pages merged into 42 per the coordinator, ran scripts/content-lint.mjs (clean) and confirmed all internal links exist and none is retired.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, the ranked evidence table (independent research vs vendor studies vs Google claims), and the zero-click section; confirmed vendor studies are labelled and the Agarwal & Sen draft is labelled unreviewed",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable except rate-limited web.archive.org snapshots, which the writer fetched directly)",
+    "Editor (Opus): matched first-hand figures to the study JSON (32 of 38 publishers vs 12 of 193 SaaS block ≥1 training bot) with caveats, the 165→42 consolidation figure, and AEOeye product claims",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/do-ai-overviews-hurt-seo-traffic",
+    "/answers/do-ai-overviews-send-any-traffic",
+    "/blog/zero-click-marketing"
+  ]
+}

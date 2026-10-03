@@ -1,0 +1,88 @@
+{
+  "contentSha256": "d2ffb2d2823add672cc3ee31820cf7b23bf75da69203073bf8fad55b4d7c4465",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "Online-store owners want to know how ChatGPT, Perplexity and Google AI find and recommend products, and which fixes (feeds, schema, copy, third-party proof, bot access) actually matter first.",
+    "connection": "AEOeye audits whether AI engines name a brand when buyers ask; for stores that means product-discovery questions, crawler access and the sources engines read, which is what this guide covers."
+  },
+  "assessment": "The page now explains the documented product-discovery routes for ChatGPT, Google AI Overviews/AI Mode and Perplexity, then gives a template-level checklist for Product markup matched to visible text, buying-question copy, third-party proof, and the technical faults (bot walls, JavaScript-only data, robots rules). It rests on vendor documentation and AEOeye's own crawler access study (e-commerce group, with n and limits). It deliberately does not claim that feeds or schema cause recommendations, does not describe ChatGPT shopping research features (OpenAI's help pages could not be fetched), and cites Perplexity's Merchant Program only through a dated secondary report.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/commerce",
+      "checkedAt": "2026-10-03",
+      "supports": "Agentic Commerce Protocol is an open standard letting ChatGPT ingest structured catalog data and surface relevant products."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; OpenAI recommends allowing it and its IP ranges; OAI-SearchBot and GPTBot are independent settings; ChatGPT-User may not follow robots.txt; ~24h for robots.txt changes."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No additional requirements or special optimizations or new machine-readable files for AI Overviews/AI Mode; keep Merchant Center info current; structured data must match visible text."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing",
+      "checkedAt": "2026-10-03",
+      "supports": "Required (price, currency, Offer) and recommended (GTIN, brand, ratings, reviews, shipping, returns) merchant listing properties; Google may verify merchant listing data."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Structured data must be a true representation of the page content and match visible content."
+    },
+    {
+      "url": "https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/",
+      "checkedAt": "2026-10-03",
+      "supports": "January 2026 announcement of checkout in AI Mode for eligible U.S. retailers and the Universal Commerce Protocol."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "December 2024 analysis: major AI crawlers (OAI-SearchBot, ChatGPT-User, GPTBot, ClaudeBot, PerplexityBot) do not render JavaScript."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics",
+      "checkedAt": "2026-10-03",
+      "supports": "Server-side or pre-rendering is still a great idea because not all bots can run JavaScript."
+    },
+    {
+      "url": "https://developers.cloudflare.com/bots/concepts/bot/verified-bots/",
+      "checkedAt": "2026-10-03",
+      "supports": "Verified bots are validated via Web Bot Auth, published IP lists and reverse DNS; customers can configure AI bot policies."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces sites in Perplexity search; Perplexity-User generally ignores robots.txt."
+    },
+    {
+      "url": "https://www.yahoo.com/news/articles/meet-perplexity-merchant-program-e-170035191.html",
+      "checkedAt": "2026-10-03",
+      "supports": "Secondary report (WebFX via Stacker, 13 March 2026): Perplexity Merchant Program is free and requires selling and shipping to the U.S. Perplexity's own pages returned 403 to fetchers."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Global_Trade_Item_Number",
+      "checkedAt": "2026-10-03",
+      "supports": "GTIN definition: an identifier for trade items developed by GS1."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 (WebFetch and raw curl text where reachable) and kept only claims the page states",
+    "Writer (Sonnet): OpenAI help/shopping-research pages, openai.com announcement and Perplexity's own merchant/blog pages returned 403, so no claims from them are made; Perplexity Merchant Program rests on one dated secondary report and is labelled 'as reported March 2026'",
+    "Writer (Sonnet): recomputed the e-commerce challenge breakdown from public/resources/ai-crawler-access-study-2026-10.csv (95 e-commerce/consumer rows; 24 challenged of 88 = 20 HTTP 403 + 4 HTTP 429) and the sameAs count (28/61) against the study JSON/evidence numbers",
+    "Writer (Sonnet): read the old /for/ecommerce and the merged /blog/geo-for-ecommerce in full; dropped unsourced claims (Shopify themes ship partial schema, review signals are decisive) and the links to /blog/ai-shopping, /blog/geo-examples and /blog/how-to-optimize-for-ai-search, which are not live pages",
+    "Editor (Opus): read the final page: fetchability, product data as text plus matching markup, buying-question copy, third-party signals, technical blockers and measurement; /blog/geo-for-ecommerce content absorbed",
+    "Editor (Opus): Perplexity Merchant Program rests on one secondary report and is worded 'as reported March 2026'; no claims about ChatGPT shopping research beyond the Agentic Commerce Protocol docs",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable except the photographer's site, which blocks scripts)",
+    "Editor (Opus): e-commerce crawler-study figures (24/88 challenged: 20×403, 4×429; 4/90 blocking; 33/70 llms.txt) match the public CSV",
+    "Editor (Opus): product facts match the evidence pack (free ChatGPT audit, $29 report)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/geo-for-ecommerce"
+  ]
+}

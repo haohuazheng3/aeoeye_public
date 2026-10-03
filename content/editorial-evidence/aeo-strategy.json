@@ -1,0 +1,86 @@
+{
+  "contentSha256": "36ea36e17ff41a650cccde81c3469a866e3c9f606e7f13b91da2d23cd13bee44",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A founder or marketing lead has read lists of AEO tactics but cannot tell which buyer questions, engines, proof sources and metric to build a plan on, what the team should stop doing, or what to do first.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand; this guide turns what those audits and our crawler study show (few answer slots, an earned-media bias, run-to-run variance) into a decision framework, a stop-doing list and a 30-day and 6-month plan for a marketing team."
+  },
+  "assessment": "The page gives the reader four explicit decisions, each with a default and a stated cost, a short list of what to stop doing, and a 30-day and 6-month plan. It rests on vendor documentation (OpenAI, Anthropic, Perplexity and Google's July 2026 generative AI guide), an arXiv preprint, Pew and SparkToro research, and AEOeye's own audit-record aggregates, crawler access study and content consolidation, each used with its caveats. It deliberately does not claim a measured lift from our own consolidation, compare engines by mention rate, promise any timeline, or carry over unverifiable claims from the two merged pages.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al. (September 2025): web-enabled GPT vs Google on 1,000 consumer ranking prompts; software products (Canada) 74.2% earned / 25.8% brand for the AI engine vs 31.8% / 53.8% for Google; absolute percentages called illustrative; unbranded queries default to market leaders."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "March 2025 browsing data from 900 U.S. adults: a traditional result link was clicked in 8% of visits with a Google AI summary vs 15% without."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 2,961 runs on ChatGPT, Claude and Google AI Overviews / AI Mode (November-December 2025); under 1 in 100 chance of the same brand list, about 1 in 1,000 for the same order; visibility percentage judged reasonable, ranking position not."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's generative AI guide (last updated 2026-07-10): optimizing for AI search is still SEO; you can ignore llms.txt (Google Search ignores it), chunking content, rewriting just for AI, inauthentic mentions and special schema.org markup; defines query fan-out; indexed and snippet-eligible pages are required; unique, non-commodity content likely matters most."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search, GPTBot is for training, settings are independent, sites opted out of OAI-SearchBot are not shown in ChatGPT search answers, search systems take about 24 hours to adjust after a robots.txt change."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "checkedAt": "2026-10-03",
+      "supports": "Claude determines when to search; it searches for current or changing information, including products that may have changed, and answers stable-knowledge requests directly."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "ClaudeBot (training) and Claude-SearchBot (search result quality) are separate crawlers."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search and is not used to crawl content for AI foundation models."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation as retrieving and incorporating new information from external data sources."
+    },
+    {
+      "url": "https://schema.org/Organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Defines the Organization type and its name, url and sameAs properties, cited for keeping the entity description consistent."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of generative engine optimization, also known as answer engine optimization (AEO)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 (Chen et al. abstract and HTML, Pew, SparkToro, Google's generative AI guide read in full, OpenAI crawler docs, Claude docs, Anthropic support, Perplexity docs, both Wikipedia pages, schema.org/Organization) and kept only claims those pages state; the OpenAI help-center and Gartner pages returned 403 and were not used.",
+    "Writer (Sonnet): read the full text of Google's 'Optimizing your website for generative AI features on Google Search' (last updated 2026-07-10) and confirmed the 'still SEO' statement, the you-can-ignore list (llms.txt and other AI files, chunking, rewriting just for AI, inauthentic mentions, special schema.org markup), that Google Search ignores llms.txt, the query fan-out definition, and that unique non-commodity content is said to matter most.",
+    "Writer (Sonnet): read the Chen et al. HTML text and confirmed the software-products shares (74.2% earned / 25.8% brand for the AI engine vs 31.8% / 53.8% for Google, Canada), the 1,000 consumer ranking prompts, the authors' own caveat that absolute percentages are illustrative, and their advice to invest in PR, media outreach and expert collaborations.",
+    "Writer (Sonnet): read the SparkToro report text and confirmed 600 volunteers, 12 prompts, 2,961 runs, the under-1-in-100 same-list and about 1-in-1,000 same-order figures, that Claude was only slightly more consistent on the list, and the visibility-over-position conclusion; it was run with Gumshoe.ai, an AI-visibility vendor, which the page discloses.",
+    "Writer (Sonnet): cross-checked every AEOeye figure against public/resources/ai-crawler-access-study-2026-10.json and public/resources/aeoeye-recommendation-benchmark-2026-09.json (4.2% and 9.1% homepage blocks of 384 sites, 1 of 193 SaaS sites and 27 of 38 publishers blocking a retrieval bot, 24 of 88 e-commerce homepages challenging the crawler, 144 of 157 mentions positive, 2.9 competitors, 71.4% of 147 ranked mentions first).",
+    "Writer (Sonnet): audited the merged answers page against its own sources: the cited Digital Bloom report did not state the '83% third-party / 17% own domain' split when fetched, Pew reports AI summaries on 18% of March 2025 searches rather than 'a quarter', and the Gartner press release returned 403, so those claims were dropped; the Pew 8% vs 15% click figures were verified and kept.",
+    "Writer (Sonnet): read the whole aeo-marketing-playbook page and checked what could be kept: its 'still SEO' quote and its llms.txt and chunking points were confirmed in Google's July 2026 guide and are now cited; Pew's June 2026 report confirms 44% of U.S. adults use ChatGPT and 60% read AI summaries atop search results but says nothing about reading them 'instead of clicking through', so it was not used; the Gartner 2026 press release returned 403; the Nielsen 2012 statistic, the 'one Reddit or G2 thread outweighs ten posts' and 'models downrank one-sided pitches' claims and the FAQ-rich-results claim were not verified and were not carried over.",
+    "Writer (Sonnet): re-ran node scripts/content-lint.mjs on the merged page (clean) and confirmed every internal link target exists in content/ or public/resources and that no link points to /blog/aeo-marketing-playbook.",
+    "Editor (Opus): reviewed the final draft: read the opening and every H2 opening sentence for a direct answer, read the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL cited on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison, no Pro/subscription/daily-tracking claim) and that the consolidation figure reads '165 … into 42'",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/what-is-an-aeo-strategy",
+    "/blog/aeo-marketing-playbook"
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "contentSha256": "8c0a3aa8cf14e44235e76b385dce1ff6698abc47b5453beaf51e4d9081fb851c",
+  "reviewedAt": "2026-10-03",
+  "kind": "research-asset",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Site owners need to know which AI crawlers exist, what each one does, whether to allow or block it, and what comparable sites actually do.",
+    "connection": "AI crawler access is the first technical gate for being retrieved and cited by ChatGPT, Claude, Perplexity and Google, which is the visibility AEOeye audits."
+  },
+  "assessment": "The page is the AI crawler directory plus AEOeye's October 2026 crawler access study (391 sites fetched, 384 with a usable robots.txt state). Every directory row is taken from the operator's own documentation fetched on 2026-10-03; study figures were recomputed from the published CSV and match the summary. It states a clear position (allow search and user-triggered bots, treat training bots as a business choice) and does not claim that any robots.txt setting changes whether an engine recommends a site.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Purposes of GPTBot, OAI-SearchBot and ChatGPT-User, independence of the settings, ChatGPT-User robots.txt caveat, robots.txt marker in user agent, ~24h update lag."
+    },
+    {
+      "url": "https://openai.com/searchbot.json",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI publishes IP ranges for OAI-SearchBot as JSON."
+    },
+    {
+      "url": "https://openai.com/gptbot.json",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI publishes IP ranges for GPTBot as JSON."
+    },
+    {
+      "url": "https://openai.com/chatgpt-user.json",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI publishes IP ranges for ChatGPT-User as JSON."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Purposes of ClaudeBot, Claude-User and Claude-SearchBot, future-materials wording, Crawl-delay support, per-subdomain rules, warning against IP blocking."
+    },
+    {
+      "url": "https://claude.com/crawling/bots.json",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic's published list of crawler IP prefixes."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot (search, not foundation-model training) and Perplexity-User (generally ignores robots.txt), up-to-24-hour lag, published IP endpoints."
+    },
+    {
+      "url": "https://www.perplexity.com/perplexitybot.json",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity publishes PerplexityBot IP addresses as JSON."
+    },
+    {
+      "url": "https://www.perplexity.com/perplexity-user.json",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity publishes Perplexity-User IP addresses as JSON."
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Googlebot, Google-Extended (control token, Gemini training and grounding, no effect on Search), GoogleOther and Google-CloudVertexBot descriptions."
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests",
+      "checkedAt": "2026-10-03",
+      "supports": "Reverse-then-forward DNS verification and the three Google crawler categories; user-triggered fetchers ignore robots.txt."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews and AI Mode need only an indexed, snippet-eligible page; no additional technical requirements."
+    },
+    {
+      "url": "https://support.apple.com/en-us/119829",
+      "checkedAt": "2026-10-03",
+      "supports": "Applebot and Applebot-Extended purposes, reverse DNS and CIDR verification, Applebot following Googlebot rules when unnamed, no crawl-delay."
+    },
+    {
+      "url": "https://developers.facebook.com/documentation/sharing/webmasters/web-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Meta-ExternalAgent, Meta-WebIndexer and Meta-ExternalFetcher purposes and the fetcher's robots.txt bypass."
+    },
+    {
+      "url": "https://developer.amazon.com/amazonbot",
+      "checkedAt": "2026-10-03",
+      "supports": "Amazonbot, Amzn-SearchBot and Amzn-User purposes, training statements, no crawl-delay support, search-bot inheritance."
+    },
+    {
+      "url": "https://commoncrawl.org/ccbot",
+      "checkedAt": "2026-10-03",
+      "supports": "CCBot opt-out, reverse-DNS verification, ccbot.json, warning about crawlers falsely identifying as CCBot."
+    },
+    {
+      "url": "https://index.commoncrawl.org/ccbot.json",
+      "checkedAt": "2026-10-03",
+      "supports": "Common Crawl publishes CCBot IP ranges as JSON."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "Group matching (specific token, then * fallback), 4xx means unavailable (access allowed), 5xx means assume complete disallow."
+    },
+    {
+      "url": "https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/",
+      "checkedAt": "2026-10-03",
+      "supports": "Cloudflare's managed robots.txt is prepended to an existing file; robots.txt compliance is voluntary."
+    },
+    {
+      "url": "https://blog.cloudflare.com/content-signals-policy/",
+      "checkedAt": "2026-10-03",
+      "supports": "Content Signals Policy defines search, ai-input and ai-train signals in robots.txt."
+    },
+    {
+      "url": "https://blog.cloudflare.com/agentic-internet-bot-report/",
+      "checkedAt": "2026-10-03",
+      "supports": "52% of crawler requests classified as AI training in June 2026, up from 22% in spring 2025."
+    },
+    {
+      "url": "https://arxiv.org/abs/2510.10315",
+      "checkedAt": "2026-10-03",
+      "supports": "60.0% of reputable news sites disallow at least one AI crawler versus 9.1% of misinformation sites."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each operator crawler page (OpenAI, Anthropic, Perplexity, Google common crawlers, Apple, Meta, Amazon, Common Crawl) on 2026-10-03 and built every directory row only from what that page states; Bytespider was left out because no ByteDance documentation was verified.",
+    "Writer (Sonnet): recomputed the study figures (per-bot blocks, at-least-one training/retrieval, GPTBot-but-allow-OAI-SearchBot split, Content-Signal counts, no-robots.txt count, Googlebot block) from public/resources/ai-crawler-access-study-2026-10.csv and confirmed they match the evidence-pack summary and the JSON.",
+    "Writer (Sonnet): re-ran the robots.txt test suite (evaluate_policy.py vs expected.csv) and the log analyzer (analyze_log.py vs expected-summary.csv) on 2026-10-03, writing outputs to a scratch directory; both matched byte for byte.",
+    "Writer (Sonnet): checked every published IP-list URL (OpenAI, Anthropic, Perplexity, Common Crawl, Google) returns 200 and verified the Cloudflare and arXiv figures against the raw page text.",
+    "Writer (Sonnet): ran scripts/content-lint.mjs on the page with no errors or warnings.",
+    "Editor (Opus): reviewed the final hub: the 22-agent directory table (each row tied to the vendor's own doc), the study section with n and caveats, block/allow recommendations, robots.txt patterns and log-verification section",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable apart from bot-blocked spec/docs pages that open in a browser and example.com placeholders inside code samples)",
+    "Editor (Opus): matched every study figure on the page to the public CSV/JSON and evidence pack; the writer re-ran the robots.txt test suite and log analyzer (byte-for-byte match), which the page states",
+    "Editor (Opus): content-lint reports no errors or warnings; research-asset evidence lists artifacts, methodology and limitations"
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/ai-crawler-access-study-2026-10.csv",
+      "description": "Per-site data for the 391 sites: robots.txt state, per-bot block and name flags, llms.txt, homepage fetch and JSON-LD results."
+    },
+    {
+      "path": "/resources/ai-crawler-access-study-2026-10.json",
+      "description": "Study summary by segment with method, sample description and bot classification notes."
+    },
+    {
+      "path": "/resources/ai-crawler-robots-txt-test-suite/README.md",
+      "description": "Dependency-free 24-case synthetic RFC 9309 robots.txt regression suite with expected output."
+    },
+    {
+      "path": "/resources/ai-crawler-log-analyzer/README.md",
+      "description": "Dependency-free log analyzer separating claimed token, local category and optional operator-supplied CIDR verification."
+    }
+  ],
+  "methodology": "On 2026-10-03 a self-identifying research crawler (AEOeyeResearch/1.0) fetched robots.txt, /llms.txt and the homepage of 391 sites chosen by AEOeye, once each, with a one-second gap per domain. robots.txt was parsed with the same matcher as AEOeye's SEO audit; a bot 'blocks' when its effective rules disallow the homepage. Denominators: 384 usable robots.txt states, 330 llms.txt checks, 312 parsed homepages.",
+  "limitations": "Convenience sample skewed toward established brands, not a random sample of the web; one fetch per site on one day; main host only; robots.txt is a request and CDN-level blocking is invisible except when our crawler was challenged; the study measures access policy, not whether engines recommend a site.",
+  "merged": [
+    "/blog/ai-crawler-list",
+    "/blog/ai-crawler-robots-txt-test-suite",
+    "/blog/ai-crawler-log-analyzer",
+    "/blog/ai-crawler-statistics"
+  ]
+}

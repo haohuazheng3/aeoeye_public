@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { isRetiredPage } from "./retired";
 
 export type PageType = "answers" | "compare" | "for" | "vs" | "alternatives" | "guides";
 
@@ -39,6 +40,8 @@ function readType(type: PageType): ContentPage[] {
     return fs
       .readdirSync(dirFor(type))
       .filter((f) => f.endsWith(".json"))
+      // 已下线(删除 / 合并)的页不进列表、内链、静态参数与 sitemap —— 防止同名文件被写回来时悄悄复活
+      .filter((f) => !isRetiredPage(type, f.replace(/\.json$/, "")))
       .map((f) => JSON.parse(fs.readFileSync(path.join(dirFor(type), f), "utf8")) as ContentPage);
   } catch {
     return [];
@@ -54,6 +57,7 @@ export function getPageSlugs(type: PageType): string[] {
 }
 
 export function getPage(type: PageType, slug: string): ContentPage | null {
+  if (isRetiredPage(type, slug)) return null;
   const p = path.join(dirFor(type), `${slug}.json`);
   try {
     return JSON.parse(fs.readFileSync(p, "utf8")) as ContentPage;

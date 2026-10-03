@@ -1,0 +1,139 @@
+{
+  "contentSha256": "80252f9fa9e18c61ad35f45fe50413f93a327c0872c90ec650a8e4cb1aa92d39",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "Readers who search for what AI search, generative search or conversational search means want a plain definition, how the technology works, where they will meet it, and whether it changes how a brand has to show up.",
+    "connection": "AI search is the environment AEOeye's audits measure. The page explains how engines retrieve and name brands, shows the opt-outs and first-party reports that matter, and points to testing buyer questions across engines, which is what the free and full audits do."
+  },
+  "assessment": "The page answers what AI search is in its first sentence, treats AI, generative and conversational search as three angles on one shift, walks through the interpret, retrieve, write and cite loop using vendor documentation and primary research, maps each major surface to the crawler or index that feeds it, and argues that AI search replaces the shortlist rather than search itself. It rests on vendor pages read on 2026-10-03, Pew Research's March 2025 browsing study, Google's 2026 announcements and AEOeye's own audit records (small, self-selected, quoted with their caveat, per-engine rates deliberately left out). It does not claim hands-on testing of any crawler, does not rank engines against each other, and drops the unsourced and unverifiable statistics the three merged pages used.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's guide (last updated July 10, 2026): defines RAG (also called grounding) and query fan-out with the weedy-lawn example; eligibility needs an indexed, snippet-eligible page and a site not opted out in Search Console; llms.txt, chunking, AI-only rewrites and special schema are not needed; unique non-commodity content likely matters most; a page per fan-out query made to manipulate responses violates the scaled content abuse policy."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/new-controls-website-owners/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google, June 3, 2026 (updated August 31, 2026): AI Overviews over 2.5 billion monthly active users, AI Mode over one billion monthly users; announces the Search Console control and generative AI insights."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/search-io-2026/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google, May 19, 2026: queries reached an all-time high last quarter; a follow-up can be asked from an AI Overview and continued in AI Mode with context kept; AI Overviews and AI Mode work as one experience."
+    },
+    {
+      "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+      "checkedAt": "2026-10-03",
+      "supports": "Alphabet Q2 2026 CEO remarks (July 22, 2026): Google says it now sends billions of clicks to websites every week through AI features in Search."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew Research (March 2025 browsing data, 900 US adults): 8% vs 15% of visits clicked a traditional result with vs without an AI summary, 1% clicked a link in the summary, 8% of one- or two-word searches vs 53% of ten-plus-word searches produced a summary, median summary 67 words."
+    },
+    {
+      "url": "https://techcrunch.com/2026/02/27/chatgpt-reaches-900m-weekly-active-users",
+      "checkedAt": "2026-10-03",
+      "supports": "TechCrunch, February 27, 2026: OpenAI announced 900 million ChatGPT weekly active users, up from 800 million reported in October 2025."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler documentation: OAI-SearchBot surfaces sites in ChatGPT's search features, sites opted out of it will not be shown in ChatGPT search answers, and ChatGPT-User may visit a page when a user asks."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI API documentation: the model can choose to search the web or not based on the prompt."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/google-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini API documentation: the model analyzes the prompt, decides whether a Google Search can improve the answer, generates and runs queries, and returns a grounded response with citations."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity documentation: PerplexityBot surfaces and links websites in Perplexity search results; Perplexity-User fetches pages when a user asks."
+    },
+    {
+      "url": "https://claude.com/blog/web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic: Claude searches the web when applicable and provides direct citations (March 2025 announcement, updated May 2025)."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic support page: Claude-SearchBot improves search result quality, and disabling it may reduce a site's visibility in user search results."
+    },
+    {
+      "url": "https://blogs.bing.com/search/April-2025/Introducing-Copilot-Search-in-Bing",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft, April 2025: Copilot Search in Bing blends traditional and generative search and cites its sources."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16908024",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console Help: the Search generative AI control lets a site include or exclude itself from AI Overviews, AI Mode and generative AI features in Discover; included by default; rolled out to all websites as of August 31, 2026."
+    },
+    {
+      "url": "https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central blog, June 3, 2026: the Generative AI performance reports show impressions, pages, countries, devices and dates for AI Overviews and AI Mode."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Blog, February 10, 2026: AI Performance in Bing Webmaster Tools (public preview) shows how often content is cited across Microsoft Copilot, Bing AI summaries and select partner integrations."
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "checkedAt": "2026-10-03",
+      "supports": "Lewis et al. (2020): introduces retrieval-augmented generation, combining a model's parametric memory with retrieved non-parametric memory."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): generative engines satisfy queries by synthesizing information from multiple sources and summarizing them with LLMs."
+    },
+    {
+      "url": "https://arxiv.org/abs/2201.08808",
+      "checkedAt": "2026-10-03",
+      "supports": "Zamani et al.: conversational information seeking is a sequence of interactions between users and an information system, primarily based on natural-language dialogue."
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.09848",
+      "checkedAt": "2026-10-03",
+      "supports": "Liu, Zhang and Liang (Findings of EMNLP 2023): in a human evaluation of four generative search engines, 51.5% of generated sentences were fully supported by their citations."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Search_engine",
+      "checkedAt": "2026-10-03",
+      "supports": "Wikipedia: in the 2020s, AI-powered search engines and assistants combine traditional web indexing with large language models to provide conversational responses and summaries."
+    },
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "llms.txt proposal (Jeremy Howard, 2024, modified August 2026): defines the /llms.txt file that the page says Google does not need."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened all 22 URLs cited in the page with WebFetch on 2026-10-03 and kept only claims the fetched page states; for the Search Central post on generative AI performance reports the WebFetch summaries were inconsistent (one listed clicks and CTR the post does not mention), so I re-read the raw page HTML and used only what it says: impressions, pages, countries, devices and dates.",
+    "Writer (Sonnet): checked every number and paraphrase against raw page text rather than summaries: Pew's 8% vs 15% click rates and query-length shares, Google's May, June and July 2026 usage and clicks statements, OpenAI's 900 million weekly users via TechCrunch, the 51.5% citation-support figure, and the OpenAI, Perplexity and Anthropic crawler descriptions.",
+    "Writer (Sonnet): compared the page's AEOeye figures (127 audits, 892 answers, 2.93 competitors per answer shown as 2.9, 71.4% first place among 147 ranked mentions) with public/resources/aeoeye-recommendation-benchmark-2026-09.json and kept its caveats (self-selected brands, repeat audits, unequal engine samples); per-engine rates are deliberately not quoted.",
+    "Writer (Sonnet): read content/blog/generative-search.mdx and content/blog/conversational-search.mdx in full and mapped each point to the new page or dropped it: dropped the Gartner 25% forecast (page returned HTTP 403), Semrush and Ahrefs statistics (vendor sources), the generation-first or retrieval-first labels and the authority-signal paragraph (no vendor documentation), and the FAQPage and Article schema advice (Google says no special schema is needed).",
+    "Writer (Sonnet): found that OpenAI's ChatGPT help-center page and Perplexity's help-center pages return HTTP 403 to WebFetch, so ChatGPT and Perplexity behaviour is cited only from their crawler documentation and OpenAI's API docs; no claim relies on a page I could not open.",
+    "Writer (Sonnet): chose the hero and two inline Pexels photos from the candidate list after confirming each photo page's description with WebFetch, and ran node scripts/content-lint.mjs on the page (no errors or warnings at 1,482 words).",
+    "Editor (Opus): read the complete final draft (both tables, the five-step pipeline, the surfaces table, the four-turn thread example, five moves, five FAQs, alt text) and confirmed answer-first openings and a clear stance (AI search replaces the shortlist, not search)",
+    "Editor (Opus): re-checked all 22 external URLs on 2026-10-03 (21 reachable in the scripted check; the Gemini API docs URL re-verified as HTTP 200 with curl)",
+    "Editor (Opus): confirmed the writer verified Google's 2026 usage figures and the Search Console report scope against raw page text (a WebFetch summary had invented click/CTR fields; the page only claims impressions by page, country, device and date)",
+    "Editor (Opus): matched first-hand figures to the evidence pack (127 audits, 892 answers, 2.9 competitors, 71.4% of 147 with the self-selected caveat; 165→37 consolidation) and AEOeye product claims (free = 3 ChatGPT questions; one-time $29 = 10 questions × five engines); content-lint clean"
+  ],
+  "merged": [
+    "/blog/generative-search",
+    "/blog/conversational-search"
+  ]
+}

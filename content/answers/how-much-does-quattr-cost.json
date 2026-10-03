@@ -1,125 +1,149 @@
 {
  "slug": "how-much-does-quattr-cost",
  "type": "answer",
- "title": "How Much Does Quattr Cost?",
- "metaTitle": "How Much Does Quattr Cost? (2026 Pricing)",
- "metaDescription": "Quattr publishes no prices and gates them behind a demo. Third-party sources report ~$79–$599/mo. Here's what's actually known about Quattr's cost in 2026.",
+ "title": "How Much Does Quattr Cost? What Is Public, and Who It Fits",
+ "metaTitle": "How Much Does Quattr Cost? Quote-Only Pricing Explained",
+ "metaDescription": "Quattr publishes no prices: it is a demo-gated, custom quote as of October 2026. See what is verifiable, what drives cost, and if it fits a small business.",
  "primaryKeyword": "how much does Quattr cost",
- "shortAnswer": "Quattr does not publish prices on its website — its pricing page sends you to \"Book a Demo\" instead. Third-party review sites report paid plans in the range of roughly $79/month (Individual) to $249/month (Pro) to $599/month (Team), with custom enterprise pricing on request. Quattr offers a free trial and a handful of free single-purpose AI SEO tools, but to see real numbers for your account you'll need to book a sales call. Reviewers commonly describe the pricing as \"rather steep for a generative AI platform.\"",
- "intro": "Quattr is an AI-native SEO, AEO, and GEO platform aimed at teams that want to win rankings and citations across Google and AI search. It's a legitimate, well-reviewed tool — but if you're trying to answer the simple question \"how much does it cost?\", you'll hit a wall: there are no prices on Quattr's own site.\n\nThis page lays out exactly what's publicly known about Quattr's pricing in 2026, where the published numbers come from (and why they should be treated as estimates), and how to decide whether it's worth booking the demo. We'll also flag where a free, no-demo option makes sense if you just want a quick read on your AI visibility first.",
+ "shortAnswer": "Quattr does not publish a price. As of 3 October 2026, its pricing page is a “Book a Demo” form, its own comparison page says “Custom pricing,” and Capterra and GetApp list no number, so any dollar figure for Quattr is unverified. Treat it as a quote-based purchase for teams with a search budget. Most small businesses should get a free AI visibility baseline first and book the demo only if a specific job needs Quattr’s execution tools.",
+ "intro": "This guide is based on Quattr’s public pages and third-party listings as of October 2026. We have not tested Quattr hands-on and have no quote from its sales team, so we state only what those pages say.\n\nAn earlier version of this page repeated tier prices ($79, $249 and $599 a month) from review aggregators. We found no current, checkable source for them, so we removed them.",
  "sections": [
   {
-   "heading": "The short version: Quattr's pricing is demo-gated",
-   "body": "Quattr's pricing page (quattr.com/pricing) does not list a single price. Instead it presents a \"Book a Demo\" form with the pitch \"Personalized to your site. 30 seconds to book.\" There are no named tiers, no monthly numbers, and no public feature-by-plan comparison on Quattr's own site.\n\nThat's a deliberate enterprise sales motion: Quattr wants to scope your domains, traffic, and goals before quoting. The upside is you get pricing matched to your situation. The downside — and the reason people search this question — is that you can't compare Quattr against alternatives on cost without first giving up your contact details and sitting through a sales conversation.\n\nSo if your honest goal right now is \"I just want to know the ballpark before I talk to anyone,\" Quattr's site won't give it to you directly. The numbers below come from third-party review platforms, not from Quattr, and should be treated as estimates that may not match your final quote."
+   "heading": "How much does Quattr cost?",
+   "body": "Quattr’s price is custom and quote-only. There are no public tiers, no monthly figure and no self-serve checkout, and that is what Quattr, Capterra and GetApp each show as of 3 October 2026.\n\nWhat you can verify yourself:\n\n- **Quattr’s [pricing page](https://www.quattr.com/pricing)** lists no price or plan. It is a form headed “Personalized to your site. 30 seconds to book,” with three ticks: “No credit card,” “30-min call” and “Free trial included.”\n- **Quattr’s [comparison page](https://www.quattr.com/compare/quattr-vs-profound)** describes its pricing as “Custom pricing (based on your use cases; just pay for features you actually use).”\n- **[Capterra](https://www.capterra.com/p/253750/Quattr/)** says “Contact vendor for pricing” and shows a free trial.\n- **[GetApp](https://www.getapp.com/all-software/a/quattr/)** shows “No pricing info” beside “Starting from.”\n- **The trial route** depends on your use case: Quattr’s FAQ lists a demo, sandbox, free trial, proof of concept or paid pilot.\n\nOne trap: on that comparison page, “Starts at $99/month for SMBs” sits in the Profound column, not Quattr’s. It is Quattr’s claim about a competitor, and we have not checked it against Profound’s own site. It is easy to misread as Quattr’s entry price.\n\nLook-alike names (Quartr, Quartile, Quattro) show up in price searches with their own numbers. Check the domain is quattr.com."
   },
   {
-   "heading": "What third-party sources report (≈$79–$599/month)",
-   "body": "Several review aggregators have published Quattr tier pricing, even though Quattr's own site does not. As of 2026, commonly reported plans are:\n\n- **Individual — ~$79/month:** roughly 80 Copilot drafts/mo, ~10 AI-scored URLs/mo, 1 user, up to 2 domains.\n- **Pro — ~$249/month:** unlimited Copilot drafts, ~30 AI-scored URLs/mo, 2 users, up to 5 domains.\n- **Team — ~$599/month:** unlimited drafts, ~75 AI-scored URLs/mo, 4 users, unlimited domains.\n- **Enterprise — custom:** quoted on request via the demo.\n\nTreat these as directional, not gospel. Because they aren't published by Quattr, they can lag behind current packaging, omit annual discounts, or differ from what sales actually quotes you. Other listings (Capterra, GetApp) simply say \"Contact vendor\" with no number at all, which tells you how inconsistent the public record is. The reliable takeaway: expect a starting point near $79/month and meaningfully higher for multi-domain or team usage."
+   "heading": "What is Quattr, exactly?",
+   "body": "Quattr is an AI search growth platform that tracks your brand in AI answers and Google, then prepares the content, links and fixes to improve it. Its [homepage](https://www.quattr.com/) names ChatGPT, Claude, Gemini, Perplexity and AI Overviews, and says you control what goes live.\n\nIt covers SEO, answer engine optimization (AEO) and [generative engine optimization (GEO)](https://en.wikipedia.org/wiki/Generative_engine_optimization), the practice of improving visibility in AI-generated answers. The public pages describe:\n\n- **Tracking:** citations, mentions, sentiment and competitor presence across those engines.\n- **An agent called GIGA** that prepares page refreshes, new pages and fixes for your review.\n- **Internal linking** that is reversible and sampled before rollout, plus pages that arrive as CMS drafts. The comparison page lists WordPress as the native publishing integration “now.”\n- **First-party data:** Search Console and GA4 joins, so citations can be tied to sessions and conversions.\n- **People:** “Every customer works with a Quattr Strategist.”\n\nIts proof points are its own: 4.9/5 from 65 G2 reviews, and named results from Kiteworks (+79% AI Overview presence) and CloudEagle (3x AI citation share). A March 2026 [press release](https://www.quattr.com/press-release/g2-spring-report-2026) calls the company a platform for “mid-market and enterprise brands.”\n\n![Three colleagues reviewing charts and plans together at a shared desk in a modern office](https://images.pexels.com/photos/8278898/pexels-photo-8278898.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\n**What we saw on quattr.com itself.** In [AEOeye’s crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (3 October 2026), Quattr’s robots.txt blocks no AI bots, it serves no llms.txt (a 404), and its homepage HTML carries Organization and WebSite JSON-LD only. That describes its website, not the product."
   },
   {
-   "heading": "Is Quattr expensive? What reviewers actually say",
-   "body": "The most common pricing critique in independent reviews is that Quattr is \"rather steep for a generative AI platform.\" Reviewers who like the product still note the cost can be hard to justify for solo operators or small sites, and they point to cheaper content-and-SEO tools — Scalenut (Starter around $59/month) and SEO AI among them — when budget is the deciding factor.\n\nThat said, \"expensive\" is relative to what you're replacing. Quattr bundles AI content drafting, automated internal linking, page scoring, and AI-search visibility tracking into one platform with consulting support. If it consolidates two or three separate subscriptions plus freelancer time, the Pro or Team tier can pencil out. If you only need occasional content optimization, paying $249–$599/month is likely overkill.\n\nThe fair verdict: Quattr isn't overpriced for what it is — a full enterprise SEO/AEO suite — but the opacity makes it feel risky, and the entry price is high relative to single-purpose tools."
+   "heading": "What drives Quattr’s price?",
+   "body": "Quattr says price follows your use cases, so the drivers are the modules and scale you switch on. It does not publish which ones move the quote, so read this list as questions for the sales call, not as a rate card.\n\nWhat Quattr’s own pages name:\n\n- **Execution modules:** Optimize Pages, Create & Publish Pages, Internal Linking AI and the Landing Page Generator.\n- **Scale:** multi-domain management, large keyword sets and governance, per its FAQ.\n- **Human help:** a Strategist for every customer, and a “Growth Concierge” for enterprise-scale teams.\n\nOpaque pricing is not a red flag, since enterprise tools scope by site. It is a fit signal: the vendor expects a buyer with a budget line.\n\nAsk these five things before you book:\n\n1. Which modules are in my quote, and which are optional?\n2. Do I pay per domain, prompt, page, seat or a flat fee?\n3. What does the trial include, and who approves it?\n4. What is the minimum term, and what happens at renewal?\n5. What must I supply (data access, CMS access, staff time) before the first result?\n\n"
   },
   {
-   "heading": "Free options: trial and standalone tools",
-   "body": "Quattr does offer ways to touch the product before paying, though both come with limits:\n\n- **Free trial:** A trial is bundled with the demo signup (reviews reference a roughly 14-day window). You generally still go through the demo/contact step to start it.\n- **Free AI SEO tools:** Quattr publishes several free single-purpose utilities — a title generator, heading generator, meta-description generator, and keyword research tool, among others. These are genuinely free and useful for one-off tasks, but they're not the full platform and don't include the visibility tracking, scoring, or automation that justify the paid tiers.\n\nSo there is a free on-ramp, but the meaningful evaluation — your real domains, your real rankings, your real AI-search visibility — still sits behind the demo gate and, ultimately, a paid plan."
+   "heading": "Is Quattr a good fit for a small business?",
+   "body": "Usually not as a first purchase. Quattr positions itself for mid-market and enterprise teams, and most of its value is execution at a scale a small site cannot yet use. It can fit a small business that already runs a real SEO program and has a platform budget.\n\nThe public evidence points both ways:\n\n- **Against:** the March 2026 [press release](https://www.quattr.com/press-release/g2-spring-report-2026) says it is built for “mid-market and enterprise brands,” and entry is a sales call.\n- **For:** [Capterra](https://www.capterra.com/p/253750/Quattr/) lists “Freelancers, Small businesses, Mid size businesses, Enterprises” as typical users. The demo form has a “1-50 employees” option. The press release also says G2 rated it a High Performer in Content Creation across Enterprise, Mid-Market and Small-Business segments.\n\nSmall companies are welcome. The question is whether you can use what you would pay for.\n\n![Young professionals discussing work around a table in a bright startup workspace](https://images.pexels.com/photos/39190475/pexels-photo-39190475.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\nOur position is that most small businesses have a presence problem, not a tracking problem. In [AEOeye’s recommendation benchmark](/resources/aeoeye-recommendation-benchmark-2026-09.json) (127 audits, 27 brand names, 892 answers, June to September 2026), a brand was named in 17.6% of answers. That sample is small and self-selected, so it is not an industry average, but it shows the shape of the problem: in most answers the brand is simply absent.\n\nA tracker measures that gap; it does not close it. Execution tools can, but only with enough pages for internal linking and testing to matter.\n\nWe could not read G2 review text (G2 blocks automated fetches), so we do not quote reviewers on setup. From Quattr’s own pages we infer real work: connecting Search Console, GA4 and a CMS, then reviewing prepared changes. Plan on hours from someone who owns SEO.\n\n**Quattr fits you if all of these are true:**\n\n- Someone owns SEO and will use the platform weekly.\n- Your site is large enough that hand-built internal linking and refreshes are a chore.\n- Your CMS is WordPress, the one native integration its comparison page names.\n- You have already confirmed an AI visibility gap.\n\n**Skip it for now if** you do not know whether AI engines name you, you run marketing alone, or you need a price before any call."
   },
   {
-   "heading": "If you just want a fast read on your AI visibility first",
-   "body": "A lot of people searching \"how much does Quattr cost\" aren't really shopping for an enterprise SEO suite yet — they want to know whether AI engines like ChatGPT, Perplexity, Google AI, Claude, and Gemini currently recommend their brand, and who's beating them. You don't need to book a demo to answer that.\n\n**AEOeye** runs a free, instant, blind multi-engine AI-visibility audit: it asks those five engines the questions real buyers ask and shows whether your brand gets recommended, where it ranks, and which competitors win — in seconds, with no demo, no sales call, and no contract. It's a fast, honest baseline you can run before deciding whether a paid platform like Quattr is worth the spend.\n\nBe clear on the trade-off, though: AEOeye is newer and lighter on enterprise analytics and long-term historical dashboards than Quattr, and its deeper multi-engine querying ramps up with usage. If you need a full content-production and large-scale SEO workflow with consulting, Quattr is the heavier, more complete platform. If you want to see where you stand today without a sales gate, start free with AEOeye, then book Quattr's demo if the data says you need that depth."
-  }
- ],
- "keyTakeaways": [
-  "Quattr publishes no prices on its own website — its pricing page routes you to \"Book a Demo\" instead.",
-  "Third-party review sites report tiers of roughly $79/mo (Individual), $249/mo (Pro), and $599/mo (Team), plus custom enterprise pricing; treat these as estimates, not official figures.",
-  "Reviewers commonly call Quattr's pricing \"rather steep for a generative AI platform\" versus cheaper tools like Scalenut (~$59/mo).",
-  "Quattr offers a free trial (typically tied to the demo) and several genuinely free single-purpose AI SEO tools, but the full platform stays behind the demo gate.",
-  "The opacity is the real friction: you can't compare Quattr on cost without giving up contact info and taking a sales call.",
-  "If you just want to know whether AI engines recommend your brand today, AEOeye gives a free, instant multi-engine audit with no demo or contract — a good baseline before paying for an enterprise suite."
- ],
- "faqs": [
-  {
-   "q": "Does Quattr show pricing on its website?",
-   "a": "No. Quattr's pricing page does not list any prices or named plans. It presents a \"Book a Demo\" form and says pricing is personalized to your site, so you have to go through a sales call to get real numbers."
-  },
-  {
-   "q": "How much does Quattr cost per month?",
-   "a": "Quattr doesn't publish this, but third-party review sites report approximately $79/month for an Individual plan, $249/month for Pro, and $599/month for Team, with custom enterprise pricing on request. Because these come from aggregators rather than Quattr, treat them as estimates."
-  },
-  {
-   "q": "Is Quattr expensive compared to other SEO tools?",
-   "a": "Reviewers frequently describe Quattr's pricing as \"rather steep for a generative AI platform\" and point to cheaper alternatives like Scalenut (around $59/month) for budget-conscious users. Whether it's worth it depends on whether Quattr replaces several other tools and freelance work for your team."
-  },
-  {
-   "q": "Does Quattr have a free trial or free version?",
-   "a": "Yes to both, with limits. A free trial (reviews cite roughly 14 days) is bundled with the demo signup, and Quattr also offers several free standalone AI SEO tools like a title generator and meta-description generator. The full platform still requires a paid plan after the trial."
-  },
-  {
-   "q": "How can I check my AI search visibility without booking a demo?",
-   "a": "AEOeye runs a free, instant, blind multi-engine AI-visibility audit across ChatGPT, Perplexity, Google AI, Claude, and Gemini — no demo, sales call, or contract. It's a fast baseline to see whether AI engines recommend your brand before deciding if you need a heavier platform like Quattr."
+   "heading": "What are cheaper ways to start?",
+   "body": "Start with a free baseline, fix what it shows, and add paid tooling only when a specific job demands it. Each step below costs less than a demo cycle and shows whether you need Quattr at all.\n\n1. **Run the free audit ($0).** [AEOeye’s free audit](/) asks ChatGPT three unbranded buyer questions live and shows the full answers, the competitors it recommends instead, and starter fixes.\n2. **Check other engines by hand.** Our [free AI visibility checker guide](/blog/free-ai-visibility-checker) shows how.\n3. **Fix the fundamentals.** Google says there are [“no additional requirements”](https://developers.google.com/search/docs/appearance/ai-features) for AI Overviews or AI Mode and no special markup to add, and that AI-feature traffic is counted in Search Console. Quattr’s own [free AI SEO tools](https://www.quattr.com/ai-seo-tools) (title, H1, URL and meta description generators) cover on-page basics.\n4. **Buy the one-time report ($29).** It adds Claude, Gemini, Google AI and Perplexity, ten questions instead of three, and a full fix roadmap. There is no subscription.\n5. **Add monitoring only if you need it.** [Otterly’s Lite plan](https://otterly.ai/pricing) lists $29 a month (monthly billing, checked 3 October 2026) for 15 prompts across ChatGPT, Google AI Overviews, Perplexity and Microsoft Copilot, with Claude, Gemini and AI Mode as paid add-ons.\n\nAEOeye is not a daily tracker and does not write your content. For the wider field, see [best AI visibility tools](/blog/best-ai-visibility-tools), [Quattr alternatives](/alternatives/quattr) and [AEOeye vs Quattr](/vs/quattr).\n\n![Three professionals working on laptops and documents in a stylish office](https://images.pexels.com/photos/7654133/pexels-photo-7654133.jpeg?auto=compress&cs=tinysrgb&w=1200)\n\nBook the demo when you have a baseline, an owner, and a job of execution volume (refreshing and linking hundreds of pages) rather than measurement."
   }
  ],
  "comparisonTable": {
   "columns": [
-   "Quattr",
-   "AEOeye"
+   "Cost (checked 3 Oct 2026)",
+   "What you get",
+   "Best when"
   ],
   "rows": [
    {
-    "label": "Pricing visibility",
+    "label": "Quattr platform",
     "values": [
-     "No public prices; demo-gated",
-     "Free to start, no demo"
+     "Custom quote after a demo; no public price",
+     "AI visibility tracking plus content, linking and publishing tools, with a Strategist",
+     "A team owns SEO and has a confirmed gap to close at scale"
     ]
    },
    {
-    "label": "Reported cost",
+    "label": "Quattr free AI SEO tools",
     "values": [
-     "~$79–$599/mo (third-party); custom enterprise",
-     "Free instant audit"
+     "$0",
+     "Title, H1, URL and meta description generators",
+     "You want on-page basics and nothing more"
     ]
    },
    {
-    "label": "Time to first value",
+    "label": "AEOeye free audit",
     "values": [
-     "Book a demo / sales call first",
-     "Seconds"
+     "$0",
+     "3 buyer questions on ChatGPT, full answers, competitors, starter fixes",
+     "You want a baseline before spending anything"
     ]
    },
    {
-    "label": "What it does",
+    "label": "AEOeye full report",
     "values": [
-     "Full AI-native SEO/AEO/GEO suite: content drafting, linking, scoring, consulting",
-     "Blind multi-engine AI-visibility audit across 5 engines"
+     "$29 one-time",
+     "10 questions across 5 engines and a fix roadmap",
+     "You want a broader one-off picture, not monitoring"
     ]
    },
    {
-    "label": "Multi-engine AI audit",
+    "label": "Otterly Lite",
     "values": [
-     "Tracks AI search visibility within platform",
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini"
-    ]
-   },
-   {
-    "label": "Best for",
-    "values": [
-     "Teams wanting a full content + SEO workflow with support",
-     "Quick, honest read on AI recommendations before committing"
-    ]
-   },
-   {
-    "label": "Limitations",
-    "values": [
-     "Opaque pricing; entry price high vs single-purpose tools",
-     "Newer; lighter on enterprise analytics/historical dashboards"
+     "$29 per month (monthly billing)",
+     "15 prompts, 4 engines, daily tracking",
+     "You need ongoing monitoring on a small budget"
     ]
    }
   ]
  },
+ "keyTakeaways": [
+  "Quattr publishes no price: its pricing page is a demo form, and Capterra and GetApp show none (checked 3 October 2026).",
+  "Ignore circulating figures of $79, $249, $599 or $99 a month. We could not verify them, and the $99 on Quattr’s own page sits in Profound’s column.",
+  "Price follows your use cases, so ask which modules, scale unit and minimum term your quote assumes.",
+  "Quattr suits teams with an SEO owner, a large WordPress site and a confirmed gap; most small businesses should start free."
+ ],
+ "faqs": [
+  {
+   "q": "Does Quattr publish its pricing?",
+   "a": "No. As of 3 October 2026, Quattr’s pricing page shows only a demo request form, and its comparison page calls its pricing “Custom.” Capterra says “Contact vendor for pricing,” and GetApp shows “No pricing info.” To get a number you need a quote from Quattr’s team."
+  },
+  {
+   "q": "Is $99 a month the price of Quattr?",
+   "a": "We could not verify that. The only “$99/month for SMBs” we found on quattr.com sits in the Profound column of Quattr’s own Quattr-versus-Profound comparison table. It is Quattr’s claim about Profound, and we did not check it against Profound’s site. It is not a Quattr list price."
+  },
+  {
+   "q": "Does Quattr have a free trial?",
+   "a": "Quattr’s demo page ticks “Free trial included” and “No credit card,” and Capterra shows a free trial. Quattr’s FAQ says the offer depends on your use case and buying process, from a demo or sandbox to a proof of concept or paid pilot. Ask what your trial includes and who approves it."
+  },
+  {
+   "q": "Is Quattr good for a small business?",
+   "a": "Rarely as a first purchase. Quattr describes itself as built for mid-market and enterprise brands, and its value is execution at scale. A small business with an SEO owner, a large WordPress site and budget can fit. Otherwise, run a free baseline first and book a demo only for a specific execution job."
+  },
+  {
+   "q": "What is a cheaper way to check my AI visibility than booking a demo?",
+   "a": "Run AEOeye’s free audit, which asks ChatGPT three buyer questions and shows the full answers and the competitors named instead. Add the $29 one-time report for Claude, Gemini, Google AI and Perplexity. For ongoing monitoring, trackers with public prices, such as Otterly’s $29 monthly Lite plan, exist."
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/8441818/pexels-photo-8441818.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Professional in blue shirt reviewing documents next to laptop displaying charts.",
-  "photographer": "Kampus Production",
-  "photographerUrl": "https://www.pexels.com/@kampus"
- }
+  "url": "https://images.pexels.com/photos/5900228/pexels-photo-5900228.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Hands handling cash and a calculator while planning a budget",
+  "photographer": "https://kaboompics.com/",
+  "photographerUrl": "https://www.pexels.com/@karola-g"
+ },
+ "definitions": [
+  {
+   "term": "Generative engine optimization (GEO)",
+   "definition": "The practice of improving a brand’s visibility in responses that generative AI systems produce, such as ChatGPT or Google AI Overviews answers.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
+  }
+ ],
+ "sources": [
+  {
+   "label": "Quattr — Pricing (demo request page)",
+   "url": "https://www.quattr.com/pricing"
+  },
+  {
+   "label": "Quattr — Quattr vs Profound comparison",
+   "url": "https://www.quattr.com/compare/quattr-vs-profound"
+  },
+  {
+   "label": "Quattr — G2 Spring 2026 press release",
+   "url": "https://www.quattr.com/press-release/g2-spring-report-2026"
+  },
+  {
+   "label": "Capterra — Quattr listing",
+   "url": "https://www.capterra.com/p/253750/Quattr/"
+  },
+  {
+   "label": "Otterly.AI — Pricing",
+   "url": "https://otterly.ai/pricing"
+  },
+  {
+   "label": "Google Search Central — AI features and your website",
+   "url": "https://developers.google.com/search/docs/appearance/ai-features"
+  }
+ ],
+ "updated": "2026-10-03"
 }

@@ -1,106 +1,116 @@
 ---
-title: "Why AI Doesn't Mention Your Brand (And How to Fix It)"
-description: "AI assistants skip your brand for five fixable reasons: thin content, no third-party mentions, missing schema, fuzzy category, or dominant rivals. Here's"
-date: "2026-06-25"
+title: "Why AI Doesn't Mention Your Brand: 5 Causes and Fixes"
+description: "AI skips your brand when it can't reach your site, can't tell what you are, or finds nobody else naming you. Test each cause in 15 minutes, then fix it."
+date: "2026-10-03"
+published: "2026-06-25"
 category: "Strategy"
-readingTime: "8 min read"
-keywords: ["AEO", "answer engine optimization", "AI brand visibility", "why AI doesn't mention my brand", "ChatGPT brand recommendations", "third-party mentions", "structured data AEO", "AI search optimization", "Perplexity visibility", "brand corpus"]
-faqs: [{"q": "Why does ChatGPT recommend my competitors but never mention my brand?", "a": "Usually because the model's training corpus and live retrieval contain far more independent, third-party references to your competitors — reviews, roundups, community discussion — than to you. Models weight what others say about a brand more heavily than what the brand says about itself, so even strong on-site content loses to a rival who simply gets talked about more across the web."}, {"q": "Does structured data actually help AI assistants mention my brand?", "a": "Yes, indirectly but meaningfully. JSON-LD schema (Organization, Product, FAQPage) hands machines clean, unambiguous facts about who you are, what you sell, and for whom. It won't single-handedly make you the recommended answer, but it removes parsing friction and ensures live-retrieval systems can extract accurate facts instead of guessing or skipping you."}, {"q": "How do I check whether AI models even know my brand exists?", "a": "Ask ChatGPT, Perplexity, Gemini, and Claude your top category questions, plus the direct prompt 'What do you know about [your brand]?' Note where you appear, where competitors appear instead, and any inaccuracies. Also run a search for your brand excluding your own domain to gauge your third-party footprint. AEOeye's free audit automates this sweep across the major assistants."}, {"q": "I'm a small brand competing against category giants. Is AEO even worth it?", "a": "Yes, but don't fight head-on for generic queries the incumbents own. Target modifier queries with specific intent — 'best [tool] for [narrow audience or use case].' These have far less corpus competition, sharper buyer intent, and a focused product is genuinely the better answer, making it realistic to become the named recommendation."}, {"q": "How long does it take to start showing up in AI answers?", "a": "Crawlability and schema fixes can register within weeks once pages are re-crawled. Category clarity compounds over a couple of months. The slow lever — building third-party mentions through reviews, roundups, and community presence — typically takes several months to meaningfully shift what models say, because it depends on independent sources accumulating and being absorbed into the corpus."}]
-image: {"url": "https://images.pexels.com/photos/6029065/pexels-photo-6029065.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Overhead view of a frustrated woman in loungewear with a laptop and crumpled papers, facing remote work stress.", "photographer": "www.kaboompics.com", "photographerUrl": "https://www.pexels.com/@karola-g"}
+readingTime: "6 min read"
+keywords: ["why doesn't ai mention my brand", "why doesn't ai match my brand", "why does chatgpt not recommend my brand", "why does ai recommend my competitors", "brand invisible to ai", "get my brand mentioned by ai", "ai brand visibility", "ai crawler blocked"]
+faqs: [{"q": "Why does ChatGPT recommend my competitors but never my brand?", "a": "Usually because independent sources name your competitors more often than they name you. Research on AI search found a strong bias toward earned media over brand-owned content, so reviews, roundups and community threads count for more than your own pages. First rule out the cheap causes: crawler access, indexing and an unclear category."}, {"q": "Does blocking GPTBot make my brand invisible in ChatGPT?", "a": "Not in ChatGPT search. OpenAI says GPTBot (training) and OAI-SearchBot (search) are independent robots.txt settings, so you can block one and allow the other. Blocking OAI-SearchBot is what can keep you out of ChatGPT search results. Check which of the two your robots.txt actually names."}, {"q": "Will adding structured data make AI mention my brand?", "a": "Not by itself. Google says no special schema.org markup is needed to appear in AI Overviews or AI Mode, and that it never guarantees features that use structured data. Organization markup with sameAs links does help engines tell your brand from similarly named ones, so treat it as identity hygiene, not a ranking lever."}, {"q": "How long until AI starts mentioning my brand?", "a": "It depends on the cause, and nobody can promise a date. Access fixes can take effect fast: OpenAI says robots.txt changes take about 24 hours to be picked up for search. Building independent mentions is the slow lever, and we have no measured timeline for it, so re-test the same questions monthly."}, {"q": "I'm small and my competitors are giants. Is this winnable?", "a": "Yes, on narrower questions. You rarely beat an incumbent on 'best CRM', but you can be the obvious answer to 'best CRM for solo real-estate agents'. Pick the two or three specific buyer questions where your product is genuinely the better fit, and earn independent mentions for exactly those."}]
+image: {"url": "https://images.pexels.com/photos/36507933/pexels-photo-36507933.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Yellow letter tiles spelling 'why?' on a green blurred background.", "photographer": "Magda Ehlers", "photographerUrl": "https://www.pexels.com/@magda-ehlers-pexels"}
+sources: [{"label": "OpenAI — Overview of OpenAI crawlers", "url": "https://developers.openai.com/api/docs/bots"}, {"label": "Google Search Central — AI features and your website", "url": "https://developers.google.com/search/docs/appearance/ai-features"}, {"label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (arXiv)", "url": "https://arxiv.org/abs/2509.08919"}, {"label": "IETF — RFC 9309: Robots Exclusion Protocol", "url": "https://www.rfc-editor.org/rfc/rfc9309"}, {"label": "Perplexity — Perplexity crawlers", "url": "https://docs.perplexity.ai/guides/bots"}, {"label": "SparkToro — AIs are highly inconsistent when recommending brands", "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"}]
 ---
 
-Type a question into ChatGPT or Perplexity — "best project management tool for agencies," "top CRMs for solar installers," "what's a good alternative to Mailchimp" — and watch what comes back. If your brand isn't in the answer, you're not losing a ranking. You're losing the recommendation itself. There's no second page to scroll to. There's the answer, and there's everything the model decided not to say.
+AI usually skips a brand for one of five reasons, and most of them are not on your website. The engine can't reach or index your pages, it can't tell what category you belong to, nobody independent names you, your own pages bury the facts, or the facts it holds are stale.
 
-This is a different game than SEO, and most brands are losing it for reasons they can't see. Let me walk through the actual causes, in roughly the order I find them when I audit a brand, and what to do about each.
+Our position: it is usually the rest of the web, not your site. Each cause below has a test that takes minutes.
 
-## First, understand what the model is actually doing
+## Why doesn't AI mention my brand?
 
-An LLM answering "best X for Y" isn't querying a live index. It's reconstructing a consensus from its training data and, when retrieval is on (Perplexity, AI Overviews, ChatGPT with search), pulling a handful of fresh pages to ground the answer. To get named, your brand has to exist in two places: the **frozen corpus** the model learned from, and the **live documents** it can fetch in the moment.
+An engine names a brand only if it can reach it, identify it and find it corroborated elsewhere. A failure at any of those three steps leaves you out of the answer. We rank causes by how likely they are and how cheap they are to rule out:
 
-Most invisibility traces back to a brand being thin or absent in one or both. Here's how that happens.
+1. **Access:** the engine can't fetch or index your pages.
+2. **Identity:** it can't tell what you are or who you're for.
+3. **Corroboration:** nobody independent writes about you.
+4. **Clarity:** your own pages don't state the facts plainly.
+5. **Freshness:** the facts it holds are old or conflicting.
 
-## Reason 1: Your web presence is thin and self-referential
+Engines answer from two places: what the model absorbed in training, and, when search is on, pages fetched live through [retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) (RAG). Access problems hit the live layer. Identity and corroboration problems hit both.
 
-The most common pattern I see: a company has a slick homepage, a pricing page, maybe a blog with twelve posts, and almost nothing else. From a model's perspective, that brand barely exists. There isn't enough text describing what you do, for whom, and why you're different, for the model to form a confident representation.
+One caution: answers vary. [SparkToro's study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) of 2,961 runs (November to December 2025) found under a 1-in-100 chance that ChatGPT or Google's AI returns the same brand list twice. Ask every question several times before you conclude anything.
 
-Worse, everything that *does* exist is in your own voice. Marketing copy on your own domain is the least trustworthy signal a model has, because every company claims to be the best, fastest, most loved. The model has learned to discount it.
+![A magnifying glass held over a printed page, used here as a picture of checking for what is actually there](https://images.pexels.com/photos/7188801/pexels-photo-7188801.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-### The fix
+## Is something blocking AI engines from reading my site? (Test this first)
 
-Produce real, specific, useful content that describes your category and your place in it — not slogans. Pages that answer the exact questions buyers ask: comparisons, "how to choose," use-case breakdowns, integration guides, honest limitations. The goal isn't keyword coverage. It's giving the model unambiguous, repeated, concrete statements it can absorb: *this product does X, for Y type of customer, and is known for Z.*
+Check access first: it is the cheapest cause to rule out and the only one where a single setting can make you invisible overnight. For live answers, three things must hold. The engine's search crawler may fetch you, your firewall lets it through, and your page is indexed.
 
-A test I use: read your own site as if you'd never heard of the company. Could you state, in one sentence, what category it competes in and who it's for? If you hesitate, the model is hesitating too.
+- **robots.txt names the right bot.** OpenAI says [OAI-SearchBot is for search and GPTBot for training, and each setting is independent](https://developers.openai.com/api/docs/bots). Anthropic says [disabling Claude-SearchBot may reduce your visibility in Claude's search results](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler). Perplexity says [PerplexityBot surfaces sites in its results and is not used for foundation-model training](https://docs.perplexity.ai/guides/bots).
+- **A broken robots.txt blocks everything.** Under [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309), a crawler that can't retrieve robots.txt because of a server error must assume complete disallow.
+- **Your firewall lets the bots in.** Perplexity notes that sites behind a web application firewall [may need to allowlist its bots explicitly](https://docs.perplexity.ai/guides/bots), and OpenAI recommends allowing its published IP ranges. Cloudflare announced on 1 July 2025 that it was [changing its default to block AI crawlers](https://blog.cloudflare.com/content-independence-day-no-ai-crawl-without-compensation/), so a setting you never touched may have changed.
+- **The page is indexed.** Google says a page must be [indexed and eligible to show with a snippet](https://developers.google.com/search/docs/appearance/ai-features) to appear as a supporting link in AI Overviews or AI Mode. Bing Webmaster Tools added an [AI Performance report](https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview) in February 2026 that counts citations in Copilot and Bing's AI summaries.
+- **Key facts are in the HTML.** A December 2024 [Vercel analysis](https://vercel.com/blog/the-rise-of-the-ai-crawler) found OpenAI and Anthropic crawlers fetch JavaScript files but don't execute them, so client-side-only pricing or product text may be invisible to them.
 
-## Reason 2: No third-party mentions — nobody else talks about you
+In AEOeye's crawler access study (October 2026), only 1 of 193 SaaS sites and 4 of 90 e-commerce and consumer brands blocked any AI retrieval bot, against 27 of 38 news publishers. For a brand, robots.txt is rarely the culprit. The firewall might be: 24 of 88 e-commerce homepages (27.3%) blocked or challenged our self-identified research crawler.
 
-This is the big one, and it's where most of the gap lives.
+That is our crawler, not OpenAI's, on a convenience sample ([per-site data](/resources/ai-crawler-access-study-2026-10.csv), [bot directory and method](/blog/ai-crawler-user-agent-directory)). But it is the failure robots.txt hides. Search your WAF or CDN logs for OAI-SearchBot, PerplexityBot and Claude-SearchBot and look for 403 and 429 responses.
 
-Models trust corroboration. When ten independent sources — a Reddit thread, a G2 review, a roundup post on someone else's blog, a Substack newsletter, a YouTube transcript — all mention your brand in the same category, that repetition becomes the model's belief. When the only place your name appears is your own domain, you're a rumor, not a fact.
+![Close-up macro photograph of a human eye, used to illustrate whether an engine can see your pages](https://images.pexels.com/photos/2453727/pexels-photo-2453727.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-> Here's the opinion I'll stake my name on: in AEO, what others say about you matters more than anything you publish yourself. You can write the best content on the internet about your own product and still be invisible, because the model weights independent corroboration far above self-description. The brands winning AI recommendations didn't out-write their competitors. They got talked about more.
+## Why does AI recommend my competitors instead of me?
 
-This is uncomfortable for marketers who are used to controlling the message. You don't control this. You influence it.
+Because independent sources name them more often than they name you. A 2025 study of AI search by Chen and colleagues found [a systematic and overwhelming bias towards earned media over brand-owned and social content](https://arxiv.org/abs/2509.08919), a stark contrast to Google's mix. 
 
-### The fix
+In AEOeye's recommendation benchmark (127 audits, 892 engine answers, June to September 2026), the brand was named in 17.6% of answers. Answers listed 2.9 competitors on average, and a ranked brand was first in 71.4% of 147 cases. Being named at all is the hard part. The sample is small and self-selected, so we don't compare engines with it ([method](/blog/ai-brand-recommendation-measurement)).
 
-Go where the corpus is actually built:
+What moves it, in our view:
 
-- **Get into the listicles and roundups** that already rank for your category. "Best [category] tools 2026" posts are training data and live-retrieval fodder at once. Pitch the authors. Offer them something real.
-- **Earn reviews on third-party platforms** — G2, Capterra, Trustpilot, industry-specific directories. These get scraped, cited, and quoted constantly.
-- **Show up in community discussion.** Reddit, Hacker News, niche Slack/Discord communities, Stack Overflow if you're technical. Models lean heavily on these because the language is candid and comparative. You can't fake this, but you can participate honestly and be worth mentioning.
-- **Get a few earned-media or guest pieces** on domains the model already trusts.
+- **Get into the lists your buyer's query already retrieves.** Find the "best X for Y" roundups and pitch their authors with something real.
+- **Earn reviews and community mentions** on the platforms in your category, honestly, not astroturfed.
+- **Win narrow questions, not the head term.** You rarely beat an incumbent on "best CRM", but you can own "best CRM for solo real-estate agents".
 
-One genuinely useful mention on a respected third-party site moves the needle more than fifty pages on your own blog. Budget accordingly.
+Fifty more posts on your own blog is the wrong fix. See how [engines choose which brands to recommend](/blog/how-ai-assistants-choose-brands) and why [brand mentions beat backlinks in AI search](/blog/brand-mentions).
 
-## Reason 3: No structured data, so machines can't parse you
+## Is my category or brand name ambiguous to AI?
 
-A surprising number of brands publish facts a human can read but a machine can't reliably extract. No Organization schema, no Product markup, no FAQ schema, founders and pricing buried in JavaScript or images, a robots.txt or anti-bot setup that quietly blocks the very crawlers that feed AI systems.
+Probably, if you describe yourself in invented terms or share a name with something else. Engines must tie each mention to one entity, and as Wikipedia notes, [entity names are often homonyms or polysemous](https://en.wikipedia.org/wiki/Entity_linking). "Growth platform" files you nowhere; "email marketing software for online stores" files you somewhere.
 
-If GPTBot, ClaudeBot, PerplexityBot, and Google's crawlers can't fetch and parse your pages, you've opted out of live retrieval without realizing it.
+Test it in three fresh chats: ask "What is [your brand]?" and "What does [your brand] do?" Then read your homepage as a stranger. If you can't state your category and customer in one sentence, neither can the model.
 
-### The fix
+Fix it in plain words:
 
-- Add **JSON-LD structured data**: `Organization`, `Product`, `FAQPage`, `Article` where relevant. This is the most literal way to hand a machine clean facts.
-- Make sure your **most important claims live in plain HTML text**, not trapped in images or rendered only via client-side JS.
-- **Audit your robots.txt and CDN bot rules.** Confirm you're allowing the AI crawlers you want. Many brands block them by accident through aggressive bot protection.
-- Keep an up-to-date, factual **"About"** page with founding date, location, leadership, and a crisp category statement. Models reach for these constantly.
+1. Put the literal category and audience in the first screen of your homepage and About page.
+2. Add Organization markup with [sameAs](https://schema.org/sameAs) links to your official profiles. Google says Organization markup can [help disambiguate your organization](https://developers.google.com/search/docs/appearance/structured-data/organization), but doesn't guarantee any feature.
+3. Repeat the same category wording on every profile you control.
 
-This is the cheapest category of fix — mostly a few hours of engineering — and the one most often skipped.
+In our study 70.2% of 312 fetched homepages carried Organization schema and 60.9% carried sameAs links, so markup is table stakes, not an edge.
 
-## Reason 4: Your category is ambiguous
+## Why does AI get facts about my brand wrong?
 
-Some brands are invisible not because they're unknown but because the model can't figure out *what to recommend them for*. You call yourself a "growth platform" or a "revenue operating system." Nobody searches for that. The model has no clean slot to file you under, so when someone asks for a concrete category, you don't surface.
+Because it reads old or conflicting copies of your facts. Wikipedia notes that when sources conflict, RAG systems may [merge outdated and updated details](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) into one misleading answer. Your pricing page says one thing, a review site and a 2023 press release say others.
 
-Ambiguity is death in answer engines, because the model is matching a specific question to specific entities. If your identity is a fog of invented terminology, you lose to the competitor who plainly says "email marketing software for ecommerce."
+The fix is dull and decisive:
 
-### The fix
+- Publish one canonical, dated page for pricing, plans, location and category, in plain HTML.
+- Update every third-party profile you control to match it.
+- Redirect retired product names.
 
-Pick the category your buyers actually use and own it relentlessly. Use the words real people type. You can have a grander vision in your hero copy, but somewhere prominent and machine-readable, state the boring, literal category. Then reinforce it everywhere — third-party mentions, schema, comparison content — so the association hardens. Specificity beats aspiration every time a model is choosing what to name.
+Our step-by-step method is in [how to fix AI getting your brand wrong](/guides/how-to-fix-ai-getting-your-brand-wrong).
 
-## Reason 5: Competitors already own the corpus
+## How do I diagnose which reason applies in 15 minutes?
 
-Sometimes you've done a lot right and still lose, because two or three incumbents are mentioned so often that they've become the default answer. Ask for "best CRM" and you'll get the same names every time. The model's prior is overwhelmingly stacked toward them.
+Match what you see to the table, run the test, and fix only the row that fits. Most brands have one dominant cause.
 
-You will not dislodge that head-on. What you *can* do is win the **modifier queries** — the long tail where intent is specific and the giants are too generic to be the right answer.
+| Symptom | Likely cause | 5-minute test | Fix |
+|---|---|---|---|
+| Absent even when asked by name | Access | robots.txt, WAF logs, index status | Allow search bots, fix indexing |
+| Confused with another company | Identity | "What is [brand]?" in three fresh chats | Literal category, Organization + sameAs |
+| Known by name, absent from "best X for Y" | Corroboration | Search "[brand]" -site:yourdomain.com | Earn list, review and community mentions |
+| Named, but price or features wrong | Freshness | Compare answer with your pricing page | One canonical page, update profiles |
+| Right in some runs, missing in others | Variance | Repeat each question five times | Track the rate, not one run |
 
-### The fix
+![A woman smiling while holding a magnifying glass, representing a hands-on check of your own brand](https://images.pexels.com/photos/8514585/pexels-photo-8514585.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-Target the qualified questions: "best CRM **for solo real estate agents**," "Mailchimp alternative **for nonprofits**," "project management tool **for video production teams**." These have less competition in the corpus, the asker has sharper intent, and a focused product is genuinely the better answer. Build content and earn mentions around those specific phrasings. You're not trying to be the best CRM. You're trying to be the obvious answer to a narrower question — and there are hundreds of those.
+If you'd rather not run it by hand, AEOeye's [free audit](/) asks ChatGPT three unbranded buyer questions live, shows the full answers and the competitors it recommends instead, and lists starter fixes. The $29 report adds Claude, Gemini, Google AI and Perplexity with 10 questions. It is a one-time check, not a daily tracker.
 
-## How to diagnose which of these is hurting you
+## In what order should I fix things?
 
-Don't guess. Do this in an afternoon:
+Fix access first, then identity, then facts, then your own pages, then the slow work of independent mentions. Nothing else matters if engines can't fetch you.
 
-1. **Interrogate the models directly.** Ask ChatGPT, Perplexity, Gemini, and Claude your top ten category questions. Note when you appear, when a competitor does, and — revealingly — what the model says when you ask it point-blank, "What do you know about [your brand]?" The gaps and the inaccuracies are your roadmap.
-2. **Search your brand minus your own domain.** A `yourbrand -site:yourdomain.com` query shows you how much of the world actually talks about you. If it's sparse, Reason 2 is your problem.
-3. **Check your crawlability.** Confirm the AI bots aren't blocked and your key facts are in parseable HTML with schema.
+1. **Access (an afternoon).** Allow the search bots, fix the firewall, confirm indexing. OpenAI says robots.txt changes take about 24 hours to be picked up for search.
+2. **Identity (a few days).** Literal category, Organization markup, consistent profiles.
+3. **Facts (a few days).** One canonical page, third-party profiles aligned.
+4. **Your pages (weeks).** Lead with the answer, keep facts in HTML. Google says [no special markup is needed](https://developers.google.com/search/docs/appearance/ai-features) for AI features, so don't chase tricks.
+5. **Independent mentions (months).** Slowest and decisive. We have no measured timeline, so distrust anyone who sells one.
 
-If you'd rather not run all of this by hand, [AEOeye's free audit](https://aeoeye.com) does exactly this sweep — it tests your brand across the major assistants, shows where competitors are being named instead of you, and flags the structural gaps (missing schema, thin third-party footprint, blocked crawlers) behind the silence. It's the fastest way to turn "AI never mentions us" into a specific, ranked list of what to fix.
-
-## The order of operations that actually works
-
-If I had to sequence the work for a brand starting from near-zero:
-
-First, fix crawlability and structured data — it's quick and it unblocks everything downstream. Second, nail your category language so every signal points the same direction. Third — and this is where the real time and money go — invest in third-party presence: reviews, roundups, community, earned media. That's the lever, and it's the slowest, which is exactly why so few competitors do it well.
-
-The brands that win AI recommendations over the next few years won't be the ones with the cleverest prompts or the most blog posts. They'll be the ones the rest of the internet has the most to say about. Start building that footprint now, while the corpus for your category is still being written.
+We practice the clarity step ourselves. On 3 October 2026 we merged 165 pages into 42, because one strong page per question beats five thin ones for Google and for AI retrieval. For the full playbook, see [how to get your business recommended by AI](/blog/how-to-get-your-business-recommended-by-ai).

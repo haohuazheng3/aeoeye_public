@@ -1,0 +1,108 @@
+{
+  "contentSha256": "1d6990ca90fe628c77eed0632f76e14fa63daa662440c842a69d4c78ca709591",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A law firm owner or its marketer wants ChatGPT, Gemini and Google AI to name the firm when people ask for a lawyer, and needs to know what is documented, what to fix first and which advertising rules limit the content.",
+    "connection": "AEOeye audits whether AI engines recommend a brand when buyers ask; this page applies that question to a local, regulated profession and shows how to run the same test by city and practice area."
+  },
+  "assessment": "The page says plainly that no AI company publishes a local legal ranking formula, then builds the playbook from documented rules (Google Business Profile guidelines, Google AI features guidance, schema.org, OpenAI crawler docs), advertising and review rules (D.C. Rule 7.1 text, FTC reviews rule, ABA Formal Opinion 496 via a legal-ethics summary) and usage data from Pew and a UK JUSTICE survey. It uses AEOeye's crawler access study and benchmark with their sample sizes and caveats, notes that law firms were not a category in the crawler sample, and does not cite vendor surveys, claim any local data-provider formula for ChatGPT, describe Avvo or Justia (both blocked fetches) or promise a recommendation.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "A page must be indexed and snippet-eligible to appear in AI Overviews or AI Mode; no special markup or extra requirements; Google lists checking that Business Profile information is up to date."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search and opted-out sites are not shown in answers; OAI-SearchBot and GPTBot settings are independent; robots.txt changes take about 24 hours."
+    },
+    {
+      "url": "https://support.google.com/business/answer/3038177?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Business name must match the real-world name; precise address, no remote P.O. boxes; few specific categories; lawyers are individual practitioners with rules for shared locations and one profile per practitioner."
+    },
+    {
+      "url": "https://apps.calbar.ca.gov/attorney/LicenseeSearch/QuickSearch",
+      "checkedAt": "2026-10-03",
+      "supports": "The State Bar of California offers a public attorney profile lookup showing licensing status and disciplinary information."
+    },
+    {
+      "url": "https://www.pewresearch.org/internet/2026/06/17/americans-and-ai-2026-chatbots-smart-devices-and-views-on-impact/",
+      "checkedAt": "2026-10-03",
+      "supports": "49% of U.S. adults use AI chatbots (33% in 2024); about four in ten use them for information searching; 5,119 adults surveyed Feb 17-23, 2026."
+    },
+    {
+      "url": "https://www.justice.org.uk/reports/what-ai-chatbots-can-teach-us-about-unmet-legal-needs",
+      "checkedAt": "2026-10-03",
+      "supports": "3,287 UK respondents Dec 2025-Jan 2026; 233 of 1,428 with a recent legal dispute (16.3%) used a chatbot; 26% of 18-24 vs 10% of 55-64; some used it to translate legalese or check their lawyer."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Click on a result link in 8% of visits with a Google AI summary vs 15% without; 1% click a link inside the summary; March 2025 browsing data."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "checkedAt": "2026-10-03",
+      "supports": "YMYL topics need content that is highly accurate and consistent with expert consensus; Who/How/Why guidance on making authorship clear."
+    },
+    {
+      "url": "https://schema.org/Attorney",
+      "checkedAt": "2026-10-03",
+      "supports": "The Attorney type is deprecated; LegalService is more inclusive and less ambiguous."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/local-business",
+      "checkedAt": "2026-10-03",
+      "supports": "Use the most specific LocalBusiness subtype possible; name and address are required properties."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024); read the PDF text: 'Law & Government' benefits significantly from Statistics Addition; benchmark covers generic queries."
+    },
+    {
+      "url": "https://www.dcbar.org/for-lawyers/legal-ethics/rules-of-professional-conduct/information-about-legal-services/communications-concerning-a-lawyer%E2%80%99s-services",
+      "checkedAt": "2026-10-03",
+      "supports": "D.C. Rule 7.1(a) bars false or misleading communications, including assertions that cannot be substantiated; comments on unsubstantiated comparisons and unqualified damage awards, verdict records and client endorsements; rule governs all communications including advertising."
+    },
+    {
+      "url": "https://support.google.com/business/answer/3474122",
+      "checkedAt": "2026-10-03",
+      "supports": "Reviews must reflect a genuine experience; incentives for posting, changing or removing reviews are prohibited; businesses may ask customers via a link or QR code."
+    },
+    {
+      "url": "https://www.ftc.gov/business-guidance/resources/consumer-reviews-testimonials-rule-questions-answers",
+      "checkedAt": "2026-10-03",
+      "supports": "FTC Consumer Reviews and Testimonials Rule effective October 21, 2024; covers fake reviews, incentives conditioned on sentiment and review suppression."
+    },
+    {
+      "url": "https://lalegalethics.org/aba-issues-formal-opinion-on-responding-to-negative-online-reviews/",
+      "checkedAt": "2026-10-03",
+      "supports": "Summary of ABA Formal Opinion 496 (January 13, 2021): a negative online review is not a controversy under Rule 1.6(b)(5), so lawyers should avoid responding; listed best practices."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 12 prompts, 2,961 runs across ChatGPT, Claude and Google AI; under 1-in-100 chance of the same brand list twice."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims the page states; re-checked key numbers (Pew 49%/33%/8% vs 15%, JUSTICE 233 of 1,428, SparkToro 2,961 runs, Google Business Profile wording, OpenAI bot doc, schema.org deprecation, FTC date) against the raw page text with curl, not the fetch summary.",
+    "Writer (Sonnet): found the WebFetch summary of the Google Business Profile guidelines wrong on the practitioner naming format, and rewrote the page from the raw text: shared locations get a firm profile plus practitioner profiles named for the practitioner only.",
+    "Writer (Sonnet): ABA pages (Model Rule 7.1, Formal Opinion 496), Avvo, Justia and OpenAI's help center returned 403; so the page quotes D.C.'s own Rule 7.1 text (fetched), cites ABA Opinion 496 only through a legal-ethics summary, and does not describe Avvo or Justia, telling readers to check them.",
+    "Writer (Sonnet): did not use agency or vendor claims about ChatGPT local data providers or law-firm AI-search surveys, because no first-party source could be fetched; the page says no local legal ranking formula is published.",
+    "Writer (Sonnet): checked AEOeye figures (37/384, 60/375, 127 audits, 71.4% of 147, $29 report, free audit with 3 ChatGPT questions) against the evidence pack and noted that law firms were not a category in the crawler sample.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page: 1477 words, 2 inline images, 0 errors, 0 warnings.",
+    "Editor (Opus): read the final draft: local/YMYL framing, Business Profile and directory consistency, Rule 7.1 advertising limits, review and confidentiality rules, measurement",
+    "Editor (Opus): legal-ethics claims are quoted from D.C. Rule 7.1 and labelled as varying by state; ABA Opinion 496 cited only via a named secondary summary",
+    "Editor (Opus): page states law firms were not a category in our crawler study and makes no claim about ChatGPT local data sources",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): product facts and benchmark caveat match the evidence pack",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

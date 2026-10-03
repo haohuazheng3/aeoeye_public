@@ -1,0 +1,84 @@
+{
+  "contentSha256": "911e6223a5701f7e67a54314ef976414393800c2716cc7ab25f3ef59b1789b2b",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Someone who searched 'nightwatch seo' or 'nightwatch io' wants to know what Nightwatch is, what its AI visibility tracking does, what it costs now, and whether AEOeye or a dedicated AI visibility tracker is the better choice.",
+    "connection": "AEOeye runs one-time AI visibility audits for the same buyer questions Nightwatch tracks daily inside an SEO subscription. The page explains the difference honestly, says where Nightwatch is the better fit, and points to the dedicated-tool route when sampling depth matters."
+  },
+  "assessment": "The page opens by explaining Nightwatch as an SEO rank tracker with an AI module, using only Nightwatch's own pricing page, AI tracking page, help article and blog, and says near the top that it is documentation-based. It corrects the earlier version's outdated claims (a separate AI add-on of about $99 a month and a $32 base price) against the current pricing page, flags that Nightwatch's own pages disagree on engine coverage, tests Nightwatch's rankings-drive-citations premise against Nightwatch's own blog, Google Search Central and a University of Toronto paper, and turns the pricing page's allowance into answers per prompt, set against SparkToro's run-to-run variance research. It deliberately does not claim hands-on testing, rate the product, convert currencies, or repeat unverifiable reviewer claims (bolted-on, beta, 13 years of data) from the two merged pages.",
+  "sources": [
+    {
+      "url": "https://nightwatch.io/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Plans in euros: Starter 500 keywords / 50 AI prompts / 1,500 AI answers a month, Professional 2,500 / 150 / 4,500, Agency 7,500 / 500 / 15,000; monthly billing 99, 199 and 499 euros (read from the Monthly toggle in a browser) and yearly 79, 159 and 399 euros a month; AI platforms listed ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview; white-label reports and Looker Studio from Professional; 14-day trial; no per-seat fees; automatic billing if the trial is not cancelled."
+    },
+    {
+      "url": "https://nightwatch.io/",
+      "checkedAt": "2026-10-03",
+      "supports": "Nightwatch homepage: daily positions on Google, Bing, YouTube, DuckDuckGo and Yahoo, rank checks stored since 2012, 107,000+ locations across 190+ countries, AI tracking and Citation Intelligence in the same platform."
+    },
+    {
+      "url": "https://nightwatch.io/ai-tracking/",
+      "checkedAt": "2026-10-03",
+      "supports": "Premise of Citation Intelligence (ChatGPT, Claude, Gemini and Perplexity cite what ranks on Google); FAQ lists ChatGPT, Claude, Gemini, Perplexity and Microsoft Copilot; AI visibility data updated daily."
+    },
+    {
+      "url": "https://docs.nightwatch.io/en/articles/13842311-ai-llm-tracking-in-nightwatch",
+      "checkedAt": "2026-10-03",
+      "supports": "Help article dated 27 February 2026: prompts get a provider, location and language; results show entities, position, sentiment and cited domains; Source Matrix is beta; models listed are ChatGPT, Perplexity, Google AI Mode and AI Overview, with Gemini on plans of 300+ prompts; refresh is daily."
+    },
+    {
+      "url": "https://nightwatch.io/blog/ai-share-of-voice/",
+      "checkedAt": "2026-10-03",
+      "supports": "AI share of voice formula (your brand mentions divided by total brand mentions across tracked prompts, times 100); the blog says the Google-ranking overlap with AI citations is partial and not one-to-one, and that ChatGPT and Perplexity regularly surface lower-ranking pages."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Share_of_voice",
+      "checkedAt": "2026-10-03",
+      "supports": "Share of voice originates in advertising as a company's share of category media spend."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews and AI Mode may use query fan-out and show a wider and more diverse set of links than classic web search."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "University of Toronto paper abstract: AI search shows a systematic bias toward earned media over brand-owned and social content, in contrast to Google's more balanced mix."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro with Gumshoe.ai, November-December 2025: 600 volunteers, 12 prompts, 3 tools, 2,961 runs; under 1 in 100 chance of the same brand list twice from ChatGPT or Google's AI; ask at least 60-100 times and average; visibility percentage is a decent proxy while ranking position is not useful."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI Starter shown at $95 a month with 50 prompts, 3 chosen models, daily tracking and 4,500 monthly AI answers; monthly answers are defined as prompts times active models times frequency."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly monthly billing: Lite $29 for 15 prompts and Standard $189 for 100 prompts, four engines tracked daily (Claude, AI Mode and Gemini as add-ons)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded nightwatch.io/pricing, /ai-tracking/, the homepage, the help article and the AI share-of-voice blog post with curl on 2026-10-03 and read the raw page text; the pricing page's monthly prices (99/199/499 euros) are not in the static HTML, so I clicked the Monthly toggle in a browser and read them from the rendered page.",
+    "Writer (Sonnet): found that Nightwatch's current pricing page lists AI prompts inside every plan and no separate AI add-on, so I dropped the earlier pages' $32 base price, +$99 add-on, ~$495 ceiling and $131+ minimum, and said on the page that the add-on figure is outdated.",
+    "Writer (Sonnet): compared Nightwatch's three statements of engine coverage (pricing page, AI tracking page FAQ, February 2026 help article), found they disagree, and told the reader to confirm in the trial instead of picking one list.",
+    "Writer (Sonnet): re-read SparkToro's post and the University of Toronto abstract against raw text before using the 600 volunteers, 2,961 runs, under 1 in 100, 60-100 runs and earned-media claims; computed 1,500 / 50 = 30 answers per prompt myself and labelled it as our arithmetic and reading, not a Nightwatch statement.",
+    "Writer (Sonnet): loaded Peec AI and Otterly pricing in a browser (Peec shows $95 for Starter with 4,500 answers; Otterly Monthly tab shows $29 and $189) and compared the nightwatch.io row of the AEOeye crawler access study (robots.txt blocks none, names none, /llms.txt 404, JSON-LD types without Organization) against ai-crawler-access-study-2026-10.csv.",
+    "Writer (Sonnet): corrected AEOeye claims to the evidence-pack facts (free audit is three unbranded questions on ChatGPT only; $29 one-time report adds four engines and ten questions; no subscription, not a daily tracker) and ran node scripts/content-lint.mjs on the page (clean).",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable; the only failures are bot-blocked homepages/specs such as w3.org or pexels.com that open in a browser)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md and the vendor pricing notes verified in this release (no per-engine benchmark comparison; no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings",
+    "Editor (Opus): fixed the documentation-guide disclosure wording flagged by the content gate (title no longer says 'review'; opening states public documentation and no hands-on test)"
+  ],
+  "merged": [
+    "/answers/nightwatch-ai-visibility-vs-dedicated-tool"
+  ]
+}

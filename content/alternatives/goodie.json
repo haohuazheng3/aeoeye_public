@@ -1,123 +1,170 @@
 {
  "slug": "goodie",
  "type": "alternatives",
- "title": "Best Goodie Alternatives (2026): Free, Cheaper & Easier AEO Tools Compared",
- "metaTitle": "Best Goodie Alternatives (2026) — Compared Fairly",
- "metaDescription": "Goodie starts at $399/mo with no free tier and sales-led pricing for full coverage. Here are the best Goodie alternatives for 2026, compared honestly on",
- "primaryKeyword": "Goodie alternatives",
- "shortAnswer": "Goodie is a capable AEO platform, but its cheapest paid plan is $399/month, there's no free tier, and full multi-engine coverage requires a sales-led custom quote. If you want to start free and instantly, AEOeye runs a no-signup audit across ChatGPT, Perplexity, Google AI, Claude and Gemini. If you want cheap always-on tracking, Otterly.AI starts at $29/mo; Peec AI and Profound suit teams needing deeper analytics. Pick by budget and whether you need a quick check or a daily dashboard.",
- "intro": "Goodie does real work: it tracks how AI answer engines cite and describe your brand, scores share of voice and sentiment, benchmarks competitors, and adds an optimization layer to act on what it finds. The friction most people hit isn't the features — it's the entry cost and the path to get there. The cheapest plan is $399/month, there's no free tier to test the waters, and the engines and prompts that matter most for serious coverage sit behind Pro and Enterprise quotes you can only get by booking a demo.\\n\\nThat's a reasonable trade for a well-funded team that already knows it needs daily monitoring. It's a poor fit if you just want to find out — today, without a budget approval or a sales call — whether ChatGPT and Perplexity recommend you. Below we cover the specific reasons people look past Goodie, then the alternatives worth comparing, described fairly, including where Goodie itself is genuinely the stronger pick.",
+ "title": "Best Goodie AI Alternatives (2026): Cheaper and Simpler Options Compared",
+ "metaTitle": "Goodie AI Alternatives (2026): Cheaper, Simpler Picks",
+ "metaDescription": "Goodie AI Core is $399/month at annual billing. Compare AEOeye, Otterly.AI, Peec AI and AthenaHQ on entry price, engines and best fit, checked October 2026.",
+ "primaryKeyword": "goodie ai alternatives",
+ "shortAnswer": "The best Goodie AI alternative depends on the job. To learn whether AI recommends you, AEOeye's free audit or $29 one-time report is cheapest. For ongoing tracking, Otterly.AI starts at $29/month and Peec AI at $95/month. AthenaHQ is the closest monitor-and-act option below Goodie's $399/month. Prices were checked on each vendor's own pricing page in October 2026.",
+ "intro": "Most people leave Goodie's pricing page for one of three reasons: the $399 monthly entry price, engines gated behind higher tiers, or wanting an answer and being sold a program. This guide is based on public documentation as of October 2026; we have not tested any of these products hands-on. AEOeye is one of the options, so weigh our placement accordingly.\n\nOur position: Goodie is not overpriced for what it bundles, but most people shopping on price do not need the bundle yet. Start with the cheapest option that tells you the truth about [answer engine optimization](https://en.wikipedia.org/wiki/Generative_engine_optimization) (AEO), the practice of improving how often AI systems name you.",
  "sections": [
   {
-   "heading": "Why people look for a Goodie alternative",
-   "body": "Three reasons come up repeatedly in independent reviews, and they're worth stating plainly.\n\n**The price floor is high and there's no free tier.** Goodie's cheapest plan is Explorer at $399/month. There's no free plan — only a 30-day money-back guarantee — so you commit real budget before you know whether it delivers for your category. For a solo marketer, an early-stage startup, or anyone running a quick competitive check, that's a hard sell when entry-level AI-visibility tools exist for $29–$49/month.\n\n**Pricing for real coverage is sales-led.** Only Explorer is self-serve and transparently priced. Pro and Enterprise — the tiers that add engines like Gemini, Copilot, Claude and Meta AI, plus more prompts, markets and languages — require a demo and a custom quote. Cost scales with prompts, models, languages and geographies, so the true price for meaningful multi-engine coverage stays unclear until you talk to sales. Some buyers simply prefer a fixed published rate.\n\n**It isn't a quick check.** Onboarding means defining topics and prompts, configuring tracked models, and wiring up dashboards. The tool surfaces recommendations, but someone on your side still has to execute them, and teams new to AI-visibility metrics face a learning curve. If you want an answer in five minutes, that's overhead."
+   "heading": "Why look for a Goodie AI alternative?",
+   "body": "Goodie's entry point is sized for a running program, not a first look. Core displays $399 per month, covers five engines and has a 7-day free trial, according to [Goodie's pricing page](https://higoodie.com/pricing/). Four things push people away.\n\n- **The price floor.** The $399 is the annual-billing rate. Switching the page's toggle to \"Billed Monthly\" shows $478.80. Twelve months at $399 is $4,788, which matches the page's \"2 Months Free\" on $478.80. That is our arithmetic, not an invoice.\n- **Engine gating.** Core tracks ChatGPT, AI Overviews, Perplexity, AI Mode and Copilot. Gemini appears from Pro ($999/month). Claude appears only in the Enterprise column, which requires a demo.\n- **Scope.** Its [homepage](https://higoodie.com/) describes a closed loop of research, monitoring, action and measurement. Valuable if you will run it; wasted if you wanted a baseline.\n- **No free plan.** Only the 7-day trial. The page states no refund terms, so ask before paying."
   },
   {
-   "heading": "AEOeye — free, instant, multi-engine (start here)",
-   "body": "AEOeye is the most direct answer to all three frustrations above. It runs a **free, instant AI-visibility audit** with no sales call and no contract: you enter your brand and category, and it asks the questions real buyers ask — \"best [product] for [use case],\" \"[competitor] alternatives\" — across ChatGPT, Perplexity, Google AI, Claude and Gemini at once. You get back whether each engine recommends you, where you rank, and which competitors win the answer, in one pass.\n\nThe design goal is the opposite of Goodie's: zero commitment before you see value. There's no $399 floor and no demo gate to find out where you stand today. The querying is blind and multi-engine, so you're seeing what a buyer would actually see, not a branded vanity lookup.\n\nWhere AEOeye is genuinely lighter: it's newer, and it leans toward the fast read rather than years of historical dashboards and deep enterprise analytics. Its deeper multi-engine tracking activates as you use it. If your need is an enterprise reporting suite with long history and a dedicated strategist on day one, an incumbent like Goodie or Profound will feel more complete. If your need is to find out — free, now — whether AI recommends you, AEOeye is built for exactly that."
+   "heading": "Which alternatives fit which need?",
+   "body": "Use AEOeye for a one-off baseline, Otterly.AI or Peec AI for cheap ongoing tracking, and AthenaHQ for monitoring plus actions below Goodie's price. Prices are each vendor's lowest published paid plan, checked 3 October 2026.\n\n- **AEOeye: the one-off baseline.** The free audit asks ChatGPT three unbranded buyer questions live, shows the answers in full, names the competitors it recommended instead, and adds a score and starter fixes. The $29 one-time report adds Claude, Gemini, Google AI and Perplexity, 10 questions and a fix roadmap. It is not a tracker. [Run the free audit](/), or read our [head-to-head with Goodie](/vs/goodie).\n- **Otterly.AI: the cheapest tracker.** [Lite is $29/month](https://otterly.ai/pricing) on monthly billing (15% off annually): 15 prompts, daily tracking, ChatGPT, Google AI Overviews, Perplexity and Copilot. Claude ($29), Gemini ($9) and Google AI Mode ($9) are paid add-ons on Lite. Free trial offered, length not stated. Full ladder: [Otterly.AI pricing guide](/blog/otterly-ai-pricing).\n- **Peec AI: published mid-tier analytics.** [Starter is $95/month](https://peec.ai/pricing) on monthly billing: 50 prompts, daily tracking, one project, unlimited users, and three models of your choice from ChatGPT, AI Mode, AI Overviews, Copilot, Gemini and Naver AI. Annual billing is 15% off; Claude is listed only under Enterprise. More: [Peec AI pricing guide](/blog/peec-ai-pricing).\n- **AthenaHQ: the closest to Goodie for less.** The [Essential plan is free](https://athenahq.ai/plans) with $25 in credit (300 credits, five engines). Starter is $295/month, or $245/month billed annually: 3,600 credits, 11 models including Claude, and on-page and off-page actions.\n- **Profound is not cheaper.** For brands, its [pricing page](https://www.tryprofound.com/pricing) lists a free 7-day trial (50 prompts daily, three engines) and custom Enterprise, with no public paid plan.\n\n![Back view of several blank directional signs pointing different ways against a clear blue sky.](https://images.pexels.com/photos/10035931/pexels-photo-10035931.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Otterly.AI — the cheapest always-on tracker",
-   "body": "Otterly.AI is the closest thing to Goodie's monitoring at a fraction of the entry price. Its **Lite plan is $29/month** and includes 15 prompts, the four core engines (ChatGPT, Google AI Overviews, Perplexity, Copilot), GEO URL audits and multi-country tracking. Standard ($189) raises you to 100 prompts and adds API, an MCP server and a Looker Studio connector; Premium ($489) goes to 400 prompts.\n\nThe appeal is transparent, self-serve pricing across every tier — no demo required to see the real cost — and a genuine free-feeling on-ramp at $29. It reruns your prompts daily, stores history, and turns it into a visibility index plus citation and share-of-voice reports.\n\nTwo honest caveats. First, Gemini and Google AI Mode are paid add-ons (roughly $9–$149/month depending on plan) rather than included, so \"all engines\" coverage costs more than the headline. Second, like most trackers it's stronger on monitoring than on executing fixes. For a budget-conscious team that wants continuous tracking with a published price, it's the standout."
+   "heading": "What does Goodie AI actually cost, for reference?",
+   "body": "Goodie lists Core at $399/month, Pro at $999/month and Enterprise by demo only; agencies get Growth at $275/month. These are annual-billing rates. The page's monthly toggle shows $478.80 for Core and $1,198.80 for Pro, verified 3 October 2026 on [Goodie's pricing page](https://higoodie.com/pricing/).\n\n- **Core, $399 (annual) or $478.80 (monthly):** 5 engines, 1 brand, 120 prompts, 2 countries and languages, daily collection, 50 action credits, 5 seats, email-only support.\n- **Pro, $999 or $1,198.80:** 8 engines (adds Gemini), 250 prompts, 5 countries and languages, 100 actions, unlimited seats.\n- **Enterprise, custom:** up to 13 models per the plan card, 500+ prompts, SOC 2, API access.\n- **Agency Growth, $275 or $330 quarterly:** 10 pitch workspaces a month; client workspaces from $399/month.\n\nGoodie's free [Agent Site Audit](https://higoodie.com/agent-site-audit/) checks 36 signals on whether agents can crawl your site, but not what AI says about your brand. Our [Goodie pricing guide](/blog/goodie-ai-pricing) covers billing in depth."
   },
   {
-   "heading": "Peec AI — mid-market analytics with transparent tiers",
-   "body": "Peec AI sits in the middle of the market with **published, self-serve pricing**: roughly $95–$100/month (Starter, ~50 prompts, 3 models), ~$245/month (Pro, ~150 prompts), and ~$505/month (Enterprise). All plans include daily tracking of ChatGPT, Perplexity and Google AI Overviews, unlimited users, and — notably — country and language tracking at no extra cost, with pricing tied to prompts rather than regions.\n\nIts strength is comparative analytics: AI mention tracking, a visibility score, citation intelligence, competitive benchmarking, content-gap analysis and share-of-voice reporting, including support for multiple sub-brands in one account. For a marketing team that wants to see clearly how citations differ across engines and prioritize accordingly, it's a clean, fairly priced option.\n\nWhere it's lighter than Goodie: Peec emphasizes monitoring over an optimization/action layer, so it tells you what's happening better than it helps you execute the fix. If you want the recommendations-plus-content workflow that Goodie's optimization hub provides, that's a point in Goodie's favor."
+   "heading": "When is Goodie still the right choice?",
+   "body": "Goodie is the right choice when AI search is a channel you will work every week and you want tracking, actions, attribution and a strategist in one contract. Then $399 is reasonable. If you only need to know where you stand, it is the wrong first purchase.\n\nIt fits when:\n\n- You sell in several countries or languages (Core covers two, Pro five).\n- You run a store and want the SKU-level commerce visibility Goodie lists on Pro.\n- Your team cannot turn findings into fixes alone and wants actions plus strategist support.\n- You need SOC 2 or API access (Enterprise).\n\nGoodie's page argues that cheaper platforms mean fewer models, fewer prompts, capped usage and no expert guidance. That matters only if you would use those extras. Treat Goodie as something you graduate into once a baseline shows a gap worth paying to close."
   },
   {
-   "heading": "Profound — when you need enterprise depth",
-   "body": "Profound is the heavyweight, and it's fair to say it's genuinely stronger than Goodie on data depth for large organizations. It's positioned as a category leader in enterprise AEO, with a very large prompt-data corpus, agent/crawler analytics, compliance posture (SOC 2, HIPAA noted in reviews) and dedicated strategists.\n\nPricing has a familiar shape: a $99 Starter that's effectively a ChatGPT-only entry point, a **$399 Growth tier** that adds Perplexity and AI Overviews, and custom Enterprise (commonly estimated $500–$2,000+/month) that unlocks the full set of up to 11 engines including Claude, Gemini, Grok, Copilot and Google AI Mode. So like Goodie, real multi-engine coverage means moving up the ladder, and the top tier is custom-quoted.\n\nChoose Profound over Goodie if you're an enterprise that prioritizes the deepest data, agent analytics and a dedicated strategist, and the budget is there. It is not the tool for a quick, cheap, or instant check — that's where the lighter options win."
+   "heading": "How do you compare AI visibility tool prices fairly?",
+   "body": "Compare cost per AI answer, not the headline price. Vendors count prompts, credits and engines differently, so a $29 plan and a $399 plan do not buy the same unit. Two vendors define the unit on their pages.\n\n- **Peec AI Starter:** 50 prompts × 3 models × 30 days = 4,500 answers a month, as [Peec's page](https://peec.ai/pricing) shows. $95 ÷ 4,500 ≈ $0.021 per answer.\n- **AthenaHQ Starter:** 3,600 credits, where [one credit is one AI response](https://athenahq.ai/plans). $295 ÷ 3,600 ≈ $0.082 per answer, or about $0.068 on annual billing.\n- **Goodie Core:** the page does not say how a prompt is counted. If each of 120 prompts ran daily on all five engines, that would be 18,000 answers and about $0.022 each. That assumption is ours.\n\nUnder that assumption Goodie's unit price sits close to Peec's: the expensive part is the floor and the bundle, not the answer. Athena's higher unit price buys 11 models and an action layer.\n\n![Antique brass scales beside old medicine bottles in a vintage pharmacy.](https://images.pexels.com/photos/33102084/pexels-photo-33102084.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Nightwatch — AI tracking bolted onto serious SEO rank tracking",
-   "body": "Nightwatch is the pick if AI visibility is one part of a broader search-tracking need rather than the whole job. Its core is mature SEO rank tracking — **from about $32/month** (annual) for 250 keywords — with standout geographic granularity: 107,000+ locations across 190+ countries, down to zip code, and no per-seat fees so you can add a whole team or agency for free.\n\nAI/LLM monitoring is available as an add-on (around $99/month, in beta at the time of writing) covering prompt research, citation-level sentiment and LLM monitoring alongside traditional rankings. Every plan includes a free trial.\n\nThe honest framing: Nightwatch is an SEO rank tracker that's adding AI visibility, rather than an AEO-first platform like Goodie. If you already want local/global rank tracking and want AI monitoring in the same dashboard at a low price, it's compelling and economical. If AI answer engines are your primary battleground and you want a purpose-built AEO workflow with an optimization layer, an AEO-native tool will serve you better."
-  }
- ],
- "keyTakeaways": [
-  "Goodie's cheapest plan is $399/month with no free tier — only a 30-day money-back guarantee — so you commit budget before seeing results.",
-  "Full multi-engine coverage (Gemini, Claude, Copilot, Meta AI, etc.) sits behind sales-led Pro/Enterprise quotes that aren't published.",
-  "Goodie isn't a quick check: it needs topic/prompt setup, model configuration and dashboard integration, plus internal execution of its recommendations.",
-  "AEOeye is the free, instant, no-sales-call alternative — it audits ChatGPT, Perplexity, Google AI, Claude and Gemini in one pass to show if they recommend you.",
-  "Otterly.AI ($29/mo) is the cheapest always-on tracker with transparent pricing; Peec AI (~$100/mo) offers mid-market analytics with published tiers.",
-  "Profound and Goodie are the stronger picks for enterprise data depth and an optimization layer — choose by whether you need a fast free check or a deep ongoing dashboard."
- ],
- "faqs": [
-  {
-   "q": "Does Goodie have a free trial or free plan?",
-   "a": "No. Goodie has no free tier. Its entry plan is Explorer at $399/month, and the only safety net is a 30-day money-back guarantee — meaning you pay first and can request a refund within 30 days. If you want to test AI visibility at zero cost, a free audit tool like AEOeye lets you see whether ChatGPT, Perplexity, Google AI, Claude and Gemini recommend you without entering payment details or booking a demo."
+   "heading": "How do you pick?",
+   "body": "Pick by the decision in front of you: baseline, ongoing tracking or managed program. Spend the least that answers it, and move up only when the data shows a gap you will act on.\n\n1. **You do not know whether AI names you.** Run a free baseline first. In AEOeye's [recommendation benchmark](/resources/aeoeye-recommendation-benchmark-2026-09.json) (127 audits, 892 answers, June to September 2026), brands were named in 17.6% of answers, and when a ranked mention occurred it was first 71.4% of the time (147 ranked mentions). The sample is small and self-selected, and per-engine rates are not comparable. Being named is the hard part.\n2. **You know the gap and want to watch it.** Try Otterly.AI Lite or Peec AI Starter on their trials, and price the engines your buyers use.\n3. **You want actions bundled in, below Goodie's price.** Start on AthenaHQ's free Essential plan, then price Starter.\n4. **You need multi-market coverage, attribution and a strategist.** Take Goodie's trial, and ask in writing how prompts are counted, what the refund terms are and what annual billing totals.\n\nFor wider shortlists, see [best AI visibility tools](/blog/best-ai-visibility-tools)."
   },
   {
-   "q": "What is the cheapest Goodie alternative?",
-   "a": "For continuous tracking, Otterly.AI is the cheapest with a self-serve Lite plan at $29/month covering ChatGPT, Perplexity, Google AI Overviews and Copilot (Gemini and Google AI Mode are paid add-ons). For a one-time check, AEOeye's audit is free. Nightwatch is also low-cost from about $32/month, though its AI monitoring is a roughly $99/month add-on on top of its SEO rank tracking."
-  },
-  {
-   "q": "Why is Goodie's pricing considered opaque?",
-   "a": "Only the Explorer tier ($399/month, 3 engines, 100 prompts) is self-serve and publicly priced. The Pro and Enterprise plans — which add engines like Gemini, Copilot, Claude and Meta AI plus more prompts, languages and markets — require a demo and a custom quote. Because cost scales with prompts, models, languages and geographies, the true price for full multi-engine coverage isn't clear until you talk to sales. Some buyers prefer alternatives with fixed, published rates."
-  },
-  {
-   "q": "Is AEOeye a full replacement for Goodie?",
-   "a": "It depends on your need. AEOeye is the better fit when you want a free, instant, multi-engine check with no sales call or contract — it shows whether AI recommends you, where you rank, and which competitors win. It's newer and lighter than Goodie on long historical dashboards and deep enterprise analytics, and its deeper tracking activates with usage. If you need an enterprise reporting suite with a dedicated strategist on day one, Goodie or Profound is more complete."
-  },
-  {
-   "q": "Which Goodie alternative is best for enterprise teams?",
-   "a": "Profound is the strongest enterprise option on raw data depth, with a large prompt-data corpus, agent/crawler analytics, compliance certifications and dedicated strategists — areas where it genuinely outperforms Goodie. The trade-off is that, like Goodie, full multi-engine coverage requires moving to custom-quoted Enterprise pricing (commonly estimated $500–$2,000+/month). It's overkill for anyone who just wants a fast or low-cost visibility check."
+   "heading": "What did we see on these vendors' own sites?",
+   "body": "In AEOeye's [AI crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (fetched 3 October 2026, 391 sites), none of these vendors' sites blocked AI bots in robots.txt. This is a fact box, not a verdict on any product.\n\n- **higoodie.com and athenahq.ai:** publish llms.txt; Goodie's homepage has Organization and FAQPage JSON-LD, Athena's served HTML has none.\n- **peec.ai and tryprofound.com:** no llms.txt (404); no JSON-LD in the served HTML.\n- **otterly.ai:** no robots.txt; our crawler got a 403, so the homepage was not fetched.\n\nNo JSON-LD in served HTML can mean JavaScript injects it, which Google renders and many AI crawlers do not. One fetch per site, one day."
   }
  ],
  "comparisonTable": {
   "columns": [
    "AEOeye",
-   "Goodie",
    "Otterly.AI",
    "Peec AI",
-   "Profound"
+   "AthenaHQ",
+   "Goodie (reference)"
   ],
   "rows": [
    {
-    "label": "Starting price",
+    "label": "Lowest paid price",
     "values": [
-     "Free audit",
-     "$399/mo (Explorer)",
-     "$29/mo (Lite)",
-     "~$100/mo (Starter)",
-     "$99/mo (Starter)"
+     "$29 one-time report",
+     "$29/month (Lite)",
+     "$95/month (Starter)",
+     "$295/month ($245 annual)",
+     "$399/month annual rate ($478.80 monthly)"
     ]
    },
    {
-    "label": "Free tier / trial",
+    "label": "Free option",
     "values": [
-     "Free, no signup or sales call",
-     "No free tier; 30-day money-back",
-     "Self-serve from $29; transparent tiers",
-     "Self-serve; published tiers",
-     "Starter is effectively ChatGPT-only"
+     "Free audit: 3 questions, ChatGPT",
+     "Free trial, length not stated",
+     "\"Start free trial\" button, length not stated",
+     "Free Essential plan, $25 credit",
+     "7-day trial on Core"
     ]
    },
    {
-    "label": "Engines covered",
+    "label": "Engines at entry",
     "values": [
-     "ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "3 on Explorer; up to 11 on Enterprise (sales-led)",
-     "4 core; Gemini & AI Mode paid add-ons",
-     "ChatGPT, Perplexity, Google AI Overviews",
-     "2 on Growth; up to 11 on Enterprise (custom)"
+     "ChatGPT free; plus Claude, Gemini, Google AI, Perplexity in $29 report",
+     "ChatGPT, AI Overviews, Perplexity, Copilot; Claude, Gemini, AI Mode extra",
+     "3 of ChatGPT, AI Mode, AI Overviews, Copilot, Gemini, Naver AI",
+     "11 models incl. Claude",
+     "5 engines; no Gemini or Claude"
+    ]
+   },
+   {
+    "label": "Capacity at entry",
+    "values": [
+     "3 questions free; 10 in report",
+     "15 prompts, daily",
+     "50 prompts, daily, 1 project",
+     "3,600 credits (1 credit = 1 response)",
+     "120 prompts, daily, 1 brand"
     ]
    },
    {
     "label": "Best for",
     "values": [
-     "A free, instant multi-engine check with no commitment",
-     "Teams wanting an optimization layer + sentiment, budget in hand",
-     "Budget teams wanting cheap always-on tracking",
-     "Mid-market teams wanting transparent analytics",
-     "Enterprises needing the deepest data + strategists"
+     "One-off baseline",
+     "Cheapest ongoing tracking",
+     "Mid-priced analytics, unlimited users",
+     "Monitoring plus actions for less",
+     "A managed, multi-market program"
     ]
    }
   ]
  },
+ "keyTakeaways": [
+  "Goodie's $399/month is the annual-billing rate; monthly billing shows $478.80, and the 7-day trial is the only free path.",
+  "Goodie Core has no Gemini or Claude; Claude is Enterprise-only.",
+  "AEOeye's free audit tests ChatGPT on 3 questions; the $29 report adds four engines. It is not a tracker.",
+  "For ongoing tracking, Otterly.AI starts at $29/month and Peec AI at $95/month; AthenaHQ Starter at $295/month is the closest to Goodie's monitor-and-act model.",
+  "Goodie's price floor, not its price per answer, hurts small teams; graduate into it once a baseline shows a gap."
+ ],
+ "faqs": [
+  {
+   "q": "Does Goodie AI have a free plan or free trial?",
+   "a": "There is no free plan, but Core carries a 7-day free trial according to Goodie's pricing page. The page we read states no refund terms, so confirm them before paying. For a no-signup baseline, AEOeye's free audit tests ChatGPT on three buyer questions, and the $29 one-time report adds four more engines."
+  },
+  {
+   "q": "Why does Goodie show $399 but also $478.80?",
+   "a": "The pricing page defaults to the annual-billing rate, $399 per month for Core. Its toggle labelled \"Billed Monthly\" shows $478.80. The page advertises two months free on annual billing, which matches ten paid months of $478.80, or $4,788 a year."
+  },
+  {
+   "q": "What is the cheapest Goodie AI alternative?",
+   "a": "For a one-off check, AEOeye's free audit; the $29 one-time report covers five engines. For continuous tracking, Otterly.AI Lite is $29/month for 15 prompts on four engines, billed monthly. Claude, Gemini and Google AI Mode cost extra there, so price the engines your buyers use."
+  },
+  {
+   "q": "Which Goodie alternatives cover Claude?",
+   "a": "AthenaHQ Starter lists Claude among 11 models. Otterly.AI sells Claude as an add-on, $29/month on Lite. AEOeye's $29 report tests Claude. Peec AI and Goodie list Claude only in their Enterprise columns, so it is not part of their entry plans."
+  },
+  {
+   "q": "Is Goodie AI worth $399 a month?",
+   "a": "Yes, if you will run it weekly: daily tracking, actions, attribution and strategist support in one plan. No, if you only need to learn whether ChatGPT or Perplexity names you. Get that baseline cheaply first, then decide whether the gap justifies a managed program."
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Answer engine optimization (AEO)",
+   "definition": "The practice of improving visibility in responses generated by generative AI systems, also called generative engine optimization (GEO).",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
+  }
+ ],
  "image": {
-  "url": "https://images.pexels.com/photos/7667442/pexels-photo-7667442.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A person points to t-shirt options in an online store on a laptop screen.",
-  "photographer": "MART  PRODUCTION",
-  "photographerUrl": "https://www.pexels.com/@mart-production"
- }
+  "url": "https://images.pexels.com/photos/20061882/pexels-photo-20061882.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Drone shot of a snowy landscape with a forked dirt road in Bindslev, Denmark.",
+  "photographer": "Peter Holmboe",
+  "photographerUrl": "https://www.pexels.com/@holmboe"
+ },
+ "sources": [
+  {
+   "label": "Goodie — Pricing",
+   "url": "https://higoodie.com/pricing/"
+  },
+  {
+   "label": "Goodie — Agent Site Audit",
+   "url": "https://higoodie.com/agent-site-audit/"
+  },
+  {
+   "label": "Otterly.AI — Pricing",
+   "url": "https://otterly.ai/pricing"
+  },
+  {
+   "label": "Peec AI — Pricing",
+   "url": "https://peec.ai/pricing"
+  },
+  {
+   "label": "AthenaHQ — Plans & Pricing",
+   "url": "https://athenahq.ai/plans"
+  },
+  {
+   "label": "Profound — Pricing",
+   "url": "https://www.tryprofound.com/pricing"
+  }
+ ],
+ "updated": "2026-10-03"
 }

@@ -1,0 +1,135 @@
+{
+  "contentSha256": "b005a0d45ab271d637dc783451afeb16b63264e7af6b6a6ad9f1bf6315284245",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder, marketer or agency lead wants to know what entity SEO is, how to see how Google's Knowledge Graph and a knowledge panel represent their brand, and whether any of it helps AI engines recognize and recommend the brand.",
+    "connection": "AEOeye audits whether AI engines name a brand when buyers ask; entity clarity (consistent name, markup, independent corroboration) is the diagnostic layer behind a wrong, missing or confused answer, and the page ends with how to test engines directly and links to AEOeye's fix guides and free audit."
+  },
+  "assessment": "The page answers one question: what entity SEO is and how it relates to AI recognition. It rests on Google's own documentation (Knowledge Graph Search API, Cloud Enterprise Knowledge Graph editions, knowledge panel help, Organization structured data, AI features page, October 2026), schema.org, Wikidata and Wikipedia policy pages, two 2022 language-model papers, a SparkToro consistency study and AEOeye's crawler access study (312 parseable homepages, 176 SaaS). It reports that Google now labels the legacy Knowledge Graph Search API as migrating and not production-critical, which the merged API page missed. It deliberately does not claim that ChatGPT, Claude or Perplexity query Google's Knowledge Graph, that resultScore measures brand strength, that panels can be bought or requested, or any timeline, and it drops the merged pages' unsourced claims (API launch year, quota and free-tier statements, other companies' graphs, detailedDescription sourcing beyond Google's sample).",
+  "sources": [
+    {
+      "url": "https://blog.google/products/search/introducing-knowledge-graph-things-not/",
+      "checkedAt": "2026-10-03",
+      "supports": "16 May 2012 post: Google's Knowledge Graph understands real-world entities and their relationships ('things, not strings'); at launch it contained more than 500 million objects and more than 3.5 billion facts; the taj mahal example of one query with several meanings."
+    },
+    {
+      "url": "https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/",
+      "checkedAt": "2026-10-03",
+      "supports": "20 May 2020 post: over 500 billion facts about five billion entities; hundreds of sources with Wikipedia commonly cited but not the only one; panels are automatically generated; many panels can be claimed by the subject (getting verified)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Knowledge_graph",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of a knowledge graph as a knowledge base using a graph-structured data model to store interlinked descriptions of entities and their relationships."
+    },
+    {
+      "url": "https://www.wikidata.org/wiki/Wikidata:Introduction",
+      "checkedAt": "2026-10-03",
+      "supports": "Wikidata describes itself as a free, collaborative, multilingual, secondary knowledge base collecting structured data."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Page footer shows last updated 2025-12-10. States there are no additional requirements to appear in AI Overviews or AI Mode, no other special optimizations necessary, and no special schema.org structured data to add."
+    },
+    {
+      "url": "https://arxiv.org/abs/2212.10511",
+      "checkedAt": "2026-10-03",
+      "supports": "Mallen et al., ACL 2023 (submitted Dec 2022): PopQA with 14k questions, 10 models; LMs struggle with less popular factual knowledge; retrieval-augmented LMs largely outperform much larger LMs while unassisted LMs stay competitive on high-popularity entities."
+    },
+    {
+      "url": "https://arxiv.org/abs/2211.08411",
+      "checkedAt": "2026-10-03",
+      "supports": "Kandpal et al., ICML 2023 (submitted Nov 2022): a model's ability to answer a fact-based question relates to how many relevant documents it saw in pre-training; retrieval augmentation can reduce that dependence."
+    },
+    {
+      "url": "https://developers.google.com/knowledge-graph",
+      "checkedAt": "2026-10-03",
+      "supports": "Overview page (last updated 2024-04-26): read-only API; returns a ranked list of the most notable matching entities; warning that Google is migrating the API to Cloud Enterprise Knowledge Graph and that new users should use the new product; not suitable as a production-critical service; returns individual entities, not graphs; sample request and Taylor Swift JSON-LD response where detailedDescription comes from Wikipedia."
+    },
+    {
+      "url": "https://developers.google.com/knowledge-graph/prereqs",
+      "checkedAt": "2026-10-03",
+      "supports": "Setup steps: Google Account, setup tool that guides creating a project in the API Console and enabling the API, then Create credentials > API key."
+    },
+    {
+      "url": "https://developers.google.com/knowledge-graph/how-tos/authorizing",
+      "checkedAt": "2026-10-03",
+      "supports": "Requests are identified with an API key; keys can be restricted ('Restrict key') before production use; OAuth not required for public data."
+    },
+    {
+      "url": "https://developers.google.com/knowledge-graph/reference/rest/v1",
+      "checkedAt": "2026-10-03",
+      "supports": "Endpoint, request parameters (query, ids, languages, types, indent, prefix, limit) and response fields: @id is the canonical URI, @type lists schema.org types, resultScore is 'an indicator of how well the entity matched the request constraints'."
+    },
+    {
+      "url": "https://docs.cloud.google.com/enterprise-knowledge-graph/docs/editions",
+      "checkedAt": "2026-10-03",
+      "supports": "Last updated 2026-09-30. Basic edition is optimized for simplicity and is a good fit for community applications that are not for production and high-traffic use cases; Advanced is for enterprise and production use."
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?action=help&modules=wbsearchentities",
+      "checkedAt": "2026-10-03",
+      "supports": "wbsearchentities searches entities by labels and aliases and returns a label and description; no API key is mentioned. We also ran the keyless query for 'Stripe' on 2026-10-03: the first two items were the Irish-American payment technology company and the generic word 'stripe'."
+    },
+    {
+      "url": "https://support.google.com/knowledgepanel/answer/7534842",
+      "checkedAt": "2026-10-03",
+      "supports": "Panel information generates automatically from public information on the web; Google's policy is not to manually create or delete panels; verified feedback is reviewed within a few days (sometimes longer); descriptions come from various data sources and cannot be edited, so contact the source; images can only be replaced if one exists; Google does not accept custom subtitles."
+    },
+    {
+      "url": "https://support.google.com/knowledgepanel/answer/7534902",
+      "checkedAt": "2026-10-03",
+      "supports": "How to claim a panel ('Claim this knowledge panel', sign in to YouTube, Search Console, Twitter or Facebook); not all panels are claimable; Business Profiles are specific to businesses serving customers at a location or service area; Feedback flow for suggesting corrections with supporting links."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Last updated 2026-09-08. Organization markup on the homepage helps disambiguate the organization; iso6523 and naics are used behind the scenes to disambiguate; logo can influence the logo shown in Search and knowledge panels (min 112x112 px, crawlable); use the same name and alternateName as the site name; legalName when different; iso6523Code ICDs 0060 DUNS, 0088 GLN, 0199 LEI; sameAs is a page on another website about the organization; no guarantee that features appear."
+    },
+    {
+      "url": "https://schema.org/sameAs",
+      "checkedAt": "2026-10-03",
+      "supports": "sameAs is the URL of a reference web page that unambiguously indicates the item's identity, e.g. its Wikipedia page, Wikidata entry or official website."
+    },
+    {
+      "url": "https://www.wikidata.org/wiki/Wikidata:Notability",
+      "checkedAt": "2026-10-03",
+      "supports": "An item must meet at least one of three criteria; one is that it refers to a clearly identifiable conceptual or material entity that can be described using serious and publicly available references (the others are a valid sitelink and a structural need)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Notability",
+      "checkedAt": "2026-10-03",
+      "supports": "Notability requires significant coverage in reliable sources independent of the subject; advertising, press releases, autobiographies and the subject's website are not independent."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest",
+      "checkedAt": "2026-10-03",
+      "supports": "Conflict-of-interest editing is strongly discouraged; paid editors must disclose who is paying them."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "January 2026 study: 600 volunteers, 2,961 runs across ChatGPT, Claude and Google's AI; under a 1-in-100 chance that ChatGPT or Google's AI gives the same list of brands in any two responses."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened every cited URL on 2026-10-03 with WebFetch and re-read the raw page text with curl before publishing any quote, number or date; this caught that Google's Knowledge Graph Search API page now carries a migration warning and a not-production-critical warning that the merged API page never mentioned.",
+    "Writer (Sonnet): recomputed the Organization and sameAs figures from public/resources/ai-crawler-access-study-2026-10.csv (176 parseable SaaS homepages: 129 Organization-type = 73.3%, 121 sameAs = 68.8%; all 312 parseable homepages 219 and 190 = 70.2% and 60.9%) and read the study script, which detects sameAs with a regex on the homepage body, so the page says 'sameAs links' on the homepage rather than claiming they sit on the Organization node.",
+    "Writer (Sonnet): confirmed on the live aeoeye.com homepage (curl, 2026-10-03) that our Organization JSON-LD lists two sameAs profiles (Pinterest and Reddit) and said so in the page instead of presenting AEOeye as a model example.",
+    "Writer (Sonnet): caught and fixed an error before finishing: Wikidata's 'clearly identifiable entity' and 'structural need' are separate alternative criteria, not one combined test; and replaced 'almost everyone has the markup' with 'most brands' to match the 70-73 percent rates.",
+    "Writer (Sonnet): dropped the merged pages' unsourced or unverifiable claims (API opened in 2015, free-tier and quota statements, Amazon/Microsoft/Meta graphs, 'detailedDescription usually points to Wikipedia, sometimes Wikidata or your own site', and advice to compare resultScore against competitors, which Google's definition does not support); I did not run a Knowledge Graph Search API query because it needs an API key and Cloud project, so the steps are labelled as following Google's documentation as of October 2026.",
+    "Writer (Sonnet): the spec's link /answers/why-does-ai-recommend-my-competitors is being merged into /blog/why-ai-doesnt-mention-your-brand (spec w2-01) and is absent from the live-pages list, so the page links the merge destination instead; ran node scripts/content-lint.mjs (0 errors, 0 warnings, 1,494 words, 3 inline images).",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, the Knowledge Graph API steps (labelled as following Google docs, not run by us) and the knowledge-panel section; merges of the three absorbed pages checked against the writer report",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): matched first-hand figures to the study CSV (129 of 176 SaaS homepages Organization schema; 121 sameAs) and confirmed the statement about our own homepage sameAs links against the live page",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/what-is-a-knowledge-graph",
+    "/blog/google-knowledge-graph-api",
+    "/blog/google-knowledge-panel"
+  ]
+}

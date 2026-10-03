@@ -1,0 +1,78 @@
+{
+  "contentSha256": "cc8e4769aa7ce6bd452390ac31032cf6141cc578a8815bbd1cc55a9ab45436a0",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "Marketers and SEO leads hear that AEO or GEO is a new discipline and need to know which of the advice is recycled SEO, what is genuinely new, and which tactics to ignore before spending budget.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand; the page uses AEOeye's crawler access study, recommendation benchmark and own content consolidation to separate recycled advice from the measurement, third-party proof and per-engine work that an AI visibility audit actually addresses."
+  },
+  "assessment": "An opinion page that sorts common AEO advice into recycled, old-habit-now-measured and genuinely new, with the 80/20 split explicitly labelled as AEOeye's judgment rather than a measured share. It rests on Google's July 2026 generative AI guide and third-party-advice guidance, OpenAI and Perplexity crawler documentation, the GEO paper (KDD 2024), a September 2025 arXiv preprint on earned-media sourcing, SparkToro's inconsistency study, Ahrefs' schema study (a vendor study, attributed and caveated) and AEOeye's own crawler access study and recommendation benchmark with their sample caveats. It deliberately does not claim that schema or llms.txt can never help, that GEO edits raise rankings or citations in production, any per-engine ranking of recommendation rates, or the traffic-share and adoption statistics the previous version took from roundup sites, which were removed because they could not be traced to primary sources.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Page last updated 2026-07-10: generative AI features are rooted in core Search ranking and quality systems (retrieval-augmented generation, query fan-out); optimizing for generative AI search is 'thus still SEO'; a page must be indexed and snippet-eligible; non-commodity content likely matters most; reduce duplicate content; llms.txt is ignored by Google Search; chunking, rewriting just for AI, inauthentic mentions and overfocusing on structured data are listed as things not needed; creating separate content for every fan-out variant primarily to manipulate violates the scaled content abuse policy; Search Console has a Generative AI performance report."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/third-party-seo",
+      "checkedAt": "2026-10-03",
+      "supports": "Page last updated 2026-06-05: third-party tools do not have access to Google's internal ranking data and cannot guarantee performance; good advice qualifies claims as opinion or cites official guidance."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "Aggarwal et al., GEO (KDD 2024): Cite Sources, Quotation Addition and Statistics Addition gave 30-40% relative improvement on Position-Adjusted Word Count in the authors' generative engine; keyword stuffing gave little to no improvement and was 10% worse than baseline on Perplexity.ai; effects on search rankings were not evaluated and methods may need to adapt as engines evolve."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al., September 2025 preprint (search-enabled GPT-4o via gpt-4o-search-preview): US software prompts, AI search 72.7% earned and 26.7% brand versus Google 45.4% earned, 43.7% brand and 10.9% social; consumer electronics Claude about 93.7% and GPT about 93.6% earned versus Perplexity 53.3% earned, 31.6% brand, 15.1% social."
+    },
+    {
+      "url": "https://www.sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "Published January 2026; SparkToro with Gumshoe.ai, surveys run November-December 2025: 600 volunteers, 12 prompts through each of three tools, 2,961 runs; under a 1 in 100 chance that ChatGPT or Google's AI gives the same brand list in any two responses; the author considers visibility percentage across dozens to hundreds of prompts run multiple times a reasonable metric."
+    },
+    {
+      "url": "https://ahrefs.com/blog/schema-ai-citations/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs vendor study: 1,885 pages that added JSON-LD between August 2025 and March 2026 matched against 4,000 controls showed no major citation uplift on Google AI Overviews, AI Mode or ChatGPT; all pages already had 100+ AI Overview citations in February 2025, so the study cannot speak to uncited pages."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Sites opted out of OAI-SearchBot will not be shown in ChatGPT search answers though can appear as navigational links; OAI-SearchBot and GPTBot settings are independent."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot is designed to surface and link websites in Perplexity search results and is not used to crawl content for AI foundation models."
+    },
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "llms.txt is a proposal (v2, modified August 2026) for agents; the proposal says it is used most heavily for software documentation."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Reports a 2025 Forrester argument that AEO and related terms are significantly but not fundamentally different from SEO and that advocates exaggerate the differences to carve out a tool category."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims the page states; read the raw text of Google's generative AI guide (updated 2026-07-10) and third-party SEO guidance (updated 2026-06-05) to confirm the 'still SEO', not-needed list, duplicate-content and scaled-content-abuse wording.",
+    "Writer (Sonnet): read the full GEO paper text (arXiv 2311.09735 PDF) to confirm the 30-40% Position-Adjusted Word Count gain, the keyword-stuffing result (little to no improvement; 10% worse on Perplexity.ai) and the stated limitation that search rankings were not evaluated; read the raw HTML of arXiv 2509.08919 to confirm 72.7% / 26.7% / 45.4% / 43.7% and the consumer-electronics source shares.",
+    "Writer (Sonnet): re-read the Ahrefs schema study in full and kept its stated caveat that every page already had 100+ AI Overview citations; labelled Ahrefs as a vendor of AI-visibility tracking in the page text; confirmed SparkToro's publication date (January 2026) and survey window (November-December 2025) from the page.",
+    "Writer (Sonnet): checked crawler-study figures (1 of 193 SaaS and 27 of 38 publishers blocking any AI retrieval bot; 384 robots.txt files; 24 of 88 e-commerce homepages challenging the crawler) against the evidence pack and the public summary JSON, and benchmark figures (127 audits, 892 answers, 17.6% mention rate, 71.4% of 147 ranked mentions first) against the benchmark artifact summary, each stated with its sample caveat.",
+    "Writer (Sonnet): read the previous version in full and dropped its Instant Press, Pressonify/Conductor and HubSpot statistics (1.08% traffic share, 87.4% ChatGPT referral share, ~30% brand persistence, budget percentages) and its claim that LLMs extract passages not pages, because none could be traced to a primary source; replaced them with SparkToro, the arXiv preprint and Google's own documentation. Read /blog/aeo-vs-seo and /blog/llms-txt-is-overrated so this page takes the opinion angle without repeating their paragraphs.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page and cleared every finding.",
+    "Editor (Opus): read the final draft: stance labelled as AEOeye judgment (80/20 is not a measured share), verdict table, three genuinely new practices, ignore list and next steps",
+    "Editor (Opus): spot-verified Google AI optimization guide claims (llms.txt ignored, chunking not needed, scaled content abuse) and GEO paper figures (30–40%, keyword stuffing worse on Perplexity)",
+    "Editor (Opus): removed-claims check: untraceable roundup statistics were dropped rather than re-cited",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): matched first-hand figures to the evidence pack with the benchmark caveat; consolidation stated as 165 pages into 42",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

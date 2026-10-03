@@ -1,205 +1,164 @@
 {
  "slug": "how-to-optimize-content-for-ai-search",
  "type": "guides",
- "title": "How to Optimize Content for AI Search (So ChatGPT and Google Actually Cite You)",
- "metaTitle": "How to Optimize Content for AI Search (2026)",
- "metaDescription": "A practical, answer-first guide to optimizing content for AI search so ChatGPT, Perplexity, Google AI and Claude extract and cite you. Steps, schema, stats.",
+ "title": "How to Optimize Content for AI Search: Write Passages Engines Can Quote",
+ "metaTitle": "How to Optimize Content for AI Search: 8 Steps (2026)",
+ "metaDescription": "Optimize content for AI search by making every section a quotable answer: lead with the answer, add sourced numbers, name your entities and keep facts current.",
  "primaryKeyword": "how to optimize content for ai search",
- "shortAnswer": "To optimize content for AI search, lead every section with a direct 40-60 word answer, then back it with statistics, named sources, and quotes. Add FAQPage and Article schema in JSON-LD, write in clean extractable chunks, and structure pages around the exact questions people ask. AI engines cite what they can lift cleanly.",
- "intro": "Here's the uncomfortable truth: AI search engines don't reward your best prose. They reward your most *extractable* prose. ChatGPT, Perplexity, Google AI Overviews, Claude and Gemini are pattern-matching machines hunting for a clean, self-contained answer they can quote with confidence — and most content makes them dig for it.\n\nOptimizing content for AI search is not a new dark art. It's a disciplined way of writing that front-loads the answer, proves it with data, and labels it so a machine can parse it. Do this and you get cited. Bury your answer in paragraph six and you get skipped — even if you're right. This guide gives you the exact moves, grounded in the peer-reviewed research that actually measured what works.",
+ "shortAnswer": "Optimize the passage, not just the page. Open every section with a self-contained 40–60 word answer, back it with sourced numbers and attributed quotes, state entity facts plainly, and keep dated facts current. Publish one page per question. Schema cannot replace text worth quoting, and Google says its AI features need no special markup.",
+ "intro": "AI engines do not read a page the way a visitor does. They retrieve passages, check whether one can stand alone, and quote it with a link. Optimizing for AI search is therefore editorial work: make each section a complete, checkable answer.\n\nWe label each claim documented (an engine's docs say so), measured (a study found it) or our judgment. Google's [own guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) calls optimizing for its AI features \"still SEO\"; for ChatGPT search, Perplexity and Claude we found crawler rules but no content guide, so research and judgment carry more weight.",
  "sections": [
   {
-   "heading": "What does \"optimizing for AI search\" actually mean?",
-   "body": "It means writing so an AI engine can lift a complete, correct answer from your page without reading the whole thing. AI search optimization — also called AEO or GEO — targets being *cited inside* an AI-generated answer, not ranking a blue link. The unit of success changed from \"click\" to \"mention.\"\n\nThe stakes are not niche anymore. Google's AI Overviews alone reached [2 billion monthly users by mid-2025](https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india/), up from 1.5 billion in May. When an AI summary answers the query directly, people stop clicking — so if you're not *in* the answer, you're invisible to a growing share of search.\n\nThe mechanics are different from classic SEO in three ways:\n\n- **Retrieval, then generation.** The engine pulls a handful of passages, then writes an answer. You're competing to be one of those passages.\n- **Passage-level, not page-level.** A single strong, self-contained paragraph can get cited even from an otherwise mediocre page.\n- **Confidence wins.** Models prefer content that states facts plainly, with sources and numbers they can attribute."
+   "heading": "What does optimizing content for AI search mean?",
+   "body": "Optimizing content for AI search (called AEO or GEO, sometimes AI content optimization) means making a passage of your page easy to retrieve, trust and quote inside a generated answer. Two gates apply: eligibility (can the engine fetch the page?) and selection (which eligible passage gets quoted?). Content work pays off at the second gate.\n\n**Eligibility is documented, and usually fine.** Google needs a page [indexed and snippet-eligible](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). OpenAI says sites [opted out of OAI-SearchBot](https://developers.openai.com/api/docs/bots) do not appear in ChatGPT search answers; [Perplexity](https://docs.perplexity.ai/guides/bots) and [Anthropic](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) say similar. In [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) (October 2026; 391 well-known sites, a convenience sample), 1 of 193 SaaS sites blocked any AI retrieval bot in robots.txt, yet 24 of 88 e-commerce and consumer homepages challenged our crawler, so check firewall rules too.\n\n**Selection works on passages.** Google's AI features are [rooted in its core ranking systems](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), which include a [passage ranking system](https://developers.google.com/search/docs/appearance/ranking-systems-guide) for individual sections, and use [retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) plus query fan-out, related searches on sub-topics. The original [RAG paper](https://ar5iv.labs.arxiv.org/html/2005.11401) indexed 100-word chunks; ChatGPT, Perplexity and Claude publish no chunk sizes, so write sections that survive being lifted out."
   },
   {
-   "heading": "Why does answer-first structure get cited more?",
-   "body": "Because AI engines extract the cleanest self-contained answer they can find, and answer-first writing hands it to them on the first line. When your opening sentence fully answers the heading's question in 40-60 words, the model can quote it verbatim with high confidence. Bury the answer and a competitor's tidy paragraph wins the citation instead.\n\nThis isn't a hunch. The foundational [Princeton/IIT Delhi GEO study (KDD 2024)](https://arxiv.org/abs/2311.09735) tested nine optimization methods across thousands of queries and found that content tactics — not keyword tricks — drove visibility. The biggest movers were adding statistics, citing sources, and including quotations, each lifting visibility in AI answers by roughly 30-40% on their position-adjusted metric.\n\nPractical rule: every H2 should be a question, and the sentence directly under it should be the answer. No throat-clearing, no \"in today's fast-paced world.\" State the conclusion, then earn it."
+   "heading": "Does an answer-first structure get you quoted?",
+   "body": "Probably. A 2025 [retrieval study](https://arxiv.org/abs/2505.13950) found dense embedding and ColBERT-style models lose 15.6% of performance on average when the relevant information appears later in a passage; BM25 and rerankers were more robust. We found no direct test on ChatGPT or Perplexity, so this is mechanism, not proof.\n\nEngines lift short spans, so the first sentence under each heading should answer that heading in 40–60 words and make sense alone. The length is our rule of thumb, not an engine limit. Anthropic's web search tool [returns up to 150 characters of cited text](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) per citation, about one sentence. Two habits help:\n\n- **Name the subject.** Skip \"it\", \"this approach\" and \"as mentioned above\"; a lifted passage loses its neighbours.\n- **Phrase headings as questions.** [Pew Research](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/) found AI summaries on 53% of Google searches of 10+ words but 8% of one- or two-word searches (March 2025).\n\nThis does not mean chopping a page into fragments: Google says there is [no requirement to break content into tiny pieces](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide)."
   },
   {
-   "heading": "What content elements make AI engines trust and quote you?",
-   "body": "Statistics, named-source citations, and direct quotations. The GEO research found these three were the standout performers — adding statistics improved visibility by about 41% on the study's main metric, with citing sources and quotations close behind at roughly 30% each. Vague, sourceless prose gets passed over.\n\nWhy these three? They give the model something *attributable*. An AI assistant would rather repeat \"X grew 41% (Source, 2024)\" than your unsupported adjective, because the cited version is safer to surface. Concrete elements to bake in:\n\n- **Hard numbers with a source and date** — \"527% YoY\" beats \"explosive growth.\"\n- **Named authorities** — cite Pew, Gartner, schema.org, official docs, peer-reviewed papers. The GEO study notes lower-ranked pages can see [up to 115% relative visibility gains](https://arxiv.org/abs/2311.09735) from these tactics.\n- **Short, attributable quotes** from recognized experts.\n- **Definitions** of key terms, stated cleanly so a model can lift them whole.\n\nFluffy \"keyword stuffing,\" by contrast, performed *worst* in the same study. Density of meaning beats density of keywords."
+   "heading": "Which content elements make AI engines quote you?",
+   "body": "The best-measured elements are statistics, quotations and citations of credible sources. In the [GEO study](https://arxiv.org/abs/2311.09735) (Aggarwal et al., KDD 2024), each lifted a rewritten page's visibility by 30–40% on one metric and 15–30% on another, while keyword stuffing gave little to no improvement.\n\nThe [setup](https://arxiv.org/html/2311.09735v3): 10,000 queries; a research engine on GPT-3.5-turbo answering from the top five Google results; one source per query rewritten by an LLM and compared with its original.\n\nThe limits: a 2023 research engine, not Google's AI features or today's chatbots, measuring share within an answer, not retrieval. Google's guide never mentions these tactics; it says unique, [non-commodity content](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) will likely matter more than any other suggestion in it. Read the study as evidence for credibility, not a formula.\n\nWhat to do:\n\n- Put a real number, its source and its date in one sentence ([anatomy of a quotable passage](/answers/what-makes-content-quotable-by-ai)).\n- Attribute quotes to the person who said them, and link primary sources.\n- Add what only you have: your data, pricing and first-hand tests. Never let a tool invent a figure.\n\n![Reading glasses resting on an open reference book with dense printed text.](https://images.pexels.com/photos/267642/pexels-photo-267642.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How does schema markup help AI extract your content?",
-   "body": "Schema markup is structured data, written in JSON-LD, that labels your content so machines don't have to guess its meaning. It tells an AI engine \"this is the question, this is the answer, this is the author\" in an unambiguous format — turning your page from prose it must interpret into data it can read directly.\n\nThe two schema types that matter most for AI search:\n\n- **FAQPage** — pairs explicit questions with answers, the exact shape AI assistants emit. Industry analyses report [FAQ schema lifts AI citation rates substantially](https://www.frase.io/blog/faq-schema-ai-search-geo-aeo) because it mirrors how engines structure responses.\n- **Article** — establishes content type, author, and publish date, reinforcing the expertise and authorship signals models weigh.\n\nUse JSON-LD ([the format Google recommends](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)) in a dedicated `<script>` block, and validate it. Nesting FAQPage inside Article is a clean pattern: it tells the engine \"this authored article contains these specific Q&A pairs.\" Schema is the [open vocabulary maintained by Google, Microsoft, Yahoo and Yandex](https://schema.org/) — it's the closest thing to speaking the machines' native language."
+   "heading": "Does schema markup help AI search?",
+   "body": "Schema markup helps machines parse a page and tell entities apart; it is not a citation switch and cannot replace quotable text. As of October 2026, Google says structured data [is not required](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) for its AI features and no special markup is needed. Use it because it is accurate and cheap; [structured data for AI](/blog/structured-data-for-ai) covers types and examples.\n\n- **Correlation exists.** [GEO-16](https://arxiv.org/abs/2509.10762), an observational study of 1,100 cited B2B SaaS pages, found metadata and freshness, semantic HTML and structured data most associated with citation. Its authors warn that confounders such as brand reputation may explain this.\n- **FAQPage is no longer a Google rich result.** Google [stopped showing](https://developers.google.com/search/updates) it on May 7, 2026. Write FAQs for readers.\n- **Adoption is not effect.** In the [same study](/resources/ai-crawler-access-study-2026-10.csv), Organization markup was on 129 of 176 SaaS homepages (73.3%): table stakes. FAQPage was on 13 (7.4%), but on 18 of 42 AI-visibility tool vendors (42.9%, aeoeye.com included). That shows what the AEO industry believes, not what works.\n- **llms.txt follows the same logic.** [The proposed file](https://llmstxt.org/) is on 108 of 180 checkable SaaS sites (60%), Google says it [ignores such files](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), and we know of no major engine documenting its use for answers. See [what is llms.txt](/blog/what-is-llms-txt)."
   },
   {
-   "heading": "How should you structure a page so AI can parse it?",
-   "body": "Break the page into short, self-contained, clearly-labeled chunks — each one able to stand alone as a citation. AI retrieval works at the passage level, so a page of skimmable Q&A sections gives the engine many independent shots at being quoted. A wall of text gives it one hard-to-parse blob.\n\nThe extractable-page checklist:\n\n- **Question-style H2/H3 headings** that match real search phrasing.\n- **2-4 sentence paragraphs.** Long paragraphs dilute the quotable unit.\n- **Bulleted and numbered lists** for steps, criteria, and comparisons — lists are easy to lift cleanly.\n- **A comparison table** when you're contrasting options; models love structured rows.\n- **A summary or key-takeaways block** that restates conclusions in plain sentences.\n- **An FAQ section** at the end mirroring your FAQPage schema.\n\nThink in modules, not narrative arc. Each section should answer one question completely, so it survives being ripped out of context and dropped into an AI answer."
+   "heading": "How should you structure a page for AI?",
+   "body": "Build the page as a stack of self-contained answers: a short answer first, one question per heading, tables where facts run in parallel. In the last column, Documented means an engine's docs say so, Measured means a published study found it, and Judgment means the call is ours. For a fuller audit, use our [AEO audit checklist](/blog/aeo-audit-checklist).\n\n| Check | What to do | Evidence |\n|---|---|---|\n| Fetchable | Allow OAI-SearchBot, PerplexityBot, Claude-SearchBot and Googlebot; check firewall logs; keep answer text in server-sent HTML | Documented, Judgment |\n| Short answers | Each H2 is the buyer's question, answered in 40–60 words, plus a takeaways box | Judgment |\n| Sourced proof | Number, unit, date and source in one sentence; attributed quotes | Measured |\n| Entity facts | One brand and product name everywhere; price, audience and location in plain sentences; [Organization markup](https://developers.google.com/search/docs/appearance/structured-data/organization) with sameAs | Judgment, Documented |\n| Tables and lists | Parallel facts in labelled rows, so a lifted row keeps its labels | Judgment |\n| Dates | A visible \"Last updated\" that [matches dateModified](https://developers.google.com/search/docs/appearance/publication-dates) | Documented, Measured |\n\n![Three white jigsaw pieces joined together with one loose piece beside them on a blue background.](https://images.pexels.com/photos/5505122/pexels-photo-5505122.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How do you write so multiple AI engines (not just Google) cite you?",
-   "body": "Write to the shared denominator: clear claims, real sources, clean structure — that works across ChatGPT, Perplexity, Google AI, Claude and Gemini, because they all reward extractability and attribution. But each engine has tilts worth knowing, and the only way to find your gaps is to *measure* where you already appear (or don't).\n\nThe engine-specific nuances:\n\n- **Perplexity and ChatGPT search** lean heavily on live retrieval and visibly cite sources — fresh, well-sourced pages win.\n- **Google AI Overviews and AI Mode** still reward classic E-E-A-T and structured data on top of crawlability.\n- **Claude and Gemini** favor coherent, factual, well-organized content and are quick to drop fluff.\n\nThe practical move is to audit your actual visibility across all five rather than guess. AEOeye runs a free AI visibility audit across ChatGPT, Perplexity, Google AI, Claude and Gemini, so you can see which engines cite you, which ignore you, and exactly which pages to fix first. Optimize, re-test, repeat — AI search is a measurement game, not a one-shot edit."
+   "heading": "Should you use AI tools to optimize content?",
+   "body": "Yes for structure, editing and gap-finding; no for facts. \"AI content optimization\" also names this other job; only optimizing for AI engines decides whether they quote you. Google says generative AI can help with research and [adding structure to original content](https://developers.google.com/search/docs/fundamentals/using-gen-ai-content).\n\n- **Good uses:** restructuring a draft answer-first, listing sub-questions it leaves unanswered and tightening sentences.\n- **Bad uses:** inventing statistics, quotes or sources (models [predict likely words rather than retrieve facts](https://developers.google.com/search/docs/fundamentals/using-gen-ai-content), so any figure a tool adds is a guess until you source it), and mass-producing pages, which Google says may violate its scaled content abuse policy."
   },
   {
-   "heading": "Does AI search optimization mean you stop caring about clicks?",
-   "body": "No — but you should expect the click math to change, and plan for visibility-as-value. When an AI Overview fully answers a query, click-through to sources drops sharply; some analyses put clicks on cited sources in the low single digits versus roughly 15% for traditional results when no AI summary appears. Being cited builds awareness and authority even without the click.\n\nSo the strategy is two-track:\n\n1. **Win the citation** for high-intent, answer-style queries where users mainly want the fact — you get brand visibility and trust inside the AI answer.\n2. **Keep earning clicks** for deep, comparison, and transactional content where users still need your full page, tools, or pricing.\n\nDon't cannibalize yourself by dumping every detail into an extractable snippet. Answer the question, then give the reader a concrete reason — a calculator, a template, a full breakdown, a free audit — to actually visit. Citation is the top of the funnel now; the click is still where conversion lives."
+   "heading": "How does this change your AI content strategy?",
+   "body": "Publish fewer, better pages: one strong page per buyer question, with sub-questions as sections rather than near-duplicate pages. Google says a high quantity of pages does not make a site more relevant and warns against separate pages for every query variation or [fan-out query](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). If two pages would answer the same buyer prompt, they are one page.\n\nOn 2026-09-24 we retired 234 of our blog posts and merged 27 duplicates, after Search Console showed about half of our 496 posts were unrelated to AI visibility and had no clicks in 90 days. On 2026-10-03 we merged another 165 duplicate-intent and research pages into 42; this guide replaces five of them. It is our position, not a measured result: the merges are days old and we have no citation data yet.\n\n- **Give readers a reason to click.** [Pew](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/) found Google users clicked a regular result in 8% of visits when an AI summary appeared, against 15% when none did. Answer first, then offer what a summary cannot: your data, a tool, the full comparison.\n- **Measure by asking.** Re-ask the same buyer questions monthly. Google's [Search Console report](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports) counts impressions in AI Overviews and AI Mode, and our [free audit](/) asks three buyer questions to ChatGPT.\n\n![Two colleagues at a table review printed forms next to a tablet showing a chart.](https://images.pexels.com/photos/8171198/pexels-photo-8171198.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   }
  ],
  "keyTakeaways": [
-  "Lead every section with a 40-60 word direct answer — AI engines cite the cleanest self-contained passage they can find.",
-  "Statistics, named-source citations, and quotes are the proven movers: the Princeton/IIT Delhi GEO study found gains of roughly 30-41% in AI visibility from these elements.",
-  "Structure beats prose: question headings, 2-4 sentence paragraphs, lists, and tables make content extractable at the passage level.",
-  "Add FAQPage and Article schema in JSON-LD so machines read your meaning explicitly instead of guessing.",
-  "Optimize for all five engines (ChatGPT, Perplexity, Google AI, Claude, Gemini) — they share a bias toward clear, sourced, well-structured content.",
-  "Treat AI search as a measurement loop: audit where you're cited, fix the weakest pages, re-test."
+  "Optimize the passage: open each section with a self-contained 40–60 word answer, proof beneath.",
+  "Sourced statistics, attributed quotes and cited sources are the best-measured levers (30–40% in the 2023 GEO study).",
+  "Google says its AI features need no special markup; schema cannot replace quotable text.",
+  "Use AI tools for structure and editing, never for facts.",
+  "Publish one page per buyer question; re-test the same questions monthly."
  ],
  "faqs": [
   {
-   "q": "What is the difference between AEO, GEO, and SEO?",
-   "a": "SEO optimizes to rank a link in traditional search results. AEO (Answer Engine Optimization) and GEO (Generative Engine Optimization) optimize to be cited *inside* an AI-generated answer on engines like ChatGPT, Perplexity, and Google AI Overviews. AEO/GEO build on SEO fundamentals — crawlability, authority, structure — but the goal shifts from earning the click to being the source the AI quotes."
+   "q": "What is AI content optimization?",
+   "a": "It names two jobs. One is optimizing content for AI engines: writing sections that ChatGPT search, Perplexity, Claude and Google's AI features can retrieve, trust and quote. The other is using AI tools to research, draft and edit. Only the first decides whether engines name you; the second changes how fast you produce pages and still needs a human to check every fact."
   },
   {
-   "q": "Does schema markup actually help AI search visibility?",
-   "a": "Yes. Schema markup (structured data in JSON-LD) labels your content so AI engines can parse questions, answers, authorship, and dates without guessing. FAQPage and Article schema are the highest-value types because they mirror how AI assistants structure responses. It won't fix weak content, but on strong content it makes extraction and attribution far more reliable."
+   "q": "Does schema markup help AI search visibility?",
+   "a": "Not as a lever on its own. As of October 2026, Google says structured data is not required for its AI features and no special schema.org markup is needed. Markup still helps machines identify your organization and describe visible content accurately, so keep it correct. It cannot substitute for a clear, sourced answer in the text, which is what an engine actually quotes."
   },
   {
-   "q": "How long should my answer paragraphs be for AI search?",
-   "a": "Aim for a 40-60 word direct answer at the start of each section, in 2-4 sentence paragraphs. That length is long enough to be complete and self-contained, but short enough that an AI engine can lift it cleanly as a citation without trimming. Longer paragraphs dilute the quotable unit."
+   "q": "How long should an answer-first opening be?",
+   "a": "Aim for 40 to 60 words that answer the heading's question and make sense alone. That is our rule of thumb, not an engine limit. Anthropic's web search tool, for example, returns up to 150 characters of cited text per citation, roughly one sentence, so put the core claim in the first sentence and the supporting detail after it."
   },
   {
    "q": "Will optimizing for AI search hurt my Google rankings?",
-   "a": "No — done right it helps both. The fundamentals that win AI citations (clear structure, real sources, schema, E-E-A-T, fresh content) are the same signals Google rewards. The one caution: keyword stuffing performed *worst* in the GEO research, so the old spammy tactics that already hurt SEO will also keep you out of AI answers."
+   "a": "No. Google calls optimizing for its AI features still SEO and names a clear technical structure and unique, valuable content as the foundation. The habit to drop is keyword stuffing, which gave little to no improvement in the GEO study. Write for readers first: the section that answers a buyer clearly is also the one an engine can quote."
   },
   {
-   "q": "How do I know if AI engines are already citing my content?",
-   "a": "You have to test it directly across each engine, because visibility varies a lot between ChatGPT, Perplexity, Google AI, Claude, and Gemini. AEOeye runs a free AI visibility audit across all five so you can see exactly which engines cite you, which ignore you, and which pages to fix first."
+   "q": "How do I know whether AI engines quote my content?",
+   "a": "Ask your buyers' questions in each engine, several times each because answers vary, and log whether you are named, cited and described correctly. For Google, Search Console's generative AI performance report shows impressions in AI Overviews and AI Mode by page. AEOeye's free audit asks three unbranded buyer questions to ChatGPT; the $29 full report adds Claude, Gemini, Google AI and Perplexity."
   }
  ],
- "comparisonTable": {
-  "columns": [
-   "Element",
-   "Traditional SEO emphasis",
-   "AI search (AEO/GEO) emphasis"
-  ],
-  "rows": [
-   {
-    "label": "Goal",
-    "values": [
-     "Rank a clickable link",
-     "Be cited inside the AI answer"
-    ]
-   },
-   {
-    "label": "Winning unit",
-    "values": [
-     "The page",
-     "The self-contained passage"
-    ]
-   },
-   {
-    "label": "Opening line",
-    "values": [
-     "Hook / intro",
-     "Direct 40-60 word answer"
-    ]
-   },
-   {
-    "label": "Proof",
-    "values": [
-     "Helpful but optional",
-     "Statistics, sources, quotes (≈30-41% lift)"
-    ]
-   },
-   {
-    "label": "Markup",
-    "values": [
-     "Nice-to-have rich results",
-     "FAQPage + Article JSON-LD, high value"
-    ]
-   },
-   {
-    "label": "Success metric",
-    "values": [
-     "Clicks / rankings",
-     "Citations across engines"
-    ]
-   }
-  ]
- },
+ "comparisonTable": null,
  "sources": [
   {
-   "label": "GEO: Generative Engine Optimization (Aggarwal et al., KDD 2024) — arXiv",
+   "label": "Aggarwal et al. — GEO: Generative Engine Optimization (KDD 2024), arXiv",
    "url": "https://arxiv.org/abs/2311.09735"
   },
   {
-   "label": "GEO: Generative Engine Optimization — ACM SIGKDD 2024 Proceedings",
-   "url": "https://dl.acm.org/doi/10.1145/3637528.3671900"
+   "label": "Google Search Central — Optimizing your website for generative AI features on Google Search",
+   "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   },
   {
-   "label": "Google's AI Overviews have 2B monthly users — TechCrunch",
-   "url": "https://techcrunch.com/2025/07/23/googles-ai-overviews-have-2b-monthly-users-ai-mode-100m-in-the-us-and-india/"
+   "label": "Anthropic — Web search tool (Claude API documentation)",
+   "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool"
   },
   {
-   "label": "Intro to structured data markup — Google Search Central",
-   "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+   "label": "OpenAI — Overview of OpenAI crawlers",
+   "url": "https://developers.openai.com/api/docs/bots"
   },
   {
-   "label": "Schema.org — official vocabulary",
-   "url": "https://schema.org/"
+   "label": "Pew Research Center — Google users are less likely to click on links when an AI summary appears",
+   "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
   },
   {
-   "label": "Are FAQ Schemas Important for AI Search, GEO & AEO? — Frase",
-   "url": "https://www.frase.io/blog/faq-schema-ai-search-geo-aeo"
+   "label": "Google Search Central — Guidance on using generative AI content",
+   "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content"
   }
  ],
  "definitions": [
   {
-   "term": "Generative Engine Optimization (GEO)",
-   "definition": "Optimizing content to be surfaced and cited within answers produced by generative AI engines, introduced as a formal framework in the Princeton/IIT Delhi KDD 2024 study.",
+   "term": "Generative engine optimization (GEO)",
+   "definition": "Optimizing content so generative AI engines surface and cite it. The term was formalized by Aggarwal et al. (2023), who built a benchmark to test content changes; answer engine optimization (AEO) names the same practice.",
    "sourceUrl": "https://arxiv.org/abs/2311.09735"
   },
   {
-   "term": "Schema markup / structured data",
-   "definition": "A standardized JSON-LD vocabulary (schema.org) added to a page to describe its content so search and AI engines can parse meaning unambiguously.",
-   "sourceUrl": "https://schema.org/"
+   "term": "Retrieval-augmented generation (RAG)",
+   "definition": "A technique that lets a language model retrieve and incorporate information from external sources before it answers.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
   },
   {
-   "term": "Answer-first (BLUF) structure",
-   "definition": "A writing pattern that places the bottom-line conclusion in the first 40-60 words of a section before any supporting detail, maximizing extractability for AI engines.",
+   "term": "Query fan-out",
+   "definition": "A set of concurrent, related searches an AI model generates to gather more results for one user question, for example splitting a lawn-care question into herbicide, chemical-free and prevention searches.",
+   "sourceUrl": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
+  },
+  {
+   "term": "Inverted pyramid (answer-first)",
+   "definition": "A writing structure that puts the most important information first and the detail after it, also called bottom line up front (BLUF).",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)"
+  },
+  {
+   "term": "Structured data",
+   "definition": "A standardized format for giving a search engine information about a page and classifying its content; Google recommends JSON-LD for it.",
    "sourceUrl": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
   }
  ],
  "howToSteps": [
   {
-   "name": "Start each section with a 40-60 word direct answer",
-   "text": "Turn every H2 into a question and make the very first sentence the complete answer. Cut all preamble. If a reader (or a model) only read that opening, they should already have the correct, self-contained answer they can quote verbatim."
+   "name": "List the ten questions your buyers ask",
+   "text": "Pull them from sales calls, support tickets and Search Console queries. Ask each one in ChatGPT, Perplexity and Google AI Mode three or more times, and record whether you are named, cited and described correctly. That is your baseline."
   },
   {
-   "name": "Back every claim with a statistic, source, or quote",
-   "text": "Add hard numbers with a named source and date, cite recognized authorities (Pew, Gartner, schema.org, official docs, peer-reviewed papers), and include short expert quotes. The GEO study found these elements lifted AI visibility by roughly 30-41% — they give the model something safe to attribute."
+   "name": "Confirm the engines can fetch you",
+   "text": "Check robots.txt for OAI-SearchBot, PerplexityBot, Claude-SearchBot and Googlebot, then look for firewall or CDN challenges in your logs. Blocking a training bot such as GPTBot is a separate decision and does not remove you from ChatGPT search."
   },
   {
-   "name": "Break content into short, self-contained chunks",
-   "text": "Use question-style headings, 2-4 sentence paragraphs, and bulleted or numbered lists. AI engines retrieve at the passage level, so each section should fully answer one question and survive being lifted out of context into an AI response."
+   "name": "Rewrite each section opening as a self-contained answer",
+   "text": "Make the heading the buyer's question and the first 40-60 words the complete answer. Name the product or company instead of writing it or this, and cut as mentioned above. Keep the rest of the section as proof, not preamble."
   },
   {
-   "name": "Add FAQPage and Article schema in JSON-LD",
-   "text": "Mark up your content with structured data so machines don't guess its meaning. Use JSON-LD (Google's recommended format) for FAQPage and Article schema, nest the FAQ inside the Article, and validate it. This labels your questions, answers, author, and date explicitly."
+   "name": "Attach proof to every claim",
+   "text": "Give each number a unit, a date and a source in the same sentence. Attribute quotes to the person who said them and link primary sources. Delete any claim you cannot source, and never let a tool supply figures or quotes."
   },
   {
-   "name": "Add a comparison table or key-takeaways block",
-   "text": "Where you contrast options, use a structured table — models lift clean rows readily. Add a key-takeaways or summary block that restates your main conclusions in plain, standalone sentences the engine can quote directly."
+   "name": "State entity facts plainly",
+   "text": "Use one brand and product name everywhere. Say what the product is, who it is for, what it costs and where you operate in plain sentences, and keep them identical across your site and your profiles on review sites and directories."
   },
   {
-   "name": "Build an FAQ section that mirrors real questions",
-   "text": "End the page with 3-5 FAQs using the exact phrasing people search, and answer each one completely in a sentence or two. Mirror these in your FAQPage schema so the on-page text and structured data reinforce each other."
+   "name": "Add schema only where it matches the page",
+   "text": "Use Organization with sameAs links on the homepage, Product or SoftwareApplication with Offer where you sell something, and Article with dates on guides. Mark up only what is visible, write it as JSON-LD and validate it. Google does not require any of it for its AI features."
   },
   {
-   "name": "Keep content fresh and dated",
-   "text": "Add and surface a visible last-updated date, refresh statistics, and re-state current facts. Retrieval-based engines like Perplexity and ChatGPT favor recent, accurate content — stale numbers get you dropped from the answer set."
+   "name": "Merge duplicates and date what remains",
+   "text": "Give each question one page and 301-redirect near-duplicates into it. Show a visible last-updated date that matches your dateModified markup, and refresh prices, features and statistics when they change. Leave the date alone on pages whose content has not."
   },
   {
-   "name": "Audit your AI visibility, then re-optimize",
-   "text": "Run a visibility check across ChatGPT, Perplexity, Google AI, Claude and Gemini to see which engines actually cite you. AEOeye's free AI visibility audit shows your gaps per engine. Fix the lowest-performing pages, re-test, and repeat — AI search is a measurement loop."
+   "name": "Re-ask the same questions and compare",
+   "text": "After engines have had time to re-crawl, repeat the baseline with the same questions and several runs each, and check Search Console's generative AI performance report for Google. For daily monitoring across hundreds of prompts, dedicated trackers such as Profound, Peec AI or Otterly are built for it; AEOeye is a snapshot, not a daily tracker."
   }
  ],
- "updated": "2026-06-26",
+ "updated": "2026-10-03",
  "image": {
-  "url": "https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A close-up view of a laptop displaying a search engine page.",
-  "photographer": "cottonbro studio",
-  "photographerUrl": "https://www.pexels.com/@cottonbro"
+  "url": "https://images.pexels.com/photos/3873856/pexels-photo-3873856.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "A person's hands typing on a laptop beside an open spiral notebook on a wooden desk.",
+  "photographer": "Gustavo Fring",
+  "photographerUrl": "https://www.pexels.com/@gustavo-fring"
  }
 }

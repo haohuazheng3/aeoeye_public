@@ -1,199 +1,145 @@
 {
  "slug": "how-to-add-llms-txt",
  "type": "guides",
- "title": "How to Add an llms.txt File (And Whether It's Worth It in 2026)",
- "metaTitle": "How to Add an llms.txt File (2026 Guide)",
- "metaDescription": "A no-fluff guide to creating and hosting an llms.txt file in 2026 — the exact format, where to put it, and an honest take on whether it actually does anything.",
+ "title": "How to Add an llms.txt File: Create, Host and Validate It (2026)",
+ "metaTitle": "How to Add llms.txt: Format, Hosting, Validation",
+ "metaDescription": "Create, host and validate an llms.txt file: the exact format, setup on Next.js, WordPress, Shopify, Webflow and Wix, and a 2-minute check. Google ignores it.",
  "primaryKeyword": "how to add llms.txt",
- "shortAnswer": "To add an llms.txt file, create a Markdown file with an H1 title, a blockquote summary, and H2 sections listing your key pages as `[name](url)` links. Save it as `llms.txt`, upload it to your site root so it loads at yourdomain.com/llms.txt, and verify it returns plain text. It takes about 15 minutes.",
- "intro": "Adding an llms.txt file is genuinely easy — it's a plain Markdown file you drop at your site root. The hard part isn't the how. It's the *why*. Here's the uncomfortable truth most guides bury: as of mid-2026, no major AI search engine — not ChatGPT, not Google AI, not Perplexity — has committed to reading llms.txt in production. Google's own Search team says it doesn't support the file and isn't planning to.\n\nSo why write this guide? Because llms.txt still does real work in one place — the agentic layer, where coding assistants and AI agents fetch your docs directly. And because adding it costs you 15 minutes and zero downside. This guide shows you exactly how to create and host one, in the correct spec format, with clear eyes about what it will and won't do for you.",
+ "shortAnswer": "Write a Markdown file named llms.txt that starts with an H1 (your site name, the only required element), then add a one-line summary and H2 lists of links to your best pages. Serve it at yourdomain.com/llms.txt as plain text with HTTP 200, and check that it is not HTML and begins with a heading. Expect no AI search lift: Google says Search ignores the file.",
+ "intro": "An llms.txt file is a Markdown index at your site root that gives AI agents a short, curated map of your site. The format comes from the [llmstxt.org proposal](https://llmstxt.org/), which its author revised as v2 in August 2026. Writing one takes under an hour; getting it right is the part people skip.\n\nIn AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (October 2026, a convenience sample of well-known sites), 173 of the 330 sites we could check (52.4%) served a valid file. Another 9 (2.7%) answered /llms.txt with a 200 page that was HTML or had redirected elsewhere, and 8 returned plain text that failed our Markdown H1 test. A broken file is worse than none.\n\nPlatform steps come from each vendor's own documentation (October 2026); we have not tested every platform hands-on.",
  "sections": [
   {
-   "heading": "What is an llms.txt file, exactly?",
-   "body": "An llms.txt file is a curated, Markdown-formatted index of your site's most important pages, served at `yourdomain.com/llms.txt`, designed so a large language model can grab a clean map of your content without crawling your whole site. Think of it as a hand-picked sitemap written for AI, not search engines.\n\nIt was proposed by Jeremy Howard of Answer.AI on September 3, 2024 ([llmstxt.org](https://llmstxt.org/)). The pitch: context windows are limited and HTML is noisy, so give models a short, clean, link-rich Markdown file instead of making them parse your nav bars, cookie banners, and footers.\n\nTwo things it is **not**:\n\n- It is **not robots.txt**. robots.txt controls *access* (which bots may crawl what). llms.txt offers *curation* (here's the good stuff). They solve different problems.\n- It is **not an official standard** backed by AI vendors. It's a community proposal that's gained traction, not a ratified spec anyone is obligated to honor."
+   "heading": "What goes in an llms.txt file?",
+   "body": "Four things: your site name, a one-sentence summary, optional context, and short lists of links to the pages you want an agent to read first. The spec requires only the name; the rest is curation.\n\nLink to pages that answer what a buyer or an agent would ask: product and docs, pricing, shipping and refund terms, security, and your two or three best guides. Give each link a plain one-line note on what the page contains. The [spec](https://llmstxt.org/) also recommends clean Markdown copies of pages (page.md) so agents read text instead of navigation and scripts.\n\nBefore publishing, ask of every URL: would I want an AI to treat this as my canonical answer? Perfect formatting can still point at retired pages. Background: [what llms.txt is](/blog/what-is-llms-txt)."
   },
   {
-   "heading": "What's the exact llms.txt format?",
-   "body": "The spec is strict but tiny. An llms.txt file is Markdown with one required element — an H1 — and a few conventional sections in a fixed order. The precise format is what lets parsers and regex read it reliably ([llmstxt.org spec](https://llmstxt.org/)).\n\nHere's the structure, in order:\n\n1. **H1** — your project or site name. This is the *only* required line.\n2. **Blockquote** (`>`) — a one-paragraph summary with the key context a model needs.\n3. **Optional prose** — paragraphs or lists (no headings) giving more detail.\n4. **H2 sections** — each is a \"file list\": a heading like `## Docs`, followed by Markdown links.\n\nEach link in a file list follows the pattern `[name](url): optional note`. A minimal valid file looks like this:\n\n```\n# Acme Analytics\n\n> Acme is a privacy-first web analytics platform. These docs cover setup, the API, and billing.\n\n## Docs\n\n- [Quickstart](https://acme.com/docs/quickstart): Install and fire your first event\n- [API Reference](https://acme.com/docs/api): Full REST endpoint list\n\n## Optional\n\n- [Changelog](https://acme.com/changelog): Release history, safe to skip\n```\n\nThe special `## Optional` section is a real convention: URLs under it can be dropped when a model needs a shorter context. Use it for secondary material."
+   "heading": "What is the exact llms.txt format?",
+   "body": "A Markdown file with sections in a fixed order: an H1 (required), a blockquote summary, optional paragraphs without headings, then H2 sections that each hold a list of links ([llmstxt.org](https://llmstxt.org/)). Each link is written as `- [name](url): optional note`. This example uses a made-up company:\n\n```\n# Acme Analytics\n\n> Privacy-first web analytics for SaaS teams. Free tier, EU hosting.\n\nAcme tracks events without cookies. Pricing is per monthly event volume.\n\n## Docs\n\n- [Quickstart](https://acme.example/docs/quickstart): install the tracker and send a first event\n- [API reference](https://acme.example/docs/api): REST endpoints, limits, errors\n\n## Pricing and policies\n\n- [Pricing](https://acme.example/pricing): plans and event limits\n- [Refunds](https://acme.example/refunds): refund terms\n\n## Optional\n\n- [Changelog](https://acme.example/changelog): release history\n```\n\nRules that trip people up:\n\n- **One H1, no headings before the first H2.**\n- **`## Optional` is a convention.** Version 2 dropped the context-expansion tool that gave it mechanical meaning, so it now only signals lower priority ([spec changes](https://llmstxt.org/changes.html)).\n- **Subfolders work.** /docs/llms.txt covers the pages under /docs, and the most specific file wins.\n- **llms-full.txt is not in the spec.** Docs platforms such as [Mintlify](https://www.mintlify.com/docs/ai/llmstxt) generate it as the whole documentation in one file.\n\nOur free [llms.txt generator](/tools/llms-txt-generator) builds this layout from a form. It does not crawl your site, so you choose the pages.\n\n![A software developer working on code at a dual monitor setup in a modern office.](https://images.pexels.com/photos/36706459/pexels-photo-36706459.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "How do I create and host an llms.txt file? (step by step)",
-   "body": "Creating one takes about 15 minutes. The workflow: draft the Markdown, save it as `llms.txt`, upload it to your web root, and confirm it loads as plain text at `/llms.txt`. The full ordered steps are below.\n\nIf you'd rather not hand-write the Markdown, our free [llms.txt generator](/tools/llms-txt-generator) builds a spec-compliant file from your URL — you paste your site, pick the pages that matter, and it outputs the file ready to upload. Either way, the hosting step is identical."
+   "heading": "How do you create and host an llms.txt file?",
+   "body": "Save the file as UTF-8 text named llms.txt and make it load at yourdomain.com/llms.txt. On several platforms you change a setting instead of hosting a file.\n\n| Platform | What to do |\n|---|---|\n| Static site or framework with a public folder | Put llms.txt in your published root folder. [Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/public-folder) serves files in public/ from the base URL. |\n| Next.js, generated | Add a [route handler](https://nextjs.org/docs/app/getting-started/route-handlers) at app/llms.txt/route.ts that returns a text Response. aeoeye.com does this. |\n| WordPress | [Yoast SEO](https://yoast.com/help/enable-llmstxt/): Settings, Site features, AI tools, llms.txt, then \"Manual page selection\" to curate; not available on multisite. [AIOSEO](https://aioseo.com/features/llms-txt/) generates it in its Lite plan; llms-full.txt needs Pro. |\n| Shopify | Shopify [serves /llms.txt by default](https://shopify.dev/changelog/posts/customize-llmstxt-llms-fulltxt-and-agentsmd) (changelog of May 28, 2026), mirroring /agents.md. To change it, add templates/llms.txt.liquid; Shopify's [docs](https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid) say most stores need not. Check what your store returns before following older upload-and-redirect tutorials. |\n| Webflow | [Webflow lets you upload the file](https://webflow.com/updates/introducing-llmstxt), publishes it at your domain root and keeps it out of search indexes. Check its help article for size limits. |\n| Wix | Generated automatically. [Edit it](https://support.wix.com/en/article/understanding-your-sites-llmstxt-file) in the SEO & GEO dashboard; an edit stops auto-updates until you reset. Needs a custom domain. |\n\n[Ahrefs](https://ahrefs.com/blog/llmstxt-study/) concludes agents fetch the file when directed to it, and found zero AI-bot requests for missing files. So point to it: [Perplexity's docs](https://docs.perplexity.ai/guides/bots) open with a note telling agents to fetch their /llms.txt, and the spec offers a Link header with rel=\"describedby\".\n\nrobots.txt has no llms.txt directive ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309) defines none), though 28 of 384 robots.txt files (7.3%) in our study mention it."
   },
   {
-   "heading": "Where do I put the file so AI tools can find it?",
-   "body": "Put it at your domain root so it resolves at `https://yourdomain.com/llms.txt` — same location pattern as robots.txt. That root path is the only place tools reliably check.\n\nHow you upload depends on your stack:\n\n- **Static sites / Netlify / Vercel / GitHub Pages**: drop `llms.txt` in your `public/` or root output folder. It ships as a static asset.\n- **WordPress**: upload it to the site root via FTP/SFTP or your host's file manager (not the Media Library, which buries it under `/wp-content/uploads/`). Several SEO and AI plugins now generate and serve it for you.\n- **Custom server (Next.js, Rails, etc.)**: serve it from your static directory or add a route that returns the file with `Content-Type: text/plain` or `text/markdown`.\n\nOne hard rule: it must load **at the root**, not at `/blog/llms.txt` or `/docs/llms.txt`. The spec allows subpath files for sub-projects, but the canonical, discoverable location is the root."
+   "heading": "How do you check that your llms.txt works?",
+   "body": "Fetch it the way a bot would and check four things: HTTP 200, not HTML, still at /llms.txt after redirects, and a first line starting with \"# \". That is our study's rule; it takes two minutes.\n\n1. **Status, type, final URL.** Run `curl -sL -o /dev/null -w \"%{http_code} %{content_type} %{url_effective}\\n\" https://yourdomain.com/llms.txt`. Pass: 200, text/plain or text/markdown, and a final URL ending in /llms.txt. OpenAI's [file](https://developers.openai.com/llms.txt) is text/plain; Google's [Gemini API docs file](https://ai.google.dev/gemini-api/docs/llms.txt) is text/markdown.\n2. **First line.** Run `curl -sL https://yourdomain.com/llms.txt | head -n 3`. The first line must be \"# \" plus your name. An html tag means you serve a page, not a file.\n3. **Soft 404.** A [soft 404](https://developers.google.com/search/docs/crawling-indexing/http-network-errors) is an error page that returns 200. Single-page apps are a classic cause: with [client-side routing, meaningful status codes can be impractical](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics). With no file, return a real 404.\n4. **Bot view.** Repeat step 1 with a bot-style header, for example -A \"Mozilla/5.0 (compatible; TestBot/1.0)\". A 403 or challenge page means a bot rule is in the way: 46 of the 376 sites whose robots.txt let our crawler request /llms.txt answered with a block or error. A spoofed header is imperfect, so check your CDN's bot log too.\n5. **Links.** Every link should return 200 and point to a page you control.\n6. **Ask an agent.** The spec suggests asking an assistant questions about your business with only your llms.txt as the starting point. If it cannot find your pricing, your notes are too vague.\n\nChrome's Lighthouse has an experimental [llms.txt audit](https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt) that needs [Chrome 150 or later](https://developer.chrome.com/docs/lighthouse/agentic-browsing/scoring). Its documentation describes only two outcomes, a flagged server error or not applicable on a 404, so do not count on it to catch a broken format. Afterwards, search your access logs for /llms.txt.\n\n![Close-up of hands typing on a black laptop's keyboard emphasizing productivity.](https://images.pexels.com/photos/7662061/pexels-photo-7662061.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Does llms.txt actually work? An honest answer",
-   "body": "Mostly no — not for AI search visibility, not in 2026. If your goal is getting cited more by ChatGPT, Perplexity, or Google AI Overviews, llms.txt is not the lever. The evidence here is blunt, so let's be blunt.\n\nGoogle's John Mueller put it plainly: \"AFAIK none of the AI services have said they're using LLMs.TXT (and you can tell when you look at your server logs that they don't even check for it).\" Google's Search team has [confirmed on the record](https://www.webyes.com/blogs/does-llms-txt-improve-rankings/) it does not support llms.txt and isn't planning to. OpenAI's [crawler docs](https://platform.openai.com/docs/bots) tell you to control its bots with robots.txt — the word \"llms.txt\" doesn't appear.\n\nThe data backs the skepticism. Across 515 million LLM-bot traffic events, the share of requests touching `/llms.txt` from the user agents that actually drive citations (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot) is statistically negligible. And a [SE Ranking study of 300,000 domains](https://presenc.ai/research/state-of-llms-txt-2026) found only about 10% adoption — roughly one in ten sites after 18 months of hype.\n\n**So when is it worth adding?** When AI *agents* — not search engines — consume your content:\n\n- IDE and coding agents (Cursor, Claude Code, Copilot, Windsurf) routinely fetch llms.txt for documentation.\n- MCP servers and in-product AI assistants pull it to ground answers.\n- It's a clean, future-proofing move that costs nothing if vendors adopt it later.\n\nIf you run developer docs, ship it. If you're a local plumber hoping for more ChatGPT mentions, your time is better spent elsewhere — and a free [AEOeye audit](/) will show you where you actually stand across all five engines."
+   "heading": "What should you leave out?",
+   "body": "Leave out anything you would not want an agent to quote or follow: a dump of every URL, thin or retired pages, login and legal boilerplate, and anything written as instructions. Short and accurate beats long and stale.\n\n- **A sitemap mirror.** The median valid file in our study was about 9,200 characters; 17 of 173 ran past 50,000.\n- **Instruction-shaped text.** Agents are built to trust the file. Ahrefs advises plain links and descriptions only, links to resources you control, restricted edit access and review of anything a platform generates.\n- **Stale links.** A file pointing at deleted pages is confidently wrong, not merely absent. If a check fails, regenerate rather than hand-patch: one missing bracket breaks a link silently.\n\nWe break the first rule ourselves. aeoeye.com's file is generated from our content collections and listed every article, guide, answer and glossary term when the study fetched it: about 92,000 characters, longer than all but 12 of the 173 valid files. We keep it because it costs nothing, not because it moves citations.\n\n![Close-up of stacked binders filled with documents for office or educational use.](https://images.pexels.com/photos/357514/pexels-photo-357514.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "What should — and shouldn't — go in your llms.txt?",
-   "body": "Curate ruthlessly. The whole point is signal over volume, so include only the pages you'd want an AI to learn from, and link to clean Markdown versions where you can.\n\n**Include:**\n\n- Core docs, guides, and reference pages\n- A crisp blockquote summary that states what you do in one breath\n- Links to `.md` versions of pages when available (many doc tools auto-generate them, e.g. `page.html` → `page.md`)\n\n**Skip:**\n\n- Your entire sitemap dumped in as links — that defeats the curation purpose\n- Marketing fluff, login pages, legal boilerplate\n- Anything you wouldn't want quoted back to a user\n\nThe single most common mistake is treating llms.txt like an XML sitemap. It isn't one. A 30-link curated file beats a 3,000-link mirror of your site every time."
+   "heading": "Is an llms.txt file worth the effort?",
+   "body": "Worth an hour, not a project. Google's [AI optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) says Search does not use these files and that creating one will neither harm nor help your visibility. [Ahrefs](https://ahrefs.com/blog/llmstxt-study/) found that 97% of the roughly 38,000 valid files it examined (from 137,210 domains) got no requests at all in May 2026.\n\nAhrefs notes its sample skews technical and that a fetch is not a read. Where the file can pay is developer documentation: GPTBot and Claude-Code were the top named AI fetchers in its logs, and the spec's author notes that OpenAI, Anthropic and Gemini publish an llms.txt for their own developer docs. If coding agents use your docs, ship the file with Markdown pages.\n\nIf you run a store or service business hoping ChatGPT names you, do the basics first: let AI search crawlers in ([crawler directory](/blog/ai-crawler-user-agent-directory)), then measure whether AI names you with the [free audit](/). Our full argument is in [why llms.txt is overrated](/blog/llms-txt-is-overrated)."
   }
  ],
+ "comparisonTable": null,
  "keyTakeaways": [
-  "Adding an llms.txt file takes ~15 minutes: write Markdown (H1 + blockquote summary + H2 link sections), save as llms.txt, upload to your domain root, verify it loads at /llms.txt.",
-  "The only required element is an H1 with your site name; the blockquote summary and curated H2 link lists are the conventions that make it useful.",
-  "Host it at the root (yourdomain.com/llms.txt), same as robots.txt — not in a subfolder.",
-  "Be honest about impact: as of mid-2026, no major AI search engine (Google, OpenAI, Perplexity) commits to reading llms.txt, and adoption sits around 10% of sites.",
-  "Its real value today is the agentic layer — Cursor, Claude Code, Copilot, MCP servers and in-product assistants do fetch it.",
-  "Curate ruthlessly: a 30-link hand-picked file beats a 3,000-link sitemap mirror. Don't treat llms.txt like an XML sitemap."
+  "Only the H1 is required; add a blockquote summary and H2 lists of links to your best pages.",
+  "Serve it at /llms.txt with HTTP 200 as plain text or Markdown, never HTML. In our study 2.7% of sites returned an HTML or redirected page instead.",
+  "Check it with curl: status, a first line starting with \"# \", link health and the bot view.",
+  "Google says it ignores llms.txt and Ahrefs found 97% of files unread. Spend an hour, not a sprint."
  ],
  "faqs": [
   {
    "q": "Where do I put my llms.txt file?",
-   "a": "At your domain root, so it loads at https://yourdomain.com/llms.txt — the same location pattern as robots.txt. For static hosts (Vercel, Netlify, GitHub Pages) drop it in your public/ or root output folder; for WordPress upload it to the site root via SFTP, not the Media Library. It must not live in a subfolder like /blog/llms.txt."
+   "a": "At the site root, so it loads at https://yourdomain.com/llms.txt, the same pattern as robots.txt. The spec also allows subfolder files such as /docs/llms.txt that cover the pages under that path, with the most specific file applying. On Shopify and Wix the platform serves one for you, and Webflow lets you upload it in site settings."
   },
   {
-   "q": "Does ChatGPT or Google actually read llms.txt?",
-   "a": "As of mid-2026, no. Google's Search team has confirmed it doesn't support llms.txt, and OpenAI's crawler docs point you to robots.txt, not llms.txt. Server-log analysis of hundreds of millions of AI-bot requests shows the citation-driving crawlers barely touch the file. It's read mainly by AI coding agents and MCP-based tools, not by AI search engines."
+   "q": "What is the correct llms.txt format?",
+   "a": "Markdown in a fixed order: an H1 with your site name (the only required part), a blockquote summary, optional paragraphs without headings, then H2 sections containing lists of links written as - [name](url): optional note. An Optional section is a convention for secondary links. The file should be UTF-8 text, served as text/plain or text/markdown."
+  },
+  {
+   "q": "How do I validate my llms.txt file?",
+   "a": "Request it with curl and check four things: HTTP 200, not an HTML page, a final URL that still ends in /llms.txt after redirects, and a first line starting with \"# \". Then click every link, repeat the request with a bot-style user agent, and ask an AI assistant questions using only the file as its starting point."
+  },
+  {
+   "q": "Do ChatGPT, Claude or Google AI read llms.txt?",
+   "a": "We found no major AI search engine that documents reading it. Google says Search ignores the file, and Ahrefs found that 97% of valid files got no requests at all in May 2026. Coding agents are the clearest readers, so check your own server logs for /llms.txt requests rather than assuming either way."
   },
   {
    "q": "Is llms.txt the same as robots.txt?",
-   "a": "No. robots.txt is an access-control file that tells crawlers which paths they may or may not fetch. llms.txt is a curation file that hands an LLM a clean Markdown index of your best content. They're complementary, not interchangeable — keep both, but don't expect llms.txt to block any bots."
-  },
-  {
-   "q": "What format does an llms.txt file have to be in?",
-   "a": "Markdown, in a fixed order: an H1 with your site name (the only required line), a blockquote summary, optional prose, then H2 sections containing Markdown link lists in the form [name](url): note. The strict format is deliberate so parsers and regex can read it reliably. You can hand-write it or use a generator."
-  },
-  {
-   "q": "Should I bother adding llms.txt if AI search engines ignore it?",
-   "a": "If you run documentation or a developer-facing product, yes — coding agents and AI assistants fetch it, and it costs ~15 minutes with zero downside if vendors adopt it later. If you're chasing more ChatGPT or AI Overview citations for a general business site, your effort is better spent on clean, answer-first content and schema. Run a free AEOeye audit to see what's actually moving your AI visibility."
+   "a": "No. robots.txt tells crawlers which paths they may fetch and is the control AI crawler documentation refers to. llms.txt only offers a curated list of pages and blocks nothing. Keep both, and do not use llms.txt to block or allow any bot."
   }
  ],
- "comparisonTable": {
-  "columns": [
-   "robots.txt",
-   "llms.txt",
-   "XML sitemap"
-  ],
-  "rows": [
-   {
-    "label": "Primary purpose",
-    "values": [
-     "Control crawler access",
-     "Curate key content for LLMs",
-     "List all crawlable URLs"
-    ]
-   },
-   {
-    "label": "Format",
-    "values": [
-     "Plain text directives",
-     "Markdown (H1 + links)",
-     "XML"
-    ]
-   },
-   {
-    "label": "Location",
-    "values": [
-     "/robots.txt",
-     "/llms.txt",
-     "/sitemap.xml"
-    ]
-   },
-   {
-    "label": "Officially supported by Google",
-    "values": [
-     "Yes",
-     "No",
-     "Yes"
-    ]
-   },
-   {
-    "label": "Read by major AI search engines (2026)",
-    "values": [
-     "Yes (for crawl control)",
-     "Largely no",
-     "Yes"
-    ]
-   },
-   {
-    "label": "Used by AI coding agents",
-    "values": [
-     "Sometimes",
-     "Yes",
-     "Rarely"
-    ]
-   }
-  ]
- },
  "sources": [
   {
-   "label": "llmstxt.org — The official /llms.txt specification (Jeremy Howard, Answer.AI)",
+   "label": "llmstxt.org — The /llms.txt file, v2 (Jeremy Howard, modified August 2026)",
    "url": "https://llmstxt.org/"
   },
   {
-   "label": "AnswerDotAI/llms-txt — GitHub repository for the proposal",
-   "url": "https://github.com/answerdotai/llms-txt"
+   "label": "Google Search Central — Optimizing for generative AI features (mythbusting section)",
+   "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"
   },
   {
-   "label": "OpenAI — Official crawler/bot documentation",
-   "url": "https://platform.openai.com/docs/bots"
+   "label": "Ahrefs — We Analyzed 137K Sites: 97% of llms.txt Files Never Get Read",
+   "url": "https://ahrefs.com/blog/llmstxt-study/"
   },
   {
-   "label": "Webyes — Does llms.txt Help? What John Mueller / Google Search says",
-   "url": "https://www.webyes.com/blogs/does-llms-txt-improve-rankings/"
+   "label": "Chrome for Developers — Lighthouse llms.txt audit",
+   "url": "https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt"
   },
   {
-   "label": "Presenc.ai — State of llms.txt 2026: adoption and SE Ranking data",
-   "url": "https://presenc.ai/research/state-of-llms-txt-2026"
+   "label": "Shopify developer docs — llms.txt.liquid template",
+   "url": "https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid"
+  },
+  {
+   "label": "Google Search Central — JavaScript SEO basics (soft 404 errors in single-page apps)",
+   "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics"
   }
  ],
  "definitions": [
   {
    "term": "llms.txt",
-   "definition": "A Markdown file served at a site's root (/llms.txt) that gives large language models a curated index of the site's most important content, proposed by Jeremy Howard in September 2024.",
+   "definition": "A Markdown file served at a site's root (or a subpath) that gives language-model agents a short, curated overview of the site and links to its key pages; proposed by Jeremy Howard in September 2024.",
    "sourceUrl": "https://llmstxt.org/"
   },
   {
-   "term": "robots.txt",
-   "definition": "A plain-text file at a site's root that tells web crawlers which URLs they may or may not access; it controls crawling, not curation.",
-   "sourceUrl": "https://developers.google.com/search/docs/crawling-indexing/robots/intro"
+   "term": "Soft 404",
+   "definition": "A page that tells visitors nothing is there, or has no real content, but returns HTTP 200 instead of 404; Google reports these in Search Console.",
+   "sourceUrl": "https://developers.google.com/search/docs/crawling-indexing/http-network-errors"
   },
   {
-   "term": "Answer Engine Optimization (AEO)",
-   "definition": "The practice of optimizing content so AI answer engines (ChatGPT, Perplexity, Google AI, Claude, Gemini) surface and cite it directly in generated answers.",
-   "sourceUrl": "https://en.wikipedia.org/wiki/Generative_engine_optimization"
+   "term": "robots.txt",
+   "definition": "A plain-text file at a site's root that tells crawlers which paths they may request, standardized as the Robots Exclusion Protocol in RFC 9309.",
+   "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9309"
   }
  ],
  "howToSteps": [
   {
-   "name": "Draft the Markdown content",
-   "text": "Open a plain text editor. Start with an H1 of your site name (`# My Site`), then a one-paragraph blockquote summary (`> What this site is and who it's for`). This is the spec's only required structure."
+   "name": "Pick the pages",
+   "text": "List 10 to 30 pages an agent should read first: product or docs, pricing, policies and your best guides. Skip retired, thin and login pages."
   },
   {
-   "name": "Add curated H2 sections with links",
-   "text": "Below the summary, add H2 headings for logical groups (`## Docs`, `## Guides`). Under each, list your key pages as Markdown links: `- [Page name](https://yourdomain.com/page): short note`. Keep it curated, not exhaustive."
+   "name": "Write the file",
+   "text": "Start with an H1 of your site name, add a one-line summary as a blockquote, then H2 sections of links written as - [name](url): note. Or fill in the free generator at /tools/llms-txt-generator."
   },
   {
-   "name": "Add an Optional section for secondary content",
-   "text": "If you have lower-priority links, group them under `## Optional`. Per the spec, tools can skip these when a shorter context is needed. This is the right home for changelogs, archives, and nice-to-haves."
+   "name": "Save it as UTF-8 text named llms.txt",
+   "text": "Use plain text, lowercase name, no double extension."
   },
   {
-   "name": "Save the file as llms.txt",
-   "text": "Save the file with the exact name `llms.txt` (lowercase, no extension beyond .txt). Confirm your editor didn't append `.txt.txt` or save it as rich text — it must be plain UTF-8 text."
+   "name": "Publish it at the site root",
+   "text": "Put it in your public folder, add a route, or use your platform's setting (Yoast, AIOSEO, Webflow, Shopify, Wix). It must load at yourdomain.com/llms.txt."
   },
   {
-   "name": "Upload it to your site root",
-   "text": "Place the file so it resolves at `https://yourdomain.com/llms.txt`. For static hosts, drop it in `public/` or your root output folder. For WordPress, upload to the site root via SFTP or file manager. For custom servers, serve it with a `text/plain` or `text/markdown` content type."
+   "name": "Check status and first line",
+   "text": "Run curl against /llms.txt: expect HTTP 200, text/plain or text/markdown, a final URL still ending in /llms.txt, and a first line starting with \"# \"."
   },
   {
-   "name": "Verify it loads correctly",
-   "text": "Visit `https://yourdomain.com/llms.txt` in a browser or run `curl -I https://yourdomain.com/llms.txt`. Confirm it returns HTTP 200 and shows your raw Markdown as plain text — not a 404, a redirect, or an HTML-wrapped page."
+   "name": "Check links and the bot view",
+   "text": "Open every link, repeat the request with a bot-style user agent, and ask an AI assistant questions using only the file as its starting point."
   },
   {
-   "name": "Keep it in sync with your content",
-   "text": "Treat llms.txt like any other doc: update it when you add major pages or restructure. A stale, broken-link llms.txt is worse than none. If you use a generator, regenerate it periodically."
+   "name": "Point to it and keep it current",
+   "text": "Link to the file where agents look, restrict who can edit it, and update it when you retire or add key pages."
   }
  ],
- "updated": "2026-06-26",
+ "updated": "2026-10-03",
  "image": {
-  "url": "https://images.pexels.com/photos/34803988/pexels-photo-34803988.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Detailed view of code and file structure in a software development environment.",
-  "photographer": "Daniil Komov",
-  "photographerUrl": "https://www.pexels.com/@dkomov"
+  "url": "https://images.pexels.com/photos/4976712/pexels-photo-4976712.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Detailed view of computer code highlighting syntax in colors on a screen.",
+  "photographer": "Godfrey  Atima",
+  "photographerUrl": "https://www.pexels.com/@godiatima"
  }
 }

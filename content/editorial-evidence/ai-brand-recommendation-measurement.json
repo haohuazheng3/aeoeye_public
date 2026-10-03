@@ -1,0 +1,142 @@
+{
+  "contentSha256": "9a18d5f2807514348dee9da280cc537f4a6e22f5f9ac0f57ed7ffd99207a60e8",
+  "reviewedAt": "2026-10-03",
+  "kind": "research-asset",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "A founder, marketer or analyst wants to know how often AI engines recommend their brand and how to count it correctly: which brands and answers belong in the denominator, how to resolve names, code rank, handle run-to-run variation and check what the answer actually claims.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand; this hub presents the benchmark built from those audit records and the coding rules, matching rules and small tools we use to turn raw answers into defensible numbers."
+  },
+  "assessment": "The page leads with AEOeye's refreshed recommendation benchmark (127 audits, 892 answers, 157 mentions, 17.6%) and its mandatory caveat, then gives a stepwise measurement method: eligibility, recommendation labels, entity resolution and alias matching, rank coding, repeat-run stability and engine agreement, claim-level accuracy, refusal and failure outcomes, and time-bound ground truth. It rests on AEOeye's own aggregates plus primary sources (SparkToro's 2,961-run study, FActScore, ALCE, the rank-biased overlap paper, Schema.org, OSF and standard reference definitions) and links five downloadable artifacts. It deliberately does not rank engines by mention rate, claim any repeat-run stability result of its own, present the synthetic fixtures as measurements, or call the labels an industry standard.",
+  "sources": [
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers ran 12 prompts through ChatGPT, Claude and Google AI 2,961 times (November-December 2025); under 1 in 100 chance of the same brand list twice and about 1 in 1,000 for the same order; visibility percentage across many runs judged reasonable and ranking position not; suggests asking at least 60-100 times; author discloses help from Gumshoe.ai, an AI tracking startup."
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.14251",
+      "checkedAt": "2026-10-03",
+      "supports": "FActScore breaks a generation into atomic facts and computes the percentage supported by a reliable knowledge source, because generations mix supported and unsupported information."
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.14627",
+      "checkedAt": "2026-10-03",
+      "supports": "ALCE benchmark measures fluency, correctness and citation quality; on the ELI5 dataset even the best models lack complete citation support 50% of the time."
+    },
+    {
+      "url": "https://www.williamwebber.com/research/papers/wmz10_tois.pdf",
+      "checkedAt": "2026-10-03",
+      "supports": "Author's version of Webber, Moffat and Zobel: rank-biased overlap compares incomplete rankings, weights high ranks more, and has a parameter that sets the strength of top-rank weighting (the ACM page returned 403, so the authors' PDF was read)."
+    },
+    {
+      "url": "https://schema.org/sameAs",
+      "checkedAt": "2026-10-03",
+      "supports": "sameAs is the URL of a reference web page, such as a Wikipedia or Wikidata entry or official website, that unambiguously indicates the item's identity."
+    },
+    {
+      "url": "https://help.osf.io/article/330-welcome-to-registrations",
+      "checkedAt": "2026-10-03",
+      "supports": "Preregistration is posting a time-stamped, read-only version of a study plan to a public repository before data collection or analysis."
+    },
+    {
+      "url": "https://www.prisma-statement.org/prisma-2020",
+      "checkedAt": "2026-10-03",
+      "supports": "PRISMA 2020 provides template flow diagrams for original and updated reviews (PRISMA is the reporting guideline for systematic reviews), cited as the reporting analogy for an eligibility funnel."
+    },
+    {
+      "url": "https://www.wikidata.org/wiki/Help:Identifiers",
+      "checkedAt": "2026-10-03",
+      "supports": "Each Wikidata entity has an ID prefixed by a letter; items are Q-items such as Q12345."
+    },
+    {
+      "url": "https://unicode.org/reports/tr15/",
+      "checkedAt": "2026-10-03",
+      "supports": "Normalization Form KC (NFKC) is compatibility decomposition followed by canonical composition."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Cohen%27s_kappa",
+      "checkedAt": "2026-10-03",
+      "supports": "Cohen's kappa measures inter-rater reliability for categorical data and, unlike simple percent agreement, accounts for agreement occurring by chance."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Ranking",
+      "checkedAt": "2026-10-03",
+      "supports": "Standard competition ranking gives tied items the same number and leaves a gap (1224); dense ranking gives the next item the immediately following number (1223)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Mean_reciprocal_rank",
+      "checkedAt": "2026-10-03",
+      "supports": "The reciprocal rank is the multiplicative inverse of the rank of the first correct answer; mean reciprocal rank averages it over queries."
+    },
+    {
+      "url": "https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html",
+      "checkedAt": "2026-10-03",
+      "supports": "Precision, recall and the F measure are set-based measures computed on unordered sets of documents and must be extended for ranked results."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Jaccard_index",
+      "checkedAt": "2026-10-03",
+      "supports": "Jaccard index is the intersection size divided by the union size of two sets."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Bootstrapping_(statistics)",
+      "checkedAt": "2026-10-03",
+      "supports": "Bootstrapping estimates the distribution of an estimator by resampling the data, often with replacement, and yields measures of accuracy such as confidence intervals."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): read all 16 merged pages in full (benchmark-2026, annotation codebook, rank coding rules, eligibility register, entity resolution codebook, alias matching corpus, co-mention network generator, stability calculator, answer volatility metrics, engine agreement metrics, claim type taxonomy, refusal/error taxonomy, uncertainty codebook, factuality evaluation, ground-truth protocol, snapshot diff tool) and carried over each page's distinctive rule or tool in tightened form.",
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 with curl and checked the raw text for each claim used (SparkToro 600 volunteers / 12 prompts / 2,961 runs / under 1 in 100 / about 1 in 1,000 / 60-100 runs / Gumshoe disclosure; ALCE 50% on ELI5; FActScore abstract; OSF, Schema.org, UAX #15, Wikidata, Ranking, MRR, Jaccard, bootstrap and Cohen's kappa definitions); the ACM page for the rank-biased overlap paper returned 403, so the authors' own PDF was read and cited instead.",
+    "Writer (Sonnet): checked every benchmark figure against public/resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 27 brand names, 36 domains, 892 answers, 157 mentions, 17.6%, 147 ranked mentions, 71.4% first place, 1.54 average position, 2.93 competitors, 144/12/1 sentiment, per-engine answers and mentions) and reproduced the file's caveats and its statement that the 2026-08-30 snapshot (108 audits, 838 answers, 18.7%) used the same inclusion rule on a shorter window.",
+    "Writer (Sonnet): found that the merged stability-calculator page cited a NIST handbook URL for bootstrap intervals that, when fetched, covers tolerance intervals, so it was not carried over; the bootstrap point now cites the Wikipedia bootstrapping definition instead. Internal links in the merged pages that point to pages outside the live-page list (citation data schema, URL normalization rules, evidence preservation protocol, inter-rater guide and others) were dropped.",
+    "Writer (Sonnet): confirmed the five linked artifacts exist under public/resources, read their READMEs, and used only what they state (24 synthetic alias cases and the match_aliases.py and cmp commands; co-mention generator counting one answer once per pair; browser-only stability calculator with exact-set agreement, Jaccard, coverage and a seeded bootstrap; snapshot diff joining on prompt_id plus engine and emitting prompt-set gaps).",
+    "Writer (Sonnet): did not use the per-engine mention rates as a ranking, kept the mandatory caveat next to the table, kept the SparkToro-versus-first-place reconciliation explicit, and ran node scripts/content-lint.mjs on the final page.",
+    "Editor (Opus): reviewed the new hub: benchmark section with the mandatory caveat beside the table (no per-engine ranking), the eligibility / entity-resolution / rank-coding / stability / accuracy sections, and the downloadable tools list; all five required artifacts are linked",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable apart from bot-blocked pages that open in a browser)",
+    "Editor (Opus): checked every benchmark figure on the page against /resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 892 answers, 157 mentions, 17.6%, per-engine answers/mentions) and the 165→42 consolidation figure",
+    "Editor (Opus): content-lint reports no errors or warnings; research-asset evidence lists artifacts, methodology and limitations"
+  ],
+  "merged": [
+    "/blog/ai-brand-recommendation-annotation-codebook",
+    "/blog/ai-brand-recommendation-rank-coding-rules",
+    "/blog/ai-brand-recommendation-eligibility-register",
+    "/blog/ai-brand-entity-resolution-codebook",
+    "/blog/ai-brand-alias-matching-test-corpus",
+    "/blog/ai-brand-co-mention-network-generator",
+    "/blog/ai-recommendation-stability-calculator",
+    "/blog/ai-answer-volatility-metrics",
+    "/blog/ai-search-engine-agreement-metrics",
+    "/blog/ai-answer-claim-type-taxonomy",
+    "/blog/ai-answer-refusal-error-taxonomy",
+    "/blog/ai-answer-uncertainty-annotation-codebook",
+    "/blog/ai-answer-factuality-evaluation",
+    "/blog/ai-answer-ground-truth-construction-protocol",
+    "/blog/ai-answer-snapshot-diff-tool",
+    "/blog/ai-brand-recommendation-benchmark-2026"
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "description": "Answer-level aggregates of AEOeye's recommendation benchmark (127 audits, 892 answers) with per-engine figures, caveats and the previous snapshot."
+    },
+    {
+      "path": "/resources/ai-brand-alias-matching-test-corpus/README.md",
+      "description": "Dependency-free Python regression corpus of 24 synthetic alias cases with a byte-checked expected output for exact and normalized brand matching."
+    },
+    {
+      "path": "/resources/ai-brand-co-mention-network/README.md",
+      "description": "Python generator that turns coded answer-brand rows into a weighted brand-pair edge list and node table, with synthetic fixture and expected outputs."
+    },
+    {
+      "path": "/resources/ai-recommendation-stability-calculator/index.html",
+      "description": "Browser-only calculator for repeat-run exact-set agreement, pairwise Jaccard, per-brand coverage and a seeded bootstrap interval; uploads nothing."
+    },
+    {
+      "path": "/resources/ai-answer-snapshot-diff-tool/README.md",
+      "description": "Python tool and synthetic before/after snapshots that diff two coded exports on prompt_id plus engine and report field changes and prompt-set gaps."
+    }
+  ],
+  "methodology": "Benchmark: completed AEOeye audits created 2026-06-26 to 2026-09-07, extracted read-only on 2026-10-03; 127 audits after excluding 3 example, test, internal or localhost rows; unit is one engine answering one buyer question in one audit; a brand counts as mentioned when AEOeye's analysis model judged that the answer named it, and the result was stored per answer; repeat audits are kept and only aggregates are published. The measurement method is built from the codebooks, protocols and tools of the 16 merged pages and checked against external primary sources and standard definitions.",
+  "limitations": "Self-selected brands with repeat audits; unequal engine samples that are not comparable (the free audit ran on Claude only until mid-2026); four engines have fewer than 10 mentions; mention judgments come from an analysis model rather than human coders; four of the five artifacts use synthetic data, and the labels are AEOeye proposals, not standards."
+}

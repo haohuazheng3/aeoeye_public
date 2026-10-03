@@ -1,0 +1,65 @@
+{
+  "contentSha256": "fafead612fdd1147b47a8cf853fb2cda593a27947b8f934864cc74598ec76d92",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A marketer or founder hears 'GEO' and wants to know what it is, where it came from, and which tactics have real evidence behind them before spending time on them.",
+    "connection": "GEO is the practice AEOeye's audits measure: whether AI engines name a brand for buyer questions. The page ties the original research to measurement and AEOeye's own recommendation benchmark."
+  },
+  "assessment": "The page defines GEO, reports the original GEO-bench study with its own setup, scores and stated limits (including the rank-dependent effect), separates tactics that held up from those that did not using Google's current documentation, a 2025 follow-up study and a lab manipulation paper, and gives a four-step sequence. It uses AEOeye's recommendation benchmark with its mandatory caveat. It deliberately does not claim GEO guarantees citations, does not compare engines using our unequal samples, and does not present any AEOeye client results.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO term and GEO-bench introduced by Aggarwal et al., KDD 2024; up to 40% visibility gain; method scores (Table 1), rank-dependent effect (Table 2), Perplexity check (Table 5), combination result and stated limitations, read from the v3 PDF/HTML text"
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's statement that optimizing for generative AI search is still SEO; query fan-out definition and example; ignore llms.txt, chunking, inauthentic mentions; scaled content abuse; Generative AI performance report in Search Console (page last updated 2026-07-10)"
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; recommendation to allow it; opted-out sites are not shown in ChatGPT search answers but can appear as navigational links"
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "September 2025 comparison finding a systematic bias of AI search toward earned media over brand-owned and social content"
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "900 U.S. adults, March 2025: 8% of visits with an AI summary clicked a result link vs 15% without"
+    },
+    {
+      "url": "https://arxiv.org/abs/2404.07981",
+      "checkedAt": "2026-10-03",
+      "supports": "Strategic text sequences raised the top-recommendation chance of fictitious coffee machines in a lab setting"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Term introduced in the 2023 paper; overlapping terms AEO, LLMO, AIO and AI SEO"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation"
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): downloaded the arXiv v3 PDF and HTML of 2311.09735 and read Table 1 (Position-Adjusted Word Count 'Overall' column), Table 2, Table 5, section 5.3 and the Limitations from the raw text, then computed the percentage gains against the 19.3 baseline myself",
+    "Writer (Sonnet): fetched Google's AI optimization guide and OpenAI's crawler page with WebFetch and again as raw HTML via curl, and kept only wording that appears in the raw text",
+    "Writer (Sonnet): confirmed the Pew 8% vs 15% figures, the 900-adult sample and March 2025 period against the page's raw text",
+    "Writer (Sonnet): used the evidence pack's recommendation-benchmark numbers (892 answers, 17.6%, 147 ranked mentions, 71.4% first place, 2.9 competitors) exactly with the mandatory caveat, and the crawler-study figure 16/384 (4.2%) for OAI-SearchBot blocks",
+    "Writer (Sonnet): left out the earned-media percentages quoted in search snippets for arXiv 2509.08919 because the abstract does not state them; only the abstract's qualitative finding is used",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable; the only failures are bot-blocked homepages/specs such as w3.org or pexels.com that open in a browser)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md and the vendor pricing notes verified in this release (no per-engine benchmark comparison; no Pro/subscription/daily-tracking claim)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

@@ -1,54 +1,108 @@
 {
  "slug": "how-does-chatgpt-choose-sources",
  "type": "answer",
- "title": "How Does ChatGPT Choose Its Sources? The Selection Logic Explained",
+ "title": "How Does ChatGPT Choose Its Sources? What OpenAI Documents and What Is Guesswork",
  "metaTitle": "How Does ChatGPT Choose Its Sources? | AEOeye",
- "metaDescription": "ChatGPT picks sources two ways: training-data consensus or live search re-ranking. Here's the exact logic — and how to become a source it chooses.",
+ "metaDescription": "ChatGPT decides to search, rewrites your question, retrieves pages, then ranks and cites some. What OpenAI documents, what research shows and what is inference.",
  "primaryKeyword": "how does chatgpt choose its sources",
- "shortAnswer": "ChatGPT chooses sources in two modes. From training data, it leans on what was widely and consistently written across the web when the model was trained. In live search mode, it retrieves candidates (largely via Bing's index plus OpenAI's crawling), then re-ranks them for how directly, credibly and clearly they answer the question — favoring pages with direct answers, corroborated claims and clean structure over pages that merely rank well.",
- "intro": "Ask ten SEO people how ChatGPT picks sources and you'll get ten answers, most of them borrowed from Google-era thinking about rankings and backlinks. That's the wrong model. ChatGPT isn't running a search engine with an algorithm you can game with links — it's running two separate systems that behave nothing alike. One draws from what the model memorized during training. The other retrieves and re-ranks live web pages, closer to how a research assistant would skim ten browser tabs before answering. Knowing which mode is in play — and what each one actually rewards — is the difference between guessing and getting cited.",
+ "shortAnswer": "ChatGPT decides whether a question needs the live web, rewrites it into targeted search queries, retrieves pages through partner search providers and OpenAI's own OAI-SearchBot crawler, then ranks them and cites some. OpenAI documents that pipeline but publishes no ranking weights. When it does not search, it answers from training memory, with no live page behind the answer. Each claim below is labelled documented, observed or our inference.",
+ "intro": "Most advice on this question is guesswork dressed up as an algorithm. OpenAI describes the stages of a search but not the weights, so we keep three kinds of claim apart: **documented** by OpenAI, **observed** in published research, and **our inference**. Treat any source that quotes exact selection weights as guessing.",
  "sections": [
   {
-   "heading": "How does ChatGPT choose sources?",
-   "body": "ChatGPT chooses sources through two distinct mechanisms, and it's using one or blending both on nearly every answer. The first is parametric memory: everything the model absorbed during training, with no live lookup involved. The second is retrieval: when ChatGPT uses its browsing/search tool, it pulls in real web pages at answer time and reasons over them directly.\n\nTrained-knowledge mode favors consensus. If a claim about your brand, product, or industry appeared consistently across many independent sources before the training cutoff, that consensus gets baked into the model's weights — no single page gets \"credit,\" the pattern does. This is why a company can be well known to ChatGPT even if its own website is thin: the reputation came from reviews, forums, and third-party write-ups repeating the same facts.\n\nRetrieval mode favors precision, not popularity. When ChatGPT searches live, it isn't ranking pages the way Google does for ten blue links — it's grabbing a handful of promising candidates and judging which ones actually answer the specific question well enough to quote or summarize. A page can rank #1 on Google and still get skipped here if it buries the answer under three paragraphs of preamble.\n\nMost brands only optimize for one of these modes, usually training-data consensus, and then wonder why they still don't show up when someone asks ChatGPT a time-sensitive question. You need both."
+   "heading": "How does ChatGPT choose its sources, step by step?",
+   "body": "ChatGPT picks sources in four steps: it decides whether to search, rewrites your question into queries, retrieves candidate pages, then ranks and cites some of them. OpenAI documents the first three in some detail and the last one only in outline.\n\n| Step | What happens | Evidence level |\n|---|---|---|\n| 1. Decide | ChatGPT may search on its own when a question benefits from current information | Documented |\n| 2. Rewrite | Your question becomes one or more targeted queries; saved memories can shape them | Documented |\n| 3. Retrieve | Partner search providers return results; OpenAI's own crawler feeds its search features | Documented |\n| 4. Rank and cite | Pages are ranked on \"multiple factors\"; no weights are published | Outline only; research gives hints |\n\nThe practical consequence is that no single ranking factor exists for you to optimize. What you can do is pass the eligibility check, then be the page that is easiest to quote and easiest to corroborate. The sections below take each part in turn."
   },
   {
-   "heading": "What makes a page get picked in live search",
-   "body": "A page gets picked in live search by clearing two hurdles in sequence: it has to be retrieved at all, then it has to win the re-ranking that decides what actually gets cited. Most pages never even see the second hurdle.\n\nRetrieval happens largely through Bing's index and OpenAI's own crawler — see [does ChatGPT use Bing](/answers/does-chatgpt-use-bing) for how that pipeline actually works. If a page isn't indexed, isn't crawlable, or is blocked by robots.txt, it's invisible to ChatGPT no matter how good the content is. That's the floor, not the differentiator.\n\nThe differentiator is what happens after retrieval. ChatGPT re-ranks candidate pages by how directly and clearly they answer the exact question asked, not by domain authority or backlink count. In practice, that means:\n\n- Pages that state the answer in the first sentence or two beat pages that build up to it.\n- Claims corroborated elsewhere — the same fact appearing on more than one credible page — get trusted over one-off assertions.\n- Clean structure (headings, short paragraphs, lists, tables) is easier to lift a quotable answer from than dense prose.\n- Freshness matters more here than in trained-knowledge mode, since live search is often triggered specifically because the question is time-sensitive.\n\nA well-optimized page for live search reads less like marketing copy and more like a reference entry: answer first, evidence second, no fluff in between."
+   "heading": "What happens during a live ChatGPT search?",
+   "body": "ChatGPT chooses on its own whether a question needs the web, then sends targeted queries to search providers and reads what returns. [OpenAI's help page](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) says it typically rewrites your question into one or more targeted queries, and may send further, more specific ones after reviewing the first results.\n\nOpenAI's own example turns a long question about CCR8 cancer drugs into a short query with a year in it, then follows up with a narrower one about a specific drug and conference. Our inference: the pages in play are those that match the rewritten query, not your original prompt. If memory is enabled, saved memories can also shape the rewrite.\n\nThis retrieve-then-write pattern is called [retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) (RAG); our [RAG explainer](/blog/what-is-rag) covers the mechanics.\n\nThe same help page says ChatGPT search sometimes partners with other search providers and links Microsoft's and Shopify's privacy statements. OpenAI's [launch post](https://openai.com/index/introducing-chatgpt-search/) adds content supplied directly by publisher partners, among them the Associated Press, Financial Times and Reuters. Our page on [whether ChatGPT uses Bing](/answers/does-chatgpt-use-bing) covers that layer.\n\nOne caution from OpenAI itself: search results and citations can be incomplete, outdated or incorrect. A citation shows where ChatGPT looked, not that the page proves the claim."
   },
   {
-   "heading": "What makes a brand come up from training data",
-   "body": "A brand shows up from training data when it was described the same way, by many independent sources, consistently enough before the cutoff to become part of the model's default assumptions. This is covered in more depth in [how AI assistants choose brands](/blog/how-ai-assistants-choose-brands), but the short version: it's a popularity contest decided by repetition, not authority.\n\nNo single glowing review gets a brand remembered. What works is the unglamorous stuff — being mentioned in comparison roundups, showing up in forum threads where real users recommend you, getting listed on review sites, appearing in \"best of\" listicles from multiple independent publishers. If ten different writers, none of them talking to each other, all describe your product the same way, that pattern is what survives training and shapes how the model answers \"what's a good tool for X.\"\n\nThis is also why training-data presence is slow to build and slow to change. You can't message your way into it with one press release. And it's why a brand that launched after the training cutoff, or repositioned recently, can be functionally invisible in this mode even with a strong current website — the model simply never saw the update. That gap is exactly what live retrieval is supposed to cover, which is why relying on only one mode is a mistake."
+   "heading": "Which pages does ChatGPT actually pick?",
+   "body": "Eligibility is documented, ranking is not. A page must be crawlable by OAI-SearchBot and reachable through your host or CDN; after that, OpenAI says only that it ranks results on [multiple factors](https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt) and that placement is not guaranteed.\n\n**Documented: the eligibility check.**\n\n- Allow OAI-SearchBot in robots.txt and allow OpenAI's published IP ranges at your CDN or firewall.\n- Sites that opt out of OAI-SearchBot [are not shown in ChatGPT search answers](https://developers.openai.com/api/docs/bots) but can still appear as navigational links. Robots.txt changes can take about 24 hours to take effect.\n- A disallowed page can still surface as a bare link and title if OpenAI learns its URL elsewhere. [OpenAI's publisher FAQ](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq) says to use a noindex tag, which the crawler can only read if it is allowed in.\n\n**Observed: what research found.** A September 2025 [University of Toronto preprint](https://arxiv.org/abs/2509.08919) compared AI search with Google across many queries. For consumer-electronics queries in the US, a GPT search model drew 92.1% of its citations from earned media (independent reviews and comparison sites); Google's results leaned more on brand and social pages. Those were 2025 API models, so today's ChatGPT may differ.\n\nThe [GEO benchmark](https://arxiv.org/abs/2311.09735) (KDD 2024) found that adding statistics, quotations and cited sources raised a page's visibility by roughly 30 to 40% on one metric, while keyword stuffing did not help. It was tested on a research engine and Perplexity, not ChatGPT.\n\n**Our inference.** Pages that open with the answer, state checkable facts and are backed by independent pages saying the same thing should be easiest for a model to quote. Nothing published proves ChatGPT weights them that way."
   },
   {
-   "heading": "How to become a source ChatGPT picks",
-   "body": "Becoming a source ChatGPT picks means winning both modes at once: write pages that answer questions directly enough to survive live re-ranking, and get the same facts about you repeated across enough independent third parties to shape the trained model's default answer. Neither alone is sufficient.\n\nFor the retrieval side, structure content the way [how to rank in ChatGPT](/guides/how-to-rank-in-chatgpt) lays out: lead every section with the answer, keep paragraphs short, use real headings and lists, mark up FAQs and key facts with schema, and make sure nothing you want cited is hidden behind JavaScript rendering the crawler can't see.\n\nFor the consensus side, stop treating your own website as the only asset. Third-party mentions — reviews, comparison articles, forum answers, industry roundups — are what actually get memorized. If nobody outside your company is describing you the same way you describe yourself, there's no consensus for a model to learn.\n\nMost sites we look at are optimized for neither. They read like brochures, not references, and their only mentions online are ones they wrote themselves. That combination is close to invisible to ChatGPT in both modes.\n\nIf you want to see exactly where your own site and brand stand on this — what a model already knows, and what your pages are structured to have retrieved — [run a free AEOeye audit](/#audit)."
+   "heading": "When does ChatGPT answer from memory instead?",
+   "body": "When ChatGPT does not search, it answers from patterns learned in training, so no individual page is chosen. [OpenAI](https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed) says its models learn from public web content, partner datasets and human-generated data, and that they do not store or copy the pages they learned from.\n\nThat is why a brand can be \"known\" without any page being cited. Our inference is that repetition across many independent sources is what survives training, which is why [brand mentions](/blog/brand-mentions) matter for this route. It is also slow to change: a repositioned product stays stale until a retrieval step corrects it. See [how often ChatGPT updates its knowledge](/answers/how-often-does-chatgpt-update-its-knowledge).\n\nTwo OpenAI settings are easy to confuse. Disallowing GPTBot signals that content should not be used for training. Per [OpenAI's crawler documentation](https://developers.openai.com/api/docs/bots), that setting is independent of OAI-SearchBot, so blocking GPTBot does not take you out of search answers. We explain the trade-off in [why blocking GPTBot is usually a mistake](/blog/blocking-gptbot-is-usually-a-mistake).\n\nYou cannot see which route ChatGPT used for a given answer. Responses that search may show citations, and absent citations do not prove memory.\n\n![Rows of bookshelves in a library with a vintage tone](https://images.pexels.com/photos/35698025/pexels-photo-35698025.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+  },
+  {
+   "heading": "How do you become a source ChatGPT picks?",
+   "body": "Pass the access check first, then make your page easy to quote and your claims easy to corroborate. Access is binary and checkable in an afternoon; the rest is slower and partly inference.\n\n1. **Check access.** Allow OAI-SearchBot in robots.txt and confirm your CDN lets OpenAI's published IPs through. In AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.json) (384 well-known sites, fetched once on 3 October 2026; [per-site CSV](/resources/ai-crawler-access-study-2026-10.csv)), 16 sites (4.2%) blocked OAI-SearchBot at the homepage: 1 of 193 SaaS sites against 11 of 38 news publishers. Brands rarely close the door in robots.txt, but 24 of 88 e-commerce and consumer homepages blocked or challenged our own crawler. A firewall can do what robots.txt does not. It is a convenience sample, so read it as a prompt to check your own logs. The [directory hub](/blog/ai-crawler-user-agent-directory) has the method.\n2. **Answer first.** Open every section with the direct answer, then the evidence.\n3. **State checkable facts.** Add statistics, named sources and dates, the tactics the GEO benchmark tested.\n4. **Get independent pages to say the same thing.** Reviews, comparisons and forum answers are the earned media the Toronto study saw AI search lean on.\n5. **Measure.** ChatGPT adds utm_source=chatgpt.com to referral links, so [GA4 can show the visits](/blog/ai-traffic-analytics). To see whether you are named, ask your buyers' questions with search on. AEOeye's [free audit](/) asks three unbranded buyer questions live in ChatGPT and shows the full answers and the competitors named instead.\n\nOur position: skip checklists that promise a ChatGPT ranking factor. OpenAI gives you an access checklist and no weights, so test, measure and treat the rest as hypotheses. For the wider playbook, see [ChatGPT SEO](/blog/chatgpt-seo).\n\n![A smartphone showing ChatGPT beside eyeglasses on a patterned surface](https://images.pexels.com/photos/16094065/pexels-photo-16094065.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   }
  ],
+ "comparisonTable": null,
  "keyTakeaways": [
-  "ChatGPT chooses sources two ways: trained-knowledge consensus and live retrieval — they favor different things.",
-  "Live search retrieves pages largely via Bing's index and OpenAI's crawler, then re-ranks by how directly they answer the question, not by domain authority.",
-  "Corroborated claims — the same fact stated on multiple credible pages — beat single unverified assertions in live re-ranking.",
-  "Training-data presence comes from wide, consistent third-party coverage before the model's cutoff, not from your own site alone.",
-  "Clean structure — direct answers, short paragraphs, lists, schema — makes a page easier for ChatGPT to retrieve and quote.",
-  "Winning only one mode leaves you invisible in the other; you need both live-search-ready pages and third-party consensus."
+  "ChatGPT chooses sources in four steps: decide to search, rewrite the query, retrieve candidates, rank and cite.",
+  "OpenAI documents access rules (OAI-SearchBot, published IP ranges, noindex) but publishes no ranking weights.",
+  "Research suggests AI search leans on independent, earned-media sources; this is observed, not an OpenAI-stated rule.",
+  "Without a search, ChatGPT answers from training patterns and no single page is chosen.",
+  "Check access first, then answer-first structure, checkable facts and independent corroboration."
  ],
  "faqs": [
   {
-   "q": "Does ChatGPT prefer certain websites?",
-   "a": "In live search, ChatGPT doesn't have a fixed allowlist — any page reachable through its retrieval pipeline (Bing's index plus OpenAI's crawler) is eligible. But its re-ranking has an observed preference for pages that answer questions directly and get corroborated elsewhere, which tends to favor reference sites, established review platforms, and well-structured publishers over thin or self-promotional pages."
-  },
-  {
-   "q": "Does ChatGPT use Wikipedia?",
-   "a": "Wikipedia is widely represented in AI training corpora because of its scale, consistency, and citation-heavy structure, and it's commonly retrieved in live search for factual questions. Treat that as a strong pattern rather than a documented guarantee for every query — OpenAI hasn't published an exact source list or weighting."
-  },
-  {
    "q": "Can I submit my site to ChatGPT?",
-   "a": "There's no submission form for training data, and inclusion in a future training run isn't something you can request directly. What you can influence is crawlability for live search — keep pages accessible to OpenAI's crawler and unblocked in robots.txt — and the third-party coverage that eventually feeds future training data."
+   "a": "The OpenAI pages we read describe no submission form. They say any public website can appear in ChatGPT search, and the documented steps are to allow OAI-SearchBot in robots.txt and to let OpenAI's published IP ranges through your CDN. After changing robots.txt, OpenAI says its systems can take about 24 hours to adjust."
+  },
+  {
+   "q": "Does blocking GPTBot remove me from ChatGPT answers?",
+   "a": "Not from search answers. OpenAI treats GPTBot (training) and OAI-SearchBot (search) as independent settings, so you can disallow one and allow the other. Blocking OAI-SearchBot is what removes a site from ChatGPT search answers, apart from possible navigational links. Blocking GPTBot only signals that content should not be used for training."
   },
   {
    "q": "Why does ChatGPT cite my competitor and not me?",
-   "a": "Usually one of two reasons: either their page directly answers the specific question in a structure ChatGPT can quote (live search), or they have more consistent third-party coverage repeating the same claims about them across independent sources (training data). Check both — most brands are weak in only one of these, not both."
+   "a": "Check three things in order. First, whether OAI-SearchBot can reach your pages. Second, whether your page answers the rewritten, specific query directly. Third, whether independent pages also describe you the way you describe yourself. Open the competitor's cited page and compare it with yours. Because OpenAI publishes no weights, treat the gap as a hypothesis to test."
+  },
+  {
+   "q": "How can I tell whether ChatGPT searched or answered from memory?",
+   "a": "Look for citations and the Sources control. OpenAI says responses that use web search may include citations, so a response with none is not proof that it answered from memory. You can start a search manually with the Search tool, or regenerate a response with web results, to compare the two behaviours for your own question."
   }
- ]
+ ],
+ "image": {
+  "url": "https://images.pexels.com/photos/16027824/pexels-photo-16027824.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Close-up of a computer screen displaying the ChatGPT interface in a dark setting",
+  "photographer": "Matheus Bertelli",
+  "photographerUrl": "https://www.pexels.com/@bertellifotografia"
+ },
+ "sources": [
+  {
+   "label": "OpenAI Help Center — Searching the web with ChatGPT",
+   "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt"
+  },
+  {
+   "label": "OpenAI — Overview of OpenAI Crawlers",
+   "url": "https://developers.openai.com/api/docs/bots"
+  },
+  {
+   "label": "OpenAI Help Center — Publishers and Developers FAQ",
+   "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq"
+  },
+  {
+   "label": "OpenAI Help Center — How ChatGPT and our foundation models are developed",
+   "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed"
+  },
+  {
+   "label": "Chen et al. (University of Toronto) — Generative Engine Optimization: How to Dominate AI Search (arXiv, 2025)",
+   "url": "https://arxiv.org/abs/2509.08919"
+  },
+  {
+   "label": "Aggarwal et al. — GEO: Generative Engine Optimization (KDD 2024)",
+   "url": "https://arxiv.org/abs/2311.09735"
+  }
+ ],
+ "definitions": [
+  {
+   "term": "OAI-SearchBot",
+   "definition": "OpenAI's crawler for ChatGPT's search features. Sites that opt out of it are not shown in ChatGPT search answers, though they can still appear as navigational links.",
+   "sourceUrl": "https://developers.openai.com/api/docs/bots"
+  },
+  {
+   "term": "Retrieval-augmented generation (RAG)",
+   "definition": "A design in which a system first retrieves documents and then writes its answer from them, instead of relying on training memory alone.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+  },
+  {
+   "term": "Earned media",
+   "definition": "Third-party, independent sources such as reviews, comparison sites and news, as opposed to a brand's own pages or social content (the sense used in the Toronto study).",
+   "sourceUrl": "https://arxiv.org/abs/2509.08919"
+  }
+ ],
+ "updated": "2026-10-03"
 }

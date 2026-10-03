@@ -1,125 +1,167 @@
 {
- "slug": "nightwatch",
- "type": "vs",
- "title": "AEOeye vs Nightwatch: AI Visibility Tracking Compared (2026)",
- "metaTitle": "AEOeye vs Nightwatch: AI Visibility Compared",
- "metaDescription": "AEOeye vs Nightwatch compared: free instant AI visibility check across 5 engines vs an SEO rank tracker with a paid AI add-on. See pricing, speed, and best",
- "primaryKeyword": "aeoeye vs Nightwatch",
- "shortAnswer": "AEOeye is a free, instant AI visibility audit: it asks ChatGPT, Perplexity, Google AI, Claude, and Gemini the questions your buyers ask and shows whether they recommend you. Nightwatch is a mature SEO rank tracker that bolts on AI visibility as a paid beta add-on (roughly $99+/mo on top of its base plan, no free tier). Pick AEOeye for a fast no-setup answer; pick Nightwatch if you already do keyword rank tracking and want AI inside that same workflow.",
- "intro": "Both tools tell you how AI engines talk about your brand, but they come at it from opposite directions. AEOeye is purpose-built around one question — *do ChatGPT, Perplexity, Google AI, Claude, and Gemini recommend my brand?* — and answers it for free, instantly, with no setup. Nightwatch is a 13-year-old SEO rank-tracking platform that recently added an AI-visibility module so SEO teams can track AI mentions inside the same dashboard they already use for keyword rankings.\n\nThis page lays out the honest trade-offs: pricing, engine coverage, speed, setup effort, and who each tool actually fits. Nightwatch is genuinely stronger on traditional SEO data and reporting; AEOeye is faster and simpler for a non-expert who just wants to know where they stand in AI answers today.",
- "sections": [
-  {
-   "heading": "What each tool is built for",
-   "body": "**AEOeye** is a dedicated AI-visibility (AEO/GEO) tool. You enter your brand, it runs the prompts real buyers type, queries five AI engines blind, and shows whether each one recommends you, where you rank, and which competitors win the answer. There's no SEO project to configure and no rank-tracking baggage — the entire product is the AI question.\n\n**Nightwatch** is first and foremost an SEO rank tracker, built on 13+ years of ranking data, covering 100,000+ locations and 190+ countries. Its AI-visibility module is a newer addition layered on top: it simulates user prompts to ChatGPT, Gemini, Claude, and Perplexity (plus AI Overviews on Google, Bing, and YouTube) and reports visibility score, share of voice, sentiment, and citations.\n\nSo the core difference is altitude. Nightwatch sits inside a full SEO platform — powerful if you live in keyword tracking, heavier if you don't. AEOeye sits at exactly one job and tries to make it instant and obvious. If your team already runs Nightwatch for rankings, adding its AI module keeps everything in one place. If you don't do rank tracking at all, much of Nightwatch is surface area you won't use."
-  },
-  {
-   "heading": "Pricing and free access",
-   "body": "This is the sharpest split. **AEOeye is free to start** — you can run a real AI-visibility audit and get an answer without a trial clock, a credit card, or a contract. Its deeper multi-engine querying activates with usage, so the more you use it, the more depth you unlock.\n\n**Nightwatch has no free tier and no free instant audit** — only a 14-day trial. Its headline rank-tracking price is cheap (roughly $32/mo on annual billing), but AI visibility is a separate beta add-on. Reported pricing varies by region and billing cycle, but reviewers consistently describe the AI add-on as starting around +$99/mo and scaling toward ~$495/mo, metered by prompt volume. In practice the realistic minimum to actually track AI lands near $131+/mo once you combine the base plan and the add-on — roughly 2.5x the advertised entry price.\n\nThe honest read: if your budget is for AI visibility specifically, Nightwatch costs meaningfully more than its sticker suggests. If you're already paying for Nightwatch's rank tracking, the incremental cost is easier to justify. AEOeye removes the cost question from the first answer entirely."
-  },
-  {
-   "heading": "Engine coverage and depth",
-   "body": "**AEOeye queries five engines** — ChatGPT, Perplexity, Google AI, Claude, and Gemini — and does it blind, so results aren't skewed by your own logged-in history. The output is framed around buyer questions: who gets recommended, your rank, and which competitors win.\n\n**Nightwatch commonly covers four** — ChatGPT, Gemini, Claude, and Perplexity — plus AI Overview tracking on Google, Bing, and YouTube, which is a real plus if Google's AI Overviews matter to you. Its AI module reports the standard metrics (visibility score, share of voice, sentiment, citations).\n\nWhere Nightwatch is honestly weaker on the AI side: multiple reviewers describe it as \"a rank tracker with AI tracking bolted on,\" with the AI features still labeled beta and called basic versus dedicated GEO/AEO platforms. Prompt caps can feel tight if you have a broad prompt library. Where AEOeye is honest about its own limits: it's newer and lighter on enterprise analytics and long historical dashboards than an incumbent like Nightwatch — its strength is breadth of engines and speed to a clear answer, not 13 years of trend data."
-  },
-  {
-   "heading": "Setup, speed, and learning curve",
-   "body": "**AEOeye is built for a non-expert to get an answer in one sitting.** No SEO project, no keyword import, no dashboard configuration — you ask, it queries the engines, you see whether AI recommends you. Speed to first result is the whole point.\n\n**Nightwatch carries a real setup and learning curve** precisely because it's a full SEO platform. Reviewers report friction configuring advanced views, dashboards, and reports, and because AI data lives inside an SEO tool, getting useful AI-visibility insight benefits from ongoing SEO expertise. For an SEO professional that depth is a feature; for someone who just wants a quick yes/no on AI recommendations, it's friction before the answer.\n\nThat said, Nightwatch rewards the investment. Once configured, you get white-label reports, granular location/language targeting, and AI visibility sitting next to your rank data — a genuinely integrated view that a single-purpose tool can't match. The trade is time and expertise up front. AEOeye trades away that depth to deliver an answer in minutes."
-  },
-  {
-   "heading": "Which one should you choose?",
-   "body": "**Choose AEOeye if** you want a fast, honest answer to one question with zero commitment: do ChatGPT, Perplexity, Google AI, Claude, and Gemini recommend my brand, and who beats me? It's ideal for founders, marketers, and non-experts who want to see where they stand today, across five engines, for free — and grow into deeper querying as they use it.\n\n**Choose Nightwatch if** you already do (or want to start) serious keyword rank tracking and prefer AI visibility inside that same SEO workflow rather than as a separate tool. If you value 13 years of ranking data, Google AI Overview tracking, white-label agency reporting, and unlimited seats, Nightwatch's depth is real — just budget for the AI add-on on top of the base plan, and expect setup time.\n\nMany teams will run both: AEOeye for the instant, free pulse-check across engines, and Nightwatch for ongoing SEO-plus-AI tracking once they've decided AI visibility is worth a paid, configured platform. They're not strictly either/or — they sit at different points on the speed-versus-depth curve."
-  }
- ],
- "keyTakeaways": [
-  "AEOeye is free and instant; Nightwatch has no free tier, only a 14-day trial.",
-  "Nightwatch's cheap base price (~$32/mo) excludes AI visibility — the AI add-on starts around +$99/mo and scales toward ~$495/mo, so the real minimum to track AI is roughly $131+/mo.",
-  "AEOeye queries 5 engines (ChatGPT, Perplexity, Google AI, Claude, Gemini); Nightwatch commonly covers 4 plus Google AI Overviews.",
-  "Nightwatch is genuinely stronger on traditional SEO: 13+ years of ranking data, location/language depth, white-label reports, and AI sitting next to rank data.",
-  "Nightwatch's AI module is still beta and described as 'bolted on,' with a setup and learning curve; AEOeye needs no SEO setup.",
-  "Choose AEOeye for a fast no-commitment answer; choose Nightwatch if you already do rank tracking and want AI inside that workflow."
- ],
- "faqs": [
-  {
-   "q": "Is AEOeye really free?",
-   "a": "Yes. You can run a real AI-visibility audit and get an answer with no trial clock, credit card, or contract. Its deeper multi-engine querying activates with usage, so depth grows the more you use it."
-  },
-  {
-   "q": "Does Nightwatch have a free trial or free tier?",
-   "a": "Nightwatch offers a 14-day full-feature trial but no free tier and no free instant audit. After the trial you move to a paid plan, and AI visibility is a separate beta add-on on top of the base rank-tracking plan."
-  },
-  {
-   "q": "How much does Nightwatch actually cost for AI visibility?",
-   "a": "The base rank-tracking plan starts around $32/mo (annual), but AI visibility is an extra beta add-on. Reviewers report it starting near +$99/mo and scaling toward ~$495/mo by prompt volume, with a realistic minimum of roughly $131+/mo once you combine the base plan and the add-on. Exact pricing varies by region and billing cycle."
-  },
-  {
-   "q": "Which AI engines does each tool track?",
-   "a": "AEOeye queries five — ChatGPT, Perplexity, Google AI, Claude, and Gemini — blind. Nightwatch commonly covers four (ChatGPT, Gemini, Claude, Perplexity) plus Google AI Overview tracking on Google, Bing, and YouTube."
-  },
-  {
-   "q": "Where is Nightwatch genuinely better than AEOeye?",
-   "a": "On traditional SEO. Nightwatch brings 13+ years of ranking data, deep location and language targeting, white-label agency reporting, unlimited seats, and AI visibility integrated next to your rank data. AEOeye is newer and lighter on enterprise analytics and long historical dashboards — it trades that depth for free, instant, multi-engine answers."
-  }
- ],
- "comparisonTable": {
-  "columns": [
-   "AEOeye",
-   "Nightwatch"
+  "slug": "nightwatch",
+  "type": "vs",
+  "title": "AEOeye vs Nightwatch: AI Visibility Tracking Compared (2026)",
+  "metaTitle": "Nightwatch vs AEOeye: AI Visibility Tracking Compared",
+  "metaDescription": "What Nightwatch's AI tracking does, what it costs as of October 2026, and when AEOeye or a dedicated AI visibility tracker is the better choice.",
+  "primaryKeyword": "nightwatch seo",
+  "shortAnswer": "Nightwatch is an SEO rank tracker, with ranking history back to 2012, that now also tracks how AI answers mention your brand. It fits teams that already pay for keyword tracking. AEOeye does a different job: a one-time audit of whether ChatGPT, Claude, Gemini, Google AI and Perplexity name you. Choose Nightwatch for daily SEO-plus-AI monitoring, AEOeye for a first snapshot, and a dedicated tracker when prompt depth matters most.",
+  "intro": "This guide rests on Nightwatch's public documentation (pricing page, product pages and help docs) as of 3 October 2026; we have not tested Nightwatch hands-on. AEOeye is our product, so we say plainly where Nightwatch is the better pick.\n\nMost visitors arrive after searching \"nightwatch seo\" or \"nightwatch io\". They want to know what it is, what its AI tracking does, and whether a dedicated tool would do the job better. We answer from Nightwatch's own pages, not from review sites.",
+  "sections": [
+    {
+      "heading": "What is Nightwatch, and is it an SEO tool or an AI visibility tool?",
+      "body": "Nightwatch is an SEO rank tracker that added AI visibility tracking. Its [homepage](https://nightwatch.io/) describes daily positions on Google, Bing, YouTube, DuckDuckGo and Yahoo, rank history stored since 2012, and checks from 107,000+ locations in 190+ countries.\n\nThe AI module sits inside that product, next to keyword research, a site audit, white-label reports and an SEO agent. Plans are priced by keywords tracked (500, 2,500 or 7,500), with AI prompts as a second allowance, per the [pricing page](https://nightwatch.io/pricing/). That shape suits an SEO team and fits badly if you only want AI answers.\n\nWhen we checked Nightwatch's own site for [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) on 3 October 2026, its robots.txt blocked none of the AI crawlers we tested and named none, and /llms.txt returned a 404. The served homepage HTML carried FAQPage, SoftwareApplication, Offer and AggregateRating schema but no Organization type (schema injected by JavaScript would not show in our fetch). That is a fact box, not a verdict on the product."
+    },
+    {
+      "heading": "What does Nightwatch's AI visibility tracking actually do?",
+      "body": "Nightwatch asks AI platforms the prompts you supply, on a schedule, and reports whether and where your brand appears. Per its [help docs](https://docs.nightwatch.io/en/articles/13842311-ai-llm-tracking-in-nightwatch), each prompt gets a provider, country and language, and results list detected brands, position, sentiment and cited domains. The default refresh is daily.\n\nDashboards cover visibility, share of voice, sentiment, cited sources and a Source Matrix that the docs label beta. Nightwatch's [AI share-of-voice guide](https://nightwatch.io/blog/ai-share-of-voice/) defines share of voice as your brand mentions divided by all brand mentions across tracked prompts. The idea comes from advertising, where [share of voice](https://en.wikipedia.org/wiki/Share_of_voice) measures one company's slice of category spending.\n\nThe headline feature is Citation Intelligence, which joins ranking changes to AI citation changes. Its premise, stated on the [AI tracking page](https://nightwatch.io/ai-tracking/), is that ChatGPT, Claude, Gemini and Perplexity cite what ranks on Google. We think that is half true. Nightwatch's own blog says the overlap is real but \"not a direct one-to-one relationship\", and that ChatGPT and Perplexity regularly surface lower-ranking pages.\n\nGoogle says AI Overviews and AI Mode may use [query fan-out](https://developers.google.com/search/docs/appearance/ai-features) and show a wider, more diverse set of links than classic search. A [University of Toronto study](https://arxiv.org/abs/2509.08919) found AI search leans heavily toward earned media over brand-owned content. So the rank-to-citation link is most useful for Google's own AI surfaces; for ChatGPT or Claude recommendations, whether third-party sources name you matters at least as much.\n\n![Overhead view of laptops, charts and printed reports spread across a desk for data analysis](https://images.pexels.com/photos/8062289/pexels-photo-8062289.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "How do Nightwatch and AEOeye compare?",
+      "body": "They answer different questions. Nightwatch monitors a fixed prompt set every day inside an SEO subscription. AEOeye runs a one-time audit of the questions buyers ask and shows the real answers. AEOeye is not a daily tracker and does not pretend to be.\n\n- **Free start:** AEOeye's [free audit](/) asks ChatGPT three unbranded buyer questions live and shows the answers in full, plus the competitors AI recommends instead. Nightwatch offers a 14-day trial on every plan.\n- **Engines:** the $29 AEOeye full report adds Claude, Gemini, Google AI and Perplexity and ten questions, each engine at the default tier a free user sees. Nightwatch's engine list varies by page (see below).\n- **Price basis:** AEOeye is $0 or $29 once, with no subscription. Nightwatch starts at €99 a month (€79 billed yearly) as of October 2026.\n- **Setup:** AEOeye needs a brand name. Nightwatch needs a domain, keywords and a prompt list.\n\nNightwatch's own pages disagree on engines. The pricing page lists ChatGPT, Claude, Gemini, Perplexity, AI Mode and AI Overview on every plan. The AI tracking page's FAQ names Microsoft Copilot and does not mention AI Mode or AI Overview, and a help article dated 27 February 2026 omits Claude and reserves Gemini for plans with 300+ prompts. Confirm in the trial what your plan runs."
+    },
+    {
+      "heading": "When is an SEO rank tracker with an AI add-on enough?",
+      "body": "It is enough when rank tracking is already a paid, ongoing job. Then AI prompts come inside the plan, there are no per-seat fees, and Citation Intelligence puts rankings and AI answers in one report. For agencies that is a real saving over a second subscription.\n\nOn the [pricing page](https://nightwatch.io/pricing/), Starter includes 50 AI prompts, Professional 150 and Agency 500, with white-label reports and Looker Studio from Professional. Monthly billing is €99, €199 and €499; yearly billing brings those to €79, €159 and €399 a month. Older write-ups, including an earlier version of this page, described a separate AI add-on of about $99 a month. The current pricing page shows none, so treat that figure as outdated.\n\nFor a price-and-value view, see [is Nightwatch AI tracking worth the price](/answers/nightwatch-ai-tracking-price-worth-it).\n\n![A person reviewing business data with colorful graphs on a tablet screen](https://images.pexels.com/photos/36950598/pexels-photo-36950598.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    },
+    {
+      "heading": "When do you need a dedicated AI visibility tool?",
+      "body": "You need one when AI answers are the whole job: many prompts, many engines, and enough repeat runs to trust the numbers. That is where Nightwatch's allowance is thinnest, because answers vary from run to run.\n\nSparkToro, working with Gumshoe.ai, had 600 volunteers run 12 prompts through ChatGPT, Claude and Google's AI a combined 2,961 times in [late 2025](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/). There was under a 1 in 100 chance of the same brand list twice from ChatGPT or Google's AI. They suggest 60 to 100 runs per prompt and treat visibility percentage, not position, as the usable metric.\n\nNightwatch's Starter plan allows 1,500 AI answers a month for 50 prompts, which is our arithmetic for 30 per prompt. Because the docs set one provider per prompt, we read that as one engine, once a day. Check whether a prompt counts once per engine before you budget.\n\n| Entry plan (3 Oct 2026) | Price | Prompts | AI answers a month |\n|---|---|---|---|\n| Nightwatch Starter | €99/mo (€79 yearly) | 50 | 1,500 |\n| [Peec AI Starter](https://peec.ai/pricing) | $95/mo | 50, any 3 models | 4,500 |\n| [Otterly Lite](https://otterly.ai/pricing) | $29/mo | 15, 4 engines | not stated |\n| Otterly Standard | $189/mo | 100, 4 engines | not stated |\n\nPeec defines monthly answers as prompts times active models times frequency. Entry prices per prompt sit in the same range across these tools; the difference is sampling depth. Compare options in our [AI visibility tracker roundup](/blog/ai-visibility-tracker) and [best AI visibility tools](/blog/best-ai-visibility-tools)."
+    },
+    {
+      "heading": "Which should you choose?",
+      "body": "Choose by the job you have today, not by the logo. Run a snapshot first if you have never seen what AI says about you, because the snapshot tells you whether you have a presence problem or a measurement problem.\n\n1. **You already pay for rank tracking, or run an agency:** start Nightwatch's trial. Test Citation Intelligence on keywords you rank for, and check the engines and answers per prompt.\n2. **You need to know today whether AI names you:** run the [free AEOeye audit](/), then the $29 report for five engines and ten questions. No subscription.\n3. **You need hundreds of prompts and deep sampling:** use a dedicated tracker, or see the [Nightwatch alternatives](/alternatives/nightwatch).\n\nMany teams do 2 then 1: snapshot first, then a monitoring subscription once the numbers justify it.\n\n![Close-up of an antique apothecary scale beside pill bottles in a vintage pharmacy](https://images.pexels.com/photos/8657361/pexels-photo-8657361.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+    }
   ],
-  "rows": [
-   {
-    "label": "Free tier",
-    "values": [
-     "Yes — free, instant audit; no credit card",
-     "No free tier; 14-day trial only"
+  "keyTakeaways": [
+    "Nightwatch is an SEO rank tracker first; AI tracking is one module on plans priced by keywords tracked.",
+    "As of October 2026 AI prompts are included on every plan (50, 150, 500), not a separate add-on.",
+    "Its Starter allowance works out to 30 answers per prompt a month, well short of the 60 to 100 runs SparkToro suggests.",
+    "Nightwatch's pages disagree on which AI engines are covered, so confirm during the trial.",
+    "AEOeye is a one-time audit, not a daily tracker: free on ChatGPT, $29 for five engines."
+  ],
+  "faqs": [
+    {
+      "q": "What is Nightwatch SEO?",
+      "a": "Nightwatch is an SEO rank tracker. It checks keyword positions daily on Google, Bing, YouTube, DuckDuckGo and Yahoo, keeps history back to 2012, and now adds AI visibility tracking across ChatGPT and other AI platforms. Plans are priced by keywords tracked and include unlimited team seats."
+    },
+    {
+      "q": "How much does Nightwatch AI tracking cost?",
+      "a": "As of 3 October 2026, Starter is €99 a month (€79 billed yearly) with 50 AI prompts, Professional €199 (€159 yearly) with 150, and Agency €499 (€399 yearly) with 500. AI prompts are included in each plan; Enterprise is custom-priced. Its pricing page quotes euros and offers a 14-day trial."
+    },
+    {
+      "q": "Which AI engines does Nightwatch track?",
+      "a": "It depends on the page. The pricing page lists ChatGPT, Claude, Gemini, Perplexity, AI Mode and AI Overview; the AI tracking page FAQ names Microsoft Copilot but not the Google surfaces; a February 2026 help article omits Claude. Confirm which engines your plan actually runs during the free trial before committing."
+    },
+    {
+      "q": "Is there a free way to check my AI visibility before paying?",
+      "a": "Yes. AEOeye's free audit asks ChatGPT three unbranded buyer questions live and shows the real answers and the competitors AI recommends instead. Nightwatch offers a 14-day trial instead of a free plan, and it warns that it bills automatically if you do not cancel within 14 days."
+    },
+    {
+      "q": "Should I use Nightwatch or a dedicated AI visibility tool?",
+      "a": "Use Nightwatch if rank tracking is already a paid job and you want AI answers in the same report. Use a dedicated tracker if you need many prompts and repeat runs per prompt. Run a free AEOeye snapshot first if you have never seen what AI says about your brand."
+    }
+  ],
+  "comparisonTable": {
+    "columns": [
+      "AEOeye",
+      "Nightwatch"
+    ],
+    "rows": [
+      {
+        "label": "What it is",
+        "values": [
+          "One-time AI visibility audit",
+          "SEO rank tracker with AI tracking module"
+        ]
+      },
+      {
+        "label": "Cost (3 Oct 2026)",
+        "values": [
+          "$0 free audit; $29 one-time full report",
+          "€99/mo (€79 billed yearly) and up; 14-day trial"
+        ]
+      },
+      {
+        "label": "Engines",
+        "values": [
+          "Free: ChatGPT. Full: plus Claude, Gemini, Google AI, Perplexity",
+          "Varies by page: ChatGPT, Claude, Gemini, Perplexity, AI Mode, AI Overview; Copilot named elsewhere"
+        ]
+      },
+      {
+        "label": "Questions or prompts",
+        "values": [
+          "3 free, 10 in the full report",
+          "50, 150 or 500 by plan, tracked daily"
+        ]
+      },
+      {
+        "label": "Monitoring over time",
+        "values": [
+          "No; run it again when you need a fresh snapshot",
+          "Daily refresh with history and trends"
+        ]
+      },
+      {
+        "label": "Rank tracking and SEO tools",
+        "values": [
+          "Separate SEO audit (free score, $10 full report)",
+          "Core product: keywords, site audit, reports, SEO agent"
+        ]
+      },
+      {
+        "label": "Best for",
+        "values": [
+          "A first answer to \"does AI name us?\"",
+          "Teams already doing rank tracking, and agencies"
+        ]
+      }
     ]
-   },
-   {
-    "label": "Pricing",
-    "values": [
-     "Free to start; deeper querying activates with usage",
-     "Base rank tracking ~$32/mo (annual); AI visibility is an extra add-on ~+$99 to ~$495/mo (real AI minimum ~$131+/mo)"
-    ]
-   },
-   {
-    "label": "AI engines covered",
-    "values": [
-     "5: ChatGPT, Perplexity, Google AI, Claude, Gemini",
-     "4: ChatGPT, Gemini, Claude, Perplexity + Google AI Overviews"
-    ]
-   },
-   {
-    "label": "Speed to first result",
-    "values": [
-     "Instant — answer in minutes, no setup",
-     "Slower — requires account, trial, and configuration"
-    ]
-   },
-   {
-    "label": "Setup/learning curve",
-    "values": [
-     "None — built for non-experts",
-     "Real curve; full SEO platform with dashboards to configure"
-    ]
-   },
-   {
-    "label": "Best for",
-    "values": [
-     "Anyone wanting a fast, free yes/no on AI recommendations",
-     "SEO teams/agencies adding AI visibility to existing rank tracking"
-    ]
-   },
-   {
-    "label": "Contract",
-    "values": [
-     "No contract, no sales call",
-     "No long-term contract, but trial auto-converts to paid"
-    ]
-   }
-  ]
- },
- "image": {
-  "url": "https://images.pexels.com/photos/7691746/pexels-photo-7691746.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Man holding phone, working on multiple laptops with financial charts at desk.",
-  "photographer": "Yan Krukau",
-  "photographerUrl": "https://www.pexels.com/@yankrukov"
- }
+  },
+  "definitions": [
+    {
+      "term": "Share of voice (AI)",
+      "definition": "Your brand's mentions divided by all brand mentions across the prompts you track, expressed as a percentage.",
+      "sourceUrl": "https://nightwatch.io/blog/ai-share-of-voice/"
+    },
+    {
+      "term": "Citation Intelligence",
+      "definition": "Nightwatch's feature that joins Google ranking changes to changes in which of your pages AI answers cite.",
+      "sourceUrl": "https://nightwatch.io/ai-tracking/"
+    }
+  ],
+  "image": {
+    "url": "https://images.pexels.com/photos/1720080/pexels-photo-1720080.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+    "alt": "A woman looks through coin-operated binoculars on an outdoor viewing platform",
+    "photographer": "Ricky Esquivel",
+    "photographerUrl": "https://www.pexels.com/@rickyesquivel"
+  },
+  "sources": [
+    {
+      "label": "Nightwatch — Pricing",
+      "url": "https://nightwatch.io/pricing/"
+    },
+    {
+      "label": "Nightwatch — AI Visibility & LLM Tracking",
+      "url": "https://nightwatch.io/ai-tracking/"
+    },
+    {
+      "label": "Nightwatch Help Docs — AI/LLM Tracking in Nightwatch",
+      "url": "https://docs.nightwatch.io/en/articles/13842311-ai-llm-tracking-in-nightwatch"
+    },
+    {
+      "label": "Nightwatch — AI Share of Voice",
+      "url": "https://nightwatch.io/blog/ai-share-of-voice/"
+    },
+    {
+      "label": "SparkToro — AIs are highly inconsistent when recommending brands",
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+    },
+    {
+      "label": "Google Search Central — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    }
+  ],
+  "updated": "2026-10-03"
 }

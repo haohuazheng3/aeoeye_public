@@ -25,7 +25,7 @@ export default function AnswerPage({ params }: { params: { slug: string } }) {
       <ContentPageView page={page} type="answers" related={related} />
       <JsonLd
         data={[
-          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/answers/${page.slug}`, date: "2026-06-25" }),
+          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/answers/${page.slug}`, date: page.updated || "2026-06-25", published: "2026-06-25" }),
           breadcrumbJsonLd([{ name: "Answers", path: "/answers" }, { name: page.title, path: `/answers/${page.slug}` }]),
           ...(page.faqs.length ? [faqJsonLd(page.faqs)] : []),
         ]}

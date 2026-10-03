@@ -1,11 +1,19 @@
 import { readFileSync } from "node:fs";
 
-// 已合并(同意图重复)的博客 URL → 301 到吸收页。名单在 content/retired.json,
+// 已合并(同意图重复)的内容 URL → 301 到吸收页。名单在 content/retired.json,
 // 与 middleware 的 410 名单、内容门禁的"禁止重建"名单是同一个文件。
+// 键是完整路径;没有前导斜杠的老条目 = /blog/<slug>。链在名单里已展平,这里再沿链走一遍,保证一跳到位。
 const retired = JSON.parse(readFileSync(new URL("./content/retired.json", import.meta.url), "utf8"));
-const retiredRedirects = Object.entries(retired.merged).map(([from, to]) => ({
-  source: `/blog/${from}`,
-  destination: to.startsWith("/") ? to : `/blog/${to}`,
+const toPath = (k) => (k.startsWith("/") ? k : `/blog/${k}`);
+const mergedPaths = Object.fromEntries(Object.entries(retired.merged).map(([from, to]) => [toPath(from), toPath(to)]));
+const finalTarget = (p) => {
+  let t = mergedPaths[p];
+  for (let hop = 0; hop < 10 && mergedPaths[t]; hop++) t = mergedPaths[t];
+  return t;
+};
+const retiredRedirects = Object.keys(mergedPaths).map((source) => ({
+  source,
+  destination: finalTarget(source),
   permanent: true,
 }));
 
@@ -35,7 +43,10 @@ const nextConfig = {
         permanent: true,
       },
       { source: "/for/local-business", destination: "/for", permanent: true },
-      // 博客同意图重复页的合并(2026-09-24 起统一由 content/retired.json 驱动)
+      // 定时管线写的 40 篇定价页里有 53 处链到这个从未存在的工具页(线上 404,2026-10-03 发现)。
+      // 首页的免费审计就是"问 ChatGPT 会不会推荐你"的检查器 —— 301 过去,正文改写时再逐篇换成直链
+      { source: "/tools/chatgpt-visibility-checker", destination: "/", permanent: true },
+      // 同意图重复页的合并(2026-09-24 起统一由 content/retired.json 驱动,2026-10-03 起覆盖全部内容栏目)
       ...retiredRedirects,
     ];
   },

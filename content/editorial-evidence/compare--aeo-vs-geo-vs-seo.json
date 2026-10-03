@@ -1,0 +1,90 @@
+{
+  "contentSha256": "3dc0527d8399e1faf9a9744b30790418d18fd14e69c86635264a70d2400fd0af",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A founder or marketer who keeps hearing AEO, GEO and SEO pitched as three strategies needs to know what actually differs, whether the labels matter, and which work their business should do first.",
+    "connection": "This is the definitions-and-decision page for AEOeye's core topic: it explains why AEO and GEO are one discipline on an SEO foundation and points readers to the one check AEOeye's free audit runs, whether AI engines name a brand when buyers ask."
+  },
+  "assessment": "The page answers the question on the first screen (SEO earns a ranked click; AEO and GEO earn a mention inside an answer and are one discipline under two labels; Google treats optimizing for its AI features as SEO), puts the comparison in one table, gives a ten-question test plus a symptom list for deciding what to do, and separates the first-party reports Google and Microsoft now offer from the sampling needed for other assistants. It rests on Google, OpenAI and Microsoft documentation, the GEO paper, Pew Research, two arXiv studies and AEOeye's own crawler study and recommendation benchmark, each with its caveats. It deliberately does not claim GEO tactics are proven on today's engines, marks the AI time-to-impact cells as the authors' reading, and leaves out voice-search and SEO-history claims it could not source.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO introduced in 2023 (Aggarwal et al., KDD 2024) as improving content visibility in generative engine responses; GEO-bench of 10,000 queries; up to 40% visibility gain; citations, quotations and statistics gave roughly 30-40% on the position-adjusted word-count metric while keyword stuffing gave little to no improvement; tested on a research-built engine and Perplexity.ai (read in full via the arXiv PDF)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google lists AEO and GEO as terms used for AI search visibility work and says optimizing for generative AI search is still SEO from its perspective; no special files, markup, schema, chunking or AI-specific rewriting needed; inauthentic mentions are less useful than they look; unique, useful content likely matters most (page last updated 2026-07-10)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "A page must be indexed and eligible to show with a snippet to be a supporting link in AI Overviews and AI Mode; traffic from AI features is counted in Search Console's Performance report under the Web search type."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/featured-snippets",
+      "checkedAt": "2026-10-03",
+      "supports": "Featured snippets are boxes that show the descriptive snippet first; Google's systems select them automatically and site owners cannot request one, only opt out of snippets."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's description of SEO (helping search engines understand content and helping users find the site) and its statement that some changes take effect in a few hours while others take several months."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console's generative AI performance report shows impressions of links in Google AI Overviews and AI Mode; rolled out to all websites worldwide as of 2026-08-31, subject to minimum-impression and opt-out conditions."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/7576553",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console Performance report metrics: clicks, impressions, CTR and average position."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search and opted-out sites are not shown in ChatGPT search answers; GPTBot is for training foundation models; each robots.txt setting is independent; OpenAI recommends allowing OAI-SearchBot and its published IP ranges."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew Research Center analysis of March 2025 browsing data from 900 US adults: a traditional result was clicked in 8% of visits with a Google AI summary versus 15% without; a link inside the summary was clicked in 1% of visits."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "AI search engines show a systematic bias toward earned (third-party) media compared with Google's more balanced mix, and AI search services differ from each other in domain diversity, freshness, cross-language stability and sensitivity to phrasing."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Performance in Bing Webmaster Tools launched in public preview on 2026-02-10 and counts citations across Microsoft Copilot, AI summaries in Bing and partner integrations; Microsoft says the metrics do not indicate ranking."
+    },
+    {
+      "url": "https://arxiv.org/abs/2607.13304",
+      "checkedAt": "2026-10-03",
+      "supports": "July 2026 preprint on 12,933 AI responses about 20 brands: brand-ranking reliability near 0.01 for a single answer, and spreading questions across models and languages improves reliability more than repeating one prompt."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 (the 12 listed here) and restated only what each page says, paraphrasing instead of quoting; the single quoted phrase is a two-word fragment of Google's guide in the short answer.",
+    "Writer (Sonnet): fetched Google's generative AI optimization guide three times with different prompts (terminology, myth-busting, Search Console section) and kept only statements that agreed across fetches.",
+    "Writer (Sonnet): extracted the full text of the GEO paper from the arXiv PDF to confirm the 10,000-query benchmark size, the 30-40% result on the position-adjusted word-count metric, the keyword-stuffing result and the evaluation setup (research-built engine plus Perplexity.ai) before summarizing it.",
+    "Writer (Sonnet): recomputed every crawler-study figure used on the page from public/resources/ai-crawler-access-study-2026-10.csv (Googlebot and Bingbot disallowed on 1 of 384 sites, both reddit.com; 37 of 384 disallow at least one AI retrieval bot; 27 of 38 publishers and 1 of 193 SaaS sites; 19 of 384 block GPTBot but allow OAI-SearchBot; 24 of 88 e-commerce and consumer homepages challenged the research crawler) and reconciled them with the JSON summary.",
+    "Writer (Sonnet): checked the benchmark figures against public/resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 892 answers, 147 ranked mentions, 71.4% first place, Claude 509 answers, four engines under 10 mentions) and kept the self-selected and unequal-sample caveats next to them; no per-engine rate is presented.",
+    "Writer (Sonnet): read both merged posts (/blog/aeo-vs-geo, /blog/aeo-vs-seo-vs-geo) and the previous version of this page in full; kept their definitions, the symptom triage and the overlap and measurement points, and dropped claims that could not be sourced (voice-search mechanics, a typical-user split, SEO history, unsourced overlap percentages, deterministic versus probabilistic labels).",
+    "Writer (Sonnet): rendered each section's Markdown with the site's markdown-to-jsx to confirm the table, lists, images and links render, and ran node scripts/content-lint.mjs on the final file.",
+    "Editor (Opus): read the complete final page (short answer, intro, six sections incl. the inline SEO/AEO/GEO table and the symptom triage, takeaways, five FAQs) and confirmed it stays on the definitions/label intent and links /blog/aeo-vs-seo instead of repeating the practical transition guide",
+    "Editor (Opus): re-checked all 12 external URLs on 2026-10-03 (all reachable) and confirmed the AI time-to-impact cells are labelled as our reading, with only the SEO range attributed to Google",
+    "Editor (Opus): matched first-hand figures to the study CSV/evidence pack (1 site blocks Googlebot/Bingbot; 37 of 384; 27 of 38 publishers; 1 of 193 SaaS; 19 of 384 GPTBot-only split; 24 of 88 e-commerce homepages; 71.4% of 147 with the caveat and the 509-of-892 engine imbalance)",
+    "Editor (Opus): confirmed AEOeye product claims (free = 3 ChatGPT questions) and that the only content-lint error is the link to /blog/ai-brand-recommendation-measurement, created in this release"
+  ],
+  "merged": [
+    "/blog/aeo-vs-geo",
+    "/blog/aeo-vs-seo-vs-geo"
+  ]
+}

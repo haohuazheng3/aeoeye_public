@@ -2,64 +2,98 @@
  "slug": "b2b",
  "type": "persona",
  "title": "AEO for B2B: How to Get on the AI Shortlist Before Sales Ever Hears From You",
- "metaTitle": "AEO for B2B: Win the AI Vendor Shortlist",
- "metaDescription": "B2B buyers build vendor shortlists inside ChatGPT before they ever fill out a form. Here's how to make AI recommend you — and how to know if it doesn't.",
+ "metaTitle": "AEO for B2B: Get on the AI Vendor Shortlist",
+ "metaDescription": "B2B buyers shortlist vendors in AI assistants before sales hears from them. Learn what AI cites, which questions each buyer role asks, and how to measure it.",
  "primaryKeyword": "aeo for b2b",
- "shortAnswer": "AEO for B2B means optimizing so ChatGPT, Perplexity, Google AI Overviews, Claude, and Gemini name your company when a buyer asks for vendors in your category. It matters because 94% of B2B decision-makers now use an LLM during their purchase, and AI typically surfaces only 4 to 7 vendors per category — so the shortlist is built before sales ever gets a form fill. Win it by publishing comparison-ready content, getting cited on the third-party sources AI trusts (G2, review sites, analyst pages, Reddit), and structuring pages so models can extract a clean answer about who you are and who you're for.",
- "intro": "A buyer with a $90,000 budget and a six-month evaluation ahead of them no longer opens Google and clicks ten blue links. They open ChatGPT and type \"best [your category] tools for a 200-person fintech.\" In four seconds they get a shortlist of five named vendors with pros and cons. If you're not one of the five, you don't lose the deal in the demo — you lose it before you knew the deal existed.\n\nThat's the brutal shift for B2B. The long buying cycle hasn't gone away, but its first and most decisive stage has migrated inside an LLM that no sales rep can influence, no SDR can call into, and no retargeting pixel can touch. AEO — answer engine optimization — is how you get back into that room.",
+ "shortAnswer": "B2B companies get on the AI shortlist by answering every question a buying committee asks, not just \"best vendor\": security, pricing, fit and comparisons, each on a crawlable page and each backed by third-party sources that say the same thing. Surveys from 6sense and Forrester suggest the list is usually set before sales is contacted. Measure it by asking those questions, role by role, and counting how often you are named.",
+ "intro": "A buyer with a six-figure budget asks ChatGPT for the best vendors in your category for a 200-person fintech. Five names come back with one-line reasons. If you are not one of them, you do not lose in the demo; you lose before anyone tells you there was a deal.\n\nThis page is for B2B companies of any kind, including services firms and software vendors selling to committees. It covers what the data says about shortlists, why long buying cycles change AEO, what AI cites, a playbook and how to measure it. If you sell self-serve software, [AI visibility for SaaS](/for/saas) goes deeper on the shortlist mechanics and our crawler data.",
  "sections": [
   {
-   "heading": "The shortlist now forms before the first form fill",
-   "body": "Here's the number that should reorganize your pipeline math: B2B buyers complete roughly 70% of their decision journey before they ever talk to you. Forrester's 2026 buyers' journey research found generative AI and conversational search are now the *most* meaningful source of vendor research — ahead of vendor websites, product experts, and sales reps.\n\nWhat does that look like in practice? The buyer asks an open question, the model returns three to five vendors with one-line rationales, and that list becomes the evaluation set. G2 found over half of software buyers now start research with an AI chatbot more often than Google. And the consequences are real: 69% of buyers reported choosing a *different* vendor than they'd originally planned based on AI guidance, and one in three bought from a vendor they'd never heard of before the AI named it.\n\nFor B2B specifically this is sharper than for consumer brands. Your category has fewer searchers, higher contract values, and a smaller set of credible players — so AI tends to anchor on the same four to seven names again and again. Get into that anchor set and compounding works for you. Stay out and you're invisibly disqualified, deal after deal, with no form fill to even tell you it happened."
+   "heading": "How has the B2B shortlist moved into AI?",
+   "body": "It has moved to the start of the journey. In 6sense's 2025 buyer survey, [the winning vendor was already on the buyer's Day One shortlist 95% of the time](https://6sense.com/science-of-b2b/buyer-experience-report-2025/), from nearly 4,000 responses across three regions. Forrester's 2026 report says [genAI searches are now the starting point for B2B buyers](https://www.forrester.com/press-newsroom/forrester-2026-the-state-of-business-buying/).\n\nG2's survey of 1,076 software decision-makers puts numbers on the AI step: [51% start research with an AI chatbot more often than Google, and 69% chose a different vendor than planned](https://learn.g2.com/g2-2026-ai-search-insight-report) after a chatbot's guidance. All three firms sell to B2B vendors and rely on self-reported answers, and G2 covers software only. Treat the figures as direction.\n\nWhat this means for you is simple. Sales is no longer where the list gets made; it is where the list gets confirmed.\n\n![Group of adults having a business meeting around a wooden table with laptops and devices.](https://images.pexels.com/photos/3182784/pexels-photo-3182784.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Why AEO is different for a long, multi-stakeholder buying cycle",
-   "body": "Consumer AEO is mostly one question, one answer, one buyer. B2B is a committee asking a *sequence* of questions over months, and the AI is present at every step — not just \"who are the top vendors\" but \"is X SOC 2 compliant,\" \"does X integrate with Salesforce,\" \"X vs Y for healthcare,\" \"what do users complain about with X,\" \"is X worth it for under 50 seats.\"\n\nEach of those is a distinct AEO surface, and each maps to a different stakeholder: the champion asking for options, the security lead vetting compliance, the finance owner pressure-testing ROI, the end user checking real complaints. If the model can't answer one of those cleanly in your favor, you can win the demo and still lose in the buying committee's group chat.\n\nThis is why B2B AEO can't be a single \"best tools\" landing page. You need answer-ready content covering the entire question tree:\n\n- **Category and use-case queries** — \"best [category] for [industry/company size]\"\n- **Head-to-head comparisons** — your brand vs each real competitor, written honestly\n- **Objection and trust queries** — security, compliance, pricing model, implementation time\n- **Fit and disqualifier queries** — who you're *not* for (counterintuitively, this builds AI trust)\n\nThe long cycle is actually an advantage. You have time and surface area to be the vendor the AI can answer the most questions about — and depth of coverage is exactly what these models reward."
+   "heading": "Why is AEO different for long, multi-stakeholder buying cycles?",
+   "body": "Because the committee asks AI a sequence of different questions, and you must win more than the first one. Forrester says the typical decision involves [13 internal stakeholders and nine external influencers](https://www.forrester.com/press-newsroom/forrester-2026-the-state-of-business-buying/), procurement is a decision-maker in 53% of cycles, and buyers check AI output with peers and experts.\n\nEach role asks something different. These prompts are our illustrations, not survey data:\n\n| Role | A prompt they might type | The page that must answer it |\n|---|---|---|\n| Champion | \"Best [category] tools for a 200-person fintech\" | Segment landing page, comparison pages |\n| Security or IT | \"Is [vendor] SOC 2 compliant? Does it integrate with Okta?\" | Public trust and integration docs |\n| Finance or procurement | \"What does [vendor] cost for 150 seats?\" | Pricing or a plain pricing explainer |\n| End user | \"What do users complain about with [vendor]?\" | Review profiles, honest fit page |\n\nYou can win the shortlist and lose the committee's group chat. Disagreement across sources is the risk: G2 found [buyers treat consistent answers across chatbots as a trust signal](https://learn.g2.com/g2-2026-ai-search-insight-report) and dig deeper when they see inconsistency. If your price or compliance status differs between your site, a directory and a review profile, the engine will repeat whichever it retrieves."
   },
   {
-   "heading": "What AI actually cites for B2B — and how to earn it",
-   "body": "Models don't invent shortlists. They assemble them from sources they trust, and the source mix for B2B is distinctive. Yext's analysis of 6.8 million AI citations found first-party websites drove about 44% of citations and third-party listings another 42% — so it's roughly half your own site, half places you don't control.\n\nThat second half is where most B2B teams under-invest. For your category, the AI-trusted sources usually include:\n\n- **Review platforms** — G2, Capterra, TrustRadius. AI leans on these for \"best\" and \"vs\" queries because they aggregate independent signal at scale.\n- **Analyst and roundup pages** — third-party \"top 10\" listicles, niche industry blogs, analyst coverage.\n- **Community discussion** — Reddit, Hacker News, industry Slack/forum threads that get indexed. Models weight these for the \"what do people actually think\" layer.\n- **Your own structured pages** — clear entity definitions, comparison tables, FAQ-formatted answers, current pricing.\n\nThe practical work: make sure you're *present* and *current* on the review sites for your category, get into the credible roundups (a single well-placed comparison article can show up across multiple engines), and structure your own pages so a model can lift a clean, attributable sentence. One caution from the citation data — 89% of cited domains appear in only one engine. Coverage in Perplexity does not mean coverage in ChatGPT. You have to check each engine separately."
+   "heading": "What does AI cite for B2B?",
+   "body": "Mostly sources you do not control. An arXiv study across verticals found AI search engines show [a systematic bias toward earned media over brand-owned content](https://arxiv.org/abs/2509.08919). In G2's survey, review sites were the second most-cited influence on shortlists, after chatbots.\n\nFor a B2B category, that usually means four source types:\n\n- **Review and directory profiles.** G2 reports [45% of buyers call a review citation the most confidence-inspiring signal](https://learn.g2.com/g2-2026-ai-search-insight-report) in an AI answer.\n- **Roundups and analyst or trade coverage.** Forrester advises that providers should make claims that [trusted external voices can validate](https://www.forrester.com/press-newsroom/forrester-2026-the-state-of-business-buying/).\n- **Community threads and partner pages.** Marketplaces, integration partners and indexed forums describe you in someone else's words.\n- **Your own pages** with facts a model can lift: who you serve, pricing, security, integrations, results.\n\nMentions in these places count for more than links to your homepage, as we argue in our piece on [brand mentions](/blog/brand-mentions). The practical consequence: a firm with no review profile, no case-study numbers and no third-party coverage gives the engine nothing to cite, however good its website is.\n\nServices firms feel this first. A prompt like \"best [service] provider for a mid-size manufacturer\" has no spec sheet to compare, so engines lean on what others say: case studies, directory listings, partner pages and press. A named result with a number and a timeframe is quotable. \"We deliver excellence\" is not."
   },
   {
-   "heading": "A concrete AEO playbook for B2B teams",
-   "body": "Skip the abstractions. Here's the order I'd actually run it in.\n\n1. **Measure baseline visibility per engine.** Run your top 15-20 buyer queries — category, comparison, objection — through ChatGPT, Perplexity, Google AI Overviews, Gemini, and Claude. Record whether you're named, in what position, and what the model says about you. This is the only honest scoreboard. AEOeye's free audit does exactly this across the major engines so you can see where you're cited, where a competitor owns the answer, and what sources the models pulled from.\n\n2. **Fix the entity layer.** Make sure every model can answer \"what is [your company], who is it for, what does it cost\" in one paragraph. Tighten your homepage, about, and product pages into extractable, declarative statements. Add or update structured data.\n\n3. **Build the comparison library.** Write honest \"[you] vs [competitor]\" pages for every real rival, plus \"best [category] for [segment]\" pages for your top ICPs. State who you're best for *and* who should pick someone else. Models reward — and buyers trust — that calibration.\n\n4. **Win the off-site sources.** Refresh your G2/Capterra presence, pursue placement in the roundups AI already cites for your category, and seed genuine community presence where your buyers talk.\n\n5. **Re-measure monthly.** AI answers drift as models update and competitors publish. Treat it like rank tracking — a standing report, not a one-time project."
+   "heading": "What is the B2B AEO playbook?",
+   "body": "Map the questions, publish ungated answers, prove claims with numbers, then earn outside coverage. In this order:\n\n1. **Build the question tree from real sources.** Use discovery calls, RFPs and security questionnaires. Group questions by role and stage.\n2. **State the entity plainly.** One paragraph on who you serve, what you do, what it costs and who you are not for. Google says [Organization markup helps disambiguate your organization](https://developers.google.com/search/docs/appearance/structured-data/organization); use it, but the plain text carries the weight.\n3. **Ungate your best answers.** A PDF behind a form cannot be read by a crawler. Put the security summary, integration list and pricing logic on public pages.\n4. **Prove it with real numbers.** Publish case studies with named metrics and customer permission. In the GEO paper, adding statistics and cited sources produced [30-40% visibility gains](https://arxiv.org/abs/2311.09735) on its benchmark.\n5. **Write honest comparisons, one page per question.** One page per real rival, saying who should pick whom. A single \"best tools\" page cannot cover a question tree, and five thin pages on one question lose to one strong page: on 3 October 2026 we merged 165 of our own pages into 42, a lesson we stand behind.\n6. **Earn the outside sources.** Update review profiles, brief analysts and pursue roundups the engines already retrieve.\n\nOur view: skip the schema sprint and the gated whitepaper. The [AEO strategy guide](/blog/aeo-strategy) covers how to prioritize these decisions.\n\n![Man drawing a pie chart on paper beside a cup of coffee, planning on a desk.](https://images.pexels.com/photos/7964208/pexels-photo-7964208.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+  },
+  {
+   "heading": "How do you measure B2B AEO?",
+   "body": "Ask the committee's questions, role by role, many times, and report how often you are named. One answer is a sample: in SparkToro's 2,961 runs, [the odds of seeing the same brand list in two responses over 100 runs were under 1 in 100](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) for ChatGPT and Google's AI. Its author still concluded that percent visibility across repeated runs is probably a reasonable measure.\n\nSplit the prompt set by stage. Discovery prompts (\"best vendors for...\") test whether you make the list. Validation prompts (\"is [vendor] secure\", \"[vendor] vs [rival]\") test whether you survive scrutiny. You can pass one and fail the other.\n\nLog four things per prompt: named or not, framing, which competitors appear, and whether the facts are right. Wrong facts matter in B2B; G2 reports 64% of buyers see inaccuracies a few times a month or more.\n\nWhy first place matters: in AEOeye's audit records (a recommendation benchmark of 127 audits and 892 answers; self-selected, small, engines not comparable), answers named 2.9 competitors on average and 71.4% of 147 ranked mentions were first. Our [measurement guide](/blog/ai-brand-recommendation-measurement) shows how to code answers.\n\nAEOeye's [free audit](/) asks three unbranded buyer questions to ChatGPT; the $29 report adds four engines and ten questions, one-time. It does not run role-by-role prompt sets daily. For that, use a dedicated tracker."
   }
  ],
  "keyTakeaways": [
-  "94% of B2B decision-makers now use an LLM during their purchase, and AI usually names only 4 to 7 vendors per category — the shortlist forms before sales sees a form fill.",
-  "69% of buyers chose a different vendor than planned based on AI guidance, and 33% bought from a vendor the AI introduced them to.",
-  "B2B AEO must cover the whole question tree — category, comparison, security/compliance, ROI, and fit — because each maps to a different stakeholder in the buying committee.",
-  "Roughly half of B2B AI citations come from third-party sources (G2, Capterra, roundups, Reddit), so off-site presence matters as much as your own site.",
-  "89% of cited domains appear in only one engine — you have to track ChatGPT, Perplexity, Gemini, Claude, and Google AI Overviews separately.",
-  "Honest 'who we're NOT for' content builds AI trust and improves the quality of the buyers AI sends you."
+  "Surveys from 6sense, Forrester and G2 suggest the shortlist is set before sales is contacted; all are self-reported.",
+  "Buying committees ask AI different questions by role, so one \"best vendors\" page cannot cover them.",
+  "AI leans on earned sources: review profiles, roundups, analyst and community coverage.",
+  "Ungated, consistent, number-backed pages give engines something accurate to cite.",
+  "Measure by role and repeat runs, and report named-rate with its denominator."
  ],
  "faqs": [
   {
-   "q": "Is AEO worth it for B2B with low search volume?",
-   "a": "Yes, often more than for high-volume consumer categories. Low volume means fewer credible vendors, so AI anchors on a small, stable set of 4 to 7 names per category. Getting into that set delivers outsized return because each query represents a high-value, high-intent buyer — and you face less competition for the citation than a crowded consumer market would bring."
+   "q": "Is AEO worth it for a B2B company with low search volume?",
+   "a": "Often yes. Few buyers search, but each represents a large deal, and shortlists are short, so a place on one matters. AI answers named about three competitors per answer in our benchmark, which is small and self-selected. Check your own prompts first: if you are already named, protect accuracy; if not, fix source coverage."
   },
   {
-   "q": "How is AEO for B2B different from SEO?",
-   "a": "SEO ranks your page in a list of links a buyer clicks through; AEO determines whether the model names you at all in a synthesized answer. AEO weights extractable, declarative content, entity clarity, and third-party citations (G2, reviews, roundups, Reddit) more heavily than backlinks and keyword density. And critically, you optimize across five different engines that cite different sources, not one search index."
+   "q": "How is B2B AEO different from B2B SEO?",
+   "a": "SEO earns a ranked link a buyer may click. AEO earns a mention inside an answer, and that answer leans on third-party sources such as reviews and roundups. The fundamentals overlap, since Google says SEO basics still apply to its AI features, but you also have to be consistent and present on sources you do not own."
   },
   {
-   "q": "How do I know if ChatGPT or Perplexity already recommends my company?",
-   "a": "Ask them directly with the queries your buyers use — 'best [category] for [your ICP],' '[you] vs [competitor],' 'is [you] secure/compliant' — across ChatGPT, Perplexity, Gemini, Claude, and Google AI Overviews, and note whether you're named and how. Because answers drift and differ per engine, a tool like AEOeye's free audit runs these checks across engines and shows which sources each model pulled from."
+   "q": "How do I know whether ChatGPT or Perplexity already recommends my company?",
+   "a": "Ask the questions your buyers ask: category, comparison, security and pricing, phrased for your segment, on every engine and more than once. Note whether you are named, how you are framed and which sources are cited. AEOeye's free audit runs three unbranded questions on ChatGPT and shows the answers in full."
   },
   {
-   "q": "Which content moves the needle fastest for B2B AEO?",
-   "a": "Honest head-to-head comparison pages ('[you] vs [competitor]') and segment-specific 'best [category] for [industry/size]' pages. They map directly to the comparison stage where shortlists form, they're the format AI extracts most readily, and a single strong comparison article can surface across multiple engines at once."
+   "q": "Which content helps a B2B company most?",
+   "a": "Pages that answer the committee's real questions without a form: pricing logic, security and integration details, honest comparisons, and case studies with named numbers. They give engines facts to quote, and they match the stages where buyers validate a shortlist. Pair them with up-to-date review profiles."
   },
   {
-   "q": "How long does B2B AEO take to show results?",
-   "a": "Entity and on-site fixes can change how models describe you within weeks as they re-crawl. Earning the third-party citations that drive shortlist inclusion — review-site presence, roundup placements, community signal — typically takes one to three months to compound. Treat it as ongoing measurement, not a one-time launch, because answers shift as models update and competitors publish."
+   "q": "How long does B2B AEO take to work?",
+   "a": "No one can promise a timeline. Changes show up only after new pages or third-party mentions are published, crawled and retrieved, which depends on each engine and source. Measure a fixed prompt set before and after, run it repeatedly, and judge progress on the rate you are named, not on a single answer."
   }
  ],
  "comparisonTable": null,
  "image": {
-  "url": "https://images.pexels.com/photos/7651829/pexels-photo-7651829.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "A diverse group of office workers collaborating on a creative project around a laptop in a modern workspace.",
-  "photographer": "Kindel Media",
-  "photographerUrl": "https://www.pexels.com/@kindelmedia"
- }
+  "url": "https://images.pexels.com/photos/39204819/pexels-photo-39204819.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Professional delivering a business presentation with charts in a modern office.",
+  "photographer": "Vitaly Gariev",
+  "photographerUrl": "https://www.pexels.com/@silverkblack"
+ },
+ "sources": [
+  {
+   "label": "6sense — 2025 B2B Buyer Experience Report",
+   "url": "https://6sense.com/science-of-b2b/buyer-experience-report-2025/"
+  },
+  {
+   "label": "Forrester — 2026 State of Business Buying (press release)",
+   "url": "https://www.forrester.com/press-newsroom/forrester-2026-the-state-of-business-buying/"
+  },
+  {
+   "label": "G2 — The Answer Economy: How AI Search is Rewiring B2B Software Buying (2026)",
+   "url": "https://learn.g2.com/g2-2026-ai-search-insight-report"
+  },
+  {
+   "label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (arXiv)",
+   "url": "https://arxiv.org/abs/2509.08919"
+  },
+  {
+   "label": "Aggarwal et al. — GEO: Generative Engine Optimization (arXiv)",
+   "url": "https://arxiv.org/abs/2311.09735"
+  },
+  {
+   "label": "SparkToro — AIs are highly inconsistent when recommending brands or products",
+   "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"
+  },
+  {
+   "label": "Google Search Central — Organization structured data",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/organization"
+  }
+ ],
+ "updated": "2026-10-03"
 }

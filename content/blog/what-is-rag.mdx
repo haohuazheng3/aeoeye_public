@@ -1,98 +1,91 @@
 ---
-title: "What Is RAG? Retrieval-Augmented Generation, Explained"
-description: "RAG explained plainly: how retrieval-augmented generation works, why it powers AI Overviews and Perplexity, and how to make your content RAG-friendly."
-date: "2026-07-18"
+title: "What Is RAG? Retrieval-Augmented Generation and Grounding"
+description: "RAG (retrieval-augmented generation) is how AI engines fetch pages before answering; grounding is the goal. Why retrieval decides who is cited, and what to do."
+date: "2026-10-03"
+published: "2026-07-18"
 category: "Fundamentals"
-readingTime: "8 min read"
-keywords: ["what is rag", "retrieval augmented generation", "rag explained", "how does rag work"]
-faqs: [{"q": "What is RAG in simple terms?", "a": "RAG means an AI looks up real documents before answering, instead of relying only on what it memorized during training. It retrieves the most relevant material from a source like a search index, then writes its answer using that material as grounding \u2014 similar to a student citing a textbook instead of answering from memory alone."}, {"q": "What does retrieval-augmented generation mean?", "a": "Retrieval-augmented generation is the full technical name behind the acronym RAG: 'retrieval' is the system fetching relevant content from an external source, 'augmented' means that content gets added to what the model sees, and 'generation' is the model writing an answer grounded in it rather than pure memory."}, {"q": "Why does RAG matter for SEO?", "a": "Because AI Overviews, Perplexity, and ChatGPT search all use RAG-style retrieval to decide what to cite, getting mentioned by AI now depends on whether your page is crawlable, well-structured, and retrievable \u2014 not just on traditional keyword rankings. It's a new visibility layer sitting on top of classic SEO, not a replacement for it."}, {"q": "Does RAG reduce AI hallucinations?", "a": "Yes, but it doesn't eliminate them. Grounding an answer in retrieved documents makes wholesale invention less likely, since the model is paraphrasing real text instead of guessing from memory. But the model can still misread, overgeneralize, or blend sources poorly \u2014 so RAG lowers the hallucination rate, it doesn't guarantee accuracy."}]
-image: {"url": "https://images.pexels.com/photos/16094049/pexels-photo-16094049.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Close-up of a person holding a smartphone displaying the ChatGPT application interface on a patterned table.", "photographer": "Matheus Bertelli", "photographerUrl": "https://www.pexels.com/@bertellifotografia"}
-sources: [{"label": "Lewis et al. \u2014 Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (arXiv, 2020)", "url": "https://arxiv.org/abs/2005.11401"}]
+readingTime: "6 min read"
+keywords: ["what is rag", "retrieval augmented generation", "rag explained", "how does rag work", "what is grounding in ai", "ai grounding"]
+faqs: [{"q": "What is RAG in simple terms?", "a": "RAG means an AI model looks up documents before it answers, instead of relying only on what it memorized in training. The system retrieves the most relevant passages from an index, adds them to the prompt, and the model writes its answer from that material, often with links to the passages it used. Think of an open-book exam rather than a closed-book one."}, {"q": "What is grounding in AI, and is it the same as RAG?", "a": "Grounding is the goal: connecting a model's output to verifiable sources so claims can be checked. RAG is the most common mechanism for reaching it. Vendors blur the terms, since Google's Search guide calls RAG a technique also known as grounding, while Google Cloud documents RAG as one grounding method among several. We use grounding for the outcome and RAG for the method."}, {"q": "Does RAG stop AI hallucinations?", "a": "No, it reduces them. Google Cloud says grounding reduces hallucinations and gives links to sources, and the original RAG paper found more factual output than a parametric-only baseline. But a 2023 audit of four generative search engines found only 51.5% of sentences fully supported by their citations, so a retrieved link is a pointer to check, not proof."}, {"q": "Do I need to chunk my content or add special markup for RAG?", "a": "Not for Google. Its guidance says there is no requirement to break content into tiny pieces, no special schema is needed, and llms.txt files are ignored. Other systems split your text into passages automatically, so the practical fix is writing paragraphs that still make sense alone: name the subject, state one fact, cite the source."}, {"q": "How do I know whether AI engines retrieve my pages?", "a": "Ask the questions your buyers ask in each engine and see whether your site is named or cited. Check robots.txt and your firewall for AI search crawlers, and confirm Google can index the page with a snippet. AEOeye's free audit asks three unbranded buyer questions to ChatGPT and shows the full answers."}]
+image: {"url": "https://images.pexels.com/photos/7244576/pexels-photo-7244576.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A quiet modern library interior with long bookshelves and bright circular ceiling lights", "photographer": "Olga Lioncat", "photographerUrl": "https://www.pexels.com/@olgalioncat"}
+sources: [{"label": "Lewis et al. — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (arXiv, 2020)", "url": "https://arxiv.org/abs/2005.11401"}, {"label": "Google Search Central — Optimizing your website for generative AI features", "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"}, {"label": "Google Cloud — Grounding overview", "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/overview"}, {"label": "OpenAI — Web search tool guide", "url": "https://developers.openai.com/api/docs/guides/tools-web-search"}, {"label": "Anthropic — Introducing Contextual Retrieval", "url": "https://www.anthropic.com/news/contextual-retrieval"}, {"label": "Liu, Zhang, Liang — Evaluating Verifiability in Generative Search Engines (arXiv, 2023)", "url": "https://arxiv.org/abs/2304.09848"}]
 ---
 
-Every explainer on RAG is written for developers building a chatbot. This one is written for the person whose business depends on being the page that chatbot cites. Same mechanism, different stakes — so here's RAG explained without the vendor-deck spin.
+RAG, short for retrieval-augmented generation, means an AI model looks up documents before it writes an answer. Grounding is the goal that lookup serves: an answer tied to sources it can point to. In AI search, retrieval decides who gets cited, because a page the engine never retrieves cannot be quoted. Our position: get retrieved first, then get quoted.
 
-## What Is RAG (Retrieval-Augmented Generation)?
+## What is RAG (retrieval-augmented generation)?
 
-RAG — retrieval-augmented generation — is a technique where an AI retrieves relevant documents from an outside source, then generates its answer grounded in them, instead of relying only on what it memorized during training. Retrieve first, generate second: that's the whole idea packed into the acronym.
+RAG is a technique where a language model retrieves relevant documents from an outside source and uses them as context while generating an answer, instead of relying only on training memory. [Wikipedia](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) describes it as letting a model retrieve and incorporate new information from external data sources. Our [glossary entry](/glossary/retrieval-augmented-generation) has the short version.
 
-A plain language model works from *parametric memory* — everything it learned during training, frozen at whatever date training ended. Ask it something outside that window and it either says so, or guesses.
+The term comes from [Lewis et al. (2020)](https://arxiv.org/abs/2005.11401), written at Facebook AI Research, University College London and New York University. They paired a model's built-in "parametric" memory with a "non-parametric" one: a vector index of Wikipedia, split into 100-word chunks, 21 million of them. Their RAG models generated more specific, diverse and factual text than a parametric-only baseline.
 
-RAG changes the order of operations. Before the model writes a word, a separate retrieval step searches a knowledge source — a search index, a vector database, a proprietary crawl of the web — and pulls back the passages most relevant to the question. Those passages get handed to the model as reference material. Only then does it generate an answer, usually while pointing back to where each piece came from.
+Note what was retrieved: passages, not whole pages. That detail, present since 2020, drives most of the advice below.
 
-The term comes from a 2020 paper by researchers at Facebook AI Research (now Meta AI), *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*. It was originally a fix for a narrow research problem — models answering knowledge questions without a reliable way to look anything up. It has since become the backbone of how AI search actually works.
+## What is grounding, and how is it different from RAG?
 
-Three moving parts, in short:
+Grounding means connecting a model's output to verifiable sources of information, so each claim can be checked. [Google Cloud's documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/overview) defines it that way and lists RAG as one route among several, alongside Google Search and Google Maps data. We use grounding for the outcome and RAG for the mechanism.
 
-- **Retrieval** — pulling relevant text from a source
-- **Augmentation** — inserting that text into the model's context
-- **Generation** — writing an answer using both the retrieved text and the model's own language ability
+Vendors blur the two. Google's [Search guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) calls RAG a technique "also known as grounding" that retrieves pages from Google's Search index. Gemini's [API documentation](https://ai.google.dev/gemini-api/docs/google-search) shows the loop: the model decides whether a Google Search can improve the answer, runs one or more queries, synthesizes the results and returns inline citations.
 
-## How Does RAG Work?
-
-RAG runs in four steps: a query comes in, the system retrieves the most relevant chunks from an index, those chunks get fed to the model as context, and the model generates an answer grounded in — and often citing — that material.
-
-Walked through in order:
-
-1. **Query.** A user (or another AI) asks a question, like *best project management tool for a five-person agency*.
-2. **Retrieve.** The system searches an index for chunks of text related to that question. Modern retrieval mostly runs on [semantic search](/blog/what-is-semantic-search) — matching meaning, not just overlapping keywords — so a chunk can get retrieved even if it never uses the exact words in the query.
-3. **Augment.** The top-ranked chunks get inserted into the model's context window, alongside the original question, as reference material the model can actually read before it responds.
-4. **Generate.** The model writes an answer using that context, and — critically — often attaches a citation or link back to the source chunk it drew from.
-
-That fourth step is why RAG matters more than it sounds like it should. Because the system knows exactly which chunk fed which part of the answer, it can attribute the response back to its source. That's the mechanic behind every sources list under an AI Overview, every footnote in a Perplexity answer, every link ChatGPT drops into a search response.
-
-It also cuts down on hallucination, though it doesn't erase it. A model grounded in retrieved text is paraphrasing something real that's sitting in front of it, rather than free-associating purely from training weights. It can still misread that text, blend two sources into a wrong conclusion, or retrieve something outdated — grounding reduces the guesswork, it doesn't guarantee the output.
-
-
-![A futuristic humanoid robot in an indoor setting, symbolizing AI content and search.](https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
-
-## Why Is RAG the Engine Behind AI Search?
-
-Google's AI Overviews, Perplexity, and ChatGPT's search mode all run on RAG-style retrieval instead of pulling answers from pure model memory — which means whether your content gets cited has almost nothing to do with brand recognition and everything to do with whether the retrieval step decided to pull your page.
-
-Most RAG explainers skip this part, because they're written for people building the retrieval system, not people trying to get found by it. But it's the whole game for content and SEO work: retrieval is the gate. If your page never gets retrieved, it never reaches generation — it cannot be cited, quoted, or linked, no matter how well it's written or how much authority your brand has offline.
-
-[Perplexity](/blog/how-does-perplexity-work) is a clean, visible example of this pipeline in production — you can watch it retrieve, then generate, then cite, in real time. Google and ChatGPT run the same pipeline with less visible plumbing. This shift, where the answer is assembled live from retrieved sources instead of served from a static list of links, is what we mean by [generative search](/blog/generative-search) — and RAG is the mechanism that makes it possible.
-
-Here's the same idea broken into the actual stages a RAG system runs through, and what's within your control at each one:
-
-| RAG Stage | What Happens | What Decides Whether You're Included |
+| | Ungrounded answer | Grounded answer |
 |---|---|---|
-| Indexing | Your content gets crawled, parsed, and stored so it can be searched later | Whether the page is crawlable, accessible, and actually gets indexed at all |
-| Retrieval | The system searches the index for chunks relevant to the query | Whether your content is structured and worded in a way that matches the query semantically |
-| Ranking of chunks | Retrieved chunks get scored, and only the top few move forward | Relevance, clarity, authority signals, and how directly the passage answers the question |
-| Generation / citation | The model writes the answer and often attributes it to source chunks | Whether your specific passage was self-contained and clear enough to quote or link |
+| Draws on | Training memory, frozen at a cutoff | Sources fetched at question time |
+| Citations | Nothing to point to | Links to the sources used |
+| Freshness | Stops at the cutoff | As current as the index |
+| Main risk | Confident invention | A wrong, stale or misread source |
 
-Miss any one stage and the rest doesn't matter. A brilliant page that isn't indexed never gets retrieved. A retrieved page that's vague never gets ranked highly enough to reach generation. A ranked chunk that's ambiguous never gets quoted cleanly.
+The sources can be a company knowledge base, an uploaded document or the live web. AI search uses the live web, so your pages are candidates.
 
-## How Do You Make Content RAG-Friendly?
+## How does RAG work, step by step?
 
-RAG-friendly content is crawlable and indexed, broken into clearly labeled sections that make sense on their own, answer-first so a single passage survives being lifted out of context, specific about who or what it's discussing, and marked up with structured data that spells out what the page is.
+RAG runs in two phases: an index is built ahead of time, then every question triggers retrieve, augment and generate. Google Cloud's [RAG Engine overview](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/rag-overview) lists the build stages as data ingestion, splitting into chunks, embedding and indexing. An embedding is a list of numbers that captures meaning, so related text sits close together.
 
-Broken down:
+At question time:
 
-- **Get indexed, first.** No robots blocks, no content hidden behind JavaScript rendering that a crawler skips, and a sitemap that actually lists the page. If it's not indexed, it doesn't exist for retrieval — nothing else on this list matters until this is true.
-- **Write in chunk-sized sections.** RAG systems retrieve chunks, not whole pages. Use real, descriptive headings so each section can be pulled out of sequence and still make sense without the rest of the page around it.
-- **Lead with the answer.** Put the direct answer in the first sentence or two of each section. If a retrieval system grabs just that snippet, it should read as a complete thought, not a fragment that needs the paragraph before it.
-- **Name things explicitly.** Don't lean on *this approach* or *the company* three paragraphs after you introduced them. A chunk pulled out of order needs the actual name sitting right there.
-- **Add structured data.** Schema markup — FAQPage, Article, HowTo — gives a retrieval system an explicit, machine-readable label for what the content is, instead of making it infer that from prose alone.
+1. **Decide whether to search.** [OpenAI's documentation](https://developers.openai.com/api/docs/guides/tools-web-search) says the model can choose to search or not. [Anthropic's](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) says Claude searches for current or changing information and answers stable-knowledge questions directly.
+2. **Fan out.** Google's AI features may run several related searches at once, which its guide calls query fan-out.
+3. **Retrieve passages.** In [OpenAI's retrieval guide](https://developers.openai.com/api/docs/guides/retrieval), a sentence about the 1969 moon landing scores 65% semantic similarity to "When did we go to the moon?" with 0% keyword overlap. Names still matter: in the 2020 paper's ablation, plain keyword matching (BM25) did best on fact-checking claims, which the authors attribute to those claims being entity-centric.
+4. **Rank and trim.** Only the top-scoring passages enter the prompt; OpenAI exposes a score threshold that drops weaker chunks.
+5. **Generate and cite.** The model writes from those passages. OpenAI's web search returns inline citations by default.
 
-For a deeper walkthrough of what makes a specific passage the one that gets quoted instead of skipped, see [what makes content quotable by AI](/answers/what-makes-content-quotable-by-ai).
+![Close-up of server racks in a data center with rows of cabling and indicator lights](https://images.pexels.com/photos/37730212/pexels-photo-37730212.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-## What Are RAG's Limits?
+## Why does retrieval decide who gets cited?
 
-RAG reduces guesswork, but it isn't foolproof: retrieval can miss genuinely good sources, it can pull outdated pages that happen to sit well in the index, and — even when your content is retrieved — there's no guarantee the model chooses to cite it in the final answer.
+A model can only cite what reached its context, so your page must pass three gates: crawled and indexed, retrieved for the question, and chosen for the answer. OpenAI's documentation shows the funnel: its `sources` field lists every URL the model consulted, and it notes the number of sources is often greater than the number of citations.
 
-A few honest limits worth knowing:
+The first gate has explicit rules. For Google, a page must be indexed and eligible to show with a snippet, and the site must be included in Search generative AI features in Search Console, per the [Search guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). For ChatGPT, [OpenAI says](https://developers.openai.com/api/docs/bots) sites opted out of OAI-SearchBot will not be shown in ChatGPT search answers. Retrieval is ranking with far fewer slots; [what AI search is](/blog/what-is-ai-search) covers the shift, and [how ChatGPT chooses sources](/answers/how-does-chatgpt-choose-sources) covers the selection.
 
-- **Retrieval isn't complete.** Indexes are partial and ranking is imperfect — a strong page that's poorly structured or thin on explicit signals can simply never surface.
-- **Fresh beats forgotten.** A page that hasn't been recrawled recently can lose to a shallower page the index visited more recently — being right doesn't help if the system is working from a stale copy of you.
-- **Retrieved isn't cited.** The model still decides which retrieved chunks make the final answer. You can clear the retrieval gate and still watch a competitor's chunk get the citation instead of yours.
+Here is what we found about access. In [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) (fetched 3 October 2026, 384 sites with a usable robots.txt), 27 of 38 news publishers (71.1%) blocked at least one AI retrieval bot, against 1 of 193 SaaS sites (0.5%). Per-site data is in the [CSV](/resources/ai-crawler-access-study-2026-10.csv). It is a convenience sample, one fetch per site, and robots.txt is a request, not enforcement.
 
-Anyone pitching RAG as a system that *always gets it right* is selling something. It's a real improvement over pure memory, not a guarantee.
+The reading we stand behind: the publishers AI engines might lean on are often fenced off, while brand sites rarely block anything. Your risk is seldom a robots.txt rule. It is being absent from the pages that do get retrieved.
 
-## So — Is RAG Citing You, or Someone Else?
+![Abstract three-dimensional rendering of a glowing neural network with connected nodes](https://images.pexels.com/photos/17483871/pexels-photo-17483871.png?auto=compress&cs=tinysrgb&w=1200)
 
-RAG is the mechanism deciding, page by page, who AI search cites and who it quietly skips. The only way to know where you stand is to check whether the retrieval and generation steps are actually picking up your content when it matters.
+## How do you make content retrievable and quotable?
 
-That's the exact question [AEOeye](/) is built to answer. Run a free audit and see whether ChatGPT, Perplexity, Gemini, and Google's AI actually retrieve — and cite — your pages when your buyers ask the questions you're trying to win.
+Be retrievable first: crawlable, indexed, current. Then be quotable: every paragraph names its subject, states one fact and cites its source. Do not "chunk for AI". Google's guide says there is no requirement to break content into tiny pieces, and that Google Search ignores llms.txt.
+
+But pipelines split text anyway, wherever they choose. OpenAI's file search defaults to 800-token chunks with 400 tokens of overlap, and you control none of the cut points.
+
+Anthropic's [contextual retrieval post](https://www.anthropic.com/news/contextual-retrieval) shows the failure: a chunk reading "The company's revenue grew by 3% over the previous quarter" names neither company nor period. Adding context cut failed retrievals by 35%, and by 49% combined with keyword matching. Builders patch this in their index. You can patch it at the source.
+
+- **Allow the retrieval crawlers.** Check robots.txt and firewall rules for OAI-SearchBot, PerplexityBot and Claude-SearchBot; Perplexity's [docs](https://docs.perplexity.ai/guides/bots) recommend allowing PerplexityBot and note that Perplexity-User generally ignores robots.txt. Our [robots.txt generator](/tools/ai-robots-txt-generator) writes the rules.
+- **Name the entity every time.** Write "AEOeye", not "the tool", so a lifted passage still says who it is about.
+- **Lead with the answer, then the evidence.** One fact per paragraph, with a number, date and source. In the GEO paper's benchmark, adding [citations, quotations and statistics](https://arxiv.org/abs/2311.09735) gave the top gains, 30-40% relative on position-adjusted word count, varying by domain. See [what makes content quotable](/answers/what-makes-content-quotable-by-ai).
+- **Say something original.** Google's guide says its AI systems look at a variety of sources, so a unique viewpoint helps.
+- **Keep dates true.** Claude's search results include a `page_age` field, described as when the site was last updated, so make your update dates accurate.
+- **Resist near-duplicate pages.** Google warns that variants made to manipulate AI responses violate its scaled content abuse policy. On 3 October 2026 we merged 165 of our own pages into 42 (85 into 37 canonical pages, 80 into 5 hubs). We believe one strong page per question beats several thin ones, but we have not measured the effect.
+
+![Close-up of colorful programming code on a computer monitor](https://images.pexels.com/photos/4955393/pexels-photo-4955393.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What are RAG's limits?
+
+RAG makes answers checkable, not correct. Four failure points matter for anyone hoping to be cited: stale indexes, bad sources, unsupported citations and wrong links.
+
+- **Stale index.** The 2020 paper swapped in a two-year-older Wikipedia index and asked "Who is {position}?" for 82 world leaders who had changed. Accuracy was 68% with the matching 2018 index and 4% with the stale 2016 one. Google says crawling can take [a few days to a few weeks](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl) after a recrawl request.
+- **Bad sources in, bad answers out.** After odd AI Overviews in 2024, Google [explained](https://blog.google/products/search/ai-overviews-update-may-2024/) that satirical content republished on a software provider's site, and sarcastic forum posts, had been surfaced.
+- **Retrieved is not supported.** A [2023 audit](https://arxiv.org/abs/2304.09848) of four generative search engines found only 51.5% of sentences fully supported by their citations and 74.5% of citations supporting their sentence. Those products have changed since. Relatedly, [models use information in long contexts unevenly](https://arxiv.org/abs/2307.03172), with relevant text in the middle often handled worst.
+- **Wrong or fabricated links.** In a March 2025 [Tow Center test](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php), eight AI search tools were asked to identify the source of news excerpts and answered incorrectly on more than 60% of 1,600 queries. USA Today blocks ChatGPT's crawler, yet ChatGPT cited a syndicated Yahoo News copy.
+
+So a citation does not prove the engine read your page correctly, and a block does not stop copies of it from being cited. Check what AI says about you with [AEOeye's free audit](/), which asks three buyer questions to ChatGPT and shows the real answers.

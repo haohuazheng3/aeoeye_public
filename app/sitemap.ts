@@ -81,6 +81,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const dyn = (["answers", "compare", "for", "vs", "alternatives", "guides"] as const).flatMap((type) =>
     getPages(type).map((p) => ({
       url: `${siteUrl}/${type}/${p.slug}`,
+      // 只有真改过(updated 字段)的页才写 lastmod —— 规则同上:缺失优于撒谎
+      ...(p.updated ? { lastModified: new Date(p.updated) } : {}),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     }))

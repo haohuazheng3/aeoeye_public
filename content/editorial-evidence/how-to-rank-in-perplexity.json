@@ -1,0 +1,91 @@
+{
+  "contentSha256": "350ad931866f2645c118a93606ee85246a55a548af964b61e6aaab7974f7cbd0",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer wants Perplexity to cite and recommend their brand but does not know how Perplexity picks sources, which advice is evidenced, or what to do first.",
+    "connection": "AEOeye audits whether Perplexity, ChatGPT, Claude, Gemini and Google AI name a brand; this guide pairs Perplexity's documentation and published research with AEOeye's crawler access study to give a stepwise playbook and a manual check."
+  },
+  "assessment": "The page explains Perplexity's documented retrieval ingredients (snippets, dates, citation markers, two bots), separates evidenced findings from AEOeye inferences, and gives seven ordered steps plus a manual check and diagnosis table. It rests on Perplexity documentation, the GEO paper, one 2025 arXiv study, Vercel, the Tow Center, RFC 9309 and AEOeye's crawler study, each with its limits. It deliberately drops unsourced statistics from the merged pages and does not claim ranking weights, backlink effects or freshness weighting.",
+  "sources": [
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search results and is not used to crawl for AI foundation models; Perplexity recommends allowing it; Perplexity-User fetches pages for user questions and generally ignores robots.txt; robots.txt changes may take up to 24 hours; IP ranges published and WAF rules should combine user-agent and IP; llms.txt appears only as Perplexity's own docs index."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/tools/web-search.md",
+      "checkedAt": "2026-10-03",
+      "supports": "web_search tool searches for current information; results include URL, title, snippet, publication date and last-updated date; inline citation markers like [1][2] map to result ids; the docs do not explain ranking."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/filters",
+      "checkedAt": "2026-10-03",
+      "supports": "Recency, publication-date and last-updated-date filters exist for search results."
+    },
+    {
+      "url": "https://www.langchain.com/breakoutagents/perplexity",
+      "checkedAt": "2026-10-03",
+      "supports": "Undated LangChain case study: Pro Search creates a step-by-step plan and generates search queries for each step before passing highly ranked documents to an LLM."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO (KDD 2024): Perplexity.ai test on 200 queries with source text uploaded as files; best methods improved on baseline by 22% (position-adjusted word count) and 37% (subjective impression); keyword stuffing performed about 10% worse than baseline."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Abstract: AI search shows a systematic and overwhelming bias towards earned media over brand-owned and social content, contrasting with Google; names ChatGPT, Perplexity and Gemini; 'big brand bias' for niche players. Section 4.2.1 compared Google with a web-enabled GPT only, so no Perplexity-specific shares are quoted."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "December 17, 2024: none of the major AI crawlers, including PerplexityBot, render JavaScript; recommends server-rendering important content."
+    },
+    {
+      "url": "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php",
+      "checkedAt": "2026-10-03",
+      "supports": "March 6, 2025 Tow Center test: Perplexity's free version correctly identified all ten excerpts from paywalled National Geographic articles despite that publisher blocking its crawler."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-03",
+      "supports": "Robots rules are not a form of access authorization."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of RAG: retrieving and incorporating new information from external sources, allowing LLMs to include sources users can verify."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/publication-dates",
+      "checkedAt": "2026-10-03",
+      "supports": "Visible dates and structured-data dates should match."
+    },
+    {
+      "url": "https://schema.org/dateModified",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of dateModified: when a CreativeWork was most recently modified."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims those pages state; Perplexity hub and research pages (perplexity.ai/hub/...) returned 403 behind a Cloudflare challenge, so they were not cited and no bot protection was bypassed.",
+    "Writer (Sonnet): extracted the GEO paper PDF text and confirmed the Perplexity.ai experiment (Appendix C.1, Table 7: 200 samples, source text uploaded as files, 22% and 37% best gains, keyword stuffing about 10% worse than baseline).",
+    "Writer (Sonnet): found that an earlier summary attributed Chen et al.'s 69.1% earned / 30.9% brand figures to Perplexity; a targeted re-fetch showed they are for web-enabled GPT, so only abstract-level claims were used and the paper's scope is disclosed on the page.",
+    "Writer (Sonnet): recomputed Perplexity-User and PerplexityBot block counts per group from public/resources/ai-crawler-access-study-2026-10.csv (PerplexityBot 35 of 384 overall, 26 of 38 publishers, 4 of 90 e-commerce, 4 of 20 UGC, 1 of 193 SaaS; Perplexity-User 20 of 38 publishers, 0 of 193 SaaS) and matched them to the evidence pack.",
+    "Writer (Sonnet): dropped unsourced statistics from the merged pages (60+ sources per query, three reranking layers, 90% answered in 100 words, 70% updated in 12-18 months, 93% under 10 referring domains, 47% vs 28% schema lift, Reddit share, Ahrefs 28.6% overlap, 780M queries) because no primary source could be opened for them.",
+    "Writer (Sonnet): corrected the merged pages' free-audit claim: the free audit tests ChatGPT only with 3 questions, and Perplexity is added by the $29 full report.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean) and checked internal links against docs/content/live-pages-2026-10.md.",
+    "Editor (Opus): read the opening and first three sections in full and every remaining H2 opening; confirmed the page states Perplexity publishes no ranking formula, separates PerplexityBot from Perplexity-User per Perplexity's docs, and labels inferences as ours",
+    "Editor (Opus): re-checked all 12 external URLs on 2026-10-03 (all reachable) and confirmed the GEO paper's Perplexity.ai figures (22% PAWC, 37% subjective impression, stuffing ~10% below baseline) carry the uploaded-files caveat",
+    "Editor (Opus): matched first-hand figures to the study CSV/evidence pack (PerplexityBot blocked by 26 of 38 publishers, 4 of 20 UGC/review, 4 of 90 e-commerce, 1 of 193 SaaS; 60 of 375 homepages challenged) and checked AEOeye product claims",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/can-you-do-seo-for-perplexity",
+    "/answers/how-to-get-cited-by-perplexity",
+    "/blog/how-does-perplexity-work"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "contentSha256": "f762a8ed4782e36796a7ddd7901c5f7778dc6cd5f0d0927fad68771f093985bb",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A founder or marketer wants to know which AI search engines matter in 2026, how they differ in where answers get sources, and which ones their brand should show up in first.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity recommend a brand; this page maps those engines, says where each sources answers, and points to how to test visibility in each."
+  },
+  "assessment": "The page answers the 'best AI search engines' query in a short verdict list with company-reported, dated usage figures, then compares engines on sourcing, the crawler to allow, reach and first-party data, and takes a stated position on which to prioritize (Google surfaces and Gemini, then ChatGPT, then the rest unless buyer tests say otherwise). It rests on vendor documentation, one Pew Research study and AEOeye's own crawler access study with its sample limits. It deliberately omits usage figures for Perplexity, Copilot and Claude because no first-party number was found, and does not claim which engine ChatGPT search uses for retrieval because OpenAI's help pages could not be fetched.",
+  "sources": [
+    {
+      "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Q2 2026 remarks (22 Jul 2026): AI Mode passed 1 billion monthly active users since expanding globally last October; AI Overviews and AI Mode were brought together into one Search experience."
+    },
+    {
+      "url": "https://techcrunch.com/2026/09/29/openais-latest-features-take-direct-aim-at-the-app-store-model/",
+      "checkedAt": "2026-10-03",
+      "supports": "TechCrunch 29 Sep 2026: OpenAI says ChatGPT now has 1.2 billion weekly users (checked in the raw page text)."
+    },
+    {
+      "url": "https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini app passed 1 billion monthly users, announced 11 Aug 2026."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Pages must be indexed and snippet-eligible to appear as supporting links in AI Overviews and AI Mode, with no additional technical requirements or special schema; AI feature traffic is reported in Search Console's Web performance data."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended governs use of crawled content for Gemini training and for grounding in Gemini Apps (grounding = content from the Google Search index); it does not affect inclusion in Google Search."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search and sites opted out will not be shown in ChatGPT search answers; ChatGPT-User actions are user-initiated so robots.txt rules may not apply."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot is designed to surface and link websites in Perplexity search results; Perplexity-User generally ignores robots.txt."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Performance in Bing Webmaster Tools (public preview, 10 Feb 2026) shows citation counts, cited pages and grounding queries across Copilot, Bing AI summaries and select partners; grounding data is a sample."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic's bots honor robots.txt; disabling Claude-SearchBot may reduce visibility and accuracy in Claude search results."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew (900 U.S. adults, March 2025): clicked a result link in 8% of visits with an AI summary versus 15% without."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and kept only claims the page states; confirmed the 1.2 billion weekly users (TechCrunch), 1 billion Gemini monthly users, AI Mode 1 billion monthly users, Pew 8%/15% and the Google, OpenAI, Perplexity and Anthropic crawler wording against the raw page text, not only the fetch summary.",
+    "Writer (Sonnet): tried OpenAI's ChatGPT search help page, OpenAI's launch post, Perplexity's help center and Microsoft's investor page; all returned 403, so no claim about ChatGPT search's retrieval provider or Copilot/Perplexity/Claude usage numbers is made.",
+    "Writer (Sonnet): checked every AEOeye crawler-study number (16/384 OAI-SearchBot, 24/384 Claude-SearchBot, 35/384 PerplexityBot, 1/193 SaaS and 27/38 publishers blocking any retrieval bot, 17/193 and 24/88 homepages challenging our crawler) against docs/content/aeoeye-evidence-pack.md and stated the sample limits.",
+    "Writer (Sonnet): replaced two retired internal links in the old draft (/guides/how-to-rank-in-chatgpt, /blog/ai-search-optimization) and checked the remaining internal links with the content lint.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, tables and the AEOeye-related passages in full, and checked the writer's merge/drop report against the page",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): grep-verified that first-hand figures and AEOeye product claims match docs/content/aeoeye-evidence-pack.md (no per-engine benchmark comparison; no Pro/subscription/daily-tracking claim); usage figures (ChatGPT 1.2B weekly, Gemini app 1B monthly, AI Mode 1B monthly) dated and sourced to company statements",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

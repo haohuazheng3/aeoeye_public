@@ -1,0 +1,122 @@
+{
+  "contentSha256": "0f042c5bb39473fad38d6118e9afdcb9d2f1d23b00039b713f729ef10911c1bd",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "Founders and marketers want their pages cited in Google AI Overviews and AI Mode and need to know what Google actually requires, which advice is folklore, and how to measure whether it is working.",
+    "connection": "Google AI Overviews are one of the AI answer surfaces AEOeye audits; the guide explains how citation works there and where a brand-level AEOeye audit differs from page-level Search Console reporting."
+  },
+  "assessment": "The rewritten guide answers how to get cited in Google AI Overviews from Google's own current documentation (the AI optimization guide updated 2026-07-10, the AI features page and Search Console's Generative AI performance report) instead of third-party folklore. It rests on Google documentation, Pew Research, BrightEdge and two Ahrefs studies with their caveats stated, adds AEOeye's crawler access study for the Google-Extended point, and deliberately does not claim controlled AI Overview experiments, ideal passage lengths or any guaranteed outcome.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Eligibility (indexed and snippet-eligible), 'still SEO', non-commodity content weighted above the guide's other tips, the myths list (llms.txt, chunking, AI-only writing, inauthentic mentions, structured data), the query fan-out definition and lawn example, the scaled content abuse warning and that indexing and serving are not guaranteed; page last updated 2026-07-10."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "No additional requirements or special optimizations; fan-out wording for both AI Overviews and AI Mode; a wider and more diverse set of links than classic search; nosnippet, data-nosnippet, max-snippet and noindex as controls; AI feature traffic reported in the Performance report's Web search type; Google-Extended pointer; page last updated 2025-12-10."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative AI performance report: impressions as the described metric (no mention of clicks, CTR or position), AI Overviews and AI Mode covered, rolled out to all websites worldwide as of 2026-08-31, subject to receiving enough impressions."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag",
+      "checkedAt": "2026-10-03",
+      "supports": "nosnippet also prevents content being used as direct input for AI Overviews and AI Mode; max-snippet limits how much may be used (page updated 2026-03-24)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended does not impact a site's inclusion in Google Search and is not a ranking signal; it has no separate HTTP user agent string (page updated 2026-07-14)."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/9012289",
+      "checkedAt": "2026-10-03",
+      "supports": "The URL Inspection tool reports whether Google has indexed a page and offers live tests."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ranking-systems-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Passage ranking and freshness systems are listed as active Google ranking systems (page updated 2025-12-10)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "checkedAt": "2026-10-03",
+      "supports": "E-E-A-T is not itself a specific ranking factor, trust is the most important element, and fabricating creator profiles is a form of deception (page updated 2026-10-01)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/publication-dates",
+      "checkedAt": "2026-10-03",
+      "supports": "Do not repeatedly update dates without substantial content changes."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "March 2025 browsing data from 900 U.S. adults: users clicked a link inside an AI summary in 1% of visits; Wikipedia, YouTube and Reddit were 15% of the sources in AI summaries."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overview-citations-top-10/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs, 2026-03-02, 863K keyword SERPs and 4M AI Overview URLs: 37.9% of cited URLs ranked top 10, 31.2% ranked 11 to 100, 31.0% beyond 100, versus about 76% in July 2025; Ahrefs attributes the shift to sources appearing in fan-out query SERPs."
+    },
+    {
+      "url": "https://www.searchenginejournal.com/google-ai-overview-citations-from-top-ranking-pages-drop-sharply/568637/",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Engine Journal (2026-03-02) reports Ahrefs improved its parsing methodology since July 2025, so the two datasets are not directly comparable."
+    },
+    {
+      "url": "https://www.brightedge.com/resources/weekly-ai-search-insights/rank-overlap-after-16-months-of-aio",
+      "checkedAt": "2026-10-03",
+      "supports": "BrightEdge, 2025-09-18, nine industries: 54.5% of AI Overview citations ranked organically versus 32.3% in May 2024, only 16.7% from top-10 results, healthcare 75.3% versus e-commerce 22.9%; the page states no sample size and does not define the rank cutoff."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overview-change",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs, 2025-11-11: over 43,000 keywords tracked for a month, a 70% chance an AI Overview changed between observations and 54.5% URL overlap between consecutive responses."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): quotation addition, statistics addition and cite-sources raised visibility in its tests while keyword stuffing lowered it; Google AI Overviews was not evaluated (confirmed in the arXiv HTML full text)."
+    },
+    {
+      "url": "https://www.tryprofound.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound's own site names Google AI Overviews among the AI platforms it targets; not tested hands-on by AEOeye."
+    },
+    {
+      "url": "https://otterly.ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.AI's own site names Google AI Overviews among the platforms it monitors; not tested hands-on by AEOeye."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16908024",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console's Search generative AI control excludes a site from AI Overviews, AI Mode and Discover generative features, isn't a ranking signal for other parts of Search, and rolled out to all websites on August 31, 2026."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims the fetched page states; Google's AI optimization guide, AI features page, robots meta tag page, crawler page, Search Console help page, Pew, BrightEdge and both Ahrefs studies were each queried for exact wording and numbers.",
+    "Writer (Sonnet): confirmed on Google's Generative AI performance report help page that it describes impressions only and never mentions clicks, CTR or position, and replaced the merged blog page's statement that Search Console cannot isolate AI Overview data.",
+    "Writer (Sonnet): dropped figures from the merged pages that no primary source supports (130-170 word passages, 5-11 sub-questions, 200-500 candidate pages, quarterly refresh rule, '~600 characters cites five sources', '48% of industries', 'positions 21-100 sweet spot' as advice) and corrected the old claim that the free AEOeye audit runs all five engines.",
+    "Writer (Sonnet): recounted the Google-Extended figures (31 of 384 robots.txt files, 20 of 38 news publishers) and the JSON-LD figure (233 of 312 homepages, 74.7%) from public/resources/ai-crawler-access-study-2026-10.csv before using them, and kept the convenience-sample caveat next to the numbers.",
+    "Writer (Sonnet): opened the Profound, Peec AI and Otterly.AI home pages; named only Profound and Otterly.AI because their own pages list Google AI Overviews, left Peec AI out because its page does not, and stated that AEOeye has not tested either.",
+    "Writer (Sonnet): marked the one interpretive step as ours ('Our reading': a page can rank first for the head query and be skipped while a sub-question ranker gets the link) because it interprets Ahrefs' fan-out explanation rather than reporting a measured result.",
+    "Writer (Sonnet): read both merged pages and the five linked AEOeye pages in full before writing, so every unique useful point from the merged pages was either rewritten with a verified source or consciously dropped, and nothing was duplicated from the linked pages.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (1,478 words, 0 errors, 0 warnings) and confirmed all six internal page links, the study artifact, and that the hero plus three inline Pexels photos are not used elsewhere on the site.",
+    "Editor (Opus): read the complete final page (short answer, intro, seven sections, the 7-row myth/our-call table, takeaways, eight how-to steps, five FAQs) and confirmed answer-first openings and that vendor studies (BrightEdge, Ahrefs) are labelled as vendor data with their limits stated next to the numbers",
+    "Editor (Opus): re-checked all external URLs on 2026-10-03 (all reachable), including the Search Console Generative AI report help page and Google's AI optimization guide that carry the page's key claims",
+    "Editor (Opus): matched first-hand figures to the study CSV/evidence pack (31 of 384 block Google-Extended, 20 of 38 publishers; JSON-LD on 233 of 312 homepages = 74.7%) and the 165→37 consolidation to our records; confirmed the page claims no AI Overview experiment we did not run",
+    "Editor (Opus): corrected the opt-out facts myself after the sibling AI Overview page surfaced them: re-fetched support.google.com/webmasters/answer/16908024 and added Search Console's site-wide Search generative AI control (all sites since 2026-08-31; not a ranking signal for other parts of Search) to the eligibility section, the myth table and the Google-Extended FAQ, plus the source list",
+    "Editor (Opus): confirmed AEOeye product claims (free audit tests ChatGPT; one-time $29 report adds Google AI, Gemini, Claude and Perplexity) and that content-lint is clean after the correction"
+  ],
+  "merged": [
+    "/blog/how-to-rank-in-ai-overviews",
+    "/answers/how-to-appear-in-google-ai-overviews"
+  ]
+}

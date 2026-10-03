@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, BookOpen, ExternalLink } from "lucide-react";
-import { GLOSSARY, getTerm, TERM_SOURCES } from "@/lib/content/glossary";
+import { ArrowLeft, ArrowRight, BookOpen, ExternalLink } from "lucide-react";
+import { GLOSSARY, getTerm, TERM_DEEP_DIVE, TERM_SOURCES } from "@/lib/content/glossary";
 import { JsonLd } from "@/components/json-ld";
 import { AuditForm } from "@/components/audit-form";
 import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
@@ -54,6 +54,19 @@ export default function GlossaryTerm({ params }: { params: { slug: string } }) {
           <p key={i}>{p}</p>
         ))}
       </div>
+
+      {TERM_DEEP_DIVE[term.slug] && (
+        <Link
+          href={TERM_DEEP_DIVE[term.slug].href}
+          className="mt-8 flex items-center justify-between gap-3 rounded-2xl border border-paper-dim bg-white p-4 text-sm transition hover:border-iris/40"
+        >
+          <span>
+            <span className="block text-xs font-medium uppercase tracking-wide text-ink/45">Go deeper</span>
+            <span className="mt-1 block font-medium text-ink">{TERM_DEEP_DIVE[term.slug].label}</span>
+          </span>
+          <ArrowRight className="h-4 w-4 shrink-0 text-iris" />
+        </Link>
+      )}
 
       {(TERM_SOURCES[term.slug]?.length ?? 0) > 0 && (
         <section className="mt-10">

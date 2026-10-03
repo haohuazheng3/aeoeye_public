@@ -1,0 +1,111 @@
+{
+  "contentSha256": "c7a803b8ea08f4c667a502773d98befbb293606b022de617eb740d7dbd203419",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer whose business is not named when buyers ask ChatGPT, Gemini or Perplexity for recommendations needs a concrete, ordered plan to change that.",
+    "connection": "Connects to what the AEOeye free audit and full report test (whether engines name a brand for unbranded buyer questions) and to AEOeye's own crawler access study and recommendation benchmark."
+  },
+  "assessment": "The page now gives one sequential playbook (findable, understandable, corroborated) with dated vendor-documentation facts on AI crawlers and Google's AI-feature requirements, two arXiv studies on content edits and earned-media bias, and AEOeye's own crawler-access and recommendation-benchmark numbers with their caveats. It folds in the unique, verifiable points of three merged pages and takes a clear position that most businesses stall at independent corroboration. It deliberately promises no outcomes, claims no hands-on testing of any engine, and does not describe AEOeye as a daily tracker.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search and opted-out sites are not shown in ChatGPT search answers; GPTBot is for training; each bot setting is independent; OpenAI publishes the crawlers' IP ranges."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links websites in Perplexity search results and is not used to crawl for foundation models; Perplexity recommends allowing its published IP ranges."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Claude-SearchBot navigates the web to improve search result quality, and blocking it may reduce a site's visibility in Claude's search results."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews and AI Mode need an indexed, snippet-eligible page with no additional requirements; no special schema or AI files; markup should match visible text; AI-feature traffic is included in Search Console totals; nosnippet/noindex controls."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended does not affect inclusion in Google Search, and governs use of content for Gemini training and grounding in Gemini Apps (content from the Google Search index)."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "A 4xx (unavailable) robots.txt lets crawlers access any resources; a 5xx (unreachable) robots.txt means crawlers must assume complete disallow."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "December 2024 analysis of Vercel network traffic: OpenAI's and Anthropic's crawlers fetch JavaScript files but do not execute them; Gemini renders JavaScript through Googlebot's infrastructure."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): adding statistics, quotations and cited sources improved visibility by 30-40% on Position-Adjusted Word Count in the authors' benchmark; keyword stuffing gave little or no improvement."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization structured data helps Google understand and disambiguate an organization; lists name, logo, address and sameAs among recommended properties."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al. (September 2025): AI search shows a strong bias toward earned media; US software citations 72.7% earned and 26.7% brand for GPT vs 45.4% earned and 43.7% brand in Google; 92.1% earned for US consumer electronics; local-service domain overlap with Google 0.1%-20.6%."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:Notability",
+      "checkedAt": "2026-10-03",
+      "supports": "Independent sources exclude works by the subject or anyone affiliated with it; the subject's website and press releases are not considered independent."
+    },
+    {
+      "url": "https://support.google.com/business/answer/7091",
+      "checkedAt": "2026-10-03",
+      "supports": "Businesses with complete and accurate information are more likely to show up in local search results."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/16622866?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini Apps use public Google Maps information to find businesses and can return addresses, descriptions, websites, ratings, opening hours and reviews."
+    },
+    {
+      "url": "https://support.google.com/merchants/answer/9199328?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Free product listings may show in Search, Images, Lens, YouTube, Gemini and the Shopping tab; data can come from Merchant Center feeds or schema.org markup."
+    },
+    {
+      "url": "https://developers.openai.com/commerce/guides/key-concepts",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI's product feed documentation defines how merchants share structured product data so ChatGPT can accurately surface products in search and shopping experiences."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Tools AI Performance report (public preview announced 10 February 2026) shows citations across Microsoft Copilot, AI-generated summaries in Bing and select partner integrations."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited vendor, standards and research URL on 2026-10-03 (OpenAI crawlers page via its developers.openai.com redirect, Perplexity, Anthropic, three Google Search Central pages, Google Business Profile, Gemini Apps Help, Merchant Center, OpenAI commerce docs, Bing Webmaster blog, RFC 9309, Vercel, Wikipedia, arXiv) and kept only claims those pages state.",
+    "Writer (Sonnet): extracted the full text of the GEO paper (arXiv 2311.09735) to confirm the 30-40% Position-Adjusted Word Count result and the keyword-stuffing finding, and read the HTML of arXiv 2509.08919 to confirm the 72.7%/26.7% US software split, the 45.4%/43.7% Google split, the 92.1% consumer-electronics figure and the 0.1%-20.6% local overlap range.",
+    "Writer (Sonnet): recomputed every AEOeye number from public/resources/ai-crawler-access-study-2026-10.csv and .json and aeoeye-recommendation-benchmark-2026-09.json (1 of 193 SaaS retrieval-bot blocks, 24 of 88 e-commerce challenges, 219 and 190 of 312 homepages with Organization markup and sameAs, 892 answers, 735 unnamed, 144 of 157 positive, 2.9 competitors, 71.4% of 147 ranked mentions) and kept each caveat (convenience sample, one fetch per site, small self-selected audit records).",
+    "Writer (Sonnet): fetched aeoeye.com/robots.txt and parsed the live homepage JSON-LD on 2026-10-03 to confirm the page's statements about what AEOeye does (no AI crawler blocked from public pages; Organization, WebSite, SoftwareApplication with Offer and FAQPage markup).",
+    "Writer (Sonnet): compared the three merged pages against the rewrite; kept their useful points where a fetched primary source supports them (training vs retrieval bots, server-rendered content, one consistent description, answer-first pages, business-type differences, measurement cadence, good-score and Wikipedia FAQs) and dropped the unsourced 10%/90% on-site/off-site split, links to retired pages and the outdated pay-to-appear claim.",
+    "Writer (Sonnet): OpenAI Help Center pages returned HTTP 403 to the fetcher, so no claim rests on them; the third-party search provider (Bing) detail and the utm_source=chatgpt.com referral tag were left out rather than cited unchecked.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page and cleared every error and warning (1,490 counted words, 6 H2 sections, 3 inline images with alt text checked against the downloaded photos, 17 inline source links, 5 FAQs).",
+    "Editor (Opus): read the complete final draft (opening, gate table, three gate sections, business-type table, baseline section, five FAQs) and confirmed answer-first openings and the stance (most businesses stall at independent corroboration, not at their own site)",
+    "Editor (Opus): re-checked all 16 external URLs on 2026-10-03 (all reachable) and confirmed the arXiv 2509.08919 figures (72.7/26.7 vs 45.4/43.7; 92.1% earned in consumer electronics; 0.1–20.6% local-domain overlap) as stated by the paper",
+    "Editor (Opus): matched first-hand figures to the evidence pack/CSV (1 of 193 SaaS; 24 of 88 e-commerce homepages; 219 and 190 of 312 homepages = 70.2% / 60.9%; 892 answers, 2.9 competitors, 71.4% of 147, 735 unnamed, 144 of 157 positive) and corrected the consolidation figure myself to '165 … into 42'",
+    "Editor (Opus): confirmed AEOeye product claims (free = 3 ChatGPT questions; $29 adds four engines, ten questions) and our own robots.txt/JSON-LD statements against the live site; content-lint clean"
+  ],
+  "merged": [
+    "/blog/how-to-improve-ai-visibility",
+    "/answers/how-do-i-get-my-brand-into-ai-answers",
+    "/blog/how-to-show-up-in-ai-search"
+  ]
+}

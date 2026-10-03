@@ -1,0 +1,111 @@
+{
+  "contentSha256": "b06267bb213e15ff9e3c90994f6b0e898369f2b1d9ea542a4aef55b8188781f9",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A reader searching what answer engine optimization is, or whether AIO, LLMO, LLM SEO and SEO for LLMs mean something different, wants one clear definition, a straight answer on the labels, and what to actually do so AI engines name their brand.",
+    "connection": "AEO is AEOeye's core subject: the page defines it, explains how AI engines retrieve and choose brands, and shows how to measure whether engines recommend a brand, using AEOeye's own crawler access study and recommendation benchmark with their caveats."
+  },
+  "assessment": "Consolidates five overlapping AEOeye pages (AEO definition, AI optimization, LLM optimization, LLM SEO, SEO for LLMs) into one answer-first guide: a single terminology table, a three-layer program (retrievable, quotable, corroborated) plus measurement, and a what-doesn't-work section. It rests on Google's own AI-search guidance, the GEO and earned-media papers, Pew and SparkToro data, vendor crawler documentation, and AEOeye's crawler access study and recommendation benchmark, each with its limits stated. It deliberately does not claim any tactic guarantees citations, drops the unsourced statistics and the Princeton backlink claim carried by the earlier pages, does not repeat the unverified AEO voice-search lineage, and does not present per-engine benchmark rates as comparisons.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google guide (last updated 2026-07-10): optimizing for generative AI search is still SEO; pages must be indexed; RAG and query fan-out description; no special files, markup, chunking or writing style needed; inauthentic mentions help less than they seem; Google Search does not use llms.txt; Generative AI performance report in Search Console; names AEO and GEO."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): 10K-query GEO-bench; citations, quotations and statistics gave 30-40% relative gains on Position-Adjusted Word Count; keyword stuffing little to no improvement and about 10% worse than baseline on Perplexity.ai; effects vary by domain; GPT-3.5 and Perplexity.ai setups."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al. 2025: AI search shows a systematic bias toward earned media over brand-owned and social content; software test earned share 74.2% (Canada) and 72.7% (US) for gpt-4o-search-preview versus 31.8% and 45.4% for Google top ten; AI search services differ in domain diversity and freshness."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew Research Center: 900 US adults, March 2025; clicked a traditional result in 8% of visits with an AI summary versus 15% without, and a link inside the summary in 1%."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro: 2,961 runs, November-December 2025; under a 1-in-100 chance that ChatGPT or Google's AI repeats the same brand list; advice to ask at least 60-100 times."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler documentation: OAI-SearchBot is for ChatGPT search and opted-out sites will not be shown in ChatGPT search answers; GPTBot is for training; robots.txt updates take about 24 hours to take effect; llms.txt appears only as the docs index link."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic help article (updated 2026-04-07): ClaudeBot is for training, Claude-SearchBot is for search quality, Claude-User is user-directed; the page does not mention llms.txt."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity crawler documentation: PerplexityBot surfaces and links sites in Perplexity search and is not used for foundation-model training; llms.txt appears only as the docs index link."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Wikipedia (edited 2026-10-01): GEO is also known as AEO and AIO; related names include LLMO and AI SEO; usage varies with no consensus definition; the term GEO was introduced in a 2023 paper presented at KDD 2024."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Wikipedia (edited 2026-09-28): RAG lets LLMs retrieve and incorporate new information from external data sources; combines a parametric model with retrieval at inference time."
+    },
+    {
+      "url": "https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft Advertising blog by a Bing Principal Product Manager, 2025-10-08: GEO, AIO and SEO used interchangeably; crawlability, metadata and internal linking remain the SEO baseline."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "checkedAt": "2026-10-03",
+      "supports": "Google spam policies (updated 2026-08-28): scaled content abuse includes using generative AI tools to generate many pages without adding value for users."
+    },
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "llms.txt proposal by Jeremy Howard: a Markdown file at /llms.txt with curated links to give LLM-friendly content."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Vercel analysis published 2024-12-17: major AI crawlers including OAI-SearchBot, GPTBot, ClaudeBot and PerplexityBot did not render JavaScript; recommendation to server-render critical content."
+    },
+    {
+      "url": "https://huggingface.co/docs/transformers/main/en/llm_tutorial_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Hugging Face guide to optimizing LLMs for speed and memory: lower-precision quantization, Flash Attention and architectural changes; shows the engineering meaning of LLM optimization."
+    },
+    {
+      "url": "https://www.searchenginejournal.com/data-shows-google-aio-is-citing-deeper-into-websites/543325/",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Engine Journal (2025-04-01) uses AIO as shorthand for Google's AI Overviews, supporting the claim that some SEOs mean AI Overviews by AIO."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched all 16 external URLs cited in the page on 2026-10-03 and kept only claims the fetched page states; the OpenAI and Anthropic crawler pages were fetched at their redirect targets (developers.openai.com, support.claude.com).",
+    "Writer (Sonnet): cross-checked the GEO paper figures (10K queries, 30-40% Position-Adjusted Word Count gain, keyword stuffing result, Perplexity.ai subset, GPT-3.5 setup) against the paper's full text, and the earned-media percentages (74.2% vs 31.8% Canada; 72.7% vs 45.4% US) against the arXiv HTML of Chen et al.",
+    "Writer (Sonnet): recomputed every AEOeye figure from public/resources/ai-crawler-access-study-2026-10.csv and the two JSON artifacts (1/193 SaaS and 27/38 publishers blocking at least one retrieval bot, 24/88 e-commerce homepages challenged, 173/330 valid llms.txt = 52.4%, 157/892 = 17.6% mention rate, 147 ranked mentions with 71.4% first place, 144/12/1 sentiment) and kept the stated caveats (convenience sample, single fetch, self-selected brands, repeat audits).",
+    "Writer (Sonnet): re-fetched the OpenAI, Anthropic and Perplexity crawler pages asking specifically about llms.txt before writing that they never describe using it for answers (OpenAI and Perplexity mention it only as their own docs index; Anthropic's page does not mention it).",
+    "Writer (Sonnet): dropped statistics from the merged pages that could not be traced to a fetched primary source (conversion multiples, user counts, citation-share and domain-concentration figures, the backlink and 80%-outside-top-100 claims) and the unsourced voice-search lineage of AEO.",
+    "Writer (Sonnet): viewed the four Pexels photos used (hero and three inline), wrote alt text from what is visible, and ran node scripts/content-lint.mjs; the only remaining error is the expected missing /blog/ai-brand-recommendation-measurement hub.",
+    "Editor (Opus): read the complete final draft (opening, terminology table, seven H2 sections incl. the three-layer H3s, five FAQs, alt text) and confirmed answer-first openings, an explicit stance (labels don't matter; measurement and corroboration are what is new) and accurate merge of the four absorbed pages",
+    "Editor (Opus): re-checked all external URLs on 2026-10-03 (all reachable) and confirmed the GEO figures are framed as the paper's own benchmark (30–40% on position-adjusted word count; GPT-3.5/Perplexity; varies by domain)",
+    "Editor (Opus): matched first-hand figures to the evidence pack (1 of 193 SaaS; 24 of 88 e-commerce homepages; 27 of 38 publishers; 173 of 330 llms.txt; 892 answers, 17.6%, 71.4% of 147, 144 of 157) and the 2026-09-24 / 2026-10-03 consolidation numbers to our own records",
+    "Editor (Opus): confirmed AEOeye product claims (free = 3 ChatGPT questions; one-time $29 report = 10 questions across five engines) and that the only content-lint error is the link to /blog/ai-brand-recommendation-measurement, which is being created in this release"
+  ],
+  "merged": [
+    "/blog/what-is-ai-optimization",
+    "/blog/llm-optimization",
+    "/blog/llm-seo",
+    "/blog/seo-for-llm-fundamentals"
+  ]
+}

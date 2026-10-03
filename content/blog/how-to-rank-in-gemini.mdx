@@ -1,65 +1,90 @@
 ---
-title: "How to Rank in Gemini (2026): Getting Google's AI to Recommend You"
-description: "Gemini leans on Google Search grounding, so most of your SEO already helps. Here's the exact playbook to get Gemini to recommend your brand in 2026."
-date: "2026-07-10"
+title: "How to Rank in Gemini: What Actually Works in 2026"
+description: "Gemini has no ranking list, but it does name brands. Here is how Google Search grounding, Google-Extended and entity signals decide who gets named."
+date: "2026-10-03"
+published: "2026-07-10"
 category: "AI Search"
 readingTime: "6 min read"
-keywords: ["how to rank in gemini", "how to rank in google gemini", "gemini seo", "get recommended by gemini", "gemini ai search optimization", "google gemini seo tips", "gemini grounding explained", "gemini vs chatgpt seo", "ai overviews vs gemini", "entity seo for ai search engines"]
-faqs: [{"q": "Does Gemini use Google Search?", "a": "Yes. For queries that need current, factual, or specific information, Gemini grounds its response in live Google Search results rather than relying solely on what it learned during training, per Google's own documentation on grounding."}, {"q": "Is Gemini SEO different from Google SEO?", "a": "Not fundamentally — strong Google SEO is the foundation, since Gemini draws on the same Search index. The difference is an added layer of emphasis on answer-shaped content, structured data, and unambiguous entity signals tied to Google's knowledge graph."}, {"q": "How do I get mentioned in Gemini?", "a": "Combine solid Google rankings with answer-first content, Organization/Product/FAQPage schema, consistent entity information across the web, and authoritative third-party mentions — press, roundups, and credible forum threads."}, {"q": "Can I track Gemini rankings?", "a": "There's no native public rank tracker for Gemini results. The practical approach is testing realistic buyer prompts directly in Gemini over time, or using an AEO audit tool such as AEOeye to check across Gemini, ChatGPT, Perplexity, and Google AI Overviews at once."}]
-image: {"url": "https://images.pexels.com/photos/30530426/pexels-photo-30530426.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Close-up of a smartphone with an AI assistant interface on screen over a laptop.", "photographer": "Matheus Bertelli", "photographerUrl": "https://www.pexels.com/@bertellifotografia"}
-sources: [{"label": "Google AI for Developers — Gemini API & grounding documentation", "url": "https://ai.google.dev"}, {"label": "Google Search Central — official Google Search documentation", "url": "https://developers.google.com/search"}, {"label": "Google Gemini — official product site", "url": "https://gemini.google.com"}]
+keywords: ["how to rank in gemini", "rank in gemini", "gemini seo", "how to be ranked on google gemini", "get business recommended by gemini", "gemini rank tracking", "google-extended gemini", "rank on gemini"]
+faqs: [{"q": "Can you rank in Gemini?", "a": "Not in the way you rank on Google. Gemini returns an answer, not a results list, so there is no position to hold. What you can earn is a mention. Based on Google's documentation, that depends mostly on being findable in Google Search, being clearly identifiable as a business, and being corroborated by independent sources."}, {"q": "Does blocking Google-Extended remove my site from Gemini or Google Search?", "a": "It does not affect Google Search inclusion or ranking, according to Google. It controls whether crawled content may be used to train future Gemini models and to ground responses in Gemini Apps. AI Overviews and AI Mode use a separate Search generative AI control, and user-triggered fetchers generally ignore robots.txt."}, {"q": "Does Gemini use Google Search?", "a": "Yes. Gemini Apps Help says Gemini automatically uses public information from certain Google services, including Google Search, Maps and YouTube. In the Gemini API, the model decides whether a Google Search would improve its answer and generates the queries itself. Google does not publish how it chooses among the results."}, {"q": "Do I need llms.txt to appear in Gemini?", "a": "No. Google's guide to generative AI features in Search lists llms.txt files and other special markup among the things you don't need to do. That guide covers AI Overviews and AI Mode rather than the Gemini app, but Google documents no llms.txt requirement for Gemini either."}, {"q": "How do I track whether Gemini recommends my brand?", "a": "Ask a fixed set of unbranded buyer questions in a temporary chat, repeat each several times, and log how often you are named and who else appears. Report a mention rate rather than a position. GA4's AI Assistant channel can show clicks that carry a Gemini referrer."}]
+image: {"url": "https://images.pexels.com/photos/8205189/pexels-photo-8205189.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Person browsing a website on a laptop beside a cup of tea and paperwork", "photographer": "Pavel Danilyuk", "photographerUrl": "https://www.pexels.com/@pavel-danilyuk"}
+sources: [{"label": "Google AI for Developers — Grounding with Google Search", "url": "https://ai.google.dev/gemini-api/docs/google-search"}, {"label": "Google Search Central — Optimizing for generative AI features in Google Search", "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"}, {"label": "Google Search Central — Google's common crawlers (Google-Extended)", "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers"}, {"label": "Gemini Apps Help — Use & manage Connected Apps in Gemini", "url": "https://support.google.com/gemini/answer/13695044"}, {"label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (arXiv)", "url": "https://arxiv.org/abs/2509.08919"}, {"label": "Google Merchant Center Help — Free listings for products", "url": "https://support.google.com/merchants/answer/9199328"}]
 ---
 
-You want Gemini to say your name when someone asks "what's the best tool for X" — and here's the reassuring part: most of the Google SEO work you've already done is pulling double duty. Gemini leans hard on Google Search, so it isn't some separate universe you need to conquer from scratch. It isn't identical to ranking on Google either, though — there's a grounding layer stacked on top that rewards a specific, learnable set of moves, and that's what this guide walks through.
+You can't rank in Gemini, because there is no results list to climb. You can only be named in its answers, and the Gemini app passed [1 billion monthly users in August 2026](https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/). In our reading of Google's documentation, being named depends mostly on the work behind your Google visibility: pages Google Search can find, a business Google can identify without guessing, and credible third parties saying the same thing. This guide is based on public documentation as of October 2026; we have not tested Gemini against your brand.
 
-## How does Gemini choose what to recommend?
+## How does Gemini decide what to recommend?
 
-Gemini grounds many of its answers in Google Search results, so strong traditional SEO plus answer-shaped content is the foundation — with some Gemini-specific grounding behavior layered on top. In short: if you already rank well and write in an answer-first style, you're most of the way to being recommended.
+Gemini decides question by question whether to search Google, and when it does, it writes the answer from the results. Google does not publish how it picks among those results, so treat anything beyond the points below as inference.
 
-Here's what "grounding" means in practice. When Gemini gets a question that needs current, factual, or specific information — which describes most "best X for Y" or "who's good at this" queries — it doesn't only rely on what it memorized during training. Google's own documentation on grounding with Google Search describes a process where the model runs a live search, retrieves real web results, and composes its answer from those pages instead of from memory alone.
+What Google documents:
 
-That has one blunt implication. If your page isn't ranking in Google Search for the relevant query, there's a real chance it never enters Gemini's retrieval pool at all — no clever prompting-adjacent trick fixes that after the fact. Rank first. Optimize for extraction second.
+- **The model chooses whether to search.** In the Gemini API, the model [decides whether a Google Search can improve the answer and generates one or more queries](https://ai.google.dev/gemini-api/docs/google-search).
+- **The app uses Search too.** Gemini Apps Help says Gemini [automatically uses public information from certain Google services](https://support.google.com/gemini/answer/13695044): Search, Flights, Hotels, Maps and YouTube.
+- **Links are optional.** The app [may provide links to sources, but not every response includes them](https://support.google.com/gemini/answer/14143489).
 
-Put concretely: if someone asks Gemini "what's the best AEO tool for a startup," there's a good chance that's running as a live grounded search behind the scenes, not a pull from memorized training data. Being absent from page one of Google's results for that query is close to disqualifying before your content quality even gets evaluated.
+Our inference: a page Google can't find or doesn't surface for the underlying question is unlikely to shape Gemini's answer. Google has not said so in those words.
 
-There's also a layer specific to the Gemini app, separate from the raw model API: deep integration with Google Search, Maps, and Workspace, plus access to Google's knowledge graph. Gemini isn't only reading the open web — it's cross-referencing entity data Google already has on file for your brand.
+One independent study tested the grounded API. In [a University of Toronto preprint](https://arxiv.org/abs/2509.08919), gemini-2.5-flash with Google Search grounding cited 63.4% earned media, 25.1% brand-owned pages and 11.5% social sources on ranking-style questions about well-known brands. ChatGPT's search model cited 93.5% earned and 6.5% brand. The caveats are real: an API rather than the app, 2025 model versions, and the authors' own source classification. Our takeaway: your own pages count for more in Gemini than in ChatGPT, but third-party coverage still supplies most of what it cites.
 
-That's why entity clarity carries more weight here than it might for an engine with a thinner connection to a first-party index and knowledge graph. A brand described five different ways across five different sites is a brand Gemini has to guess about, and guessing usually loses to a competitor Google already understands clearly.
+## Can you do SEO for Gemini?
 
-![Close-up of the Google homepage on a screen showing search options.](https://images.pexels.com/photos/13628541/pexels-photo-13628541.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+Yes, and it is mostly ordinary Google SEO. Google's guide to generative AI features says SEO best practices stay relevant because those features [are rooted in its core ranking and quality systems](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). That guide covers AI Overviews and AI Mode and never names the Gemini app, so applying it there is our extrapolation from the grounding mechanism.
 
-## The Gemini ranking playbook (step-by-step)
+The same guide lists what you don't need: llms.txt files and other special markup, chunking content, rewriting content just for AI systems, seeking inauthentic mentions, and overfocusing on structured data. We agree. We publish an llms.txt only because it is cheap; our position is in [llms.txt is overrated](/blog/llms-txt-is-overrated). If a vendor sells a "Gemini-only" trick beyond this list, ask for the Google page that supports it.
 
-Getting recommended by Gemini comes down to five moves, roughly in order of leverage: rank well in Google first, write answer-shaped content, make your entity unambiguous with structured data, earn mentions off your own site, and keep key pages visibly fresh.
+Where Gemini genuinely differs is first-party business data. The app uses [public Google Maps information such as ratings, websites and opening hours](https://support.google.com/gemini/answer/16622866), and Merchant Center says free product listings [can appear on Gemini](https://support.google.com/merchants/answer/9199328). Business Profile and Merchant Center are the two Gemini-specific levers Google documents.
 
-1. **Nail Google SEO fundamentals first.** This isn't optional groundwork you skip toward the "real" Gemini tactics — it's the entry ticket. The same fundamentals that get you into [AI Overviews](/guides/how-to-rank-in-ai-overviews) are largely what gets you into Gemini's grounded results too, since both draw on the same underlying Search index. If you haven't audited your core rankings recently, start there before anything else on this list.
-2. **Write answer-shaped content.** Open each page or section with a direct one- or two-sentence answer before you support it with detail, data, or examples. Content that already reads like an answer is far easier for Gemini to lift cleanly into a response — a page that buries its point under three paragraphs of throat-clearing gets paraphrased badly, or skipped.
-3. **Get your structured data and entity signals in order.** Add Organization, Product, and FAQPage schema so machines don't have to guess what your page is about. Keep your brand name and description consistent everywhere you're mentioned, and link out to Wikipedia, Wikidata, or Crunchbase where relevant. An ambiguous entity is an easy one for Gemini to pass over.
-4. **Earn authoritative mentions off your own site.** Independent citations — press coverage, comparison roundups, credible forum threads — carry more weight than anything you publish about yourself, because [AI assistants weigh third-party validation over your own marketing copy](/blog/how-ai-assistants-choose-brands) when deciding who to recommend. Reddit threads in particular rank well in Google Search, and Gemini's grounding scoops them up right along with everything else.
-5. **Keep freshness signals visible.** Update your dates, refresh your data, and cite recent sources instead of letting a page quietly go stale. The queries that trigger grounding in the first place tend to be exactly the ones where recency matters most — pricing pages, "best of" roundups, and head-to-head comparisons.
+![Hand holding a magnifying glass over a world map covered in colored pins](https://images.pexels.com/photos/8828419/pexels-photo-8828419.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-None of these five moves work in isolation — they compound, or they cancel each other out. A page with flawless schema but weak Google rankings still won't surface. A top-ranking page with vague, unstructured content still won't get quoted cleanly. Treat the list as a system, not a menu you pick one item from.
+## What should you do for Gemini, step by step?
 
-## Gemini vs ChatGPT vs Perplexity: does the same work carry over?
+Do six things, in order of leverage. The first two are plain Google SEO; the rest make you identifiable and corroborated.
 
-Mostly, yes — most of what earns you a spot in Gemini's grounded answers helps everywhere else too, since all three engines reward clear sourcing and answer-shaped content. Strong Google rankings, structured data, and authoritative mentions carry over — but each engine has its own quirk worth knowing before you assume one playbook covers everything.
+1. **Publish a rankable answer page.** Take one buyer question, such as "best payroll software for ten employees", and answer it in the first two sentences of one crawlable, indexable page. One strong page per question beats five thin ones; [how to get your business recommended by AI](/blog/how-to-get-your-business-recommended-by-ai) covers the wider playbook.
+2. **Check what Google shows for that question.** If you are not in the results, fix that before anything Gemini-specific.
+3. **Complete your Google Business Profile (local businesses).** Google says [complete and accurate information makes a business more likely to appear, and more reviews and positive ratings can help local ranking](https://support.google.com/business/answer/7091).
+4. **List products in Merchant Center (sellers).** Free listings need a feed with attributes such as title, link, price and availability.
+5. **Make your entity unambiguous.** Google says [Organization structured data helps it understand and disambiguate your organization](https://developers.google.com/search/docs/appearance/structured-data/organization); add `sameAs` links to your profiles and keep one name everywhere. See [what is entity SEO](/blog/what-is-entity-seo).
+6. **Earn independent coverage.** Reviews, roundups and comparison pages are where most grounded citations came from in the study above. Skip fake mentions: Google says they aren't as helpful as they seem.
 
-| Engine | Primary data source | What matters most | The quirk |
+If your buyers learn by video, note that Gemini also [uses public YouTube information](https://support.google.com/gemini/answer/16622858), so a clear video can be a second way in.
+
+## What does Google-Extended actually control?
+
+Google-Extended is a robots.txt token, not a separate crawler. Per [Google's crawler documentation](https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers), it lets you control whether content Google crawls may be used to train future Gemini models and to ground responses in Gemini Apps and Grounding with Google Search on Vertex AI. It does not affect inclusion in Google Search or act as a ranking signal.
+
+Three points people get wrong:
+
+- **It is not training-only.** Google's wording includes grounding in Gemini Apps, so blocking it is broader than a training opt-out.
+- **It does not control AI Overviews or AI Mode.** Those have a separate [Search generative AI control](https://support.google.com/webmasters/answer/16908024), which Google says doesn't affect training.
+- **It won't stop user-requested fetches.** Google says [user-triggered fetchers, including Gemini Notebook, generally ignore robots.txt](https://developers.google.com/search/docs/crawling-indexing/google-user-triggered-fetchers).
+
+In [AEOeye's crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (October 2026, 384 sites with a readable or absent robots.txt), 31 sites (8.1%) block Google-Extended. That is 20 of 38 publishers, 5 of 20 UGC and review sites, 4 of 90 e-commerce and consumer brands, 2 of 193 SaaS brands and none of 43 AI-visibility vendors. It is a convenience sample, not the web. Our stance: unless you license your content, don't block it, and aeoeye.com explicitly allows it.
+
+## Gemini app, AI Mode and AI Overviews: are they the same?
+
+They share a parent company, not a product, a control or a report. Google doesn't publish whether the Gemini app and AI Mode draw on identical result sets, so don't assume they do.
+
+| | Gemini app | AI Mode | AI Overviews |
 |---|---|---|---|
-| Gemini | Google Search grounding + Google's knowledge graph | Ranking in Google, plus entity clarity | Tightly tied to Google's own index — weak Google rankings mean weak Gemini visibility, full stop |
-| ChatGPT | Bing's index, plus live browsing | Content structure and being indexed by Bing | You need to be crawlable and ranking in Bing too, not just Google — see [how to rank in ChatGPT](/guides/how-to-rank-in-chatgpt) |
-| Perplexity | Its own crawler and index, blended with other search backends | Fresh, clearly-sourced, directly citable content | Rewards pages it can quote and cite outright, sometimes more than pages that simply rank well |
+| What it is | Chat assistant that uses public Google Search, Maps and YouTube information | [Search experience that splits a question into subtopics and searches each](https://support.google.com/websearch/answer/16011537) | [AI snapshot with links, shown in Search](https://support.google.com/websearch/answer/14901683) |
+| Publisher control | Google-Extended | Search generative AI control | Search generative AI control |
+| Reporting | None documented in Search Console | [Generative AI performance report (impressions)](https://support.google.com/webmasters/answer/16984139) | Same report |
 
-The practical takeaway: if you're already optimizing hard for Google rankings, you're most of the way to Gemini visibility too — that overlap is real, not a marketing claim. But don't assume it transfers one-to-one to ChatGPT or Perplexity, since each pulls from a different index with different rules.
+For the Search-side surfaces, see [how to rank in Google AI Mode](/blog/how-to-rank-in-google-ai-mode) and [what is an AI Overview](/blog/what-is-an-ai-overview).
 
-Skipping the Bing-specific or crawler-specific work leaves real visibility sitting on the table. Teams with limited time should still start with Google and Gemini together, since that's where the effort compounds fastest, then layer in the other two engines.
+## How do you check whether Gemini recommends you?
 
-## How to check if Gemini recommends you
+Ask Gemini the questions your buyers ask, repeat each several times, and log whether you are named. There is no rank position to read, and one answer proves little because answers vary between runs.
 
-The only reliable way to know is to actually ask Gemini the questions your buyers would ask, more than once, and see who it names — guessing from your Google rankings alone isn't enough, because the grounding layer adds its own filter on top.
+1. Write 10 unbranded buyer questions, such as "best CRM for a five-person agency".
+2. Use a [temporary chat](https://blog.google/products/gemini/temporary-chats-privacy-controls/), which Google says isn't used to personalize responses, so your own history doesn't skew results.
+3. Run each question three to five times and record whether you appear, who else does, and whether sources were shown.
+4. Report a mention rate across all runs, not a position. [SparkToro's 2025 study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) of ChatGPT, Claude and Google's AI found visibility percentage across many prompts a reasonable metric and ranking position unreliable. It did not test the Gemini app, so treat this as a method, not a Gemini finding.
 
-Manual testing has real limits, though. Gemini's answers vary between sessions and even between near-identical prompts, so one lucky result tells you almost nothing.
+![Hands typing on a laptop at a clean desk](https://images.pexels.com/photos/5077048/pexels-photo-5077048.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-You need to test a spread of realistic buyer questions, repeat them over time, and track which competitors keep showing up instead of you — across Gemini, ChatGPT, and Perplexity too, since different engines don't always choose the same brands. Doing that by hand, prompt by prompt, isn't a habit most teams keep up for long.
+For clicks, GA4's default channel group has an [AI Assistant channel that lists Gemini](https://support.google.com/analytics/answer/9756891) among its sources. It only sees visits that carry a referrer; [AI traffic analytics](/blog/ai-traffic-analytics) explains how to audit it.
 
-That's the gap an AEO audit is built to close. AEOeye runs your brand through Gemini, ChatGPT, Perplexity, and Google AI Overviews, shows you whether you're actually being named, and — just as usefully — shows you who's getting recommended instead and why. See if Gemini names your brand: [run a free AEOeye audit](/#audit).
+For scale, in AEOeye's audit records (June to September 2026) Gemini named the audited brand in 2 of 74 answers. That sample is tiny and self-selected, and engines aren't comparable, so don't read it as a benchmark. The useful part is the method: test your own questions. AEOeye's [free audit](/) checks three questions in ChatGPT, and the $29 report adds Gemini; for daily monitoring across hundreds of prompts, dedicated trackers such as Profound or Peec AI are the better fit.

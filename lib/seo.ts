@@ -140,13 +140,14 @@ export function howToJsonLd(opts: {
   };
 }
 
-export function articleJsonLd(opts: { title: string; description: string; path: string; date: string; author?: string }) {
+/** date = 最近一次实质修订;published = 首次发布(缺省时与 date 相同)。改写过的老页两者不同,不要把首发日期改没了。 */
+export function articleJsonLd(opts: { title: string; description: string; path: string; date: string; published?: string; author?: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: opts.title,
     description: opts.description,
-    datePublished: opts.date,
+    datePublished: opts.published || opts.date,
     dateModified: opts.date,
     author: { "@type": "Organization", name: opts.author || site.name },
     publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: `${siteUrl}/icon.svg` } },

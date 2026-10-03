@@ -1,41 +1,69 @@
 {
-  "contentSha256": "0d9cfc6be17ee33b1147f8ef3af8e04a1236fc2edc1e70959f5a3fdccb83a373",
-  "reviewedAt": "2026-09-23",
+  "contentSha256": "13fb86fd18e6f6045481c0403f9f9fa04fced5eff448131de278d4335be57b19",
+  "reviewedAt": "2026-10-03",
   "kind": "pricing-guide",
   "topic": {
     "area": "aeo-buyer-decisions",
-    "readerProblem": "Choose between Peec brand and agency plans while verifying prompt, model, project and checkout limits.",
-    "connection": "Directly supports an AEOeye buyer comparing recurring AI visibility workspaces and monitoring capacity."
+    "readerProblem": "Work out what Peec AI really costs (brand and agency plans, add-on models, annual billing) and decide whether a daily AI-visibility tracker is worth it for their team.",
+    "connection": "Helps an AEOeye reader decide between recurring daily AI-visibility monitoring and a one-off AEOeye audit, using Peec's own published prices, limits and terms."
   },
-  "assessment": "The final guide attributes detailed prices to Peec’s official dated instructions because the interactive page did not expose every amount in accessible text. It distinguishes brand and agency packaging, qualifies the annual discount, and does not claim hands-on output validation.",
+  "assessment": "The page publishes Peec's brand and agency prices, billing basis, prompt, model, project and country limits as read from Peec's own pricing pages on 2026-10-03, adds worked cost-per-prompt and break-even arithmetic, and folds in the old worth-it/too-expensive answer as a decision section. It rests on Peec's pricing pages, terms of use, docs and AI-instructions page plus AEOeye's crawler access study. It does not claim hands-on use, data accuracy, trial length (not stated on Peec's pages) or that Claude is available below Enterprise.",
   "sources": [
     {
       "url": "https://peec.ai/pricing",
-      "checkedAt": "2026-09-23",
-      "supports": "Current official brand pricing surface and checkout reference."
+      "checkedAt": "2026-10-03",
+      "supports": "Brand plan prices ($95/$245/$495 monthly; $80/$205/$420 annual; euro figures), prompts, models, projects, countries, answers per month, add-on model prices, Enterprise features, 15% annual FAQ, price-per-prompt FAQ, trial CTA. Dollar amounts are rendered by JavaScript and were read from the rendered page and from the page's own published JS module, not from the served HTML."
     },
     {
       "url": "https://peec.ai/pricing-agencies",
-      "checkedAt": "2026-09-23",
-      "supports": "Current official agency offer and named agency tiers."
+      "checkedAt": "2026-10-03",
+      "supports": "Agency plan prices ($245/$495/$795 monthly; $205/$420/$675 annual), credits, projects, countries, pitch projects, weekly option, trial CTAs."
     },
     {
       "url": "https://peec.ai/ai-instructions",
-      "checkedAt": "2026-09-23",
-      "supports": "Official dated plan amounts, prompt, model and project allowances used in the table."
+      "checkedAt": "2026-10-03",
+      "supports": "July 2026 (pricing confirmed 2026-07-10) brand prices and the internal inconsistency in agency client counts and included models."
+    },
+    {
+      "url": "https://peec.ai/legal/terms-of-use",
+      "checkedAt": "2026-10-03",
+      "supports": "Prices net of VAT, invoicing in advance, trial set by Peec, monthly vs 12-month termination, no automatic refund on early exit of a fixed term."
+    },
+    {
+      "url": "https://docs.peec.ai/setting-up-your-prompts",
+      "checkedAt": "2026-10-03",
+      "supports": "Active prompts count toward the limit; archived and unaccepted suggested prompts do not; country limit applies per project; informational prompts often name no brands."
+    },
+    {
+      "url": "https://docs.peec.ai/agencies/understanding_credits",
+      "checkedAt": "2026-10-03",
+      "supports": "Credit formula (1 prompt x 1 model x 1 day), 90 credits per prompt per month at three models, weekly tracking at one-third credits on Scale and Comprehensive."
+    },
+    {
+      "url": "https://docs.peec.ai/manage-your-project",
+      "checkedAt": "2026-10-03",
+      "supports": "Pausing a project is not available on Starter plans."
     }
   ],
   "checks": [
-    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
-    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
-    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
-    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+    "Writer (Sonnet): fetched peec.ai/pricing and peec.ai/pricing-agencies on 2026-10-03 with curl and in a browser; because dollar amounts are JavaScript-rendered, confirmed them against the rendered DOM (monthly and annual toggles) and against the price objects in Peec's own published page module (USD and EUR values matched).",
+    "Writer (Sonnet): recomputed every derived figure (annual totals and savings, 15.2%-16.3% implied discount, break-even months, price per prompt and per AI answer, +36.8% for one extra model, agency prompts at three models) from the published inputs.",
+    "Writer (Sonnet): read Peec's terms of use, docs and AI-instructions page in raw text and kept only stated terms; noted and flagged the AI-instructions page's internal inconsistency (Growth 10 projects vs 5 clients) and its model list differing from the pricing table.",
+    "Writer (Sonnet): replaced the merged answer page's stale figures (~$89/$199/$499, 3 countries on Starter, Claude/Gemini/Grok as Starter add-ons, 7-day trial) after finding none of them on Peec's current pages; trial length left out as unverified.",
+    "Writer (Sonnet): used AEOeye's crawler access study row for peec.ai (no AI bots blocked or named, no llms.txt, no JSON-LD in served HTML) as a neutral fact box, and AEOeye product facts from the evidence pack only.",
+    "Editor (Opus): read the opening, price tables and decision section in full: prices are Peec's JS-rendered list prices (verified by the writer three ways), annual and agency tiers shown separately, VAT and 12-month-notice terms from Peec's terms of use",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): confirmed the documentation-based disclosure, the neutral vendor-site fact box (peec.ai row) and that conflicting Peec statements (trial length, model lists) are stated as unverified rather than resolved by guess",
+    "Editor (Opus): content-lint reports no errors or warnings"
   ],
   "pricing": {
     "status": "published",
-    "region": "US / USD public reference offer; taxes and checkout can differ",
-    "billing": "Monthly reference prices with an advertised 15% annual discount.",
-    "verification": "Checked the three official pages and retained the text-access limitation. Recomputed Pro annual planning cost as US$245 × 12 × 0.85 = US$2,499 before tax if the displayed discount applies.",
-    "checkedAt": "2026-09-23"
-  }
+    "region": "USD list prices (US view); euro prices also published and shown to visitors detected in Europe; all prices net of VAT",
+    "billing": "Monthly billing or annual billing (shown as a per-month price); Enterprise and Comprehensive are custom and annual.",
+    "verification": "Read each plan's monthly and annual price on peec.ai/pricing and peec.ai/pricing-agencies on 2026-10-03, matched them to Peec's published page data, and recomputed annual totals, savings, break-even months and per-prompt costs.",
+    "checkedAt": "2026-10-03"
+  },
+  "merged": [
+    "/answers/is-peec-ai-worth-it-peec-ai-pricing-too-expensive"
+  ]
 }

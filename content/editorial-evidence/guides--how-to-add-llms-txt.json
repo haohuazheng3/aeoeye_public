@@ -1,0 +1,136 @@
+{
+  "contentSha256": "8b174924a47119e37b33ad0a4fa317ca0fd7aa30e6ece7ffd5ebbca84eba3977",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Site owners who want to publish an llms.txt file need to know the exact format, how to host it on their stack, and how to confirm it is actually served as a valid file rather than an HTML page, without overestimating what the file does.",
+    "connection": "llms.txt is one of the AI-crawler-facing files AEOeye's crawler access study and SEO audit look at; the guide uses the study's own validity rule and states plainly that the file's effect on AI answers is unproven, pointing readers to the free audit to measure what AI engines actually say."
+  },
+  "assessment": "The rewritten guide answers how to create, host and validate llms.txt from the current v2 spec (modified August 2026), each platform vendor's own documentation, Google's AI optimization guide, Chrome's Lighthouse documentation and Ahrefs' June 2026 log study with its caveats. It adds AEOeye's crawler access study for the soft-404, H1-test, bot-blocked and file-size figures, and corrects two claims in the merged material: the generator does not build a file from a pasted URL (it is a form), and subpath files are now defined by the spec. It deliberately does not claim any measured citation effect, hands-on platform testing, or Webflow limits it could not open.",
+  "sources": [
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "Spec v2 (modified August 10, 2026): H1 is the only required section, section order, [name](url): notes link syntax, Optional convention, markdown copies of pages, subpath files cover pages under their path with the most specific file applying, rel=\"describedby\" and Link header, suggestion to test by asking an agent with only llms.txt as context, integrations list, and the statement that OpenAI, Anthropic and Gemini publish llms.txt for their developer docs."
+    },
+    {
+      "url": "https://llmstxt.org/changes.html",
+      "checkedAt": "2026-10-03",
+      "supports": "v2 (August 2026) removed the llms_txt2ctx context-expansion tooling and with it the mechanical meaning of the Optional section (still allowed as a convention); defined subpath files; added link relations."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Mythbusting section: you don't need LLMS.txt files or other special markup for Google Search; creating them neither harms nor helps visibility or rankings as Google Search ignores them (page last updated 2026-07-10)."
+    },
+    {
+      "url": "https://ahrefs.com/blog/llmstxt-study/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs, June 15, 2026: 137,210 domains, ~38,000 with a valid llms.txt, 97% received zero requests in May 2026; AI bots made zero requests for missing files; agents fetch the file when directed; GPTBot and Claude-Code top named AI fetchers; stated limits (technical-skewed sample, fetched is not read); advice to treat the file like code."
+    },
+    {
+      "url": "https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Lighthouse llms.txt audit flags server errors when retrieving the file, marks a 404 Not Applicable because the file is optional, and says to place it in the root directory (page updated 2026-05-05)."
+    },
+    {
+      "url": "https://developer.chrome.com/docs/lighthouse/agentic-browsing/scoring",
+      "checkedAt": "2026-10-03",
+      "supports": "The Agentic Browsing category is experimental and requires Chrome 150 or later; it includes an llms.txt presence check at the domain root."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/http-network-errors",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition behind the soft 404 entry: a 2xx response whose content is an error or empty page is shown as a soft 404 in Search Console (the URL redirects to Google's HTTP status code page, updated 2026-02-04)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics",
+      "checkedAt": "2026-10-03",
+      "supports": "In client-side rendered single-page apps meaningful HTTP status codes can be impossible or impractical, causing soft 404s; Google recommends redirecting to a URL that returns 404 or adding noindex (page updated 2026-03-04)."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "RFC 9309 defines the robots.txt protocol; other records such as Sitemaps may be interpreted by crawlers but are not part of it, and no llms.txt record is defined."
+    },
+    {
+      "url": "https://nextjs.org/docs/app/api-reference/file-conventions/public-folder",
+      "checkedAt": "2026-10-03",
+      "supports": "Files inside the public folder are served from the base URL (/)."
+    },
+    {
+      "url": "https://nextjs.org/docs/app/getting-started/route-handlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Route Handlers are defined in route.js|ts files inside the app directory and are not cached by default (page updated 2026-09-07)."
+    },
+    {
+      "url": "https://yoast.com/help/enable-llmstxt/",
+      "checkedAt": "2026-10-03",
+      "supports": "Yoast SEO: Settings > Site features > AI tools > llms.txt toggle; Manual page selection under Customize llms.txt file; not available for multisite."
+    },
+    {
+      "url": "https://aioseo.com/features/llms-txt/",
+      "checkedAt": "2026-10-03",
+      "supports": "AIOSEO (redirects to its llms-txt-generator page): available to Lite and Pro; Lite generates llms.txt, llms-full.txt and markdown settings need Pro; choose post types, categories and taxonomies."
+    },
+    {
+      "url": "https://shopify.dev/changelog/posts/customize-llmstxt-llms-fulltxt-and-agentsmd",
+      "checkedAt": "2026-10-03",
+      "supports": "Shopify changelog dated May 28, 2026: /llms.txt and /llms-full.txt point to the default /agents.md content; templates/llms.txt.liquid controls /llms.txt only."
+    },
+    {
+      "url": "https://shopify.dev/docs/storefronts/themes/architecture/templates/llms-txt-liquid",
+      "checkedAt": "2026-10-03",
+      "supports": "Shopify manages /llms.txt by mirroring /agents.md; in most cases do not add llms.txt.liquid; the template cannot be JSON and you take responsibility for its content."
+    },
+    {
+      "url": "https://webflow.com/updates/introducing-llmstxt",
+      "checkedAt": "2026-10-03",
+      "supports": "Webflow product update (launched July 23, 2025): you can upload an llms.txt file, Webflow makes it available at the domain root and ensures it is not indexed by search engines. Opened with curl because WebFetch failed on this URL (header overflow); Webflow's help article returned 403 and was not used."
+    },
+    {
+      "url": "https://support.wix.com/en/article/understanding-your-sites-llmstxt-file",
+      "checkedAt": "2026-10-03",
+      "supports": "Wix automatically generates and maintains llms.txt; editing in the SEO & GEO dashboard stops automatic updates until reset; requires an upgraded site, custom domain and search indexing enabled."
+    },
+    {
+      "url": "https://www.mintlify.com/docs/ai/llmstxt",
+      "checkedAt": "2026-10-03",
+      "supports": "Mintlify generates llms.txt and llms-full.txt (the whole documentation combined in one file) automatically."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity's docs open with a note telling agents to fetch the complete documentation index at /llms.txt."
+    },
+    {
+      "url": "https://developers.openai.com/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Served as text/plain; charset=utf-8 (response header observed with curl); starts with an H1 and links to sub-index llms.txt files."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Served as text/markdown; charset=utf-8 (response header observed with curl); starts with an H1 followed by a Docs link list."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims the fetched page states; the spec, Chrome Lighthouse, Google, Ahrefs, Shopify, Yoast, AIOSEO, Wix, Mintlify and Next.js pages were also read as raw text with curl to confirm exact wording, version and date lines.",
+    "Writer (Sonnet): recomputed the llms.txt figures from public/resources/ai-crawler-access-study-2026-10.csv and scripts/research/ai-crawler-access-study.mts: 330 checked, 173 valid (52.4%), 9 soft-404 (HTML 200 or redirected away from /llms.txt, 2.7%), 8 more 200 plain-text responses that failed the H1/40-character test, 137 returned 404 or 410, 3 returned 406; 376 fetched of which 46 were blocked or errored; robots.txt mentions 28 of 384.",
+    "Writer (Sonnet): derived file-size figures from the llmsBytes column of the same CSV (173 valid files, characters not bytes): median 9,206, 17 over 50,000, aeoeye.com 92,377 with 12 files larger. These size figures are not in the evidence pack; they are computed from the public artifact and should be re-checked or removed by the editor if unwanted.",
+    "Writer (Sonnet): read the llms.txt generator component and confirmed it is a form (name, summary, description, sections of links) that does not crawl a URL, so the old page's 'paste your site' description was corrected; confirmed from app/llms.txt/route.ts that aeoeye.com's own file is generated from its content collections.",
+    "Writer (Sonnet): ran the curl status/content-type/final-URL and first-line commands against aeoeye.com (200, text/plain; charset=utf-8, first line '# AEOeye') and a nonexistent path (404 text/html) to confirm the commands behave as described.",
+    "Writer (Sonnet): grepped OpenAI's, Anthropic's and Perplexity's crawler documentation pages for llms.txt; none describes their search bots reading it (the only matches were docs-site pointers for agents), which supports the 'we found no major AI search engine that documents reading it' wording.",
+    "Writer (Sonnet): left out Webflow's file size limit and menu path (only seen in a search snippet, the help article returned 403), Shopify's 256 KB theme limit (community post only), and the old page's unsourced claim that Cursor, Claude Code, Copilot and Windsurf routinely fetch llms.txt and its webyes.com and presenc.ai citations.",
+    "Writer (Sonnet): read the merged /blog/llms-txt-checker page in full and carried over its two-minute manual check (status, content type, structure, link integrity, size), the point that valid formatting does not mean a good list, the keep-in-sync and regenerate advice, and the valid-versus-visible hand-off to the free audit; dropped its claim that checker tools are thin wrappers (unsourced) and the 'foo.com/blog/llms.txt is not recognized' absolutism, since spec v2 defines subpath files.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (1,480 words, 3 inline images, 0 errors); 3 remaining warnings are false positives from the '## Docs', '## Pricing and policies' and '## Optional' lines inside the fenced example file.",
+    "Editor (Opus): read the 'what to leave out' section and the opening/format sections in full; the page candidly notes our own llms.txt is the oversized kind (to be re-measured after this release ships)",
+    "Editor (Opus): re-checked all real external URLs on 2026-10-03 (Gemini llms.txt and the Webflow update verified 200 with curl after intermittent Node failures); acme.example / yourdomain.com URLs are illustrative placeholders inside examples",
+    "Editor (Opus): matched study figures to the public CSV (173 of 330 valid; 9 HTML/redirected; 28 of 384 robots.txt mentions; median valid file ~9,200 characters and 17 of 173 over 50,000 recomputed from the llmsBytes column)",
+    "Editor (Opus): content-lint: no errors; the three warnings are '##' lines inside the fenced example file, which must stay literal"
+  ],
+  "merged": [
+    "/blog/llms-txt-checker"
+  ]
+}

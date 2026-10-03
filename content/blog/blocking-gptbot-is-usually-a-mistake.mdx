@@ -1,86 +1,119 @@
 ---
-title: "Should I Block GPTBot? Why It's Usually a Mistake"
-description: "Blocking GPTBot is the wrong default for most brands. Here's what GPTBot actually does, the bots that really control ChatGPT visibility, and the real exceptions."
-date: "2026-06-26"
+title: "Should You Block GPTBot? Usually No, and Here's Why"
+description: "GPTBot only controls OpenAI model training. ChatGPT search runs on OAI-SearchBot. Our data on 384 sites shows who blocks what, and when a block is right."
+date: "2026-10-03"
+published: "2026-06-26"
 category: "Opinion"
-readingTime: "5 min read"
-keywords: ["should i block gptbot"]
-faqs: [{"q": "Does blocking GPTBot stop ChatGPT from showing my site?", "a": "No. ChatGPT's live answers and citations come from OAI-SearchBot and ChatGPT-User, not GPTBot. OpenAI's own documentation states that blocking GPTBot does not affect ChatGPT search visibility. If you want out of ChatGPT search specifically, you'd need to block OAI-SearchBot instead — and that's usually a mistake for discoverability-driven brands."}, {"q": "What's the difference between GPTBot, OAI-SearchBot, and ChatGPT-User?", "a": "GPTBot crawls content for training future models. OAI-SearchBot surfaces your site in ChatGPT's search results. ChatGPT-User fires when a user's prompt triggers a live fetch. They're three separate crawlers from OpenAI, controlled by three separate robots.txt rules. Blocking one does nothing to the others."}, {"q": "If I block GPTBot, will my content stay out of AI models?", "a": "Not reliably. A Search Engine Journal analysis (April 2026) found about 70% of ChatGPT citations came from sites that were blocking the retrieval bots — content still reaches models through syndication, third-party quotes, and republishing. Blocking GPTBot reduces direct training ingestion but is far from airtight."}, {"q": "Who should actually block GPTBot?", "a": "Publishers with licensable archives, sites selling paywalled or proprietary research, and brands in active AI-licensing negotiations. For them, an open robots.txt undercuts leverage or gives away monetizable content for free. If your pages exist to get found — most SaaS, local, and ecommerce sites — keep GPTBot open."}, {"q": "How do I block GPTBot in robots.txt?", "a": "Add `User-agent: GPTBot` followed by `Disallow: /` to your robots.txt file. OpenAI typically processes the change within about 24 hours. But before you do, confirm it's actually what you want — and keep OAI-SearchBot and ChatGPT-User allowed unless you also want to vanish from ChatGPT's live search and citations."}]
-sources: [{"label": "OpenAI — Overview of OpenAI Crawlers (official docs)", "url": "https://developers.openai.com/api/docs/bots"}, {"label": "Cloudflare — The crawl-to-click gap: AI bots, training, and referrals", "url": "https://blog.cloudflare.com/crawlers-click-ai-bots-training/"}, {"label": "Google — Introduction to robots.txt", "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro"}, {"label": "BuzzStream — Which News Sites Block AI Crawlers (data study)", "url": "https://www.buzzstream.com/blog/publishers-block-ai-study/"}, {"label": "Cloudflare — AI crawler traffic by purpose and industry", "url": "https://blog.cloudflare.com/ai-crawler-traffic-by-purpose-and-industry/"}]
-image: {"url": "https://images.pexels.com/photos/5895405/pexels-photo-5895405.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Modern toy bot with eyes in pure water on pavement in daytime on blurred background", "photographer": "Erik Mclean", "photographerUrl": "https://www.pexels.com/@introspectivedsgn"}
+readingTime: "6 min read"
+keywords: ["should i block gptbot", "block gptbot", "gptbot robots.txt", "gptbot vs oai-searchbot", "does blocking gptbot affect chatgpt search", "oai-searchbot", "chatgpt-user", "disallow gptbot"]
+faqs: [{"q":"Does blocking GPTBot remove my site from ChatGPT search?","a":"No. OpenAI says GPTBot is for training and OAI-SearchBot is for search, and each setting is independent. Sites opted out of OAI-SearchBot are the ones not shown in ChatGPT search answers. Blocking GPTBot alone leaves search eligibility unchanged, though a careless robots.txt can block both bots at once."},{"q":"What is the difference between GPTBot, OAI-SearchBot and ChatGPT-User?","a":"GPTBot crawls content that may be used to train OpenAI's foundation models. OAI-SearchBot surfaces sites in ChatGPT's search features. ChatGPT-User visits a page when a user's request in ChatGPT triggers it, and OpenAI says robots.txt rules may not apply to it. Three bots, three jobs, three separate controls."},{"q":"Will a GPTBot block keep my content out of ChatGPT's models?","a":"OpenAI says disallowing GPTBot indicates your content should not be used in training. Its crawler page does not promise to remove anything already collected, and robots.txt is a request, not enforcement (RFC 9309). Treat a block as an opt-out signal for future training, not as a guarantee about what any model already knows."},{"q":"Who should block GPTBot?","a":"Publishers with licensable archives, sellers of paywalled or proprietary research, and sites in licensing negotiations. Their content is the product, so free training use has a real cost. In our October 2026 study, 20 of 38 news publishers blocked GPTBot, against 4 of 193 SaaS sites."},{"q":"How long does a robots.txt change take to affect ChatGPT search?","a":"OpenAI says it can take about 24 hours from a robots.txt update for its search systems to adjust. Check the file visitors actually receive, not your repository copy, because a CDN or plugin may prepend its own rules. Then confirm the change by looking at the OAI-SearchBot and GPTBot lines in the live file."}]
+image: {"url":"https://images.pexels.com/photos/9554231/pexels-photo-9554231.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Detailed view of a securely locked wooden door with weathered brass padlocks","photographer":"Harri Hofer","photographerUrl":"https://www.pexels.com/@harri"}
+sources: [{"label":"OpenAI — Overview of OpenAI Crawlers","url":"https://developers.openai.com/api/docs/bots"},{"label":"Cloudflare — The crawl-to-click gap: AI bots, training, and referrals","url":"https://blog.cloudflare.com/crawlers-click-ai-bots-training/"},{"label":"Cloudflare — Content Independence Day, one year on","url":"https://blog.cloudflare.com/agentic-internet-bot-report/"},{"label":"Cloudflare Docs — robots.txt setting (managed robots.txt)","url":"https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/"},{"label":"IETF — RFC 9309: Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309"},{"label":"arXiv — Is Misinformation More Open? A Study of robots.txt Gatekeeping on the Web","url":"https://arxiv.org/abs/2510.10315"}]
 ---
 
-Here's the opinion this whole page defends: blocking GPTBot is usually a mistake. Not always — there are real exceptions, and I'll be specific about them. But the reflexive `Disallow: /` that swept across the web in 2023 was mostly a panic move, and a lot of those rules are now quietly costing brands visibility in the exact place buyers are starting their research.
+Blocking GPTBot is usually the wrong default for a brand, because GPTBot only controls whether OpenAI may use your pages for model training. ChatGPT search runs on a different bot, OAI-SearchBot, which you can keep open. In [AEOeye's crawler access study](/resources/ai-crawler-access-study-2026-10.json) (October 2026), 4 of 193 SaaS sites blocked GPTBot, against 20 of 38 news publishers.
 
-The core confusion is that "GPTBot" sounds like "the ChatGPT bot." It isn't. ChatGPT's live answers and citations come from completely different crawlers. Block the wrong one and you punish yourself while protecting nothing. Let's untangle which bot does what, and decide deliberately instead of defensively.
+OpenAI facts below come from its [crawler documentation](https://developers.openai.com/api/docs/bots), checked on 3 October 2026.
+
+## Should you block GPTBot?
+
+If your pages exist to get you found, leave GPTBot open. If your pages are the product, block it on purpose and keep OAI-SearchBot open. The usual mistake is not the block itself but a block made for the wrong reason: believing GPTBot controls ChatGPT.
+
+- **Brands, SaaS, stores, local and service businesses:** allow GPTBot. A block gives up a possible route into ChatGPT's baseline knowledge of your category and protects almost nothing you sell.
+- **Publishers, paywalled research, licensing-first sites:** block GPTBot as a deliberate position, and stay in search.
+- **Everyone:** never block OAI-SearchBot or ChatGPT-User unless you want out of ChatGPT answers.
+
+We hold this position with a caveat. Nobody outside OpenAI can show that allowing GPTBot makes ChatGPT name you, and we do not claim it. The case rests on an asymmetry: a block has visible downsides, and its upside for a brand is small.
 
 ## What does GPTBot actually do?
-GPTBot is OpenAI's **training crawler** — it gathers public web content that *may* be used to train future foundation models. That's its entire job. It does not power ChatGPT's live search, and it does not decide whether your site gets cited in an answer. Per [OpenAI's own crawler docs](https://developers.openai.com/api/docs/bots), GPTBot exists to "crawl content that may be used in training our generative AI foundation models."
 
-Its current user agent token is `GPTBot` (you'll see strings like `GPTBot/1.3`). You allow or block it in `robots.txt` like any other crawler:
+GPTBot is OpenAI's training crawler. OpenAI describes it as crawling "content that may be used in training our generative AI foundation models", and says disallowing it indicates your content should not be used that way. It does not decide whether ChatGPT cites you.
 
-```
+OpenAI runs separate agents for separate jobs:
+
+| Agent | Job | What a Disallow does |
+|---|---|---|
+| `GPTBot` | Crawls content that may train foundation models | Signals your content should not be used for training |
+| `OAI-SearchBot` | Surfaces sites in ChatGPT's search features | Removes you from ChatGPT search answers |
+| `ChatGPT-User` | Visits a page when a user's action in ChatGPT triggers it | Per OpenAI, robots.txt rules "may not apply" |
+
+For a fuller walkthrough of training, search and live fetching, see [does ChatGPT use my website](/answers/does-chatgpt-use-my-website) and our [GPTBot glossary entry](/glossary/gptbot).
+
+## Which OpenAI bot controls ChatGPT search visibility?
+
+OAI-SearchBot does. OpenAI says sites opted out of it "will not be shown in ChatGPT search answers, though can still appear as navigational links", and it recommends allowing it. ChatGPT-User, by contrast, is "not used to determine whether content may appear in Search".
+
+The settings are independent. OpenAI's own example: allow OAI-SearchBot to appear in search results while disallowing GPTBot to opt out of training. After a robots.txt change, OpenAI says search systems can take about 24 hours to adjust.
+
+![Close-up of a rusty gate secured with three padlocks, symbolizing security and protection](https://images.pexels.com/photos/22817377/pexels-photo-22817377.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## How does a GPTBot block turn into a ChatGPT search block?
+
+A GPTBot block silently becomes a search block when the rule is written carelessly or applied by a tool you forgot about. In our data, 16 of the 35 sites that block GPTBot also block OAI-SearchBot, so nearly half took themselves out of ChatGPT search answers.
+
+Check for these three causes:
+
+- **One group, two bots.** Listing `User-agent: GPTBot` and `User-agent: OAI-SearchBot` above one `Disallow: /` blocks both. Per [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309), a crawler obeys the group that matches its token.
+- **A wildcard.** Three of the 35 GPTBot blockers never name GPTBot at all; a blanket `User-agent: *` rule catches it.
+- **A CDN toggle.** Cloudflare's [managed robots.txt](https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/) prepends Disallow rules for known AI crawlers, GPTBot included. Cloudflare also says it changed its defaults in 2025 so that, for [new domains](https://blog.cloudflare.com/agentic-internet-bot-report/), AI training crawlers are blocked unless the owner chooses otherwise.
+
+## Is blocking GPTBot worth it for a brand?
+
+For most brands, no. A block is a request, not enforcement, and its main promise, keeping your pages out of training, matters little if your business depends on being recommended. Meanwhile a mistake in the same file can cost you ChatGPT search.
+
+Three facts shape the trade:
+
+1. **robots.txt is advisory.** [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309) says its rules are "not a form of access authorization", and Cloudflare's docs call compliance voluntary.
+2. **A block is not a recall.** OpenAI's page says what a disallow signals; it does not promise to remove content already collected.
+3. **The grievance is real, but it is a publisher's.** [Cloudflare's data](https://blog.cloudflare.com/crawlers-click-ai-bots-training/) shows crawl-to-referral ratios in July 2025 of about 1,091 pages crawled per referred visit for OpenAI, 38,065 for Anthropic and 5.4 for Google. That imbalance is a fair complaint for a site paid by clicks. For a brand, a recommendation matters more than a click.
+
+The direction of travel makes it worse. Cloudflare reports AI training at [52% of crawler requests in June 2026](https://blog.cloudflare.com/agentic-internet-bot-report/), up from 22% in spring 2025. Training is now the biggest share of crawler traffic, which explains why publishers fight it. Their reason is revenue from content, and most brands do not share it.
+
+## When is blocking GPTBot the right call?
+
+Block GPTBot when uncompensated training use erodes what you sell. This is a narrow set, and the publisher pattern in our data fits it.
+
+- **News and original-journalism archives** with licensing value.
+- **Paywalled, premium or proprietary research** that customers pay to access.
+- **Sites in licensing talks,** where an open robots.txt weakens your position.
+- **Sites that need a documented opt-out** for legal reasons. Cloudflare frames its content-signal lines as express reservations of rights under Article 4 of the EU copyright directive 2019/790, so ask counsel what your reservation should say; robots.txt alone is not a legal instrument.
+
+An [academic study](https://arxiv.org/abs/2510.10315) found 60.0% of reputable news sites disallow at least one AI crawler, against 9.1% of misinformation sites. Even among publishers, 9 of the 20 that block GPTBot still allow OAI-SearchBot.
+
+![Blue ethernet cables connected to a network switch in a data center](https://images.pexels.com/photos/2881232/pexels-photo-2881232.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What do other sites do?
+
+Brands almost never block GPTBot; publishers often do. AEOeye's study fetched robots.txt from 384 well-known sites on 3 October 2026. "Blocks" means the bot's effective rules disallow the homepage `/`.
+
+| Group | Block GPTBot | Block OAI-SearchBot | Block GPTBot, allow OAI-SearchBot |
+|---|---|---|---|
+| SaaS (n=193) | 4 (2.1%) | 1 (0.5%) | 3 |
+| E-commerce (n=90) | 5 (5.6%) | 1 (1.1%) | 4 |
+| AI-visibility vendors (n=43) | 0 | 0 | 0 |
+| News publishers (n=38) | 20 (52.6%) | 11 (28.9%) | 9 |
+| UGC and review (n=20) | 6 (30%) | 3 (15%) | 3 |
+| All (n=384) | 35 (9.1%) | 16 (4.2%) | 19 (4.9%) |
+
+Two details stand out. Every site that blocks OAI-SearchBot also blocks GPTBot, so the "split" setup is a deliberate minority of 19. And 90 sites name GPTBot in robots.txt, yet 58 of those allow it, so naming a bot is not the same as blocking it. aeoeye.com names GPTBot in an explicit allow group.
+
+Limits: one fetch per site on one day, main host only, and a convenience sample that skews toward established brands. A block is a request, and CDN-level blocking is invisible to robots.txt. The bot-by-bot picture, with a per-site CSV you can recheck, is in our [AI crawler directory](/blog/ai-crawler-user-agent-directory).
+
+## How do you decide, and what goes in robots.txt?
+
+Decide by asking whether your content is a lead magnet or a product, then write the file so the intent is readable. Do this in order:
+
+1. **Read the live file** at `yourdomain.com/robots.txt`. A CDN or plugin may have added rules your repository does not show.
+2. **Find the three tokens:** `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`. Decide each one separately.
+3. **Write explicit groups,** so a later wildcard cannot override your intent.
+4. **Wait about 24 hours,** then re-check.
+
+For a brand, allow everything and protect only private paths. For a publisher opting out of training while staying in search:
+
+```text
 User-agent: GPTBot
 Disallow: /
-```
 
-That's it. Blocking GPTBot says one thing only: *don't use my pages to train your models.* It says nothing about search, retrieval, or citations — and that distinction is the entire ballgame.
-
-## Which bot actually controls ChatGPT visibility?
-Not GPTBot. ChatGPT's live answers run through **OAI-SearchBot** (which surfaces sites in ChatGPT's search results) and **ChatGPT-User** (fired when a user's prompt triggers a live fetch). These are separate crawlers from the same company, and blocking one has zero effect on the others.
-
-Here's the breakdown straight from OpenAI's documentation:
-
-- **GPTBot** — training. Blocking it does *not* affect ChatGPT search visibility.
-- **OAI-SearchBot** — "surface websites in search results in ChatGPT's search features." Block this and you actually do disappear from ChatGPT search.
-- **ChatGPT-User** — user-initiated fetches via prompts or GPT Actions. OpenAI states it "does not determine search eligibility or affect Citations."
-- **OAI-AdsBot** — ad landing-page validation. Irrelevant to organic visibility.
-
-So if your goal is "I want to show up in ChatGPT," blocking GPTBot does nothing useful — and the bot you'd actually need to *allow* is OAI-SearchBot. People block GPTBot thinking they're managing ChatGPT visibility. They're managing the one thing that has the least to do with it.
-
-## Why blocking GPTBot is usually the wrong call
-Because the math is lopsided: you give up a real upside (becoming part of the model's baseline knowledge of your category) to prevent a harm that is mostly theoretical for the average brand. Training inclusion is how an LLM "knows" you exist when nobody's searching live.
-
-Three reasons it's usually a mistake:
-
-1. **You're not protecting your traffic.** GPTBot doesn't send referral traffic anyway — it's a training bot. The bots that *do* drive ChatGPT referrals (OAI-SearchBot, ChatGPT-User) are untouched by a GPTBot block.
-2. **Blocking is leaky.** A widely cited [Search Engine Journal analysis (April 2026)](https://www.searchenginejournal.com/) found roughly 70% of ChatGPT citations came from sites that were blocking the retrieval bots — content reaches models through syndication, quotes, and third parties regardless. Blocking buys less than people assume.
-3. **You forfeit baseline presence.** If your category's foundational knowledge gets trained without you in it, you're invisible by default and have to claw back through live search every single time.
-
-The crowd has actually started reversing. After the 2023 panic, GPTBot's *allow* share on the web recently edged above its *disallow* share for the first time — the smart money is re-opening the door.
-
-## The legitimate exceptions — when blocking GPTBot is right
-Blocking GPTBot is defensible when your content *is* the product and uncompensated training erodes its value. This is a real, narrow set of cases — not the default. If you're in one of these buckets, block deliberately.
-
-- **Publishers and original-journalism sites** whose archives have licensing value. Nearly half of news sites (about 49%) block GPTBot, and for them it's often a negotiating posture ahead of a paid licensing deal. That's strategy, not panic.
-- **Paywalled, premium, or proprietary research** — anything you sell access to. Don't feed the model your moat for free.
-- **Sites under active AI-licensing negotiations**, where an open `robots.txt` undercuts your leverage.
-- **Highly sensitive or regulated content** where you need a defensible "we did not consent to training" record.
-
-Notice the pattern: these are all about *monetizable or sensitive original content*, not a SaaS marketing site or a local business. If your pages exist to *get found*, blocking the training crawler works against you.
-
-## The crawl-to-refer reality (and why GPTBot isn't the villain)
-If your real fear is "AI bots strip-mine my content and send nothing back," the data says GPTBot is not where that fight is. [Cloudflare's 2025 crawl-to-refer analysis](https://blog.cloudflare.com/crawlers-click-ai-bots-training/) measured how many pages each company crawls per one referral visit it sends back.
-
-The disparity is enormous — and it's not OpenAI driving it:
-
-- **Anthropic (ClaudeBot):** ~38,000 pages crawled per referral (July 2025)
-- **OpenAI (GPTBot):** ~1,091 pages crawled per referral
-- **Google:** ~5.4 pages crawled per referral
-
-Cloudflare also found roughly 79% of AI crawling by mid-2025 was for training, with search a much smaller slice. The takeaway isn't "block everything" — it's that crawler economics vary wildly by vendor, and a blanket GPTBot block is a blunt instrument aimed at the wrong target. If you want to throttle aggressive crawlers, do it per-bot based on actual behavior, not by reflex.
-
-## How to decide — a simple framework
-Decide based on whether your content is a **lead magnet** or a **product**. If pages exist to be discovered, keep GPTBot open. If pages are the thing you sell, consider blocking — and always keep OAI-SearchBot open unless you specifically want out of ChatGPT search.
-
-A clean default `robots.txt` for most brands:
-
-```
-# Allow training (build baseline knowledge of your brand)
-User-agent: GPTBot
-Allow: /
-
-# Definitely allow live search + citations
 User-agent: OAI-SearchBot
 Allow: /
 
@@ -88,4 +121,6 @@ User-agent: ChatGPT-User
 Allow: /
 ```
 
-Then verify it's actually working. Plenty of brands *think* they're visible in ChatGPT but have a stale 2023 block buried in `robots.txt`, or they're allowing the bots and still never get cited because their content isn't structured to be quoted. [AEOeye's free AI visibility audit](https://aeoeye.com) runs your domain across ChatGPT, Perplexity, Google AI, Claude, and Gemini so you can see whether you're actually showing up — before you change a single line of config.
+Our [AI robots.txt generator](/tools/ai-robots-txt-generator) drafts this for other bots too, and [how to block AI crawlers](/answers/how-to-block-ai-crawlers) covers enforcement beyond robots.txt.
+
+Access is only the first gate. A crawler reaching you proves nothing about whether ChatGPT recommends you. To see that, run [our free audit](/), which asks ChatGPT three unbranded buyer questions live and shows the real answers.

@@ -1,110 +1,137 @@
 ---
-title: "AI Search Citation Evaluation Metrics: A Practical Reference"
-description: "A practical, reproducible reference for measuring citation correctness, completeness, source quality, attribution, and human agreement in AI search answers."
-date: "2026-09-04"
+title: "AI Citation Evaluation Metrics: Audit Support, Sources, Share"
+description: "How to audit AI answer citations: record each one, judge whether it supports the claim, measure source concentration, and track your domain's citation share."
+date: "2026-10-03"
+published: "2026-09-04"
 category: "AI Search"
 readingTime: "8 min read"
-keywords: ["AI search citation evaluation metrics", "citation correctness", "citation completeness", "RAG evaluation", "AI answer auditing"]
-faqs: [{"q":"What is citation correctness in AI search?","a":"Citation correctness asks whether a cited source actually supports the claim attached to it. It is an entailment judgment, not merely a check that the URL exists."},{"q":"How is citation completeness different from correctness?","a":"Correctness evaluates the citations that are present. Completeness evaluates how much of the answer's externally checkable content has adequate citation support, including claims with no citation."},{"q":"What is the best metric for a production citation audit?","a":"Use a small metric set together: claim-level correctness, citation coverage, source quality, attribution, and a human-reviewed sample. No single score captures all failure modes."},{"q":"Can AEOeye measure these metrics automatically?","a":"AEOeye can help audit how AI engines mention, recommend, and cite a brand. Treat any product score as an operational signal, then inspect representative answers and sources with the protocol below."}]
-image: {"url":"https://images.pexels.com/photos/7119258/pexels-photo-7119258.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940","alt":"Researcher reviewing AI search citation evidence on a laptop.","photographer":"FreeBoilerGrants","photographerUrl":"https://www.pexels.com/@freeboilergrants-1659859"}
-sources: [{"label":"ALCE","url":"https://arxiv.org/abs/2305.14627"},{"label":"FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"RAGTruth","url":"https://arxiv.org/abs/2401.00396"},{"label":"WebGPT","url":"https://arxiv.org/abs/2112.09332"},{"label":"ARES","url":"https://arxiv.org/abs/2311.09476"},{"label":"Evaluating Correctness and Faithfulness of Instruction-Following Models","url":"https://aclanthology.org/2023.emnlp-main.866/"},{"label":"Citation Correctness Without Entailment","url":"https://aclanthology.org/2024.findings-emnlp.678/"}]
+keywords: ["ai search citation evaluation metrics", "ai citation accuracy", "citation correctness", "source concentration ai answers", "ai citation audit", "citation share", "citation entailment"]
+faqs: [{"q":"What is citation correctness in an AI answer?","a":"Citation correctness asks whether the cited passage actually entails the claim next to it, including qualifiers, dates and numbers. A real, relevant, authoritative URL can still fail. Label each atomic claim supported, contradicted or insufficient, and judge source quality on a separate axis so a famous domain never upgrades a weak match."}, {"q":"How do I measure citation share for my brand?","a":"Fix a set of buyer questions, run them on each engine, and divide the answers that cite your domain by all answers in the set. Report the same figure for named competitors. Keep the denominator, engine, locale and collection date beside every number, because a share without them cannot be compared next month."}, {"q":"Is a high source concentration (HHI) good or bad?","a":"Neither on its own. HHI only says citations cluster on few hosts. That may signal fragile dependence on one publisher, or it may be right because a single primary source is the correct evidence. Inspect which hosts dominate and whether they support the claims before drawing a conclusion."}, {"q":"Can I automate citation auditing?","a":"Automate the mechanical parts: URL normalization, marker parsing, hash checks, concentration maths. Keep support judgments human-reviewed for anything you will publish or act on, because automated judges miss negation, qualifiers and table context. Use automation to triage which claims a person reads first."}, {"q":"Do AEOeye's downloadable fixtures contain real AI answers?","a":"No. The four fixtures linked here are synthetic regression tests: they prove that your parser, normalizer, validator or calculator behaves consistently, not how any engine cites. Run your own documented capture of real answers before reporting engine behavior."}]
+image: {"url":"https://images.pexels.com/photos/8730981/pexels-photo-8730981.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Close-up of professionals reviewing documents during a business meeting in an office setting.","photographer":"Mikhail Nilov","photographerUrl":"https://www.pexels.com/@mikhail-nilov"}
+sources: [{"label":"Liu et al. — Evaluating Verifiability in Generative Search Engines","url":"https://arxiv.org/abs/2304.09848"},{"label":"Gao et al. — Enabling Large Language Models to Generate Text with Citations (ALCE)","url":"https://arxiv.org/abs/2305.14627"},{"label":"Min et al. — FActScore","url":"https://arxiv.org/abs/2305.14251"},{"label":"Huang et al. — Answer Bubbles","url":"https://arxiv.org/abs/2603.16138"},{"label":"IETF — RFC 9110: HTTP Semantics","url":"https://www.rfc-editor.org/rfc/rfc9110.html"},{"label":"OpenAI — Overview of OpenAI crawlers","url":"https://developers.openai.com/api/docs/bots"}]
 ---
 
-AI search citation evaluation is the disciplined measurement of whether an answer’s claims are supported by the sources it cites. A useful audit separates five questions: Is the claim entailed? Did the answer cite all important claims? Is the source trustworthy? Is attribution attached to the right text? Would a careful reviewer agree?
+A citation audit answers three questions: does the cited page prove the claim, whose sources keep getting cited, and is your domain among them? Keep them as three layers (claim, source, brand) and never blend them into one "citation score". Most dashboards count links; the right unit is the claim.
 
-This distinction matters because a polished answer can contain a real URL that does not support the sentence beside it. Research benchmarks such as [ALCE](https://arxiv.org/abs/2305.14627) frame citation evaluation around correctness and citation quality, while [FActScore](https://arxiv.org/abs/2305.14251) shows why mixed answers should be decomposed into atomic facts instead of receiving one binary label.
-
-## Table of contents
-
-- [What should a citation audit measure?](#what-should-a-citation-audit-measure)
-- [How do the core metrics differ?](#how-do-the-core-metrics-differ)
-- [What does citation correctness or entailment mean?](#what-does-citation-correctness-or-entailment-mean)
-- [How do coverage, precision, and recall work?](#how-do-coverage-precision-and-recall-work)
-- [How should source quality and attribution be scored?](#how-should-source-quality-and-attribution-be-scored)
-- [What is a reproducible six-step protocol?](#what-is-a-reproducible-six-step-protocol)
-- [Where do automated metrics fail?](#where-do-automated-metrics-fail)
+The research is why we check instead of counting. A human audit of four generative search engines found only [51.5% of sentences fully supported by their citations](https://arxiv.org/abs/2304.09848), and only 74.5% of citations supporting their sentence. In [ALCE](https://arxiv.org/abs/2305.14627), even the best models lacked complete citation support 50% of the time on one benchmark. These are older systems, but the failure pattern is the one to audit for.
 
 ## What should a citation audit measure?
 
-Measure claims, citations, and sources as separate objects. The unit of analysis is usually an answer claim—not the whole response, the domain, or the citation count.
+Measure claims, sources and your own domain separately. The claim layer asks whether each statement is supported. The source layer asks who is cited and how concentrated, current and independent they are. The brand layer asks how often you appear.
 
-Start by preserving the exact prompt, answer, citation markers, retrieved pages, timestamp, engine, model label when available, and locale. AI search results change. Without this record, a later reviewer cannot reproduce the judgment or tell whether a score changed because the system changed or the web page changed.
+The unit is the atomic claim, not the answer. [FActScore](https://arxiv.org/abs/2305.14251) splits a generation into atomic facts and reports the share supported by a reliable source. "AEOeye audits ChatGPT and costs $29" is two claims with two evidence needs.
 
-Research metrics and product behavior must also stay distinct. ALCE, FActScore, [RAGTruth](https://arxiv.org/abs/2401.00396), [WebGPT](https://arxiv.org/abs/2112.09332), and [ARES](https://arxiv.org/abs/2311.09476) are research artifacts with particular datasets, annotations, prompts, and assumptions. A product dashboard may expose a “citation score,” but that label is not automatically equivalent to any published benchmark.
+"Supported" means entailed: a reader of the passage would infer the claim is [most likely true](https://en.wikipedia.org/wiki/Textual_entailment). Relevance is weaker, and authority is a different question.
 
-## How do the core metrics differ?
+## How do you record a citation so it can be checked later?
 
-The compact reference below prevents a common mistake: treating every citation-related number as factual accuracy.
+Save the observation before you interpret it. Per answer: exact prompt, engine surface, locale, timestamp, raw text. Per citation: marker, raw URL, resolved URL, fetch status, hashed snapshot. Labels and scores point back to this record and never overwrite it.
 
-| Metric | Question it answers | Basic calculation or label | What it does not prove |
-|---|---|---|---|
-| Correctness / entailment | Does the source support the attached claim? | Supported, contradicted, or insufficient; optionally a claim-level rate | That every important claim was cited |
-| Completeness / coverage | How much checkable content has support? | Supported claim weight ÷ total claim weight | That sources are authoritative |
-| Source quality | Is the cited source appropriate and reliable for this claim? | Rubric by provenance, expertise, freshness, and directness | That the answer interpreted it correctly |
-| Claim granularity | Are claims split finely enough to judge? | Atomic claims, with each fact independently labeled | That atomic claims are equally important |
-| Attribution | Is the citation attached to the right proposition? | Correct span, wrong span, or ambiguous | That the cited page is high quality |
-| Precision / recall | How much of the citation set is useful, and how much needed support was found? | Useful citations ÷ cited citations; supported needed claims ÷ needed claims | A universal ground truth for open-web answers |
-| Human review | Would trained reviewers make the same judgment? | Agreement plus adjudicated labels | Cheap, instant, or fully objective measurement |
+- **URLs, three forms.** Keep the raw URL as shown, the resolved URL after redirects, and a normalized comparison key. A [301 only says](https://www.rfc-editor.org/rfc/rfc9110.html) the resource has a new permanent URI, not that the destination makes the same claim, so mark it same, revised, substituted, unreachable or undetermined. Canonicals are [signals of varying strength](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls); store them separately.
+- **Normalize narrowly.** Lowercase scheme and host, drop default ports, resolve dot segments, remove the fragment from the key. Drop only named tracking keys (`utm_*`, `gclid`, `fbclid`, `msclkid`). Keep `lang`, `page` and `file`; they can select different documents.
+- **Markers.** Code the form (inline number, footnote, source card, bare link, hover, bibliography), its position, and the text it purports to cover; if the interface never says, code scope as ambiguous. OpenAI's API returns [`url_citation` annotations with character offsets](https://developers.openai.com/api/docs/guides/tools-web-search), which may differ from what a client renders.
+- **Access status.** Record what a permitted reviewer could open: readable, login, paywall, script-rendered, region-blocked, rate-limited, soft error. A 403 means the server [refuses the request](https://www.rfc-editor.org/rfc/rfc9110.html), not that the page is absent. A 200 is not evidence of support. Never bypass access controls.
+- **Dates.** Published, modified, effective, crawled and accessed are different questions. Google calls byline dates [a best estimate](https://developers.google.com/search/docs/appearance/publication-dates). Never turn a crawl time into a publication date.
+- **IDs and uncertainty.** Link study, run, prompt (with a parent for follow-ups), answer, claim, citation, snapshot, annotation and reviewer by stable IDs. Add an uncertainty note per row; keep both labels when reviewers disagree.
 
-The table is a measurement map, not a standards claim. Teams should publish their rubric, claim weights, and treatment of “insufficient evidence.”
+A SHA-256 hash proves retained bytes did not change, not that the page or label is right. Never regenerate a digest over a silently edited file.
 
-## What does citation correctness or entailment mean?
+![Vintage file folders organized in a row inside a dimly lit room.](https://images.pexels.com/photos/11176866/pexels-photo-11176866.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-Correctness asks whether the cited passage entails the claim as written. A source can be topically related yet fail entailment when it omits a qualifier, reports a different date, or supports only one half of a compound sentence.
+We publish runnable fixtures for the mechanical parts. All are synthetic regression tests, not data about any engine:
 
-Split the answer into atomic claims. “AEOeye audits ChatGPT and costs $29” contains at least two claims: product scope and price. Each needs its own evidence. FActScore’s central idea—breaking generations into atomic facts and measuring the supported percentage—provides a useful mental model, but its reported values belong to its own study setting, not to every AI search product.
+- [URL normalization test suite](/resources/ai-citation-url-normalization-test-suite/README.md): 20 adversarial cases whose output must byte-match the expected file; malformed input is rejected, not guessed.
+- [Citation parser test corpus](/resources/ai-citation-parser-test-corpus/README.md): 24 cases, 27 claims, eight categories. Detecting a marker is not support.
+- [Evidence bundle validator](/resources/ai-citation-evidence-bundle-validator/README.md): checks paths, byte sizes, SHA-256 digests and citation-ID closure. Change one byte and it must fail.
 
-Use three practical labels:
+## How do you judge whether a citation supports the claim?
 
-- **Supported:** the source directly states the claim or clearly entails it.
-- **Contradicted:** the source states the opposite or makes the claim untenable.
-- **Insufficient:** the source is related, but the evidence is missing, vague, or too indirect.
+Split the answer into atomic claims, open the cited passage with its surrounding text, and label the relationship before judging the source. A famous page that does not state the number is a failed citation.
 
-For a weighted correctness rate, give each claim an importance weight and calculate supported weight divided by reviewed claim weight. Report contradicted and insufficient rates separately; merging them hides different remediation tasks.
+Use seven labels:
 
-## How do coverage, precision, and recall work?
+| Label | Test |
+|---|---|
+| Fully supports | Passage entails every part of the claim |
+| Supports with qualifier | Core holds, but the answer drops a condition, date or scope |
+| Partially supports | One part of a compound claim is unsupported |
+| Context required | Nearby text (a table heading) decides it |
+| Contradicts | Source says the opposite or a different value |
+| Inaccessible | No inspectable evidence: "unverified", not "false" |
+| Unrelated | Same topic, silent on the claim |
 
-Completeness measures missing support, while precision measures whether the citations supplied are useful. Together they reveal the difference between an answer that cites too little and one that cites indiscriminately.
+A vendor page saying a product "may reduce the risk of data loss with backups" does not support "prevents data loss". That is supports-with-qualifier.
 
-Define the denominator before scoring. Coverage can be claim coverage (the share of important claims with at least one adequate citation) or token/span coverage (the share of answer text that is citation-supported). Claim coverage is usually easier to explain; span coverage can expose long uncited passages.
+Score source quality on a separate axis (high, medium, low, with reasons). A first-party page can fully support a price and be weak evidence for a performance comparison. With several citations on one claim, judge each alone, then say whether they support it jointly. Have a second person label a sample; use automated judges only to triage.
 
-Citation precision is useful citations divided by all cited citations. Citation recall is supported, citation-needed claims divided by all citation-needed claims. These terms are borrowed from information retrieval, so document whether your team counts a citation supporting multiple claims once per claim or once per URL.
+## Which aggregate citation metrics matter?
 
-Do not reward citation volume by itself. Ten loosely related links can have lower precision than two direct, authoritative sources. Conversely, a short answer can have high precision and poor recall if it simply leaves important claims unsupported.
+Report a small set, each with its formula and denominator. Correctness and coverage describe claims, concentration and freshness describe sources, and citation share describes your brand.
 
-## How should source quality and attribution be scored?
+| Metric | Formula | Use and caveat |
+|---|---|---|
+| Correctness rate | supported claim weight ÷ reviewed weight | Report contradicted and insufficient separately |
+| Claim coverage (recall) | checkable claims with an adequate citation ÷ all checkable claims | Short answers can be precise yet low here |
+| Citation precision | citations that support their claim ÷ citations shown | State whether one URL citing two claims counts once |
+| Domain citation share | answers citing your domain ÷ answers in the set | The brand metric; also report per competitor |
+| HHI / effective domains | sum of squared host shares; 1 ÷ HHI | Concentration, not quality |
+| Stale-citation rate | citations older than a per-claim threshold ÷ eligible | Undated pages go in a separate "unknown" bucket |
+| Update lag | interval from last negative to first positive check | Never use a midpoint as exact |
 
-Score source quality against the claim’s needs, not against a universal domain ranking. An official regulator may be strongest for a rule; a peer-reviewed paper may be strongest for a research finding; a first-party product page may be strongest for current pricing.
+The [Justice Department's definition](https://www.justice.gov/atr/herfindahl-hirschman-index) of HHI is squaring each share and summing. Worked example: five citations split two, two, one give shares 0.4, 0.4, 0.2, so HHI is 0.36 and effective domains are 2.78. Our [concentration calculator](/resources/ai-citation-source-concentration-calculator/README.md) runs this on a 30-row synthetic file (seven hosts, HHI 0.206667, 4.84 effective domains). It counts hosts, not registrable domains.
 
-Use a transparent rubric with four dimensions: provenance, topical expertise, freshness, and directness. Record a reason for each rating. “Official” is not synonymous with “supports this exact sentence,” and a high-authority page can still be stale or misapplied.
+We set no "healthy" HHI threshold: HHI was built to measure market concentration, so market thresholds do not transfer, and a concentrated set can be right when one primary source is the best evidence.
 
-Attribution checks placement. The citation should be adjacent to the proposition it supports, and a reader should not have to guess whether it applies to one sentence, a paragraph, or a list. Mark attribution as correct, wrong-span, or ambiguous. This is especially important when a response places one citation after several claims.
+![A magnifying glass focuses on mathematics formulas in a book, enhancing study and exploration.](https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-![Analyst comparing source quality and claim-level evidence in an AI search audit.](https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940)
+## Are the cited sources independent?
 
-## What is a reproducible six-step protocol?
+Count evidence streams, not domains. Six pages repeating one press release are one source. Trace the claim upstream, label each page primary, derived or independent, and report URLs, hosts, brands, owners and independent origins as separate counts.
 
-Run the same six steps for every engine, prompt set, and reporting period. The protocol is intentionally small enough for a team to repeat.
+To trace one claim:
 
-1. **Freeze the observation.** Save prompt, answer, citation URLs, screenshots or HTML, engine, locale, device, timestamp, and any visible model information.
-2. **Normalize the answer.** Remove navigation noise, resolve redirects, and preserve citation markers. Do not silently rewrite the answer.
-3. **Atomize claims.** Split factual, comparative, numerical, temporal, and recommendation statements. Assign importance and mark which claims require external support.
-4. **Verify evidence.** Open the cited passage, label entailment, contradiction, or insufficiency, and record the exact supporting excerpt or page location. Avoid inventing a quote when the page is unavailable.
-5. **Score the set.** Calculate correctness, claim coverage, source-quality rubric results, attribution errors, citation precision, and citation recall. Show denominators and exclusions.
-6. **Review and report.** Have a second reviewer label a sample, adjudicate disagreements, publish examples of failures, and separate research-style metrics from product-specific behavior.
+1. Rewrite it with subject, number, unit, date and scope.
+2. Search a distinctive phrase and build a timeline of who published first.
+3. Follow references to a release, dataset, filing or test.
+4. Record whether each page added evidence or only prose.
+5. Mark unresolved origins as unresolved.
 
-The reproducible output is a claim ledger, not just a score: claim ID, text, weight, citation ID, source URL, evidence note, labels, reviewer, and adjudication status. That ledger turns a monthly AI visibility check into a comparable audit.
+[PROV-O](https://www.w3.org/TR/prov-o/) models entities, activities and agents, which maps to page, republishing and publisher. Never infer ownership from templates or CDNs; "unknown" is a valid value. Label each source by origin and function (official page, paper, dataset, news, community post, catalog), and treat a snippet as an aggregator until you open the page behind it.
 
-## Where do automated metrics fail?
+Distribution is skewed. Across 11,000 queries on five systems, [Answer Bubbles](https://arxiv.org/abs/2603.16138) found Wikipedia and longer sources over-represented, social media under-represented. Provenance signing does not fix truth: [C2PA makes no judgment](https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html) on whether signed assertions are good or bad, only whether they are intact.
 
-Automated judges are useful for triage, but they can miss negation, temporal qualifiers, table context, source accessibility, and disagreements about what counts as a claim. [ARES](https://arxiv.org/abs/2311.09476) demonstrates an automated framework for retrieval-augmented generation evaluation; it should be read as a research method with defined components, not as a universal certification.
+## Are the cited sources current?
 
-Open-web truth is also unsettled. Two credible sources can disagree, a source can change after collection, and recommendations include judgment beyond factual entailment. For high-stakes claims, require human review and retain the evidence snapshot. Never convert a missing page into a “supported” label merely because the URL looks reputable.
+Freshness depends on the claim, so "newest wins" is a bad rule. A price needs this week's page; a definition may suit an older primary source. Set a threshold per claim type up front.
 
-Research papers can guide metric design, but they do not define how a commercial engine must behave. A product report should say exactly what was observed, which prompts were used, how claims were weighted, and which limitations remain.
+Keep the dates apart. Schema.org's [`datePublished`](https://schema.org/datePublished) means first publication, while a `Last-Modified` header only reports when the server [believes the representation changed](https://www.rfc-editor.org/rfc/rfc9110.html). Keep conflicting dates; undated is not fresh.
 
-## How can you turn these metrics into an AEO workflow?
+[FreshQA](https://arxiv.org/abs/2310.03214) found that models of every size struggle with fast-changing knowledge. To time how fast a fix reaches answers, separate four milestones: crawl, retrieval, citation, correct answer. We suggest daily checks for 30 days and storing each event as an interval: first seen at a 15:00 check after a clean 09:00 check means "between 09:00 and 15:00", not 12:00.
 
-Use the audit to find repairable patterns: unsupported product claims, stale pricing, citations attached to the wrong sentence, weak third-party sources, or important buyer questions left uncovered. Then rerun the same prompt set after updates and compare claim-level evidence, not only mention counts.
+## What are the common citation failures?
 
-AEOeye can help you inspect how AI engines mention, recommend, and cite a brand across buyer-oriented prompts. [Start with a free audit](/#audit), use the protocol above to validate answers, and treat the resulting report as a practical visibility signal—not a substitute for your own evidence ledger.
+Sixteen failure labels group into four families. Label one primary failure per claim: each family needs a different repair.
+
+| Family | Labels | Repair |
+|---|---|---|
+| Access | Nonexistent URL, inaccessible URL, presentation loss | Preserve the raw string; seek an authorized snapshot |
+| Support | Topical-only relevance, entailment gap, partial support, contradiction, unsupported synthesis | Cite a claim-level passage or narrow the claim |
+| Attribution | Wrong-span, overbroad scope, missing citation, duplicate citations | Move the marker; deduplicate before counting |
+| Source quality | Stale support, primary-source displacement, circular sourcing, citation laundering | Trace to the origin; seek independent evidence |
+
+Report examples beside rates, and keep missing citations separate from failed ones. Version the labels: a lower failure rate after a rubric change may be a different rubric, not a better engine.
+
+## What should a brand actually track?
+
+Track your domain's citation share against competitors on a fixed set of buyer questions, per engine. That is the number you can move.
+
+1. **Domain citation share** and the same for three or four competitors.
+2. **The cited third-party hosts**, with concentration, so you see which publishers carry your category.
+3. **Claim correctness for facts about you**: price, features, availability.
+4. **Update lag** after you change a page.
+
+Crawler access limits what can be cited at all. In AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (October 2026, 384 sites with a readable or absent robots.txt), 27 of 38 news publishers (71.1%) blocked at least one AI retrieval bot, against 1 of 193 SaaS sites and 4 of 90 e-commerce and consumer brands ([method](/resources/ai-crawler-access-study-2026-10.json)).
+
+It is a convenience sample fetched once on one day, and a robots.txt block is a request, not enforcement. OpenAI [documents that sites opted out of OAI-SearchBot](https://developers.openai.com/api/docs/bots) are not shown in ChatGPT search answers. The publishers an engine could cite for you may be restricting it, so check your own access with the [AI crawler directory](/blog/ai-crawler-user-agent-directory).
+
+Next: [what AI citation tracking is](/answers/what-is-ai-citation-tracking), [how ChatGPT chooses sources](/answers/how-does-chatgpt-choose-sources), our [audit methodology template](/blog/ai-search-audit-methodology-template) and [recommendation measurement guide](/blog/ai-brand-recommendation-measurement). AEOeye's [free audit](/) asks ChatGPT three unbranded buyer questions and shows the real answers; the $29 report adds four more engines and ten questions. It is not a daily tracker: for hundreds of prompts monitored daily, tools such as Profound, Peec AI or Otterly fit better.

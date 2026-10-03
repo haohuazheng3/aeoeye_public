@@ -1,133 +1,142 @@
 ---
-title: "AI Search Audit Methodology Template: A Reproducible Protocol"
-description: "A copyable, citation-ready protocol for researching AI search visibility with transparent prompts, labels, denominators, uncertainty, and disclosure."
-date: "2026-09-04"
+title: "AI Search Audit Methodology Template: 8 Decisions That Matter"
+description: "A practitioner's AI search audit methodology: eight decisions on prompts, controls, sample size, coding, exclusions, versions and reporting, plus tools."
+date: "2026-10-03"
+published: "2026-09-04"
 category: "AI Search"
 readingTime: "8 min read"
-keywords: ["ai search audit methodology", "ai visibility research methodology", "ai search audit template", "ai citation study", "generative engine evaluation", "ai search measurement", "reproducible ai research"]
-faqs: [{"q":"What is an AI search audit methodology?","a":"It is a documented procedure for sampling prompts, recording AI answers, labeling mentions and citations, and reporting results with enough context for another team to repeat the study. It is a research protocol, not a universal industry standard."},{"q":"How many prompts should an AI search audit use?","a":"There is no universally correct number. Use a scope large enough to cover your defined buyer questions and report the exact prompt count, sampling rule, and exclusions. A smaller, transparent sample is more useful than a large undisclosed one."},{"q":"Can an audit prove that AI search caused sales?","a":"No. An audit can describe observed answers, mentions, citations, rankings, and changes between runs. It cannot by itself prove causality, market share, traffic, revenue, or what every user sees."},{"q":"Should teams publish raw AI responses?","a":"Preserve the raw responses and identifiers internally, and publish representative excerpts or a safe, redacted sample when rights and privacy allow. At minimum, disclose how responses were timestamped, stored, and checked for drift."}]
-image: {"url":"https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Researcher reviewing a reproducible AI search audit protocol on a laptop.","photographer":"ThisIsEngineering","photographerUrl":"https://www.pexels.com/@thisisengineering"}
-sources: [{"label":"AEOeye — AI visibility score methodology","url":"https://aeoeye.com/blog/ai-visibility-score-methodology"},{"label":"NIST — AI Risk Management Framework","url":"https://www.nist.gov/itl/ai-risk-management-framework"},{"label":"ALCE — Answering with Language Models aided by Citation Extraction","url":"https://arxiv.org/abs/2305.14627"},{"label":"FActScore — Fine-grained Atomic Evaluation of Factuality","url":"https://arxiv.org/abs/2305.14251"},{"label":"GEO — Generative Engine Optimization","url":"https://arxiv.org/abs/2311.09735"},{"label":"RFC 9309 — Robots Exclusion Protocol","url":"https://www.rfc-editor.org/rfc/rfc9309"}]
+keywords: ["ai search audit methodology", "ai visibility research methodology", "ai search audit template", "ai visibility experiment", "prompt set for ai visibility testing", "reproducible ai search study", "ai visibility sample size"]
+faqs: [{"q":"How many prompts does an AI visibility audit need?","a":"There is no universal number. Fix the claim first, then size the sample for it: about 385 independent observations for a ±5-point estimate at 95% confidence, or about 294 per group to detect a 20% to 30% change. Answers that share a prompt are not independent, so report the exact prompt count and call small audits descriptive."},{"q":"Should I run each prompt more than once?","a":"Yes, if you want to know how stable an answer is. Repeats measure volatility, not breadth, so they never replace a wider prompt set. Run them in fresh chats, spread across time blocks, with the order randomized and the seed recorded."},{"q":"Can an audit show that AI search caused sales?","a":"No. An audit describes what specific engines answered under stated conditions. It cannot establish market share, traffic, revenue or what every user sees, and a before-and-after change in mentions is not proof of cause without a design built for it."},{"q":"Do I need two people to code the answers?","a":"For anything you will publish or act on, yes. Two independent reviewers expose rules that are vague, especially the line between mentioning and recommending a brand. Keep both original labels, record an adjudicated label separately, and report raw agreement next to Cohen's kappa."}]
+image: {"url":"https://images.pexels.com/photos/36552200/pexels-photo-36552200.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630","alt":"Close-up of a checklist and pen with a sticky note reading DONE, suggesting a completed audit task.","photographer":"Jakub Zerdzicki","photographerUrl":"https://www.pexels.com/@jakubzerdzicki"}
+sources: [{"label":"Aggarwal et al. — GEO: Generative Engine Optimization","url":"https://arxiv.org/abs/2311.09735"},{"label":"NIST — TN 1297, repeatability and reproducibility terminology","url":"https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology"},{"label":"Google Search Help — Why your Search results differ from others","url":"https://support.google.com/websearch/answer/12412910"},{"label":"Artstein & Poesio — Inter-Coder Agreement for Computational Linguistics","url":"https://aclanthology.org/J08-4004/"},{"label":"NIST Engineering Statistics Handbook — Confidence intervals for proportions","url":"https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm"},{"label":"Semantic Versioning 2.0.0","url":"https://semver.org/spec/v2.0.0.html"}]
 ---
 
-An AI search audit is credible when another team can understand exactly what was asked, what was observed, and what the numbers do—and do not—mean. Use the protocol below as a starting template: adapt it to your research question, name every operational choice, and preserve enough evidence to rerun the work.
+An AI visibility audit is trustworthy when a stranger can rerun it and arrive at the same denominators. That depends on eight decisions made before you collect a single answer. Skip one and your percentage becomes an anecdote. This is our working method, not a standard.
 
-This is a research method, not an industry standard. AEOeye publishes its own operational methodology, but that approach should not be treated as universal. The [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) is useful governance context; it does not prescribe a brand-visibility score.
+## What makes an AI visibility audit trustworthy?
 
-## Table of contents
+An audit is trustworthy when its claim is small, its conditions are written down and its denominators are visible. A bare "30% visibility" is a rumor; "18 of 60 eligible answers" is a result.
 
-- [What should the protocol record?](#what-should-the-protocol-record)
-- [The 10-step reproducible method](#the-10-step-reproducible-method)
-- [Copyable disclosure block](#copyable-disclosure-block)
-- [Hypothetical example](#hypothetical-example)
-- [Limitations: what the data cannot support](#limitations-what-the-data-cannot-support)
-- [FAQs](#faqs)
+| # | Decision | Fix this before collecting | Tool |
+|---|---|---|---|
+| 1 | Prompt set | Intent strata, minimums per cell | [Prompt coverage auditor](/resources/ai-search-prompt-coverage-auditor/README.md) |
+| 2 | Conditions | Locale, account, memory, mode, order | Checklist below |
+| 3 | Sample size | Unit, repeats, margin of error | [Sample-size calculator](/resources/ai-visibility-experiment-sample-size-calculator/README.md) |
+| 4 | Coding | Three codes, two reviewers, agreement | [Agreement calculator](/resources/ai-recommendation-coding-agreement-calculator/README.md) |
+| 5 | Exclusions | Eligibility, retries, missing statuses | [CSV validator](/resources/ai-search-audit-csv-validator/README.md) |
+| 6 | Metrics | One denominator rule, computed identically | [SQL starter kit](/resources/ai-search-metrics-sql/README.md) |
+| 7 | Versions | What counts as a method change | Table below |
+| 8 | Report | Disclosure, package, limits | Checklist below |
 
-## What should the protocol record?
+We hold ourselves to this. Our AI crawler access study (October 2026) fetched 391 sites once each, 384 usable for robots.txt numbers. It ships the per-site [CSV](/resources/ai-crawler-access-study-2026-10.csv) and a [method summary](/resources/ai-crawler-access-study-2026-10.json), and states it is a convenience sample.
 
-The minimum useful record connects a research question to a fixed scope, a captured answer, a coding decision, and a denominator. Put these fields in a study log before collecting results.
+## How do you build the prompt set?
 
-| Protocol field | Minimum disclosure |
-|---|---|
-| Research question | The exact question and intended audience |
-| Brand/query scope | Brand, category, competitors, geographies, and query families |
-| Prompt sample | Prompt list or sampling frame, selection rule, and exclusions |
-| Runtime context | Engine, model/version if exposed, date/time zone, locale, device, account state, and search/browse setting |
-| Observation | Full response, links, citations, screenshots or IDs, and capture timestamp |
-| Labels | Mention, citation, rank, sentiment, and ambiguity rules |
-| Review | Independent coders, disagreement process, and final adjudicator |
-| Reporting | Numerators, denominators, missingness, uncertainty, and rerun version |
+Build it from real buyer language, group it by intent, and freeze it before you see any answer. A set of easy branded questions measures recognition, not discovery.
 
-![A team comparing documented research observations on a wall of notes.](https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630)
+- **Source:** support tickets, sales calls, search queries. Declare any synthetic prompts.
+- **Strata:** report branded and unbranded prompts as separate panels.
+- **No quiet swaps:** never replace a prompt because it returned no mention. Absence is the observation.
 
-*Second image: Pexels photo by fauxels, [Pexels profile](https://www.pexels.com/@fauxels).*
+We sort questions into six intent groups: discovery, comparison, validation, risk, implementation and post-purchase; each is coded for a different signal, such as inclusion, competitor set or caveats.
 
-## The 10-step reproducible method
+Then audit coverage. Declare minimum active prompts per stage, persona, topic, locale and engine; the auditor counts only active rows. Its synthetic fixture (20 rows, 18 active) is built to fail three minimums, for example pricing at 4 of 5.
 
-### 1. State the research question
+For paraphrases, "equivalent" means the same intent, entity, constraints, locale and answer format; "best" to "cheapest" changes intent. Keep natural variants, changed-intent controls and adversarial edits in separate strata.
 
-Write one answerable question, such as: “When a US buyer asks category questions, how often does Brand A appear and receive a source link?” Define whether the unit is a prompt, answer, citation, or session. Avoid mixing brand discovery, factuality, and conversion into one outcome.
+![A professional woman working on a laptop with spreadsheets, similar to organizing a prompt register.](https://images.pexels.com/photos/8297058/pexels-photo-8297058.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-### 2. Define brand and query scope
+## Which conditions must you control?
 
-List the canonical brand name, aliases, products, competitors, category terms, and locations. Separate navigational prompts containing the brand from non-branded discovery prompts. Record language, market, date range, and whether you are studying recommendations, factual answers, or both.
+Hold fixed whatever you are not measuring, stratify what buyers genuinely vary, and record the rest. Google lists [location, language, device, recent searches and account personalization](https://support.google.com/websearch/answer/12412910) as reasons results differ between people, so one logged-in laptop is one buyer's view.
 
-### 3. Build and sample prompts
+NIST defines [repeatability and reproducibility](https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology) by whether conditions are the same or changed, so decide up front which are controls, factors or strata.
 
-Create a sampling frame from real customer questions, support logs, keyword research, or a declared synthetic design. Stratify by intent—for example, best-of, comparison, problem-solving, and alternatives—then publish the counts in each stratum. Do not silently replace difficult prompts or discard answers that do not mention a target.
+| Condition | Default treatment | Record |
+|---|---|---|
+| Account, memory, history | Stratify: signed out vs in | Plan, memory state |
+| Locale | Change one variable at a time | Language, interface, location, market |
+| Surface, model, search mode | Hold fixed | Exact label or "not shown"; UI and API differ |
+| Prior turns | Separate clean and primed arms | Scripted turns, reset method |
+| Run order and time | Randomize; block across the window | Seed, UTC timestamp |
 
-### 4. Record engine, model, and runtime context
+Three rules apply. A different answer is an observation, not proof of personalization; rerun the contrast before naming a cause. Locale tests need a repeated baseline, then one changed column per run. And a new chat clears visible thread context, not necessarily account settings, so code contamination instead of assuming a clean slate.
 
-For every run, record the engine, exposed model or model family, interface/API, timestamp, time zone, locale, device type, account state, personalization state, and whether web search or browsing was enabled. AI systems change; “ChatGPT” or “Google AI” alone is not a reproducible runtime description.
+Order matters too. [Fantastically Ordered Prompts](https://aclanthology.org/2022.acl-long.556/) found that example order can swing results from near state-of-the-art to near chance, and good orderings did not transfer between models. Test order with balanced permutations and a seeded shuffle.
 
-### 5. Preserve the observation
+## How many prompts and repeats do you need?
 
-Store the complete answer and every visible source link, plus a screenshot or stable response ID where permitted. Hash or version the prompt file, keep raw JSON when an API provides it, and redact personal information. Citation-focused research should distinguish a model naming a source from a source merely appearing in a link list; work such as [ALCE](https://arxiv.org/abs/2305.14627) shows why citation extraction deserves explicit treatment.
+Size the sample for the claim, not for a pleasant row count. With no prior estimate, simple random sampling needs 385 independent observations for a ±5-point margin at 95% confidence. The formula is n = z² × p(1 − p) / MOE², with p = 0.5 as the conservative default.
 
-### 6. Apply explicit labels
+Comparing two rounds is more demanding. Our calculator uses the normal approximation for two equal groups (planning scenarios, not measurements):
 
-Define labels before coding. A practical schema is: **mention** (brand appears), **citation** (a source link or reference is attributed), **rank** (ordered recommendation position, if the answer supplies one), and **sentiment** (positive, neutral, negative, or unclear). Add “not applicable” when a label cannot logically be assigned. For factual claims, consider atomic-claim review rather than a vague overall accuracy judgment; [FActScore](https://arxiv.org/abs/2305.14251) is a useful conceptual anchor.
+| Change to detect | Alpha | Power | Per group |
+|---|---|---|---|
+| 20% to 30% mention rate | .05 | .80 | 294 |
+| 30% to 35% mention rate | .01 | .90 | 2,609 |
 
-### 7. Use double review
+Rows are not automatically independent. Twenty prompts repeated three times give 60 rows, not 60 observations. The [design effect](https://en.wikipedia.org/wiki/Design_effect), 1 + (m − 1)ρ, shows how clustering shrinks effective sample size; use it as a sensitivity check. For small samples or rates near 0 or 1, use an [exact or Wilson interval](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm).
 
-Have two reviewers code a defined subset—or every answer when the study is small—independently. Resolve disagreements with a written rule and record the adjudication. Report the agreement measure you chose, but do not imply that agreement proves validity: two reviewers can consistently apply a flawed label definition.
+Repeats estimate volatility, not buyer intents. Most brand audits cannot reach 294 per group, so call them descriptive and never rank engines on them. In our own benchmark four of five engines have fewer than 10 mentions, so we publish no per-engine league table.
 
-### 8. Report denominators and uncertainty
+## How do you code answers consistently?
 
-Always show the numerator and denominator: “Brand mentioned in 18 of 60 eligible answers (30%),” not simply “30% visibility.” State excluded, failed, duplicate, and unavailable runs. For proportions, provide an uncertainty interval or clearly label the result as descriptive for this sample; do not manufacture population-level precision from a convenience sample.
+Write the codes before you collect, label independently, and report agreement beside the raw labels. We use three codes: not_mentioned, mentioned and recommended. Settle edge cases in writing: comparisons, "best of" lists, caveats, aliases, a brand only in a source link.
 
-### 9. Version, rerun, and compare carefully
+Keep mention, recommendation, citation, rank and sentiment separate, and treat "unranked" as not applicable, never last place. A link near an answer does not prove the source supports a claim; split compound sentences into single claims.
 
-Assign a study version, prompt-set hash, codebook version, and rerun date. When comparing waves, preserve the stable panel and label additions separately. A changed model, interface, locale, prompt wording, or browsing setting is a measurement change—not automatically a brand improvement or decline.
+For two reviewers, [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa) is (observed − expected agreement) / (1 − expected). Fleiss' kappa handles three or more raters; Krippendorff's alpha handles missing labels. [Artstein and Poesio's survey](https://aclanthology.org/J08-4004/) explains how their chance assumptions differ, so pick one before you see data.
 
-### 10. Publish claims with boundaries
+Our synthetic fixture has 24 rows with 18 agreements: raw agreement 0.75, chance-expected 0.333, kappa 0.625. Four of six disagreements sit on the mentioned-versus-recommended line, so write that rule first. Skip universal kappa cutoffs; read the disagreements.
 
-Tie every conclusion to the observed sample and context. A generative-engine optimization study such as [GEO](https://arxiv.org/abs/2311.09735) can motivate hypotheses about visibility, but it does not turn one audit into a universal ranking law. Also document crawler assumptions separately: [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309) standardizes the Robots Exclusion Protocol, not whether an AI engine will cite a page.
+Keep each original label, add the adjudicated label as a third field, and never compute agreement on consensus labels. Our benchmark's "mentioned" flag came from an analysis model, not human double-coding, so we treat its rates as indicative.
 
-## Copyable disclosure block
+## How do you handle exclusions and missing data?
 
-Paste and complete this block at the top of a report or research appendix:
+Never turn an observation you failed to get into a negative result. A timeout is missing; a clean answer that omits your brand is a valid zero. Give every expected case one status and keep the raw evidence.
 
-> **AI search audit disclosure**  
-> Research question: [exact question]  
-> Population and scope: [market, language, brand set, query families]  
-> Sample: [n prompts; strata; selection rule; collection dates]  
-> Runtime: [engines, models/versions, interface/API, locale, device, account and browsing state]  
-> Observation policy: [what was captured, stored, redacted, and retained]  
-> Coding: [mention, citation, rank, sentiment, factuality definitions]  
-> Review: [number of reviewers; disagreement and adjudication rule]  
-> Results: [numerators/denominators; exclusions; uncertainty method]  
-> Version: [prompt/codebook/software versions; rerun date]  
-> Limits: [claims this design cannot support]
+- **Missing, not a finding:** not run, provider unavailable, timeout, refusal, access blocked, empty answer, parse failure, unresolved.
+- **A valid zero:** citation absent on an answer that was captured and parsed.
+- **Excluded by rule:** not applicable, duplicate, or a documented rule.
 
-## Hypothetical example
+With E expected cases, X exclusions, O valid observations and U missing, E = O + U + X. Report the rate (positives / O) and coverage (O / (E − X)): 40% of 10 observed cases is not 40% of 100 eligible cases with 90 missing. When missingness is material, add scenario bounds: positives / (O + U) as the floor, (positives + U) / (O + U) as the ceiling.
 
-Suppose a team studies “Which project-management tools suit a 20-person nonprofit?” It samples 40 prompts across four intent strata, runs them on two named engines on one date, and captures 80 answers. Brand A appears in 24 answers, is linked as a source in 11, and is ranked first in 6 answers that provide ordered recommendations. The report should say “24 of 80 captured answers (30%)” and separately “11 of 80 (13.75%) contained a source link,” while explaining that citation attribution was coded only when the answer connected the link to a claim.
+A retry keeps a case eligible; an exclusion removes it from the analysis set. Give attempts their own IDs, predeclare retry limits, and tag each exclusion PRE or POST; report results with and without any found after you saw outcomes. The [PRISMA flow diagram](https://www.prisma-statement.org/prisma-2020-flow-diagram) is a good model: counts at each stage, with reasons for exclusions.
 
-That result does not establish that Brand A is preferred by all nonprofit buyers. It describes this prompt panel, runtime, and coding scheme. A rerun with changed prompts or model settings is a new observation that may still be useful, provided the change is disclosed.
+![Hands holding an inspection checklist on a clipboard, like a row-by-row exclusion log.](https://images.pexels.com/photos/8293635/pexels-photo-8293635.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-## Limitations: what the data cannot support
+Automate the checks. The CSV validator checks seven columns, unique run IDs, strict booleans and blank measured fields on unavailable rows. The SQL kit reports two citation rates, over all available answers and over cited answers only, each with its denominator.
 
-An audit is an observation instrument, not a crystal ball. Unless the design includes additional evidence, it cannot support claims about total market share, every user’s experience, organic traffic, revenue, conversion rate, causal lift from a content change, or the intrinsic truth of an answer. It also cannot make different engines directly comparable when their interfaces expose different retrieval, personalization, or citation behavior.
+## How do you version an audit so comparisons stay valid?
 
-Be especially cautious with rankings. A visible “first” recommendation may be generated from a short list, while another answer may use prose with no rank at all. Treat “unranked” as missing or not applicable, not as last place. Document ties, duplicate brands, ambiguous aliases, and unavailable responses rather than forcing them into neat numbers.
+Treat any change to prompts, eligibility, codes, surface or metric formula as a new version, and say whether old and new numbers compare. [Semantic Versioning](https://semver.org/spec/v2.0.0.html) supplies a useful vocabulary (patch, minor, major) and one rule worth stealing: released contents must not be modified, only superseded.
 
-## FAQs
+| Change | Comparable? | Treatment |
+|---|---|---|
+| Typo fix or new nullable field | Yes | Patch or minor release, no recompute |
+| Prompt wording, order, locale, eligibility | No by default | Split the series or run an overlap bridge |
+| New engine surface or metric formula | No | New metric ID; report both |
 
-### Is there one correct AI visibility score?
+An engine or index update is an external event, not a method change: log the date and model label, flag drift, and do not bump your version. [Zenodo advises](https://zenodo.org/help/versioning) citing the version DOI for reproducibility, not the concept DOI.
 
-No. Scores depend on the question set, labels, engines, weighting, and time. Publish the protocol so readers can interpret the number and, where possible, reproduce the underlying observations.
+## What should the published report include?
 
-### Should prompts be identical across engines?
+Publish enough that a stranger can rebuild your denominators and see what you did not claim. Open with a disclosure block: question; scope; prompts per stratum with a hash; runtime (engine, surface, model label, locale, account, timestamps); capture policy; codes and reviewers; n/N, exclusions, uncertainty; versions; limits.
 
-Usually yes for a controlled comparison, with the exact text preserved. If an interface requires adaptations, log each adaptation and avoid treating adapted runs as perfectly equivalent.
+Package the evidence: README, protocol, prompts, environment record, raw answers, source captures, codebook, adjudication log, code, checksums, licenses, changelog. Keep raw and derived files apart; a checksum detects change, not truth, and a live rerun is a new observation. Add a dataset card in the spirit of [Datasheets for Datasets](https://arxiv.org/abs/1803.09010): motivation, composition, collection and recommended uses, with collection date separate from publication date.
 
-### How should teams handle model updates?
+Claim only what the design supports: "this answer displayed this URL at 14:05 UTC" is an observation; "engines prefer this brand" is not. Grade evidence claim by claim, from direct observation down to anecdote, not by publisher prestige. The [GEO paper](https://arxiv.org/abs/2311.09735) reports visibility boosts of up to 40% in generative engine responses on its own benchmark; that is a result for that setup, not a rate your brand will see.
 
-Record the exposed model/version and date, freeze a comparable panel, and start a new version when the runtime changes materially. Interpret breaks in the time series as possible measurement discontinuities.
+Our [recommendation benchmark](/resources/aeoeye-recommendation-benchmark-2026-09.json) shows the pattern: 127 audits, 892 answers, 157 brand mentions (17.6%), three internal rows excluded, a stated snapshot window and a warning that engine samples are unequal. Its write-up is on the [measurement hub](/blog/ai-brand-recommendation-measurement); [citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics) covers the citation side.
 
-### Where does AEOeye fit?
+## What is the minimum viable audit for a small team?
 
-AEOeye can provide a practical starting point for an AI visibility audit, but its operational choices are AEOeye’s choices. Use the [published AEOeye methodology](https://aeoeye.com/blog/ai-visibility-score-methodology) as a named implementation example, then disclose your own scope and codebook.
+Run a descriptive audit you can defend: a small frozen panel, plain logging, honest wording. It shows whether you are absent, not whether a five-point change is real.
 
-If you want a baseline before designing a larger study, [run a free AEOeye audit](/#audit) and keep the prompt, date, and engine context alongside your own research log.
+1. Write 12 to 20 unbranded buyer questions from real customer language.
+2. Pick the engines your buyers use; test signed out, in one locale, at the default tier, and log the model label.
+3. Run each prompt three times in fresh chats on one day, logging time, prompt, full answer and links.
+4. Have two people code every answer, then compute raw agreement and kappa.
+5. Report n/N with exclusions as "descriptive", and rerun the same panel after four weeks.
+
+For a quick baseline, our [free audit](/) asks three unbranded buyer questions to ChatGPT live and shows the answers in full; the $29 report covers 10 questions across five engines. For daily monitoring across hundreds of prompts, dedicated trackers such as Profound, Peec AI or Otterly fit better. See also [measuring AI visibility](/blog/measuring-ai-visibility) and the [AEO audit checklist](/blog/aeo-audit-checklist).

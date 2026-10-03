@@ -1,0 +1,132 @@
+{
+  "contentSha256": "0fcd65052014f788a8428b2025863049049dd21eed4eef2c46d7333ceeabdbfa",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A founder or marketer keeps hearing that AI answers and ChatGPT are killing SEO or replacing Google, and needs to know whether to keep investing in SEO, what is actually shrinking, and what to change.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand; this page explains how that second scoreboard relates to classic SEO, using AEOeye's own crawler access study, audit records and content consolidation."
+  },
+  "assessment": "Consolidates four overlapping pages (does AI search replace SEO, is Google dying, will ChatGPT replace Google, future of search) into one answer: SEO is not dead, click-collecting 'lazy SEO' is shrinking, and being named in AI answers is a second scoreboard that still runs on SEO fundamentals. It rests on Google's own dated statements and documentation, OpenAI's stated user count (via TechCrunch), Pew, Ahrefs, Semrush, Gartner and NBER data, and AEOeye's crawler study and audit records. It deliberately does not claim that total Google query volume is independently verified, that being cited drives clicks, or any precise date for agentic search; the ChatGPT-versus-Google scale comparison is labelled as our own order-of-magnitude arithmetic with its caveats.",
+  "sources": [
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew (22 Jul 2025): 900 U.S. adults, March 2025; traditional-result clicks in 8% of visits with an AI summary vs 15% without; 1% click a link inside the summary; summaries on 60% of who/what/when/why searches and 8% of one- or two-word searches."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central (last updated 2025-12-10): no additional requirements for AI Overviews or AI Mode beyond being indexed and snippet-eligible; AI-feature traffic is counted in the Web search type in Search Console with no separate AI report described."
+    },
+    {
+      "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+      "checkedAt": "2026-10-03",
+      "supports": "Sundar Pichai, 22 Jul 2026: new AI experiences driving growth in queries; Search usage at an all-time high during the World Cup; agents, personal intelligence and notebooks being added to Search."
+    },
+    {
+      "url": "https://techcrunch.com/2026/09/29/openais-latest-features-take-direct-aim-at-the-app-store-model/",
+      "checkedAt": "2026-10-03",
+      "supports": "TechCrunch, 29 Sep 2026: OpenAI says ChatGPT now has 1.2 billion weekly users; Dots are agentic assistants and each Dot has its own cloud computer and browser."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs: an AI Overview correlates with a 58% lower average click-through rate for the top-ranking page; 300,000 keywords, aggregated Search Console data, December 2023 vs December 2025."
+    },
+    {
+      "url": "https://www.nber.org/papers/w34255",
+      "checkedAt": "2026-10-03",
+      "supports": "NBER working paper 34255 (Sep 2025): 18 billion messages a week from 700 million users in July 2025; about 49% of messages are 'Asking'; 'Seeking Information' grew from 14% to 24% of usage in a year and appears to be a close substitute for web search."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Search_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of search engine optimization used on first mention."
+    },
+    {
+      "url": "https://sparktoro.com/blog/2024-zero-click-search-study-for-every-1000-us-google-searches-only-374-clicks-go-to-the-open-web-in-the-eu-its-360/",
+      "checkedAt": "2026-10-03",
+      "supports": "SparkToro (2 Jul 2024, Datos clickstream): 58.5% of U.S. Google searches ended with zero clicks."
+    },
+    {
+      "url": "https://blog.google/products/ads-commerce/ai-personalization-and-the-future-of-shopping/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google (3 Mar 2025): more than 5 trillion searches on Google annually (Google internal data, Jan 2025); used for the 96 billion a week arithmetic."
+    },
+    {
+      "url": "https://gs.statcounter.com/search-engine-market-share",
+      "checkedAt": "2026-10-03",
+      "supports": "StatCounter, worldwide, all platforms, September 2026: Google 89.94%."
+    },
+    {
+      "url": "https://gs.statcounter.com/faq",
+      "checkedAt": "2026-10-03",
+      "supports": "StatCounter methodology: it counts search-engine referrals to sites carrying its tracking code, not searches, so searches that end without a click are not captured."
+    },
+    {
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2024-02-19-gartner-predicts-search-engine-volume-will-drop-25-percent-by-2026-due-to-ai-chatbots-and-other-virtual-agents",
+      "checkedAt": "2026-10-03",
+      "supports": "Gartner (19 Feb 2024, Alan Antin): by 2026 traditional search engine volume will drop 25%. Canonical URL returned HTTP 403 to the fetch tool; text read on Gartner's mirror host at the same path."
+    },
+    {
+      "url": "https://www.gartner.com/en/newsroom/press-releases/gartner-survey-finds-only-one-third-of-consumers-say-genai-rivals-search-engines-marketers-must-optimize-for-both-ai-driven-and-traditional-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Gartner (20 Jan 2026): survey of 377 U.S. consumers, June-July 2025; only about one-third believe GenAI chatbots are as effective as search engines for learning new information. Canonical URL returned HTTP 403 to the fetch tool; text read on Gartner's mirror host at the same path."
+    },
+    {
+      "url": "https://www.semrush.com/blog/chatgpt-search-insights/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush (7 Apr 2026, U.S. clickstream panel): over 21% of ChatGPT's referral traffic goes to Google by early 2026; ChatGPT enabled web search on 34.5% of queries in February 2026."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-search-overlap/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs (11 Aug 2025): across 15,000 prompts, on average only 12% of links cited by ChatGPT, Gemini and Copilot appear in Google's top 10 for the same prompt; assistants use query fan-out."
+    },
+    {
+      "url": "https://blog.google/products/search/ai-search-driving-more-queries-higher-quality-clicks/",
+      "checkedAt": "2026-10-03",
+      "supports": "Google, Liz Reid (6 Aug 2025): total organic click volume to websites relatively stable year over year, with traffic shifting between sites; people increasingly clicking sites with forums, videos, podcasts and posts with first-hand perspectives."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler documentation (permanent redirect of platform.openai.com/docs/bots): OAI-SearchBot surfaces sites in ChatGPT search; sites opted out of OAI-SearchBot will not be shown in ChatGPT search answers."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): citations, quotations and statistics can boost source visibility by up to 40% in generative engine responses; keyword stuffing gave little to no improvement."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Generative engine optimization is also known as answer engine optimization (AEO); used as the first-use definition of AEO."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/AI_agent",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition: an AI agent pursues goals, uses software or other tools, and takes actions with some autonomy; used for the agentic-search sentence."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): opened every cited external URL with WebFetch on 2026-10-03 and kept only what the page states. Exceptions handled openly: both Gartner press-release URLs and OpenAI's own announcement pages returned HTTP 403, so the Gartner text was read on Gartner's mirror host (same paths) and OpenAI's stated 1.2 billion weekly users is cited via TechCrunch's 29 Sep 2026 DevDay report, cross-checked against Engadget's live blog and Yahoo Finance.",
+    "Writer (Sonnet): replaced two sources reused by the merged pages that now return HTTP 404 (Ahrefs ai-chatbot-citations-vs-google-rankings and Seer Interactive ctr-aios): the 12% citation-overlap figure is re-sourced to ahrefs.com/blog/ai-search-overlap and the Seer numbers were dropped. Also left out merged-page claims with no primary source (default-search deals, ad-revenue strength, local and shopping dominance, the 'reddit' query habit).",
+    "Writer (Sonnet): recomputed the crawler-study figures from public/resources/ai-crawler-access-study-2026-10.csv: Googlebot is blocked by 1 of 384 sites (reddit.com, blanket Disallow); 0 of 38 publishers block Googlebot while 27 of 38 block at least one AI retrieval bot; GPTBot 35/384 (9.1%) and OAI-SearchBot 16/384 (4.2%); and the page states the sample, one-day and robots.txt-is-a-request limits.",
+    "Writer (Sonnet): read the NBER paper PDF (pages 1-14) for the 18 billion messages a week, 700 million users, 49% 'Asking' and 14% to 24% 'Seeking Information' figures, then recomputed the scale check: 18B x 49% = 8.82B a week; 5 trillion / 52 = 96.2B a week, so 9.2%; scaled by 1.2B / 0.7B user growth, 15.7%. The page labels it our arithmetic and says messages are not searches and the dates differ.",
+    "Writer (Sonnet): read the GEO paper tables and text to confirm that keyword stuffing gave little to no improvement and that the 'up to 40%' result refers to adding citations, quotations and statistics; the page repeats only the paper's own claims, not a general effect size.",
+    "Writer (Sonnet): checked the benchmark JSON caveats: 134 of the 147 ranked mentions come from Claude answers, so the 71.4% first-place share is presented as a snapshot of 127 self-selected audits, not a benchmark or per-engine comparison.",
+    "Writer (Sonnet): ran scripts/content-lint.mjs on the page (internal links all exist, no retired URLs, word count within the limit) and dropped the retired /blog/chatgpt-vs-google, /blog/search-engine-market-share, /blog/generative-search and /blog/conversational-search links that the merged pages used.",
+    "Editor (Opus): read the complete final draft (opening, six H2 sections incl. the 'two front doors' arithmetic and the four-stage table, five FAQs) and confirmed answer-first openings, the stance ('SEO isn't dead; lazy SEO is') and that the scale arithmetic and the future-of-search section are labelled as our arithmetic/opinion",
+    "Editor (Opus): re-checked all 20 external URLs on 2026-10-03: 18 reachable; the two Gartner press releases return 403 to scripts, so I verified both on Gartner's own host (gcom.pdo.aws.gartner.com, same paths): the 25%-by-2026 prediction (Feb 2024) and the 377-consumer June–July 2025 survey ('only about one-third…as effective as search engines', released Jan 20 2026)",
+    "Editor (Opus): independently verified the newest figure on TechCrunch (2026-09-29): OpenAI says ChatGPT 'now has 1.2 billion weekly users'; Dots described as agents with their own cloud computer and browser",
+    "Editor (Opus): matched first-hand figures to the evidence pack (only Reddit blocks Googlebot; 9.1% / 4.2% block GPTBot / OAI-SearchBot; 0 of 38 publishers block Googlebot, 27 block ≥1 retrieval bot; 16% of 375 homepages challenged; 71.4% of 147 with caveat) and corrected the consolidation figure myself to '165 pages into 42'; content-lint clean"
+  ],
+  "merged": [
+    "/answers/does-ai-search-replace-seo",
+    "/blog/is-google-dying",
+    "/blog/will-chatgpt-replace-google",
+    "/blog/future-of-search"
+  ]
+}

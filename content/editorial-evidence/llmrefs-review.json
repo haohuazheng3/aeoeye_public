@@ -1,0 +1,58 @@
+{
+  "contentSha256": "875b78631f9d25138ecb3eb3b1ac4eeb9eb9a711c7e33fac4dd0d9939463f25a",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "A buyer wants to know whether LLMrefs is worth paying for, what its free plan really includes, whether the single $79 per month plan fits, and whether it shows the actual AI answers.",
+    "connection": "AEOeye audits whether AI engines recommend a brand; this page helps buyers decide between a keyword-level tracker and first reading real answers, using only public documentation."
+  },
+  "assessment": "The page is documentation-based and says so near the top. It reports what LLMrefs publishes on its pricing card, FAQ and product pages (one $79 per month plan, 500 prompts, weekly refresh, 7-day trial, 'Limited time only' label), states plainly that the free plan limits are not published, flags LLMrefs' own pages disagreeing on refresh cadence, and treats the 2/5 data-accuracy rating as one dated opinion from a competing agency. It does not claim hands-on testing, does not state a free-plan keyword limit as fact, and does not repeat the earlier Enterprise tier or daily-refresh claims that no current LLMrefs page supports.",
+  "sources": [
+    {
+      "url": "https://llmrefs.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pricing card ($79/month, 500 prompts, 7-day trial, 'Limited time only', weekly reports, unlimited seats/projects, CSV/API, extras), FAQ (engines, at-least-weekly refresh, 'more than 50 keywords' upgrade), keywords-not-prompts approach, non-determinism remark, Rankings/Prompts/Sources mockup, London address in JSON-LD"
+    },
+    {
+      "url": "https://llmrefs.com/ai-search-visibility",
+      "checkedAt": "2026-10-03",
+      "supports": "LLMrefs page stating it generates and runs prompts daily, contradicting the weekly cadence on the pricing card"
+    },
+    {
+      "url": "https://llmrefs.com/blog/best-ai-seo-tools",
+      "checkedAt": "2026-10-03",
+      "supports": "LLMrefs' own comparison table listing 'Free plan; Pro $79/mo for 50 keywords' with no free-plan limits"
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly.ai Lite $29/month (15 prompts) and Standard $189/month (100 prompts), four engines on every plan with Claude, AI Mode and Gemini as add-ons, daily tracking"
+    },
+    {
+      "url": "https://generatemore.ai/blog/my-llmrefs-ai-search-visibility-review",
+      "checkedAt": "2026-10-03",
+      "supports": "Dated (November 2025) hands-on opinion from an AI SEO agency: data accuracy 2/5, keyword-level reporting hides which prompt triggered a mention, domain citations reliably flagged versus manual checks"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Share_of_voice",
+      "checkedAt": "2026-10-03",
+      "supports": "Share of voice defined in advertising as a company's share of total category spend"
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched llmrefs.com and its raw HTML with curl on 2026-10-03 and copied pricing, FAQ and engine wording only from that raw text; discarded a WebFetch summary that listed '8 engines' because the raw page did not say it",
+    "Writer (Sonnet): confirmed the pricing page publishes no free-plan limits and that the old '1 keyword free plan' claim appears only on third-party directories, so the page marks it unconfirmed",
+    "Writer (Sonnet): compared LLMrefs' weekly claim (pricing card, FAQ) with its AI Search Visibility page (daily) and reported the conflict instead of choosing one",
+    "Writer (Sonnet): re-fetched otterly.ai/pricing with curl and recomputed price per prompt: 79/500 = 0.158, 29/15 = 1.93, 189/100 = 1.89",
+    "Writer (Sonnet): confirmed llmrefs.com robots.txt (disallows /account, /dashboard, /api only), llms.txt present, and served-HTML JSON-LD types against the vendor-sites study row",
+    "Editor (Opus): read the opening, pricing/plan tables and verdict sections in full; confirmed the documentation-based disclosure near the top, dated vendor prices taken from the vendor's own live pages, and conflicting or unconfirmed vendor terms stated as unverified",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): confirmed the vendor figures are consistent with the other vendor pages verified in this release (docs/content/vendor-sites-study-2026-10.md pricing notes), the neutral vendor-site fact box matches the study CSV, and AEOeye product claims match the product facts (free ChatGPT check; one-time $29 report; not a tracker)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/llmrefs-free-plan-limits-and-is-79-worth-it",
+    "/answers/does-llmrefs-show-the-actual-ai-answer"
+  ]
+}

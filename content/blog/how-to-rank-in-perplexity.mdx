@@ -1,75 +1,93 @@
 ---
-title: "How to Rank in Perplexity (2026): A Practical Playbook"
-description: "Perplexity shows its sources, making its citation logic reverse-engineerable. Here's the step-by-step playbook to get cited instead of a competitor."
-date: "2026-07-10"
+title: "How to Rank in Perplexity: 7 Steps to Get Cited (2026)"
+description: "Perplexity cites pages it can fetch, quote and verify. Allow PerplexityBot, lead every section with the answer, date your pages and earn independent mentions."
+date: "2026-10-03"
+published: "2026-07-10"
 category: "AI Search"
 readingTime: "6 min read"
-keywords: ["how to rank in perplexity", "how to rank on perplexity ai", "perplexity seo", "get cited by perplexity", "perplexity ai citations", "perplexity ranking factors", "answer engine optimization", "ai search visibility", "perplexity vs google seo", "structured data for ai search"]
-faqs: [{"q": "Does Perplexity use Google?", "a": "Perplexity does not rely on Google's index — it runs its own web crawling and retrieval process, independent of Google's ranking algorithm. That's why a page can rank on page one of Google and still go completely uncited in Perplexity, or vice versa."}, {"q": "How do I get cited by Perplexity?", "a": "Write answer-first content that resolves the query in the opening sentences, structure passages so they're extractable on their own, and earn mentions from sources Perplexity already treats as trustworthy. Keeping facts current and adding schema markup also help, since Perplexity retrieves live and favors passages it can parse with confidence."}, {"q": "Does Perplexity have SEO?", "a": "Yes, in the sense that visibility can be influenced, but it isn't classic SEO — there's no keyword density or backlink count to game in the traditional sense. What matters is whether your content is the clearest, most current, most extractable answer to a specific question at the moment Perplexity searches."}, {"q": "How often does Perplexity update its sources?", "a": "Perplexity searches the live web at query time rather than relying on a static, periodically refreshed index, so the sources it surfaces can change as soon as new or updated pages get published. That makes freshness an ongoing lever, not a one-time optimization you can check off."}]
-image: {"url": "https://images.pexels.com/photos/5537527/pexels-photo-5537527.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Three people gathered around a laptop reading search results together.", "photographer": "Zen Chung", "photographerUrl": "https://www.pexels.com/@zen-chung"}
-sources: [{"label": "Perplexity Hub — How does Perplexity work? (FAQ)", "url": "https://www.perplexity.ai/hub/faq/how-does-perplexity-work"}, {"label": "Perplexity API Documentation", "url": "https://docs.perplexity.ai"}]
+keywords: ["how to rank in perplexity", "perplexity seo", "get cited by perplexity", "perplexity ai citations", "can you do seo for perplexity", "how does perplexity work", "perplexitybot", "perplexity vs google seo"]
+faqs: [{"q": "Does Perplexity use Google?", "a": "Perplexity runs its own crawler, PerplexityBot, to surface sites in its search results, according to its documentation. It does not publish a full list of data sources, so we cannot say whether other providers also feed it. A Google ranking is not documented as a prerequisite; being fetchable by PerplexityBot is the part you control."}, {"q": "Does Perplexity respect robots.txt?", "a": "PerplexityBot is the search crawler, and Perplexity recommends allowing it. Perplexity-User, which fetches pages when a person's question needs them, generally ignores robots.txt, per Perplexity's docs. A March 2025 Tow Center test also found Perplexity answering from a publisher that had blocked it, so treat robots.txt as a request, not a lock."}, {"q": "How long until a new page gets cited by Perplexity?", "a": "Perplexity publishes no crawl schedule, so there is no guaranteed lag. Its docs say robots.txt changes can take up to 24 hours to apply. Ask the exact buyer question a few days after publishing and look for your URL in the sources; if it is missing, check bot access and whether the answer sits in the raw HTML."}, {"q": "Do backlinks help you get cited by Perplexity?", "a": "We found no primary source that measures backlinks against Perplexity citations, so we will not quote a number. What research does show is that AI search leans on independent, third-party coverage. Mentions in reviews, comparisons and articles matter; a link inside them is a bonus rather than the goal."}, {"q": "Does Perplexity read llms.txt?", "a": "Perplexity's crawler guide does not say PerplexityBot reads llms.txt; the file appears there only as an index of Perplexity's own docs. We publish one on aeoeye.com because it is cheap, but we have not seen it move citations. Spend the time on crawl access and answer-first pages instead."}]
+image: {"url": "https://images.pexels.com/photos/8045884/pexels-photo-8045884.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Close-up of wooden shelves packed with colorful books in a bright library", "photographer": "Erik Mclean", "photographerUrl": "https://www.pexels.com/@introspectivedsgn"}
+sources: [{"label": "Perplexity Docs — Perplexity crawlers (PerplexityBot and Perplexity-User)", "url": "https://docs.perplexity.ai/guides/bots"}, {"label": "Perplexity Docs — Web search tool (results, snippets, citations)", "url": "https://docs.perplexity.ai/docs/agent-api/tools/web-search.md"}, {"label": "Aggarwal et al. — GEO: Generative Engine Optimization (arXiv, KDD 2024)", "url": "https://arxiv.org/abs/2311.09735"}, {"label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (arXiv, 2025)", "url": "https://arxiv.org/abs/2509.08919"}, {"label": "Vercel — The rise of the AI crawler (December 2024)", "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler"}, {"label": "Columbia Journalism Review, Tow Center — We compared eight AI search engines (March 2025)", "url": "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php"}]
 ---
 
-You typed the exact question your product answers into Perplexity, hit enter, and watched it confidently cite a competitor, a Reddit thread, or a five-year-old blog post — anyone but you. That's not bad luck. Perplexity shows its work, which means you can see exactly why it picked someone else, and change that.
+To get cited by Perplexity, let PerplexityBot fetch your pages, open every section with a direct and checkable answer, keep the page dated and current, and earn mentions on independent sites Perplexity already reads. Perplexity publishes no ranking formula. This guide rests on its public documentation (as of October 2026), two research papers and our own crawler study, and it flags every inference as ours.
 
-## How does Perplexity decide what to cite?
+## How does Perplexity choose what to cite?
 
-Perplexity retrieves live web sources that directly answer the query, then cites the specific passages it judges most relevant, current, and trustworthy. Ranking in Perplexity means being the clearest, most citable answer on the open web — not gaming a fixed position, and it's worth understanding that difference before you optimize anything.
+Perplexity searches the web to answer a question, pulls query-relevant passages from the pages it finds, and writes an answer with numbered citations to those pages. It does not publish how it ranks sources, so anyone quoting exact ranking weights is guessing.
 
-A traditional search engine returns a ranked list of links and lets you click through. Perplexity acts more like a research assistant: it runs real-time searches, reads several pages, and synthesizes an answer with inline citations pointing back to the sources it actually used. There's no static "page one" to chase — every answer is assembled fresh, from whatever the retrieval step turns up at that moment.
+Perplexity's [web search tool documentation](https://docs.perplexity.ai/docs/agent-api/tools/web-search.md) shows the ingredients. Each result carries a URL, title, snippet, publication date and last-updated date, and answers cite results with markers like [1][2]. This is [retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation): the model retrieves outside information and can include sources so readers can verify them.
 
-There's another wrinkle worth knowing: Perplexity commonly draws on several sources for a single answer, not just one, and it tends to favor pages that agree with each other on the core facts. A page that contradicts the emerging consensus — even if it's your own product documentation — can get quietly deprioritized in favor of sources that corroborate one another. Consistency across the web, not just on your own site, is part of what gets you cited.
+One buyer question can also fan out. LangChain's undated case study says Perplexity's Pro Search [plans steps and generates search queries for each step](https://www.langchain.com/breakoutagents/perplexity). Your page may be retrieved for a sub-question, such as price or alternatives, rather than the headline one.
 
-That's also the opportunity. Google's ranking factors are famously opaque, refined across two decades and hundreds of undisclosed signals. Perplexity's citation behavior is younger and, because every answer displays its sources, genuinely observable — ask it the same question several times, note what keeps showing up, and you're looking directly at its preferences instead of guessing at a black box.
+Two bots do two jobs, per [Perplexity's crawler guide](https://docs.perplexity.ai/guides/bots):
 
-Perplexity's own help documentation describes prioritizing sources that are directly on-topic, recently published or updated, and structured so the relevant fact is easy to isolate from the rest of the page. That last point — extractability — is where most content still falls short: it's written for a human skimming top to bottom, not for a system pulling one paragraph out of context.
+- **PerplexityBot** surfaces and links sites in Perplexity search results. It is not used to crawl content for AI foundation models, and Perplexity recommends allowing it.
+- **Perplexity-User** fetches a page when a user's question needs it. Because a person asked, it generally ignores robots.txt.
 
-Picture two competing pages that both answer "what's the best AEO tool for startups." One states the answer in the first sentence, backs it with specifics, and reads correctly even if only that sentence gets lifted. The other opens with a company history and gets to the point three paragraphs down. Perplexity doesn't have the patience the second page assumes it has.
+## Can you do SEO for Perplexity?
 
-## The Perplexity ranking playbook (step-by-step)
+Yes, but it is two jobs rather than one ranking. First you must be fetched and retrieved, which is classic technical SEO. Then you must be quoted, which depends on whether a single passage answers the question on its own. There is no position to climb; every answer is assembled fresh.
 
-Earning Perplexity citations comes down to five habits: write answer-shaped content, keep passages extractable on their own, earn mentions from sources it already trusts, keep facts current, and add markup that removes ambiguity. Get these roughly right, in that order of impact, and citations follow.
+Most "Perplexity SEO" advice is Google advice with a new name. The one Google habit with measured downside is keyword stuffing: in the GEO paper's Perplexity.ai test it scored about 10% below unoptimized content. Crawl access and answer quality matter far more than keyword density.
 
-1. **Write answer-shaped content.** Open each section with the direct answer in one or two sentences before the explanation, caveats, or backstory. Perplexity's retrieval favors passages that resolve a query on their own; a paragraph that buries the answer under three sentences of throat-clearing is easy to skip in favor of a competitor who leads with it. A useful test: read only the first sentence of each section, and if it doesn't answer the heading, rewrite it before touching anything else.
+## What gets cited, and what doesn't?
 
-2. **Make every passage extractable on its own.** Perplexity doesn't necessarily cite your best page — it cites your best paragraph. Break content into self-contained chunks: one claim per section, specific enough to read correctly even lifted out of context. Short paragraphs, labeled lists, and concrete numbers beat long, meandering prose. If you can't summarize a paragraph's claim in a single sentence, it's probably trying to say too much.
+Pages get cited when Perplexity can fetch them, one passage answers the question outright, and independent sources agree. The research below is thin and mostly lab-based, so treat it as direction, not a ranking formula.
 
-3. **Earn mentions from sources Perplexity already trusts.** Citations compound. If review sites, industry publications, or comparison pages you don't control already describe your product accurately, Perplexity is more likely to encounter and trust your name when it searches. Unprompted mentions carry more weight than anything you self-publish, because Perplexity can treat them as independent confirmation. This is closer to digital PR than link building — see [how AI assistants choose which brands to recommend](/blog/how-ai-assistants-choose-brands) for how that trust actually forms.
+- **Quotes and statistics help; stuffing hurts.** The [GEO paper](https://arxiv.org/abs/2311.09735) (KDD 2024) tested methods on Perplexity.ai with 200 queries. It reports gains of up to 22% on position-adjusted word count (Quotation Addition) and 37% on subjective impression (Statistics Addition). Caveat: source text was uploaded as files, so it shows how prominent a retrieved page becomes, not how to get retrieved.
+- **Independent mentions outweigh your own pages.** A 2025 [study of AI search against Google](https://arxiv.org/abs/2509.08919) reports "a systematic and overwhelming bias towards Earned media" over brand-owned and social content. Its largest experiment used a web-enabled GPT, so read it as direction for AI search, not a Perplexity measurement.
+- **Pages a crawler cannot read cannot be cited.** [Vercel's December 2024 analysis](https://vercel.com/blog/the-rise-of-the-ai-crawler) found PerplexityBot among AI crawlers that do not render JavaScript. That is almost two years old, so verify your own pages.
 
-4. **Keep facts current.** Because Perplexity searches live, freshness is a real ranking lever, not a minor tiebreaker. Outdated pricing, deprecated features, or stale statistics get quietly passed over for a source updated more recently. A stale help-center page is often costing you citations you don't even know you're losing. Revisit your highest-intent pages on a schedule, not just when the site happens to get relaunched.
+Now our data. In [AEOeye's crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (October 2026, 384 sites with a usable robots.txt, a convenience sample), PerplexityBot was blocked by 26 of 38 news publishers (68.4%), 4 of 20 UGC and review sites, 4 of 90 e-commerce brands and 1 of 193 SaaS sites. Perplexity-User was blocked by 20 of 38 publishers and no SaaS site. Our inference, not a measurement: if Perplexity honors those blocks, a brand that stays open competes against fewer big publishers for retrieved slots.
 
-5. **Add structured data.** Schema markup won't force a citation by itself, but it removes ambiguity about what your page is, who published it, and when — which matters when a system has to decide, in milliseconds, whether a passage is trustworthy enough to quote. Treat schema as a clarity tool, not a magic switch: it helps confirm what your content already claims. Our breakdown of [structured data for AI search](/blog/structured-data-for-ai) covers which schema types are worth prioritizing first.
+Two limits apply. [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html) says robots rules "are not a form of access authorization", and the [Tow Center's March 2025 test](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php) found Perplexity's free version identified all ten excerpts from paywalled National Geographic articles despite a block. A block is a request. Our [AI crawler directory](/blog/ai-crawler-user-agent-directory) lists every bot's user-agent and purpose.
 
-If your page already answers the question clearly and still isn't getting cited, the condensed checklist version of this is [how to get cited by Perplexity](/answers/how-to-get-cited-by-perplexity) — this article is the full playbook behind it.
+![A black magnifying glass resting on an open textbook page of printed equations](https://images.pexels.com/photos/4494641/pexels-photo-4494641.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-![Silhouette of a person working from home on a computer, highlighting focused research.](https://images.pexels.com/photos/3059661/pexels-photo-3059661.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+## How do you get cited by Perplexity?
 
-## Perplexity vs Google SEO: what's different
+Work through seven steps in order, because the first two decide whether the rest matter. Each step names the action, the reason, and how to verify it.
 
-Perplexity rewards the same underlying signals as Google Search — relevance, authority, freshness — but applies them to individual passages in real time instead of whole pages ranked in advance. That single shift changes what "optimized" content actually looks like, and why some Google-friendly pages still go uncited.
+1. **Let PerplexityBot in.** Allow `PerplexityBot` in robots.txt. In your WAF or CDN, combine its user-agent with the IP ranges Perplexity publishes, as its guide advises, and allow up to 24 hours for changes. aeoeye.com explicitly allows PerplexityBot. In our study 60 of 375 homepages (24 of 88 e-commerce sites) challenged or blocked our self-identified research crawler, so check bot-protection logs too.
+2. **Put the answer in the raw HTML.** Open view-source, not Inspect, and search for your key sentence. If it is missing, render it on the server.
+3. **Open every section with the answer.** Perplexity's results return snippets relevant to the query, so write sections that survive being lifted out. Give a 40–60 word answer under a question-style heading, name your brand in that sentence instead of "it", and keep one claim per paragraph.
+4. **Attach a number, a quote and a source to each claim.** Specifics such as prices, limits and dates are what the GEO tests rewarded. Link the primary source.
+5. **Date pages honestly.** Perplexity's results include publication and last-updated dates, and its [filters](https://docs.perplexity.ai/docs/agent-api/filters) can select on both. Show a visible date and mirror it in markup: Google says visible and structured dates should [match](https://developers.google.com/search/docs/appearance/publication-dates), and schema.org defines [dateModified](https://schema.org/dateModified). Change the facts first, then the date. We found no Perplexity documentation of how freshness is weighted, and no documented use of schema.
+6. **Own one narrow question with one strong page.** The 2025 study reports a "big brand bias", so a niche brand wins by being the clearest answer to a specific question. Our view, not measured on Perplexity: one strong page per question beats five thin ones. We retired 234 of our own posts on 2026-09-24 and merged 165 duplicate-intent pages into 42 on 2026-10-03.
+7. **Earn mentions where Perplexity already looks.** Run your buyer questions, list the non-brand domains cited, and get accurate coverage there: reviews, comparisons, roundups, communities. You cannot buy a slot. Our guide on [getting recommended by AI](/blog/how-to-get-your-business-recommended-by-ai) covers the cross-engine version.
 
-None of this makes traditional SEO irrelevant — a page that ranks well in Google is usually well-structured enough to perform reasonably in Perplexity too. But optimizing only for page-level ranking factors, and ignoring passage-level extractability, leaves citations on the table.
+## How is Perplexity different from Google SEO?
 
-| Dimension | Google SEO | Perplexity |
+Both need a crawlable, relevant, clearly structured page. They differ in what you compete for: Google ranks links on a results page, while Perplexity picks passages to quote and cite inside one generated answer.
+
+| | Google Search | Perplexity |
 |---|---|---|
-| Unit of ranking | Whole page or URL | Individual passage or claim |
-| Timing | Pre-built index, refreshed periodically | Live retrieval at query time |
-| Output | Ranked list of ten links | Synthesized answer with inline citations |
-| Success signal | Position #1–10, click-through rate | Being quoted in the answer itself |
-| Content that wins | Comprehensive, keyword-covering pages | Self-contained, answer-first passages |
-| Authority signal | Backlinks, domain age | Being referenced by sources it already trusts |
-| Freshness weight | One factor among many | Directly tied to what live search surfaces |
+| You compete for | A position in a ranked list of links | A numbered citation inside an answer |
+| Crawler | Googlebot | PerplexityBot, plus Perplexity-User fetches |
+| Unit retrieved | A page | Query-relevant snippets |
+| robots.txt | Governs Googlebot | Governs PerplexityBot; Perplexity-User generally ignores it |
+| How you see results | Rank trackers, Search Console | Ask the question, read the sources |
 
-The practical takeaway: you can't keyword-stuff your way into a Perplexity citation, and you can't buy your way in either. It rewards the same discipline good answer-engine writing has always rewarded — clarity, structure, evidence — just applied at the paragraph level instead of the page level. If ChatGPT visibility is also on your list, the mechanics differ enough to be worth a separate pass; see [how to rank in ChatGPT](/guides/how-to-rank-in-chatgpt) for where the two engines diverge.
+If ChatGPT matters to you as well, its retrieval differs; see [ChatGPT SEO](/blog/chatgpt-seo) and our [Perplexity vs ChatGPT comparison](/compare/perplexity-vs-chatgpt-for-brand-visibility).
 
-## How to check if Perplexity cites you
+![A Samsung tablet on a wooden desk showing the Google search homepage beside a coffee cup](https://images.pexels.com/photos/106341/pexels-photo-106341.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-The only reliable way to know if Perplexity cites your brand is to ask it the questions your buyers actually ask, then see who gets named. Ranking position and organic traffic won't tell you anything here, because Perplexity reports neither.
+## How do you check whether Perplexity cites you?
 
-Run your product's core buying questions through Perplexity yourself, across a few different phrasings, and note whether you show up, who shows up instead, and which of their pages gets quoted. Then look closely at what's different about the winning passage — is it more current, more specific, more clearly structured than yours?
+Ask Perplexity the questions your buyers ask and read the sources. Perplexity shows its citations, so a competitor's winning page is visible and you can compare it with yours.
 
-Treat this as a recurring check, not a one-time test. Perplexity's answers can shift as new sources get published or existing ones get updated, so a brand that's cited today isn't guaranteed to stay cited without upkeep — and a brand that's invisible today can earn its way in with the changes above.
+1. Write 10–15 unbranded buyer questions, such as "best invoicing software for freelancers".
+2. Run each two or three times on different days, because answers regenerate.
+3. Record whether your brand is named, whether your URL is cited, which domains appear, and who is recommended instead.
 
-That manual check gets tedious fast once you're tracking more than a handful of prompts across engines. AEOeye automates it: run a free audit and see, side by side, whether Perplexity — along with ChatGPT, Gemini, and Google AI — actually names your brand when buyers ask the questions that matter, and exactly who's getting cited in your place.
+Then diagnose what you see:
 
-[See if Perplexity names you today — free AEOeye audit.](/#audit)
+| What you see | Likely cause | Fix |
+|---|---|---|
+| Competitors cited, your domain never | Not fetched, or no direct answer | Steps 1 to 3 |
+| Your page cited, brand not named | The claim isn't tied to your name | Name the brand in the answer sentence |
+| Third-party roundups cited, you absent | Missing corroboration | Step 7 |
+
+AEOeye's free audit asks ChatGPT three buyer questions; the $29 one-time full report adds Perplexity and ten questions. It is a snapshot, not daily tracking. Run it from [the AEOeye homepage](/) or use the manual check above. For daily monitoring across hundreds of prompts, dedicated trackers such as Profound, Peec AI or Otterly are built for that.

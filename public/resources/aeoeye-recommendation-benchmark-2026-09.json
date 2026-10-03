@@ -1,0 +1,107 @@
+{
+ "dataset": "AEOeye AI brand recommendation benchmark \u2014 answer-level aggregates",
+ "snapshot": "Completed AEOeye audits created 2026-06-26 \u2192 2026-09-07 (no audits completed after 2026-09-07 at extraction time, 2026-10-03)",
+ "extractedAt": "2026-10-03",
+ "inclusion": "status = complete; excludes example / test / AEOeye / localhost rows (3 audits). Repeat audits of the same brand are kept. Brand names, domains, questions and answers are not published.",
+ "unit": "One answer = one AI engine answering one buyer-style question in one audit. 'Mentioned' = the engine's answer named the audited brand (judged by AEOeye's analysis model, then stored per answer).",
+ "audits": 127,
+ "distinctBrandNames": 27,
+ "distinctDomains": 36,
+ "fullReports": 14,
+ "answers": 892,
+ "mentions": 157,
+ "mentionRatePct": 17.6,
+ "rankedMentions": 147,
+ "avgRankWhenRanked": 1.54,
+ "firstPlaceShareOfRankedMentionsPct": 71.4,
+ "avgCompetitorsNamedPerAnswer": 2.93,
+ "engines": {
+  "claude": {
+   "answers": 509,
+   "mentions": 143,
+   "mentionRatePct": 28.1,
+   "rankedMentions": 134,
+   "avgRankWhenRanked": 1.56,
+   "firstPlaceShareOfRankedPct": 72.4,
+   "avgCompetitorsPerAnswer": 3.15,
+   "sentimentOfMentions": {
+    "positive": 133,
+    "neutral": 9,
+    "negative": 1
+   },
+   "usedSearchKnown": 20,
+   "usedSearchPct": 100
+  },
+  "chatgpt": {
+   "answers": 161,
+   "mentions": 8,
+   "mentionRatePct": 5,
+   "rankedMentions": 8,
+   "avgRankWhenRanked": 1.38,
+   "firstPlaceShareOfRankedPct": 62.5,
+   "avgCompetitorsPerAnswer": 3.17,
+   "sentimentOfMentions": {
+    "positive": 7,
+    "neutral": 1,
+    "negative": 0
+   },
+   "usedSearchKnown": 107,
+   "usedSearchPct": 100
+  },
+  "perplexity": {
+   "answers": 74,
+   "mentions": 3,
+   "mentionRatePct": 4.1,
+   "rankedMentions": 3,
+   "avgRankWhenRanked": 1.33,
+   "firstPlaceShareOfRankedPct": 66.7,
+   "avgCompetitorsPerAnswer": 3.08,
+   "sentimentOfMentions": {
+    "positive": 3,
+    "neutral": 0,
+    "negative": 0
+   },
+   "usedSearchKnown": 20,
+   "usedSearchPct": 100
+  },
+  "google_ai": {
+   "answers": 74,
+   "mentions": 1,
+   "mentionRatePct": 1.4,
+   "rankedMentions": 0,
+   "avgRankWhenRanked": null,
+   "firstPlaceShareOfRankedPct": null,
+   "avgCompetitorsPerAnswer": 1.93,
+   "sentimentOfMentions": {
+    "positive": 0,
+    "neutral": 1,
+    "negative": 0
+   },
+   "usedSearchKnown": 20,
+   "usedSearchPct": 100
+  },
+  "gemini": {
+   "answers": 74,
+   "mentions": 2,
+   "mentionRatePct": 2.7,
+   "rankedMentions": 2,
+   "avgRankWhenRanked": 1.5,
+   "firstPlaceShareOfRankedPct": 50,
+   "avgCompetitorsPerAnswer": 1.69,
+   "sentimentOfMentions": {
+    "positive": 1,
+    "neutral": 1,
+    "negative": 0
+   },
+   "usedSearchKnown": 20,
+   "usedSearchPct": 100
+  }
+ },
+ "caveats": [
+  "Self-selected sample: brands whose owners (or AEOeye) chose to run an audit; repeats included. Not a market estimate.",
+  "Engine samples are unequal and not comparable: until mid-2026 the free audit ran on Claude only, so Claude has 509 answers; the other engines mostly come from full reports and later free audits on different brands and questions.",
+  "Four of five engines have fewer than 10 mentions \u2014 their rates have very wide uncertainty.",
+  "usedSearch was only recorded for recent answers (see usedSearchKnown per engine)."
+ ],
+ "previousVersion": "The 2026-08-30 snapshot (108 audits, 838 answers, 18.7% mention rate) used the same inclusion rule on a shorter window."
+}

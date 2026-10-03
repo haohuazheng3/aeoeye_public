@@ -1,0 +1,107 @@
+{
+  "contentSha256": "730b3abf1091e74b6aaf8317a53fd1b2cd40de7f9e5b91835cec44c50038ee10",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "A founder or marketer who has heard about llms.txt needs to know what the file is, what it looks like, how it differs from robots.txt and sitemap.xml, whether any AI engine reads it, and whether their site should have one.",
+    "connection": "AEOeye audits whether AI engines recommend a brand; llms.txt is one of the crawler-facing files its audits and generator tool touch, and the page separates the file's real uses from the claim that it drives AI recommendations."
+  },
+  "assessment": "The page answers 'what is llms.txt' and 'should I add one' in its first two paragraphs, then defines the file from the v2 proposal (author, date, subpath placement, Markdown twins, link relations, llms-full.txt as a separate platform convention), shows an illustrative file for a fictional company, and compares it with robots.txt and sitemap.xml. It reports AEOeye's crawler access study adoption figures with their denominators and caveats next to a SIGCOMM CCR measurement and Ahrefs' May 2026 server-log study, and summarizes what Google, Chrome, OpenAI, Anthropic and Perplexity publish. It recommends adding the file only when it is cheap or coding agents are the audience. It deliberately does not claim that any AI search product reads or ignores the file beyond what vendor documentation and the cited logs show, does not quote per-engine citation effects, and does not claim AEOeye has measured fetches of its own llms.txt.",
+  "sources": [
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-03",
+      "supports": "v2 proposal by Jeremy Howard, published 3 September 2024, modified 10 August 2026: why the file exists, root or subpath placement with most specific file winning, Markdown twins, describedby and alternate link relations, H1 as the only required element, Optional section convention, sitemap and robots.txt comparison, most use is software documentation, integrations list (Mintlify, GitBook, Yoast SEO, AIOSEO, Wix), test-with-an-agent suggestion."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central guide (last updated 2026-07-10): no AI text files or Markdown needed to appear in Google Search including generative AI features, Google Search does not use them, creating llms.txt for other systems neither harms nor helps Search visibility. Text confirmed from the raw HTML as well as WebFetch."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "A page must be indexed and eligible to be shown with a snippet to be a supporting link in AI Overviews or AI Mode; no additional technical requirements."
+    },
+    {
+      "url": "https://developer.chrome.com/docs/lighthouse/agentic-browsing/llms-txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Lighthouse llms.txt audit (page updated 2026-05-05) in the agentic browsing audits: flags server errors, marked Not Applicable on 404 because the file is optional at the moment."
+    },
+    {
+      "url": "https://ahrefs.com/blog/llmstxt-study/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs study published 15 June 2026: 137,210 domains with May 2026 traffic in Ahrefs Web Analytics, 28% publish llms.txt (stated upper bound), 97% of those files received zero requests, 96% of requests that arrived were bots, AI retrieval bots about 1.1% of requests, GPTBot and Claude-Code top named AI fetchers, zero AI-bot requests for non-existent files, fetched does not mean read, prompt-injection probing, stale file risk, agents fetch it when linked or instructed."
+    },
+    {
+      "url": "https://hpi.de/en/article/paper-accepted-at-sigcomm-ccr/",
+      "checkedAt": "2026-10-03",
+      "supports": "Hasso Plattner Institute summary of Hoffmann, Goergens, Khosla and Bajpai, ACM SIGCOMM CCR 56(2), July 2026: about 4 million Tranco domains, llms.txt on about 49,600 versus about 1.53 million with robots.txt, nearly 19% of llms.txt files link to content blocked by robots.txt or ai.txt, adoption concentrated in tech and business. The ACM page itself returned HTTP 403, so the page cites the HPI summary only."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-03",
+      "supports": "RFC 9309 Robots Exclusion Protocol (September 2022, Standards Track); section 1.3 states the rules are not a form of access authorization."
+    },
+    {
+      "url": "https://www.sitemaps.org/protocol.html",
+      "checkedAt": "2026-10-03",
+      "supports": "Sitemap protocol lets site owners provide details about pages to search engines; each sitemap file has at most 50,000 URLs and 50 MB."
+    },
+    {
+      "url": "https://www.mintlify.com/docs/ai/llmstxt",
+      "checkedAt": "2026-10-03",
+      "supports": "Mintlify documentation: llms-full.txt combines an entire documentation site into a single file; both files are generated automatically."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI crawler documentation controls OAI-SearchBot and GPTBot through robots.txt, says sites opted out of OAI-SearchBot are not shown in ChatGPT search answers, and mentions llms.txt only as its own documentation index."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic support article (updated 7 April 2026) describes ClaudeBot, Claude-User and Claude-SearchBot, controlled through robots.txt, with no mention of llms.txt."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity crawler documentation covers PerplexityBot and Perplexity-User with robots.txt controls and does not mention llms.txt as a signal; its only llms.txt reference is its own documentation index."
+    },
+    {
+      "url": "https://developers.openai.com/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI publishes an llms.txt for its developer docs (a router to per-product llms.txt files with Markdown pages)."
+    },
+    {
+      "url": "https://platform.claude.com/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic publishes an llms.txt for its developer docs; docs.anthropic.com/llms.txt redirects here."
+    },
+    {
+      "url": "https://docs.perplexity.ai/llms.txt",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity publishes an llms.txt for its API documentation."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Markdown",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of Markdown as a lightweight markup language created by John Gruber in 2004."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each of the 16 external URLs cited in the page with WebFetch on 2026-10-03 and kept only claims the fetched text states; re-extracted the Google guide, llmstxt.org, Chrome Lighthouse, Ahrefs and HPI pages from raw HTML with curl to confirm exact wording and numbers, since the WebFetch summaries paraphrase.",
+    "Writer (Sonnet): confirmed that the OpenAI, Anthropic and Perplexity crawler pages do not discuss llms.txt as a signal (OpenAI and Perplexity only show their own documentation-index links), and confirmed with curl that the three vendors' llms.txt files return 200; the ACM paper page returned HTTP 403, so only the HPI summary is cited. Mueller's 2025 comments, the SE Ranking study and Lighthouse version numbers were checked but left out of the page.",
+    "Writer (Sonnet): recomputed the AEOeye figures from public/resources/ai-crawler-access-study-2026-10.csv (llms.txt 108/180, 33/70, 27/41, 1/29, 173/330; 24/88 e-commerce homepages challenged) and the robots.txt pointer figure from the evidence pack (28/384), and described the 'mention' definition and the valid-file test as the study script implements them.",
+    "Writer (Sonnet): confirmed in the repository that aeoeye.com/llms.txt is generated from the content index (app/llms.txt/route.ts) and that the live homepage carries no describedby link, then kept the page's AEOeye statements to what the evidence pack and that route support; dropped the old 15-40 link rule of thumb, the unsourced 'item 8 to 15' ranking and the retired /blog/llms-txt-checker, /blog/ai-crawler-list and /blog/how-to-optimize-for-ai-search links.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean) and confirmed the three Pexels image URLs return HTTP 200 image/jpeg and are not used elsewhere in content/.",
+    "Editor (Opus): reviewed the final draft: opening and every H2 opening for a direct answer, the example file and comparison table, the adoption section and our recommendation; the stance matches /blog/llms-txt-is-overrated",
+    "Editor (Opus): re-checked all external URLs on 2026-10-03: all real sources reachable; the four example.com 404s are placeholder links inside the illustrative llms.txt code block, not citations",
+    "Editor (Opus): matched adoption figures to the study CSV (173 of 330; 108/180 SaaS; 27/41 vendors; 33/70 e-commerce; 1/29 publishers; 28 of 384 robots.txt files mention llms.txt) and verified our own llms.txt is generated by app/llms.txt/route.ts",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/llms-txt-explained"
+  ]
+}

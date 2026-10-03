@@ -1,0 +1,145 @@
+---
+title: "AI Brand Recommendation Measurement: Method and Benchmark"
+description: "How to measure whether AI engines recommend your brand: eligibility, entity matching, rank coding, stability and accuracy, plus AEOeye's 892-answer benchmark."
+date: "2026-10-03"
+published: "2026-10-03"
+category: "AI Search"
+readingTime: "8 min read"
+keywords: ["ai brand recommendation measurement", "ai brand recommendation benchmark", "ai recommendation stability", "how often does ai recommend my brand", "ai answer volatility", "ai brand entity resolution", "ai search engine agreement metrics", "ai answer factuality evaluation"]
+faqs: [{"q":"How often does AI recommend a brand?","a":"In AEOeye's audit records, engines named the audited brand in 157 of 892 answers (17.6%), but the sample is small, self-selected and uneven across engines, so it is not a market rate. Your own rate depends on your questions, your category and the engine. Measure it by repeating a fixed question set and reporting the share of valid answers that name you."},{"q":"How many times should I run the same prompt?","a":"One run is a sample, not a rate. SparkToro's 2,961-run study found AI engines almost never repeat the same brand list, and its author suggests at least 60 to 100 runs per prompt before trusting a visibility percentage. Pick a number that fits the decision, report it beside every rate, and keep conditions fixed between runs."},{"q":"Should I track my rank in AI answers?","a":"Track whether you are named first, and treat exact position as a diagnostic. Order changes from run to run, and many answers have no stated order at all. Code a rank only when the answer's wording or structure establishes one, and leave it empty for unordered prose."},{"q":"What counts as a brand recommendation in an AI answer?","a":"An answer that tells the reader to choose the brand, possibly under a stated condition. A name in a list of options is a mention, not a recommendation. Code each brand separately, keep rank and sentiment in their own fields, and decide the rule before you read any answers."},{"q":"Does a refusal or timeout count as not being mentioned?","a":"No. A policy refusal, a timeout or a failed search tool produced no valid answer to score. Label the cause, retry under the same protocol where it makes sense, and calculate your absence rate only on valid, relevant answers."}]
+image: {"url": "https://images.pexels.com/photos/5831666/pexels-photo-5831666.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A professional examines financial graphs on a laptop, indicating market trends.", "photographer": "AlphaTradeZone", "photographerUrl": "https://www.pexels.com/@alphatradezone"}
+sources: [{"label":"SparkToro — AIs are highly inconsistent when recommending brands or products","url":"https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/"},{"label":"Min et al. — FActScore: Fine-grained Atomic Evaluation of Factual Precision","url":"https://arxiv.org/abs/2305.14251"},{"label":"Gao et al. — Enabling Large Language Models to Generate Text with Citations (ALCE)","url":"https://arxiv.org/abs/2305.14627"},{"label":"Webber, Moffat and Zobel — A Similarity Measure for Indefinite Rankings (rank-biased overlap)","url":"https://www.williamwebber.com/research/papers/wmz10_tois.pdf"},{"label":"Schema.org — sameAs","url":"https://schema.org/sameAs"},{"label":"Center for Open Science — Registrations and preregistrations","url":"https://help.osf.io/article/330-welcome-to-registrations"}]
+---
+
+To measure whether AI engines recommend your brand, ask a fixed set of buyer questions repeatedly, decide in advance which brands and answers count, and report how many valid answers named you, with the denominator. Headline presence, treat rank as a diagnostic, and never fold refusals, timeouts or wrong claims into "not mentioned".
+
+This page replaces 16 narrower pages merged on 2026-10-03, part of folding 165 pages into 42. The labels are our proposals, not a standard; version them if you adopt them, alongside the [AI search audit methodology template](/blog/ai-search-audit-methodology-template).
+
+## How often do AI engines recommend the brands we audit?
+
+In AEOeye's audit records, engines named the audited brand in 157 of 892 answers (17.6%). When a brand was named and ranked, it was usually first: 71.4% of 147 ranked mentions, average position 1.54. Treat this as a small snapshot, not a market rate.
+
+The unit is one answer: one engine answering one buyer question in one audit. The snapshot covers 127 completed audits created 26 June to 7 September 2026 (27 brand names, 36 domains), extracted 3 October with test rows removed. Our analysis model, not human coders, judged whether an answer named the brand. The [aggregate JSON](/resources/aeoeye-recommendation-benchmark-2026-09.json) holds every figure.
+
+| Engine | Answers | Brand named | Rate |
+|---|---:|---:|---:|
+| All engines | 892 | 157 | 17.6% |
+| Claude | 509 | 143 | 28.1% |
+| ChatGPT | 161 | 8 | 5.0% |
+| Perplexity | 74 | 3 | 4.1% |
+| Gemini | 74 | 2 | 2.7% |
+| Google AI | 74 | 1 | 1.4% |
+
+> **Read before citing:** brands are self-selected, with repeat audits. Engine samples are unequal and not comparable: the free audit ran on Claude only until mid-2026, so Claude's 509 answers cover different brands and questions. Four engines have fewer than 10 mentions. Do not read the rate column as a league table; test your own questions on every engine.
+
+Answers are close to winner-take-most (2.9 competitors named on average), so being named at all is the hard part. And invisibility, not negativity, is the common problem: 144 of 157 mentions were positive. This supersedes our 30 August snapshot (108 audits, 838 answers, 18.7%), which used the same rule on a shorter window.
+
+![Colleagues discussing charts and graphs on a wooden table during a business meeting.](https://images.pexels.com/photos/9034283/pexels-photo-9034283.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What counts as a recommendation?
+
+A recommendation is an answer that tells the reader to choose a brand; a bare name in a list is a mention. Only brands you declared eligible in advance count toward the denominator.
+
+Define eligibility as brand, market and date, using observable rules (offers the product, serves the market) rather than quality. The Center for Open Science describes [preregistration](https://help.osf.io/article/330-welcome-to-registrations) as posting a time-stamped, read-only plan before data collection or analysis. Dropping brands after seeing answers flatters your visibility.
+
+An eligible brand never named is a valid miss; an ineligible brand sits outside the denominator. Report the funnel from declared universe to denominator, as [PRISMA 2020](https://www.prisma-statement.org/prisma-2020) does with template flow diagrams for systematic reviews, and log post-hoc removals with a reason. If unresolved rows could change the headline, report it both ways.
+
+Code one label per brand per answer:
+
+| Label | The answer... |
+|---|---|
+| Explicit recommendation | says to choose the brand |
+| Qualified recommendation | recommends it under a condition |
+| Neutral mention | names it without advising |
+| Negative mention | warns against it |
+| Exclusion | rules it out for this need |
+| Competitor only | names rivals, target absent |
+| No answer | refuses or returns nothing usable |
+| Ambiguous | uses a name that cannot be resolved |
+
+Keep rank, sentiment and evidence status in separate fields. Code table rows independently, count duplicate mentions once, and give follow-up turns their own answer IDs. Negation controls the label: "not a bad option" is not a recommendation. A brand you cannot verify exists keeps its text and an unverified flag, not a "no answer" code. Have two reviewers code a sample independently and adjudicate; [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa) corrects agreement for chance.
+
+## How do you match a name to the right brand?
+
+Resolve each observed name against one declared target and label it match, no-match or uncertain, never a guess. A match needs two strong, consistent signals; a similar name, logo or the engine's own assertion is weak.
+
+Strong signals: a canonical domain, a legal entity, a social profile linking back to it, and a [Wikidata](https://www.wikidata.org/wiki/Help:Identifiers) item (an ID such as Q12345) whose description agrees. Schema.org's [sameAs](https://schema.org/sameAs) points to a reference page that unambiguously identifies the item; it states your intent, not an engine's recognition.
+
+For string matching, be conservative. Our reference matcher accepts an exact declared alias only if one entity owns it. Otherwise it applies Unicode NFKC normalisation (compatibility decomposition, then canonical composition, per [UAX #15](https://unicode.org/reports/tr15/)), case-folds, strips separators, and accepts the result only if one entity remains.
+
+Shared keys go to review, undeclared strings are no-match, and products and parents keep separate IDs, so a product cannot inflate a parent rate. The [24-case synthetic alias corpus](/resources/ai-brand-alias-matching-test-corpus/README.md) checks this byte for byte. Do not widen matching to raise your hit rate.
+
+## How do you code position in lists and prose?
+
+Code a rank only when the answer's wording or structure establishes an order; otherwise leave it empty. Numbered lists give positions. Bullets are ranked only if the answer says so. "A, followed by B" gives 1 and 2; "A and B are both good" gives two recommendations and no rank.
+
+- **Ties:** same rank, named convention. Competition ranking gives 1, 1, 3; [dense ranking](https://en.wikipedia.org/wiki/Ranking) gives 1, 1, 2.
+- **Repeats:** report the first displayed position plus an occurrence count.
+- **Nested lists:** rank sub-items within their own list.
+- **Sponsored blocks:** keep apart from organic recommendations.
+
+[Mean reciprocal rank](https://en.wikipedia.org/wiki/Mean_reciprocal_rank), the average of 1 divided by the rank of the first correct item, is defined only for ordered answers with a predeclared recommendation rule. Precision and recall are set-based measures, per Stanford's [information retrieval text](https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html). For unordered answers, use presence and sets; report how many were ordered, tied or missing.
+
+## How stable are recommendations across runs and engines?
+
+Not very. [SparkToro's study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) found a chance below 1 in 100 of the same brand list twice, and about 1 in 1,000 of the same order. A single answer is a sample, not a rate: repeat each question and report the share of runs naming you.
+
+The study had 600 volunteers run 12 prompts through ChatGPT, Claude and Google's AI 2,961 times in November and December 2025. The author discloses help from Gumshoe.ai, an AI-tracking startup. The conclusion: visibility percentage across many runs is reasonable, "ranking position" is not, and the author suggests at least 60 to 100 runs.
+
+That does not contradict our first-place figure: SparkToro tested whole ordered lists; we counted how often a named brand led. We still headline presence, and have not published a repeat-run study of our own.
+
+Record prompt, engine, model label, locale, account state and search setting, and keep runs that name no brand. Keep fixed-condition repeats (short window, estimating noise) apart from rolling repeats over weeks (real change as sources move), or freshness will look like instability.
+
+Four numbers cover most repeat-run questions:
+
+- **Exact-set agreement:** share of run pairs with identical brand sets.
+- **Pairwise [Jaccard](https://en.wikipedia.org/wiki/Jaccard_index):** intersection over union; {A, B} against {A, C} is 1/3.
+- **Per-brand coverage:** runs naming the brand over all runs; four of five is 80%.
+- **Flip rate:** pairs where recommendation status reversed over eligible pairs. No universal threshold is "acceptable"; set one per use case.
+
+Our [stability calculator](/resources/ai-recommendation-stability-calculator/index.html) computes the first three plus a seeded [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) interval. Twenty repeats make 190 pairs, not 190 independent questions; report distinct prompts too.
+
+To compare engines, use Jaccard for membership and top-k overlap for visible options, stating k. Use rank-biased overlap when lists are incomplete and the top matters most; its [authors](https://www.williamwebber.com/research/papers/wmz10_tois.pdf) give it a parameter setting how strongly top ranks count. Apply Kendall or Spearman only to shared items. Define absence in advance: not mentioned, not retrieved or unobserved. Agreement is not accuracy.
+
+To explain change between two exports, diff coded rows joined on prompt ID plus engine. A row in only one snapshot is a prompt-set gap, not zero visibility.
+
+![An engineer monitoring several screens in a control room.](https://images.pexels.com/photos/32845700/pexels-photo-32845700.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## How do you check what the answer says about you?
+
+Split each answer into atomic claims, label each by type, and check it against evidence that suits the type. A wrong price is a different problem from an absent brand. [FActScore](https://arxiv.org/abs/2305.14251) scores the share of atomic facts a reliable source supports, because generations mix supported and unsupported pieces.
+
+| Claim type | Example | Evidence it needs |
+|---|---|---|
+| Numerical | "costs $29 a month" | primary price page, plan, billing period, date |
+| Comparative | "faster than X" | like-for-like measure, named criterion |
+| Recommendation | "best for startups" | fit criteria, current facts, alternatives |
+| Absence | "has no API" | defined search scope; write "not found" |
+
+Record span, type, scope, source URL, date and a status: supported, contradicted, insufficient evidence or not assessed. Score precision (true in the world?) apart from faithfulness (supported by retrieved context?); an answer can faithfully repeat an outdated page.
+
+A nearby link is not proof. The ALCE benchmark scores [citation quality](https://arxiv.org/abs/2305.14627) apart from fluency and correctness, and found even the best models lacked complete citation support half the time on one dataset. Open the link and check it establishes the exact claim; a page that will not load is inaccessible, not unsupported. Record how sure an answer sounds separately from whether it is right.
+
+Never fold a failed run into "not mentioned". We separate 14 outcomes; five groups matter:
+
+- **Delivery:** timeout, tool error. Retry; exclude from the denominator.
+- **Access:** robots rules, paywall, locale. Often yours to fix.
+- **Policy:** refusal. Rarely a content failure.
+- **Evidence:** nothing retrieved or cited. Entity and content work.
+- **Quality:** irrelevant, partial or empty.
+
+Label the earliest causal failure, and calculate absence only on valid, relevant answers.
+
+For changing facts, build a time-bound reference packet: claim, source passage, jurisdiction, valid dates, reviewer labels and an expiry. Status is gold, silver, unresolved or out of scope.
+
+## Which tools can you download and run?
+
+Five dependency-free files. Four are synthetic fixtures that test method, not engines.
+
+- **[Benchmark aggregates](/resources/aeoeye-recommendation-benchmark-2026-09.json):** every figure above.
+- **[Alias matching corpus](/resources/ai-brand-alias-matching-test-corpus/README.md):** 24 cases; run `python3 match_aliases.py --output actual.csv`, then `cmp expected.csv actual.csv`.
+- **[Co-mention network generator](/resources/ai-brand-co-mention-network/README.md):** coded rows to a weighted brand-pair edge list; co-mention is not competition.
+- **[Stability calculator](/resources/ai-recommendation-stability-calculator/index.html):** agreement, Jaccard, coverage and bootstrap interval in your browser.
+- **[Snapshot diff tool](/resources/ai-answer-snapshot-diff-tool/README.md):** field changes, citation-domain churn and prompt-set gaps.
+
+Our [free audit](/) asks three buyer questions on ChatGPT and shows the answers in full. That is a probe, not a rate, and AEOeye is not a daily tracker: for hundreds of prompts, see the [tracker comparison](/blog/ai-visibility-tracker). For the metrics themselves, start with [measuring AI visibility](/blog/measuring-ai-visibility), the [AI visibility definition](/answers/what-is-ai-visibility) and [citation evaluation metrics](/blog/ai-search-citation-evaluation-metrics).

@@ -1,31 +1,65 @@
 {
-  "contentSha256": "84942be46da172bf4d0c71c20befa06b1036ff54abb221038e6cd8891379dcdd",
-  "reviewedAt": "2026-09-23",
+  "contentSha256": "bf4c65b7997082044eb9425c6ee97b56cf7427cd4c8e2b52bc3bf12a921b5992",
+  "reviewedAt": "2026-10-03",
   "kind": "pricing-guide",
   "topic": {
     "area": "aeo-buyer-decisions",
-    "readerProblem": "Resolve conflicting public Profound price configurations before budgeting an AI-search visibility monitoring program.",
-    "connection": "Directly supports an AEOeye buyer choosing how to measure recurring brand visibility across answer engines."
+    "readerProblem": "Find out what Profound actually costs now that its public price list has changed, and decide whether an enterprise-quoted AI visibility platform is worth it for a small business.",
+    "connection": "Directly supports an AEOeye buyer choosing between a one-off AI visibility baseline, self-serve trackers and an enterprise monitoring platform."
   },
-  "assessment": "The final guide uses the current official self-serve plan cards: Starter US$99 and Growth US$399 per month, both billed yearly, with Enterprise custom. It separates prompt, engine and Agents-credit limits, and labels the US$3,990 calculation as a pre-tax planning total rather than a checkout invoice.",
+  "assessment": "The page reports what Profound's pricing page showed on 2026-10-03 (free 7-day Trial, quote-only Enterprise, agency add-ons at $399 and $199 per month) and flags that the Starter $99 and Growth $399 plans quoted elsewhere, including our September 23 version, are no longer listed. It computes only what the published inputs allow, labels the arithmetic as such, and gives a small-business decision rule. It does not claim hands-on use, does not estimate an Enterprise price, and does not judge product quality.",
   "sources": [
     {
       "url": "https://www.tryprofound.com/pricing",
-      "checkedAt": "2026-09-23",
-      "supports": "Current official Starter, Growth and Enterprise prices, billing basis, prompt limits, engine coverage, Agents credits and Growth trial action."
+      "checkedAt": "2026-10-03",
+      "supports": "Trial (free, 50 prompts daily for 7 days, ChatGPT/Gemini/Google AI Overviews), Enterprise (custom, up to 9 engines, API, exports, SSO), agency plans and add-ons ($399/month per client workspace, $199/month for 5 trial workspaces), credits FAQ, unlimited seats."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/answer-engine-insights",
+      "checkedAt": "2026-10-03",
+      "supports": "Profound captures front-end experiences and runs every tracked prompt daily because AI platforms do not return the same answer twice."
+    },
+    {
+      "url": "https://www.tryprofound.com/features/agents",
+      "checkedAt": "2026-10-03",
+      "supports": "What Profound Agents do (content cycle automation), as the second pricing meter."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Otterly Lite $29/month (15 prompts, 4 engines), Standard $189/month (100 prompts), 15% annual discount."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Peec AI Starter $95/month on the monthly toggle (50 prompts, choose 3 models, daily tracking)."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "12 prompts run 60-100 times each; under 1-in-100 chance ChatGPT or Google AI repeats the same brand list; visibility percentage across repeated runs is a more reasonable metric than rank."
     }
   ],
   "checks": [
-    "Opened every named official source and compared the visible price, currency, billing basis and allowances with the final article.",
-    "Recomputed the worked example from the published inputs and checked that caveats remain adjacent to the arithmetic.",
-    "Read the final opening, plan table, limitations, internal links and all four FAQs for consistency and documentation-only disclosure.",
-    "Confirmed the article makes no paid-account, accuracy, output-quality or hands-on performance claim."
+    "Writer (Sonnet): fetched https://www.tryprofound.com/pricing with curl and in a real browser on 2026-10-03; confirmed both the For brands view (Trial, Enterprise) and, after clicking For agencies, the agency plans and $399/$199 add-ons against the rendered page text. Noted the agency tab is absent from the served HTML.",
+    "Writer (Sonnet): read Internet Archive copies of the pricing page (2025-12-05, 2026-09-01, 2026-09-14) with curl to confirm Starter $99 and Growth $399 'billed yearly, 2 months free' existed earlier. WebFetch cannot open web.archive.org, so these are described in the text without a link; Archive copies from Jan-Jun 2026 held no plan cards in static HTML and are deliberately not characterised.",
+    "Writer (Sonnet): recomputed every figure (399 x 12 = 4,788; 3 clients = 14,364; 199 x 12 = 2,388; 50 x 3 x 7 = 1,050; 29 x 12 = 348; 95 x 12 = 1,140; 189 x 12 = 2,268; 399 x 10 = 3,990) and labelled them as arithmetic on published inputs.",
+    "Writer (Sonnet): checked Otterly pricing in raw HTML and Peec pricing in a real browser (WebFetch returned no prices for Peec); verified Profound feature-page quotes against raw HTML; verified SparkToro numbers against the raw post text.",
+    "Writer (Sonnet): used tryprofound.com row of docs/content/vendor-sites-study-2026-10.md (no AI bots blocked or named, llms.txt 404, no JSON-LD in served HTML) as a neutral fact box with the JavaScript caveat, and the AEOeye recommendation benchmark with its self-selection caveat.",
+    "Writer (Sonnet): folded the small-business fit analysis from the merged answer page (enterprise tool and price, fit conditions, commit-before-proof friction, free-baseline-first path) and corrected its outdated 'no free trial' claim, since the page now lists a free Trial.",
+    "Editor (Opus): read the opening, pricing/plan tables and verdict sections in full; confirmed the documentation-based disclosure near the top, dated vendor prices taken from the vendor's own live pages, and conflicting or unconfirmed vendor terms stated as unverified",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): confirmed the vendor figures are consistent with the other vendor pages verified in this release (docs/content/vendor-sites-study-2026-10.md pricing notes), the neutral vendor-site fact box matches the study CSV, and AEOeye product claims match the product facts (free ChatGPT check; one-time $29 report; not a tracker)",
+    "Editor (Opus): content-lint reports no errors or warnings"
   ],
   "pricing": {
-    "status": "published",
-    "region": "US / USD public references; regional tax and checkout terms can differ",
-    "billing": "Starter and Growth display monthly equivalents billed yearly; Growth advertises two months free. Enterprise is custom-priced.",
-    "checkedAt": "2026-09-23",
-    "verification": "Checked the live official pricing page: Starter US$99 monthly billed yearly with 50 prompts and one engine; Growth US$399 monthly billed yearly with 100 prompts and three engines. Recomputed Growth as US$399 × 10 = US$3,990 before tax."
-  }
+    "status": "quote-only",
+    "region": "US dollars as displayed to us; the page states no currency code, region or tax treatment",
+    "billing": "Trial free for 7 days; Enterprise and Agency Enterprise custom; agency add-ons shown as $399/month and $199/month with no billing-term footnote; Agency Growth base price not shown.",
+    "checkedAt": "2026-10-03",
+    "verification": "Opened the live pricing page in raw HTML and a real browser, toggled to the agency view, and recomputed annual totals from the add-on prices. Compared with archived September 2026 copies showing Starter $99 and Growth $399, which the live page no longer lists for brands."
+  },
+  "merged": [
+    "/answers/is-profound-worth-it-for-small-business"
+  ]
 }

@@ -1,69 +1,152 @@
 {
  "slug": "ecommerce",
  "type": "persona",
- "title": "AI Search Optimization for Ecommerce: How DTC Brands Get Recommended by ChatGPT and Perplexity",
- "metaTitle": "AI Search Optimization for Ecommerce Brands",
- "metaDescription": "How ecommerce and DTC brands get their products discovered, recommended, and cited by ChatGPT, Perplexity, and Google AI Overviews — and exactly what to",
+ "title": "AI Search Optimization for Ecommerce: How Online Stores Get Recommended",
+ "metaTitle": "AI Search Optimization for Ecommerce Stores",
+ "metaDescription": "How online stores get products recommended by ChatGPT, Perplexity and Google AI: feeds, Product schema, buying copy, reviews, and the bot-blocking trap.",
  "primaryKeyword": "ai search optimization for ecommerce",
- "shortAnswer": "AI search optimization for ecommerce means structuring your product, review, and category content so AI engines like ChatGPT, Perplexity, and Google AI Overviews can read it, trust it, and recommend it when shoppers ask \"what's the best [product] for [need].\" The highest-leverage fixes: add complete Product and Review schema, write category and product copy that answers buying questions in plain language, earn mentions on third-party sites AI trusts (Reddit, review roundups, \"best of\" lists), and make sure your key pages are server-rendered so bots can actually crawl them.",
- "intro": "Your customers stopped Googling \"best merino wool base layer\" and started asking ChatGPT. The answer they get back names three brands — and you're not one of them. That's the entire game now for ecommerce. AI engines don't show ten blue links a shopper can scroll through; they pick a short list and explain why. If your product isn't in that list, you don't exist for that query.\n\nHere's the uncomfortable part: the brand that gets recommended is rarely the one with the biggest ad budget. It's the one whose data is clean, whose reviews are machine-readable, and whose name shows up in the places AI models actually trust. This page breaks down what AI search optimization looks like specifically for DTC and ecommerce — product discovery, not blog traffic — and the concrete fixes that move you onto the shortlist.",
+ "shortAnswer": "To get products recommended by AI, make three things true at once: engines can fetch your product pages as plain HTML (no bot wall, no JavaScript-only content), your price, specs and reviews exist as text and matching Product markup, and independent sources talk about you. Feeds such as ChatGPT's Agentic Commerce Protocol or Perplexity's Merchant Program help eligibility. They do not make an engine choose you.",
+ "intro": "A shopper asks ChatGPT for the best standing desk under $500 and gets three names. Everyone else is invisible for that question.\n\nOur view: most stores lose on basics (blocked bots, JavaScript-only prices, vague copy) long before checkout protocols matter. Below: how each engine finds products, what data it needs, and what to fix first.",
  "sections": [
   {
-   "heading": "How AI engines actually discover and recommend products",
-   "body": "When a shopper asks ChatGPT \"what's the best standing desk under $500,\" the model isn't pulling from a real-time product feed. It's assembling an answer from three layers: what it learned during training, what it retrieves live from the web (Perplexity and ChatGPT search both crawl), and what third parties have said about you. Ecommerce brands lose at every layer for predictable reasons.\n\nThe model can't read your product page because it's a client-side JavaScript shell that renders nothing to a bot. Your reviews live inside a Yotpo or Okendo widget that loads after the crawler leaves. Your specs are baked into a product image instead of HTML text. And critically — the AI has never seen your brand discussed on the sites it weights heavily, so it defaults to recommending the names it knows.\n\nGetting recommended means winning across all three:\n\n- **Crawlability** — the bot can fetch and parse your page as plain HTML\n- **Extractable facts** — price, specs, materials, and reviews exist as structured, machine-readable data\n- **Third-party trust** — your brand appears in the reviews, forums, and roundups AI engines cite\n\nFix one and ignore the others and you stay invisible."
+   "heading": "How do AI engines discover and recommend products?",
+   "body": "AI engines find products three ways: live retrieval from the open web, merchant feeds, and what they learned in training or read about you elsewhere. Each engine mixes these differently, and the documented routes are narrower than most advice implies.\n\n- **ChatGPT:** OpenAI describes the [Agentic Commerce Protocol](https://developers.openai.com/commerce) as an open standard that lets ChatGPT ingest structured catalog data and surface relevant products. OAI-SearchBot surfaces sites in ChatGPT search.\n- **Google AI Overviews and AI Mode:** Google says [no extra requirements or special optimizations](https://developers.google.com/search/docs/appearance/ai-features) apply beyond being indexed and snippet-eligible, and asks commerce sites to keep Merchant Center data current. In January 2026 it announced [checkout inside AI Mode](https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/) for eligible U.S. retailers.\n- **Perplexity:** a free [Merchant Program](https://www.yahoo.com/news/articles/meet-perplexity-merchant-program-e-170035191.html) takes product catalogs from stores that sell and ship to the U.S. (as reported March 2026), and PerplexityBot fetches pages for search results.\n\nOur position: a feed makes you eligible, but it does not give an engine a reason to name you over the next store selling a similar product. That reason comes from your pages and from independent sources that confirm them. Start with the page, then the feed."
   },
   {
-   "heading": "Product and review schema: the non-negotiable foundation",
-   "body": "Structured data is how you hand an AI engine your facts in a format it can't misread. For ecommerce this is not optional — it's the single highest-ROI fix most stores are missing or doing wrong.\n\nEvery product page needs complete **Product schema**: name, brand, description, GTIN/MPN, price, availability, and — this is the one most stores skip — **AggregateRating** and individual **Review** objects with author and rating. When AI models weigh which products to recommend, review signals are decisive. If your 4.8 stars from 2,300 reviews only lives in a JavaScript widget, the model sees a product with zero social proof.\n\nPractical checklist for a DTC store:\n\n- Emit `Product` JSON-LD server-side, not via a tag manager that fires late\n- Include `offers` with current price, currency, and `availability` so the AI knows you're in stock\n- Mark up reviews as real `Review` nodes, not just an aggregate number\n- Add `Organization` schema sitewide with your `sameAs` links to socials and your logo\n- Validate every template in Google's Rich Results Test before shipping\n\nGet the schema right once at the template level and it scales across thousands of SKUs automatically. Most Shopify themes ship partial schema — assume yours is incomplete until you've validated it."
+   "heading": "What product data do AI engines need from your pages?",
+   "body": "They need price, availability, identifiers, specs and reviews as plain text on the page, repeated in matching JSON-LD. Google's [merchant listing guidance](https://developers.google.com/search/docs/appearance/structured-data/merchant-listing) requires price, currency and an Offer, and recommends GTINs, brand, ratings, reviews, shipping and return policy.\n\nGoogle's [structured data policies](https://developers.google.com/search/docs/appearance/structured-data/sd-policies) say markup must be a true representation of the page content, and Google notes it may verify merchant data before showing it. A schema price that differs from the visible price gives any engine reason to distrust both.\n\nChecklist for each product template:\n\n1. **Product** JSON-LD in the server-rendered HTML, with name, brand, description, a [GTIN](https://en.wikipedia.org/wiki/Global_Trade_Item_Number) or MPN, and an Offer with current price, currency and availability.\n2. **Review and AggregateRating** only for reviews shoppers can read on the same page. Never mark up invisible reviews.\n3. **Organization** on the homepage, with `sameAs` links to your real profiles. In our crawler study, only 28 of 61 e-commerce homepages (45.9%) had `sameAs` links.\n4. **Specs in HTML text or tables**, never only in an image. An engine cannot quote a JPEG.\n5. One name per product everywhere: your site, marketplaces, press and schema.\n\nOur [structured data guide](/blog/structured-data-for-ai) covers the markup, and the [product page answer](/answers/how-to-optimize-product-pages-for-ai) goes template by template.\n\n![Professional camera setup with lenses and studio lighting used to photograph products](https://images.pexels.com/photos/18880006/pexels-photo-18880006.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Write copy that answers the buying question, not the brand brief",
-   "body": "AI engines reward content that resolves a shopper's actual decision. Most product and category pages do the opposite — they're written for vibe, not for answers. \"Elevate your everyday\" tells a model nothing. \"Machine-washable, holds shape after 50 washes, runs half a size small, best for narrow feet\" gives it everything it needs to recommend you for a specific query.\n\nThink in terms of the questions shoppers ask AI and make sure the answer is literally on your page in plain text:\n\n- Who is this *best for* and who should skip it?\n- How does it compare to the obvious alternative?\n- What are the real specs — material, dimensions, care, compatibility, sizing?\n- What problem does it solve and in what situation?\n\nBuild a genuine **buying guide** or comparison content for each category — not thin SEO filler, but the honest \"best [product] for [use case]\" breakdown a knowledgeable friend would give. Include comparison tables; AI engines extract them cleanly and cite them. Add an **FAQ block** with schema answering the real pre-purchase questions (returns, sizing, durability, fit). This is the content AI pulls verbatim into its answer, with your brand attached."
+   "heading": "How should product copy answer buying questions?",
+   "body": "Write each product and category page so it answers the question a shopper would type into an AI tool: who is this for, who should skip it, how does it differ from the obvious alternative, and what are the real specs. Plain facts get quoted. Brand mood does not.\n\nCompare two descriptions of one boot:\n\n- Vague: \"Built for adventure. Premium quality, made to last.\"\n- Quotable: \"Waterproof leather, 1.1 kg per pair, runs half a size small, best for narrow feet, resoleable.\"\n\nOnly the second gives an engine something to repeat or verify. Apply the same rule across the page:\n\n- **Open with the answer.** Fit, material and use case come first, before any brand voice.\n- **Name who it is not for.** Honest exclusions make a recommendation believable.\n- **Publish buying guides with comparison tables** for each category, covering competitors fairly. \"Best X for Y\" and \"X vs Y\" are the shapes AI shopping answers already take.\n- **Add a visible FAQ** on sizing, returns, durability and compatibility, with matching FAQPage markup.\n"
   },
   {
-   "heading": "Earn the third-party mentions AI engines trust",
-   "body": "This is where DTC brands win or lose, and it's the part you can't fix on your own domain. AI models lean heavily on independent sources — Reddit threads, Wirecutter-style roundups, YouTube reviews, niche community forums, and \"best of\" listicles. When ChatGPT recommends a brand, it's often echoing a consensus it absorbed from these places.\n\nIf your brand is absent from those conversations, the model has no reason to surface you. The fix is unglamorous and effective:\n\n- Get into credible **\"best [category]\" roundups** — pitch reviewers and affiliate publishers with actual product samples and data\n- Participate honestly where your buyers already are (relevant subreddits, Discord, forums) — not spam, real answers\n- Encourage detailed reviews on third-party platforms, not just your own site\n- Seed comparison content that names you alongside the category leaders\n\nThe goal is for the AI to encounter your brand name attached to a real recommendation, repeatedly, across sources it independently trusts. That repetition is what moves you from \"never mentioned\" to \"default recommendation.\" One placement won't do it; a consistent presence across the right ten sources will."
+   "heading": "How do you earn the third-party signals AI trusts?",
+   "body": "Earn mentions on sites you do not own: marketplace reviews, editorial roundups, forum threads and comparison articles. In our reading, engines are more willing to name a product that independent sources confirm. Your own star rating alone proves little.\n\nPractical moves, in order of effort:\n\n1. **Collect detailed reviews on third-party platforms**, not just your site, using consistent product names.\n2. **Answer questions honestly where your buyers already ask them**, such as relevant subreddits and communities. Our note on [why AI engines keep citing Reddit](/blog/reddit-seo) explains the pattern and the limits.\n3. **Pitch category roundups** with samples and real specs.\n4. **Fix what the record already says.** If marketplace reviews contradict your on-site rating, engines can see both.\n\nOne caution from our data. The publishers who write roundups are the sites most likely to restrict AI crawlers: in [AEOeye's crawler access study](/blog/ai-crawler-user-agent-directory) (October 2026), 27 of 38 news publishers blocked at least one AI retrieval bot, against 4 of 90 e-commerce and consumer brands. A roundup mention helps shoppers either way, but do not assume it reaches every AI answer. Test it.\n\n![Two women managing a small business among cardboard boxes with a laptop for online orders](https://images.pexels.com/photos/7857540/pexels-photo-7857540.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Technical fixes most ecommerce stores get wrong",
-   "body": "You can have great schema and great copy and still be invisible if the bot can't reach your content. A few ecommerce-specific landmines:\n\n- **Client-side rendering** — if your product detail or collection pages need JavaScript to show price, specs, and reviews, server-render them or use proper SSR/SSG. Many AI crawlers don't execute JS reliably. Check by viewing the raw HTML source (Ctrl+U), not the rendered page.\n- **Blocked crawlers** — confirm `robots.txt` and your CDN/WAF (Cloudflare, etc.) aren't blocking `GPTBot`, `OAI-SearchBot`, `PerplexityBot`, and `Google-Extended`. A surprising number of stores accidentally block the exact bots they want.\n- **Reviews trapped in widgets** — if Okendo/Yotpo/Judge.me content only appears after a JS call, the AI sees a reviewless product. Make sure review text and ratings render into the HTML and the schema.\n- **Specs locked in images** — alt text and HTML tables beat infographics every time. A model can't read a spec sheet that's a JPEG.\n- **Out-of-date availability** — stale `availability` in schema makes you look out of stock. Keep it live.\n\nThe fastest way to find which of these is hurting you is to audit a few key product and category URLs the way an AI crawler sees them. AEOeye's free audit does exactly this — it shows whether ChatGPT, Perplexity, and Gemini can read your pages and whether they currently recommend you for your core queries, so you fix the gaps that actually cost you sales."
+   "heading": "Which technical issues hide a store from AI?",
+   "body": "Three faults do most of the damage: bot protection that treats AI retrieval bots as scrapers, product data that only appears after JavaScript runs, and robots.txt rules that block the wrong bots. In our study, the first was the common one among stores.\n\n**Bot walls.** When our self-identifying research crawler fetched homepages, 24 of 88 reachable e-commerce and consumer homepages (27.3%) challenged it: 20 returned 403 and 4 returned 429. Cloudflare says [verified bots](https://developers.cloudflare.com/bots/concepts/bot/verified-bots/) are checked by methods such as published IP lists and reverse DNS, and customers can set AI bot policies.\n\nOpenAI recommends [allowing OAI-SearchBot and its published IP ranges](https://developers.openai.com/api/docs/bots). Check your CDN or WAF logs for those user agents. A challenge to our crawler is a warning sign, not proof a store was hidden from AI.\n\n**JavaScript-only content.** In a December 2024 analysis, [Vercel found](https://vercel.com/blog/the-rise-of-the-ai-crawler) that major AI crawlers, including OAI-SearchBot, ChatGPT-User, ClaudeBot and PerplexityBot, do not render JavaScript. Google also notes that [not all bots can run JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics). Open a product page with Ctrl+U: if price, specs and review text are missing from the source, render them on the server. Late-loading review widgets are a common culprit.\n\n**Wrong robots.txt rules.** Only 4 of 90 e-commerce and consumer sites blocked any AI retrieval bot, so this is rarer than people fear. If you object to training use, OpenAI says OAI-SearchBot and GPTBot are independent settings, so you can block GPTBot and keep ChatGPT search. Note that ChatGPT-User may not follow robots.txt, and [Perplexity-User](https://docs.perplexity.ai/guides/bots) generally ignores it, because a person triggered the visit.\n\nSkip llms.txt as a fix. 33 of 70 e-commerce sites we could check had one (47.1%), yet Google says AI features need no [new machine-readable files](https://developers.google.com/search/docs/appearance/ai-features). We publish one because it is cheap; see [why we call it overrated](/blog/llms-txt-is-overrated).\n\n![Businessman packing products and managing an online store from his desk with a laptop](https://images.pexels.com/photos/7289725/pexels-photo-7289725.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+  },
+  {
+   "heading": "How do you measure AI visibility for a store?",
+   "body": "Ask the engines your shoppers' questions and record who gets named. Write 10 to 15 unbranded questions, such as \"best waterproof hiking boots for wide feet\", and run them in ChatGPT, Perplexity, Google AI Mode, Gemini and Claude. Repeat monthly.\n\nLog date, engine, question, products named and your position. Track mention rate first, then which competitors appear and which sources the engine cites for them.\n\nPosition matters. In AEOeye's own audit records, a small, self-selected set of 127 audits, when a brand was named and ranked, it came first in 71.4% of 147 ranked mentions. Treat it as a hint, not a benchmark; the [data and caveats](/resources/aeoeye-recommendation-benchmark-2026-09.json) are public.\n\nTo skip the manual work, the [free AEOeye audit](/) asks ChatGPT three unbranded buyer questions, shows the full answers and lists the competitors it names instead. The $29 report adds Claude, Gemini, Google AI and Perplexity across 10 questions.\n\nFor daily tracking across hundreds of prompts, dedicated trackers do that and we do not. More on method: [measuring AI visibility](/blog/measuring-ai-visibility). On Shopify? See our [Shopify guide](/for/shopify)."
   }
  ],
  "keyTakeaways": [
-  "Shoppers increasingly ask AI engines for product recommendations instead of scrolling search results — if you're not on the AI shortlist, you're invisible for that query.",
-  "Complete Product and Review schema (with AggregateRating and individual Review nodes, server-rendered) is the single highest-ROI fix for ecommerce AI visibility.",
-  "Reviews and ratings trapped in JavaScript widgets are invisible to AI crawlers — get them into the HTML and the structured data.",
-  "Write product and category copy that answers the buying question in plain text: who it's best for, real specs, and how it compares.",
-  "Third-party mentions on Reddit, review roundups, and 'best of' lists drive AI recommendations more than your own marketing copy.",
-  "Verify your robots.txt and CDN aren't blocking GPTBot, PerplexityBot, OAI-SearchBot, and Google-Extended — many stores block them by accident."
+  "A feed makes you eligible; copy and independent proof earn the recommendation. Start with the page, then the feed.",
+  "Price, specs and reviews must exist as visible text and match your Product markup exactly.",
+  "Bot protection is the quiet killer: 24 of 88 e-commerce homepages challenged our declared research crawler.",
+  "Major AI crawlers do not render JavaScript (Vercel, December 2024), so render product data on the server.",
+  "Measure by asking: 10 to 15 unbranded buying questions, five engines, one spreadsheet, repeated monthly."
  ],
  "faqs": [
   {
-   "q": "Does AI search optimization for ecommerce replace traditional SEO?",
-   "a": "No — it extends it. Most of the foundation overlaps: crawlable HTML, structured data, fast pages, and strong content all help both. The difference is intent. Classic SEO optimizes to rank a page; AEO optimizes to get your product named and cited inside an AI's answer. For ecommerce that means leaning harder on review schema, plain-language buying guidance, and third-party mentions than traditional SEO required."
+   "q": "Does AI search optimization replace ecommerce SEO?",
+   "a": "No. It builds on it. Google says AI Overviews and AI Mode need no special optimization beyond normal Search eligibility, so crawlable HTML, accurate structured data and current Merchant Center data still do most of the work. What changes is the goal: getting a product named inside an answer, which leans harder on plain-text specs, reviews and independent mentions."
   },
   {
-   "q": "Which schema types matter most for product discovery in AI?",
-   "a": "Product schema is the core — with offers (price, currency, availability), GTIN/MPN, AggregateRating, and individual Review nodes. Add Organization schema sitewide and FAQ schema on product and category pages. The review markup matters disproportionately, because AI engines weigh social proof heavily when deciding which products to recommend. Validate everything in Google's Rich Results Test."
+   "q": "Do I need to join ChatGPT's or Perplexity's merchant programs?",
+   "a": "Not to start. Feeds improve eligibility and data accuracy, but they do not give an engine a reason to prefer you. Fix crawl access, visible product facts and matching markup first. Then submit a feed if you qualify: OpenAI documents product feeds through its Agentic Commerce Protocol, and Perplexity's program is reported to be free for stores that ship to the U.S."
   },
   {
-   "q": "How do I know if ChatGPT or Perplexity can even read my product pages?",
-   "a": "View the raw HTML source (Ctrl+U) and check whether price, specs, and reviews appear as plain text — not just in the JavaScript-rendered view. Then confirm your robots.txt and CDN aren't blocking AI bots like GPTBot and PerplexityBot. An AI visibility audit such as AEOeye's free scan automates this, showing exactly what the crawlers see and whether you're currently recommended for your category queries."
+   "q": "Which schema types matter most for product discovery?",
+   "a": "Product with an Offer (price, currency, availability) is the core, plus GTIN or MPN, brand, and AggregateRating and Review where shoppers can read the reviews on the page. Add Organization with sameAs links on the homepage. Whatever you mark up must match the visible page, or you risk losing trust and rich-result eligibility."
   },
   {
-   "q": "Why does ChatGPT recommend my competitor but never mention my brand?",
-   "a": "Almost always because the model has encountered your competitor's name across trusted third-party sources — Reddit, review roundups, comparison articles — and hasn't encountered yours. AI recommendations echo the consensus models absorbed from independent sites. Closing the gap means earning genuine mentions in those places, not just polishing your own product pages."
+   "q": "How can I tell if AI crawlers are blocked from my store?",
+   "a": "Check three places. Open robots.txt and look for rules naming OAI-SearchBot, PerplexityBot or Claude-SearchBot. Search CDN or WAF logs for those user agents and for 403 or 429 responses. View page source with Ctrl+U to confirm price and reviews appear without JavaScript. Our study found 24 of 88 reachable e-commerce homepages challenged a declared crawler."
   },
   {
-   "q": "How long until AI search optimization moves the needle for an ecommerce store?",
-   "a": "Technical and schema fixes can be read by live-crawling engines like Perplexity and ChatGPT search within days to weeks of recrawl. Building the third-party trust signals that change a model's default recommendations takes longer — typically a few months of consistent presence across the sources AI cites. Start with the crawlability and schema fixes for the fastest wins, then invest in third-party visibility for durable results."
+   "q": "How long until changes show up in AI answers?",
+   "a": "Crawl access fixes can take effect quickly: OpenAI says it can take about 24 hours for its systems to adjust to a robots.txt change. Changes to what models say about you, which depend on third-party mentions, are slower and less predictable. We have no data on typical timelines, so re-run your question set monthly and compare."
   }
  ],
- "comparisonTable": null,
+ "comparisonTable": {
+  "columns": [
+   "Surface",
+   "Documented product routes",
+   "What to do first"
+  ],
+  "rows": [
+   {
+    "label": "ChatGPT",
+    "values": [
+     "Agentic Commerce Protocol feeds; OAI-SearchBot for search",
+     "Allow OAI-SearchBot and its IP ranges; then submit a feed"
+    ]
+   },
+   {
+    "label": "Google AI Overviews and AI Mode",
+    "values": [
+     "Normal Search eligibility; Merchant Center data; checkout for eligible U.S. retailers",
+     "Keep markup, page and Merchant Center in sync"
+    ]
+   },
+   {
+    "label": "Perplexity",
+    "values": [
+     "Merchant Program (reported free, U.S.-shipping stores); PerplexityBot for search",
+     "Allow PerplexityBot; apply to the program if you qualify"
+    ]
+   }
+  ]
+ },
  "image": {
-  "url": "https://images.pexels.com/photos/11952304/pexels-photo-11952304.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  "alt": "Woman in floral dress shopping online with a laptop and credit card indoors.",
-  "photographer": "Marcial Comeron",
-  "photographerUrl": "https://www.pexels.com/@marcial-comeron-177639337"
- }
+  "url": "https://images.pexels.com/photos/5717969/pexels-photo-5717969.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Close-up of a person using a laptop and holding a credit card for online shopping",
+  "photographer": "https://kaboompics.com/",
+  "photographerUrl": "https://www.pexels.com/@karola-g"
+ },
+ "definitions": [
+  {
+   "term": "GTIN",
+   "definition": "Global Trade Item Number: an identifier for trade items, developed by GS1, that lets engines match the same product across stores.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Global_Trade_Item_Number"
+  },
+  {
+   "term": "Agentic Commerce Protocol",
+   "definition": "An open standard that connects merchants and ChatGPT, letting ChatGPT ingest structured catalog data and surface relevant products.",
+   "sourceUrl": "https://developers.openai.com/commerce"
+  }
+ ],
+ "sources": [
+  {
+   "label": "OpenAI — Agentic Commerce Protocol",
+   "url": "https://developers.openai.com/commerce"
+  },
+  {
+   "label": "OpenAI — Overview of OpenAI crawlers",
+   "url": "https://developers.openai.com/api/docs/bots"
+  },
+  {
+   "label": "Google Search Central — AI features and your website",
+   "url": "https://developers.google.com/search/docs/appearance/ai-features"
+  },
+  {
+   "label": "Google Search Central — Merchant listing structured data",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/merchant-listing"
+  },
+  {
+   "label": "Google Search Central — General structured data guidelines",
+   "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies"
+  },
+  {
+   "label": "Google — Agentic commerce tools and Universal Commerce Protocol (January 2026)",
+   "url": "https://blog.google/products/ads-commerce/agentic-commerce-ai-tools-protocol-retailers-platforms/"
+  },
+  {
+   "label": "Vercel — The rise of the AI crawler",
+   "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler"
+  },
+  {
+   "label": "Cloudflare — Verified bots",
+   "url": "https://developers.cloudflare.com/bots/concepts/bot/verified-bots/"
+  },
+  {
+   "label": "Perplexity — Crawlers (PerplexityBot, Perplexity-User)",
+   "url": "https://docs.perplexity.ai/guides/bots"
+  }
+ ],
+ "updated": "2026-10-03"
 }

@@ -24,7 +24,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <ContentPageView page={page} type="guides" related={related} />
       <JsonLd
         data={[
-          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/guides/${page.slug}`, date: page.updated || "2026-06-26" }),
+          articleJsonLd({ title: page.title, description: page.metaDescription, path: `/guides/${page.slug}`, date: page.updated || "2026-06-26", published: "2026-06-26" }),
           breadcrumbJsonLd([{ name: "Guides", path: "/guides" }, { name: page.title, path: `/guides/${page.slug}` }]),
           ...(page.howToSteps?.length
             ? [howToJsonLd({ name: page.title, description: page.metaDescription, path: `/guides/${page.slug}`, steps: page.howToSteps })]

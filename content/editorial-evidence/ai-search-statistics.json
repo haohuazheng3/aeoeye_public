@@ -1,0 +1,167 @@
+{
+  "contentSha256": "ba9a279cff5b2d90a193c2778cfa665c2d2598acddbe33b89a3223762a338583",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "A marketer or founder searching for AI search statistics needs a short, dated, correctly sourced set of numbers on adoption, AI Overviews and clicks, citation accuracy and shopping, and needs to know which figures conflict and why.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand; the page frames each statistic group around what it means for that measurement and adds AEOeye's own crawler access study and recommendation benchmark with their limits."
+  },
+  "assessment": "The page curates about two dozen dated figures in five groups (usage and share, AI Overviews and clicks, citations and accuracy, trust and shopping, AEOeye's own data), each with the unit, date and design of its source, and ends each group with what it means for a brand. It rests on company statements as reported by TechCrunch, Pew, Statcounter, Sensor Tower, SparkToro/Datos, Semrush, Ahrefs, the Tow Center, arXiv papers and AEOeye's own artifacts. It deliberately does not state a single click-loss number for AI Overviews because the studies conflict, does not rank engines from AEOeye's unequal benchmark samples, and drops older figures it could not re-verify (Gartner's search-volume forecast, Seer Interactive CTR, LLM market-size and enterprise-spend estimates).",
+  "sources": [
+    {
+      "url": "https://techcrunch.com/2026/09/29/openais-latest-features-take-direct-aim-at-the-app-store-model/",
+      "checkedAt": "2026-10-03",
+      "supports": "TechCrunch, 29 September 2026: the company says ChatGPT now has 1.2 billion weekly users."
+    },
+    {
+      "url": "https://techcrunch.com/2026/07/23/google-closes-in-on-another-billion-user-product-with-gemini/",
+      "checkedAt": "2026-10-03",
+      "supports": "Alphabet Q2 2026 call as reported on 23 July 2026: Gemini over 950 million monthly users, AI Mode crossed 1 billion users."
+    },
+    {
+      "url": "https://www.pewresearch.org/chart/chatgpt-tops-the-list-of-chatbots-americans-use/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew survey 17-23 Feb 2026: 44% of U.S. adults ever use ChatGPT, Gemini 24%, Claude 6%."
+    },
+    {
+      "url": "https://gs.statcounter.com/ai-chatbot-market-share",
+      "checkedAt": "2026-10-03",
+      "supports": "Statcounter September 2026 AI chatbot market share: ChatGPT 80.48%, Gemini 10.91%, Perplexity 5.85%, Claude 0.95%."
+    },
+    {
+      "url": "https://gs.statcounter.com/search-engine-market-share",
+      "checkedAt": "2026-10-03",
+      "supports": "Statcounter September 2026 search engine share: Google 89.94%, Bing 5.29%; its FAQ defines the metric as search engine referrals that reach sites carrying its code."
+    },
+    {
+      "url": "https://sensortower.com/press/sensor-tower-state-of-ai-2026-report-global-time-spent-on-generative-ai-apps-projected-to-more-than-double-year-over-year",
+      "checkedAt": "2026-10-03",
+      "supports": "Sensor Tower State of AI 2026 (16 June 2026): ChatGPT's True Audience share (unique users across app and web) fell below 50% for the first time in March 2026."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-search-happens-everywhere-an-analysis-of-41-websites-with-significant-search-activity/",
+      "checkedAt": "2026-10-03",
+      "supports": "Datos/SparkToro (March 2026): Google 73.7% of U.S. desktop searches across 41 domains in Q4 2025, AI tools 3.2%, about 16% of Google SERPs show AI Overviews, under 0.1% click into AI Mode."
+    },
+    {
+      "url": "https://sparktoro.com/blog/2024-zero-click-search-study-for-every-1000-us-google-searches-only-374-clicks-go-to-the-open-web-in-the-eu-its-360/",
+      "checkedAt": "2026-10-03",
+      "supports": "2024 study: 58.5% of U.S. Google searches ended with zero clicks; 360 open-web clicks per 1,000 U.S. searches; the post itself flags that it may be out of date."
+    },
+    {
+      "url": "https://www.semrush.com/blog/chatgpt-search-insights/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush (7 April 2026): ChatGPT outbound referral traffic +206% January 2025 to January 2026; ChatGPT used web search on 34.5% of queries in February 2026, down from 46% in late 2024 (U.S. clickstream panel)."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "March 2025, 900 U.S. adults, 68,879 searches: 18% showed an AI summary; clicks on a traditional result 8% with vs 15% without; 1% clicked a link in the summary."
+    },
+    {
+      "url": "https://www.semrush.com/blog/semrush-ai-overviews-study/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush AI Overviews study refreshed 15 December 2025: AIO share 6.49% (Jan), 24.61% (Jul), 15.69% (Nov 2025); informational share 91.3% to 57.1%; same-keyword before/after test found people clicked slightly more."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-overviews-reduce-clicks-update/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs, 4 February 2026: 300,000 keywords, December 2025 vs December 2023, AI Overview presence correlates with a 58% lower position-one CTR."
+    },
+    {
+      "url": "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php",
+      "checkedAt": "2026-10-03",
+      "supports": "Tow Center/CJR (6 March 2025): eight AI search tools, 1,600 queries, over 60% incorrect; Perplexity 37%, Grok 3 94%; authors say results should not be generalized."
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.09848",
+      "checkedAt": "2026-10-03",
+      "supports": "Liu, Zhang and Liang (EMNLP Findings 2023): Bing Chat, NeevaAI, perplexity.ai and YouChat; on average 51.5% of sentences fully supported by citations and 74.5% of citations support their sentence."
+    },
+    {
+      "url": "https://arxiv.org/abs/2305.14627",
+      "checkedAt": "2026-10-03",
+      "supports": "ALCE abstract: on ELI5 even the best models lack complete citation support 50% of the time."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-search-overlap/",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs (11 August 2025): 15,000 long-tail prompts; on average 12% of links cited by ChatGPT, Gemini, Copilot and Perplexity are in Google's top 10; Perplexity 28.6%; 76% of AI Overview citations come from top-10 pages."
+    },
+    {
+      "url": "https://www.semrush.com/blog/most-cited-domains-ai/",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush (10 November 2025): 230,000 prompts over 13 weeks; ChatGPT cited Reddit in close to 60% of responses in early August, around 10% by mid-September 2025."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024) abstract: GEO methods can boost visibility by up to 40% in generative engine responses; effect varies by domain."
+    },
+    {
+      "url": "https://www.newsguardtech.com/press/newsguard-one-year-ai-audit-progress-report-finds-that-ai-models-spread-falsehoods-in-the-news-35-of-the-time/",
+      "checkedAt": "2026-10-03",
+      "supports": "NewsGuard August 2025 anniversary audit: top chatbots spread false claims 35% of the time; they answered prompts 100% of the time."
+    },
+    {
+      "url": "https://arxiv.org/abs/2504.06435",
+      "checkedAt": "2026-10-03",
+      "supports": "Li and Aral (arXiv, 8 April 2025): preregistered randomized experiment on a U.S.-representative sample; reference links and citations raised trust even when incorrect; higher trust predicted more clicks and less time evaluating."
+    },
+    {
+      "url": "https://techcrunch.com/2026/04/16/ai-traffic-to-us-retailers-rose-393-in-q1-and-its-boosting-their-revenue-too/",
+      "checkedAt": "2026-10-03",
+      "supports": "TechCrunch (16 April 2026) reporting Adobe Analytics: AI traffic to U.S. retail sites +393% in Q1 2026; converted 42% better in March 2026 (38% worse in March 2025); revenue per visit +37%; 39% of 5,000+ surveyed used AI to shop, 66% believe it accurate; about 34% of product pages not properly accessible to AI."
+    },
+    {
+      "url": "https://www.salesforce.com/news/stories/2025-holiday-shopping-data/",
+      "checkedAt": "2026-10-03",
+      "supports": "Salesforce (8 January 2026): AI and agents credited with 20% of holiday retail sales and $262 billion; AI-search referrals converted nine times more often than social referrals."
+    },
+    {
+      "url": "https://arxiv.org/abs/2310.03214",
+      "checkedAt": "2026-10-03",
+      "supports": "FreshLLMs/FreshQA abstract: all models, regardless of size, struggle on fast-changing knowledge and false-premise questions."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Click_path",
+      "checkedAt": "2026-10-03",
+      "supports": "Wikipedia defines a click path (clickstream) as the sequence of hyperlinks visitors follow on a site; /wiki/Clickstream redirects here."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 (raw page text via curl for Pew, Statcounter, Sensor Tower, SparkToro, Semrush, Ahrefs, NewsGuard, Salesforce, Wikipedia and arXiv; TechCrunch pages read in full) and kept only figures those pages state.",
+    "Writer (Sonnet): confirmed the editor-supplied 1.2 billion weekly ChatGPT users in the text of the 29 September 2026 TechCrunch article (\"the chatbot, which the company says now has 1.2 billion weekly users\") and did not reuse the two dead sources (the Ahrefs chatbot-citations URL and the Seer Interactive CTR page).",
+    "Writer (Sonnet): replaced stale figures from the old page and its merged sources (800M ChatGPT users, 750M Gemini users, Pew 34%, May 2026 Statcounter, Adobe July 2025 'less likely to convert') with newer primary or best-available figures, and dropped numbers it could not re-fetch (Gartner returned HTTP 403; Menlo Ventures, Precedence Research and Seer Interactive were not re-verified).",
+    "Writer (Sonnet): checked AEOeye's own figures (384-site crawler access study, 127-audit recommendation benchmark with its mandatory caveat) against docs/content/aeoeye-evidence-pack.md and the JSON artifacts under public/resources.",
+    "Editor (Opus): read the full hub: five dated statistic groups, each with a 'what it means for your brand' line, plus the reading-statistics checklist; 1,698 words under the 1,800 hub cap",
+    "Editor (Opus): spot-verified key figures against primary sources: ChatGPT 1.2B weekly users (TechCrunch 2026-09-29), Pew 18%/8% vs 15%/1%, Ahrefs 12% overlap and 76% AI Overview top-10, arXiv GEO 'up to 40%'",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch; Pew chart returns 403 to scripts but resolves in a browser user agent",
+    "Editor (Opus): matched AEOeye crawler-study and benchmark figures to the evidence pack and kept the mandatory benchmark caveat; consolidation stated as 165 pages into 42",
+    "Editor (Opus): confirmed all 20 merged source paths are listed in the evidence file and will 301 here",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/ai-search-research-index-2026",
+    "/blog/ai-web-search-benchmarks",
+    "/blog/llm-freshness-benchmarks",
+    "/blog/ai-search-datasets-directory",
+    "/blog/perplexity-citation-statistics",
+    "/blog/ai-citation-accuracy-statistics",
+    "/blog/ai-product-recommendation-statistics",
+    "/blog/ai-search-trust-statistics",
+    "/blog/generative-engine-optimization-statistics",
+    "/blog/ai-hallucination-statistics",
+    "/blog/ai-misinformation-statistics",
+    "/blog/chatgpt-market-share",
+    "/blog/claude-market-share",
+    "/blog/gemini-market-share",
+    "/blog/perplexity-market-share",
+    "/blog/chatgpt-statistics",
+    "/blog/search-engine-market-share",
+    "/blog/ai-usage-statistics",
+    "/blog/llm-statistics",
+    "/blog/generative-ai-statistics"
+  ]
+}

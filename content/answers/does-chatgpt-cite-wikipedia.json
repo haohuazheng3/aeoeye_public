@@ -1,54 +1,108 @@
 {
  "slug": "does-chatgpt-cite-wikipedia",
  "type": "answer",
- "title": "Does ChatGPT Cite Wikipedia? Yes — Heavily. Here's What That Means for You",
- "metaTitle": "Does ChatGPT Cite Wikipedia? Yes — Here's Why",
- "metaDescription": "Yes, ChatGPT cites Wikipedia heavily — its structured, sourced format is easy for AI to extract. Here's why, and what it means for your brand's AEO.",
+ "title": "Does ChatGPT Cite Wikipedia? Yes. Here Is What to Do About It",
+ "metaTitle": "Does ChatGPT Cite Wikipedia? Should Brands Try? | AEOeye",
+ "metaDescription": "Yes, ChatGPT cites Wikipedia often. Most brands should not write their own page: Wikipedia's rules block it. Copy the pattern on your own site instead.",
  "primaryKeyword": "does chatgpt cite wikipedia",
- "shortAnswer": "Yes. Wikipedia is commonly observed among ChatGPT's most-cited sources, both in its training data and in live-search answers — its consistent structure and dense, sourced facts make it easy for models to extract confidently. For brands, that means Wikipedia-style clarity is worth copying on your own site, and entity presence in the reference layer (Wikipedia/Wikidata, earned legitimately) strengthens how models understand you.",
- "intro": "Open a ChatGPT answer with citations enabled and pull the thread on where the facts came from, and there's a good chance one blue-linked source keeps reappearing: Wikipedia. That's not an accident of laziness — it's a structural preference, and understanding why it happens tells you more about how to get your content cited than any generic \"AI SEO\" checklist. Here's the honest version, including where chasing Wikipedia directly is a waste of your time.",
+ "shortAnswer": "Yes. Wikipedia appears among ChatGPT's most-cited domains in published tests, and Wikimedia says almost all large language models train on it. OpenAI publishes no citation share. Most brands should not write their own page, because Wikipedia needs independent coverage and discourages editing by people with a stake. Copy its pattern on your own site, and add a Wikidata entry only if you meet its criteria.",
+ "intro": "The short version: ChatGPT leans on Wikipedia, you probably cannot and should not buy your way in, and the useful move is to copy what makes Wikipedia easy to cite. Here is the evidence, then the rules, then what to do instead.",
  "sections": [
   {
-   "heading": "Does ChatGPT Cite Wikipedia?",
-   "body": "Yes — across independent citation analyses, Wikipedia consistently shows up as one of the most frequently cited or referenced sources ChatGPT draws on, both baked into its training data and pulled in live when web search is active. The pattern holds strongest for \"what is X,\" historical, biographical, and general-knowledge queries, where Wikipedia's coverage is deep and stable.\n\nWhy it wins so often comes down to three things: consistent structure (every article follows a similar shape), dense sourcing (claims are tied to inline citations a model can point to), and years of collaborative editing that smooths out ambiguity and contradiction. That combination makes Wikipedia unusually cheap for a model to extract from confidently — it doesn't have to guess at what's true or resolve which entity is being discussed.\n\nOne honest caveat: you'll see specific citation percentages floating around online (\"Wikipedia is cited in X% of answers\"). Treat those cautiously. Methodology varies wildly by study — which queries were sampled, whether search was on, which model version — so we won't hand you an invented number here. What's consistent across independent analyses is the rank: Wikipedia lands at or near the top, not any exact share."
+   "heading": "Does ChatGPT cite Wikipedia?",
+   "body": "Yes. In the one open study we could check line by line, Wikipedia is among ChatGPT's most-cited domains, though the share varies by query and year. OpenAI publishes no figure, so any single percentage is one study's reading, not a rule.\n\nThe best open data point is a September 2025 [University of Toronto preprint](https://arxiv.org/abs/2509.08919). Across 50 unbranded cola prompts, a web-search-enabled OpenAI model drew about 19.7% of its citations from Wikipedia. In its car-buying queries, Wikipedia sat among ChatGPT's top domains next to AP News and Reuters. Those were 2025 API models, so treat the numbers as a snapshot.\n\nYou will see other shares quoted in vendor studies. We have not verified their methods, so we do not repeat them.\n\nA citation count also misses a second route. When ChatGPT answers from training memory, nothing is cited, so Wikipedia's real influence is larger than any citation share suggests. [How ChatGPT chooses its sources](/answers/how-does-chatgpt-choose-sources) explains the two routes.\n\nOne first-hand detail from AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (fetched 3 October 2026): the robots.txt of en.wikipedia.org did not disallow the homepage for any of the 15 bots we tested, including GPTBot and OAI-SearchBot. The robots.txt of www.reddit.com disallowed all 15. That is one domain each, and homepage-level only, but it shows why Wikipedia is easy for AI systems to reach.\n\n![A library bookshelf lit by sunlight, casting shadows across rows of books](https://images.pexels.com/photos/2946974/pexels-photo-2946974.jpeg?auto=compress&cs=tinysrgb&w=1200)"
   },
   {
-   "heading": "Why Models Love Wikipedia-Shaped Content",
-   "body": "Models don't cite Wikipedia because it's Wikipedia — they cite it because its format does most of the extraction work for them before they even start writing. Strip away the brand name and what's left is a content pattern any site can copy.\n\nThe pattern looks like this:\n- **Definition-first ledes.** The opening sentence answers \"what is this,\" full stop — no throat-clearing, no marketing copy.\n- **Predictable structure.** Headings like Overview, History, and Criticism repeat across millions of articles, so a model already \"knows\" where to look for what.\n- **Inline sourcing.** Nearly every factual claim carries a citation, letting a model attribute the fact instead of asserting it blind.\n- **One page per entity.** Wikipedia (and its sister project Wikidata) disambiguates identically named things into a single canonical record — the backbone of what search engines and LLMs treat as a [knowledge graph](/glossary/knowledge-graph).\n\nNone of that requires being an encyclopedia. It requires writing like you're building a reference, not a pitch."
+   "heading": "Why do AI models lean on Wikipedia?",
+   "body": "Wikipedia is open to crawlers, enormous, consistently structured and heavily sourced, so it is cheap for a model to learn from and to quote. Three documented facts explain most of the pull.\n\n- **Training.** [Wikimedia says](https://diff.wikimedia.org/2025/10/17/new-user-trends-on-wikipedia/) almost all large language models train on Wikipedia datasets. In the [GPT-3 paper](https://arxiv.org/abs/2005.14165) (2020), Wikipedia was a 3-billion-token dataset, about 0.6% of the tokens in the five datasets by our arithmetic, yet it carried 3% of the training mix and was seen 3.4 times, more than any other source. OpenAI has not published the same detail for current models.\n- **Format.** Wikipedia's style guide says a [lead section](https://en.wikipedia.org/wiki/Wikipedia:Manual_of_Style/Lead_section) should stand on its own as a concise overview: identify the topic, give context, explain why it matters. That is the answer-first pattern.\n- **Verifiability.** [Wikipedia's notability rules](https://en.wikipedia.org/wiki/Wikipedia:Notability_%28organizations_and_companies%29) state that all content must be verifiable, so claims carry citations a model can follow.\n\nOur inference is that definitional \"what is X\" questions benefit most, since the first paragraph already answers them.\n\nThe flow runs one way. Wikimedia reports human pageviews about 8% below the same months of 2024, and attributes the drop partly to search engines answering directly, often from its content. Answers built on Wikipedia send fewer people back to it."
   },
   {
-   "heading": "Should Your Brand Chase a Wikipedia Page?",
-   "body": "Honestly, no — for most companies, chasing a Wikipedia page is the wrong project, and doing it clumsily can actively hurt you. Wikipedia's notability guidelines require substantial coverage in independent, reliable secondary sources — not press releases, not sponsored posts, not your own site. Most early-stage and mid-size companies simply don't clear that bar yet, and that's fine.\n\nThe bigger trap is trying to force it. Self-promotional editing, or paid editing without the required disclosure, violates Wikipedia's conflict-of-interest policy. Pages created this way routinely get flagged, stripped down, or deleted outright, and the paper trail can become a minor reputational liability rather than an asset.\n\nThe legitimate route runs in the opposite order: become independently notable first — earn real press coverage, industry recognition, third-party analysis — and a page tends to follow, written by someone with no stake in it. Separately, if you already qualify, getting your basic facts correct on Wikidata is worth doing on its own, since it often feeds knowledge panels even without a full Wikipedia article.\n\nFrame this as one input into [entity SEO](/glossary/entity-seo), not a requirement. Plenty of brands with strong AI visibility have no Wikipedia page at all — they've built entity clarity through consistent naming, structured data, and citable content elsewhere."
+   "heading": "Should your brand have a Wikipedia page?",
+   "body": "Usually not yet, and never one you write yourself. A page survives only if independent sources already cover your company in depth, and nothing we found shows a page makes ChatGPT recommend you.\n\nThe independent coverage is the real asset. The Toronto preprint found AI search leans on earned media over brand-owned pages, so the press that would qualify you for a page already feeds AI answers directly. The page is a by-product, not the lever.\n\nTwo cautions. A Wikipedia article is written to be neutral, and its lead summarizes prominent controversies too, so you do not control the framing. And if a page exists with errors, ChatGPT may repeat them (our inference), which makes accuracy matter more than presence.\n\nOur position: if you want a page mainly to feel established, you do not have the coverage yet. Spend the effort on earning it. Our guide to [brand mentions](/blog/brand-mentions) explains why independent mentions beat your own pages in AI search."
   },
   {
-   "heading": "Copy the Pattern, Not Just the Platform",
-   "body": "The real lesson here isn't \"get a Wikipedia page\" — it's \"write like one already, on your own site.\" That's the part every brand can act on today, regardless of notability status.\n\nIn practice, that means:\n- Open every important page with a plain-language definition, not a slogan.\n- Give one page one job — don't blend three intents into a single sprawling article.\n- Back claims with sources a model can point to, not just adjectives.\n- Name your brand, products, and entities the same way everywhere, so nothing gets disambiguated as \"unclear.\"\n\nWe go deeper on the mechanics in [what makes content quotable by AI](/answers/what-makes-content-quotable-by-ai) — it's the practical follow-up to this page. And if you want to see whether ChatGPT, Perplexity, and the rest are actually citing you (or quietly citing your competitors instead), [run a free AEOeye audit](/#audit) and find out where you stand."
+   "heading": "What are Wikipedia's rules for companies?",
+   "body": "Three rules decide whether a company page can exist and who may touch it: notability, conflict of interest and paid-editing disclosure. Each is public and enforced by volunteers.\n\n- **Notability ([WP:NCORP](https://en.wikipedia.org/wiki/Wikipedia:Notability_%28organizations_and_companies%29)).** A company needs significant coverage in reliable, independent, secondary sources, and several such sources. Press releases, sponsored articles and routine announcements do not count; the guideline says only unpaid sources do. Many trivial sources do not add up to a significant one.\n- **Conflict of interest ([WP:COI](https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest)).** Editors with a COI are strongly discouraged from editing affected articles directly. They should disclose it, propose changes on the talk page with the edit COI template, and send new articles through Articles for Creation.\n- **Paid editing.** The Wikimedia [Terms of Use](https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use) require anyone paid to contribute to disclose each employer, client, intended beneficiary and affiliation, on a user page, the talk page or in the edit summary.\n\nIn practice: if a page about you exists and is wrong, do not fix it yourself. Post a sourced edit request on its talk page and let an uninvolved editor decide.\n\n![A modern public library with books on wooden shelves near tables with computer monitors](https://images.pexels.com/photos/4318442/pexels-photo-4318442.jpeg?auto=compress&cs=tinysrgb&w=1200)"
+  },
+  {
+   "heading": "What should you do instead?",
+   "body": "Copy Wikipedia's pattern on your own site, earn the independent coverage that would qualify you, and keep your entity data consistent. Each step helps AI engines whether or not a page ever exists.\n\n1. **Lead with a definition.** Open key pages with a plain statement of what the thing is, as Wikipedia's lead does. See [what makes content quotable by AI](/answers/what-makes-content-quotable-by-ai).\n2. **Source every claim** to a primary page, in neutral language. Dated figures, named reports and official documents are what a model can verify and quote; adjectives are not.\n3. **One page per question.** On 3 October 2026 we merged 165 of our own pages into 42, because one strong page per question beats five thin ones.\n4. **Declare who you are.** Use one brand name everywhere and add Organization schema with `sameAs` links. [Schema.org](https://schema.org/sameAs) defines `sameAs` as a reference page that unambiguously indicates identity, such as a Wikipedia page, Wikidata entry or official website. In our study, 190 of 312 fetched homepages (60.9%) carried schema with `sameAs` links. See [entity SEO](/blog/what-is-entity-seo).\n5. **Consider [Wikidata](https://en.wikipedia.org/wiki/Wikidata).** Its [notability bar](https://www.wikidata.org/wiki/Wikidata:Notability) is lower than Wikipedia's: an item can qualify as a clearly identifiable entity described by serious public references. If you meet it, keep the item accurate and sourced.\n6. **Earn mentions** in reviews, comparisons and industry press, the sources that also qualify you for a page.\n\nThen test it. [How ChatGPT chooses its sources](/answers/how-does-chatgpt-choose-sources) shows what is documented. To see who the engines name for your buyers' questions, run AEOeye's [free audit](/): three unbranded buyer questions asked live in ChatGPT, with full answers and the competitors named instead."
   }
  ],
+ "comparisonTable": null,
  "keyTakeaways": [
-  "Wikipedia is consistently among ChatGPT's most-cited sources for definitional, historical, and biographical queries.",
-  "It earns that spot through structure, not authority alone — definition-first ledes, sourced claims, consistent formatting.",
-  "Exact citation percentages vary by study and query type; treat any precise number you see with caution.",
-  "Most brands don't qualify for a Wikipedia page under notability rules, and self-promotional edits usually backfire.",
-  "Wikidata and consistent entity signals often matter more than the Wikipedia article itself for most companies.",
-  "The actionable move is to make your own pages Wikipedia-grade: clear definitions, sourced facts, consistent naming."
+  "ChatGPT cites Wikipedia often in published tests (about 19.7% of citations in one 2025 cola experiment), but OpenAI publishes no share.",
+  "Wikipedia's pull comes from open access, training weight, a definition-first format and verifiable sourcing.",
+  "Most brands should not write their own page: WP:NCORP needs independent coverage and WP:COI discourages direct editing.",
+  "The independent coverage that earns a page also feeds AI answers directly, so earn that first.",
+  "Copy the pattern on your own site and keep entity data consistent, with Wikidata if you qualify."
  ],
  "faqs": [
   {
    "q": "How often does ChatGPT cite Wikipedia?",
-   "a": "There's no single official percentage worth repeating — it varies by query type and by which retrieval system is active — but independent citation-tracking analyses consistently place Wikipedia among the top handful of most-referenced domains, especially for \"what is,\" historical, and biographical questions."
+   "a": "OpenAI publishes no figure. In one 2025 University of Toronto experiment with 50 unbranded cola prompts, a web-search-enabled OpenAI model took about 19.7% of its citations from Wikipedia. Shares differ by query type, model version and year, so treat any single percentage as a snapshot of one study rather than a rule."
   },
   {
-   "q": "Do I need a Wikipedia page for AI visibility?",
-   "a": "No. Most AI-visible brands don't have one. What matters more is clear, structured, sourced content on your own site plus consistent entity signals (naming, schema, citations) — a Wikipedia page can help but isn't a prerequisite."
+   "q": "Do I need a Wikipedia page to show up in ChatGPT?",
+   "a": "No. We found no OpenAI documentation or study showing that a page is required or that it guarantees a recommendation. What matters more is independent coverage, clear definition-first pages on your own site and consistent entity signals. A Wikipedia page, if you qualify, is a by-product of that coverage rather than a prerequisite."
   },
   {
-   "q": "Can I edit Wikipedia to mention my brand?",
-   "a": "You technically can, but self-promotional or undisclosed paid edits violate Wikipedia's conflict-of-interest policy and often get reverted or flagged, which can hurt more than help. The legitimate path is becoming independently notable first and letting neutral editors document it."
+   "q": "Can I edit Wikipedia to add my company?",
+   "a": "You can, but you should not do it directly. Wikipedia strongly discourages editing by people with a conflict of interest, and paid contributors must disclose their employer, client and affiliation under the Wikimedia Terms of Use. Propose changes on the talk page with an edit request, or submit a draft through Articles for Creation."
   },
   {
-   "q": "What sources does ChatGPT cite most?",
-   "a": "Alongside Wikipedia, audits commonly show heavy citation of established reference sites, major news outlets, official documentation and .gov/.edu sources, and — for live-search answers — high-authority industry publications. The common thread is structure and verifiability, not any one platform."
+   "q": "Is a Wikidata entry worth creating for my brand?",
+   "a": "Only if you meet its criteria: a clearly identifiable entity that can be described using serious, publicly available references, or one that has a Wikimedia sitelink or serves a structural need. If you qualify, an accurate, sourced item can anchor your sameAs links. If you do not qualify, spend the time on independent coverage and consistent schema instead."
   }
- ]
+ ],
+ "image": {
+  "url": "https://images.pexels.com/photos/38998691/pexels-photo-38998691.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630",
+  "alt": "Interior view of a modern library aisle lined with bookshelves under bright lighting",
+  "photographer": "Mico Medel",
+  "photographerUrl": "https://www.pexels.com/@micomedel"
+ },
+ "sources": [
+  {
+   "label": "Chen et al. (University of Toronto) — Generative Engine Optimization: How to Dominate AI Search (arXiv, 2025)",
+   "url": "https://arxiv.org/abs/2509.08919"
+  },
+  {
+   "label": "Brown et al. — Language Models are Few-Shot Learners (GPT-3, 2020)",
+   "url": "https://arxiv.org/abs/2005.14165"
+  },
+  {
+   "label": "Wikimedia Foundation — New User Trends on Wikipedia (Diff, October 2025)",
+   "url": "https://diff.wikimedia.org/2025/10/17/new-user-trends-on-wikipedia/"
+  },
+  {
+   "label": "Wikipedia — Notability (organizations and companies), WP:NCORP",
+   "url": "https://en.wikipedia.org/wiki/Wikipedia:Notability_%28organizations_and_companies%29"
+  },
+  {
+   "label": "Wikipedia — Conflict of interest, WP:COI",
+   "url": "https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest"
+  },
+  {
+   "label": "Wikidata — Notability",
+   "url": "https://www.wikidata.org/wiki/Wikidata:Notability"
+  }
+ ],
+ "definitions": [
+  {
+   "term": "Wikidata",
+   "definition": "Wikimedia's free, structured knowledge base. Each entity is an item with sourced statements and identifiers, separate from Wikipedia's articles.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Wikidata"
+  },
+  {
+   "term": "WP:NCORP",
+   "definition": "Wikipedia's notability guideline for organizations and companies: significant coverage in several reliable, independent, secondary sources; press releases and sponsored content do not count.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Wikipedia:Notability_%28organizations_and_companies%29"
+  },
+  {
+   "term": "Conflict of interest (COI)",
+   "definition": "On Wikipedia, a situation where an editor's connection to a subject, such as employment or payment, may compromise neutrality. Such editors are strongly discouraged from editing the affected article directly.",
+   "sourceUrl": "https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest"
+  }
+ ],
+ "updated": "2026-10-03"
 }

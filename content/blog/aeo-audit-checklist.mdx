@@ -1,76 +1,108 @@
 ---
-title: "The AEO Audit Checklist (2026): 20 Checks Before You Optimize for AI"
-description: "The AEO audit checklist: 20 checks across AI visibility, content, entity, and off-site signals — printable, and ordered fastest-first."
-date: "2026-07-10"
+title: "AEO Audit Checklist (2026): 20 Checks and a Scoring Table"
+description: "Run an AEO or GEO audit in four layers: what AI says about you, crawler access, quotable content, off-site proof. 20 pass/fail checks, a score, a fix order."
+date: "2026-10-03"
+published: "2026-07-10"
 category: "Strategy"
-readingTime: "7 min read"
-keywords: ["aeo audit checklist", "aeo audit checklist template", "aeo checklist", "geo audit checklist", "geo optimization checklist", "ai visibility audit", "answer engine optimization checklist", "ai search visibility checklist", "geo audit", "aeo audit steps"]
-faqs: [{"q": "What is an AEO audit?", "a": "An AEO audit is a systematic check of whether AI answer engines — ChatGPT, Perplexity, Gemini, Google AI Overviews — mention, cite, and accurately describe your brand when someone asks a buying question. It covers four areas: current AI visibility, content quotability, entity/technical signals, and off-site presence."}, {"q": "How long does an AEO audit take?", "a": "A manual pass through all 20 checks usually takes 2-4 hours if you already know the brand well. Testing prompts across four AI engines is the slowest part by hand; an automated audit tool can generate the visibility and technical checks in minutes, leaving content and off-site review for you."}, {"q": "How often should I audit AI visibility?", "a": "Re-run the six visibility checks monthly — model answers shift with every update, sometimes without warning. A full 20-point audit, including content and off-site checks, is worth repeating quarterly or right after any major site, naming, or positioning change."}, {"q": "Is a GEO audit different from an AEO audit?", "a": "No. GEO (Generative Engine Optimization) and AEO (Answer Engine Optimization) are two names for the same discipline — optimizing for AI-generated answers instead of ranked links. The 20 checks in this list apply under either label."}]
-image: {"url": "https://images.pexels.com/photos/577195/pexels-photo-577195.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "Overhead view of a laptop showing data visualizations, representing an audit.", "photographer": "Lukas Blazek", "photographerUrl": "https://www.pexels.com/@goumbik"}
-sources: [{"label": "GEO: Generative Engine Optimization (arXiv)", "url": "https://arxiv.org/abs/2311.09735"}, {"label": "Schema.org — Organization", "url": "https://schema.org/Organization"}, {"label": "Schema.org — FAQPage", "url": "https://schema.org/FAQPage"}, {"label": "Google Search Central — Organization structured data", "url": "https://developers.google.com/search/docs/appearance/structured-data/organization"}, {"label": "OpenAI — GPTBot documentation", "url": "https://platform.openai.com/docs/gptbot"}, {"label": "Google — Introducing the Knowledge Graph", "url": "https://blog.google/products/search/introducing-knowledge-graph-things-not/"}]
+readingTime: "6 min read"
+keywords: ["aeo audit", "aeo audit checklist", "aeo checklist", "geo audit", "geo audit checklist", "ai seo checklist", "ai visibility audit", "aeo checker"]
+faqs: [{"q": "How long does an AEO audit take?", "a": "Mostly reading time. Thirty prompts across five engines with three runs each is 450 answers, and at one to two minutes per answer that is roughly 7 to 15 hours. The checks in layers 2 to 4 are mostly lookups: robots.txt, firewall logs, Search Console and Bing Webmaster Tools. A tool shortens running and logging, not deciding what to fix."}, {"q": "How often should I run an AEO audit?", "a": "Re-run layer 1 monthly with the same locked prompt set, and layers 2 to 4 quarterly. Re-run the relevant layer straight after changes to robots.txt, your CDN or firewall, a site migration, a rebrand or a pricing change. If an engine changes its model or interface, start a new series, because the old numbers no longer compare."}, {"q": "Is a GEO audit the same as an AEO audit?", "a": "Yes. GEO (generative engine optimization) and AEO (answer engine optimization) name the same practice, improving visibility in AI-generated answers, and Wikipedia notes there is no consensus definition separating them. Neither is a geographic or local SEO audit, which checks Google Business Profile and map rankings instead."}, {"q": "Can I run an AEO audit for free?", "a": "Yes. Use a spreadsheet for the 30-prompt test, the Generative AI performance report in Google Search Console, the AI Performance report in Bing Webmaster Tools and your own server logs. AEOeye's free audit adds a first look: three unbranded buyer questions asked live in ChatGPT, with the full answers shown."}, {"q": "How is an AEO audit different from an AI SEO checklist?", "a": "An AI SEO checklist covers the technical and content basics. An AEO audit adds what is new: asking the engines your buyers' questions and recording what they say, then testing access, content and off-site proof against that record. Google says SEO best practices still apply to its AI features, so layer 2 covers the overlap."}]
+image: {"url": "https://images.pexels.com/photos/8580716/pexels-photo-8580716.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A neatly organized to-do list on a clipboard next to a laptop and a pen", "photographer": "RDNE Stock project", "photographerUrl": "https://www.pexels.com/@rdne"}
+sources: [{"label": "Google Search Central — Optimizing your website for generative AI features on Google Search", "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide"}, {"label": "Aggarwal et al. — GEO: Generative Engine Optimization (KDD 2024)", "url": "https://arxiv.org/abs/2311.09735"}, {"label": "OpenAI — Overview of OpenAI crawlers", "url": "https://developers.openai.com/api/docs/bots"}, {"label": "IETF — RFC 9309: Robots Exclusion Protocol", "url": "https://www.rfc-editor.org/rfc/rfc9309"}, {"label": "Chen et al. — Generative Engine Optimization: How to Dominate AI Search (2025)", "url": "https://arxiv.org/abs/2509.08919"}, {"label": "Google Search Console Help — Generative AI performance report (Search)", "url": "https://support.google.com/webmasters/answer/16984139"}]
 ---
 
-You can't fix what you haven't measured. An AEO audit checks whether ChatGPT, Perplexity, Gemini, and Google AI Overviews actually recommend your brand when someone asks a buying question — before you rewrite a single page. (If you landed here looking for the customs compliance program, this is the answer-engine-optimization checklist; different AEO, wrong page.)
+An AEO audit checks whether AI engines name and cite your brand when buyers ask category questions. Four layers decide the answer: what engines say, whether crawlers reach you, whether your pages are quotable, and whether other sites back you up. Run the 20 pass/fail checks below, count only what you can prove, and fix access first.
 
-This is the working version: 20 checks across four groups, printable, ordered so the free and fast checks come first. For the full walkthrough of why each step matters and exactly how to execute it, use the companion [step-by-step audit tutorial](/guides/how-to-do-an-aeo-audit) — this page is the checklist you run alongside it, not a replacement for it. Everything below also works if your team calls it a GEO audit instead — [researchers use "Generative Engine Optimization" for the same discipline](https://arxiv.org/abs/2311.09735), just a different label on the same 20 checks.
+## What is an AEO audit, and how is it different from an SEO audit?
 
-## Visibility checks: what AI says today
+An AEO audit measures whether AI engines name and cite your brand, and why they do or don't. An SEO audit inspects your site and rankings; an AEO audit starts from what ChatGPT, Claude, Gemini, Google AI and Perplexity say, then works back to the cause.
 
-These six checks establish your baseline — what the models are already saying about you, right now, before you touch anything. They cost time, not money, so run them first.
+[AEO](/blog/what-is-answer-engine-optimization), [GEO](https://en.wikipedia.org/wiki/Generative_engine_optimization) and "AI SEO" name one practice, so this page replaces our GEO audit and AI SEO checklist pages. In customs, AEO means [Authorized Economic Operator](https://en.wikipedia.org/wiki/Authorized_economic_operator), a different subject.
 
-1. **Run your core buyer-intent prompts across ChatGPT, Perplexity, Gemini, and Google AI Overviews.** Skip brand-name prompts — test the questions a buyer types before they know your name, like "best AEO tool for a small team" or "how do I check if AI recommends my brand." Use the same 8-10 prompts on every engine; see [measuring AI visibility](/blog/measuring-ai-visibility) for how to build the list.
-2. **Log every mention verbatim, not just a yes/no.** Copy the exact sentence the model used about you. The wording reveals what claim the model currently believes is true, accurate or not.
-3. **Map competitor occupancy for the same prompts.** If a rival appears in 8 of 10 answers and you appear in 2, that's the real gap — measured, not guessed.
-4. **Read the sentiment, not just the presence.** A hedged mention ("some users report issues with X") is worse than no mention at all. Presence without sentiment is a vanity number.
-5. **Trace every citation to the actual page it links to.** Click through. If the model is citing a three-year-old listicle instead of your site, that listicle — not your homepage — is what needs fixing first.
-6. **Test phrasing variants of the same question.** "Best AEO tool" and "AEO audit software" can pull entirely different answer sets, because generative engines aren't doing keyword-matched search the way Google does — treat each phrasing as its own separate test.
+Google says its generative AI features are rooted in core Search systems, so [SEO best practices still apply](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide). Our [free SEO audit](/seo-audit) covers that foundation: crawl errors, speed and mobile.
 
-## Content checks: is your site quotable?
+## Layer 1: what do AI engines say about you today?
 
-Content checks measure whether your pages can actually be lifted and cited — written so a model can extract one clean sentence, not written to rank on ten blue links.
+Layer 1 is your baseline: ask the engines your buyers' questions, several times each, and record exactly what they say. Layers 2 to 4 diagnose against that record.
 
-7. **Open every important section with the answer, not the setup.** State the conclusion in the first sentence, then explain. Models truncate; if the answer is buried in paragraph three, it usually doesn't get quoted.
-8. **Phrase your H2s as the questions people actually ask.** "What is an AEO audit?" gets extracted more often than "Overview." Match the header to the shape of the query.
-9. **Write at least one self-contained 40-60 word passage per section.** It should make sense with zero surrounding context, because that's exactly how a model will lift it out of the page.
-10. **Add a short FAQ block, ideally marked up with [FAQPage schema](https://schema.org/FAQPage), to any page answering question-shaped queries.** Three to five Q&As, plainly worded, is the single easiest structural win on this list.
-11. **Confirm each page targets one intent, not three.** A page trying to rank for "what is AEO," "AEO vs SEO," and "AEO tools" simultaneously dilutes the exact-match signal a model needs to cite it for any one of them.
+1. **Prompt set.** You have 30 unbranded buyer questions across four types (category, comparison, persona or constraint, brand), taken from sales calls, support tickets and Reddit, plus paraphrases of the top ten.
+2. **Engines.** You tested ChatGPT, Claude, Gemini, Google AI and Perplexity in clean sessions, at the default tier a free user gets.
+3. **Repeats.** You ran each prompt three times per engine and counted every run. [SparkToro's study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) (2,961 runs, January 2026) found under a 1-in-100 chance that ChatGPT or Google AI gave the same brand list in any two responses.
+4. **Log and rate.** Every answer logs named or not, position, tone, link to you, accuracy, competitors, cited URLs and the verbatim sentence about you. You computed mention, citation and accuracy rates per engine and the most-cited third-party domains ([formulas](/blog/measuring-ai-visibility)).
+5. **Publisher dashboards.** You saved Search Console's [generative AI impressions](https://support.google.com/webmasters/answer/16984139) (worldwide since August 2026) and Bing Webmaster Tools' [AI Performance report](https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview) of Copilot and Bing citations.
 
-![Abstract visualization of data analytics with charts, representing an audit baseline.](https://images.pexels.com/photos/97080/pexels-photo-97080.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+For scale, AEOeye's audit records (127 audits of self-selected brands, not a market estimate) show the brand named in 17.6% of 892 answers ([data](/resources/aeoeye-recommendation-benchmark-2026-09.json)).
 
-## Entity & technical checks
+![A person analyzing business data on a laptop in a modern indoor setting](https://images.pexels.com/photos/7947638/pexels-photo-7947638.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-Entity checks confirm the model can identify who you are with confidence; technical checks confirm its crawler can actually reach your pages in the first place.
+## Layer 2: can AI crawlers reach your pages?
 
-12. **Use one consistent brand name everywhere — no abbreviations that split your identity.** Models resolve entities partly by name-matching across sources; a brand that's "AEOeye" on the homepage and "AEO Eye" on LinkedIn reads as two weaker entities instead of one strong one.
-13. **Add [Organization schema](https://schema.org/Organization) to your homepage and about page.** It's the most direct signal you can send about who you are, formatted the way [Google's own structured-data docs](https://developers.google.com/search/docs/appearance/structured-data/organization) recommend machines read it.
-14. **Check robots.txt allows the AI crawlers, not just Googlebot.** OpenAI, Google, and others [publish their crawler user-agents](https://platform.openai.com/docs/gptbot) specifically so you can allow or block them on purpose — most sites have never checked which they're currently blocking by accident.
-15. **Keep an about page with real, specific facts — not marketing copy.** Founding year, what the product does in one plain sentence, how to contact you. Models pull disambiguating facts from exactly this kind of page.
-16. **Check your presence in the knowledge-graph layer — Wikidata, Wikipedia, Crunchbase.** These are reference sources [Google has built entity recognition around since 2012](https://blog.google/products/search/introducing-knowledge-graph-things-not/), and other engines lean on similar graphs; see [entity SEO](/glossary/entity-seo) for how the layer works.
+Layer 2 asks whether retrieval bots, which fetch pages to answer questions, can read what you want cited. robots.txt is rarely the culprit: in AEOeye's [crawler access study](/blog/ai-crawler-user-agent-directory) (391 sites, 3 October 2026; a convenience sample), 1 of 193 SaaS sites blocked any AI retrieval bot.
 
-## Off-site checks
+6. **robots.txt.** It never returns a 5xx, and no bot's group blocks pages you want cited. Under [RFC 9309](https://www.rfc-editor.org/rfc/rfc9309), a 5xx means crawlers assume everything is disallowed, and a bot with its own group ignores your `*` group.
+7. **Search bots allowed.** OAI-SearchBot, [Claude-SearchBot](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) and PerplexityBot may fetch your pages. [OpenAI says](https://developers.openai.com/api/docs/bots) you can allow OAI-SearchBot while disallowing GPTBot to signal a training opt-out, and Google says [Google-Extended](https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers) doesn't affect inclusion in Google Search.
+8. **Firewall and CDN.** Key pages serve each bot's documented user-agent the same content as a browser, and your CDN or logs show hits from vendors' published IPs. Perplexity says a firewall [may need explicit allowlisting](https://docs.perplexity.ai/guides/bots). In our study 60 of 375 homepages (16%), and 24 of 88 e-commerce and consumer ones, challenged our self-identified research crawler, so test yours.
+9. **Indexed in Google and Bing.** Google says a page must be [indexed and eligible to show with a snippet](https://developers.google.com/search/docs/appearance/ai-features) to appear in AI Overviews or AI Mode. Both consoles show it indexed with a 200 status, no `noindex` or `nosnippet`, and a sitemap entry.
+10. **Facts in server-sent HTML.** Vercel's December 2024 analysis found [OpenAI's and Anthropic's crawlers fetch JavaScript files but don't run them](https://vercel.com/blog/the-rise-of-the-ai-crawler). Your price and key claims appear with JavaScript off.
 
-Off-site checks matter because models cite third parties more often than they cite you directly — your own site is only one input among many.
+Don't score llms.txt: Google says Search [doesn't use it](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), yet 52.4% of the 330 sites we could check publish one. We keep ours because it's cheap.
 
-17. **Check review-site presence: G2, Capterra, Trustpilot, category-relevant directories.** These pages get crawled and cited constantly; a thin or missing profile is a citation opportunity you're handing straight to a competitor.
-18. **Search for "best [category] tools" roundups and confirm you're listed.** Listicles are exactly the kind of page generative engines lean on for comparison answers — if you're absent from the roundups, you're absent from the comparisons.
-19. **Search your brand name on Reddit and relevant forums.** Unprompted user mentions carry real weight with models trained partly on this kind of discussion; note what people actually say, good or bad, not just whether they say it.
-20. **Check that your description is consistent across the sites that mention you.** A different one-line description on every directory reads as noise; a matching description reinforces the same entity claim everywhere it appears.
+## Layer 3: is your content quotable?
 
-## Common audit mistakes to avoid
+Layer 3 asks whether one passage can stand alone as an answer. A Microsoft Bing product manager advises [self-contained phrasing](https://about.ads.microsoft.com/en/blog/post/october-2025/optimizing-your-content-for-inclusion-in-ai-search-answers): sentences that survive being pulled out of context. Audit the pages behind your Layer 1 gaps first.
 
-Most first audits fail the same four ways — and every one of them produces a score you can't trust.
+11. **Answer-first.** Each H2 is the buyer's question and opens with a direct 40 to 60-word answer, then the proof in short paragraphs; comparisons sit in tables. Google says chunking content isn't required, so don't fragment pages.
+12. **Evidence per claim.** A dated, sourced number appears every 150 to 200 words. In the [GEO paper](https://arxiv.org/abs/2311.09735), adding citations, quotations or statistics lifted visibility 30 to 40% on its position-adjusted word-count metric and keyword stuffing didn't; the setup was 2023-era, so read it as direction.
+13. **One intent per page.** On 3 October 2026 we merged 165 duplicate-intent and research pages into 42. One strong page per question beats five thin ones.
+14. **Entity and schema.** One brand name everywhere, plus Organization markup with [`sameAs`](https://schema.org/sameAs) links to official profiles that [match visible text](https://developers.google.com/search/docs/appearance/structured-data/sd-policies). Google says AI features need no special schema, so this is identity hygiene ([guide](/blog/structured-data-for-ai)).
+15. **Facts and trust.** Pricing, features and company details are current, dated and consistent, and an About page says who runs the site. Google calls [trust the most important](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) part of E-E-A-T (experience, expertise, authoritativeness, trust).
 
-- **Testing only brand-name prompts.** Asking "what is AEOeye" tells you nothing; buyers who already know your name don't need AI to find you. Audit the category questions people ask before they've heard of you.
-- **Auditing one engine and assuming the rest match.** ChatGPT, Perplexity, Gemini, and AI Overviews run different models on different sources, and they routinely disagree about the same brand. One engine is a data point, not a verdict.
-- **Treating one snapshot as permanent.** Model answers shift with every update, often silently. An audit is a reading on a moving gauge — date it, and plan to re-run it.
-- **Fixing content before establishing the baseline.** Rewriting pages before you know what the engines currently say means you can never prove your changes worked. Measure first, optimize second — that's the entire point of auditing.
+![Close-up of a hand writing a checklist in a notebook](https://images.pexels.com/photos/35719571/pexels-photo-35719571.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-## Scoring and next steps
+## Layer 4: does the web corroborate you?
 
-Score yourself honestly: one point per check you can prove, not one you assume. Under 12 out of 20 means you're pre-audit — start with the six visibility checks, because they tell you which of the remaining 14 actually matter for your situation. 12-16 means you have real gaps worth a focused sprint. 17-20 means you're maintaining, not fixing — re-run the visibility checks monthly and the rest quarterly.
+Layer 4 checks whether independent sources say what your site says. A [2025 study](https://arxiv.org/abs/2509.08919) found AI search leans overwhelmingly on earned media (third-party, authoritative sources) over brand-owned and social content.
 
-Want to see what a finished pass looks like before you start your own? Look at a [completed example report](/example) for the shape of the output. And if any of the terms above are new, the [definition and background on answer engine optimization](/blog/what-is-answer-engine-optimization) is the place to start.
+16. **Roundups.** You counted how many best-of and comparison pages your Layer 1 logs cite list you.
+17. **Review profiles.** Your profiles on the review sites those logs cite are claimed and complete.
+18. **Communities.** You searched Reddit and forums for your brand and category questions, noting whether you are named unprompted.
+19. **Consistent description.** Your one-line description, category and pricing model match across your site, LinkedIn, Crunchbase, directories and any Wikidata entry.
+20. **Readable sources.** You checked the robots.txt of sites you depend on: 27 of 38 news publishers and 5 of 20 review and user-generated sites in our study blocked at least one AI retrieval bot, versus 1 of 193 SaaS sites.
 
-Or skip the manual version entirely — our [GEO audit guide](/blog/geo-audit) explains what a done-for-you audit covers, or run all 20 checks automatically in one free audit at [AEOeye](/#audit).
+## How do you score the audit and prioritize fixes?
 
-For the conventional search layer, use the [best free SEO audit tools](/blog/free-seo-audit-tools) to distinguish what each free check can actually prove.
+Give one point per check you can prove with a URL, log line, screenshot or answer text, and fix in layer order: access, content, off-site. Your Layer 1 gap list, the prompts where rivals appear and you don't, picks the pages.
+
+| What Layer 1 shows | Look first at | Why |
+|---|---|---|
+| No engine names you | Layer 2, then 4 | Can't be fetched or corroborated |
+| Some engines name you, others never | Layer 2 | One bot, firewall rule or index |
+| Named, but engines cite other sites for your facts | Layer 3 | Passages not quotable |
+| Named with wrong facts | Layers 3 and 4 | Stale pages or listings |
+
+Out of 20: 0 to 9, finish layers 1 and 2; 10 to 15, fix failures in order and re-run Layer 1; 16 to 20, maintain: Layer 1 monthly, layers 2 to 4 quarterly.
+
+![Close-up of a person writing on a form attached to a clipboard](https://images.pexels.com/photos/6169648/pexels-photo-6169648.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Which mistakes make an AEO audit unreliable?
+
+The four below swap measurement for assumption: a branded prompt, a file or a vendor score stands in for what engines did.
+
+- **Branded prompts only.** They test recognition, not discovery.
+- **Fixing before measuring.** Without a baseline you can't tell which change worked.
+- **Scoring files, not outcomes.** A valid llms.txt or FAQPage block isn't a pass; named, cited and accurate is.
+- **A score without raw answers.** You can't fix what you can't read.
+
+## What does an AEO audit cost: DIY, tool or agency?
+
+DIY costs no cash but real time: 30 prompts × 5 engines × 3 runs is 450 answers to read and log. A tool shortens running and logging; an agency adds fixes you can't staff. Pick by who will do the fixing, not who runs the audit.
+
+| Option | Cost (as of October 2026) | Choose it when |
+|---|---|---|
+| DIY spreadsheet plus free dashboards | $0 | You want to read the raw answers yourself |
+| AEOeye [free audit](/) | $0 | A first look: 3 unbranded questions asked live in ChatGPT, full answers, competitors, starter fixes |
+| AEOeye full report | $29 one-time | 10 questions on five engines, a five-layer SEO foundation audit, fix roadmap PDF |
+| Dedicated tracker | Recurring plan | Daily runs across hundreds of prompts; [Peec AI's docs](https://docs.peec.ai/) say it runs prompts daily |
+| Agency | Custom quote | Fixes need site, PR or content work you can't staff; ask for prompts, run counts, raw answers |
+
+Neither AEOeye report tracks you daily or guarantees a recommendation; each is a snapshot.

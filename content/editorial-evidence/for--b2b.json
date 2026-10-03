@@ -1,0 +1,61 @@
+{
+  "contentSha256": "808d4932c0027d523babc25ad51896aae25459290ee7b45683f1a8b5fcefb190",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A B2B marketer, founder or services-firm owner needs to know how to be named when buying committees ask AI assistants for vendors, why long multi-stakeholder cycles change what must be published, and how to check whether they are named.",
+    "connection": "This is AEOeye's core question for B2B: whether AI engines name a brand when buyers ask. The page uses AEOeye's audit records (recommendation benchmark) and our own page-consolidation experience, and points readers to the free audit that tests three unbranded questions on ChatGPT."
+  },
+  "assessment": "The page answers on the first screen (answer every question a buying committee asks, on crawlable pages, backed by consistent third-party sources) and then supports it with 6sense, Forrester and G2 survey figures, each flagged as vendor-run and self-reported. It explains why committees need a role-by-role question tree (illustrative prompts are labelled as ours, not survey data), what AI cites (earned-media bias study, review profiles), a six-step playbook and a measurement method that accounts for run-to-run variability. It rests on AEOeye's small self-selected benchmark with its caveat and on our consolidation story. It deliberately does not repeat the old page's unverifiable figures (Forrester 70% of the journey, 94% LLM use, Yext citation shares, 89% single-engine domains), does not promise timelines, and does not claim AEOeye monitors daily.",
+  "sources": [
+    {
+      "url": "https://6sense.com/science-of-b2b/buyer-experience-report-2025/",
+      "checkedAt": "2026-10-03",
+      "supports": "2025 B2B Buyer Experience Report: nearly 4,000 responses from buyers across North America, APAC and EMEA; the winning vendor was already on the Day One shortlist 95% of the time. Fetched twice with different prompts and consistent; the site blocks curl (Cloudflare), so the raw HTML could not be checked, and only this figure and the sample size were used."
+    },
+    {
+      "url": "https://www.forrester.com/press-newsroom/forrester-2026-the-state-of-business-buying/",
+      "checkedAt": "2026-10-03",
+      "supports": "Forrester press release (21 Jan 2026): genAI searches are the starting point for B2B buyers; typical decision has 13 internal stakeholders and nine external influencers; procurement is a decision-maker in 53% of cycles; buyers validate AI output with trusted sources; providers should make claims that trusted external voices can validate. Confirmed in raw page text (curl)."
+    },
+    {
+      "url": "https://learn.g2.com/g2-2026-ai-search-insight-report",
+      "checkedAt": "2026-10-03",
+      "supports": "G2 survey of 1,076 B2B software decision-makers: 51% start research with an AI chatbot more often than Google; 69% chose a different vendor than planned; review sites the #2 shortlist influence; cross-chatbot consistency is a top trust signal and inconsistency a red flag; 45% say review-site citations are the most confidence-inspiring signal; 64% encounter inaccuracies often. Confirmed in raw page text (curl)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "AI search engines show a systematic bias toward earned (third-party) media over brand-owned and social content, in contrast to Google's more balanced mix."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper: adding statistics, quotations and citations to content gave 30-40% relative improvement on the position-adjusted word-count metric on GEO-bench. Confirmed in the PDF text."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "2,961 runs by 600 volunteers; under 1 in 100 chance of the same brand list in two responses over 100 runs for ChatGPT and Google's AI; author concludes percent visibility across repeated runs is probably a reasonable measure."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization structured data on the home page can help Google understand administrative details and disambiguate the organization in search results; no required properties. Confirmed in raw page text."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03; for G2, Forrester, the GEO paper and Google's Organization page I confirmed numbers in the raw text (curl or PDF extraction). The 6sense page blocks curl, so I fetched it twice with different prompts, kept only the 95% Day One figure and the sample size, which agreed, and flagged the survey as vendor-run on the page.",
+    "Writer (Sonnet): read the previous page in full and dropped claims I could not verify from primary pages (Forrester 70% of the journey, 94% of buyers using an LLM, Yext 44%/42% citation split, 89% of cited domains in one engine, 4-7 vendors per category); kept the question-tree, 'who we are not for', comparison-library, off-site-source and re-measure ideas, rewritten.",
+    "Writer (Sonnet): checked benchmark figures against public/resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 892 answers, 2.93 competitors per answer, 71.4% of 147 ranked mentions first) and kept the self-selected, unequal-engine caveat beside them; no per-engine rate is shown.",
+    "Writer (Sonnet): labelled the role-by-role prompt table as our illustration rather than survey data, and used the 165-pages-into-42 consolidation figure exactly as in the evidence pack.",
+    "Writer (Sonnet): kept this page distinct from /for/saas (no shared paragraphs; B2B including services and committees versus SaaS shortlist mechanics and crawler data) and ran node scripts/content-lint.mjs on the final file.",
+    "Editor (Opus): read the final page: shortlist-before-sales framing on sourced figures, role-by-role prompt table labelled illustrative, off-site sources, playbook order",
+    "Editor (Opus): unverifiable old figures (Forrester 70%, 94% LLM use, Yext split) were removed; 6sense figure flagged as vendor-run self-reported survey",
+    "Editor (Opus): re-checked every external URL on 2026-10-03; 6sense blocks scripted clients with a Cloudflare challenge, all others reachable",
+    "Editor (Opus): product facts match the evidence pack and the page says AEOeye does not run daily monitoring",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

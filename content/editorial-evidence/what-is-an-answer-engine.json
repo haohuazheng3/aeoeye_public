@@ -1,0 +1,122 @@
+{
+  "contentSha256": "23e024e7f2357a8d4dac6a69f1f52eecb630af1984ce1e9b1585e45070a36fa2",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A founder or marketer who hears 'answer engine' needs to know what it is, how it differs from a search engine, how it picks sources, and whether it changes how buyers find their brand.",
+    "connection": "AEOeye audits whether ChatGPT, Claude, Gemini, Google AI and Perplexity name a brand when buyers ask; the page defines the mechanism those audits measure and points to the free audit."
+  },
+  "assessment": "The page answers 'what is an answer engine' in its first paragraph, then separates it from a search engine with an illustrative same-question layout and Pew click data, explains the rewrite-retrieve-write-cite pipeline using vendor documentation and a 2023 citation-accuracy audit, compares six engines by documented source and crawler, and ends with a five-step method for testing brand visibility. It rests on vendor documentation, two peer-reviewed papers, Pew Research and AEOeye's own crawler access study and recommendation benchmark, each stated with its caveats. It deliberately does not name the search provider behind ChatGPT or Perplexity (their help-center pages could not be fetched), does not rank engines against each other, and does not present the benchmark as a market statistic.",
+  "sources": [
+    {
+      "url": "https://en.wikipedia.org/wiki/Answer_engine",
+      "checkedAt": "2026-10-03",
+      "supports": "Wikipedia redirects 'answer engine' to question answering, defined as systems that automatically answer questions posed in natural language; early systems such as BASEBALL and LUNAR predate ChatGPT by decades."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "OpenAI developer docs: the model can choose whether to search based on the prompt; actions are search, open_page and find_in_page; inline citations show only the most relevant references while the sources field lists every URL consulted."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot is used to surface websites in ChatGPT's search features; GPTBot crawls content that may be used for training; each crawler setting is independent of the others."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (KDD 2024): generative engines synthesize information from multiple sources with LLMs; reports visibility gains up to 40% and domain-dependent efficacy. Full text (arxiv.org/html/2311.09735): Cite Sources, Quotation Addition and Statistics Addition gave 30-40% relative improvement on Position-Adjusted Word Count on GEO-bench, and keyword stuffing gave little to no improvement."
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "checkedAt": "2026-10-03",
+      "supports": "Lewis et al. (NeurIPS 2020) define retrieval-augmented generation as models combining pre-trained parametric and non-parametric memory for language generation."
+    },
+    {
+      "url": "https://arxiv.org/abs/2304.09848",
+      "checkedAt": "2026-10-03",
+      "supports": "Liu, Zhang and Liang (Findings of EMNLP 2023): in an audit of Bing Chat, NeevaAI, Perplexity AI and YouChat, 51.5% of generated sentences were fully supported by citations and 74.5% of citations supported their associated sentence."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-03",
+      "supports": "Pew Research Center: 900 US adults, browsing data from March 2025; users who saw an AI summary clicked a traditional result link in 8% of visits versus 15% without one, and clicked a link inside the summary in 1% of visits."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Central: AI Overviews and AI Mode may use query fan-out; a page must be indexed and snippet-eligible with no additional technical requirements, no special schema.org markup or AI text files; AI features show a wider and more diverse set of links; traffic is reported inside the Web search type in Search Console."
+    },
+    {
+      "url": "https://support.google.com/websearch/answer/16011537?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Google Search Help: AI Mode uses a query fan-out technique, dividing a question into subtopics and searching each simultaneously across multiple data sources, and relies on Google Search."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/google-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini API docs: the model analyzes the prompt and determines if a Google Search can improve the answer, then automatically generates one or multiple search queries and executes them."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/google-common-crawlers",
+      "checkedAt": "2026-10-03",
+      "supports": "Google-Extended covers use of crawled content for Gemini training and for grounding (content from the Google Search index supplied to the model at prompt time) in Gemini Apps, and does not affect Google Search inclusion or ranking."
+    },
+    {
+      "url": "https://support.google.com/gemini/answer/14143489?hl=en",
+      "checkedAt": "2026-10-03",
+      "supports": "Gemini Apps Help: a Sources button appears when sources are available, and not all responses include related links or sources."
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic docs: Claude determines when to search and the process can repeat; simple factual queries typically use 1-3 searches and comparative or multi-entity research 10 or more; current or changing facts, including about specific organizations and products, trigger search while stable knowledge is answered directly; citations include up to 150 characters of cited text."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/10684626-enabling-and-using-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic help center: Claude invokes a search tool for topics that benefit from current information, and every web-search response includes citations."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Anthropic: Claude-SearchBot navigates the web to improve search result quality for users; disabling it may reduce a site's visibility in user search results."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/quickstart",
+      "checkedAt": "2026-10-03",
+      "supports": "Perplexity Agent API docs: answers are grounded in real-time web search with inline citations."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot is designed to surface and link websites in search results on Perplexity; Perplexity-User fetches pages when users ask and generally ignores robots.txt rules."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-privacy",
+      "checkedAt": "2026-10-03",
+      "supports": "Microsoft Learn: for web search, Microsoft Copilot identifies terms where search would help, generates a search query and sends it to the Bing Search service."
+    },
+    {
+      "url": "https://blogs.bing.com/search/April-2025/Introducing-Copilot-Search-in-Bing",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing blog (4 April 2025): Copilot Search blends traditional and generative search and inline-links entire sentences or passages in responses to their sources."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each of the 19 external URLs cited in the page with WebFetch on 2026-10-03 and kept only claims the fetched text states; re-fetched the OpenAI, Perplexity, Pew, Bing, Google, Anthropic and Gemini pages a second time with a verbatim-quote prompt to check the paraphrases.",
+    "Writer (Sonnet): the OpenAI Help Center, openai.com announcement and Perplexity Help Center pages returned HTTP 403 to the fetcher, so no claim in the page rests on them; ChatGPT search's third-party providers and Perplexity's app behavior are therefore left out, and the ChatGPT and Perplexity table rows use only developer and crawler documentation.",
+    "Writer (Sonnet): recomputed the AEOeye figures against the public artifacts (crawler study: 384 sites with usable robots.txt, 11/38, 19/38 and 26/38 publishers, 1/193 SaaS, 60/375 challenged homepages; benchmark: 892 answers, 157 mentions, 127 audits, 27 brand names, 2.93 competitors per answer, 71.4% of 147 ranked mentions, 509 Claude answers) and kept each with its stated caveat.",
+    "Writer (Sonnet): replaced or dropped unsourced claims from the two merged pages (for example 'engines cite 3 to 8 sources', 'FAQ schema helps engines parse pages', 'allow GPTBot so ChatGPT can read you', 'authoritative sources get pulled more') and corrected the old GPTBot versus OAI-SearchBot conflation using OpenAI's crawler documentation.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean), confirmed the four Pexels image URLs return HTTP 200 image/jpeg and that none of the twelve candidate photo IDs appears elsewhere in content/, and labelled the CRM example as an illustrative layout rather than a recorded answer.",
+    "Editor (Opus): read the complete final draft (opening, both tables, six H2 sections, five FAQs, image alt text) and confirmed each section opens with a direct answer and the illustrative CRM layout is labelled as not a recorded result",
+    "Editor (Opus): re-checked all 19 external URLs on 2026-10-03 (all reachable; one transient Node fetch error re-verified as HTTP 200 with curl)",
+    "Editor (Opus): matched every first-hand figure against docs/content/aeoeye-evidence-pack.md (384 sites; 11/19/26 of 38 publishers; 1 of 193 SaaS; 60 of 375 homepages; 157 of 892 answers, 2.9 competitors, 71.4% of 147 ranked mentions with the self-selected caveat) and confirmed no per-engine benchmark comparison is made",
+    "Editor (Opus): confirmed AEOeye product claims match the product facts (free audit = 3 ChatGPT questions; one-time $29 report adds four engines and ten questions; no subscription) and that content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/what-is-an-answer-engine"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "$comment": "AEOeye AI Crawler Access Study (October 2026) — the full sample, published so anyone can re-run it. A convenience sample of well-known brands chosen by AEOeye to mirror the categories our users audit, plus two contrast groups (news publishers; the UGC / review sites AI engines cite most). NOT a random sample of the web. aeoeye.com itself is included in the aeo-vendors group and disclosed.",
+  "saas": [
+    "salesforce.com","hubspot.com","pipedrive.com","zoho.com","freshworks.com","close.com","copper.com","attio.com","apollo.io","outreach.io","salesloft.com","gong.io","clari.com","zoominfo.com","lusha.com","clay.com","gohighlevel.com","keap.com","insightly.com","nutshell.com","capsulecrm.com","folk.app",
+    "asana.com","notion.com","clickup.com","trello.com","atlassian.com","linear.app","basecamp.com","wrike.com","smartsheet.com","airtable.com","coda.io","todoist.com","teamwork.com","miro.com","lucid.co","figma.com","canva.com","loom.com","calendly.com","zapier.com","make.com","n8n.io","slack.com","zoom.com","dropbox.com","box.com","evernote.com","grammarly.com","otter.ai","fireflies.ai","monday.com",
+    "semrush.com","ahrefs.com","moz.com","similarweb.com","mailchimp.com","klaviyo.com","activecampaign.com","kit.com","sendgrid.com","brevo.com","constantcontact.com","hootsuite.com","buffer.com","sproutsocial.com","later.com","hotjar.com","optimizely.com","unbounce.com","typeform.com","jotform.com","surveymonkey.com","qualtrics.com","surferseo.com","clearscope.io","jasper.ai","copy.ai","writesonic.com","conductor.com","brightedge.com","botify.com","seranking.com","yext.com",
+    "mixpanel.com","amplitude.com","heap.io","segment.com","fullstory.com","posthog.com","tableau.com","datadoghq.com","newrelic.com","splunk.com","snowflake.com","databricks.com","fivetran.com","getdbt.com","metabase.com","sigmacomputing.com",
+    "github.com","gitlab.com","vercel.com","netlify.com","heroku.com","digitalocean.com","cloudflare.com","fastly.com","render.com","fly.io","railway.com","supabase.com","mongodb.com","postman.com","sentry.io","jetbrains.com","docker.com","hashicorp.com","twilio.com","auth0.com","okta.com","clerk.com","algolia.com","contentful.com","sanity.io","strapi.io","webflow.com","wix.com","squarespace.com","wordpress.com","ghost.org","framer.com","bubble.io","retool.com","neon.tech","planetscale.com",
+    "gusto.com","rippling.com","deel.com","remote.com","bamboohr.com","workday.com","adp.com","paychex.com","justworks.com","brex.com","ramp.com","mercury.com","xero.com","freshbooks.com","bill.com","expensify.com","wise.com","paypal.com","squareup.com","stripe.com","chargebee.com","recurly.com","paddle.com","docusign.com","pandadoc.com",
+    "zendesk.com","intercom.com","helpscout.com","front.com","gorgias.com","crisp.chat","tidio.com","livechat.com","freshdesk.com",
+    "1password.com","lastpass.com","bitwarden.com","crowdstrike.com","vanta.com","drata.com","snyk.io","jamf.com","nordvpn.com","expressvpn.com",
+    "openai.com","anthropic.com","perplexity.ai","mistral.ai","cohere.com","huggingface.co","elevenlabs.io","runwayml.com","midjourney.com","character.ai",
+    "shopify.com","bigcommerce.com","woocommerce.com"
+  ],
+  "aeo-vendors": [
+    "tryprofound.com","peec.ai","otterly.ai","athenahq.ai","scrunch.com","llmrefs.com","trakkr.ai","higoodie.com","rankprompt.com","knowatoa.com","promptwatch.com","qwairy.co","rankscale.ai","waikay.io","ziptie.ai","brandlight.ai","evertune.ai","nightwatch.io","quattr.com","xfunnel.ai","searchable.com","usehall.com","amionai.com","bluefishai.com","airops.com","aerank.com","airank.tech","geopher.ai","geopta.com","geordy.ai","geostars.com","getmentioned.co","mentionowl.com","mentions.so","mentionsflow.com","scope.online","serprecon.com","visibility.so","withgauge.com","geneo.app","koalr.ai","aisearchvisibility.ai","aeoeye.com"
+  ],
+  "ecommerce-consumer": [
+    "amazon.com","walmart.com","target.com","bestbuy.com","ebay.com","etsy.com","wayfair.com","chewy.com","costco.com","homedepot.com","lowes.com","macys.com","nordstrom.com","sephora.com","ulta.com","nike.com","adidas.com","zara.com","hm.com","uniqlo.com","ikea.com","apple.com","samsung.com","dell.com","hp.com","lenovo.com","newegg.com","rei.com","patagonia.com","lululemon.com","gap.com","asos.com","zalando.com","shein.com","temu.com","aliexpress.com",
+    "allbirds.com","warbyparker.com","glossier.com","casper.com","everlane.com","bombas.com","awaytravel.com","brooklinen.com","purple.com","gymshark.com","skims.com","colourpop.com","fentybeauty.com","hims.com","ritual.com","drinkag1.com","liquiddeath.com","olaplex.com","theordinary.com","kith.com","ruggable.com","parachutehome.com","hydroflask.com","yeti.com","stanley1913.com","ouraring.com","onepeloton.com","dyson.com","sonos.com","bose.com","gopro.com","logitech.com","anker.com","tesla.com","ford.com","toyota.com",
+    "airbnb.com","booking.com","expedia.com","kayak.com","uber.com","lyft.com","doordash.com","instacart.com","opentable.com","zillow.com","redfin.com","indeed.com","upwork.com","fiverr.com",
+    "chime.com","robinhood.com","coinbase.com","sofi.com","nerdwallet.com","creditkarma.com","lemonade.com","geico.com","progressive.com"
+  ],
+  "publishers": [
+    "nytimes.com","washingtonpost.com","theguardian.com","bbc.com","cnn.com","reuters.com","bloomberg.com","wsj.com","forbes.com","techcrunch.com","theverge.com","wired.com","theatlantic.com","economist.com","ft.com","apnews.com","npr.org","usatoday.com","latimes.com","businessinsider.com","axios.com","politico.com","vox.com","cnbc.com","foxnews.com","nbcnews.com","cbsnews.com","time.com","newyorker.com","arstechnica.com","engadget.com","zdnet.com","cnet.com","mashable.com","huffpost.com","buzzfeed.com","vice.com","medium.com","substack.com"
+  ],
+  "ugc-review": [
+    "reddit.com","quora.com","stackoverflow.com","wikipedia.org","youtube.com","linkedin.com","g2.com","capterra.com","trustpilot.com","producthunt.com","yelp.com","tripadvisor.com","glassdoor.com","github.blog","dev.to","news.ycombinator.com","gartner.com","softwareadvice.com","getapp.com","trustradius.com"
+  ]
+}

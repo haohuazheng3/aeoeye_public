@@ -1,0 +1,77 @@
+{
+  "contentSha256": "7bfd2202ce3624452971ea1ead4b7b53ee4f94cd93fde2ffca5071585cfeaa63",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer who appears in ChatGPT answers but not Perplexity (or the reverse) needs to know how the two engines get, show and choose sources, and what to change for each.",
+    "connection": "This page compares the two engines AEOeye's audits test most often on the one question AEOeye answers, whether AI engines name and cite a brand, and uses AEOeye's own crawler access study for the bot-blocking differences."
+  },
+  "assessment": "The page answers on the first screen that the two engines lean on different sources and that neither publishes ranking weights, then compares their search crawlers, user-triggered fetchers, citation display and source mix using vendor documentation, one arXiv preprint, the Tow Center study and AEOeye's 384-site crawler study. It gives separate, short action lists for Perplexity and ChatGPT plus a shared checklist and a do-it-yourself test. It deliberately drops the earlier version's unsourced figures (citation counts, ranking weights, share of Reddit citations, refresh-rate and referring-domain statistics) and does not present any per-engine recommendation rate from AEOeye's own audits, because those samples are unequal.",
+  "sources": [
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search results and is not used to crawl content for foundation models; Perplexity-User fetches pages for a user's question and generally ignores robots.txt; changes can take up to 24 hours; verified in the raw page text."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search features and opted-out sites will not be shown in ChatGPT search answers though they can still appear as navigational links; GPTBot is for training and each robots.txt setting is independent; ChatGPT-User actions are user-initiated, robots.txt rules may not apply and it is not used to decide Search appearance; about 24 hours for changes; verified in the raw page text."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+      "checkedAt": "2026-10-03",
+      "supports": "API web search returns inline citations with URL, title and location; the sources field lists all URLs consulted and is often longer than the citations; agentic search lets the model keep searching; verified in the raw page text. Describes the API, not the ChatGPT app."
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/tools/web-search.md",
+      "checkedAt": "2026-10-03",
+      "supports": "Agent API web_search results include url, title, snippet, date and last_updated, and recency filters from hour to year; verified in the raw markdown. Describes the API, not the Perplexity app."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/prompt-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "Agent API runs a bounded multi-turn loop where the model can call web_search on each turn, and the input seeds the first search query."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al. (September 2025 preprint): link-source mix for well-known brands (ChatGPT 93.5% earned, 6.5% brand, 0% social; Perplexity 67.4% / 8.8% / 23.8%) and niche brands (ChatGPT 95.1 / 4.9 / 0; Perplexity 73.4 / 9.1 / 17.5); Jaccard domain overlap GPT-Perplexity 0.088 (consumer electronics) and 0.096 (automotive); YouTube Perplexity's top automotive source; engine settings sonar-pro and gpt-4o-search-preview. Numbers read from the full PDF text."
+    },
+    {
+      "url": "https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php",
+      "checkedAt": "2026-10-03",
+      "supports": "Tow Center, 6 March 2025: Perplexity answered 37 percent of queries incorrectly; ChatGPT showed a bias toward wrong answers over no answers; several tools cited syndicated or copied versions; Perplexity's free version identified all ten paywalled National Geographic excerpts although the publisher disallowed its crawlers. Verified in an archived copy of the raw page."
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "Robots Exclusion Protocol rules are not a form of access authorization."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of retrieval-augmented generation as letting a language model retrieve and use outside information."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Jaccard_index",
+      "checkedAt": "2026-10-03",
+      "supports": "Jaccard index is the intersection size divided by the union size of two sets."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and kept only claims the page states; the Perplexity and OpenAI crawler pages, the OpenAI web search guide and the Perplexity web search page were also checked against the raw text with curl.",
+    "Writer (Sonnet): read the full text of the arXiv 2509.08919 PDF to confirm every percentage, the Jaccard values and the engine settings (sonar-pro, gpt-4o-search-preview) before using them, and labelled the paper as an unreviewed preprint.",
+    "Writer (Sonnet): confirmed the Tow Center numbers and the National Geographic and syndication findings against an archived copy of the raw article because the live site blocks scripted fetches.",
+    "Writer (Sonnet): recomputed the crawler-study figures from public/resources/ai-crawler-access-study-2026-10.csv (PerplexityBot blocked on 35 of 384, OAI-SearchBot on 16 of 384, publishers 26 and 11 of 38, all 16 OAI-SearchBot blockers also block PerplexityBot, 19 block only PerplexityBot) and matched them with the evidence pack.",
+    "Writer (Sonnet): could not fetch OpenAI's help-center pages on ChatGPT search or Perplexity's help-center pages (403), so no claim about the consumer apps' citation display, Bing or other outside providers is made on this page; it points readers to test the apps themselves.",
+    "Writer (Sonnet): read the previous version in full and dropped its unsourced statistics (citation counts per answer, naming rates, ranking weights, Reddit share, 30-day refresh rates, referring-domain multipliers, Google-rank overlap); no unique sourced point remained that was not rewritten here.",
+    "Editor (Opus): read the final page: retrieval and citation differences from each vendor's documentation, comparison table, how to win in each, shared checklist",
+    "Editor (Opus): verified arXiv 2509.08919 source-mix figures were taken from the PDF; old unsourced per-engine numbers removed",
+    "Editor (Opus): crawler-study figures (35/384 block PerplexityBot, 16/384 OAI-SearchBot, publishers 26/38 vs 11/38) match the public CSV",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

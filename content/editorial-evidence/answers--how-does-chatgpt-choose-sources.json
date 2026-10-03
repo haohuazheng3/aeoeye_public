@@ -1,0 +1,67 @@
+{
+  "contentSha256": "e5040b52f6429711b7003f06d1cb125e7013ee270c47be7f24229433efc87984",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A marketer or founder wants to know how ChatGPT decides which web pages to cite or draw on, and which parts of that process they can influence.",
+    "connection": "Explains the retrieval and memory routes that determine whether ChatGPT names or cites a brand, which is exactly what AEOeye's free audit measures with live ChatGPT answers."
+  },
+  "assessment": "The page separates what OpenAI documents (when ChatGPT searches, query rewriting, partner providers, OAI-SearchBot eligibility, noindex behaviour, GPTBot independence, training sources) from what published research observed (earned-media tilt in a 2025 preprint, GEO tactics tested on a research engine and Perplexity) and from AEOeye's own inference, and labels each. It uses AEOeye's crawler access study for the OAI-SearchBot block rates and the e-commerce challenge rate, with the sample caveats. It deliberately does not claim any ranking weights, a Bing-only pipeline, that memory answers can be told apart from search answers, or that the 2025 research models equal today's ChatGPT.",
+  "sources": [
+    {
+      "url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt",
+      "checkedAt": "2026-10-03",
+      "supports": "ChatGPT may search automatically; typically rewrites a question into targeted queries and may send further queries after reviewing results; memories can shape rewrites; partners with other search providers (Microsoft and Shopify privacy statements linked); responses may include citations; results and citations can be incomplete, outdated or incorrect; ranks results using multiple factors, placement not guaranteed; eligibility = allow OAI-SearchBot and allow OpenAI's published IPs. Read in the built-in browser because the help centre returns 403 to fetchers."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces sites in ChatGPT search; opted-out sites are not shown in answers but can appear as navigational links; ~24 hours for robots.txt changes; GPTBot and OAI-SearchBot are independent settings; disallowing GPTBot means content should not be used for training (confirmed in raw HTML)."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/12627856-publishers-and-developers-faq",
+      "checkedAt": "2026-10-03",
+      "supports": "Any public website can appear in ChatGPT search; don't block OAI-SearchBot; a disallowed page may still surface as link and title if the URL comes from a third-party provider; use noindex, which must be crawlable to be read; ChatGPT adds utm_source=chatgpt.com to referral URLs."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
+      "checkedAt": "2026-10-03",
+      "supports": "Models are developed from public internet information, third-party partner data and user/trainer-provided data; models do not store copies of training data and do not copy and paste from it."
+    },
+    {
+      "url": "https://openai.com/index/introducing-chatgpt-search/",
+      "checkedAt": "2026-10-03",
+      "supports": "October 2024 launch post: ChatGPT search leverages third-party search providers and content provided directly by partners; named publisher partners include Associated Press, Financial Times and Reuters."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al. (Sept 2025): AI search shows a systematic bias toward earned media over brand-owned and social content; US consumer-electronics queries, AI search 92.1% earned vs Google 32.9% brand / 15.4% social (confirmed in the PDF text; the AI model was gpt-4o-search-preview)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "Aggarwal et al. (KDD 2024): Cite Sources, Quotation Addition and Statistics Addition gave 30-40% relative improvement on Position-Adjusted Word Count and 15-30% on Subjective Impression; keyword stuffing performed poorly; tested on GEO-bench with a custom engine and Perplexity.ai (confirmed in the PDF text)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition link for retrieval-augmented generation (page exists, HTTP 200)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03; the OpenAI help-centre pages returned 403 to WebFetch, so they were read in the built-in browser and only claims stated on the page were kept",
+    "Writer (Sonnet): confirmed the OAI-SearchBot, GPTBot and ChatGPT-User wording against the raw HTML of developers.openai.com/api/docs/bots",
+    "Writer (Sonnet): downloaded the PDFs of arXiv 2509.08919 and 2311.09735 and checked the 92.1% earned-media figure, the Google brand/social shares, the 30-40% and 15-30% improvements and the models and engines used against the raw text",
+    "Writer (Sonnet): checked the OAI-SearchBot block counts (16/384, 1/193 SaaS, 11/38 publishers) and the e-commerce challenge count (24/88) against the evidence pack and the study JSON/CSV",
+    "Writer (Sonnet): read the previous version and kept its two-mode idea (live search vs training memory), but removed its unsourced claims about re-ranking by directness, corroboration and freshness, and its links to the retired /guides/how-to-rank-in-chatgpt",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the page (clean)",
+    "Editor (Opus): read the final page: every claim labelled documented / observed / our inference; four-step retrieval table with evidence-level column",
+    "Editor (Opus): unsourced re-ranking claims and the link to the retired ChatGPT ranking guide were removed",
+    "Editor (Opus): crawler-study figures (16/384 block OAI-SearchBot; 1/193 SaaS vs 11/38 publishers) match the public CSV",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

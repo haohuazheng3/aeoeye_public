@@ -1,0 +1,73 @@
+{
+  "contentSha256": "6e7b242debe036fb6ca88d5b4fac9857c4f33ed67ca9d593059801c0e8f2fac1",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buyers who find Goodie AI's $399/month entry price too high or too heavy need cheaper or simpler alternatives matched to the job (baseline, tracking, or managed program).",
+    "connection": "AEOeye's free audit and $29 report serve the baseline job; the page routes readers to trackers or Goodie itself when ongoing monitoring or a managed program fits better."
+  },
+  "assessment": "The page replaces an outdated Goodie story (Explorer plan, quote-only Pro, money-back guarantee) with Goodie's live pricing, including the annual-versus-monthly toggle, and compares four alternatives on entry price, engines and capacity from each vendor's own pricing page. It adds a cost-per-answer check using only vendor-defined units, flags assumptions, and does not claim hands-on use, rankings or outcomes for any product.",
+  "sources": [
+    {
+      "url": "https://higoodie.com/pricing/",
+      "checkedAt": "2026-10-03",
+      "supports": "Core $399, Pro $999, Growth $275 (annual rate); monthly toggle $478.80/$1,198.80/$330; engines, prompts, seats per tier; 7-day Core trial; Enterprise by demo; no refund terms stated."
+    },
+    {
+      "url": "https://higoodie.com/agent-site-audit/",
+      "checkedAt": "2026-10-03",
+      "supports": "Free Agent Site Audit: 8 categories, 36 signals, scans robots.txt, llms.txt, schema; does not test what AI says about a brand."
+    },
+    {
+      "url": "https://otterly.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Lite $29/month (15 prompts, four engines), 15% annual discount, Claude/Gemini/AI Mode add-on prices, free trial without stated length."
+    },
+    {
+      "url": "https://peec.ai/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "Starter $95/month, 50 prompts, choose 3 models, 4,500 monthly AI answers, 15% annual discount, Claude only under Enterprise, Start free trial button."
+    },
+    {
+      "url": "https://athenahq.ai/plans",
+      "checkedAt": "2026-10-03",
+      "supports": "Free Essential with $25 credit (300 credits); Starter $295/month ($245 annual), 3,600 credits, 1 credit = 1 AI response, 11 models incl. Claude."
+    },
+    {
+      "url": "https://www.tryprofound.com/pricing",
+      "checkedAt": "2026-10-03",
+      "supports": "For-brands tab lists only a free 7-day trial (50 prompts daily, three engines) and custom Enterprise."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Generative_engine_optimization",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of GEO/AEO."
+    },
+    {
+      "url": "https://higoodie.com/",
+      "checkedAt": "2026-10-03",
+      "supports": "Goodie describes a research, monitor, action, measure closed loop."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03; where pages render prices with JavaScript (Goodie, Peec, Otterly, AthenaHQ) read the rendered page in a real browser and the raw HTML or JS, and kept only what they state.",
+    "Writer (Sonnet): confirmed in a browser that Goodie's toggle changes Core from $478.80 (Billed Monthly) to $399 (Billed Annually) and Pro from $1,198.80 to $999; recomputed $399 x 12 = $4,788 = $478.80 x 10 and labelled it as our arithmetic.",
+    "Writer (Sonnet): recomputed cost-per-answer figures from vendor-defined units (Peec 50 x 3 x 30 = 4,500; Athena 3,600 credits) and marked the Goodie 18,000-answer figure as our assumption.",
+    "Writer (Sonnet): checked benchmark and crawler-study numbers against the evidence pack and kept their caveats; did not use the old Goodie, Profound and Nightwatch figures that current vendor pages no longer show.",
+    "Editor (Opus): read the opening, pricing/plan tables and verdict sections in full; confirmed the documentation-based disclosure near the top, dated vendor prices taken from the vendor's own live pages, and conflicting or unconfirmed vendor terms stated as unverified",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): confirmed the vendor figures are consistent with the other vendor pages verified in this release (docs/content/vendor-sites-study-2026-10.md pricing notes), the neutral vendor-site fact box matches the study CSV, and AEOeye product claims match the product facts (free ChatGPT check; one-time $29 report; not a tracker)",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/answers/goodie-ai-pricing-too-expensive-alternatives"
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "Public USD pricing",
+    "billing": "Goodie headline prices are annual-billing monthly rates; monthly billing is higher; Otterly and Peec headline prices are monthly billing",
+    "checkedAt": "2026-10-03",
+    "verification": "Checked Goodie, Otterly, Peec and AthenaHQ pricing pages in a rendered browser on 2026-10-03, including billing toggles, and recomputed annual totals and per-answer ratios from the published figures."
+  }
+}

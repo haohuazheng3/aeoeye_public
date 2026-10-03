@@ -1,0 +1,98 @@
+{
+  "contentSha256": "90351f01d9849659d507027eb484eeea97aa03221c8e98b0ada7cfeb63d6a1fb",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer finds that ChatGPT, Perplexity, Google AI or Claude never mention their brand, or recommend competitors instead, and needs to know which cause applies and what to fix first.",
+    "connection": "The page is the do-it-yourself version of what AEOeye's free audit surfaces: what AI engines say about a brand, which competitors they name instead, and whether crawlers can reach the site."
+  },
+  "assessment": "The page orders five causes (access, identity, corroboration, clarity, freshness), gives a test for each, a symptom-to-fix table and a fix order. It rests on OpenAI, Anthropic, Perplexity, Google and Bing documentation, RFC 9309, an arXiv study of earned-media bias, SparkToro's run-to-run variance study, and AEOeye's own crawler study and audit records with their sample sizes and caveats. It does not promise any timeline or outcome, does not compare engines from the self-selected benchmark, and drops unverifiable third-party statistics from the merged pages.",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot is for ChatGPT search, GPTBot for training, each setting independent; allow OAI-SearchBot and OpenAI's published IP ranges; robots.txt updates take about 24 hours to take effect for search."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "Disabling Claude-SearchBot prevents indexing for search and may reduce visibility and accuracy in user search results."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity results and is not used to crawl for foundation models; WAF users may need to explicitly allowlist its bots."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309",
+      "checkedAt": "2026-10-03",
+      "supports": "If robots.txt is unreachable because of server or network errors, the crawler MUST assume complete disallow."
+    },
+    {
+      "url": "https://blog.cloudflare.com/content-independence-day-no-ai-crawl-without-compensation/",
+      "checkedAt": "2026-10-03",
+      "supports": "On 1 July 2025 Cloudflare said it was changing the default to block AI crawlers unless they pay creators."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "A page must be indexed and eligible to show with a snippet to be a supporting link in AI Overviews or AI Mode; no additional requirements, no special schema.org markup or AI text files needed."
+    },
+    {
+      "url": "https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview",
+      "checkedAt": "2026-10-03",
+      "supports": "Bing Webmaster Tools AI Performance report (10 February 2026) shows citations across Microsoft Copilot, AI summaries in Bing and select partner integrations."
+    },
+    {
+      "url": "https://vercel.com/blog/the-rise-of-the-ai-crawler",
+      "checkedAt": "2026-10-03",
+      "supports": "December 2024 analysis of nextjs.org traffic: ChatGPT and Claude crawlers fetch JavaScript files but do not execute them, so client-side-rendered content is not read."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Chen et al. (September 2025): AI search shows a systematic and overwhelming bias towards earned media over brand-owned and social content, in contrast to Google's more balanced mix."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers, 2,961 runs, 12 prompts, ChatGPT / Claude / Google AI, November-December 2025: under a 1-in-100 chance of the same brand list in any two ChatGPT or Google AI responses."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition of RAG; with conflicting sources, models may merge outdated and updated information in a misleading way."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Entity_linking",
+      "checkedAt": "2026-10-03",
+      "supports": "Entity linking assigns a unique identity to entities mentioned in text; entity names are often homonyms or polysemous, so one mention can refer to many entities."
+    },
+    {
+      "url": "https://schema.org/sameAs",
+      "checkedAt": "2026-10-03",
+      "supports": "sameAs is the URL of a reference web page that unambiguously indicates the item's identity."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/organization",
+      "checkedAt": "2026-10-03",
+      "supports": "Organization structured data can help Google disambiguate your organization; Google does not guarantee features that consume structured data will appear."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 with WebFetch and re-checked the exact quoted sentences against the raw page text (curl) for OpenAI bots, Google AI features, Perplexity bots, Anthropic, Cloudflare, RFC 9309, Vercel, SparkToro, arXiv, Wikipedia and Google's Organization page.",
+    "Writer (Sonnet): checked every AEOeye number (crawler study 1/193, 4/90, 27/38, 24/88 = 27.3%, 70.2% of 312, 60.9% of 312; benchmark 127 audits, 892 answers, 17.6%, 2.9 competitors, 71.4% of 147; 165 pages into 42) against docs/content/aeoeye-evidence-pack.md and kept each caveat (convenience sample, our own crawler, self-selected benchmark, no per-engine comparison).",
+    "Writer (Sonnet): dropped statistics from the merged pages that rest on content-farm or vendor-blog roundups and could not be verified (85% of mentions from third parties, 84% earned media, 17.2% average mention rate, 30% / 27% of sites blocking crawlers, 3x citations for high-traffic sites, Wikipedia 7.8% of ChatGPT citations, 11% source overlap, author-schema 3x, 44% citation lift, and the Yext / Position Digital / Mersel / NetRanks figures).",
+    "Writer (Sonnet): did not state that ChatGPT search relies on Bing, because only secondary sources said so and OpenAI's help page returned 403; the page cites only OpenAI's bot documentation for ChatGPT search access.",
+    "Writer (Sonnet): ran node scripts/content-lint.mjs on the final page: 1478 words, 3 inline images, 0 errors, 0 warnings.",
+    "Editor (Opus): reviewed the final draft: opening stance (usually the rest of the web, not your site), the five ordered causes, the 15-minute diagnosis table and fix order; merges of the two absorbed pages checked against the writer report",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): matched first-hand figures to the evidence pack (1/193 SaaS, 4/90 e-commerce, 27/38 publishers; 24/88 challenged; 70.2% / 60.9% of 312; 17.6% of 892, 2.9, 71.4% of 147 with caveat) and AEOeye product claims; consolidation figure '165 pages into 42'",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": [
+    "/blog/why-your-brand-is-invisible-to-ai",
+    "/answers/why-does-ai-recommend-my-competitors"
+  ]
+}

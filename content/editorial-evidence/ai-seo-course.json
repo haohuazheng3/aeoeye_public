@@ -1,0 +1,71 @@
+{
+  "contentSha256": "edc86a6f5674336dd9ef9012a67d56e10a21f6211789a14cde1901eb79bb04ce",
+  "reviewedAt": "2026-10-03",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A marketer or founder wants to know whether to pay for an AI SEO / GEO course or certification, what a good curriculum covers, and what to learn for free instead.",
+    "connection": "AEOeye's work is measuring whether AI engines name a brand; the page teaches the same audit-change-remeasure loop and the crawler-access and measurement basics the audit checks."
+  },
+  "assessment": "The page gives a verdict (a certificate is a weak signal, courses are worth it only if they force a real audit), a six-topic curriculum checklist, a table of four courses with cost, length and credential taken from each provider's own page, and a free self-study path built on primary sources. It uses AEOeye's crawler access study with its n and caveats and describes what aeoeye.com itself does. It says plainly that we have not taken the courses, does not rank them by quality, and leaves out Udemy-style marketplace prices it could not verify.",
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+      "checkedAt": "2026-10-03",
+      "supports": "SEO best practices still apply to Google's generative AI features; no need for llms.txt, special markup or content chunking."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper abstract: strategies can boost visibility by up to 40% in generative engine responses; efficacy varies across domains."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot and GPTBot are independent robots.txt settings; robots.txt updates can take about 24 hours to take effect for search."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links sites in Perplexity search results and is not used to crawl content for AI foundation models."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/16984139",
+      "checkedAt": "2026-10-03",
+      "supports": "Search Console generative AI performance report shows impressions in AI Overviews and AI Mode; rolled out to all websites worldwide as of August 31, 2026."
+    },
+    {
+      "url": "https://offers.hubspot.com/academy-aeo-certifications",
+      "checkedAt": "2026-10-03",
+      "supports": "HubSpot Academy offers two free AEO certifications (AEO Fundamentals; Implementing AEO With HubSpot) and an AEO Dual Certified badge for both; length not stated."
+    },
+    {
+      "url": "https://www.coursera.org/learn/introduction-to-generative-engine-optimization-geo",
+      "checkedAt": "2026-10-03",
+      "supports": "Edureka's Introduction to GEO on Coursera: enroll for free, 5 modules, about 9 hours, beginner, shareable certificate, AI-graded assignments, certificate needs purchase or Coursera Plus."
+    },
+    {
+      "url": "https://ahrefs.com/academy",
+      "checkedAt": "2026-10-03",
+      "supports": "Ahrefs Academy lists a free Answer Engine Optimization (AEO) course, 12 lessons, 1 hr 26 min, and a separate Brand Radar course."
+    },
+    {
+      "url": "https://us.semrush.com/academy/courses",
+      "checkedAt": "2026-10-03",
+      "supports": "Semrush Academy lists the AI Search Operating System course (10 lessons, 41 minutes, Certification) under Free Online Marketing Courses."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched each cited URL on 2026-10-03 and re-read the raw HTML text with curl for every number in the course table (HubSpot free certifications, Coursera 9 hours / 5 modules / certificate terms, Google and OpenAI quotes, arXiv abstract).",
+    "Writer (Sonnet): confirmed on Ahrefs Academy (ahrefs.com/academy) the AEO course listing (free, 12 lessons, 1 hr 26 min) and on us.semrush.com/academy/courses the AI Search Operating System listing (10 lessons, 41 min, Certification).",
+    "Writer (Sonnet): did not state any Udemy price, rating or update date because the Udemy page returned HTTP 403 and search snippets could not be confirmed against the page.",
+    "Writer (Sonnet): used AEOeye crawler study numbers exactly as in the evidence pack (1/193 SaaS and 27/38 publishers blocking an AI retrieval bot; 24/88 e-commerce homepages challenging the research crawler; 384-site convenience sample) and the '165 pages into 42' figure.",
+    "Writer (Sonnet): kept the page documentation-based and stated near the top that we have not taken the courses.",
+    "Editor (Opus): reviewed the final draft: opening stance, curriculum list, verified course table (prices/lengths only as each provider's page states), certification verdict and free self-study path; title does not claim a hands-on review",
+    "Editor (Opus): re-checked every external URL on the page and in the evidence file on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): matched first-hand figures to the evidence pack (1/193 SaaS vs 27/38 publishers; 24/88 e-commerce homepages) and the 165→42 consolidation figure",
+    "Editor (Opus): content-lint reports no errors or warnings",
+    "Editor (Opus): fixed the documentation-guide disclosure wording flagged by the content gate (title no longer says 'review'; opening states public documentation and no hands-on test)"
+  ],
+  "merged": []
+}

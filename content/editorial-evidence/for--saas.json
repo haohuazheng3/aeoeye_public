@@ -1,0 +1,71 @@
+{
+  "contentSha256": "10ef7b30166f259495cfe9d0b34d7786aebc12e98ddbe24fdda813994e99c108",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A SaaS founder or marketer wants their product named when buyers ask ChatGPT, Perplexity or Google AI for the best tool in a category, and needs to know how that shortlist forms, which actions move it, and how to check it.",
+    "connection": "This is AEOeye's core question applied to software: whether AI engines name a brand when buyers ask. The page uses AEOeye's crawler access study (SaaS group) and recommendation benchmark, and points readers to the free audit that tests three unbranded buyer questions on ChatGPT."
+  },
+  "assessment": "The page answers the question on the first screen (be present in the sources engines retrieve, not just on your own site; blocking crawlers is rarely the problem), then shows how the shortlist forms using G2's survey, Google, OpenAI and Perplexity documentation and an arXiv study on earned-media bias. It gives a ranked tactic list, a measurement method that accounts for answer variability, and a 30-day plan. It rests on first-hand SaaS-group crawler figures with their denominators and the small, self-selected benchmark with its caveat. It deliberately does not claim that schema or llms.txt moves citations, does not present G2's vendor-funded self-reported survey as measurement, and does not promise results or timelines it cannot source.",
+  "sources": [
+    {
+      "url": "https://learn.g2.com/g2-2026-ai-search-insight-report",
+      "checkedAt": "2026-10-03",
+      "supports": "G2 survey of 1,076 B2B decision-makers (2026 AI search report): 51% start software research with an AI chatbot more often than Google; chatbots the #1 source influencing shortlists (54%) ahead of review sites (43%); 69% chose a different vendor than planned after chatbot guidance and 33% bought from a vendor they had not heard of; first prompts 33% category-based and 31% competitor-based; 45% say a review-site citation is the most confidence-inspiring signal. Confirmed in the raw page text (curl)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "AI Overviews and AI Mode may use a query fan-out technique issuing multiple related searches across subtopics and data sources; no special schema.org structured data or AI text files are needed to appear; existing SEO fundamentals continue to be worthwhile. Confirmed in raw page text."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "OAI-SearchBot surfaces websites in ChatGPT search; opted-out sites are not shown in ChatGPT search answers; OpenAI recommends allowing OAI-SearchBot and requests from its published IP ranges; GPTBot is for training and each robots.txt setting is independent."
+    },
+    {
+      "url": "https://docs.perplexity.ai/guides/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "PerplexityBot surfaces and links websites in Perplexity search results and is not used for foundation-model training; Perplexity recommends allowing it in robots.txt and permitting its published IP ranges."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "Study finds AI search engines show a systematic bias toward earned (third-party) media over brand-owned and social content, in contrast to Google's more balanced mix (arXiv abstract, submitted September 2025)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "GEO paper (Aggarwal et al.): Cite Sources, Quotation Addition and Statistics Addition gave 30-40% relative improvement on the position-adjusted word-count metric; keyword stuffing did not perform well. Confirmed in the full PDF text."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers ran 12 prompts through ChatGPT, Claude and Google AI a combined 2,961 times; less than a 1 in 100 chance that ChatGPT or Google's AI gives the same brand list in two responses over 100 runs; the author concludes percent visibility across repeated runs is a reasonable measure."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/software-app",
+      "checkedAt": "2026-10-03",
+      "supports": "Google's software app structured data requires name, offers.price and either aggregateRating or review to be eligible as a rich result."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Software_as_a_service",
+      "checkedAt": "2026-10-03",
+      "supports": "Lead definition: SaaS is a cloud computing service model in which a provider delivers application software to clients while managing the required physical and software resources."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched every cited URL on 2026-10-03 and kept only claims the page states; for the G2 report, the Google AI features page and the GEO paper I also read the raw text (curl and PDF text extraction) to confirm each number.",
+    "Writer (Sonnet): recomputed the SaaS-group figures from public/resources/ai-crawler-access-study-2026-10.csv (4 GPTBot blocks, 1 retrieval-bot block, 108 valid llms.txt, 129 Organization, 13 FAQPage, 49 Product/SoftwareApplication of 176 parsed homepages) and used the denominators listed in the evidence pack (193 robots, 180 llms.txt, 176 schema); the UGC and publisher columns come from the evidence pack table.",
+    "Writer (Sonnet): checked benchmark figures against public/resources/aeoeye-recommendation-benchmark-2026-09.json (127 audits, 892 answers, 2.93 competitors per answer, 71.4% of 147 ranked mentions first) and kept the self-selected-sample caveat beside them; no per-engine rate is shown.",
+    "Writer (Sonnet): treated G2 as an interested party (it sells to software vendors; survey is self-reported) and said so on the page; dropped the old page's unsourced claims about switching costs, sticky consensus and the claim that comparison-page mentions beat ten own-blog posts.",
+    "Writer (Sonnet): read the previous version of the page in full and kept its constrained-query insight, three-step shortlist model (relabelled as our model), tactics, measurement fields and 30-day plan, rewritten and tightened; ran node scripts/content-lint.mjs on the final file.",
+    "Editor (Opus): read the final page: qualified-query framing, shortlist model labelled as ours, re-ranked tactics, measurement fields and 30-day plan",
+    "Editor (Opus): SaaS crawler-study figures (1/193 blocking, 17/193 challenged) match the evidence pack; G2 2026 survey figures attributed to G2",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): product facts match the evidence pack: free 3-question ChatGPT audit, $29 five-engine report",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}

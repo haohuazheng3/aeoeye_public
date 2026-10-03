@@ -1,87 +1,101 @@
 ---
-title: "What Is Entity SEO? The Bridge Between Keywords and AI Visibility"
-description: "Entity SEO means being a clear, well-defined \"thing\" to search engines and AI — not just a page chasing keywords. Here's what it is and how to build it."
-date: "2026-07-18"
+title: "What Is Entity SEO? How It Helps AI Recognize Your Brand"
+description: "Entity SEO makes your brand one clearly identified thing to Google's Knowledge Graph and AI engines. How to check your entity, manage a panel, and build trust."
+date: "2026-10-03"
+published: "2026-07-18"
 category: "Fundamentals"
-readingTime: "7 min read"
-keywords: ["what is entity seo", "entity seo", "entity-based seo", "entity optimization", "brand entity seo"]
-faqs: [{"q": "What is entity SEO?", "a": "Entity SEO is optimizing so search engines and AI systems recognize your brand as a distinct, well-defined entity \u2014 a specific \"thing\" with clear attributes and relationships \u2014 rather than just a page targeting keywords. It focuses on brand-level signals like structured data, consistent naming, and third-party corroboration instead of on-page keyword placement alone."}, {"q": "What is the difference between entity SEO and keyword SEO?", "a": "Keyword SEO optimizes individual pages to match search terms. Entity SEO optimizes your whole brand so machines can identify it as a specific, disambiguated \"thing\" connected to a category, products, and people. Keyword SEO answers what a page is about; entity SEO answers what your brand actually is."}, {"q": "How do I improve my entity SEO?", "a": "Keep your brand name spelled consistently everywhere, add Organization schema with a complete sameAs array linking your profiles, earn mentions on credible third-party sites, and build genuine topical authority in your category. Pursue Wikipedia or Wikidata only once you have real third-party notability to support it."}, {"q": "Why do entities matter for AI search?", "a": "AI answer engines cite entities they understand confidently and skip ones they don't. Unlike classic search, there's no lower position to fall back on: a fuzzy or unrecognized brand gets left out of the answer entirely, while a well-defined entity gets recommended by name."}]
-image: {"url": "https://images.pexels.com/photos/9822732/pexels-photo-9822732.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200", "alt": "Wooden blocks spelling SEO on a laptop keyboard convey digital marketing concepts.", "photographer": "Atlantic Ambience", "photographerUrl": "https://www.pexels.com/@freestockpro"}
-sources: []
+readingTime: "6 min read"
+keywords: ["entity seo", "what is entity seo", "entity based seo", "brand entity optimization", "knowledge graph", "google knowledge panel", "google knowledge graph api", "knowledge graph logo"]
+faqs: [{"q": "What is entity SEO?", "a": "Entity SEO is optimizing so search engines and AI systems recognize your brand as one distinct, well-defined thing, with a consistent name, description and set of facts, instead of treating it as a page chasing keywords. It relies on Organization markup, consistent profiles and independent mentions that agree with each other."}, {"q": "Can I pay for or request a Google knowledge panel?", "a": "No. Google says panel information is generated automatically from public information on the web and that its policy is not to manually create or delete panels. If a panel exists and is claimable, you can verify through an official profile such as Search Console or YouTube, then suggest corrections with links that support them."}, {"q": "Is the Google Knowledge Graph Search API still the right way to check my brand?", "a": "It is still documented for a quick look, but Google's page says it is migrating the API to Cloud Enterprise Knowledge Graph, tells new users to start there, and warns against depending on it in production. Treat it as a one-off diagnostic. An empty result is a hint, not proof, because the API returns notable entities."}, {"q": "Does entity SEO make ChatGPT or Perplexity recommend my brand?", "a": "There is no documented switch. Google says AI Overviews and AI Mode need no special markup, and research shows language models recall popular, well-documented entities better than obscure ones. Consistent independent coverage and clear markup improve your odds without guaranteeing a mention, so test by asking each engine about your category."}, {"q": "How do I get my logo into my knowledge panel?", "a": "Add a logo property to your homepage Organization markup. Google says it helps the system understand which logo to show in Search results and knowledge panels, provided the image is at least 112x112 pixels and crawlable. It is not a guarantee. If a panel already shows the wrong image, suggest a replacement through Feedback after verifying."}]
+image: {"url": "https://images.pexels.com/photos/8386138/pexels-photo-8386138.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=630", "alt": "A close-up view of scattered puzzle pieces on a light background, featuring a unique blue piece.", "photographer": "Tara Winstead", "photographerUrl": "https://www.pexels.com/@tara-winstead"}
+sources: [{"label": "Google — Knowledge Graph Search API documentation", "url": "https://developers.google.com/knowledge-graph"}, {"label": "Google Search Central — Organization structured data", "url": "https://developers.google.com/search/docs/appearance/structured-data/organization"}, {"label": "Google Knowledge Panel Help — Get verified on Google", "url": "https://support.google.com/knowledgepanel/answer/7534902"}, {"label": "Google Search Central — AI features and your website", "url": "https://developers.google.com/search/docs/appearance/ai-features"}, {"label": "Google — A reintroduction to our Knowledge Graph and knowledge panels", "url": "https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/"}, {"label": "Mallen et al. — When Not to Trust Language Models (ACL 2023)", "url": "https://arxiv.org/abs/2212.10511"}]
 ---
 
-## What is entity SEO?
+Entity SEO is the work of making your brand one clearly identified thing, with one name, one description and one set of facts, that Google's Knowledge Graph and AI engines can recognize and tell apart from lookalikes. It helps when many independent sources agree on who you are. Markup alone will not do it, because most established brands already have it.
 
-Entity SEO means optimizing so search engines and AI systems understand your brand as a distinct, well-defined entity — a "thing" with clear attributes and relationships — instead of just a page competing for keywords. It's the practical, brand-level application of what Google called the shift from "strings to things."
+## What is entity SEO, and how is it different from keyword SEO?
 
-A keyword is a string of text. An entity is a thing that exists in the real world — a company, a product, a person — with a name, a category, and connections to other things. Doing entity SEO means asking a different question than usual. Not "what words should this page contain?" but "does the machine actually know what my brand is, and can it tell my brand apart from every other thing with a similar name?"
+Entity SEO optimizes your brand as a recognizable thing instead of optimizing pages for phrases. Google described the shift in 2012 as ["things, not strings"](https://blog.google/products/search/introducing-knowledge-graph-things-not/): a keyword is text, while an entity is a company, product or person with a name, a category and relationships to other things.
 
-Most sites never ask that second question. They optimize pages, not the entity behind the pages. That gap is exactly why some brands get named by ChatGPT and Perplexity while others — with objectively better products — never get mentioned at all.
+Keyword SEO still matters, because a page needs words. But a keyword-perfect page cannot tell an engine which of three companies called Atlas you are. That is an entity problem, and only signals outside the page can solve it.
 
-## Entities vs keywords
-
-Keywords are what people type into a search box. Entities are what things actually are — independent of any particular search query. That distinction matters because modern engines don't just match text anymore; they map queries and content to entities and reason about the relationships between them, a capability rooted in [semantic search](/blog/what-is-semantic-search).
-
-Old SEO trained everyone to think in strings: find the keyword, put it in the title, repeat it in the body, build links with that anchor text. That playbook still has a job to do. But it answers a narrower question than most people realize — it tells an engine what a page is about, not what a brand is.
-
-Entity SEO asks a different question: does the engine have a confident, disambiguated record of your brand as a "thing" — separate from every other business, person, or concept that shares its name? Here's the practical difference:
-
-| Dimension | Keyword SEO | Entity SEO |
+| | Keyword SEO | Entity SEO |
 |---|---|---|
-| Unit of optimization | Individual pages | The brand as a whole |
-| Core question | "What words describe this page?" | "What is this thing, and how is it connected?" |
-| Success signal | Ranking position for a query | Correct, confident recognition across engines |
-| Time horizon | Fixable in a content edit | Built over months of consistent signals |
-| Where it lives | Title tags, headers, body copy | Schema markup, knowledge graphs, third-party mentions |
-| Fails when | You don't use the right words | You're ambiguous, inconsistent, or invisible to machines |
+| Unit | A page | The brand |
+| Core question | What is this page about? | What is this thing, and who says so? |
+| Fails when | The wrong words are used | The brand is ambiguous, inconsistent or unmentioned |
 
-Keyword SEO is still necessary — you need words on the page. But it's no longer sufficient. A page can be keyword-perfect and still represent a brand the machine can't confidently identify.
+## What is a knowledge graph, and does it matter for AI answers?
 
-## Why entity SEO matters more in the AI era
+A knowledge graph is a database of entities (nodes) joined by relationships (edges), each with attributes, so software can look facts up instead of matching words ([Wikipedia](https://en.wikipedia.org/wiki/Knowledge_graph)). Google's Knowledge Graph launched in 2012 with [500 million objects and 3.5 billion facts](https://blog.google/products/search/introducing-knowledge-graph-things-not/). By 2020 it held [over 500 billion facts about five billion entities](https://blog.google/products-and-platforms/products/search/about-knowledge-graph-and-knowledge-panels/), drawn from hundreds of sources; Wikipedia is a commonly cited one. [Wikidata](https://www.wikidata.org/wiki/Wikidata:Introduction) is the free, open graph.
 
-AI answer engines cite entities they understand with confidence, and skip ones they don't. A brand with a clean, disambiguated entity record gets recommended by name; a brand that's fuzzy, inconsistent, or indistinguishable from a same-named competitor gets left out of the answer entirely.
+Google says AI Overviews and AI Mode need [no special optimization and no special schema.org markup](https://developers.google.com/search/docs/appearance/ai-features) beyond ordinary Search fundamentals. For ChatGPT, Claude and Perplexity we are not aware of vendor documentation describing a Knowledge Graph lookup, so we treat the graph as a mirror of your entity, not a lever on AI.
 
-This is the part that changes the stakes. In classic search, a weak entity signal cost you some ranking precision — you might land a few spots lower, still on the page, still clickable. In AI search, there's no "lower." There's a shortlist of brands the model is confident enough to name, and everyone else is functionally invisible, regardless of how good the product is.
+What does carry over is research on entity popularity. In [PopQA, a 14,000-question test of 10 models](https://arxiv.org/abs/2212.10511), language models struggled with less popular entities, retrieval-augmented models largely beat far larger ones, and unassisted models stayed competitive only on popular entities. A [separate ICML 2023 study](https://arxiv.org/abs/2211.08411) tied accuracy to how many pre-training documents mention an entity. Both studies date from 2022 and tested older models, so read them as direction: the more consistent, independent text describes you, the better your odds.
 
-That confidence comes from the same underlying structure search engines have used for over a decade: the [knowledge graph](/blog/what-is-a-knowledge-graph). When an engine has your brand mapped as a node — connected to your category, your founders, your products, your reviews — it can reason about you and vouch for you in a generated answer. When it doesn't, it has nothing to reason with, so it defaults to whatever entity it does understand, which is usually a bigger or older competitor.
+![From below of long thin blue cables connected to row of small white connectors on system block in data center](https://images.pexels.com/photos/4682189/pexels-photo-4682189.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-This is why "just write good content" stopped being sufficient advice. Good content proves you know your topic. Entity SEO proves you exist as a specific, identifiable thing — and that's the prerequisite for getting cited at all.
+## How do you check what Google knows about your brand?
 
+Query the Knowledge Graph Search API with your brand name and read the entity it returns. These steps follow [Google's documentation](https://developers.google.com/knowledge-graph/prereqs) as of October 2026.
 
-![Close-up of a notebook with SEO terms and keywords, highlighting a checklist approach.](https://images.pexels.com/photos/942331/pexels-photo-942331.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)
+1. Sign in with a Google Account and use Google's setup tool to create an API Console project and enable the API.
+2. Create an API key and [restrict it](https://developers.google.com/knowledge-graph/how-tos/authorizing) before real use.
+3. Send the request below with your brand as `query`, then read the fields after it.
 
-## How to build entity SEO
+```
+GET https://kgsearch.googleapis.com/v1/entities:search
+  ?query=YourBrand&types=Organization&limit=5&indent=true&key=API_KEY
+```
 
-You build entity SEO by giving machines consistent, structured, corroborated signals about who you are — the same way you'd build trust with a person who's never met you before. Five things do most of the work.
+One caution. Google's page now says it is [migrating this API to Cloud Enterprise Knowledge Graph](https://developers.google.com/knowledge-graph), tells new users to use that product, and calls the legacy API unsuitable as a production-critical service. The newer Basic edition suits [non-production community use](https://docs.cloud.google.com/enterprise-knowledge-graph/docs/editions). Use whichever your project can enable, for one-off checks.
 
-- **Name consistency.** Use the exact same brand name, spelled the same way, everywhere — your site, your social profiles, your directory listings, your press mentions. Engines link mentions into a single entity partly through name matching. Every variant ("AEOeye" vs. "AEO Eye" vs. "aeo-eye") is a small tax on recognition.
-- **Structured data.** Organization schema with a complete sameAs array is the clearest signal you can send. It explicitly tells engines: this website, this social profile, this directory listing, and this Wikipedia page are all the same entity. Pair it with the rest of your [structured data](/blog/structured-data-for-ai) so machines don't have to guess at anything they could just be told.
-- **Independent corroboration.** A brand that only talks about itself is a claim. A brand that gets talked about by other credible sources is a fact. That's why [brand mentions](/blog/brand-mentions) — even unlinked ones, on review sites, forums, and industry roundups — carry real entity weight. Machines trust third-party corroboration more than self-description, for the same reason people do.
-- **Wikipedia and Wikidata, where merited.** These aren't starter-tier tactics — you need genuine third-party notability first. But for a brand that qualifies, a Wikidata item is one of the strongest disambiguation signals available, because it's a structured record other knowledge graphs actively pull from.
-- **Topical authority.** Cover your category in depth, consistently, over time. An entity that only ever publishes one page about a topic looks like a passerby. An entity that has clearly built expertise in a space looks like the thing that space is about.
+No Google Cloud project? Wikidata's [search endpoint](https://www.wikidata.org/w/api.php?action=help&modules=wbsearchentities) needs no key: `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=YourBrand&language=en&format=json` returns matching items with a label and description. When we ran it for "Stripe" on 3 October 2026, the first two items were the payments company and the generic word "stripe".
 
-None of these five is optional if you're serious about it. Skipping structured data because you did a Wikipedia push, or skipping consistent naming because your schema is solid, leaves gaps that engines notice.
+Read the [response fields](https://developers.google.com/knowledge-graph/reference/rest/v1) like this:
 
-## Entity SEO and disambiguation
+- **`@id`:** the entity's canonical URI (`kg:/m/0dl567` in Google's sample). No entity for your name is a red flag.
+- **`@type`:** schema.org types. Expect Organization or Corporation; a Person means you are misfiled.
+- **`description` and `detailedDescription`:** check for a stale category. In Google's sample, `detailedDescription` comes from Wikipedia, so a wrong description often traces to a wrong source.
+- **`resultScore`:** Google defines it only as an indicator of how well the entity matched the request. Use it to order results within one response. We do not use it to compare brands.
 
-Disambiguation is the process of proving to engines that you are a specific, singular thing — not a duplicate, a rebrand, or a coincidence of naming with something else. It matters most for newer or smaller brands sharing a name with an older, bigger, or entirely unrelated entity.
+A hit is not a panel, and an empty result is not proof of absence, because the API lists [the most notable entities](https://developers.google.com/knowledge-graph). Lookalikes ranking above you are the signal to act on.
 
-Search for a common product name and you'll often find a city, a person, and three different companies all using it. Machines have to guess which one a query means, and by default they favor whichever entity they already understand best — usually the oldest or most-linked one. If that's not you, you lose the disambiguation contest before the content quality even gets evaluated.
+## How do you earn and manage a knowledge panel?
 
-You win disambiguation by triangulation, not by declaration. Saying "we are the real [name]" on your homepage does nothing. What works is a consistent web of corroborating signals — schema, sameAs links, third-party mentions, category-specific context — that lets an engine rule out every other candidate and land on you with confidence. The goal isn't to be findable. It's to be unmistakable.
+You cannot apply for or buy a knowledge panel. Google says panel information [generates automatically from public information on the web](https://support.google.com/knowledgepanel/answer/7534842) and that its policy is not to create or delete panels manually.
 
-## How to measure entity strength
+1. Search your brand and find the panel.
+2. Choose "Claim this knowledge panel", at the bottom or under "About", and sign in to an official profile Google lists: YouTube, Search Console, Twitter or Facebook ([Google](https://support.google.com/knowledgepanel/answer/7534902)). Not every panel is claimable yet.
+3. Use Feedback to flag a wrong fact, say what is wrong and link pages that prove it. Google says it reviews verified feedback within a few days, sometimes longer.
 
-You measure entity strength by checking whether machines already know who you are — not by checking your rankings. Three checks tell you most of what you need to know.
+Fix the source, not the panel. Google says descriptions come from various data sources and cannot be edited, and that changing the source usually changes the panel. So correct your About page, your Wikidata item and the profiles you control. The `logo` property in Organization markup helps Google choose which logo to show in Search and panels, if the file is at least 112x112 pixels and crawlable ([Google](https://developers.google.com/search/docs/appearance/structured-data/organization)).
 
-- **Knowledge panel presence.** Search your brand name directly. A knowledge panel with correct details is strong evidence your entity is established; a missing or wrong panel is a direct signal of weak entity strength.
-- **Graph presence via schema testing.** Validate your Organization schema and confirm your sameAs links resolve to profiles that actually match. Broken or missing links here are broken disambiguation signals.
-- **Direct AI description checks.** Ask ChatGPT, Perplexity, and Gemini to describe your brand and your category. Confident and accurate means your entity is legible to machines. Vague, wrong, or absent means you have entity-building work to do, no matter how good your rankings look.
+A panel is not a Business Profile. Google says Business Profiles are specific to businesses serving customers at a location or service area, though the two look alike.
 
-That last check is the one keyword SEO has no equivalent for — because it's not measuring a ranking at all. It's measuring whether the machine understands you.
+If no panel appears, the cause is usually a name shared with a bigger entity, little independent coverage, facts that contradict each other across the web, or no Organization markup. The same weaknesses keep AI from naming you, so we treat the panel as a symptom. Fix the facts and a panel may follow; we found no source that promises a timeline.
 
-## Does AI recognize your brand as an entity?
+![Close-up of a hand examining a South America map with a magnifying glass, highlighting Argentina.](https://images.pexels.com/photos/8828424/pexels-photo-8828424.jpeg?auto=compress&cs=tinysrgb&w=1200)
 
-Entity SEO is what separates brands AI engines can vouch for from brands they simply skip. You can have great content and still be invisible if the entity behind it is fuzzy, inconsistent, or indistinguishable from someone else with your name.
+## What builds a strong brand entity?
 
-The fastest way to know where you stand is to ask the engines directly and see what comes back. That's what [AEOeye](/) does — it audits how ChatGPT, Perplexity, Gemini, Google AI, and Claude actually describe and recommend your brand today, so you can see your entity gaps before a customer does.
+Consistency across independent sources builds it; markup only declares it, and most brands declare. In AEOeye's [crawler access study](/resources/ai-crawler-access-study-2026-10.csv) (3 October 2026), 129 of 176 SaaS homepages we could parse (73.3%) carried Organization-type schema and 121 (68.8%) had `sameAs` links.
+
+It is a convenience sample of established brands, fetched once, so read it as "common", not "universal". If most brands already have the markup, it cannot be what separates the brands AI names. Our own homepage lists only two `sameAs` profiles, so the checklist below applies to us too.
+
+1. **One name, one description.** Google says to use the same `name` and `alternateName` in Organization markup as in your site name, and to add `legalName` when it differs ([Google](https://developers.google.com/search/docs/appearance/structured-data/organization)). Use one short description everywhere you are profiled.
+2. **Organization markup with `sameAs` on the homepage.** schema.org defines `sameAs` as a page that ["unambiguously indicates the item's identity"](https://schema.org/sameAs), such as a Wikipedia or Wikidata page. Link only profiles that exist and match. See our [structured data guide](/blog/structured-data-for-ai) and the [entity SEO glossary entry](/glossary/entity-seo).
+3. **Registry identifiers.** Google says some properties disambiguate organizations behind the scenes, such as `iso6523Code` (prefixes 0060 DUNS, 0088 GLN, 0199 LEI) and `naics`. Publish one if you have it.
+4. **Independent corroboration and depth.** Reviews, press, directories and communities that describe you the same way. See [brand mentions](/blog/brand-mentions), and publish in depth on your category so the entity is tied to a topic.
+5. **Wikidata or Wikipedia, only if you qualify.** One Wikidata criterion is an item that [describes a clearly identifiable entity using serious, publicly available references](https://www.wikidata.org/wiki/Wikidata:Notability). Wikipedia's [notability rules](https://en.wikipedia.org/wiki/Wikipedia:Notability) require significant coverage independent of the subject, so your website and press releases do not count, and its [conflict-of-interest policy](https://en.wikipedia.org/wiki/Wikipedia:Conflict_of_interest) strongly discourages editing your own article.
+6. **Fresh facts.** Stale facts in one source contradict correct ones elsewhere. If an AI engine states wrong details, see [how to fix AI getting your brand wrong](/guides/how-to-fix-ai-getting-your-brand-wrong).
+
+![Top view of assorted wooden blocks spread on a wooden floor, creating a playful scene.](https://images.pexels.com/photos/31061847/pexels-photo-31061847.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## How do you know AI engines recognize your entity?
+
+Ask them several times and compare the answers with your facts. Run one unbranded buyer question, such as "best [category] for [use case]", and one branded question: "What is [brand], and who competes with it?" Check whether you are named, whether the description and category are right, and which sources are cited.
+
+Repeat each prompt. In [SparkToro's January 2026 study](https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/) (600 volunteers, 2,961 runs), the chance that two ChatGPT or Google AI responses listed the same brands was under 1 in 100, so one answer proves little.
+
+Then act on what you see. Wrong facts mean fixing the source. Absent while competitors are named means building corroboration; our diagnostic on [why AI does not mention your brand](/blog/why-ai-doesnt-mention-your-brand) orders the causes. AEOeye's [free audit](/) asks ChatGPT three unbranded buyer questions live and shows the full answers and the competitors named. For daily monitoring across hundreds of prompts, dedicated trackers such as Profound, Peec AI or Otterly do that; we do not.

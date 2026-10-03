@@ -1,0 +1,77 @@
+{
+  "contentSha256": "9019193a141f13c112ec0177e349ff13b07e2e8f160b8febbb65bdb1c5141ccb",
+  "reviewedAt": "2026-10-03",
+  "kind": "guide",
+  "topic": {
+    "area": "brand-citations",
+    "readerProblem": "A founder or marketer hears that brand mentions now matter more than backlinks for AI search and needs to know what the evidence says, which mentions actually count, and how to earn and track them.",
+    "connection": "Mentions on independent pages are what AEOeye's audit looks for in AI answers: whether engines name a brand when buyers ask, and which competitors and sources they name instead."
+  },
+  "assessment": "The page separates classic Google SEO (links documented, mentions not) from AI answers (mentions correlate far more strongly), then adds the caveats most advice skips: the evidence is correlational, AI Overviews still follow Google rankings, and the pages that carry mentions are often closed to AI crawlers. It rests on Ahrefs' two studies, an arXiv earned-media study, the GEO paper, Google, OpenAI and schema.org documentation, SparkToro's variance study and AEOeye's own crawler access study with its n and limits. It does not claim causation, does not promise results, and does not use unverified third-party statistics from the old version.",
+  "sources": [
+    {
+      "url": "https://ahrefs.com/blog/ai-overview-brand-correlation/",
+      "checkedAt": "2026-10-03",
+      "supports": "75,000 brands studied; branded web mentions correlate at 0.664 with AI Overview brand visibility vs 0.218 for backlinks; brand anchors 0.527; top mention quartile averages 169 AI Overview mentions vs 14 for the next quartile and 0-3 for the bottom two; 26% of brands have zero; Ahrefs states correlation is not causation; Brand Radar has a web-visibility view."
+    },
+    {
+      "url": "https://ahrefs.com/blog/ai-search-overlap/",
+      "checkedAt": "2026-10-03",
+      "supports": "15,000 prompts; about 12% of cited URLs overlap Google's top 10 on average, Perplexity highest at 28.6% and others near 8%; 76% of AI Overview citations come from top-10 pages (earlier Ahrefs research referenced there)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2509.08919",
+      "checkedAt": "2026-10-03",
+      "supports": "AI search shows a systematic bias toward earned media over brand-owned and social content; consumer electronics, Canada: AI search 77.6% earned / 0.3% social vs Google 54.1% earned / 23.1% social; ranking-style prompts and gpt-4o-search-preview (read from the PDF text)."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-03",
+      "supports": "Cite Sources, Quotation Addition and Statistics Addition achieved 30-40% relative improvement on Position-Adjusted Word Count in the GEO benchmark (read from the PDF text)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+      "checkedAt": "2026-10-03",
+      "supports": "Google uses links as a signal when determining the relevancy of pages and to find new pages to crawl."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-03",
+      "supports": "To be a supporting link in AI Overviews or AI Mode a page must be indexed and eligible to be shown in Search with a snippet; no additional technical requirements."
+    },
+    {
+      "url": "https://sparktoro.com/blog/new-research-ais-are-highly-inconsistent-when-recommending-brands-or-products-marketers-should-take-care-when-tracking-ai-visibility/",
+      "checkedAt": "2026-10-03",
+      "supports": "600 volunteers ran 12 prompts 2,961 times; under a 1 in 100 chance that ChatGPT or Google's AI returns the same brand list twice; visibility percent across many prompts is a decent proxy."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-03",
+      "supports": "Sites opted out of OAI-SearchBot will not be shown in ChatGPT search answers, though they can still appear as navigational links; OpenAI recommends allowing OAI-SearchBot."
+    },
+    {
+      "url": "https://schema.org/sameAs",
+      "checkedAt": "2026-10-03",
+      "supports": "sameAs is the URL of a reference web page that unambiguously indicates the item's identity."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Earned_media",
+      "checkedAt": "2026-10-03",
+      "supports": "Definition link for earned media (page reachable, used as the terminology reference)."
+    }
+  ],
+  "checks": [
+    "Writer (Sonnet): fetched the Ahrefs 75K-brand study and the Ahrefs overlap study with curl and confirmed every quoted number (0.664, 0.218, 0.527, 169 vs 14, 26%, 12%, 28.6%, 76%) against the page text.",
+    "Writer (Sonnet): downloaded the arXiv 2509.08919 and 2311.09735 PDFs and checked the Canada consumer-electronics source-type percentages, the gpt-4o-search-preview setup and the 30-40% GEO figure in the raw text.",
+    "Writer (Sonnet): confirmed the Google, OpenAI, SparkToro and schema.org statements in the fetched page text; dropped the old page's TechCrunch prompt-count source and its unsourced claims about implied links and rank-tracking studies.",
+    "Writer (Sonnet): checked the crawler-study figures (27/38 publishers, 1/193 SaaS, 5/20 review sites, 190/312 homepages with sameAs) against the evidence pack, and G2/Capterra homepage 403 responses and Reddit's blocking against the published per-site CSV.",
+    "Writer (Sonnet): left out Muck Rack's earned-media percentages because the press release could not be fetched as raw text to confirm the figures, and left out OpenAI's help-center article because it returned 403.",
+    "Editor (Opus): read the final draft: definition, links-vs-mentions table, five ways to earn mentions, tracking gap and name consistency; mentions framed as correlation, not cause",
+    "Editor (Opus): spot-verified Ahrefs 75K-brand correlations (0.664 mentions vs 0.218 backlinks) and the 12%/28.6%/76% overlap figures",
+    "Editor (Opus): re-checked every external URL on 2026-10-03 with a scripted fetch (all reachable)",
+    "Editor (Opus): matched crawler-study figures (27/38 publishers vs 1/193 SaaS; 190 of 312 homepages with sameAs) to the public CSV and evidence pack",
+    "Editor (Opus): product facts match: free audit = 3 ChatGPT questions, $29 report adds four engines and 10 questions",
+    "Editor (Opus): content-lint reports no errors or warnings"
+  ],
+  "merged": []
+}
