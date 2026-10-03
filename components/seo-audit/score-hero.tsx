@@ -12,7 +12,7 @@ import { scoreValue, usableRanking } from "./ranking-meta";
    环与等级都不渲染,由 OutcomeNotice 解释原因。
 
    v3:付费完整版且排名分可用时,大环换成 SEO Ranking Score(报告的结论),
-   免费技术分退为环下一行 "Technical foundation N · Grade X"(它就是第 5 支柱,同一个数)。
+   免费技术分退为环下一行 "Technical foundation N · Grade X"(它就是技术支柱,同一个数)。
    头部和下面的排名板块各放一个大环会让买家分不清哪个才是结论(集成方 2026-10-01)。
    免费 / 被拦 / 已解锁但排名分缺失:头部保持原样,大环 = Technical SEO score。
    ============================================================ */

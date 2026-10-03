@@ -5,6 +5,7 @@ import { shortId } from "@/lib/utils";
 import { captureError } from "@/lib/errors";
 import { normalizeInput, SeoAuditError } from "./url";
 import { runSeoAudit, upgradeSeoAudit, rerunSeoAudit, missingPaidModules, RUN_DEADLINE_MS, type UpgradeModule } from "./run";
+import { recomputeRankingFromResult } from "./ranking";
 import { consumePsiQuota } from "./quota";
 import type { PaidModuleId, SeoAuditProgress, SeoAuditResult, SeoAuditRow, SeoPlan } from "./types";
 
@@ -64,6 +65,9 @@ function toRow(r: SeoAudit): SeoAuditRow {
     upgradeStartedAt: r.upgradeStartedAt ?? null,
     rerunCount: r.rerunCount ?? 0,
     paidRefreshCount: r.paidRefreshCount ?? 0,
+    targetKeywords: Array.isArray(r.targetKeywords) ? r.targetKeywords : null,
+    targetChanges: r.targetChanges ?? 0,
+    gscProperty: r.gscProperty ?? null,
   };
 }
 
@@ -179,13 +183,31 @@ export async function getSeoAudit(id: string): Promise<SeoAuditRow | null> {
 }
 
 /**
+ * v4:落库前对一次 Search Console 的绑定状态 —— 运行开始时读的 gsc_property 可能已经过时:
+ * 运行途中用户断开了(列被清空)→ 这次运行拉到的数据不能写回报告,排名分按"没有 GSC"即时重算。
+ * 纯读一次行,失败就按原结果落库(不让一次读库抖动拖垮整次运行)。
+ */
+async function reconcileGsc(id: string, result: SeoAuditResult): Promise<SeoAuditResult> {
+  if (!result.gsc) return result;
+  try {
+    const rows = await db.select({ gscProperty: seoAudits.gscProperty }).from(seoAudits).where(eq(seoAudits.id, id)).limit(1);
+    if (rows[0]?.gscProperty) return result;
+    const ranking = recomputeRankingFromResult({ ...result, gsc: null }, { gsc: null, now: new Date(result.generatedAt) }) ?? result.ranking ?? null;
+    return { ...result, gsc: null, ranking };
+  } catch {
+    return result;
+  }
+}
+
+/**
  * 写入一次运行的结果。costCents 是**本次运行**的花费,累加到行上(而不是覆盖):
  * 免费轮是 0,付费升级再加一笔,行上的数字始终是这份报告的总花费。
  * 成功即清空 error(上一次重跑失败留下的提示不该挂在新报告上)。
  * outcome=blocked 的结果不出分(V2-0):行上的 score/grade 写 null —— 标签页标题、dashboard、
  * 缓存副本都读这两列,写进一个"探针类检查算出来的分数"就是在对外报一个虚构的分(复审 C35)。
  */
-export async function saveSeoAuditResult(id: string, result: SeoAuditResult, costCents: number): Promise<void> {
+export async function saveSeoAuditResult(id: string, input: SeoAuditResult, costCents: number): Promise<void> {
+  const result = await reconcileGsc(id, input);
   const blocked = result.meta?.outcome === "blocked";
   await db
     .update(seoAudits)
@@ -535,8 +557,15 @@ export async function runUpgradeInBackground(id: string): Promise<{ ok: boolean;
               onProgress: writer.push,
               psiQuota: consumePsiQuota,
               deadlineMs: RUN_DEADLINE_MS,
+              targetKeywords: row.targetKeywords ?? null,
             })
-          : await runSeoAudit(row.input, { plan: "full", onProgress: writer.push, psiQuota: consumePsiQuota, deadlineMs: RUN_DEADLINE_MS });
+          : await runSeoAudit(row.input, {
+              plan: "full",
+              onProgress: writer.push,
+              psiQuota: consumePsiQuota,
+              deadlineMs: RUN_DEADLINE_MS,
+              targetKeywords: row.targetKeywords ?? null,
+            });
       await writer.flush();
       // upgradeSeoAudit 回来的 cost 是累计值(prev + 本次);行上只加本次的增量
       const deltaUsd = Math.max(0, result.cost.dataforseoUsd - (prev?.cost.dataforseoUsd ?? 0));
@@ -703,8 +732,17 @@ export async function runRerunInBackground(id: string, opts: RerunPaidPlan): Pro
               onProgress: writer.push,
               psiQuota: consumePsiQuota,
               deadlineMs: RUN_DEADLINE_MS,
+              targetKeywords: row.targetKeywords ?? null,
+              gscProperty: row.gscProperty ?? null,
             })
-          : await runSeoAudit(row.input, { plan: "full", onProgress: writer.push, psiQuota: consumePsiQuota, deadlineMs: RUN_DEADLINE_MS });
+          : await runSeoAudit(row.input, {
+              plan: "full",
+              onProgress: writer.push,
+              psiQuota: consumePsiQuota,
+              deadlineMs: RUN_DEADLINE_MS,
+              targetKeywords: row.targetKeywords ?? null,
+              gscProperty: row.gscProperty ?? null,
+            });
       await writer.flush();
       const deltaUsd = Math.max(0, result.cost.dataforseoUsd - (prev?.cost.dataforseoUsd ?? 0));
 
@@ -757,6 +795,73 @@ export async function runRerunInBackground(id: string, opts: RerunPaidPlan): Pro
   } catch (e) {
     await captureError({ name: "seo_audit_rerun_background", message: String((e as Error)?.message ?? e), stack: (e as Error)?.stack, route: "/api/seo-audit/[id]/rerun", source: "server", meta: { id } });
   }
+}
+
+/* ============================================================
+   v4 · 用户自填的目标关键词
+   ============================================================ */
+
+/** 最多 3 个词;每份报告最多改 3 次(每次改动都可能为新词多调 SERP) */
+export const SEO_TARGET_KEYWORDS_MAX = 3;
+export const SEO_TARGET_CHANGES_MAX = 3;
+const TARGET_KEYWORD_MAX_CHARS = 80;
+
+/**
+ * 纯函数:规范化用户输入的目标关键词 —— 小写、压空白、去引号与控制字符、去重、≤80 字符、≤3 个。
+ * 非字符串、空串直接丢掉;超长截断而不是报错(用户粘贴一整句时仍能用)。
+ */
+export function normalizeTargetKeywords(input: unknown): string[] {
+  if (!Array.isArray(input)) return [];
+  const out: string[] = [];
+  for (const raw of input) {
+    if (typeof raw !== "string") continue;
+    const k = cleanText(raw)
+      .normalize("NFKC")
+      .toLowerCase()
+      .replace(/[\u0000-\u001f"“”‘’`<>]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, TARGET_KEYWORD_MAX_CHARS)
+      .trim();
+    if (k.length < 2 || out.includes(k)) continue;
+    out.push(k);
+    if (out.length >= SEO_TARGET_KEYWORDS_MAX) break;
+  }
+  return out;
+}
+
+export type SetTargetKeywordsResult =
+  | { ok: true; keywords: string[]; changed: boolean; changesLeft: number }
+  | { ok: false; error: string; changesLeft: number };
+
+/**
+ * 保存目标关键词。和上一次一样 → 不计次数。
+ * 只有**完整版已生成**之后的改动才计次(≤3):那时每次改动都会为新词多调 SERP(真钱);
+ * 付款前 / 升级完成前填词不花任何钱,不该把买家的改动额度提前用掉。
+ * 计次的改动用一条 UPDATE … WHERE target_changes < 3 原子完成,并发的两次改动不会都成功(neon-http 没有事务)。
+ */
+export async function setTargetKeywords(id: string, input: unknown): Promise<SetTargetKeywordsResult> {
+  const row = await getSeoAudit(id);
+  if (!row) return { ok: false, error: "SEO audit not found.", changesLeft: 0 };
+  const keywords = normalizeTargetKeywords(input);
+  const current = row.targetKeywords ?? [];
+  const left = Math.max(0, SEO_TARGET_CHANGES_MAX - (row.targetChanges ?? 0));
+  const same = current.length === keywords.length && current.every((k, i) => k === keywords[i]);
+  if (same) return { ok: true, keywords, changed: false, changesLeft: left };
+  const counts = row.unlocked && row.result?.plan === "full";
+  if (!counts) {
+    await db.update(seoAudits).set({ targetKeywords: keywords }).where(eq(seoAudits.id, id));
+    return { ok: true, keywords, changed: true, changesLeft: left };
+  }
+  const res = await db
+    .update(seoAudits)
+    .set({ targetKeywords: keywords, targetChanges: sql`${seoAudits.targetChanges} + 1` })
+    .where(and(eq(seoAudits.id, id), sql`${seoAudits.targetChanges} < ${SEO_TARGET_CHANGES_MAX}`))
+    .returning({ changes: seoAudits.targetChanges });
+  if (!res.length) {
+    return { ok: false, error: `Target keywords can be changed ${SEO_TARGET_CHANGES_MAX} times per report; that limit is reached.`, changesLeft: 0 };
+  }
+  return { ok: true, keywords, changed: true, changesLeft: Math.max(0, SEO_TARGET_CHANGES_MAX - (res[0].changes ?? 0)) };
 }
 
 /* ============================================================

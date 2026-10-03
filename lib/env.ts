@@ -74,6 +74,8 @@ const serverSchema = z.object({
 
   // SEO / 提交
   GOOGLE_SERVICE_ACCOUNT_B64: z.string().default(""),
+  /** v4:给客户 Search Console 接入专用的服务账号(只读);没配就退回 GOOGLE_SERVICE_ACCOUNT_B64 */
+  GSC_SERVICE_ACCOUNT_B64: z.string().default(""),
   INDEXNOW_KEY: z.string().default(""),
 
   // 安全 / 定时

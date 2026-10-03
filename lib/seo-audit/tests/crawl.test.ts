@@ -15,7 +15,7 @@ import {
 } from "../crawl";
 import { safeFetch, USER_AGENT, type FetchResult } from "../fetch";
 import { parsePageDetailed } from "../parse";
-import { emptyRobots, parseRobots, type RobotsRules } from "../robots";
+import { AI_CRAWLERS, emptyRobots, parseRobots, type RobotsRules } from "../robots";
 import { clearSitemapCache, discoverSitemaps } from "../sitemap";
 import { SeoAuditError } from "../url";
 import { SEO_BOT_MOBILE_UA, SEO_BOT_UA } from "../types";
@@ -462,7 +462,8 @@ test("probeSite: 8 variant kinds with hops/finalUrl/canonical, robots (+Googlebo
     googlebotDisallowAll: false,
     blocksResources: ["https://site.test/blocked-assets/site.css"],
     crawlDelay: null,
-    aiCrawlers: { GPTBot: "unspecified", ClaudeBot: "unspecified", PerplexityBot: "unspecified", "Google-Extended": "unspecified", "OAI-SearchBot": "unspecified", CCBot: "unspecified" },
+    // 名单归 robots.ts 管(v4 补了检索类 / 训练类机器人);这里只要求名单里每一个都有判定 —— 本站 robots 没点名任何 AI 爬虫
+    aiCrawlers: Object.fromEntries(Object.keys(AI_CRAWLERS).map((name) => [name, "unspecified"])),
     hasSitemapDirective: true,
   });
 
@@ -615,6 +616,8 @@ test("enrichProbe: sitemap sample excludes crawled URLs, broken internal/outboun
   assert.ok(log.some((l) => l.url === "https://site.test/blog/post-1"));
   assert.deepEqual(enriched.brokenOutbound?.map((b) => b.to).sort(), ["https://dead.test/gone", "https://other.test/x"], "403 from botwall.test is a bot block, not a broken link");
   assert.ok(log.some((l) => l.url === "https://botwall.test/p"), "it was still checked");
+  // v4:分母 = 实际请求过的外链(other.test、dead.test、botwall.test);403 查过了,只是不算死链
+  assert.equal(enriched.outboundChecked, 3);
   assert.deepEqual(enriched.largeImages, [{ url: "https://site.test/big.jpg", bytes: 300000 }]);
   assert.ok(log.filter((l) => l.url.endsWith(".jpg")).every((l) => l.method === "HEAD"));
   assert.deepEqual(enriched.crawlTtfb, { p50: 120, p90: 900, slowest: [{ url: "https://site.test/blog", ms: 900 }, { url: "https://site.test/about", ms: 300 }, { url: "https://site.test/", ms: 120 }] });
@@ -852,7 +855,43 @@ test("enrichProbe: after the crawl stopped early, no same-host request is made a
   assert.equal(enriched.largeImages, undefined);
   assert.equal(enriched.ogImage, undefined);
   assert.deepEqual(enriched.brokenOutbound?.map((b) => b.to).sort(), ["https://dead.test/gone", "https://other.test/x"], "outbound links live on other hosts: still checked");
+  assert.equal(enriched.outboundChecked, 3);
   assert.ok(enriched.crawlTtfb, "TTFB comes from the crawl itself");
+  clearSitemapCache();
+});
+
+test("enrichProbe: outboundChecked is the number of outbound links actually requested — set when none is broken, 0 when blocked or out of budget", async () => {
+  clearSitemapCache();
+  // 三条外链全部有效:brokenOutbound 为空,但分母照样是 3("查了 3 条、0 条坏" ≠ "没查")
+  const healthy: Record<string, FakePage> = {
+    ...SITE,
+    "https://other.test/x": { body: "ok" },
+    "https://dead.test/gone": { body: "ok" },
+    "https://botwall.test/p": { body: "ok" },
+  };
+  const probe = await probeSite("site.test", { fetcher: makeFetcher(healthy), hostCheck: noHostCheck, tlsCheck: fakeTls, ...FAST });
+  const { pages, coverage } = await crawlSiteDetailed("site.test", { maxPages: 7, robots: probe.robots, timeBudgetMs: 10_000, fetcher: makeFetcher(healthy), sitemaps: probe.sitemaps, ...FAST });
+  const log: LogEntry[] = [];
+  const enriched = await enrichProbe(probe, pages, { fetcher: makeFetcher(healthy, log), coverage, ...FAST });
+  assert.deepEqual(enriched.brokenOutbound, []);
+  assert.equal(enriched.outboundChecked, 3);
+  assert.equal(log.filter((l) => !new URL(l.url).hostname.endsWith("site.test")).length, 3, "one request per outbound link (HEAD answered, no GET fallback)");
+
+  // 预算一开始就用完:一条都没发出去 → 分母 0,而不是"3 条全部有效"
+  const p2 = await probeSite("site.test", { fetcher: makeFetcher(SITE), hostCheck: noHostCheck, tlsCheck: fakeTls, ...FAST });
+  const c2 = await crawlSiteDetailed("site.test", { maxPages: 7, robots: p2.robots, timeBudgetMs: 10_000, fetcher: makeFetcher(SITE), sitemaps: p2.sitemaps, ...FAST });
+  const log2: LogEntry[] = [];
+  const e2 = await enrichProbe(p2, c2.pages, { fetcher: makeFetcher(SITE, log2), coverage: c2.coverage, timeBudgetMs: 0, ...FAST });
+  assert.equal(e2.outboundChecked, 0);
+  assert.deepEqual(e2.brokenOutbound, []);
+  assert.ok(!log2.some((l) => l.url.startsWith("https://other.test/")), "nothing was requested");
+
+  // 站点把我们拦了:整个补全阶段不做,分母 0
+  const p3 = await probeSite("site.test", { fetcher: makeFetcher(SITE), hostCheck: noHostCheck, tlsCheck: fakeTls, ...FAST });
+  p3.blocked = { detected: true, kind: "waf", evidence: "HTTP 403 from a WAF" };
+  const e3 = await enrichProbe(p3, c2.pages, { fetcher: makeFetcher(SITE), coverage: c2.coverage, ...FAST });
+  assert.equal(e3.outboundChecked, 0);
+  assert.deepEqual(e3.brokenOutbound, []);
   clearSitemapCache();
 });
 

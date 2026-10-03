@@ -11,15 +11,23 @@ import {
   classifyFormat,
   computeCoverage,
   coreTokens,
+  DEFAULT_COMPETITORS,
+  DEFAULT_MAX_PAIRS,
+  DEFAULT_MAX_SERP,
   intentFromQuery,
+  isUgcUrl,
+  mainDomain,
   normalizeHeading,
+  normalizeSerpSnapshot,
   sameTopic,
+  type BulkRanksFn,
+  type KeywordOverviewFn,
   type RelevanceInput,
   type SerpFn,
 } from "../relevance";
 import { parsePageDetailed } from "../parse";
 import type { FetchResult, SafeFetchOptions } from "../fetch";
-import type { CrawledPage, PageContentSignals, RankedKeyword, RelevanceAnalysis, VisibilityResult } from "../types";
+import type { CrawledPage, KeywordOverview, PageContentSignals, RankedKeyword, RelevanceAnalysis, SerpSnapshot, VisibilityResult } from "../types";
 import { makePage } from "./fixtures";
 
 /* ---------------- 夹具 ---------------- */
@@ -120,8 +128,24 @@ function parseWith(byUrl: Record<string, Partial<PageContentSignals>>): typeof p
   };
 }
 
-function kw(keyword: string, url: string | null, volume: number | null, position: number, intent: string | null): RankedKeyword {
-  return { keyword, url, volume, position, intent, etv: null, cpc: null };
+function kw(keyword: string, url: string | null, volume: number | null, position: number, intent: string | null, over: Partial<RankedKeyword> = {}): RankedKeyword {
+  return { keyword, url, volume, position, intent, etv: null, cpc: null, ...over };
+}
+
+type Org = { url: string; position: number; title: string; domain?: string };
+
+/** advanced SERP 快照的测试桩:默认只有自然结果 */
+function snap(organic: Org[], extra: Partial<SerpSnapshot> = {}): SerpSnapshot {
+  return {
+    organic: organic.map((o) => ({ ...o, domain: o.domain ?? new URL(o.url).hostname.replace(/^www\./, "") })),
+    itemTypes: ["organic"],
+    aiOverview: null,
+    featuredSnippet: null,
+    paa: [],
+    knowledgeGraph: false,
+    ratings: [],
+    ...extra,
+  };
 }
 
 function visibility(topKeywords: RankedKeyword[], over: Partial<VisibilityResult> = {}): VisibilityResult {
@@ -481,8 +505,8 @@ function fakeSerp(): { fn: SerpFn; queries: string[] } {
   const queries: string[] = [];
   const fn: SerpFn = async (q) => {
     queries.push(q);
-    if (q === "aeo vs seo") throw new Error("DataForSEO serp/google/organic/live/regular: 40501 Invalid Field");
-    return (SERP[q] ?? []).map((r) => ({ ...r, domain: new URL(r.url).hostname.replace(/^www\./, "") }));
+    if (q === "aeo vs seo") throw new Error("DataForSEO serp/google/organic/live/advanced: 40501 Invalid Field");
+    return snap(SERP[q] ?? []);
   };
   return { fn, queries };
 }
@@ -503,7 +527,10 @@ async function rankingRun(over: Partial<RelevanceInput> = {}) {
   return { result, calls, serp };
 }
 
-test("analyzeRelevance (ranking data): non-brand first by volume, one keyword per URL, out-of-crawl page fetched, SERP for the top 3", async () => {
+test("analyzeRelevance (ranking data): non-brand first by volume, one keyword per URL, out-of-crawl page fetched, SERP for the first six", async () => {
+  assert.equal(DEFAULT_MAX_PAIRS, 8);
+  assert.equal(DEFAULT_MAX_SERP, 6);
+  assert.equal(DEFAULT_COMPETITORS, 5);
   const { result, calls, serp } = await rankingRun();
 
   // 选对:非品牌词按量降序,品牌词垫后;同 URL 只取量最高的;外站 / 无 URL 的词丢掉
@@ -531,10 +558,20 @@ test("analyzeRelevance (ranking data): non-brand first by volume, one keyword pe
     ]
   );
 
-  // SERP 只调前 3 对;第 3 对失败 → note,不抛
-  assert.deepEqual(serp.queries.sort(), ["aeo vs seo", "ai visibility audit", "what is aeo"]);
-  assert.equal(result.serpCalls, 3);
+  // 4 对都在前 6 个名额里 → 都调 SERP;第 3 对失败 → note,不抛;品牌词的 SERP 里没有别的站 → note
+  assert.deepEqual(serp.queries.sort(), ["aeo vs seo", "ai visibility audit", "example", "what is aeo"]);
+  assert.equal(result.serpCalls, 4);
   assert.ok(result.notes.some((n) => /top results for "aeo vs seo" could not be loaded/.test(n)), result.notes.join("\n"));
+  assert.ok(result.notes.some((n) => /No other site ranked for "example"/.test(n)), result.notes.join("\n"));
+  // 没有目标词、全是排名词:不查 keyword_overview;bulk_ranks 没注入(测试)→ 不可用,写明原因,绝不去打真接口
+  assert.deepEqual(result.targetKeywords, []);
+  assert.equal(result.otherCalls, 0);
+  assert.ok(result.notes.some((n) => /domain authority of the competing sites could not be looked up \(not available in this environment\)/.test(n)), result.notes.join("\n"));
+
+  // 上限:maxSerpQueries 收紧时只有前几对调 SERP
+  const capped = await rankingRun({ maxSerpQueries: 2 });
+  assert.equal(capped.result.serpCalls, 2);
+  assert.deepEqual(capped.serp.queries.sort(), ["ai visibility audit", "what is aeo"]);
 
   // 不在抓取集合里的排名页被单独抓了(先 robots,再页面)
   assert.ok(calls.some((c) => c.url === "https://www.example.com/robots.txt"));
@@ -631,12 +668,13 @@ test("analyzeRelevance: robots.txt is respected per host — disallowed and unre
     "https://down.test/robots.txt": "throw",
     "https://open.test/guide": { body: html({ title: "How to rank in AI answers", h2: ["Step one", "Step two"] }) },
   });
-  const serp: SerpFn = async () => [
-    { url: "https://closed.test/guide", domain: "closed.test", position: 1, title: "Closed guide" },
-    { url: "https://flaky.test/guide", domain: "flaky.test", position: 2, title: "Flaky guide" },
-    { url: "https://down.test/guide", domain: "down.test", position: 3, title: "Down guide" },
-    { url: "https://open.test/guide", domain: "open.test", position: 4, title: "Open guide" },
-  ];
+  const serp: SerpFn = async () =>
+    snap([
+      { url: "https://closed.test/guide", position: 1, title: "Closed guide" },
+      { url: "https://flaky.test/guide", position: 2, title: "Flaky guide" },
+      { url: "https://down.test/guide", position: 3, title: "Down guide" },
+      { url: "https://open.test/guide", position: 4, title: "Open guide" },
+    ]);
   const result = await analyzeRelevance(
     baseInput({ pages: crawlSet(), visibility: visibility([kw("ai visibility audit", "https://example.com/ai-visibility-audit", 500, 4, "commercial")]), fetcher, serpFn: serp })
   );
@@ -668,9 +706,7 @@ test("analyzeRelevance: a host that rate-limits us (429) is not asked again in t
     "https://busy.test/b": { body: html({ title: "Would be fine" }) },
   });
   const serp: SerpFn = async (q) =>
-    q === "ai visibility audit"
-      ? [{ url: "https://busy.test/a", domain: "busy.test", position: 1, title: "A" }]
-      : [{ url: "https://busy.test/b", domain: "busy.test", position: 1, title: "B" }];
+    q === "ai visibility audit" ? snap([{ url: "https://busy.test/a", position: 1, title: "A" }]) : snap([{ url: "https://busy.test/b", position: 1, title: "B" }]);
   const result = await analyzeRelevance(
     baseInput({
       pages: crawlSet(),
@@ -732,7 +768,7 @@ test("analyzeRelevance (no ranking data): page-topic fallback — homepage + the
   const queries: string[] = [];
   const serp: SerpFn = async (q) => {
     queries.push(q);
-    return [];
+    return snap([]);
   };
   const result = await analyzeRelevance(
     baseInput({ pages, visibility: visibility([], { noData: true, organicKeywords: 0 }), fetcher: fakeFetcher({}).fetcher, serpFn: serp })
@@ -821,8 +857,8 @@ test("analyzeRelevance (re-run): reuse makes zero SERP calls, keeps queries and 
       serpFn: serp.fn,
     })
   );
-  assert.equal(refreshed.serpCalls, 3);
-  assert.equal(serp.queries.length, 3);
+  assert.equal(refreshed.serpCalls, 4);
+  assert.equal(serp.queries.length, 4);
 
   // reuse 是空壳(上次没算成):照样零 SERP,退回排名词选对,写明原因
   const emptyReuse: RelevanceAnalysis = { pairs: [], serpCalls: 0, competitorPagesFetched: 0, notes: [] };
@@ -885,11 +921,23 @@ test("analyzeRelevance: budget exhaustion — skipped work becomes notes, finish
   };
   const t0 = Date.now();
   const hung = await analyzeRelevance(
-    baseInput({ pages: crawlSet(), visibility: visibility(RANKING_KEYWORDS.slice(1, 2)), fetcher: fakeFetcher({}).fetcher, serpFn: hang, now: () => t, budgetMs: 15_000 })
+    baseInput({
+      pages: crawlSet(),
+      visibility: visibility(RANKING_KEYWORDS.slice(1, 2)),
+      fetcher: fakeFetcher({}).fetcher,
+      serpFn: hang,
+      now: () => t,
+      budgetMs: 15_000,
+      maxSerpQueries: 1,
+    })
   );
   assert.ok(Date.now() - t0 < 2_000, "returns at the deadline instead of waiting for the hung call");
   assert.equal(hung.serpCalls, 1);
-  assert.equal(hung.pairs.length, 1);
+  // 只有 1 个排名词 → 不足 3 对,补首页与入链最多的内容页的主题(规格 v2 §3.4)
+  assert.deepEqual(
+    hung.pairs.map((p) => p.source),
+    ["ranking", "page-topic", "page-topic"]
+  );
   assert.ok(hung.notes.some((n) => /time budget ran out while loading the top results/.test(n)), hung.notes.join("\n"));
 });
 
@@ -906,14 +954,14 @@ test("analyzeRelevance never throws: empty input, injected fetcher that throws, 
       pages: crawlSet(),
       visibility: visibility(RANKING_KEYWORDS),
       fetcher: throwing,
-      serpFn: async () => [{ url: "https://alpha.test/x", domain: "alpha.test", position: 1, title: "X" }],
+      serpFn: async () => snap([{ url: "https://alpha.test/x", position: 1, title: "X" }]),
     })
   );
   assert.ok(r.pairs.length >= 3);
   assert.ok(r.pairs[0].competitors.every((c) => !c.fetched));
 
   const malformed = { pairs: [null, { query: 42 }, { query: "ai visibility audit", url: "https://example.com/ai-visibility-audit", competitors: "nope" }] } as unknown as RelevanceAnalysis;
-  const m = await analyzeRelevance(baseInput({ pages: crawlSet(), visibility: null, reuse: malformed, fetcher: fakeFetcher({}).fetcher, serpFn: async () => [] }));
+  const m = await analyzeRelevance(baseInput({ pages: crawlSet(), visibility: null, reuse: malformed, fetcher: fakeFetcher({}).fetcher, serpFn: async () => snap([]) }));
   assert.equal(m.serpCalls, 0);
   assert.deepEqual(
     m.pairs.map((p) => p.query),
@@ -946,4 +994,675 @@ test("analyzeRelevance degrades gracefully without content signals (parse.ts wit
   assert.deepEqual(pair.gainSignals, { uniqueTopics: pair.uniqueTopics.length, extraNumbers: 0, extraTables: 0, ownImages: 0, experienceMarkers: 0 });
   assert.equal(pair.coverage, 0.5, "subtopic coverage only needs headings");
   assert.ok(result.notes.some((n) => /Content signals were unavailable for \d+ analysed pages/.test(n)), result.notes.join("\n"));
+});
+
+/* ============================================================
+   v4(规格 v2 §3.4):目标词、keyword_overview、advanced SERP 版面、竞品权威与 S13 弱位、重跑
+   三个 DataForSEO 函数全部注入;任何一个没注入时模块视其为"不可用",绝不去打真接口。
+   ============================================================ */
+
+/** 固定"今天":过时判定(18 个月)要可复现 */
+const FIXED_NOW = Date.parse("2026-10-02T12:00:00Z");
+
+/** 带 v4 Labs 字段的排名词(ranked_keywords 本来就返回,零新增成本) */
+const V4_RANKING = [
+  kw("example", "https://example.com/", 900, 1, "navigational", { kd: 2, serpItemTypes: ["organic", "knowledge_graph"] }),
+  kw("ai visibility audit", "https://example.com/ai-visibility-audit", 500, 4, "commercial", {
+    kd: 38,
+    serpItemTypes: ["organic", "people_also_ask"],
+    avgTopDomainRank: 410,
+    rankChange: { previous: 6, isNew: false, isUp: true, isDown: false },
+    volumeTrend: { quarterly: 22, yearly: 80 },
+  }),
+  kw("ai visibility checker", "https://example.com/ai-visibility-audit", 300, 9, "commercial", {
+    kd: 21,
+    serpItemTypes: ["ai_overview", "featured_snippet", "organic"],
+    avgTopDomainRank: 300,
+    rankChange: { previous: null, isNew: true, isUp: false, isDown: false },
+    volumeTrend: { quarterly: -10, yearly: 150 },
+  }),
+  kw("what is aeo", "https://example.com/blog/what-is-aeo", 400, 3, "informational", { kd: 30, serpItemTypes: ["ai_overview", "people_also_ask", "organic"] }),
+  kw("aeo vs seo", "https://www.example.com/blog/aeo-vs-seo", 200, 12, null, { kd: 17, serpItemTypes: ["organic"], avgTopDomainRank: 280 }),
+];
+
+const OVERVIEW: Record<string, KeywordOverview> = {
+  "answer engine optimization guide": {
+    keyword: "answer engine optimization guide",
+    volume: 1900,
+    kd: 41,
+    intent: "informational",
+    serpItemTypes: ["ai_overview", "people_also_ask", "organic"],
+    avgTopDomainRank: 512,
+    volumeTrend: { quarterly: 5, yearly: 40 },
+  },
+  "llms txt generator": {
+    keyword: "llms txt generator",
+    volume: 1000,
+    kd: 12,
+    intent: "transactional",
+    serpItemTypes: ["ai_overview", "organic"],
+    avgTopDomainRank: 150,
+    volumeTrend: null,
+  },
+};
+
+/** 与 dataforseo.fetchKeywordOverview 同一口径:每个输入词一条,数据库里没有的词全是 null、serpItemTypes 为 [] */
+function fakeOverview(fail?: Error) {
+  const calls: string[][] = [];
+  const fn: KeywordOverviewFn = async (kws) => {
+    calls.push([...kws]);
+    if (fail) throw fail;
+    return kws.map((k) => OVERVIEW[k] ?? { keyword: k, volume: null, kd: null, intent: null, serpItemTypes: [], avgTopDomainRank: null, volumeTrend: null });
+  };
+  return { fn, calls };
+}
+
+const RANKS: Record<string, number | null> = { "alpha.test": 350, "beta.test": 60, "wiki.test": 900, "gamma.test": 240 };
+
+function fakeRanks(table: Record<string, number | null> = RANKS) {
+  const calls: string[][] = [];
+  const fn: BulkRanksFn = async (domains) => {
+    calls.push([...domains]);
+    return Object.fromEntries(domains.map((d) => [d, table[d] ?? null]));
+  };
+  return { fn, calls };
+}
+
+/** advanced SERP:AI 摘要(含 / 不含本站)、精选摘要(本站)、PAA、本地包 */
+const V4_SERP: Record<string, SerpSnapshot> = {
+  "ai visibility checker": snap(
+    [
+      { url: "https://example.com/ai-visibility-audit", position: 1, title: "Our own page" },
+      { url: "https://alpha.test/ai-visibility-audit", position: 2, title: "AI Visibility Audit Tool | Alpha" },
+      { url: "https://beta.test/audit", position: 3, title: "Free AI Visibility Audit — Beta" },
+    ],
+    {
+      itemTypes: ["ai_overview", "featured_snippet", "organic", "people_also_ask"],
+      aiOverview: {
+        present: true,
+        loaded: true,
+        references: [
+          { domain: "alpha.test", url: "https://alpha.test/ai-visibility-audit" },
+          { domain: "wiki.test", url: "https://wiki.test/wiki/AEO" },
+        ],
+      },
+      featuredSnippet: { domain: "example.com", url: "https://example.com/ai-visibility-audit" },
+      paa: ["What is an AI visibility checker?", "Is there a free AI visibility checker?"],
+    }
+  ),
+  "answer engine optimization guide": snap(
+    [
+      { url: "https://wiki.test/wiki/AEO", position: 1, title: "Answer engine optimization - Wikipedia" },
+      { url: "https://alpha.test/blog/what-is-aeo", position: 2, title: "What is AEO? A complete guide" },
+      { url: "https://beta.test/learn/aeo", position: 3, title: "AEO explained: how answer engines pick sources" },
+    ],
+    {
+      itemTypes: ["ai_overview", "organic", "people_also_ask"],
+      // 本站以 www 子域被引用:也算本站
+      aiOverview: { present: true, loaded: true, references: [{ domain: "www.example.com", url: "https://www.example.com/blog/what-is-aeo" }] },
+      paa: ["What is answer engine optimization?"],
+    }
+  ),
+  "pizza delivery near me": snap([], { itemTypes: ["local_pack", "organic"] }),
+  example: snap([], { itemTypes: ["organic", "knowledge_graph"], knowledgeGraph: true }),
+  "llms txt generator": snap([{ url: "https://gamma.test/", position: 1, title: "Gamma — free llms.txt generator" }], {
+    itemTypes: ["ai_overview", "organic"],
+    aiOverview: { present: true, loaded: true, references: [] },
+  }),
+};
+
+function fakeSerpV4() {
+  const calls: { q: string; loadAiOverview: boolean }[] = [];
+  const fn: SerpFn = async (q, opts) => {
+    calls.push({ q, loadAiOverview: opts?.loadAiOverview === true });
+    if (q === "aeo vs seo") throw new Error("DataForSEO serp/google/organic/live/advanced: 40501 Invalid Field");
+    return V4_SERP[q] ?? snap([]);
+  };
+  return { fn, calls };
+}
+
+async function v4Run(over: Partial<RelevanceInput> = {}) {
+  const serp = fakeSerpV4();
+  const overview = fakeOverview();
+  const ranks = fakeRanks();
+  const { fetcher, calls } = fakeFetcher(competitorRoutes());
+  const result = await analyzeRelevance(
+    baseInput({
+      pages: crawlSet(),
+      visibility: visibility(V4_RANKING),
+      fetcher,
+      serpFn: serp.fn,
+      keywordOverviewFn: overview.fn,
+      bulkRanksFn: ranks.fn,
+      parse: parseWith(COMPETITOR_SIGNALS),
+      now: () => FIXED_NOW,
+      ...over,
+    })
+  );
+  return { result, serp, overview, ranks, calls };
+}
+
+const loadAiByQuery = (calls: { q: string; loadAiOverview: boolean }[]) => Object.fromEntries(calls.map((c) => [c.q, c.loadAiOverview]));
+
+test("analyzeRelevance (v4 targets): target keywords come first, each resolved to the right page; ranking pairs skip pages a target already uses", async () => {
+  const { result, overview, ranks } = await v4Run({
+    targetKeywords: ["AI Visibility Checker", "answer engine optimization guide", "pizza delivery near me", "a fourth one is ignored"],
+  });
+
+  assert.deepEqual(result.targetKeywords, ["ai visibility checker", "answer engine optimization guide", "pizza delivery near me"]);
+  assert.deepEqual(
+    result.pairs.map((p) => [p.query, p.source, p.url]),
+    [
+      // 排名词里有同词 → 用它的 URL
+      ["ai visibility checker", "target", "https://example.com/ai-visibility-audit"],
+      // 排名数据里没有 → 标题 / H1 / 开头与核心词重合最多的页
+      ["answer engine optimization guide", "target", "https://example.com/blog/what-is-aeo"],
+      // 没有任何页面在针对 → 首页(并写 note)
+      ["pizza delivery near me", "target", "https://example.com/"],
+      // 排名词:/ai-visibility-audit 与 /blog/what-is-aeo 已被目标词用掉;退到首页的目标词不占首页
+      ["aeo vs seo", "ranking", "https://www.example.com/blog/aeo-vs-seo"],
+      ["example", "ranking", "https://example.com/"],
+    ]
+  );
+  assert.ok(result.notes.some((n) => /^No page on example\.com targets "pizza delivery near me" yet/.test(n)), result.notes.join("\n"));
+
+  const [checker, guide, pizza, vs, brand] = result.pairs;
+  // 与排名词同词的目标词:量 / 名次 / 意图 / Labs 字段都来自排名数据(不再查 keyword_overview)
+  assert.deepEqual([checker.volume, checker.position, checker.intent, checker.intentSource], [300, 9, "commercial", "dataforseo"]);
+  assert.equal(checker.kd, 21);
+  assert.deepEqual(checker.serpItemTypes, ["ai_overview", "featured_snippet", "organic"]);
+  assert.equal(checker.avgTopDomainRank, 300);
+  assert.deepEqual(checker.rankChange, { previous: null, isNew: true, isUp: false, isDown: false });
+  assert.deepEqual(checker.volumeTrend, { quarterly: -10, yearly: 150 });
+  // 排名数据里没有的目标词:来自 keyword_overview
+  assert.deepEqual([guide.volume, guide.position, guide.intent, guide.intentSource, guide.kd, guide.avgTopDomainRank], [1900, null, "informational", "dataforseo", 41, 512]);
+  assert.deepEqual(guide.serpItemTypes, ["ai_overview", "people_also_ask", "organic"]);
+  assert.deepEqual(guide.volumeTrend, { quarterly: 5, yearly: 40 });
+  assert.equal(guide.rankChange, undefined);
+  // 数据库里没有的词:volume = kd = null、SERP 元素 [](= 查过、没有),意图走模式
+  assert.deepEqual([pizza.volume, pizza.kd, pizza.avgTopDomainRank, pizza.volumeTrend, pizza.intent, pizza.intentSource], [null, null, null, null, "local", "pattern"]);
+  assert.deepEqual(pizza.serpItemTypes, []);
+  assert.ok(result.notes.some((n) => /^No search demand recorded for "pizza delivery near me"/.test(n)), result.notes.join("\n"));
+  // 排名词:Labs 字段原样带过来
+  assert.deepEqual([vs.kd, vs.avgTopDomainRank, vs.serpItemTypes], [17, 280, ["organic"]]);
+
+  // keyword_overview:一次,只为排名数据里没有的目标词(页面主题词同理,见下一个测试)
+  assert.deepEqual(overview.calls, [["answer engine optimization guide", "pizza delivery near me"]]);
+  // bulk_ranks:一次,所有竞品主域去重
+  assert.deepEqual(ranks.calls, [["alpha.test", "beta.test", "wiki.test"]]);
+  assert.equal(result.otherCalls, 2);
+  assert.equal(result.serpCalls, 5);
+  void brand;
+});
+
+test("analyzeRelevance (v4 SERP): AI Overview loaded only where Labs data shows one; cited / featured-snippet owner / PAA / live SERP features per pair", async () => {
+  const { result, serp } = await v4Run({ targetKeywords: ["ai visibility checker", "answer engine optimization guide", "pizza delivery near me"] });
+  // 只有 Labs 的 serpItemTypes 含 ai_overview 的词才多花 $0.002 加载摘要
+  assert.deepEqual(loadAiByQuery(serp.calls), {
+    "ai visibility checker": true, // 排名数据显示有 AI 摘要
+    "answer engine optimization guide": true, // keyword_overview 显示有
+    "pizza delivery near me": false, // 数据库里没有这个词
+    "aeo vs seo": false,
+    example: false,
+  });
+
+  const [checker, guide, pizza, vs, brand] = result.pairs;
+  assert.deepEqual(checker.serpFeatures, ["ai_overview", "featured_snippet", "organic", "people_also_ask"]);
+  assert.deepEqual(checker.aiOverview, {
+    present: true,
+    loaded: true,
+    cited: false,
+    references: [
+      { domain: "alpha.test", url: "https://alpha.test/ai-visibility-audit" },
+      { domain: "wiki.test", url: "https://wiki.test/wiki/AEO" },
+    ],
+  });
+  assert.deepEqual(checker.featuredSnippet, { domain: "example.com", url: "https://example.com/ai-visibility-audit", own: true });
+  assert.deepEqual(checker.paa, ["What is an AI visibility checker?", "Is there a free AI visibility checker?"]);
+
+  assert.equal(guide.aiOverview?.cited, true, "the www subdomain is the same site");
+  assert.equal(guide.featuredSnippet, null);
+  assert.deepEqual(guide.paa, ["What is answer engine optimization?"]);
+
+  // SERP 回来了但没有 AI 摘要:present = false(≠ 没查)
+  assert.deepEqual(pizza.aiOverview, { present: false, loaded: false, cited: false, references: [] });
+  assert.deepEqual(pizza.serpFeatures, ["local_pack", "organic"]);
+  assert.deepEqual(pizza.competitors, []);
+
+  // SERP 失败:版面字段不写(= 没测),不是空数组
+  assert.equal(vs.serpFeatures, undefined);
+  assert.equal(vs.aiOverview, undefined);
+  assert.equal(vs.paa, undefined);
+  assert.deepEqual(brand.serpFeatures, ["organic", "knowledge_graph"]);
+
+  // 竞品主域权威 + 弱位
+  assert.deepEqual(
+    checker.competitors.map((c) => [c.domain, c.domainRank, c.ugc, c.weakSpots]),
+    [
+      ["alpha.test", 350, false, []],
+      ["beta.test", 60, false, ["low-authority"]],
+    ]
+  );
+  assert.deepEqual(
+    guide.competitors.map((c) => [c.domain, c.domainRank, c.weakSpots]),
+    [
+      ["wiki.test", 900, []],
+      // 标题里只有 "guide" 1/4 个核心词("AEO" 是缩写,对不上)→ 答非所问
+      ["alpha.test", 350, ["off-intent"]],
+      ["beta.test", 60, ["low-authority"]],
+    ]
+  );
+});
+
+test("analyzeRelevance (v4): competitor weak spots (S13) — forum, stale (>18 months), thin (<500 words), off-intent, low-authority — with dateModified and ugc", async () => {
+  const pages = [
+    sitePage("/", { depth: 0, pageType: "home", title: "Example — AI visibility", h1s: ["AI visibility for brands"], headings: [], content: content() }),
+    sitePage("/blog/best-ai-visibility-tools", {
+      pageType: "article",
+      title: "The 7 Best AI Visibility Tools (Tested) | Example",
+      h1s: ["The 7 best AI visibility tools"],
+      headings: [H(1, "The 7 best AI visibility tools"), H(2, "How we tested"), H(2, "Pricing compared")],
+      content: content({ leadText: "the best ai visibility tools we tested" }),
+    }),
+  ];
+  const routes: Record<string, Route> = {
+    "https://stale.test/best-ai-visibility-tools": { body: html({ title: "11 Best AI Visibility Tools for 2024", h2: ["Tool one", "Tool two"] }) },
+    "https://thin.test/ai-visibility": { body: html({ title: "Best AI visibility tools", h2: ["Our picks"] }) },
+    "https://offtopic.test/pricing": { body: html({ title: "Pricing plans — Offtopic", h2: ["Plans", "Billing"] }) },
+    "https://strong.test/blog/best-ai-visibility-tools": { body: html({ title: "The 9 Best AI Visibility Tools in 2026", h2: ["Tool one", "Tool two", "Tool three"] }) },
+  };
+  const signals: Record<string, Partial<PageContentSignals>> = {
+    // 只有更新日期早于 18 个月才算过时;取 dateModified 与 datePublished 中较晚的
+    "https://stale.test/best-ai-visibility-tools": { mainWords: 2400, dateModified: "2024-01-15", datePublished: "2023-11-02" },
+    "https://thin.test/ai-visibility": { mainWords: 320, dateModified: "2026-08-01T09:30:00Z" },
+    "https://offtopic.test/pricing": { mainWords: 900 },
+    "https://strong.test/blog/best-ai-visibility-tools": { mainWords: 1800, datePublished: "2025-01-10", dateModified: "2026-09-10" },
+  };
+  const serpFn: SerpFn = async () =>
+    snap(
+      [
+        { url: "https://www.reddit.com/r/SEO/comments/abc123/best_ai_visibility_tools/", position: 1, title: "Best AI visibility tools? : r/SEO" },
+        { url: "https://example.com/blog/best-ai-visibility-tools", position: 2, title: "Our own page" },
+        { url: "https://stale.test/best-ai-visibility-tools", position: 3, title: "11 Best AI Visibility Tools for 2024" },
+        { url: "https://thin.test/ai-visibility", position: 4, title: "Best AI visibility tools" },
+        { url: "https://offtopic.test/pricing", position: 5, title: "Pricing | Offtopic" },
+        { url: "https://strong.test/blog/best-ai-visibility-tools", position: 6, title: "The 9 Best AI Visibility Tools in 2026" },
+        { url: "https://beyond.test/x", position: 7, title: "Beyond the top 5" },
+      ],
+      { itemTypes: ["organic", "discussions_and_forums", "people_also_ask"] }
+    );
+  const ranks = fakeRanks({ "reddit.com": 950, "stale.test": 420, "thin.test": 300, "offtopic.test": 45, "strong.test": 610 });
+  const result = await analyzeRelevance(
+    baseInput({
+      pages,
+      visibility: visibility([kw("best ai visibility tools", "https://example.com/blog/best-ai-visibility-tools", 700, 8, "commercial")]),
+      fetcher: fakeFetcher(routes).fetcher,
+      serpFn,
+      bulkRanksFn: ranks.fn,
+      parse: parseWith(signals),
+      now: () => FIXED_NOW,
+      maxPairs: 1,
+    })
+  );
+  const [pair] = result.pairs;
+  assert.equal(pair.serpFormat, "listicle");
+  assert.deepEqual(
+    pair.competitors.map((c) => [c.domain, c.fetched, c.ugc, c.dateModified, c.domainRank, c.weakSpots]),
+    [
+      ["reddit.com", false, true, null, 950, ["forum"]],
+      ["stale.test", true, false, "2024-01-15", 420, ["stale"]],
+      ["thin.test", true, false, "2026-08-01", 300, ["thin"]],
+      // 标题与查询毫不相干、形态(定价页)也不是主流的榜单;权威 45 < 100
+      ["offtopic.test", true, false, null, 45, ["off-intent", "low-authority"]],
+      ["strong.test", true, false, "2026-09-10", 610, []],
+    ]
+  );
+  // 主域去重后一次 bulk_ranks;第 6 名之后的结果不算
+  assert.deepEqual(ranks.calls, [["reddit.com", "stale.test", "thin.test", "offtopic.test", "strong.test"]]);
+  assert.deepEqual(pair.serpFeatures, ["organic", "discussions_and_forums", "people_also_ask"]);
+  assert.equal(result.otherCalls, 1);
+});
+
+test("analyzeRelevance (v4): one bulk_ranks call per run — competitor main domains deduped (subdomains folded, hosting platforms kept), capped at 30", async () => {
+  const topics = ["crm", "seo", "email", "billing", "payroll", "hosting"];
+  const pages: CrawledPage[] = [sitePage("/", { depth: 0, pageType: "home", title: "Example — software guides", h1s: ["Software guides"], headings: [], content: content() })];
+  for (const t of topics) {
+    pages.push(sitePage(`/guides/${t}`, { pageType: "article", title: `The ${t} software buying guide`, h1s: [`The ${t} software buying guide`], headings: [], content: content() }));
+  }
+  const vis = visibility(topics.map((t, i) => kw(`${t} software buying guide`, `https://example.com/guides/${t}`, 1000 - i, 5, "commercial")));
+  const serpFn: SerpFn = async (q) => {
+    const t = q.split(" ")[0];
+    const organic: Org[] = Array.from({ length: 10 }, (_, i) => ({ url: `https://${t}-${i}.test/review`, position: i + 1, title: `${q} review ${i}` }));
+    if (t === "crm") organic[0] = { url: "https://blog.shared.test/crm", position: 1, title: "CRM software buying guide" };
+    if (t === "seo") organic[0] = { url: "https://shared.test/seo", position: 1, title: "SEO software buying guide" };
+    if (t === "email") organic[0] = { url: "https://alice.blogspot.com/email", position: 1, title: "Email software buying guide" };
+    return snap(organic);
+  };
+  const ranks = fakeRanks({});
+  const result = await analyzeRelevance(baseInput({ pages, visibility: vis, fetcher: fakeFetcher({}).fetcher, serpFn, bulkRanksFn: ranks.fn, competitorsPerQuery: 10 }));
+  assert.equal(result.serpCalls, 6);
+  assert.equal(ranks.calls.length, 1, "exactly one bulk_ranks call");
+  const asked = ranks.calls[0];
+  assert.equal(asked.length, 30);
+  assert.equal(new Set(asked).size, 30, "no duplicates");
+  assert.equal(asked[0], "shared.test", "blog.shared.test folds into its main domain");
+  assert.ok(!asked.includes("blog.shared.test"));
+  assert.ok(asked.includes("alice.blogspot.com"), "hosted blogs keep their own subdomain (the platform's authority is not theirs)");
+  assert.equal(asked[29], "billing-0.test", "pair order, then SERP position");
+  assert.ok(result.notes.some((n) => /^Domain authority was looked up for the first 30 of 59 competing sites\.$/.test(n)), result.notes.join("\n"));
+  // 第 31 个起没查:权威为 null,不标低权威
+  const payroll = result.pairs.find((p) => p.query.startsWith("payroll"));
+  assert.ok(payroll && payroll.competitors.every((c) => c.domainRank === null && !(c.weakSpots ?? []).includes("low-authority")));
+  assert.equal(result.otherCalls, 1);
+});
+
+test("analyzeRelevance (v4): without ranking data, target + page-topic queries share ONE keyword_overview call; failures degrade to notes", async () => {
+  const serp = fakeSerpV4();
+  const overview = fakeOverview();
+  const result = await analyzeRelevance(
+    baseInput({
+      pages: crawlSet(),
+      visibility: visibility([], { noData: true, organicKeywords: 0 }),
+      targetKeywords: ["answer engine optimization guide"],
+      fetcher: fakeFetcher(competitorRoutes()).fetcher,
+      serpFn: serp.fn,
+      keywordOverviewFn: overview.fn,
+      bulkRanksFn: fakeRanks().fn,
+      parse: parseWith(COMPETITOR_SIGNALS),
+      now: () => FIXED_NOW,
+    })
+  );
+  // 目标词在前;不足 3 对 → 补页面主题词(跳过目标词已用的页)
+  assert.deepEqual(
+    result.pairs.map((p) => [p.query, p.source, p.url]),
+    [
+      ["answer engine optimization guide", "target", "https://example.com/blog/what-is-aeo"],
+      ["ai visibility audits for growing brands", "page-topic", "https://example.com/"],
+      ["ai visibility audit", "page-topic", "https://example.com/ai-visibility-audit"],
+    ]
+  );
+  assert.deepEqual(overview.calls, [["answer engine optimization guide", "ai visibility audits for growing brands", "ai visibility audit"]]);
+  assert.deepEqual(
+    result.pairs.map((p) => [p.volume, p.intentSource, p.kd]),
+    [
+      [1900, "dataforseo", 41],
+      [null, "pattern", null],
+      [null, "pattern", null],
+    ]
+  );
+  assert.ok(
+    result.notes.some((n) => /^No search demand recorded for "ai visibility audits for growing brands" and "ai visibility audit"/.test(n)),
+    result.notes.join("\n")
+  );
+  assert.ok(result.notes.some((n) => /^DataForSEO has no ranking keywords for example\.com yet, so the main topic of the homepage/.test(n)), result.notes.join("\n"));
+  assert.deepEqual(loadAiByQuery(serp.calls), {
+    "answer engine optimization guide": true,
+    "ai visibility audits for growing brands": false,
+    "ai visibility audit": false,
+  });
+  assert.equal(result.otherCalls, 2, "keyword_overview + bulk_ranks");
+
+  // keyword_overview 失败:写明原因;量 / 难度保持未知,SERP 照调(不加载 AI 摘要),不抛
+  const failing = fakeOverview(new Error("DataForSEO dataforseo_labs/google/keyword_overview/live: 50000 Internal Error"));
+  const serp2 = fakeSerpV4();
+  const r2 = await analyzeRelevance(
+    baseInput({
+      pages: crawlSet(),
+      visibility: null,
+      targetKeywords: ["answer engine optimization guide"],
+      fetcher: fakeFetcher(competitorRoutes()).fetcher,
+      serpFn: serp2.fn,
+      keywordOverviewFn: failing.fn,
+      bulkRanksFn: fakeRanks().fn,
+      now: () => FIXED_NOW,
+    })
+  );
+  assert.equal(failing.calls.length, 1);
+  assert.ok(r2.notes.some((n) => /^Search volume and difficulty for 3 queries could not be loaded \(DataForSEO dataforseo_labs/.test(n)), r2.notes.join("\n"));
+  assert.deepEqual(
+    r2.pairs.map((p) => [p.volume, p.kd, p.intentSource]),
+    [
+      [null, undefined, "pattern"],
+      [null, undefined, "pattern"],
+      [null, undefined, "pattern"],
+    ]
+  );
+  assert.ok(serp2.calls.every((c) => !c.loadAiOverview));
+  assert.equal(r2.serpCalls, 3);
+});
+
+test("analyzeRelevance (v4 re-run): removed target keywords are dropped, new ones get SERP + one keyword_overview, everything else is reused at zero cost", async () => {
+  const first = (await v4Run({ targetKeywords: ["ai visibility checker", "answer engine optimization guide"] })).result;
+  assert.deepEqual(
+    first.pairs.map((p) => [p.query, p.source]),
+    [
+      ["ai visibility checker", "target"],
+      ["answer engine optimization guide", "target"],
+      ["aeo vs seo", "ranking"],
+      ["example", "ranking"],
+    ]
+  );
+
+  // 用户改了目标词:删掉 "ai visibility checker",把排名词 "aeo vs seo" 设为目标词,新加 "llms txt generator"
+  const again = await v4Run({ reuse: first, refreshSerp: false, targetKeywords: ["answer engine optimization guide", "aeo vs seo", "llms txt generator"] });
+  const r = again.result;
+  assert.deepEqual(
+    r.pairs.map((p) => [p.query, p.source, p.url]),
+    [
+      ["answer engine optimization guide", "target", "https://example.com/blog/what-is-aeo"], // 沿用
+      ["aeo vs seo", "target", "https://www.example.com/blog/aeo-vs-seo"], // 沿用的排名词改记为目标词,不再花钱
+      ["llms txt generator", "target", "https://example.com/"], // 新词:没有页面针对它 → 首页
+      ["example", "ranking", "https://example.com/"], // 其余沿用的对保持上次顺序
+    ]
+  );
+  assert.deepEqual(r.targetKeywords, ["answer engine optimization guide", "aeo vs seo", "llms txt generator"]);
+  // 只有新词调 SERP(Labs 显示有 AI 摘要 → 加载)+ 一次 keyword_overview;
+  // bulk_ranks 只查上一份没出现过的主域(新词的竞品 gamma.test)
+  assert.deepEqual(again.serp.calls, [{ q: "llms txt generator", loadAiOverview: true }]);
+  assert.deepEqual(again.overview.calls, [["llms txt generator"]]);
+  assert.deepEqual(again.ranks.calls, [["gamma.test"]]);
+  assert.equal(r.serpCalls, 1);
+  assert.equal(r.otherCalls, 2);
+  assert.ok(r.notes.some((n) => n === 'The target keyword "ai visibility checker" was removed, so its comparison is no longer shown.'), r.notes.join("\n"));
+  assert.ok(
+    r.notes.some((n) => /^Re-run: reused 3 queries and 3 competitor URLs from the first paid run; search results were looked up again only for 1 new target keyword/.test(n)),
+    r.notes.join("\n")
+  );
+
+  const [guide, vs, llms] = r.pairs;
+  // 沿用:SERP 版面(AI 摘要被引)、Labs 字段、竞品主域权威;竞品页重新抓,弱位按新抓的页面重算
+  assert.equal(guide.aiOverview?.cited, true);
+  assert.deepEqual(guide.paa, ["What is answer engine optimization?"]);
+  assert.equal(guide.kd, 41);
+  assert.deepEqual(
+    guide.competitors.map((c) => [c.domain, c.fetched, c.domainRank]),
+    [
+      ["wiki.test", true, 900],
+      ["alpha.test", true, 350],
+      ["beta.test", true, 60],
+    ]
+  );
+  assert.ok(again.calls.some((c) => c.url === "https://wiki.test/wiki/AEO"), "competitor pages are re-fetched");
+  // 上次 SERP 失败的对:沿用时也没有竞品、没有版面;Labs 字段照留
+  assert.deepEqual(vs.competitors, []);
+  assert.equal(vs.serpFeatures, undefined);
+  assert.equal(vs.kd, 17);
+  // 新词:新 SERP 的版面;竞品权威是这次补查的
+  assert.deepEqual(llms.serpFeatures, ["ai_overview", "organic"]);
+  assert.deepEqual(
+    llms.competitors.map((c) => [c.domain, c.fetched, c.domainRank, c.weakSpots]),
+    [["gamma.test", true, 240, []]]
+  );
+  assert.deepEqual([llms.volume, llms.kd, llms.intent, llms.intentSource], [1000, 12, "transactional", "dataforseo"]);
+
+  // 再重跑、目标词全删(集成方传 undefined):所有目标词对都丢掉,零 SERP、零其他调用
+  const third = await v4Run({ reuse: r, refreshSerp: false });
+  assert.deepEqual(
+    third.result.pairs.map((p) => [p.query, p.source]),
+    [["example", "ranking"]]
+  );
+  assert.equal(third.result.serpCalls, 0);
+  assert.equal(third.result.otherCalls, 0);
+  assert.deepEqual(third.serp.calls, []);
+  assert.deepEqual(third.overview.calls, []);
+  assert.deepEqual(third.ranks.calls, []);
+  assert.ok(
+    third.result.notes.some((n) => /^The target keywords "answer engine optimization guide", "aeo vs seo" and "llms txt generator" were removed/.test(n)),
+    third.result.notes.join("\n")
+  );
+});
+
+test("analyzeRelevance (v4): a target keyword whose ranking page cannot be fetched falls back to the closest matching crawled page", async () => {
+  const { fetcher } = fakeFetcher({ "https://www.example.com/blog/aeo-vs-seo": { status: 500, body: "oops" } });
+  const result = await analyzeRelevance(
+    baseInput({
+      pages: crawlSet(),
+      visibility: visibility(V4_RANKING),
+      targetKeywords: ["aeo vs seo"],
+      fetcher,
+      serpFn: async () => snap([]),
+      keywordOverviewFn: fakeOverview().fn,
+      bulkRanksFn: fakeRanks().fn,
+      maxPairs: 1,
+    })
+  );
+  // 名次与名次变化属于原来的排名 URL,换页后清掉;量 / 难度是词的属性,照留
+  assert.deepEqual(
+    result.pairs.map((p) => [p.query, p.source, p.url, p.position, p.volume, p.kd]),
+    [["aeo vs seo", "target", "https://example.com/blog/what-is-aeo", null, 200, 17]]
+  );
+  assert.ok(
+    result.notes.some((n) =>
+      /aeo-vs-seo for "aeo vs seo" is not in the crawl and could not be fetched \(HTTP 500\), so the closest matching crawled page https:\/\/example\.com\/blog\/what-is-aeo was compared instead\./.test(n)
+    ),
+    result.notes.join("\n")
+  );
+});
+
+test("v4 helpers: isUgcUrl, mainDomain and normalizeSerpSnapshot (legacy arrays, junk fields, caps)", () => {
+  assert.equal(isUgcUrl("https://www.reddit.com/r/SEO/comments/x/y/"), true);
+  assert.equal(isUgcUrl("https://old.reddit.com/r/SEO"), true);
+  assert.equal(isUgcUrl("https://stackoverflow.com/questions/123/x"), true);
+  assert.equal(isUgcUrl("https://medium.com/@someone/post"), true);
+  assert.equal(isUgcUrl("https://github.com/vercel/next.js/discussions/123"), true);
+  assert.equal(isUgcUrl("https://github.com/vercel/next.js"), false, "a repository page is not a discussion");
+  assert.equal(isUgcUrl("https://community.hubspot.com/t5/x"), true);
+  assert.equal(isUgcUrl("https://meta.discourse.org/t/some-topic/12345"), true);
+  assert.equal(isUgcUrl("https://www.example.com/forum/thread-1"), true);
+  assert.equal(isUgcUrl("https://discuss.io/pricing"), false, "a company called discuss.io is not a forum");
+  assert.equal(isUgcUrl("https://en.wikipedia.org/wiki/SEO"), false);
+  assert.equal(isUgcUrl("not a url"), false);
+
+  assert.equal(mainDomain("blog.hubspot.com"), "hubspot.com");
+  assert.equal(mainDomain("https://news.bbc.co.uk/x"), "bbc.co.uk");
+  assert.equal(mainDomain("www.Example.com"), "example.com");
+  assert.equal(mainDomain("en.wikipedia.org"), "wikipedia.org");
+  assert.equal(mainDomain("alice.blogspot.com"), "alice.blogspot.com");
+  assert.equal(mainDomain("203.0.113.9"), "203.0.113.9");
+
+  // v3 的自然结果数组(旧形状)也能读;非 http 链接、空值丢掉
+  assert.deepEqual(normalizeSerpSnapshot([{ url: "https://a.test/x", position: 2, title: "A" }, { url: "javascript:alert(1)" }, null]).organic, [
+    { url: "https://a.test/x", domain: "a.test", position: 2, title: "A" },
+  ]);
+  const junk = normalizeSerpSnapshot({
+    organic: "nope",
+    itemTypes: ["organic", 3, "organic", "ai_overview"],
+    aiOverview: { references: [{ url: "https://x.test/a" }, { url: "ftp://y" }] },
+    featuredSnippet: { url: 5 },
+    paa: ["Q1", "", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7"],
+    knowledgeGraph: "yes",
+    ratings: [
+      { url: "https://www.g2.com/p", value: 4.5, votes: 12.4 },
+      { url: "https://x.test", value: "5" },
+    ],
+  });
+  assert.deepEqual(junk, {
+    organic: [],
+    itemTypes: ["organic", "ai_overview"],
+    aiOverview: { present: true, loaded: false, references: [{ domain: "x.test", url: "https://x.test/a" }] },
+    featuredSnippet: null,
+    paa: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6"],
+    knowledgeGraph: false,
+    ratings: [{ domain: "g2.com", url: "https://www.g2.com/p", value: 4.5, votes: 12 }],
+  });
+  assert.deepEqual(normalizeSerpSnapshot(undefined), { organic: [], itemTypes: [], aiOverview: null, featuredSnippet: null, paa: [], knowledgeGraph: false, ratings: [] });
+});
+
+test("analyzeRelevance (v4 re-run): bulk_ranks only for competitor domains the previous run never ranked — one call with just those; none new → no call", async () => {
+  const first = (await v4Run({ targetKeywords: ["answer engine optimization guide"] })).result;
+  assert.deepEqual(
+    first.pairs[0].competitors.map((c) => [c.domain, c.domainRank]),
+    [
+      ["wiki.test", 900],
+      ["alpha.test", 350],
+      ["beta.test", 60],
+    ]
+  );
+
+  // 新目标词的 SERP:一个上次见过的主域(alpha.test,沿用 350)+ 两个没见过的(子域 blog.delta.test 归并成 delta.test)
+  const base = fakeSerpV4();
+  const serpCalls: string[] = [];
+  const serpFn: SerpFn = async (q, opts) => {
+    serpCalls.push(q);
+    if (q !== "geo audit checklist") return base.fn(q, opts);
+    return snap([
+      { url: "https://alpha.test/geo", position: 1, title: "GEO audit checklist | Alpha" },
+      { url: "https://blog.delta.test/geo-audit-checklist", position: 2, title: "GEO audit checklist" },
+      { url: "https://epsilon.test/geo-audit", position: 3, title: "The GEO audit checklist" },
+    ]);
+  };
+  const ranks = fakeRanks({ "delta.test": 75, "epsilon.test": 480 });
+  const overview = fakeOverview();
+  const rerun = (reuse: RelevanceAnalysis, over: Partial<RelevanceInput>) =>
+    analyzeRelevance(
+      baseInput({
+        pages: crawlSet(),
+        visibility: visibility(V4_RANKING),
+        reuse,
+        refreshSerp: false,
+        targetKeywords: ["answer engine optimization guide", "geo audit checklist"],
+        fetcher: fakeFetcher(competitorRoutes()).fetcher,
+        keywordOverviewFn: overview.fn,
+        parse: parseWith(COMPETITOR_SIGNALS),
+        now: () => FIXED_NOW,
+        ...over,
+      })
+    );
+
+  const r = await rerun(first, { serpFn, bulkRanksFn: ranks.fn });
+  assert.deepEqual(serpCalls, ["geo audit checklist"]);
+  assert.deepEqual(ranks.calls, [["delta.test", "epsilon.test"]], "exactly one call, only the two unseen domains");
+  const geo = r.pairs.find((p) => p.query === "geo audit checklist");
+  assert.ok(geo);
+  assert.deepEqual(
+    geo.competitors.map((c) => [c.domain, c.domainRank, c.weakSpots]),
+    [
+      ["alpha.test", 350, []], // 沿用上一份,不再查
+      ["blog.delta.test", 75, ["low-authority"]],
+      ["epsilon.test", 480, []],
+    ]
+  );
+  // 沿用的对:权威照旧
+  assert.deepEqual(
+    r.pairs[0].competitors.map((c) => c.domainRank),
+    [900, 350, 60]
+  );
+  assert.equal(r.serpCalls, 1);
+  assert.equal(r.otherCalls, 2, "keyword_overview for the new word + one bulk_ranks");
+
+  // 再重跑、目标词不变:所有竞品主域都有沿用值 → bulk_ranks 不调;也不调 SERP / keyword_overview
+  const ranks2 = fakeRanks();
+  const overviewBefore = overview.calls.length;
+  const noSerp: SerpFn = async () => {
+    throw new Error("must not be called on a re-run without new target keywords");
+  };
+  const r2 = await rerun(r, { serpFn: noSerp, bulkRanksFn: ranks2.fn });
+  assert.deepEqual(ranks2.calls, []);
+  assert.equal(overview.calls.length, overviewBefore);
+  assert.equal(r2.serpCalls, 0);
+  assert.equal(r2.otherCalls, 0);
+  assert.deepEqual(
+    r2.pairs.find((p) => p.query === "geo audit checklist")?.competitors.map((c) => c.domainRank),
+    [350, 75, 480]
+  );
 });

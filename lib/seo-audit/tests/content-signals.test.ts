@@ -20,8 +20,11 @@ import {
   isAuthoritativeUrl,
   isPlausibleEmail,
   isPlausiblePhone,
+  isQuestionHeading,
   isStockImageUrl,
   jsonLdFacts,
+  MAX_BODY_YEARS,
+  QUESTION_WORDS,
   splitSentences,
   textHasEmail,
   textHasPhone,
@@ -29,6 +32,7 @@ import {
   titlePromisedNumber,
   titleYear,
   toIsoDate,
+  yearsInText,
 } from "../content-signals";
 
 function fr(url: string, body: string, init: Partial<FetchResult> = {}): FetchResult {
@@ -160,6 +164,11 @@ test("experience-rich article: structure, markers, citations, own images, byline
   assert.equal(c.nextStepLinks, 2, "the checker + guide links at the end; the aside's related link is outside the main content");
   assert.equal(c.interstitialHints, 0);
   assert.deepEqual(c.contactDetails, { email: false, phone: false, address: false });
+
+  // v4:"Methodology" / "Results" 不是问句;正文只提到 "a 2024 arXiv paper" ——
+  // 文章 <header> 里的 <time>、图片路径里的 /2026/03/、页脚的 © 2026 都不是正文年份
+  assert.equal(c.questionHeadings, 0);
+  assert.deepEqual(c.bodyYears, [2024]);
 });
 
 /* ============================================================
@@ -208,6 +217,8 @@ test("stock-image AI boilerplate: every stock image is recognised (host, filenam
   assert.equal(c.hasFaq, false);
   assert.equal(c.paragraphs, 4);
   assert.equal(c.sentences, 7);
+  // 2023 只出现在标题、图片路径与 JSON-LD 的 datePublished 里 —— 都不是正文
+  assert.deepEqual(c.bodyYears, []);
 });
 
 /* ============================================================
@@ -294,6 +305,8 @@ test("listicles: the title's promised number is extracted so it can be checked a
   assert.equal(match.titleBrand, "ToolPick");
   assert.equal(match.experienceMarkers, 1, "'We tested'");
   assert.equal(match.numberCount, 1, "'50 prompts'; the '1.'–'7.' ordinals are single digits");
+  assert.equal(match.questionHeadings, 0, "'1. Profound' … are not questions");
+  assert.deepEqual(match.bodyYears, [2026], "the H1 inside <main> is body text");
 
   const mismatch = signals(LISTICLE_MISMATCH, "https://toolpick.test/get-cited-by-chatgpt");
   assert.equal(mismatch.titleNumber, 10);
@@ -302,6 +315,8 @@ test("listicles: the title's promised number is extracted so it can be checked a
   assert.equal(mismatch.listItemCount, 6, "10 promised, only 6 delivered");
   assert.equal(mismatch.h2Count, 1);
   assert.equal(mismatch.titleBrand, null);
+  assert.equal(mismatch.questionHeadings, 1, "'What to do next' starts with an interrogative");
+  assert.deepEqual(mismatch.bodyYears, []);
 });
 
 test("titlePromisedNumber: top N / N <noun> (≤3 words apart) / leading number; units, years and codes are not promises", () => {
@@ -622,6 +637,8 @@ test("a page with no main text still gets well-formed signals (zeros, nulls, emp
   assert.equal(c.numberCount, 0);
   assert.equal(c.byline, false);
   assert.equal(c.contactDetails?.email, true);
+  assert.equal(c.questionHeadings, 0);
+  assert.deepEqual(c.bodyYears, [], "the footer's © 2026 is not body text");
 });
 
 test("non-2xx, non-HTML and failed fetches get no content signals (undefined = not measured, never zeros)", () => {
@@ -684,7 +701,7 @@ const EXPECTED_KEYS = [
   "aiPhraseHits", "authoritativeOutlinks", "outboundLinks", "imagesSelfHosted", "imagesStock", "byline", "authorName",
   "authorLink", "authorInSchema", "datePublished", "dateModified", "titleYear", "leadText", "firstParagraph", "hasFaq",
   "nextStepLinks", "clickbaitHits", "titleNumber", "ymylHits", "orgName", "siteName", "titleBrand", "sameAsCount",
-  "interstitialHints", "contactDetails",
+  "interstitialHints", "contactDetails", "questionHeadings", "bodyYears",
 ].sort();
 
 test("every PageContentSignals field is present, JSON-safe, small, and the output is deterministic", () => {
@@ -900,3 +917,201 @@ test("toIsoDate: ISO dates as written, RFC / long-form dates, invalid and year-o
   assert.equal(toIsoDate(20260930), null);
   assert.equal(toIsoDate(null), null);
 });
+
+/* ============================================================
+   13. v4:问句式标题(可引用性)与正文年份(过时数据)
+   ============================================================ */
+
+const QUESTION_PAGE = `<!DOCTYPE html>
+<html lang="en">
+<head><title>Answer Engine Optimization: The Practical Guide | AEO Lab</title></head>
+<body>
+<header><nav><a href="/">Home</a><a href="/guides">Guides</a></nav><h2>Why trust us?</h2></header>
+<main>
+<h1>What is answer engine optimization?</h1>
+<p>Answer engine optimization is the practice of making your pages easy for AI assistants to quote and cite.</p>
+<h2>What does an answer engine actually read?</h2>
+<p>It reads the passage that answers the question, not the whole page.</p>
+<h3>How ChatGPT picks its sources</h3>
+<h3>Key takeaways</h3>
+<h2>Pricing</h2>
+<h2>Is llms.txt worth adding</h2>
+<h3>Ready to get cited?</h3>
+<h2><span>Why</span> <em>does</em> schema matter</h2>
+<h2>Can AI assistants read PDFs?<a class="anchor" href="#pdfs" aria-hidden="true">#</a></h2>
+<h3>What’s new in 2026</h3>
+<h2>Whatever happened to keyword density</h2>
+<h3>Don't block OAI-SearchBot</h3>
+<h2>2. Which pages get cited</h2>
+<h4>Do I need a sitemap?</h4>
+<h2>Still invisible in ChatGPT?<a class="headerlink" href="#still" title="Permalink to this heading">¶</a></h2>
+</main>
+<aside><h3>Who writes these guides?</h3></aside>
+<footer><h2>Should you subscribe?</h2></footer>
+</body></html>`;
+
+test("questionHeadings: H2/H3 in the main content that end with '?' or start with an interrogative; H1/H4 and header/aside/footer headings excluded", () => {
+  const c = signals(QUESTION_PAGE, "https://aeolab.test/guide");
+  // ✓ What does…? / How ChatGPT… / Is llms.txt… / Ready to get cited? / Why does…(内联标记)/ Can AI…?#(永久链接)/
+  //   What's new…(缩写)/ 2. Which…(编号)/ Still invisible…?¶ —— 9 个
+  // ✗ Key takeaways / Pricing / Whatever… / Don't…(祈使句)/ H1 / H4 / 页头、侧栏、页脚里的问句
+  assert.equal(c.questionHeadings, 9);
+  assert.equal(c.h2Count, 8, "same element set as h2Count");
+  assert.equal(c.h3Count, 5);
+  assert.ok((c.questionHeadings ?? 0) <= c.h2Count + c.h3Count);
+
+  // 坏标记:H3 嵌在没闭合的 H2 里 —— 算外层标题的一部分,不重复计数
+  const nested = signals(`<html lang="en"><head><title>t</title></head><body><main><h2>Overview<h3>What is X?</h3></h2><p>Body text for the page.</p></main></body></html>`, "https://x.test/n");
+  assert.equal(nested.h2Count, 1);
+  assert.equal(nested.h3Count, 1);
+  assert.equal(nested.questionHeadings, 1);
+});
+
+test("isQuestionHeading: '?' ending (after closing quotes / permalink symbols) or interrogative first word; contractions; numbering and emoji skipped", () => {
+  assert.deepEqual([...QUESTION_WORDS].sort(), ["are", "can", "do", "does", "how", "is", "should", "what", "when", "where", "which", "who", "why"], "the spec's list, unchanged");
+  const yes = [
+    "What is answer engine optimization?",
+    "How ChatGPT picks its sources",
+    "why AI Overviews cite Reddit",
+    "WHEN TO USE LLMS.TXT",
+    "Where do AI answers come from",
+    "Which AEO tool is best for agencies",
+    "Who should own AEO",
+    "Can ChatGPT read JavaScript",
+    "Does Perplexity cite Reddit",
+    "Do you need llms.txt",
+    "Is AEO the same as SEO",
+    "Are AI Overviews killing clicks",
+    "Should you block GPTBot",
+    "What’s new in 2026",
+    "Who're the biggest AEO vendors",
+    "2. Which pages get cited",
+    "🚀 How to launch on Perplexity",
+    "How-to: set up llms.txt",
+    "“Is this real?”",
+    "Is AEO worth it? (2026 update)",
+    "Ready to get cited?",
+    "Ready for AI search?¶",
+    "Still invisible in ChatGPT?”",
+    "AEO vs SEO: which one wins?",
+    "什么是答案引擎优化？",
+  ];
+  const no = [
+    "Pricing",
+    "Key takeaways",
+    "Whatever happened to keyword density",
+    "Howto guides",
+    "Don't block OAI-SearchBot",
+    "Can't-miss AEO tactics",
+    "10 questions to ask an AEO agency",
+    "Showcase: how we built it",
+    "FAQ",
+    "?",
+    "2026",
+    "",
+  ];
+  for (const h of yes) assert.equal(isQuestionHeading(h), true, h);
+  for (const h of no) assert.equal(isQuestionHeading(h), false, h);
+
+  // 解析时边读文本节点边判的结果,与对整段标题调用 isQuestionHeading 一致
+  const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const all = [...yes, ...no];
+  const html = `<html lang="en"><head><title>t</title></head><body><main>${all.map((h) => `<h2>${esc(h)}</h2>`).join("\n")}</main></body></html>`;
+  assert.equal(signals(html, "https://q.test/all").questionHeadings, yes.length);
+});
+
+const YEARS_PAGE = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AI Search Statistics Since 1995 | Data Desk</title>
+<meta property="article:published_time" content="1996-05-01T08:00:00Z">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI search statistics","datePublished":"1997-01-01","dateModified":"1997-06-01"}</script>
+</head>
+<body>
+<header><nav><a href="/archive/1998/">1998 archive</a></nav></header>
+<main>
+<div class="toc"><ul><li><a href="#recap">2015 recap</a></li></ul></div>
+<h1>AI search statistics</h1>
+<p>Updated: March 4, 2013</p>
+<p>September 30, 2014</p>
+<p>In 2021, 43% of searches ended without a click (Rand, 2022), and the share kept rising through 2023–2024.</p>
+<p>The 2025's playbook, Q3 2026 numbers and the 1990s web all appear in this guide, last checked on <time datetime="1999-01-01">January 1, 2000</time>.</p>
+<h2>What changed in 2027?</h2>
+<table><tr><th>Year</th><th>Share</th></tr><tr><td>2028</td><td>61%</td></tr></table>
+<p>Raw data: https://www.census.gov/library/2001/report.html and example.com/2002/05/post — version 2003.5, 12030 rows, $2005 per seat, 2006% growth, 2007 ms latency, issue #2009, FY2010, 1989 and 2100. In 2021 we re-ran it.</p>
+<div class="site-credits">© 2011–2012 Data Desk. All rights reserved.</div>
+</main>
+<aside><p>From the 2017 archive</p></aside>
+<footer><p>© 2016 Data Desk</p></footer>
+</body></html>`;
+
+test("bodyYears: standalone years in the main text only — not in the title, meta, JSON-LD, URLs, <time>, date stamps, TOC, copyright lines, chrome, decimals, prices, units or IDs", () => {
+  const c = signals(YEARS_PAGE, "https://datadesk.test/ai-search-statistics");
+  // 计入:2021(两次,去重)、2022、2023–2024、2025's、Q3 2026、H2 里的 2027、表格里的 2028
+  // 不计:标题 1995、meta 1996、JSON-LD 1997、导航 1998、<time> 的 datetime 1999 与文字 2000、网址里的 2001 / 2002、
+  //      小数 2003.5、12030、$2005、2006%、2007 ms、#2009、FY2010、版权行 2011–2012、日期戳行 2013 / 2014、
+  //      目录 2015、页脚 2016、侧栏 2017、1990s(年代)、范围外的 1989 / 2100
+  assert.deepEqual(c.bodyYears, [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028]);
+  assert.equal(c.questionHeadings, 1, "'What changed in 2027?'");
+  assert.equal(c.datePublished, "1997-01-01", "the page's own dates still come from metadata, untouched");
+
+  // 超过 12 个:升序、留最新的 12 个
+  const many = `<!DOCTYPE html><html lang="en"><head><title>Timeline</title></head><body><main><p>Milestones: ${Array.from({ length: 15 }, (_, i) => 2015 - i).join(", ")}.</p></main></body></html>`;
+  const years = signals(many, "https://timeline.test/").bodyYears ?? [];
+  assert.equal(years.length, MAX_BODY_YEARS);
+  assert.deepEqual(years, Array.from({ length: 12 }, (_, i) => 2004 + i));
+});
+
+test("bodyYears date stamps: byline / updated / date-only lines are the page's own date; prose dates, changelog entries and 'By 2030' sentences still count", () => {
+  const page = (body: string) => signals(`<!DOCTYPE html><html lang="en"><head><title>Stamp test</title></head><body><main>${body}<p>Plain body text without any year in it at all.</p></main></body></html>`, "https://stamp.test/p").bodyYears;
+  assert.deepEqual(page(`<p>By Jane Doe · Sep 30, 2019</p>`), []);
+  assert.deepEqual(page(`<p>Sep 30, 2019 · 7 min read</p>`), []);
+  assert.deepEqual(page(`<p>Last updated on 2019-09-30</p>`), []);
+  assert.deepEqual(page(`<p>Date: 2019-09-30</p>`), []);
+  assert.deepEqual(page(`<ul class="post-meta"><li>September 30, 2019</li></ul>`), []);
+  assert.deepEqual(page(`<p>On July 17, 2019, Google rolled out the update.</p>`), [2019]);
+  assert.deepEqual(page(`<p>Jan 5, 2019: launched v2 of the tracker</p>`), [2019]);
+  assert.deepEqual(page(`<p>By 2030, half of all searches will start in an AI assistant.</p>`), [2030]);
+  assert.deepEqual(page(`<h3>September 30, 2019</h3>`), [2019], "a dated heading (release notes) is content, not a stamp");
+  assert.deepEqual(page(`<table><tr><td>2019-09-30</td><td>Core update</td></tr><tr><td>2020-01-13</td><td>Another one</td></tr></table>`), [2019, 2020]);
+  // 超过 25 词的段落不是日期戳行:<time> 里的 2026 不算,正文里的 2019 / 2024 照算
+  assert.deepEqual(
+    page(`<p>Updated <time datetime="2026-09-30">Sep 30, 2026</time>. Our 2019 survey of answer engines still holds, and a 2024 rerun confirmed it for every one of the twelve tools we track in our weekly benchmark.</p>`),
+    [2019, 2024],
+    "<time> text is excluded even inside a long paragraph"
+  );
+  // ≤ 25 词、以 Updated 开头又含完整日期:整行算日期戳(连同里面顺带提到的年份)
+  assert.deepEqual(page(`<p>Updated Sep 30, 2026 with our 2019 survey data.</p>`), []);
+});
+
+test("yearsInText: standalone 1990–2099 tokens; URLs, decimals, longer numbers, prices, units, decades, IDs and copyright lines are not years", () => {
+  assert.deepEqual(yearsInText("In 2021, 43% of searches ended without a click (2022). Q3 2026 and 2025's plans."), [2021, 2022, 2025, 2026]);
+  assert.deepEqual(yearsInText("2023–2024, 2019-2020, 2018/2019 and 2016,2017"), [2016, 2017, 2018, 2019, 2020, 2023, 2024], "ranges and lists, deduped and sorted");
+  assert.deepEqual(yearsInText("2025.5 index, 12024 rows, 20245, 1.2024 ratio, $2024 plan, € 2023, 2022% growth, 2000 years ago, 2048 px, 1999 ms"), []);
+  assert.deepEqual(yearsInText("the 1990s, FY2026, v2024, #2021, issue_2020, 1989 and 2100"), []);
+  assert.deepEqual(yearsInText("Source: https://www.census.gov/library/2021/acs.html, (www.example.com/2019/post) and example.com/2018/05/x"), []);
+  assert.deepEqual(yearsInText("© 2019–2026 Acme Inc. Copyright © 2020 Acme. (c) 2018"), []);
+  assert.deepEqual(yearsInText("Released 2024.10.05; IntelliJ 2023.2.1; on 30.09.2022."), [2022, 2023, 2024], "dotted dates and year-based versions keep their year");
+  assert.deepEqual(yearsInText("In 2024 X rebranded; 2023 M&A deals; 2021x faster"), [2023, 2024], "a spaced single letter is the next word, not a unit");
+  assert.deepEqual(yearsInText(Array.from({ length: 20 }, (_, i) => 2010 - i).join(", ")), Array.from({ length: 12 }, (_, i) => 1999 + i), "≤12, newest kept");
+  assert.deepEqual(yearsInText(""), []);
+
+  // 线性:超长的"像网址又不是网址"的词、成串的四位数都不会拖慢
+  const t0 = Date.now();
+  yearsInText(`${"a-".repeat(100_000)}/2024 ${"2024.".repeat(40_000)} ${"1.2024 ".repeat(20_000)}`);
+  assert.ok(Date.now() - t0 < 1_000, `took ${Date.now() - t0}ms`);
+});
+
+test("question headings: marketing section titles ('What we do', 'How it works') are not questions unless they end with '?'", () => {
+  assert.equal(isQuestionHeading("What we do"), false);
+  assert.equal(isQuestionHeading("Who we are"), false);
+  assert.equal(isQuestionHeading("How it works"), false);
+  assert.equal(isQuestionHeading("Why our customers stay"), false);
+  assert.equal(isQuestionHeading("How it works?"), true, "an explicit question mark still counts");
+  assert.equal(isQuestionHeading("What is AEO"), true);
+  assert.equal(isQuestionHeading("How to audit your site"), true);
+  // 前两个词分在两个文本节点里时,流式判定与整段判定一致
+  const html = `<!DOCTYPE html><html lang="en"><head><title>T</title></head><body><main><h2><strong>What</strong> we do</h2><p>${"Plain words for the paragraph. ".repeat(4)}</p><h2><em>How</em> to start</h2><p>${"More plain words here. ".repeat(4)}</p></main></body></html>`;
+  assert.equal(signals(html, "https://acme.test/x").questionHeadings, 1);
+});
+

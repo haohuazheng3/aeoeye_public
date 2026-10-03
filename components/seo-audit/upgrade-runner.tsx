@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Loader2, RefreshCw, AlertCircle, Check, Pause, Clock } from "lucide-react";
+import { FULL_CRAWL_PAGES, PILLAR_IDS, RANKING_SUBS } from "@/lib/seo-audit/types";
 import { startUpgradeMachine, type UpgradeReply } from "./upgrade-machine";
 
 /* ============================================================
@@ -17,17 +18,19 @@ import { startUpgradeMachine, type UpgradeReply } from "./upgrade-machine";
    ============================================================ */
 
 const STAGES = [
-  { at: 0, label: "Re-crawling up to 40 pages" },
+  { at: 0, label: `Re-crawling up to ${FULL_CRAWL_PAGES} pages` },
   { at: 15, label: "Authority & backlinks (DataForSEO)" },
   { at: 35, label: "Search visibility & ranked keywords" },
   { at: 50, label: "Competitor overlap" },
   { at: 65, label: "PageSpeed Insights — desktop" },
-  { at: 80, label: "Comparing your pages with the page-one results" },
-  { at: 105, label: "Computing your SEO Ranking Score and roadmap" },
+  { at: 80, label: "Comparing your pages with the page-one results and AI Overviews" },
+  { at: 95, label: "Brand reputation — your brand's Google results and review sites" },
+  { at: 105, label: `Computing your SEO Ranking Score (${PILLAR_IDS.length} pillars, ${RANKING_SUBS.length} sub-scores) and roadmap` },
 ];
 /**
- * 典型总时长(秒)。前六个模块并行、各自 60s 超时,通常 90s 内结束;v3 之后还要抓排名前列的页面做对比
- * (≤3 个查询 × 5 页,单独 60s 预算),合计约 2 分钟。进度条封顶 95%
+ * 典型总时长(秒)。前六个模块并行、各自 60s 超时,通常 90s 内结束;之后抓排名前列的页面做对比
+ * (v2:≤6 个查询 × 5 页,与两次品牌声誉搜索并行,单独预算),合计约 2 分钟。进度条封顶 95%。
+ * 这是经验估算,不是服务端实时进度 —— 页脚如实写明。
  */
 const TYPICAL = 120;
 
@@ -134,8 +137,9 @@ export function SeoUpgradeRunner({ auditId, domain }: { auditId: string; domain?
                 failed
               ) : (
                 <>
-                  40-page crawl, desktop PageSpeed, authority, rankings, competitors and your SEO Ranking Score
-                  {domain ? ` for ${domain}` : ""}. This usually takes <span className="font-semibold text-ink/75">about 2 minutes</span>.
+                  {FULL_CRAWL_PAGES}-page crawl, desktop PageSpeed, authority, rankings, competitors, brand reputation and
+                  your SEO Ranking Score{domain ? ` for ${domain}` : ""}. This usually takes{" "}
+                  <span className="font-semibold text-ink/75">about 2 minutes</span>.
                 </>
               )}
             </p>
@@ -214,7 +218,7 @@ export function SeoUpgradeRunner({ auditId, domain }: { auditId: string; domain?
                 <p className="mt-6 text-xs leading-relaxed text-ink/35">
                   {waiting
                     ? "Retries run from this page once a minute. If you close it, your report link keeps working — opening it again picks up from here."
-                    : "Progress is estimated from typical run times, not a live server readout. Keep this tab open — the page refreshes itself the moment your report is ready."}
+                    : "Progress is estimated from typical run times, not a live server readout. Keep this tab open — the page refreshes itself the moment your report is ready. Once it's there you can add target keywords or connect Search Console (read-only) to score your real clicks."}
                 </p>
               </>
             )}

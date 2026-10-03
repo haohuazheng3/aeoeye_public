@@ -6,8 +6,10 @@ import type {
   AuthorityResult,
   CompetitorRow,
   CompetitorsResult,
+  KeywordOverview,
   RankedKeyword,
   SeoCheck,
+  SerpSnapshot,
   Severity,
   VisibilityResult,
 } from "./types";
@@ -29,6 +31,14 @@ import type {
       4xx / 40xxx 这类"请求本身有问题"的错误绝不重试(复审 C41)。
    4. 生产环境(VERCEL_ENV=production)忽略 DATAFORSEO_SANDBOX:沙盒回的是静态假数据,
       生产误配了它就等于把假数据卖给付费用户(复审 D2)。
+
+   v4(2026-10-02,SEO Ranking Score v2)新增的付费调用,全部走同一个 dfsPost(记账 + 重试):
+     · fetchSerpAdvanced —— serp/google/organic/live/advanced,与 regular 同价 $0.002/页,
+       多拿 AI 摘要(含引用)/ 精选摘要 / PAA / 知识面板 / 评分;load_async_ai_overview 另加 $0.002,只在调用方要求时传;
+     · fetchKeywordOverview —— Labs keyword_overview,一次 ≤10 个词($0.012 + $0.00012/词);
+     · fetchBulkRanks —— backlinks/bulk_ranks,一次 ≤30 个主域($0.024 + $0.000036/行)。
+   ranked_keywords 的返回里本来就有的 KD / SERP 元素 / 前十平均权威 / 名次变化 / 页级外链,
+   现在都映射进 RankedKeyword(零新增成本)。
    ============================================================ */
 
 const PROD_BASE = "https://api.dataforseo.com/v3";
@@ -543,16 +553,40 @@ interface RankOverviewResponse {
   items?: { metrics?: { organic?: OrganicMetrics | null } | null }[] | null;
 }
 
+/** search_volume_trend:与上一季度 / 上一年相比的搜索量变化(%) */
+interface VolumeTrendRaw {
+  monthly?: number | null;
+  quarterly?: number | null;
+  yearly?: number | null;
+}
+
 interface RankedKeywordItem {
   keyword_data?: {
     keyword?: string;
-    keyword_info?: { search_volume?: number | null; cpc?: number | null } | null;
+    keyword_info?: { search_volume?: number | null; cpc?: number | null; search_volume_trend?: VolumeTrendRaw | null } | null;
     search_intent_info?: { main_intent?: string | null } | null;
     serp_info?: { serp_item_types?: string[] | null } | null;
+    /* ---- v4:同一个响应里本来就有,之前丢掉了 ---- */
+    keyword_properties?: { keyword_difficulty?: number | null } | null;
+    /** 该词前 10 名的平均外链 / 权威(main_domain_rank 与 backlinks/summary 的 rank 同为 0–1000 刻度) */
+    avg_backlinks_info?: { main_domain_rank?: number | null; referring_domains?: number | null } | null;
   } | null;
   ranked_serp_element?: {
-    serp_item?: { rank_group?: number; rank_absolute?: number; url?: string | null; etv?: number | null } | null;
+    serp_item?: {
+      type?: string | null;
+      rank_group?: number;
+      rank_absolute?: number;
+      url?: string | null;
+      etv?: number | null;
+      /* ---- v4 ---- */
+      is_featured_snippet?: boolean | null;
+      rank_changes?: { previous_rank_absolute?: number | null; is_new?: boolean | null; is_up?: boolean | null; is_down?: boolean | null } | null;
+      /** 本站排名页自己的页级外链;页面没有任何外链数据时整个对象为 null */
+      backlinks_info?: { referring_domains?: number | null } | null;
+      rank_info?: { page_rank?: number | null; main_domain_rank?: number | null } | null;
+    } | null;
     serp_item_types?: string[] | null;
+    keyword_difficulty?: number | null;
   } | null;
 }
 
@@ -582,14 +616,50 @@ function emptyVisibility(sitemapUrls: number | null): VisibilityResult {
   };
 }
 
+/** 关键词难度:DataForSEO 给 0–100 的整数;越界或非数字一律当"没有" */
+function kdOrNull(v: unknown): number | null {
+  const n = numOrNull(v);
+  return n === null ? null : clamp(Math.round(n), 0, 100);
+}
+
+function round1OrNull(v: unknown): number | null {
+  const n = numOrNull(v);
+  return n === null ? null : round1(n);
+}
+
+/**
+ * 搜索量趋势只留季度与年度(月度波动太大,计分不用)。两项都没有 → null:
+ * "供应商没给趋势"与"趋势为 0%"必须分得开。
+ */
+function volumeTrendOf(t: VolumeTrendRaw | null | undefined): { quarterly: number | null; yearly: number | null } | null {
+  if (!t || typeof t !== "object") return null;
+  const quarterly = numOrNull(t.quarterly);
+  const yearly = numOrNull(t.yearly);
+  return quarterly === null && yearly === null ? null : { quarterly, yearly };
+}
+
+/** 若干个 SERP 元素类型清单合并:去空白、去重、保持首次出现的顺序 */
+function typeList(...lists: unknown[]): string[] {
+  const out: string[] = [];
+  for (const list of lists) {
+    for (const t of Array.isArray(list) ? list : []) {
+      const s = str(t);
+      if (s && !out.includes(s)) out.push(s);
+    }
+  }
+  return out;
+}
+
 function mapKeyword(it: RankedKeywordItem): RankedKeyword | null {
   const kd = it.keyword_data;
-  const si = it.ranked_serp_element?.serp_item;
+  const rse = it.ranked_serp_element;
+  const si = rse?.serp_item;
   const keyword = str(kd?.keyword);
   if (!keyword) return null;
   // rank_group = 在自然结果里的名次;rank_absolute 把广告/PAA 等 SERP 模块也算进去,只作兜底
   const position = num(si?.rank_group) || num(si?.rank_absolute);
   if (!position) return null;
+  const rc = si?.rank_changes;
   return {
     keyword,
     position,
@@ -598,6 +668,25 @@ function mapKeyword(it: RankedKeywordItem): RankedKeyword | null {
     url: str(si?.url),
     intent: str(kd?.search_intent_info?.main_intent),
     cpc: numOrNull(kd?.keyword_info?.cpc),
+    // v4(规格 v2 §3.1):下面这些都在同一个已付费响应里,零新增成本。一律显式给值(没有就 null / []),
+    // 让计分端能分清"这一版测了但供应商没数据"(null)与"旧报告根本没这个字段"(undefined)。
+    kd: kdOrNull(kd?.keyword_properties?.keyword_difficulty ?? rse?.keyword_difficulty),
+    // 两处是同一份 SERP 快照(check_url / 更新时间一致);取并集,与 aiOverviewShare 用的 hasAiOverview 口径一致
+    serpItemTypes: typeList(kd?.serp_info?.serp_item_types, rse?.serp_item_types),
+    avgTopDomainRank: round1OrNull(kd?.avg_backlinks_info?.main_domain_rank),
+    avgTopReferringDomains: round1OrNull(kd?.avg_backlinks_info?.referring_domains),
+    // previous 是上一次的 rank_absolute(含广告 / PAA 等模块),与 position(rank_group)不同口径;升降以三个布尔为准
+    rankChange:
+      rc && typeof rc === "object"
+        ? { previous: numOrNull(rc.previous_rank_absolute), isNew: rc.is_new === true, isUp: rc.is_up === true, isDown: rc.is_down === true }
+        : null,
+    // backlinks_info 为 null = 供应商没有这页的外链记录 → null(没测),不冒充 0
+    pageReferringDomains: numOrNull(si?.backlinks_info?.referring_domains),
+    pageRank: numOrNull(si?.rank_info?.page_rank),
+    volumeTrend: volumeTrendOf(kd?.keyword_info?.search_volume_trend),
+    // 注意:DataForSEO 已标注 is_featured_snippet "no longer appears in SERP",且请求只要了 item_types: ["organic"],
+    // 所以这里实际上几乎恒为 false;本站是否拥有精选摘要以 live SERP(fetchSerpAdvanced 的 featuredSnippet)为准。
+    isFeaturedSnippet: si?.is_featured_snippet === true || si?.type === "featured_snippet",
   };
 }
 
@@ -789,7 +878,11 @@ export async function fetchCompetitors(domain: string): Promise<CompetitorsResul
 }
 
 /* ============================================================
-   v3 · SERP 前 N 名 —— 相关性分析(relevance.ts)拿来和排名前列的真实页面逐项对比
+   v3 / v4 · SERP —— 相关性分析(relevance.ts)与站外声誉(reputation.ts)拿来和排名前列的真实页面逐项对比
+
+   v4 起统一走 serp/google/organic/live/advanced:与 regular 同价($0.002/页),但同一次调用还带回
+   AI 摘要(含引用来源)、精选摘要、People also ask、知识面板、评分 —— "AI 搜索与点击机会"支柱和
+   "站外声誉"都靠这些,不用另外花钱。fetchSerpTop 保留为只取自然结果的薄封装。
    ============================================================ */
 
 /** 一条自然结果:position = 在自然结果里的名次(rank_group),广告 / PAA 等模块不占名次 */
@@ -801,15 +894,71 @@ export interface SerpOrganicItem {
   title: string;
 }
 
-interface SerpOrganicResponse {
-  items?: {
-    type?: string;
-    rank_group?: number;
-    rank_absolute?: number;
-    domain?: string | null;
-    title?: string | null;
-    url?: string | null;
-  }[] | null;
+/** 自然结果上的评分(rich snippet):rating_type 为 Max5 / Percents / CustomMax,满分看 rating_max */
+interface SerpRatingRaw {
+  rating_type?: string | null;
+  value?: number | null;
+  votes_count?: number | null;
+  rating_max?: number | null;
+}
+
+/** AI 摘要的引用(ai_overview_reference) */
+interface SerpReferenceRaw {
+  domain?: string | null;
+  url?: string | null;
+}
+
+/** advanced 响应里的一个 SERP 元素 —— 只声明用到的字段,结构见官方文档(其余字段原样忽略) */
+interface SerpAdvancedItem {
+  type?: string | null;
+  rank_group?: number | null;
+  rank_absolute?: number | null;
+  domain?: string | null;
+  title?: string | null;
+  url?: string | null;
+  text?: string | null;
+  markdown?: string | null;
+  rating?: SerpRatingRaw | null;
+  /** ai_overview:true = 异步加载的摘要;没传 load_async_ai_overview 时往往只有这个壳、没有内容 */
+  asynchronous_ai_overview?: boolean | null;
+  /** 子元素:ai_overview_element / ai_overview_expanded_element / people_also_ask_element … */
+  items?: (SerpAdvancedItem | null)[] | null;
+  /** ai_overview_expanded_element 的组件(各自也可能带 references) */
+  components?: (SerpAdvancedItem | null)[] | null;
+  references?: (SerpReferenceRaw | null)[] | null;
+}
+
+interface SerpAdvancedResponse {
+  item_types?: string[] | null;
+  items?: (SerpAdvancedItem | null)[] | null;
+}
+
+/** AI 摘要引用最多留几条(UI 只列前几个域名;计分只看"本站在不在里面") */
+const AI_OVERVIEW_MAX_REFERENCES = 10;
+/** People also ask 最多留几个问题 */
+const PAA_MAX = 6;
+/** SERP keyword 字段的长度上限(官方:≤700 字符,按解码后的长度算) */
+const SERP_KEYWORD_MAX_CHARS = 700;
+
+/**
+ * 搜索运算符:keyword 里出现它们,DataForSEO 按 5 倍计费(官方文档),cache: 还会直接被拒;
+ * 而我们要的是"普通人搜这个词看到什么",运算符结果本来就不可比。
+ */
+const SERP_OPERATORS = /\b(allinanchor|allintext|allintitle|allinurl|cache|define|definition|filetype|id|inanchor|info|intext|intitle|inurl|link|site):/gi;
+
+/**
+ * SERP 的 keyword 字段。官方规则:%## 会被解码、"+" 会被当成空格 —— 字面的 % 与 + 必须写成 %25 / %2B,
+ * 否则 "c++ tutorial" 实际搜的是 "c   tutorial"。运算符去掉冒号当普通词搜(见 SERP_OPERATORS)。
+ * 返回 "" 表示没有可搜的内容(调用方直接返回空结果、不发请求、不花钱)。
+ */
+function serpKeyword(keyword: unknown): string {
+  const kw = String(keyword ?? "")
+    .replace(SERP_OPERATORS, "$1 ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, SERP_KEYWORD_MAX_CHARS)
+    .trim();
+  return kw.replace(/%/g, "%25").replace(/\+/g, "%2B");
 }
 
 /** 去重键:主机已被 URL 小写化,去掉 #fragment 与路径末尾的斜杠 —— 同一页的两种写法只算一次 */
@@ -825,42 +974,348 @@ function serpUrlKey(url: string): string | null {
   }
 }
 
+/** 元素的主域:优先用供应商给的 domain,没有就取 URL 主机名;统一小写、去 www.(url 须已通过 serpUrlKey 校验) */
+function itemDomain(domain: unknown, url: string): string {
+  return cleanDomain(str(domain) ?? new URL(url).hostname);
+}
+
 /**
- * Google(美国 / 英语,与本文件其余口径一致)某个查询的自然结果前 depth 条(默认 10 = 1 页,
- * DataForSEO 按页计费,一次约 $0.002)。只留 type = organic,按 URL 去重(保留名次靠前的那条)。
- * 走 dfsPost:逐笔记账、瞬时故障重试 1 次、失败抛 SeoAuditError("unreachable") —— 由调用方
- * (relevance.ts)降级成 note。空查询直接返回 [],不发请求(不花钱)。
+ * 评分统一换算到 5 分制:Max5 原样;Percents(满分 100)与 CustomMax(满分 rating_max)按比例换算。
+ * 声誉计分的 4.0 / 3.5 门槛是按 5 分制写的,"92%" 不换算就会被当成 92 分。值超过满分视为脏数据丢弃。
  */
-export async function fetchSerpTop(keyword: string, opts?: { depth?: number }): Promise<SerpOrganicItem[]> {
-  const kw = (keyword ?? "").replace(/\s+/g, " ").trim();
-  if (!kw) return [];
-  const depth = clamp(Math.round(opts?.depth ?? 10), 1, 100);
-  const res = await dfsPost<SerpOrganicResponse>("serp/google/organic/live/regular", {
-    keyword: kw,
-    location_code: LOCATION_CODE,
-    language_code: LANGUAGE_CODE,
-    depth,
-  });
-  const rows: SerpOrganicItem[] = [];
+function rating5(r: SerpRatingRaw | null | undefined): { value: number; votes: number | null } | null {
+  if (!r || typeof r !== "object") return null;
+  const raw = numOrNull(r.value);
+  if (raw === null || raw < 0) return null;
+  const declared = numOrNull(r.rating_max);
+  const max = declared !== null && declared > 0 ? declared : str(r.rating_type)?.toLowerCase() === "percents" ? 100 : 5;
+  if (raw > max) return null;
+  const votes = numOrNull(r.votes_count);
+  return { value: Math.round((raw / max) * 500) / 100, votes: votes !== null && votes >= 0 ? Math.round(votes) : null };
+}
+
+/**
+ * 一个 ai_overview 元素的全部引用,按 URL 去重、≤ AI_OVERVIEW_MAX_REFERENCES:
+ * 元素自身的 references(页面右侧的来源卡片,Google 自己的排序)优先,再按文档顺序补子元素
+ * (ai_overview_element)与展开组件(ai_overview_expanded_component)里的 references。
+ * URL 去掉 #片段 —— 引用常带 "#:~:text=…" 高亮片段,对展示和"是否引用了本站"的比对都是噪音。
+ * PAA 问题里嵌的 AI 回答不是这个摘要的引用,这里不看。
+ */
+function collectAiReferences(aio: SerpAdvancedItem, into: { domain: string; url: string }[], seen: Set<string>): void {
+  const take = (refs: (SerpReferenceRaw | null)[] | null | undefined) => {
+    for (const r of Array.isArray(refs) ? refs : []) {
+      if (into.length >= AI_OVERVIEW_MAX_REFERENCES) return;
+      const raw = str(r?.url);
+      if (!raw) continue;
+      const url = raw.replace(/#.*$/, "");
+      const key = serpUrlKey(url);
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      into.push({ domain: itemDomain(r?.domain, url), url });
+    }
+  };
+  take(aio.references);
+  for (const el of Array.isArray(aio.items) ? aio.items : []) {
+    if (!el) continue;
+    take(el.references);
+    for (const c of Array.isArray(el.components) ? el.components : []) take(c?.references);
+  }
+}
+
+/** 摘要有没有真实内容(文字 / 子元素 / 引用)。异步摘要没加载时只有一个空壳 */
+function aiOverviewHasContent(aio: SerpAdvancedItem): boolean {
+  if (str(aio.markdown) || str(aio.text)) return true;
+  return (Array.isArray(aio.items) ? aio.items : []).some(
+    (el) =>
+      !!el &&
+      (!!str(el.text) ||
+        !!str(el.markdown) ||
+        !!str(el.title) ||
+        (Array.isArray(el.components) && el.components.length > 0) ||
+        (Array.isArray(el.references) && el.references.length > 0))
+  );
+}
+
+function emptySerpSnapshot(): SerpSnapshot {
+  return { organic: [], itemTypes: [], aiOverview: null, featuredSnippet: null, paa: [], knowledgeGraph: false, ratings: [] };
+}
+
+/** advanced 响应 → SerpSnapshot(纯函数;响应缺字段时各项退到空值,不抛) */
+function parseSerpAdvanced(res: SerpAdvancedResponse | null): SerpSnapshot {
+  const items = res && Array.isArray(res.items) ? res.items : [];
+
+  // 自然结果:与 v3 fetchSerpTop 同一套规则 —— 只留 organic,名次 = rank_group,缺失退到 rank_absolute,再退到出现顺序
+  const rows: { item: SerpOrganicItem; rating: SerpRatingRaw | null | undefined }[] = [];
   let order = 0;
-  for (const it of res?.items ?? []) {
+  for (const it of items) {
     order += 1;
     if (!it || it.type !== "organic") continue;
     const url = str(it.url);
     if (!url || !serpUrlKey(url)) continue;
-    // rank_group 缺失时退到 rank_absolute,再退到出现顺序 —— 名次只用于排序与展示,不能是 0
     const position = num(it.rank_group) || num(it.rank_absolute) || order;
-    rows.push({ url, domain: cleanDomain(str(it.domain) ?? new URL(url).hostname), position, title: str(it.title) ?? "" });
+    rows.push({ item: { url, domain: itemDomain(it.domain, url), position, title: str(it.title) ?? "" }, rating: it.rating });
   }
   // 先按名次稳定排序再去重:同一 URL 出现两次时保留名次靠前的那条
-  rows.sort((a, b) => a.position - b.position);
-  const out: SerpOrganicItem[] = [];
-  const seen = new Set<string>();
+  rows.sort((a, b) => a.item.position - b.item.position);
+  const organic: SerpOrganicItem[] = [];
+  const ratings: SerpSnapshot["ratings"] = [];
+  const seenUrl = new Set<string>();
   for (const r of rows) {
-    const key = serpUrlKey(r.url) as string;
-    if (seen.has(key)) continue;
+    const key = serpUrlKey(r.item.url) as string;
+    if (seenUrl.has(key)) continue;
+    seenUrl.add(key);
+    organic.push(r.item);
+    const rt = rating5(r.rating);
+    if (rt) ratings.push({ domain: r.item.domain, url: r.item.url, value: rt.value, votes: rt.votes });
+  }
+
+  // 元素类型:按出现顺序去重,再并上结果级 item_types(两者正常情况下一致,并集只是兜底)
+  const itemTypes = typeList(
+    items.map((it) => it?.type),
+    res?.item_types
+  );
+
+  // AI 摘要:有 ai_overview 元素 = present;有内容或引用 = loaded。
+  // asynchronous_ai_overview: true 且没内容(没传 load_async_ai_overview)→ present 但没加载,引用未知;
+  // 结果级 item_types 列了 ai_overview 却没回元素(异步摘要没加载时可能如此)也按"在、但没加载"算 ——
+  // 计分只用 present && loaded 的查询,这种情况不会被误判成"没被引用"。
+  const references: { domain: string; url: string }[] = [];
+  const seenRef = new Set<string>();
+  let present = itemTypes.includes("ai_overview");
+  let loaded = false;
+  for (const it of items) {
+    if (!it || it.type !== "ai_overview") continue;
+    present = true;
+    collectAiReferences(it, references, seenRef);
+    loaded = loaded || aiOverviewHasContent(it);
+  }
+  const aiOverview: SerpSnapshot["aiOverview"] = present ? { present: true, loaded: loaded || references.length > 0, references } : null;
+
+  // 精选摘要:第一个带有效 URL 的 featured_snippet;"是不是本站"由调用方比对域名
+  let featuredSnippet: SerpSnapshot["featuredSnippet"] = null;
+  for (const it of items) {
+    if (!it || it.type !== "featured_snippet") continue;
+    const url = str(it.url);
+    if (!url || !serpUrlKey(url)) continue;
+    featuredSnippet = { domain: itemDomain(it.domain, url), url };
+    break;
+  }
+
+  // People also ask:问题标题,大小写不敏感去重,≤ PAA_MAX
+  const paa: string[] = [];
+  for (const it of items) {
+    if (!it || it.type !== "people_also_ask" || paa.length >= PAA_MAX) continue;
+    for (const q of Array.isArray(it.items) ? it.items : []) {
+      const title = str(q?.title)?.replace(/\s+/g, " ");
+      if (!title || paa.some((p) => p.toLowerCase() === title.toLowerCase())) continue;
+      paa.push(title);
+      if (paa.length >= PAA_MAX) break;
+    }
+  }
+
+  // 与 itemTypes 同一口径(元素或结果级 item_types 任一出现即算)
+  const knowledgeGraph = itemTypes.includes("knowledge_graph");
+  return { organic, itemTypes, aiOverview, featuredSnippet, paa, knowledgeGraph, ratings };
+}
+
+/**
+ * Google(美国 / 英语,与本文件其余口径一致)某个查询的 advanced SERP 快照,前 depth 条(默认 10 = 1 页,
+ * 按页计费 $0.002)。`loadAiOverview: true` 才传 load_async_ai_overview(再加 $0.002;摘要不存在或不是异步的,
+ * 供应商会退回这笔)—— 只在 Labs 数据显示该词有 AI 摘要时由调用方打开。
+ * 走 dfsPost:逐笔记账、瞬时故障重试 1 次、失败抛 SeoAuditError("unreachable"),由调用方降级成 note。
+ * 空查询直接返回空快照,不发请求(不花钱)。
+ */
+export async function fetchSerpAdvanced(keyword: string, opts?: { depth?: number; loadAiOverview?: boolean }): Promise<SerpSnapshot> {
+  const kw = serpKeyword(keyword);
+  if (!kw) return emptySerpSnapshot();
+  const rawDepth = opts?.depth;
+  const depth = clamp(typeof rawDepth === "number" && Number.isFinite(rawDepth) ? Math.round(rawDepth) : 10, 1, 100);
+  const payload: Record<string, unknown> = { keyword: kw, location_code: LOCATION_CODE, language_code: LANGUAGE_CODE, depth };
+  // 只在明确要求时才带这个字段:它是加价项,不能"顺手"打开
+  if (opts?.loadAiOverview === true) payload.load_async_ai_overview = true;
+  const res = await dfsPost<SerpAdvancedResponse>("serp/google/organic/live/advanced", payload);
+  return parseSerpAdvanced(res);
+}
+
+/**
+ * 只要自然结果的薄封装(v3 接口,relevance.ts 在用):现在走 advanced —— 同价,而且与 fetchSerpAdvanced
+ * 是同一个端点、同一套解析,两处的名次与去重永远一致。
+ */
+export async function fetchSerpTop(keyword: string, opts?: { depth?: number }): Promise<SerpOrganicItem[]> {
+  const snap = await fetchSerpAdvanced(keyword, { depth: opts?.depth });
+  return snap.organic;
+}
+
+/* ============================================================
+   v4 · 关键词概览 —— dataforseo_labs/google/keyword_overview(用户目标词 / 页面主题词的量、难度、意图、SERP 元素)
+   ============================================================ */
+
+/** 一次请求最多几个词(规格 v2 §3.3) */
+export const KEYWORD_OVERVIEW_MAX = 10;
+/** Labs 对单个词的限制(官方):≤80 字符、≤10 个词;超限的词不发,免得整单被拒 */
+const LABS_KEYWORD_MAX_CHARS = 80;
+const LABS_KEYWORD_MAX_WORDS = 10;
+
+interface KeywordOverviewItem {
+  keyword?: string | null;
+  keyword_info?: { search_volume?: number | null; search_volume_trend?: VolumeTrendRaw | null } | null;
+  keyword_properties?: { keyword_difficulty?: number | null } | null;
+  /** 只有请求带 include_serp_info: true 才有(不加价) */
+  serp_info?: { serp_item_types?: string[] | null } | null;
+  avg_backlinks_info?: { main_domain_rank?: number | null } | null;
+  search_intent_info?: { main_intent?: string | null } | null;
+}
+
+interface KeywordOverviewResponse {
+  items?: (KeywordOverviewItem | null)[] | null;
+}
+
+/** 供应商会把词转成小写再回:匹配一律按"小写 + 合并空白"比 */
+function labsKey(keyword: string): string {
+  return keyword.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+/**
+ * 一次 keyword_overview(≤ KEYWORD_OVERVIEW_MAX 个词;美国 / 英语;include_serp_info 才有 SERP 元素类型)。
+ * 返回:每个不同的输入词一条(大小写 / 空白不敏感去重,保持输入顺序;keyword = 首次传入的写法,只合并了空白)。
+ * 数据库里没有的词(供应商不回、也不收钱)、超出 10 个或超长没发的词 → volume / kd / intent / avgTopDomainRank /
+ * volumeTrend 为 null,serpItemTypes 为 []。空输入 → [],不发请求。失败抛 SeoAuditError,由调用方降级。
+ */
+export async function fetchKeywordOverview(keywords: string[]): Promise<KeywordOverview[]> {
+  const wanted: { keyword: string; key: string }[] = [];
+  const seen = new Set<string>();
+  for (const raw of Array.isArray(keywords) ? keywords : []) {
+    if (typeof raw !== "string") continue;
+    const key = labsKey(raw);
+    if (!key || seen.has(key)) continue;
     seen.add(key);
-    out.push(r);
+    wanted.push({ keyword: raw.replace(/\s+/g, " ").trim(), key });
+  }
+  if (!wanted.length) return [];
+
+  const send = wanted
+    .map((w) => w.key)
+    .filter((k) => k.length <= LABS_KEYWORD_MAX_CHARS && k.split(" ").length <= LABS_KEYWORD_MAX_WORDS)
+    .slice(0, KEYWORD_OVERVIEW_MAX);
+  const byKey = new Map<string, KeywordOverviewItem>();
+  if (send.length) {
+    const res = await dfsPost<KeywordOverviewResponse>("dataforseo_labs/google/keyword_overview/live", {
+      keywords: send,
+      location_code: LOCATION_CODE,
+      language_code: LANGUAGE_CODE,
+      include_serp_info: true,
+    });
+    for (const it of res && Array.isArray(res.items) ? res.items : []) {
+      if (!it) continue;
+      const k = labsKey(str(it.keyword) ?? "");
+      if (k && !byKey.has(k)) byKey.set(k, it);
+    }
+  }
+
+  return wanted.map(({ keyword, key }) => {
+    const it = byKey.get(key);
+    return {
+      keyword,
+      volume: numOrNull(it?.keyword_info?.search_volume),
+      kd: kdOrNull(it?.keyword_properties?.keyword_difficulty),
+      intent: str(it?.search_intent_info?.main_intent),
+      serpItemTypes: typeList(it?.serp_info?.serp_item_types),
+      avgTopDomainRank: round1OrNull(it?.avg_backlinks_info?.main_domain_rank),
+      volumeTrend: volumeTrendOf(it?.keyword_info?.search_volume_trend),
+    };
+  });
+}
+
+/* ============================================================
+   v4 · 竞品主域权威 —— backlinks/bulk_ranks(一次 ≤30 个域名)
+   ============================================================ */
+
+/** 一次请求最多几个主域(规格 v2 §3.3) */
+export const BULK_RANKS_MAX = 30;
+
+/**
+ * 托管平台的公共后缀:这些平台上的子域是各自独立的站(foo.github.io / bar.blogspot.com),
+ * 归并到平台主域会拿到平台本身的高权威,把"小站"误判成"强站"(S13 的低权威弱位就漏了)。
+ */
+const HOSTING_SUFFIXES = [
+  "blogspot.com",
+  "wordpress.com",
+  "github.io",
+  "gitlab.io",
+  "netlify.app",
+  "vercel.app",
+  "pages.dev",
+  "herokuapp.com",
+  "wixsite.com",
+  "weebly.com",
+  "substack.com",
+  "tumblr.com",
+  "hashnode.dev",
+  "webflow.io",
+  "notion.site",
+];
+
+/**
+ * 竞品权威按"主域"查(与 ranked_keywords 的 avg_backlinks_info.main_domain_rank 同口径):
+ * en.wikipedia.org → wikipedia.org;news.bbc.co.uk → bbc.co.uk;托管平台子域保留(见 HOSTING_SUFFIXES)。
+ * 先过 cleanDomain(去协议 / 路径 / 端口 / www.),再用 URL 解析统一成 ASCII(punycode)并校验;
+ * IP、单段主机名、非法字符 → null(不发给供应商,免得一个坏目标让整单 40501)。
+ */
+function registrableDomain(input: string): string | null {
+  let host: string;
+  try {
+    host = new URL(`http://${cleanDomain(input)}`).hostname.replace(/\.$/, "");
+  } catch {
+    return null;
+  }
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(host) || /^\d+(\.\d+){3}$/.test(host)) return null;
+  const parts = host.split(".");
+  const n = parts.length;
+  const suffix = HOSTING_SUFFIXES.find((s) => host.endsWith(`.${s}`));
+  if (suffix) return parts.slice(-(suffix.split(".").length + 1)).join(".");
+  if (n >= 3 && SECOND_LEVEL_SUFFIX.has(parts[n - 2]) && parts[n - 1].length === 2) return parts.slice(-3).join(".");
+  return parts.slice(-2).join(".");
+}
+
+interface BulkRanksResponse {
+  items?: ({ target?: string | null; rank?: number | null } | null)[] | null;
+}
+
+/**
+ * 一次 bulk_ranks:输入域名(可带协议 / 路径 / www. / 子域)→ 归并成主域、去重、≤ BULK_RANKS_MAX 个发出;
+ * 刻度显式定为 one_thousand(0–1000),与 backlinks/summary 的 rank、avgTopDomainRank 同一刻度才能相除。
+ * 返回以"调用方传入的原字符串"为键:没查到 / 超出 30 个 / 非法主机名 → null;rank 0 是真实测量(没有外链),照实返回。
+ * 空输入 → {},不发请求。失败抛 SeoAuditError,由调用方降级。
+ */
+export async function fetchBulkRanks(domains: string[]): Promise<Record<string, number | null>> {
+  const inputs = (Array.isArray(domains) ? domains : []).filter((d): d is string => typeof d === "string" && d.trim() !== "");
+  const out: Record<string, number | null> = {};
+  if (!inputs.length) return out;
+
+  const regOf = new Map<string, string | null>();
+  const targets: string[] = [];
+  for (const d of inputs) {
+    const reg = registrableDomain(d);
+    regOf.set(d, reg);
+    if (reg && !targets.includes(reg) && targets.length < BULK_RANKS_MAX) targets.push(reg);
+  }
+
+  const ranks = new Map<string, number | null>();
+  if (targets.length) {
+    const res = await dfsPost<BulkRanksResponse>("backlinks/bulk_ranks/live", { targets, rank_scale: "one_thousand" });
+    for (const it of res && Array.isArray(res.items) ? res.items : []) {
+      if (!it) continue;
+      const reg = registrableDomain(str(it.target) ?? "");
+      if (!reg) continue;
+      const rank = numOrNull(it.rank);
+      // 同一主域回了多行(正式端点不会,沙盒的静态数据会):先到的有效值为准,不让后来的 null 覆盖
+      if (!ranks.has(reg) || ranks.get(reg) === null) ranks.set(reg, rank);
+    }
+  }
+
+  for (const d of inputs) {
+    const reg = regOf.get(d) ?? null;
+    out[d] = reg && targets.includes(reg) ? (ranks.get(reg) ?? null) : null;
   }
   return out;
 }

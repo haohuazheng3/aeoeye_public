@@ -126,7 +126,7 @@ test("export keeps our analysis but strips DataForSEO rows (volumes, positions, 
   assert.equal("volume" in pair, false);
   assert.equal("position" in pair, false);
   assert.equal(pair.coverage, 0.4);
-  assert.deepEqual(pair.competitors, [{ domain: "rival.example.org", format: "listicle", wordCount: 2100, fetched: true }]);
+  assert.deepEqual(pair.competitors, [{ domain: "rival.example.org", format: "listicle", wordCount: 2100, fetched: true, weakSpots: [] }]);
   const json = JSON.stringify(e);
   assert.ok(!json.includes(COMPETITOR_URL), "competitor URL is not exported");
   assert.ok(!json.includes("Best SEO audit tools"), "SERP title is not exported");

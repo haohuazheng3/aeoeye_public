@@ -932,6 +932,8 @@ export async function enrichProbe(probe: ProbeResult, pages: CrawledPage[], opts
     probe.canonicalTargets = probe.canonicalTargets ?? [];
     probe.brokenInternal = [];
     probe.brokenOutbound = [];
+    // 一条也没查:分母为 0(计分侧按"样本不足"处理),不能让 [] 读成"查了、全部有效"
+    probe.outboundChecked = 0;
     probe.largeImages = [];
     return probe;
   }
@@ -1028,7 +1030,9 @@ export async function enrichProbe(probe: ProbeResult, pages: CrawledPage[], opts
     if (halted === null) probe.brokenInternal = brokenInternal;
   }
 
-  /* ---- 失效外链:≤30 条唯一外链,HEAD 5s;401/403/429 是对方拦爬虫,不是死链,不记(别的主机,抓取停了也照做) ---- */
+  /* ---- 失效外链:≤30 条唯一外链,HEAD 5s;401/403/429 是对方拦爬虫,不是死链,不记(别的主机,抓取停了也照做)。
+     v4:outboundChecked = 实际发出请求的外链数,是 brokenOutbound 的分母(quality.sources 按占比计分)——
+     预算耗尽没来得及查的不算进去;被对方拦下的(401/403/429)查过了、只是不算死链,算进去。 ---- */
   const outbound = new Map<string, string>();
   for (const p of okPages) {
     for (const link of p.outboundLinks ?? []) {
@@ -1038,12 +1042,15 @@ export async function enrichProbe(probe: ProbeResult, pages: CrawledPage[], opts
     if (outbound.size >= BROKEN_OUTBOUND_MAX) break;
   }
   const brokenOutbound: NonNullable<SiteProbe["brokenOutbound"]> = [];
+  let outboundChecked = 0;
   await pool(Array.from(outbound.entries()), concurrency, deadline, async ([to, from]) => {
+    outboundChecked++;
     const r = await headOrGet(fetcher, to, OUTBOUND_TIMEOUT_MS);
     if (isAccessDenied(r.status)) return;
     if (r.status === 0 || r.status >= 400) brokenOutbound.push({ from, to, status: r.status || null });
   });
   probe.brokenOutbound = brokenOutbound;
+  probe.outboundChecked = outboundChecked;
 
   /* ---- 大图:≤20 张,HEAD 看 Content-Length(抓取停了就整类不做,不拿部分图片下"没有大图"的结论) ---- */
   if (sameHostAllowed()) {

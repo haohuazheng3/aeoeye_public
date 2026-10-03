@@ -170,6 +170,25 @@ test("parsePage: CJK text counts characters as words; svg <title> is not the pag
   assert.ok(page.issues.includes("Missing canonical"));
 });
 
+test("v4: a 2xx HTML page carries questionHeadings and bodyYears from the main content; a 404 carries no content signals", () => {
+  const body = `<!DOCTYPE html><html lang="en"><head><title>How AI answers pick sources in 2026</title></head><body>
+<header><nav><a href="/">Home</a></nav></header>
+<main><h1>How AI answers pick sources</h1>
+<h2>What changed in 2025?</h2><p>Since 2023, answer engines cite fewer pages per answer than classic search results.</p>
+<h3>Methodology</h3><p>See https://example.com/2019/report for the raw data behind every chart, published <time datetime="2026-09-30">September 30, 2026</time>.</p>
+</main>
+<footer><h2>Why subscribe?</h2><p>© 2026 Example</p></footer></body></html>`;
+  const { page } = parsePageDetailed(body, fr("https://example.com/guide", { body }), 1, "example.com");
+  assert.equal(page.content?.questionHeadings, 1, "the H1 is not an H2/H3; the footer's question is not main content");
+  assert.deepEqual(page.content?.bodyYears, [2023, 2025], "title, URL text, <time> and footer years are not body years");
+
+  const empty = parsePage("<html><body><p>x</p></body></html>", fr("https://example.com/e", { body: "<html><body><p>x</p></body></html>" }), 1, "example.com");
+  assert.equal(empty.content?.questionHeadings, 0, "always present on a 2xx HTML page");
+  assert.deepEqual(empty.content?.bodyYears, []);
+
+  assert.equal(parsePage(body, fr("https://example.com/missing", { body, status: 404 }), 1, "example.com").content, undefined);
+});
+
 test("parsePage: JSON-LD wrapped in CDATA/comments still parses; microdata breadcrumb detected", () => {
   const html = `<html><head><script type="application/ld+json">//<![CDATA[
 {"@type":["WebSite","Thing"],"name":"x"}

@@ -285,7 +285,9 @@ export function checkCrawlability(ctx: CheckContext): SeoCheck[] {
   /* ---------- crawl.robots.ai-crawlers(info,交叉销售入口) ---------- */
   {
     const id = "crawl.robots.ai-crawlers";
-    const crossSell = "Decide deliberately: allow GPTBot, OAI-SearchBot, ClaudeBot and PerplexityBot if you want to be cited in ChatGPT, Claude and Perplexity answers; Google-Extended only controls Gemini training data, not Google Search. Then run AEOeye's free AI visibility audit (https://aeoeye.com/) to see whether those assistants actually recommend your brand when buyers ask.";
+    // 检索类(决定能不能被 AI 回答引用)与训练类(只决定进不进训练语料)要分开说 —— ClaudeBot / GPTBot 是训练爬虫,
+    // 屏蔽它们不影响被 Claude / ChatGPT 引用;反过来屏蔽检索类才会让站点从 AI 回答里消失
+    const crossSell = "Decide deliberately: to be cited in ChatGPT, Claude and Perplexity answers, allow their search crawlers (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User); GPTBot, ClaudeBot, Google-Extended and CCBot only control whether your content is used for AI training. Then run AEOeye's free AI visibility audit (https://aeoeye.com/) to see whether those assistants actually recommend your brand when buyers ask.";
     if (!rm || !rm.aiCrawlers) {
       out.push(na(id, D, "low", blocked ?? "Not measured: AI-crawler directives were not parsed in this run.", { docs: DOCS.crawlers, fix: crossSell }));
     } else {

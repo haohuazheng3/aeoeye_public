@@ -1,4 +1,5 @@
 import { siteUrl, site } from "@/lib/site";
+import { PILLAR_IDS, RANKING_PILLARS, RANKING_SUBS } from "@/lib/seo-audit/types";
 import { getAllPosts } from "@/lib/content/blog";
 import { GLOSSARY } from "@/lib/content/glossary";
 import { TOOLS } from "@/lib/content/tools";
@@ -20,7 +21,7 @@ export function GET() {
   lines.push(`- [Free AI visibility audit](${siteUrl}/): Run an audit for any brand or website.`);
   lines.push(`- [How it works](${siteUrl}/how-it-works): Our methodology for measuring AI visibility.`);
   lines.push(`- [Pricing](${siteUrl}/pricing): Free audit, a one-time $29 full multi-engine AI visibility report, and a one-time $10 full technical SEO report. No subscription.`);
-  lines.push(`- [SEO Audit](${siteUrl}/seo-audit): Free technical SEO score across 7 dimensions (crawlability, on-page, Core Web Vitals, mobile, structured data, HTTPS, internal links); $10 adds the SEO Ranking Score (5 pillars, 25 sub-scores: relevance & search intent, content quality / E-E-A-T, authority & links, user satisfaction, technical foundation — compared against the top 5 Google results for the site's queries) plus every fix, backlinks, rankings and competitors.`);
+  lines.push(`- [SEO Audit](${siteUrl}/seo-audit): Free technical SEO score across 7 dimensions (crawlability, on-page, Core Web Vitals, mobile, structured data, HTTPS, internal links); $10 adds the SEO Ranking Score (${PILLAR_IDS.length} pillars, ${RANKING_SUBS.length} sub-scores: ${PILLAR_IDS.map((p) => RANKING_PILLARS[p].label).join(" · ")} — weighted by site type and compared against the top 5 Google results for the site's queries, with optional target keywords and read-only Search Console data) plus every fix, backlinks, rankings and competitors.`);
   lines.push(`- [How we score](${siteUrl}/seo-audit/how-we-score): Weights, thresholds and data sources behind the technical score and the SEO Ranking Score.`);
   lines.push("");
   lines.push("## Free tools");

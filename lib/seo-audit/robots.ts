@@ -54,7 +54,11 @@ export interface RobotsRules {
 export const DEFAULT_UA = "AEOeyeBot";
 export const GOOGLEBOT_UA = "Googlebot";
 
-/** 报告里逐个出状态的 AI 爬虫(展示名 → robots 里的产品标记) */
+/**
+ * 报告里逐个出状态的 AI 爬虫(展示名 → robots 里的产品标记)。
+ * 前 6 个是 v2 的原名单,顺序不动(检查项证据按这个顺序列出);v4 追加的放在后面。
+ * 每一个都必须出现在下面的 AI_RETRIEVAL_BOTS 或 AI_TRAINING_BOTS 里(测试守着)。
+ */
 export const AI_CRAWLERS: Record<string, string> = {
   GPTBot: "gptbot",
   ClaudeBot: "claudebot",
@@ -62,7 +66,45 @@ export const AI_CRAWLERS: Record<string, string> = {
   "Google-Extended": "google-extended",
   "OAI-SearchBot": "oai-searchbot",
   CCBot: "ccbot",
+  // v4(规格 v2 aisearch.crawlers)
+  "ChatGPT-User": "chatgpt-user",
+  "Perplexity-User": "perplexity-user",
+  "Claude-SearchBot": "claude-searchbot",
+  "Claude-User": "claude-user",
+  Bingbot: "bingbot",
+  Applebot: "applebot",
+  "Applebot-Extended": "applebot-extended",
+  Bytespider: "bytespider",
 };
+
+/**
+ * 检索类:决定 AI 搜索 / 助手能不能实时抓到页面去引用 —— aisearch.crawlers 按它们的 allow/unspecified 占比计分。
+ * (Bingbot 在列:ChatGPT 搜索与 Copilot 都建立在 Bing 索引上;Applebot 喂 Siri / Spotlight。)
+ */
+export const AI_RETRIEVAL_BOTS: readonly string[] = Object.freeze([
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Claude-SearchBot",
+  "Claude-User",
+  "Bingbot",
+  "Applebot",
+]);
+
+/**
+ * 训练类:只决定内容会不会进模型训练语料,屏蔽它们是站长的商业选择 —— 只作证据,不计分。
+ * (Google-Extended / Applebot-Extended 只是 robots 控制标记,本身不抓页面。)
+ */
+// ClaudeBot 归训练类:Anthropic 官方说明 ClaudeBot 抓取的是可能用于训练的内容,Claude 的检索 / 引用走
+// Claude-SearchBot 与 Claude-User(https://support.anthropic.com/en/articles/8896518)。只屏蔽 ClaudeBot 不影响被 Claude 引用。
+export const AI_TRAINING_BOTS: readonly string[] = Object.freeze(["GPTBot", "ClaudeBot", "Google-Extended", "CCBot", "Applebot-Extended", "Bytespider"]);
+
+/**
+ * Apple 官方:robots.txt 没提 Applebot、但提了 Googlebot 时,Applebot 按 Googlebot 的规则走
+ * (https://support.apple.com/en-us/119829)。不照这个判,"只放行 Google"的站会被误报成封了 Applebot。
+ */
+const FALLBACK_GROUP: Record<string, string> = { applebot: "googlebot" };
 
 const RAW_CAP = 32 * 1024;
 /** robots-parser 需要一个 URL 作为基址;这个主机名永远不会被请求 */
@@ -215,7 +257,9 @@ export function parseRobots(text: string): Omit<RobotsRules, "found" | "status" 
 
   const aiCrawlers: Record<string, AiCrawlerStatus> = {};
   for (const [name, token] of Object.entries(AI_CRAWLERS)) {
+    const fallback = FALLBACK_GROUP[token];
     if (hasGroupFor(groups, token)) aiCrawlers[name] = allowedByMatcher(m, "/", token) ? "allow" : "disallow";
+    else if (fallback && hasGroupFor(groups, fallback)) aiCrawlers[name] = allowedByMatcher(m, "/", fallback) ? "allow" : "disallow";
     else aiCrawlers[name] = starBlocked ? "disallow" : "unspecified";
   }
 

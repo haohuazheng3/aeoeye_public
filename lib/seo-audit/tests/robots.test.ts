@@ -125,7 +125,8 @@ test("V2: extended fields — crawlDelay for our UA, googlebotDisallowAll, aiCra
   assert.equal(p.hasSitemapDirective, true);
   assert.equal(p.isHtml, false);
   assert.equal(p.raw, FIXTURE);
-  assert.deepEqual(p.aiCrawlers, Object.fromEntries(Object.keys(AI_CRAWLERS).map((k) => [k, "unspecified"])));
+  // v4:Applebot 没有自己的组时按 Googlebot 的组走(Apple 官方规则);FIXTURE 里 Googlebot 组放行一切 → allow
+  assert.deepEqual(p.aiCrawlers, { ...Object.fromEntries(Object.keys(AI_CRAWLERS).map((k) => [k, "unspecified"])), Applebot: "allow" });
 
   const q = parseRobots("User-agent: *\nCrawl-delay: 3\nDisallow: /\nUser-agent: Googlebot\nAllow: /\nUser-agent: GPTBot\nUser-agent: CCBot\nDisallow: /\nUser-agent: ClaudeBot\nDisallow: /private\n");
   assert.equal(q.crawlDelay, 3, "falls back to * when we have no group");
@@ -154,4 +155,91 @@ test("V2: extended fields — crawlDelay for our UA, googlebotDisallowAll, aiCra
   assert.equal(looksLikeHtml("﻿  <html lang=en>"), true);
   assert.equal(looksLikeHtml("User-agent: *"), false);
   assert.equal(parseRobots("<html><body>404</body></html>").isHtml, true);
+});
+
+/* ---------- v4:AI 爬虫按用途分组(检索类计分 / 训练类只作证据) ---------- */
+
+import { AI_RETRIEVAL_BOTS, AI_TRAINING_BOTS } from "../robots";
+
+test("v4: AI crawler lists — 8 retrieval + 6 training bots, disjoint, exactly the keys of AI_CRAWLERS; the v2 six keep their order", () => {
+  assert.deepEqual(
+    [...AI_RETRIEVAL_BOTS],
+    ["OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User", "Claude-SearchBot", "Claude-User", "Bingbot", "Applebot"]
+  );
+  // ClaudeBot 是 Anthropic 的训练爬虫;Claude 的检索 / 引用走 Claude-SearchBot 与 Claude-User
+  assert.deepEqual([...AI_TRAINING_BOTS], ["GPTBot", "ClaudeBot", "Google-Extended", "CCBot", "Applebot-Extended", "Bytespider"]);
+  assert.ok(!AI_RETRIEVAL_BOTS.some((b) => AI_TRAINING_BOTS.includes(b)), "a bot is either retrieval or training, never both");
+  assert.deepEqual(Object.keys(AI_CRAWLERS).sort(), [...AI_RETRIEVAL_BOTS, ...AI_TRAINING_BOTS].sort(), "every listed bot gets a verdict, nothing else");
+  assert.deepEqual(Object.keys(AI_CRAWLERS).slice(0, 6), ["GPTBot", "ClaudeBot", "PerplexityBot", "Google-Extended", "OAI-SearchBot", "CCBot"]);
+  for (const [name, token] of Object.entries(AI_CRAWLERS)) assert.equal(token, name.toLowerCase(), "robots product token = lower-cased name");
+  assert.ok(Object.isFrozen(AI_RETRIEVAL_BOTS) && Object.isFrozen(AI_TRAINING_BOTS), "shared lists cannot be mutated by a caller");
+});
+
+test("v4: parseRobots gives every retrieval and training bot a verdict (own group → allow/disallow; none → * fallback)", () => {
+  const p = parseRobots(
+    [
+      "User-agent: *",
+      "Disallow: /admin",
+      "",
+      "User-agent: GPTBot",
+      "User-agent: CCBot",
+      "User-agent: Bytespider",
+      "Disallow: /",
+      "",
+      "User-agent: ChatGPT-User",
+      "User-agent: Claude-SearchBot",
+      "Allow: /",
+      "",
+      "User-agent: PerplexityBot",
+      "Disallow: /",
+      "",
+      "User-agent: Bingbot",
+      "Disallow: /private",
+    ].join("\n")
+  );
+  const ai = p.aiCrawlers ?? {};
+  for (const bot of [...AI_RETRIEVAL_BOTS, ...AI_TRAINING_BOTS]) assert.ok(bot in ai, `${bot} has a verdict`);
+  assert.deepEqual(ai, {
+    GPTBot: "disallow",
+    ClaudeBot: "unspecified",
+    PerplexityBot: "disallow",
+    "Google-Extended": "unspecified",
+    "OAI-SearchBot": "unspecified",
+    CCBot: "disallow",
+    "ChatGPT-User": "allow",
+    "Perplexity-User": "unspecified",
+    "Claude-SearchBot": "allow",
+    "Claude-User": "unspecified",
+    Bingbot: "allow",
+    Applebot: "unspecified",
+    "Applebot-Extended": "unspecified",
+    Bytespider: "disallow",
+  });
+
+  // * 整站封锁时,没有自己组的机器人一律 disallow;有组的照自己的组
+  const blocked = parseRobots("User-agent: *\nDisallow: /\nUser-agent: OAI-SearchBot\nAllow: /\n").aiCrawlers ?? {};
+  assert.equal(blocked["OAI-SearchBot"], "allow");
+  assert.equal(blocked["Perplexity-User"], "disallow");
+  assert.equal(blocked.Bytespider, "disallow");
+  assert.equal(Object.keys(blocked).length, 14);
+});
+
+test("v4: Applebot follows Googlebot's group when it has none of its own (Apple's documented rule); Applebot-Extended does not", () => {
+  // 只放行 Google 的站:Applebot 实际可以抓(跟 Googlebot),不能误报成被封
+  const onlyGoogle = parseRobots("User-agent: *\nDisallow: /\n\nUser-agent: Googlebot\nAllow: /\n").aiCrawlers ?? {};
+  assert.equal(onlyGoogle.Applebot, "allow");
+  assert.equal(onlyGoogle["Applebot-Extended"], "disallow", "the control token has no Googlebot fallback: * applies");
+  assert.equal(onlyGoogle.Bingbot, "disallow");
+
+  const googleBlocked = parseRobots("User-agent: Googlebot\nDisallow: /\n").aiCrawlers ?? {};
+  assert.equal(googleBlocked.Applebot, "disallow");
+  assert.equal(googleBlocked.Bingbot, "unspecified");
+
+  // Applebot 自己的组优先于回退
+  const own = parseRobots("User-agent: Googlebot\nDisallow: /\n\nUser-agent: Applebot\nAllow: /\n").aiCrawlers ?? {};
+  assert.equal(own.Applebot, "allow");
+
+  // 没有 Googlebot 组时照常回退到 *
+  assert.equal(parseRobots("User-agent: *\nDisallow: /\n").aiCrawlers?.Applebot, "disallow");
+  assert.equal(parseRobots("User-agent: *\nDisallow: /tmp\n").aiCrawlers?.Applebot, "unspecified");
 });

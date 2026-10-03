@@ -312,6 +312,13 @@ export const seoAudits = pgTable(
     rerunCount: integer("rerun_count").notNull().default(0),
     /** DataForSEO 模块被刷新的次数(上限 2 —— 每次都是真钱) */
     paidRefreshCount: integer("paid_refresh_count").notNull().default(0),
+    /* ---- v4(2026-10-02):用户目标关键词 + Search Console ---- */
+    /** 用户自填的目标关键词(≤3,小写去重);排名分的相关性对比优先用它们 */
+    targetKeywords: jsonb("target_keywords").$type<string[]>(),
+    /** 目标关键词改动次数(≤3:每次改动都可能多调 SERP) */
+    targetChanges: integer("target_changes").notNull().default(0),
+    /** 已验证的 Search Console 属性(sc-domain:example.com 或 https://example.com/);未接入为空 */
+    gscProperty: text("gsc_property"),
   },
   (t) => ({
     domainIdx: index("seo_audits_domain_idx").on(t.domain),
@@ -349,3 +356,42 @@ export type Monitor = typeof monitors.$inferSelect;
 export type Report = typeof reports.$inferSelect;
 export type ErrorEvent = typeof errorEvents.$inferSelect;
 export type Event = typeof events.$inferSelect;
+
+/**
+ * Search Console 接入的绑定记录(v4,2026-10-02)。
+ * 接入方式是"站长把我们的服务账号加为其 Search Console 用户",而服务账号对属性的访问权是**全局**的 ——
+ * 不绑定的话,任何人花 $10 买一份同域名的报告就能拉到别人的搜索数据。所以(2026-10-02 定稿):
+ *   · 每次接入生成独有令牌(token),验证时必须在该站首页 meta 或 DNS TXT 里找到它 —— 证明"能改这个站";
+ *   · 同时服务账号要能访问匹配的属性;两者都满足才 verified。能改站的人(站长、代理商)都可以各自接入。
+ */
+export const seoGscClaims = pgTable(
+  "seo_gsc_claims",
+  {
+    id: text("id").primaryKey(),
+    /** 去 www 的可注册域名 */
+    domain: text("domain").notNull(),
+    /** Clerk userId(接入必须登录) */
+    userId: text("user_id").notNull(),
+    /** 发起接入的那份报告 */
+    auditId: text("audit_id").notNull(),
+    /** pending | verified | conflict | revoked */
+    status: text("status").notNull().default("pending"),
+    /** 验证到的属性(sc-domain:… / URL 前缀) */
+    property: text("property"),
+    /**
+     * 本次接入独有的站点控制权令牌:站长把它放进首页 <meta name="aeoeye-site-verification"> 或 DNS TXT。
+     * 服务账号对属性的访问权是全局的,只有证明"我能改这个站"的人才能拿到数据 —— 与授权先后顺序无关。
+     */
+    token: text("token"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    verifiedAt: timestamp("verified_at", { withTimezone: true }),
+    lastSyncedAt: timestamp("last_synced_at", { withTimezone: true }),
+    /** 冲突 / 撤销原因(给人工处理看) */
+    note: text("note"),
+  },
+  (t) => ({
+    domainIdx: index("seo_gsc_claims_domain_idx").on(t.domain),
+    userIdx: index("seo_gsc_claims_user_idx").on(t.userId),
+    auditIdx: index("seo_gsc_claims_audit_idx").on(t.auditId),
+  })
+);

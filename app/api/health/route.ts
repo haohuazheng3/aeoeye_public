@@ -3,6 +3,7 @@ import { sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { LLM_MODEL_FULL, LLM_MODEL_ENGINE, LLM_MODEL_ENGINE_GPT, LLM_MODEL_FREE } from "@/lib/anthropic";
 import { seoAuditHealth } from "@/lib/seo-audit/repo";
+import { gscCredentialSource } from "@/lib/google/search-console";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,6 +35,7 @@ const OPTIONAL_ENV = [
   "RESEND_API_KEY",
   "CLOUDFLARE_API_TOKEN",
   "GOOGLE_SERVICE_ACCOUNT_B64",
+  "GSC_SERVICE_ACCOUNT_B64",
   "CRON_SECRET",
   "ANTHROPIC_API_KEY",
   "PSI_API",
@@ -94,12 +96,13 @@ function stripeMode(): "live" | "test" | "unset" {
  * 卡死行本身不判不健康 —— 那由 cron 的 sweep 收拾。
  */
 type SeoAuditSnapshot =
-  | { ok: true; runsLastHour: number; stuckRunning: number; unlockedTotal: number }
+  | { ok: true; runsLastHour: number; stuckRunning: number; unlockedTotal: number; gscCredential: string | null }
   | { ok: false; error: string };
 
 async function seoAuditSnapshot(): Promise<SeoAuditSnapshot> {
   try {
-    return { ok: true, ...(await seoAuditHealth()) };
+    // gscCredential:客户接入 Search Console 时实际生效的服务账号来自哪个变量(专用账号没配时是运维账号)—— 只报变量名
+    return { ok: true, ...(await seoAuditHealth()), gscCredential: gscCredentialSource() };
   } catch (e) {
     // drizzle 把驱动错误包一层,真正的原因(如 relation "seo_audits" does not exist)在 cause 上
     const cause = (e as { cause?: unknown })?.cause;

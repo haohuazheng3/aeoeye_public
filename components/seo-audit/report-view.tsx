@@ -15,12 +15,13 @@ import { RankingLocked } from "./ranking-locked";
 import { usableRanking } from "./ranking-meta";
 
 /* ============================================================
-   SEO 报告页的组装层。顺序固定(V2-5,v3 加入排名分):
+   SEO 报告页的组装层。顺序固定(V2-5,v3 加入排名分,v4 七支柱):
    头部(域名 · 分数环 · 等级 · N critical · N high · Audited 20 pages · 2 min ago · Re-run)
    → 前置门说明(blocked / limited)
-   → 已解锁:SEO Ranking Score(算出 → 五支柱板块;缺失 → 小提示 + 重跑)→ Technical foundation 分隔标题(免费技术分 = 第 5 支柱)
+   → 已解锁:SEO Ranking Score(算出 → 支柱板块 + 声誉 + Search Console + 依据;缺失 → 小提示 + 重跑)
+     → Technical foundation 分隔标题(免费技术分 = 技术支柱,同一个数)
    → Fix this first 横幅 → Top issues → (免费:排名分锁定预告 —— 放在免费的最严重问题之后,先给答案再谈升级)
-   → 7 维度栅格 → Performance → 解锁卡(未解锁)→ 付费模块区 → 交叉销售 → 备注与免责。
+   → 7 维度栅格 → Performance → 解锁卡(未解锁;含可选目标词)→ 付费模块区 → 交叉销售 → 备注与免责。
    被 WAF 拦截时只有头部 + 说明 + 免责:没有分数、没有锁定卡、也没有排名分。
    透明容器露出全站蒸汽背景,一切内容装进悬浮玻璃模块,模块间大留白。
    ============================================================ */
@@ -83,9 +84,19 @@ export function SeoReportView({
         <>
           {unlocked && (
             <>
-              {ranking ? <RankingSection ranking={ranking} /> : <RankingUnavailable id={id} url={result.entryUrl} />}
+              {ranking ? (
+                <RankingSection
+                  ranking={ranking}
+                  auditId={id}
+                  domain={result.domain}
+                  reputation={result.reputation ?? null}
+                  gsc={result.gsc ?? null}
+                />
+              ) : (
+                <RankingUnavailable id={id} url={result.entryUrl} />
+              )}
 
-              {/* 免费技术分在排名框架里是第 5 支柱("门槛")—— 下面的技术区整体归到这个标题下 */}
+              {/* 免费技术分在排名框架里是技术支柱("门槛")—— 下面的技术区整体归到这个标题下 */}
               <div id="technical-foundation" className="min-w-0 scroll-mt-28 pt-2">
                 <div className="flex items-center gap-4">
                   <h2 className="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-iris">Technical foundation</h2>

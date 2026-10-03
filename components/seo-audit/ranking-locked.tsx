@@ -7,7 +7,7 @@ import { PILLAR_ICON, PILLAR_ORDER, PillarName, subsOf } from "./ranking-meta";
 /* ============================================================
    免费视图里的 SEO Ranking Score 锁定预告。
 
-   只用类型层的常量(RANKING_PILLARS / RANKING_SUBS)拼出来:支柱名、作用、小维度名 + 锁 ——
+   只用类型层的常量(RANKING_PILLARS / PILLAR_IDS / RANKING_SUBS)拼出来:支柱名、作用、小维度名 + 锁 ——
    免费视图的 result.ranking 恒为 null(toPublicView 不下发),这里也就没有任何分数可漏。
    唯一例外是技术支柱:它的 7 个小维度就是下面免费展示的 7 个站内维度分数,
    给它们挂锁等于说谎,所以标成 "Free" 并指向下方的 Technical foundation。
@@ -32,7 +32,8 @@ export function RankingLocked({ id, dfsReady = true }: { id: string; dfsReady?: 
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-ink/55">
               Your Technical SEO score says whether Google can crawl and index you. This one scores whether your pages can
-              win the ranking — checked against the pages that hold it today, with evidence and a fix for every sub-score.
+              win the ranking — checked against the pages that hold it today, AI Overviews and your brand&rsquo;s
+              reputation included, with evidence and a fix for every sub-score.
             </p>
           </div>
           <div className="flex min-w-0 flex-col items-stretch gap-2 sm:items-start lg:items-end">
@@ -85,8 +86,8 @@ export function RankingLocked({ id, dfsReady = true }: { id: string; dfsReady?: 
           })}
         </div>
 
-        {/* 手机:每个支柱一行(名称 + 小维度数),25 个小维度收进折叠区 ——
-            完整展开在 390px 上约 1.7 屏,会把下面免费的维度分挤得太远 */}
+        {/* 手机:每个支柱一行(名称 + 小维度数),全部小维度(v2 共 40 个)收进折叠区 ——
+            完整展开在 390px 上要两屏多,会把下面免费的维度分挤得太远 */}
         <div className="mt-6 sm:hidden">
           <ul className="divide-y divide-ink/[0.06]">
             {PILLAR_ORDER.map((pid) => {

@@ -12,6 +12,7 @@
    - **撤销态还原成免费形状**:退款/拒付后 unlocked=false 但 result.plan 仍是 full(撤销刻意不动数据,
      便于争议胜诉后恢复)。此时付费维度的检查整条移除、维度分数与计数清空,而不是只打 locked(复审 C8)。
    - v3:result.ranking(SEO Ranking Score)在免费 / 撤销视图里恒为 null。
+   - v4:result.reputation 与 result.gsc(站长授权的 Search Console 数据)同样恒为 null。
    ============================================================ */
 
 import {
@@ -206,6 +207,8 @@ export function toPublicView(result: SeoAuditResult, unlocked: boolean): SeoAudi
     "visibility",
     "competitors",
     "ranking",
+    "reputation",
+    "gsc",
     "export",
   ];
 
@@ -248,6 +251,9 @@ export function toPublicView(result: SeoAuditResult, unlocked: boolean): SeoAudi
     // v3:SEO Ranking Score 整体是付费内容(分数、证据、修法、查询与竞品对比);免费页只画锁定预告,
     // 预告用的支柱 / 小维度名来自 types.ts 的常量,不需要这里下发任何数据
     ranking: null,
+    // v4:站外声誉是付费数据;Search Console 是站长自己的搜索数据 —— 报告凭链接公开,锁定 / 撤销态绝不下发
+    reputation: null,
+    gsc: null,
     // 内部成本账不对外(撤销态的 full 结果里是真实的 DataForSEO 花费)
     cost: { dataforseoUsd: 0, calls: 0 },
     meta,

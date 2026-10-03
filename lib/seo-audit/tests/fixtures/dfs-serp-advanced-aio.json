@@ -1,0 +1,266 @@
+{
+ "_note": "HAND-CRAFTED, not real Google data. The free DataForSEO sandbox returns a static 'pizza' SERP with no ai_overview item, so this envelope mirrors the documented response shape of serp/google/organic/live/advanced (https://docs.dataforseo.com/v3/serp/google/organic/live/advanced/): an ai_overview element whose references sit both on the element itself and inside nested ai_overview_element items, plus a people_also_ask element and organic results. Domains under .example are fictional.",
+ "version": "0.1.20260917",
+ "status_code": 20000,
+ "status_message": "Ok.",
+ "time": "0 sec.",
+ "cost": 0,
+ "tasks_count": 1,
+ "tasks_error": 0,
+ "tasks": [
+  {
+   "id": "00000000-0000-0000-0000-000000000000",
+   "status_code": 20000,
+   "status_message": "Ok.",
+   "time": "0 sec.",
+   "cost": 0,
+   "result_count": 1,
+   "path": ["v3", "serp", "google", "organic", "live", "advanced"],
+   "data": {
+    "api": "serp",
+    "function": "live",
+    "se": "google",
+    "se_type": "organic",
+    "keyword": "what is answer engine optimization",
+    "location_code": 2840,
+    "language_code": "en",
+    "depth": 10,
+    "load_async_ai_overview": true
+   },
+   "result": [
+    {
+     "keyword": "what is answer engine optimization",
+     "type": "organic",
+     "se_domain": "google.com",
+     "location_code": 2840,
+     "language_code": "en",
+     "check_url": "https://www.google.com/search?q=what+is+answer+engine+optimization&hl=en&gl=US&ie=UTF-8",
+     "datetime": "2026-10-02 12:00:00 +00:00",
+     "spell": null,
+     "refinement_chips": null,
+     "item_types": ["ai_overview", "people_also_ask", "organic"],
+     "se_results_count": 1240000,
+     "pages_count": 1,
+     "items_count": 5,
+     "items": [
+      {
+       "type": "ai_overview",
+       "rank_group": 1,
+       "rank_absolute": 1,
+       "page": 1,
+       "position": "left",
+       "xpath": "/html[1]/body[1]/div[3]/div[1]/div[12]/div[1]/div[2]/div[1]",
+       "asynchronous_ai_overview": true,
+       "markdown": "Answer engine optimization (AEO) is the practice of structuring content so AI answer engines can extract and cite it.[[1]](https://www.aeo-guide.example/what-is-aeo)[[2]](https://en.wikipedia.org/wiki/Answer_engine)",
+       "items": [
+        {
+         "type": "ai_overview_element",
+         "position": "left",
+         "title": null,
+         "text": "Answer engine optimization (AEO) is the practice of structuring content so AI answer engines can extract and cite it.",
+         "markdown": "Answer engine optimization (AEO) is the practice of structuring content so AI answer engines can extract and cite it.",
+         "links": null,
+         "images": null,
+         "references": [
+          {
+           "type": "ai_overview_reference",
+           "position": "left",
+           "source": "AEO Guide",
+           "domain": "www.aeo-guide.example",
+           "url": "https://www.aeo-guide.example/what-is-aeo#:~:text=Answer%20engine%20optimization",
+           "title": "What is AEO? A practical definition",
+           "text": "Answer engine optimization is the practice of..."
+          },
+          {
+           "type": "ai_overview_reference",
+           "position": "left",
+           "source": "Wikipedia",
+           "domain": "en.wikipedia.org",
+           "url": "https://en.wikipedia.org/wiki/Answer_engine",
+           "title": "Answer engine - Wikipedia",
+           "text": "An answer engine is a search engine that..."
+          }
+         ]
+        },
+        {
+         "type": "ai_overview_expanded_element",
+         "position": "left",
+         "title": "How AEO differs from SEO",
+         "text": "AEO optimises for being quoted inside the answer, SEO for the click.",
+         "components": [
+          {
+           "type": "ai_overview_expanded_component",
+           "title": null,
+           "text": "Answer-first paragraphs and question headings make a page easier to quote.",
+           "markdown": "- Answer-first paragraphs and question headings make a page easier to quote.",
+           "images": null,
+           "links": null,
+           "references": [
+            {
+             "type": "ai_overview_reference",
+             "source": "Answers Lab",
+             "domain": "answers-lab.example",
+             "url": "https://answers-lab.example/blog/aeo-vs-seo",
+             "title": "AEO vs SEO: what changes",
+             "text": "Answer-first formatting..."
+            }
+           ]
+          }
+         ],
+         "references": null
+        }
+       ],
+       "references": [
+        {
+         "type": "ai_overview_reference",
+         "rank_group": 1,
+         "rank_absolute": 11,
+         "page": 1,
+         "position": "right",
+         "source": "Wikipedia",
+         "domain": "en.wikipedia.org",
+         "url": "https://en.wikipedia.org/wiki/Answer_engine",
+         "title": "Answer engine - Wikipedia",
+         "text": "An answer engine is a search engine that..."
+        },
+        {
+         "type": "ai_overview_reference",
+         "rank_group": 2,
+         "rank_absolute": 12,
+         "page": 1,
+         "position": "right",
+         "source": "Search Notes",
+         "domain": "www.search-notes.example",
+         "url": "https://www.search-notes.example/aeo/",
+         "title": "Answer engine optimization explained",
+         "text": "AEO is..."
+        }
+       ],
+       "rectangle": null
+      },
+      {
+       "type": "people_also_ask",
+       "rank_group": 1,
+       "rank_absolute": 2,
+       "page": 1,
+       "position": "left",
+       "xpath": "/html[1]/body[1]/div[3]/div[1]/div[13]/div[2]/div[1]",
+       "items": [
+        {
+         "type": "people_also_ask_element",
+         "title": "What is an example of answer engine optimization?",
+         "seed_question": null,
+         "xpath": "/html[1]/body[1]/div[3]/div[1]/div[13]/div[2]/div[1]/div[1]",
+         "expanded_element": [
+          {
+           "type": "people_also_ask_expanded_element",
+           "featured_title": null,
+           "url": "https://answers-lab.example/blog/aeo-examples",
+           "domain": "answers-lab.example",
+           "title": "AEO examples",
+           "description": "A page that answers the question in its first sentence...",
+           "images": null,
+           "timestamp": null,
+           "table": null
+          }
+         ]
+        },
+        {
+         "type": "people_also_ask_element",
+         "title": "Is AEO replacing SEO?",
+         "seed_question": null,
+         "xpath": "/html[1]/body[1]/div[3]/div[1]/div[13]/div[2]/div[1]/div[2]",
+         "expanded_element": [
+          {
+           "type": "people_also_ask_ai_overview_expanded_element",
+           "items": [
+            {
+             "type": "ai_overview_element",
+             "position": "left",
+             "title": null,
+             "text": "No. AEO builds on SEO.",
+             "markdown": "No. AEO builds on SEO.",
+             "links": null,
+             "images": null,
+             "references": [
+              {
+               "type": "ai_overview_reference",
+               "position": "left",
+               "source": "Search Notes",
+               "domain": "www.search-notes.example",
+               "url": "https://www.search-notes.example/aeo-vs-seo",
+               "title": "AEO vs SEO",
+               "text": "AEO builds on SEO..."
+              }
+             ]
+            }
+           ],
+           "references": null
+          }
+         ]
+        },
+        {
+         "type": "people_also_ask_element",
+         "title": "How do I get cited in Google AI Overviews?",
+         "seed_question": null,
+         "xpath": "/html[1]/body[1]/div[3]/div[1]/div[13]/div[2]/div[1]/div[3]",
+         "expanded_element": null
+        },
+        {
+         "type": "people_also_ask_element",
+         "title": "What does AEO stand for in marketing?",
+         "seed_question": null,
+         "xpath": "/html[1]/body[1]/div[3]/div[1]/div[13]/div[2]/div[1]/div[4]",
+         "expanded_element": null
+        }
+       ],
+       "rectangle": null
+      },
+      {
+       "type": "organic",
+       "rank_group": 1,
+       "rank_absolute": 3,
+       "page": 1,
+       "position": "left",
+       "xpath": "/html[1]/body[1]/div[3]/div[1]/div[14]/div[1]",
+       "domain": "www.aeo-guide.example",
+       "title": "What is AEO? A practical definition",
+       "url": "https://www.aeo-guide.example/what-is-aeo",
+       "breadcrumb": "https://www.aeo-guide.example › what-is-aeo",
+       "description": "Answer engine optimization is the practice of...",
+       "rating": null
+      },
+      {
+       "type": "organic",
+       "rank_group": 2,
+       "rank_absolute": 4,
+       "page": 1,
+       "position": "left",
+       "xpath": "/html[1]/body[1]/div[3]/div[1]/div[14]/div[2]",
+       "domain": "en.wikipedia.org",
+       "title": "Answer engine - Wikipedia",
+       "url": "https://en.wikipedia.org/wiki/Answer_engine",
+       "breadcrumb": "https://en.wikipedia.org › wiki › Answer_engine",
+       "description": "An answer engine is a search engine that...",
+       "rating": null
+      },
+      {
+       "type": "organic",
+       "rank_group": 3,
+       "rank_absolute": 5,
+       "page": 1,
+       "position": "left",
+       "xpath": "/html[1]/body[1]/div[3]/div[1]/div[14]/div[3]",
+       "domain": "www.reddit.com",
+       "title": "What is AEO and is it worth it? : r/SEO",
+       "url": "https://www.reddit.com/r/SEO/comments/aeo_worth_it/",
+       "breadcrumb": "https://www.reddit.com › r › SEO",
+       "description": "Discussion thread...",
+       "rating": null
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

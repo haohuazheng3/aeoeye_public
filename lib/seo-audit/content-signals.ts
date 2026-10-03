@@ -23,7 +23,12 @@
      · "主体区域" = 与主体文本同一片 DOM(body 去掉外壳),不是 <main> 标签:挂在 body 里的
        弹窗 / 表单也在其中 —— 这与 minhash 的口径一致,改它就会改掉近重复检测的指纹;
      · 署名、日期、弹窗线索、联系方式看整页:文章自己的 <header> 里常放署名与日期,
-       弹窗挂在 body 末尾,邮箱 / 电话 / 地址多在页脚。
+       弹窗挂在 body 末尾,邮箱 / 电话 / 地址多在页脚;
+     · v4 问句式标题(questionHeadings)= 主体区域里以问号结尾、或第一个词是疑问词的 H2/H3,
+       与 h2Count / h3Count 是同一批元素(AI 摘要按"问题 → 直接回答"取段落,问句标题是可引用性的信号);
+     · v4 正文年份(bodyYears)= 主体文本块里独立的四位年份 1990–2099(判"过时数据")。页面自己的
+       日期不算 —— <time> 里的文字、纯文本的日期戳行("Updated Sep 30, 2026")由 datePublished /
+       dateModified 负责;目录 / 面包屑、网址里的路径、版权行也不算:它们都不是正文"提到"的年份。
 
    性能(与复审 C6 同一约束):全部迭代遍历、线性;切块与词表最多分析前
    MAX_ANALYZED_CHARS 个字符 —— 超大页只会少算,不会把事件循环卡住。
@@ -543,11 +548,17 @@ const DATES_AND_TIMES = new RegExp(
 );
 
 /**
+ * 数字后面的单位(带单位 = 数据点)。数据点与 v4 年份判断共用这一份:同一个数要么是数据点、
+ * 要么是年份("2000 years ago"、"2048 px"、"2022%" 是数据,不是年份)。
+ */
+const NUMBER_UNITS = String.raw`%|percent\b|pct\b|x\b|k\b|m\b|bn\b|million\b|billion\b|trillion\b|thousand\b|ms\b|secs?\b|seconds?\b|mins?\b|minutes?\b|hrs?\b|hours?\b|days?\b|weeks?\b|months?\b|years?\b|kb\b|mb\b|gb\b|tb\b|px\b|kg\b|lbs?\b|km\b|miles?\b|cm\b|°[cf]?`;
+
+/**
  * 数字 token:可选货币符号 + 数字(千分位 / 小数)+ 可选单位。
  * 前面不能紧挨字母或数字("H2"、"GPT4"、"B2B" 不是数据);后面不能紧挨字母
  * ("21st" 是序数、"1990s" 是年代、"3D" 是名词)。
  */
-const DATA_POINT = /(?<![\p{L}\p{N}_.,])([$€£¥₹]\s?)?(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?(\s?(?:%|percent\b|pct\b|x\b|k\b|m\b|bn\b|million\b|billion\b|trillion\b|thousand\b|ms\b|secs?\b|seconds?\b|mins?\b|minutes?\b|hrs?\b|hours?\b|days?\b|weeks?\b|months?\b|years?\b|kb\b|mb\b|gb\b|tb\b|px\b|kg\b|lbs?\b|km\b|miles?\b|cm\b|°[cf]?))?(?![\p{L}\p{N}_])/giu;
+const DATA_POINT = new RegExp(String.raw`(?<![\p{L}\p{N}_.,])([$€£¥₹]\s?)?(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d+))?(\s?(?:${NUMBER_UNITS}))?(?![\p{L}\p{N}_])`, "giu");
 
 /**
  * 正文里的数据点(规格 §2):带货币 / 百分号 / 单位的数字,以及 ≥2 位的数字;
@@ -571,6 +582,97 @@ export function countDataPoints(text: string): number {
     n++;
   }
   return n;
+}
+
+/* ============================================================
+   v4 · 正文里的年份(bodyYears:判"过时数据";相对"今年"的判断在 ranking.ts 计分时做)
+   ============================================================ */
+
+/** 范围与条数上限(规格 v2:1990–2099,去重升序,≤12 个;多了留最新的 —— 判过时看的是最大值) */
+export const BODY_YEAR_MIN = 1990;
+export const BODY_YEAR_MAX = 2099;
+export const MAX_BODY_YEARS = 12;
+
+/**
+ * 年份候选:前后不紧挨数字(12024 里没有年份)、字母、下划线(1990s 是年代,FY2026 / v2024 /
+ * issue_2020 不是独立的词),前面不是 # 或货币符号(#2024 是编号,$2024 是价格)。
+ */
+const YEAR_CANDIDATE = /(?<![\p{L}\p{N}_#$€£¥₹])(?:199\d|20\d{2})(?![\p{L}\p{N}_])/gu;
+const FOUR_DIGITS = /\d{4}/;
+/** 年份后面跟着单位 / 百分号 → 是数据点(与 DATA_POINT 同一份单位表) */
+const UNIT_AFTER = new RegExp(String.raw`^(\s?)(?:${NUMBER_UNITS})`, "iu");
+/** "2024 X rebranded"、"2023 M&A":空格 + 单个字母 x / k / m 多半是下一个词,不是单位 */
+const SPACED_LETTER_UNIT = /^\s[xkm]$/i;
+/** 点分日期 / 版本里的年份照算:2024.10.05、30.09.2022、IntelliJ 2023.2.1;只有一个点的 2025.5 才是小数 */
+const DOTTED_AFTER = /^\.\d{1,2}\.\d{1,2}(?!\d)/;
+const DOTTED_BEFORE = /(?:^|[^\d.])\d{1,2}\.\d{1,2}\.$/;
+/** "$ 2024"、"€ 2023":货币符号与数字之间隔一个空格也是价格 */
+const CURRENCY_SPACE_BEFORE = /[$€£¥₹]\s$/;
+
+/** 文本里写出来的网址:带协议、www. 开头,或"域名.后缀/路径"。/blog/2023/05/ 是 CMS 的归档路径,不是"提到的年份" */
+const URL_TOKEN = /^(?:[a-z][a-z0-9+.-]*:\/\/|www\.)|^[\w-]+(?:\.[\w-]+)*\.[a-z]{2,}(?::\d+)?\//i;
+const URL_HINT = /\/|www\./i;
+const LEADING_PUNCT = /^[^\p{L}\p{N}]+/u;
+/**
+ * 版权行("© 2019–2026 Acme"、"Copyright © 2026"、"(c) 2018"):没用 <footer> 标签的页脚会落进主体文本,
+ * 它是全站模板,不是正文。
+ */
+const COPYRIGHT_NOTICE = /(?:©|\(c\)|\bcopyright\b)(?:\s|©|\(c\))*(?:(?:19|20)\d{2}\s*(?:[-–—]|to)\s*)?(?:19|20)\d{2}(?!\d)/gi;
+const COPYRIGHT_HINT = /©|\(c\)|copyright/i;
+
+/** 把一段文本里的网址整词换成空格:按空白切词再逐词判断(锚定在词首,线性;不会被长串字符拖成平方级) */
+function stripUrlTokens(text: string): string {
+  const parts = text.split(/(\s+)/);
+  let changed = false;
+  // split 带捕获组:偶数下标是词,奇数下标是空白
+  for (let i = 0; i < parts.length; i += 2) {
+    const tok = parts[i] ?? "";
+    if (tok && URL_TOKEN.test(tok.replace(LEADING_PUNCT, ""))) {
+      parts[i] = " ";
+      changed = true;
+    }
+  }
+  return changed ? parts.join("") : text;
+}
+
+/**
+ * 一段文本里的年份,加进 into(调用方跨文本节点累计)。年份 = 独立的四位数 1990–2099:
+ *   · 不在更长的数字里:12024、20245 没有年份;2025.5 / 1.2024 是小数(点分日期与版本号除外);
+ *   · 前后不紧挨字母 / 数字 / 下划线;前面不是 # 或货币符号(紧挨或隔一个空格);
+ *   · 后面不跟单位或百分号 —— 那是数据点,由 countDataPoints 计;
+ *   · 不在网址里,也不在版权行里。
+ * 逗号不算数字的一部分:四位一组从来不是千分位写法,"2023,2024" 是列表。
+ */
+export function collectYears(text: string, into: Set<number>): void {
+  if (!text || !FOUR_DIGITS.test(text)) return;
+  let t = text;
+  if (URL_HINT.test(t)) t = stripUrlTokens(t);
+  if (COPYRIGHT_HINT.test(t)) t = t.replace(COPYRIGHT_NOTICE, " ");
+  for (const m of t.matchAll(YEAR_CANDIDATE)) {
+    const at = m.index ?? 0;
+    const end = at + 4;
+    if (t.charCodeAt(end) === 46 /* . */ && /\d/.test(t.charAt(end + 1)) && !DOTTED_AFTER.test(t.slice(end, end + 8))) continue;
+    if (t.charCodeAt(at - 1) === 46 && /\d/.test(t.charAt(at - 2)) && !DOTTED_BEFORE.test(t.slice(Math.max(0, at - 8), at))) continue;
+    if (at >= 2 && CURRENCY_SPACE_BEFORE.test(t.slice(at - 2, at))) continue;
+    const unit = UNIT_AFTER.exec(t.slice(end, end + 24));
+    if (unit && !SPACED_LETTER_UNIT.test(unit[0])) continue;
+    into.add(Number(m[0]));
+  }
+}
+
+/** 去重、升序;超过 MAX_BODY_YEARS 个时留最新的那几个 */
+export function finalizeYears(years: Iterable<number>): number[] {
+  const out = Array.from(new Set(years))
+    .filter((y) => Number.isInteger(y) && y >= BODY_YEAR_MIN && y <= BODY_YEAR_MAX)
+    .sort((a, b) => a - b);
+  return out.length > MAX_BODY_YEARS ? out.slice(-MAX_BODY_YEARS) : out;
+}
+
+/** 一段文本里的年份(去重升序、≤12、留最新的)—— collectYears + finalizeYears,纯函数,测试与调用方直接用 */
+export function yearsInText(text: string): number[] {
+  const set = new Set<number>();
+  collectYears(text ?? "", set);
+  return finalizeYears(set);
 }
 
 /* ============================================================
@@ -677,6 +779,72 @@ export function clickbaitHits(title: string): number {
   if (head.includes("!")) n++;
   if (shoutingShare(head) >= 0.3) n++;
   return n;
+}
+
+/* ============================================================
+   v4 · 问句式标题(questionHeadings:可引用性)
+   ============================================================ */
+
+/** 规格 v2 的疑问词表(原样,不扩:will / did / could 这类词首也常是名字或别的意思) */
+export const QUESTION_WORDS: readonly string[] = ["what", "how", "why", "when", "where", "which", "who", "can", "does", "do", "is", "are", "should"];
+const QUESTION_WORD_SET = new Set(QUESTION_WORDS);
+/**
+ * 标题的"第一个词" = 第一个字母串:开头的编号("2. Which…")、引号、emoji 跳过;"How-to" 取 How。
+ * 带撇号的整词一起取,再把 's / 're / 'll / 'd / 've 缩写还原("What's" → what);
+ * n't 不还原 —— "Don't …" 是祈使句,不是问句。
+ */
+const FIRST_WORD = /\p{L}+(?:['’]\p{L}+)*/u;
+const CONTRACTION = /['’](?:s|re|ll|d|ve)$/;
+const LETTER_OR_DIGIT = /[\p{L}\p{N}]/u;
+
+/**
+ * 文本最后一个"有意义"的字符是不是问号(? / 全角 ? / 阿拉伯文 ؟)。有意义 = 字母、数字或问号;
+ * 末尾的收尾引号、括号、锚点符号(¶ #)、零宽空格都跳过 —— 文档站常在标题后挂一个 "#" / "¶" 永久链接。
+ * 返回 null = 这段文本里没有有意义的字符(流式累计时沿用前一段的结论)。
+ */
+function endsWithQuestionMark(s: string): boolean | null {
+  for (let i = s.length - 1; i >= 0; i--) {
+    const c = s.charCodeAt(i);
+    if (c === 0x3f || c === 0xff1f || c === 0x061f) return true;
+    let ch = s.charAt(i);
+    // 低位代理:和前一个高位代理拼成完整字符再判断(增补平面的字母也算字母)
+    if (c >= 0xdc00 && c <= 0xdfff && i > 0) {
+      const hi = s.charCodeAt(i - 1);
+      if (hi >= 0xd800 && hi <= 0xdbff) {
+        ch = s.slice(i - 1, i + 1);
+        i--;
+      }
+    }
+    if (LETTER_OR_DIGIT.test(ch)) return false;
+  }
+  return null;
+}
+
+/**
+ * 营销栏目标题 "What we do / Who we are / How it works / Why our customers…" 以疑问词开头,却不是在回答
+ * 读者的问题 —— 算成问句会虚抬可引用性(站长 2026-10-02 拍板)。没有问号、且疑问词后面紧跟这些词时不算。
+ */
+const SELF_REFERENCE = new Set(["we", "us", "our", "it", "its"]);
+
+/** 判定:有字母(一个问号不是句子),并且以问号结尾,或第一个词是疑问词且第二个词不是自指 */
+function questionVerdict(firstWord: string | null, endsWithQuestion: boolean, secondWord: string | null = null): boolean {
+  if (firstWord === null) return false;
+  if (endsWithQuestion) return true;
+  if (!QUESTION_WORD_SET.has(firstWord.toLowerCase().replace(CONTRACTION, ""))) return false;
+  return !(secondWord !== null && SELF_REFERENCE.has(secondWord.toLowerCase().replace(CONTRACTION, "")));
+}
+
+const WORD_GLOBAL = new RegExp(FIRST_WORD.source, "gu");
+
+/**
+ * 问句式标题:以问号结尾,或第一个词是 what / how / why / when / where / which / who / can / does /
+ * do / is / are / should(不区分大小写)。解析时是边读文本节点边判(extractMainContent),
+ * 结果与对整段标题文本调用本函数相同。
+ */
+export function isQuestionHeading(text: string): boolean {
+  const t = text ?? "";
+  const words = t.match(WORD_GLOBAL) ?? [];
+  return questionVerdict(words[0] ?? null, endsWithQuestionMark(t) === true, words[1] ?? null);
 }
 
 /* ============================================================
@@ -1089,6 +1257,8 @@ export interface MainBlock {
   lead: boolean;
   /** 所在块元素的标签(FAQ 标题判断用) */
   tag: string;
+  /** v4:块里出现的年份(collectYears 口径;<time> 里的文字不算),去重、未排序;没有时缺省 */
+  years?: number[];
 }
 
 export interface MainContent {
@@ -1102,6 +1272,8 @@ export interface MainContent {
   listItems: number;
   tables: number;
   faqHeading: boolean;
+  /** v4:问句式的 H2/H3 个数(与 h2 / h3 同一批元素;判定同 isQuestionHeading) */
+  questionHeadings: number;
   /** 站内链接(不含本页、按目标去重)最后一次出现的位置(切块口径的词序号) */
   internalLinkPositions: number[];
   /** 主体区域里的外链(去重,不含分享按钮) */
@@ -1195,6 +1367,7 @@ export function extractMainContent(textRoot: HTMLElement, opts: MainContentOptio
     listItems: 0,
     tables: 0,
     faqHeading: false,
+    questionHeadings: 0,
     internalLinkPositions: [],
     externalUrls: [],
     imagesOwn: 0,
@@ -1228,28 +1401,53 @@ export function extractMainContent(textRoot: HTMLElement, opts: MainContentOptio
   const internal = new Map<string, number>();
   const external = new Set<string>();
   const images = new Set<string>();
+  // ---- v4 问句式标题:只跟踪最外层的 H2/H3(合法 HTML 里标题不嵌套;坏标记里嵌进去的算外层文字的一部分)。
+  // 边读边判:只记"第一个词"和"末尾是不是问号",不存标题全文 —— 一个吞掉整页的未闭合 <h2> 也是线性的 ----
+  let heading: { owner: Exit; first: string | null; second: string | null; endsQ: boolean } | null = null;
+  // ---- v4 年份:<time> 里的文字是页面自己的日期,不算;当前块的年份在 flush 时随块记下 ----
+  let timeDepth = 0;
+  const runYears = new Set<number>();
 
   const flush = () => {
     if (!run.length) return;
     const text = collapse(run.join(" "));
     run = [];
     runWords = 0;
+    const years = runYears.size ? Array.from(runYears) : null;
+    runYears.clear();
     if (!text) return;
     const words = countWords(text);
     if (!words) return;
     wordsBefore += words;
     const top = kinds[kinds.length - 1] as { kind: BlockKind; tag: string };
-    out.blocks.push({ kind: top.kind, text, words, lead: leadSkip === 0, tag: top.tag });
+    const block: MainBlock = { kind: top.kind, text, words, lead: leadSkip === 0, tag: top.tag };
+    if (years) block.years = years;
+    out.blocks.push(block);
     if (!out.faqHeading && HEADING_TAGS.has(top.tag) && FAQ_HEADING.test(text.slice(0, 200))) out.faqHeading = true;
   };
 
   const onText = (t: string) => {
+    // 标题判定不受分析上限影响:h2Count / h3Count 也数到最后一个元素
+    if (heading) {
+      if (heading.second === null) {
+        // 前两个词可能分在两个文本节点里("<strong>What</strong> we do"):跨节点累计
+        for (const w of t.match(WORD_GLOBAL) ?? []) {
+          if (heading.first === null) heading.first = w;
+          else if (heading.second === null) heading.second = w;
+          if (heading.second !== null) break;
+        }
+      }
+      const q = endsWithQuestionMark(t);
+      if (q !== null) heading.endsQ = q;
+    }
     if (out.truncated) return;
     const room = MAX_ANALYZED_CHARS - analyzed;
     const piece = t.length > room ? clipText(t, room) : t;
     analyzed += piece.length;
     run.push(piece);
     if (/\S/.test(piece)) runWords += countWords(piece);
+    // 逐文本节点找年份与在拼好的主体文本里找等价:节点之间拼接时插了空格,年份跨不了节点
+    if (timeDepth === 0) collectYears(piece, runYears);
     if (analyzed >= MAX_ANALYZED_CHARS) {
       flush();
       out.truncated = true;
@@ -1335,12 +1533,23 @@ export function extractMainContent(textRoot: HTMLElement, opts: MainContentOptio
       case "img":
         onImage(el);
         break;
+      case "time":
+        timeDepth++;
+        break;
     }
-    if (kind !== undefined || skipLead || tag === "ul" || tag === "ol" || tag === "table" || tag === "tr") return new Exit(tag, kind, skipLead);
+    if (kind !== undefined || skipLead || tag === "ul" || tag === "ol" || tag === "table" || tag === "tr" || tag === "time") {
+      const marker = new Exit(tag, kind, skipLead);
+      if (heading === null && (tag === "h2" || tag === "h3")) heading = { owner: marker, first: null, second: null, endsQ: false };
+      return marker;
+    }
     return null;
   };
 
   const exit = (m: Exit) => {
+    if (heading !== null && heading.owner === m) {
+      if (questionVerdict(heading.first, heading.endsQ, heading.second)) out.questionHeadings++;
+      heading = null;
+    }
     if (m.kind !== undefined) {
       flush();
       if (kinds.length > 1) kinds.pop();
@@ -1371,6 +1580,9 @@ export function extractMainContent(textRoot: HTMLElement, opts: MainContentOptio
         if (t && !t.layout && t.rows >= 2 && t.maxCells >= 2) out.tables++;
         break;
       }
+      case "time":
+        if (timeDepth > 0) timeDepth--;
+        break;
     }
   };
 
@@ -1659,6 +1871,21 @@ function isMetadataBlock(b: MainBlock): boolean {
   return METADATA_LINE.test(b.text) || (b.words < 15 && DATE_LIKE.test(b.text));
 }
 
+const DATE_LIKE_ALL = new RegExp(DATE_LIKE.source, "gi");
+
+/**
+ * v4:页面自己的日期戳(纯文本写的,没用 <time>)—— 它的年份不是"正文提到的年份"。
+ * 比 isMetadataBlock 严:必须含完整日期,并且是署名 / 发布 / 更新行("By Jane · Sep 30, 2026"、
+ * "Updated: March 4, 2026"、"Sep 30, 2026 · 7 min read"),或者去掉日期后最多剩一个词
+ * ("September 30, 2026"、"Date: 2026-09-30")。"By 2030, half of all searches…" 没有完整日期,照算;
+ * "Jan 5, 2024: launched v2" 这种更新日志条目剩两个以上的词,也照算。标题与表格单元格不是日期戳。
+ */
+function isDateStampBlock(b: MainBlock): boolean {
+  if (b.kind === "h" || b.kind === "cell" || b.kind === "pre") return false;
+  if (b.words > 25 || !DATE_LIKE.test(b.text)) return false;
+  return METADATA_LINE.test(b.text) || countWords(b.text.replace(DATE_LIKE_ALL, " ")) <= 1;
+}
+
 const isParagraph = (b: MainBlock): boolean => b.kind === "p" && b.words >= MIN_PARAGRAPH_WORDS;
 
 /**
@@ -1742,6 +1969,13 @@ export function computeContentSignals(input: ContentSignalsInput): PageContentSi
   let authoritativeOutlinks = 0;
   for (const u of main.externalUrls) if (isAuthoritativeUrl(u)) authoritativeOutlinks++;
 
+  /* ---- v4 正文年份:目录 / 面包屑(导航)与页面自己的日期戳行不算 ---- */
+  const years = new Set<number>();
+  for (const b of main.blocks) {
+    if (!b.years || !b.lead || isDateStampBlock(b)) continue;
+    for (const y of b.years) years.add(y);
+  }
+
   /* ---- 署名、日期、弹窗(整页) ---- */
   const ld = jsonLdFacts(input.jsonLd);
   const scan = scanDocument(input.root, base, host, selfKey);
@@ -1817,5 +2051,7 @@ export function computeContentSignals(input: ContentSignalsInput): PageContentSi
     sameAsCount: ld.sameAsCount,
     interstitialHints: scan.interstitials,
     contactDetails,
+    questionHeadings: main.questionHeadings,
+    bodyYears: finalizeYears(years),
   };
 }

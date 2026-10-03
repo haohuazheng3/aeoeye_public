@@ -1,49 +1,66 @@
 /* ============================================================
-   SEO Ranking Score(v3)—— 付费完整版的新总分
+   SEO Ranking Score(v2:7 个支柱 · 40 个小维度 · 站点类型自适应权重)—— 付费完整版的总分
 
    为什么是纯函数:规格 §0 要求"同一站点多次运行结果一致、每一分都能追溯到证据",
    所以这里不做任何 I/O、不调大模型,也不读 Date.now()(调用方没给 input.now 时才退回当前时间)。
    输入全是已经拿到的数据:抓取页的内容信号(parse.ts → page.content)、PSI、站内检查与
-   7 维分数、DataForSEO 外链 / 排名、相关性分析(relevance.ts)。
+   7 维分数、DataForSEO 外链 / 排名、相关性分析(relevance.ts)、站外声誉(reputation.ts)、
+   站长授权的 Search Console 数据(gsc.ts)。
 
    结构:
-   - buildRankingContext:把"可读页、内容页、品牌"这些多个小维度共用的口径一次算好,
+   - buildRankingContext:把"可读页、内容页、品牌、首页"这些多个小维度共用的口径一次算好,
      各小维度不各算一遍,口径才不会悄悄打架;
-   - 25 个小维度各有一个导出的纯函数(可单测),公式逐字对应规格 §4;
+   - 40 个小维度各有一个导出的纯函数(可单测),公式逐字对应规格 §4(v1 公式 + v2 新增 / 改动);
+   - detectSiteProfile:按页面特征判站点类型(网店 / 本地商家 / YMYL / 默认),决定支柱权重;
    - computeRanking 只做加权、null 重新归一、技术门槛封顶与拼装。
 
    文案约定(付费客户读的是创始人 / 市场负责人,不是 SEO):
    summary ≥70 写达标句、<70 写白话问题句、null 写 "Not measured: <原因>";
    evidence 1–4 条带真实数字与示例路径;fixes 1–3 条具体可做的事,≥90 分不给修法。
-   规格:docs/design/seo-ranking-score-spec.md §4
+   规格:docs/design/seo-ranking-score-spec.md §4 与 "v2(2026-10-02)" 段
    ============================================================ */
 
 import {
+  PILLAR_IDS,
   RANKING_PILLARS,
   RANKING_SUBS,
+  SITE_PROFILE_SUB_WEIGHTS,
+  SITE_PROFILE_WEIGHTS,
   type AuthorityResult,
+  type CompetitorPageSignals,
   type CrawledPage,
   type DimensionId,
   type DimensionScore,
+  type GscData,
   type PageContentSignals,
   type PageFormat,
   type PillarId,
   type PillarScore,
   type PsiResult,
+  type RankedKeyword,
   type RankingFramework,
   type RelevanceAnalysis,
   type RelevancePair,
+  type ReputationAnalysis,
   type SearchIntent,
+  type SeoAuditResult,
   type SeoCheck,
+  type SignalConfidence,
   type SiteProbe,
+  type SiteProfile,
+  type SiteProfileId,
   type SubScore,
   type VisibilityResult,
 } from "./types";
 import { GATE_OVERALL_CAP, SEVERITY_RANK, gradeFor } from "./score";
 import { checkTitle } from "./checks/titles";
-import { clusters, isHtml200, isToolPath, listPaths, minhashSimilarity, pageTypeOf, parseDate, pathOf, urlKey } from "./checks/helpers";
+import { clusters, hostOf, isHtml200, isToolPath, listPaths, minhashSimilarity, pageTypeOf, parseDate, pathOf, urlKey } from "./checks/helpers";
+// 一个意图一页 / 网店判定都要"页面形态",必须与相关性分析同一个分类器,否则两处对同一页的判断会打架
+import { classifyFormat } from "./relevance";
+// AI 爬虫名单只有一份(robots.ts):探针按它逐个出判定,这里按它计分,两边不会对不上
+import { AI_RETRIEVAL_BOTS, AI_TRAINING_BOTS } from "./robots";
 
-/** 规格 §1 的输入契约(逐字) */
+/** 规格 §1 的输入契约 + v2 追加(声誉、Search Console、sitemap 全量 URL、用户目标词) */
 export interface RankingInput {
   domain: string;
   pages: CrawledPage[];
@@ -55,6 +72,19 @@ export interface RankingInput {
   authority: AuthorityResult | null;
   visibility: VisibilityResult | null;
   relevance: RelevanceAnalysis | null;
+  /** v2:站外声誉(没跑为 null → authority.reputation 不测) */
+  reputation: ReputationAnalysis | null;
+  /** v2:站长授权的 Search Console 数据(没接入为 null → behavior.ctr 不测,自蚕食 / 动量退回估计) */
+  gsc: GscData | null;
+  /** v2:sitemap 里的页面 URL(≤2000;authority.focus 的考察集合) */
+  sitemapUrls?: string[];
+  /**
+   * v2:没有 sitemapUrls 时改用上次存下的 sitemap 统计(basis.sitemapFocus)。接入 / 断开 Search Console 时
+   * 从已存结果重算(recomputeRankingFromResult),拿不到 sitemap 原始 URL,靠它让结果可复现。
+   */
+  sitemapFocus?: { considered: number; offTopic: number; examples: string[] };
+  /** v2:用户自填的目标关键词(规范化后,≤3) */
+  targetKeywords?: string[];
   now?: Date;
 }
 
@@ -70,7 +100,6 @@ export const CONTENT_MIN_WORDS = 300;
 const CONTENT_TYPES = new Set<string>(["article", "product", "other", "listing"]);
 /** 与站内 onpage.near-duplicate 同一个阈值,两处对"近重复"的判断不能打架 */
 const NEAR_DUP_SIM = 0.8;
-const PILLAR_ORDER: PillarId[] = ["relevance", "quality", "authority", "behavior", "technical"];
 const SUB_META = new Map(RANKING_SUBS.map((s) => [s.id, s]));
 const SUB_ORDER = new Map(RANKING_SUBS.map((s, i) => [s.id, i]));
 const DAY_MS = 86_400_000;
@@ -171,6 +200,71 @@ function paths(urls: string[], n = 3): string {
 
 function contentOf(p: CrawledPage): PageContentSignals {
   return p.content as PageContentSignals;
+}
+
+/** 有限数字才算"有数据";0 也是数据(与 num() 不同:num 把缺失当 0,这里要分清"没有"与"是 0") */
+function finite(x: unknown): x is number {
+  return typeof x === "number" && Number.isFinite(x);
+}
+
+/**
+ * 按搜索量加权时每个词的权重:规格 difficulty 写明"量为 null 记 1";量为 0 同样按 1 计 ——
+ * 否则一组全是 0 量的词权重之和为 0,平均值无从算起。striking / zeroclick 沿用同一口径。
+ */
+function volWeight(v: number | null | undefined): number {
+  return finite(v) && v > 0 ? v : 1;
+}
+
+function weightedMean(rows: { w: number; v: number }[]): number {
+  const w = rows.reduce((s, r) => s + r.w, 0);
+  return w > 0 ? rows.reduce((s, r) => s + r.w * r.v, 0) / w : 0;
+}
+
+function median(xs: number[]): number | null {
+  if (!xs.length) return null;
+  const s = [...xs].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+}
+
+function sign(n: number): string {
+  return n > 0 ? "+" : n < 0 ? "−" : "";
+}
+
+/** ["a", "b", "c"] → "a, b and c" */
+function listJoin(xs: string[]): string {
+  return xs.length <= 1 ? (xs[0] ?? "") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+}
+
+/** 裸主机:小写、去协议 / 路径 / 端口 / www.(域名比较用) */
+function bareHost(s: string): string {
+  return (s ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-z]+:\/\//, "")
+    .replace(/[/?#].*$/, "")
+    .replace(/:\d+$/, "")
+    .replace(/\.$/, "")
+    .replace(/^www\./, "");
+}
+
+/** 本站域名(含子域名:blog.example.com 也是 example.com 的) */
+function isOwnDomain(d: string, domain: string): boolean {
+  const h = bareHost(d);
+  const own = bareHost(domain);
+  return !!own && !!h && (h === own || h.endsWith(`.${own}`));
+}
+
+/** 只要路径部分(不含查询串),小写 */
+function pathOnly(url: string): string {
+  return pathOf(url).split("?")[0].toLowerCase();
+}
+
+/** 本站 DataForSEO Domain Rank(0–1000);外链数据缺失 / noData / 没给 rank → null */
+function ownDomainRank(input: RankingInput): number | null {
+  const a = input.authority;
+  if (!a || a.noData) return null;
+  return finite(a.rank) ? a.rank : null;
 }
 
 /* ============================================================
@@ -350,6 +444,8 @@ export interface RankingContext {
   articlePages: CrawledPage[];
   pairs: RelevancePair[];
   brand: BrandInfo;
+  /** 入口页(probe.entryUrl),找不到再取 pageType = home 的页;都没有为 null */
+  home: CrawledPage | null;
 }
 
 /** 内容页判定(规格 §4):类型 ∈ {article, product, other, listing} 且主体 ≥ 300 词;JS 空壳与登录 / 购物车之类工具页不算 */
@@ -366,7 +462,9 @@ export function buildRankingContext(input: RankingInput): RankingContext {
   const contentPages = typedPages.filter((p) => num(contentOf(p).mainWords) >= CONTENT_MIN_WORDS);
   const articlePages = contentPages.filter((p) => pageTypeOf(p) === "article");
   const pairs = Array.isArray(input.relevance?.pairs) ? (input.relevance as RelevanceAnalysis).pairs : [];
-  return { input, now, readable, signalPages, typedPages, contentPages, articlePages, pairs, brand: brandInfoOf(input.domain, signalPages) };
+  const entry = input.probe?.entryUrl ? findPage(readable, input.probe.entryUrl) : null;
+  const home = entry ?? readable.find((p) => pageTypeOf(p) === "home") ?? null;
+  return { input, now, readable, signalPages, typedPages, contentPages, articlePages, pairs, brand: brandInfoOf(input.domain, signalPages), home };
 }
 
 /* ============================================================
@@ -382,6 +480,8 @@ interface SubDraft {
   bad: string;
   evidence: string[];
   fixes: string[];
+  /** 数据来源改变可信度时覆盖 RANKING_SUBS 的默认值(例:自蚕食有 Search Console 时是 measured,否则 estimated) */
+  confidence?: SignalConfidence;
 }
 
 /** 每个小维度的兜底修法:分数 <90 却没写出具体修法时用它,保证"<90 至少一条" */
@@ -404,6 +504,22 @@ const DEFAULT_FIX: Record<string, string> = {
   "behavior.task": "Answer the main question in the first two sentences and end every page with a clear next step",
   "behavior.readability": "Use shorter sentences and paragraphs, a subheading every 200–300 words, and lists for steps and options",
   "behavior.promise": "Make every title describe exactly what the page delivers — the topic, the number and the tone",
+  // v2 新增的 15 个
+  "relevance.cannibalization": "Give each search one page: merge pages that target the same topic and 301-redirect the weaker one",
+  "quality.sources": "Fix broken outbound links, refresh old statistics and link the source for every key fact",
+  "authority.linkprofile": "Earn links to the pages that rank (not just the homepage) with natural, mostly brand-name anchor text",
+  "authority.focus": "Keep new pages inside your core topics, and merge or retire pages that have nothing to do with them",
+  "authority.reputation": "Collect reviews on the review sites your buyers check and get mentioned on independent sites",
+  "winnability.serpweakness": "Go after queries where forum threads, stale or thin pages hold top-5 spots",
+  "winnability.difficulty": "Target queries whose difficulty matches your site's authority, then move up as you earn links",
+  "winnability.gap": "Pick queries where the ranking sites have about as much authority as yours, and earn links to the pages you want to rank",
+  "winnability.striking": "Push keywords ranking 4–15 into the top 3: refresh the page, add missing subtopics and link to it internally",
+  "winnability.momentum": "Refresh the pages that lost the most traffic first: update facts, add missing subtopics and improve titles",
+  "aisearch.overview": "Answer each target question in 2–3 plain sentences near the top of the page so AI Overviews can quote you",
+  "aisearch.crawlers": "Allow AI search crawlers in robots.txt and serve your main content in the HTML, without needing JavaScript",
+  "aisearch.citability": "Open pages with a short direct answer, phrase subheadings as questions and add specific numbers",
+  "aisearch.zeroclick": "Favour queries where results are mostly plain links, and win the featured snippet where one shows",
+  "behavior.ctr": "Rewrite titles and meta descriptions of pages that rank well but earn few clicks",
 };
 
 function measured(id: string, d: SubDraft): SubScore {
@@ -420,7 +536,7 @@ function measured(id: string, d: SubDraft): SubScore {
     label: meta.label,
     score,
     weight: meta.weight,
-    confidence: meta.confidence,
+    confidence: d.confidence ?? meta.confidence,
     summary: trimDot(score >= 70 ? d.good : d.bad),
     evidence,
     fixes,
@@ -428,7 +544,7 @@ function measured(id: string, d: SubDraft): SubScore {
 }
 
 /** 没测 ≠ 0 分:score 为 null,不进加权;summary 明说原因,evidence 至少一条 */
-function notMeasured(id: string, reason: string, opts: { evidence?: string[]; fixes?: string[] } = {}): SubScore {
+function notMeasured(id: string, reason: string, opts: { evidence?: string[]; fixes?: string[]; confidence?: SignalConfidence } = {}): SubScore {
   const meta = SUB_META.get(id)!;
   const why = trimDot(reason);
   const evidence = uniq((opts.evidence ?? []).map((e) => trimDot(e)).filter(Boolean)).slice(0, 4);
@@ -439,7 +555,7 @@ function notMeasured(id: string, reason: string, opts: { evidence?: string[]; fi
     label: meta.label,
     score: null,
     weight: meta.weight,
-    confidence: meta.confidence,
+    confidence: opts.confidence ?? meta.confidence,
     summary: `Not measured: ${why}`,
     evidence,
     fixes: uniq((opts.fixes ?? []).map((f) => trimDot(f)).filter(Boolean)).slice(0, 3),
@@ -473,7 +589,7 @@ function authorityGap(a: AuthorityResult | null): string | null {
 }
 
 /* ============================================================
-   相关性 / 搜索意图(30)
+   相关性 / 搜索意图(default 25;小维度权重见 RANKING_SUBS)
    ============================================================ */
 
 const FORMAT_NAME: Record<PageFormat, string> = {
@@ -536,7 +652,7 @@ function formatName(f: PageFormat | null | undefined): string {
   return f && FORMAT_NAME[f] ? FORMAT_NAME[f] : FORMAT_NAME.other;
 }
 
-/** relevance.intent(30)= 100 × 匹配对数 / 有判定的对数;无对 → null */
+/** relevance.intent(25)= 100 × 匹配对数 / 有判定的对数;无对 → null */
 export function scoreRelevanceIntent(ctx: RankingContext): SubScore {
   const id = "relevance.intent";
   const gap = relevanceGap(ctx);
@@ -566,7 +682,7 @@ export function scoreRelevanceIntent(ctx: RankingContext): SubScore {
   });
 }
 
-/** relevance.coverage(30)= min(100, 平均 coverage / 0.7 × 100);无 coverage → null */
+/** relevance.coverage(25)= min(100, 平均 coverage / 0.7 × 100);无 coverage → null */
 export function scoreRelevanceCoverage(ctx: RankingContext): SubScore {
   const id = "relevance.coverage";
   const gap = relevanceGap(ctx);
@@ -689,7 +805,7 @@ export function alignmentPoints(p: Pick<RelevancePair, "titleAlignment" | "h1Ali
   return 40 * t + 30 * h + (p.answerEarly ? 30 : 0);
 }
 
-/** relevance.alignment(20):每对 40 × titleAlignment + 30 × h1Alignment + 30 × answerEarly,取平均 */
+/** relevance.alignment(15):每对 40 × titleAlignment + 30 × h1Alignment + 30 × answerEarly,取平均 */
 export function scoreRelevanceAlignment(ctx: RankingContext): SubScore {
   const id = "relevance.alignment";
   const gap = relevanceGap(ctx);
@@ -712,8 +828,197 @@ export function scoreRelevanceAlignment(ctx: RankingContext): SubScore {
   });
 }
 
+/* ---------- relevance.cannibalization(15)—— 一个意图一页(规格 v2 §4) ---------- */
+
+/** 两个内容页标题主题词 Jaccard ≥ 0.6 且页面形态相同 → 在抢同一个搜索 */
+const CANNIBAL_JACCARD = 0.6;
+/** Search Console:query 曝光 ≥ 20,且 ≥ 2 个页面各占该 query ≥ 10% 曝光 → 同组 */
+const GSC_SPLIT_MIN_IMPRESSIONS = 20;
+const GSC_SPLIT_MIN_SHARE = 0.1;
+/** 落在组里的内容页占 30% 即 0 分 */
+const CANNIBAL_ZERO_SHARE = 0.3;
+/**
+ * 关键词规范化只去虚词:"best crm" 与 "crm" 是两种意图(比较 vs 导航),不能因为 best 是"标题高频词"就并成一个;
+ * 去掉的只是不改变意图的功能词,于是 "seo audits" ≡ "seo audit" ≡ "audit for seo"。
+ */
+const KEYWORD_FUNCTION_WORDS = new Set(["a", "an", "the", "of", "for", "to", "in", "on", "and", "or", "with", "at", "by", "from", "is", "are"]);
+
+/** 关键词的规范化词集(小写、去虚词、复数词干、去重排序后拼成串) */
+export function keywordKey(keyword: string): string {
+  const toks = (keyword ?? "")
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((t) => t && !KEYWORD_FUNCTION_WORDS.has(t))
+    .map(stem);
+  return uniq(toks).sort().join(" ");
+}
+
+function setJaccard(a: Set<string>, b: Set<string>): number {
+  if (!a.size || !b.size) return 0;
+  let inter = 0;
+  a.forEach((x) => {
+    if (b.has(x)) inter += 1;
+  });
+  return inter / (a.size + b.size - inter);
+}
+
+interface OverlapGroup {
+  /** gsc = Search Console 实测;keyword = 排名词;title = 标题主题 + 形态 */
+  kind: "gsc" | "keyword" | "title";
+  urls: string[];
+  /** 这组在抢的搜索(查询原文,或标题共有的主题词),修法里引用 */
+  label: string;
+  text: string;
+}
+
+/**
+ * relevance.cannibalization(15):三种证据各自成组 —— ① 内容页两两之间标题主题词 Jaccard ≥ 0.6 且形态相同;
+ * ② 排名词规范化后词集相同却落在不同 URL;③ 有 Search Console 时,同一 query 下 ≥2 个页面各占 ≥10% 曝光(query 曝光 ≥20)。
+ * share = 落在组里的内容页 / 内容页数;分 = 100 − min(100, share / 0.3 × 100)。
+ * 可信度:接了 Search Console 就是 measured(真实曝光数据参与了判定),否则 estimated。
+ * 少于 2 个内容页时没有"两页互抢"可言 → null。
+ */
+export function scoreRelevanceCannibalization(ctx: RankingContext): SubScore {
+  const id = "relevance.cannibalization";
+  const gsc = ctx.input.gsc ?? null;
+  const confidence: SignalConfidence = gsc ? "measured" : "estimated";
+  const pages = ctx.contentPages;
+  if (pages.length < 2) {
+    return notMeasured(
+      id,
+      pages.length ? `only 1 content page (${pathOf(pages[0].url)}), so no two pages can compete for the same search` : contentGap(ctx),
+      { confidence, fixes: !pages.length && ctx.signalPages.length ? [CONTENT_GAP_FIX] : [] },
+    );
+  }
+  const n = pages.length;
+  const index = new Map<string, number>();
+  pages.forEach((p, i) => {
+    index.set(urlKey(p.url), i);
+    if (p.finalUrl) index.set(urlKey(p.finalUrl), i);
+  });
+  const groups: OverlapGroup[] = [];
+
+  // ① 标题主题 + 形态:两两相似的页用并查集连成组(A~B、B~C 时三页一组)
+  const toks = pages.map((p) => topicTokens(titleCore(p), ctx.brand.words));
+  const formats = pages.map((p) => classifyFormat(p));
+  const links: [number, number][] = [];
+  for (let i = 0; i < n; i += 1) {
+    for (let j = i + 1; j < n; j += 1) {
+      if (formats[i] === formats[j] && setJaccard(toks[i], toks[j]) >= CANNIBAL_JACCARD) links.push([i, j]);
+    }
+  }
+  for (const g of clusters(n, links)) {
+    const urls = g.map((i) => pages[i].url);
+    const shared = Array.from(toks[g[0]]).filter((t) => toks[g[1]].has(t));
+    groups.push({
+      kind: "title",
+      urls,
+      label: quoteQuery(shared.slice(0, 4).join(" ") || titleCore(pages[g[0]])),
+      text: `${paths(urls, 3)} target the same topic${shared.length ? ` ("${shared.slice(0, 4).join(" ")}")` : ""} with the same format (${FORMAT_PLURAL[formats[g[0]]] ?? "general pages"})`,
+    });
+  }
+
+  // ② 排名词:规范化词集相同、URL 不同(含同一个词两个页面都在排名)。
+  //    品牌词不算:品牌词同时排首页、关于页是站点链接的正常形态,不是两页互抢
+  const isBrand = (q: string) => isBrandKeyword(q, ctx.brand.keywordTokens);
+  const vis = ctx.input.visibility;
+  if (vis && !vis.noData) {
+    const byKey = new Map<string, { keyword: string; url: string }[]>();
+    for (const k of vis.topKeywords ?? []) {
+      if (!k?.url || !k.keyword || isBrand(k.keyword)) continue;
+      const key = keywordKey(k.keyword);
+      if (key) byKey.set(key, [...(byKey.get(key) ?? []), { keyword: k.keyword, url: k.url }]);
+    }
+    for (const key of Array.from(byKey.keys()).sort()) {
+      const distinct = new Map<string, { keyword: string; url: string }>();
+      for (const r of byKey.get(key) ?? []) if (!distinct.has(urlKey(r.url))) distinct.set(urlKey(r.url), r);
+      if (distinct.size < 2) continue;
+      const rows = Array.from(distinct.values());
+      const sameWords = rows.every((r) => r.keyword.trim().toLowerCase() === rows[0].keyword.trim().toLowerCase());
+      groups.push({
+        kind: "keyword",
+        urls: rows.map((r) => r.url),
+        label: quoteQuery(rows[0].keyword),
+        text: sameWords
+          ? `Google ranks ${paths(rows.map((r) => r.url), 3)} for the same search, ${quoteQuery(rows[0].keyword)}`
+          : `Google ranks ${rows
+              .slice(0, 3)
+              .map((r) => `${pathOf(r.url)} for ${quoteQuery(r.keyword)}`)
+              .join(" and ")} — the same search worded differently`,
+      });
+    }
+  }
+
+  // ③ Search Console 实测:同一 query 的曝光被多个页面瓜分
+  if (gsc) {
+    const brandQueries = new Set((gsc.queries ?? []).filter((q) => q?.brand === true).map((q) => q.query));
+    for (const c of gsc.cannibalized ?? []) {
+      const total = num(c?.impressions);
+      if (!c?.query || total < GSC_SPLIT_MIN_IMPRESSIONS || brandQueries.has(c.query) || isBrand(c.query)) continue;
+      const big = (c.pages ?? [])
+        .filter((pg) => !!pg?.page && num(pg.impressions) >= GSC_SPLIT_MIN_SHARE * total)
+        .sort((a, b) => num(b.impressions) - num(a.impressions) || a.page.localeCompare(b.page));
+      if (big.length < 2) continue;
+      groups.push({
+        kind: "gsc",
+        urls: big.map((pg) => pg.page),
+        label: quoteQuery(c.query),
+        text: `Search Console: impressions for ${quoteQuery(c.query)} are split between ${big
+          .slice(0, 3)
+          .map((pg) => `${pathOf(pg.page)} (${pctOf(num(pg.impressions), total)}%)`)
+          .join(" and ")}`,
+      });
+    }
+  }
+
+  // 只数内容页:组里另一方可以是首页或没抓到的页,但分母是内容页(规格)。一个内容页都不涉及的组(例:首页 vs 定价页)
+  // 不影响分数,也就不进证据与修法 —— 否则会出现"没有页互抢"的结论配着一条互抢证据
+  const involved = new Set<number>();
+  const relevant = groups.filter((g) => g.urls.some((u) => index.has(urlKey(u))));
+  for (const g of relevant) {
+    for (const u of g.urls) {
+      const i = index.get(urlKey(u));
+      if (i !== undefined) involved.add(i);
+    }
+  }
+  const share = involved.size / n;
+  const ordered = [...relevant.filter((g) => g.kind === "gsc"), ...relevant.filter((g) => g.kind === "keyword"), ...relevant.filter((g) => g.kind === "title")];
+  const evidence = [
+    involved.size
+      ? `${involved.size} of ${n} content pages (${pctOf(involved.size, n)}%) compete with another page for the same search`
+      : `None of your ${n} content pages compete with another page for the same search`,
+    ...ordered.slice(0, 3).map((g) => g.text),
+  ];
+  if (!gsc) evidence.push("Estimated from your titles and ranking keywords — connect Search Console to see which searches really split between pages");
+  const fixes: string[] = [];
+  const first = ordered.find((g) => g.urls.length >= 2);
+  if (first) {
+    // 两边都是内容页才建议合并;另一方是首页 / 定价页之类时,合并会毁掉那一页 —— 改成"选一页来排、另一页链过去"
+    const keep = first.urls.find((u) => index.has(urlKey(u))) ?? first.urls[0];
+    const other = first.urls.find((u) => urlKey(u) !== urlKey(keep)) ?? first.urls[1];
+    fixes.push(
+      first.urls.every((u) => index.has(urlKey(u)))
+        ? `Merge ${pathOf(other)} into ${pathOf(keep)} and 301-redirect it, or rewrite one of them to answer a different question`
+        : `Pick one page to rank for ${first.label}: keep it on ${pathOf(keep)} and have ${pathOf(other)} link there with that phrase instead of covering the same search`,
+    );
+  }
+  if (ordered.length) fixes.push("Point internal links for each search at the one page you want to rank, using the search phrase as the link text");
+  if (!gsc) fixes.push("Connect Search Console to confirm which searches are split between pages");
+  return measured(id, {
+    score: 100 - Math.min(100, (share / CANNIBAL_ZERO_SHARE) * 100),
+    good:
+      involved.size === 0
+        ? `Each topic has one clear page — none of your ${n} content pages compete for the same search`
+        : `Only ${involved.size} of ${n} content pages overlap with another page — most searches have one clear page`,
+    bad: `${involved.size} of ${n} content pages compete with another page for the same search, so Google has to choose between them`,
+    evidence,
+    fixes,
+    confidence,
+  });
+}
+
 /* ============================================================
-   内容质量 E-E-A-T(25)
+   内容质量 E-E-A-T(default 20)
    ============================================================ */
 
 /** 规格 §4 quality.experience 的每页公式:min(经验词, 3)/3 × 70 + (自有图片 ≥1 ? 30 : 0) */
@@ -721,7 +1026,7 @@ export function experiencePoints(c: PageContentSignals): number {
   return (Math.min(num(c.experienceMarkers), 3) / 3) * 70 + (num(c.imagesSelfHosted) >= 1 ? 30 : 0);
 }
 
-/** quality.experience(25):内容页平均;无内容页 → null */
+/** quality.experience(22):内容页平均;无内容页 → null */
 export function scoreQualityExperience(ctx: RankingContext): SubScore {
   const id = "quality.experience";
   const pages = ctx.contentPages;
@@ -760,7 +1065,7 @@ export function dataPoints(c: PageContentSignals): number {
   return (Math.min(num(c.originalDataMarkers), 2) / 2) * 40 + (num(c.tableCount) >= 1 ? 20 : 0) + sources;
 }
 
-/** quality.data(20):内容页平均 */
+/** quality.data(18):内容页平均 */
 export function scoreQualityData(ctx: RankingContext): SubScore {
   const id = "quality.data";
   const pages = ctx.contentPages;
@@ -855,7 +1160,7 @@ function contactInfo(ctx: RankingContext): { page: string | null; linkedOnly: bo
   return { page: page.url, linkedOnly: false, found };
 }
 
-/** quality.authorship(20)站点级:40 署名 + 15 作者 schema + 15 About + 15 带联系方式的 Contact + 15 sameAs≥2;YMYL ≥20% 且署名 <80% 再扣 15 */
+/** quality.authorship(18)站点级:40 署名 + 15 作者 schema + 15 About + 15 带联系方式的 Contact + 15 sameAs≥2;YMYL ≥20% 且署名 <80% 再扣 15 */
 export function scoreQualityAuthorship(ctx: RankingContext): SubScore {
   const id = "quality.authorship";
   const pages = ctx.contentPages;
@@ -912,7 +1217,7 @@ function isoDay(d: Date): string {
   return d.toISOString().slice(0, 10);
 }
 
-/** quality.freshness(15):60 × 近 365 天有日期的占比 + 20 × 有任何日期的占比 + 20 × (1 − 标题年份过期占比) */
+/** quality.freshness(12):60 × 近 365 天有日期的占比 + 20 × 有任何日期的占比 + 20 × (1 − 标题年份过期占比) */
 export function scoreQualityFreshness(ctx: RankingContext): SubScore {
   const id = "quality.freshness";
   const pages = ctx.contentPages;
@@ -989,7 +1294,7 @@ function publishBurst(pages: CrawledPage[]): { day: string; count: number } | nu
 }
 
 /**
- * quality.scaled(20,分高 = 风险低):从 100 扣 —— 近重复占比 × 40;AI 套话每千词 ≥3 → −25、≥1.5 → −12;
+ * quality.scaled(18,分高 = 风险低):从 100 扣 —— 近重复占比 × 40;AI 套话每千词 ≥3 → −25、≥1.5 → −12;
  * ≥10 个内容页且 ≥40% 同一天发布 → −20;薄内容占比 × 20;≥80% 内容页零一手经验 → −10;下限 0。
  * 薄内容的分母是"内容类型页"(内容页本身按定义都 ≥300 词,拿它做分母永远是 0)。
  */
@@ -1049,8 +1354,89 @@ export function scoreQualityScaled(ctx: RankingContext): SubScore {
   });
 }
 
+/* ---------- quality.sources(12)—— 引用是否还有效(规格 v2 §4) ---------- */
+
+/** 外链失效探针至少测过这么多条,失效占比才有统计意义 */
+const MIN_OUTBOUND_CHECKED = 5;
+/** 正文里提到的最新年份 ≤ 今年 − 3 → 数据大概率过时 */
+const STALE_DATA_YEARS = 3;
+
+/** 正文提到的最新年份(1990–2099);没有为 null */
+function newestBodyYear(c: PageContentSignals): number | null {
+  const ys = (c.bodyYears ?? []).filter((y) => finite(y) && y >= 1990 && y <= 2099);
+  return ys.length ? Math.max(...ys) : null;
+}
+
+/** 规格 v2 §4 quality.sources 的三项分(某项没有分母为 null) */
+export function sourcesTerms(x: { brokenShare: number | null; staleShare: number | null; unsourcedShare: number | null }): { broken: number | null; stale: number | null; unsourced: number | null } {
+  return {
+    broken: x.brokenShare === null ? null : 50 * (1 - Math.min(1, x.brokenShare / 0.2)),
+    stale: x.staleShare === null ? null : 30 * (1 - x.staleShare),
+    unsourced: x.unsourcedShare === null ? null : 20 * (1 - x.unsourcedShare),
+  };
+}
+
+/**
+ * quality.sources(12):失效外链 50 × (1 − min(1, 失效占比 / 0.2))(测过 ≥5 条才算)+ 过时数据 30 × (1 − 最新年份 ≤ 今年−3 的页占比)
+ * (只在提到年份的内容页里算)+ 无来源 20 × (1 − 零外链内容页占比)。某项没有分母按其余项重新归一;三项都没有 → null。
+ */
+export function scoreQualitySources(ctx: RankingContext): SubScore {
+  const id = "quality.sources";
+  const probe = ctx.input.probe;
+  const checked = num(probe?.outboundChecked);
+  const broken = Array.isArray(probe?.brokenOutbound) ? probe.brokenOutbound.filter((b) => !!b && typeof b.to === "string") : [];
+  const pages = ctx.contentPages;
+  const n = pages.length;
+  const cutoff = ctx.now.getUTCFullYear() - STALE_DATA_YEARS;
+
+  const brokenShare = checked >= MIN_OUTBOUND_CHECKED ? Math.min(1, broken.length / checked) : null;
+  const dated = pages
+    .map((p) => ({ p, y: newestBodyYear(contentOf(p)) }))
+    .filter((x): x is { p: CrawledPage; y: number } => x.y !== null);
+  const stale = dated.filter((x) => x.y <= cutoff).sort((a, b) => a.y - b.y || a.p.url.localeCompare(b.p.url));
+  const staleShare = dated.length ? stale.length / dated.length : null;
+  const unsourced = pages.filter((p) => num(contentOf(p).outboundLinks) === 0);
+  const unsourcedShare = n ? unsourced.length / n : null;
+
+  const t = sourcesTerms({ brokenShare, staleShare, unsourcedShare });
+  const terms = [
+    { max: 50, pts: t.broken },
+    { max: 30, pts: t.stale },
+    { max: 20, pts: t.unsourced },
+  ].filter((x): x is { max: number; pts: number } => x.pts !== null);
+  if (!terms.length) {
+    return notMeasured(id, `${contentGap(ctx)}, and ${checked ? `only ${plural(checked, "outbound link")} could be tested` : "no outbound links could be tested"} (we need ${MIN_OUTBOUND_CHECKED} or more)`);
+  }
+  const ex = broken[0];
+  const evidence = [
+    brokenShare !== null
+      ? `Broken outbound links: ${broken.length} of ${checked} we tested (${pctOf(broken.length, checked)}%)${ex ? ` — e.g. ${pathOf(ex.from)} links to ${clip(ex.to, 80)} (${ex.status ? `HTTP ${ex.status}` : "no response"})` : ""}`
+      : `Only ${plural(checked, "outbound link")} could be tested (we need ${MIN_OUTBOUND_CHECKED} or more), so broken links are not scored`,
+    staleShare !== null
+      ? `Pages where the newest year mentioned is ${cutoff} or earlier: ${stale.length} of ${dated.length} pages that mention a year${stale.length ? ` (e.g. ${pathOf(stale[0].p.url)} — newest ${stale[0].y})` : ""}`
+      : "No content page mentions a year, so outdated statistics could not be checked",
+  ];
+  if (unsourcedShare !== null) evidence.push(`Content pages that link to no outside source: ${unsourced.length} of ${n}${unsourced.length ? ` (${paths(unsourced.map((p) => p.url))})` : ""}`);
+  const losses = [
+    { lost: t.broken === null ? 0 : 50 - t.broken, text: `${pctOf(broken.length, checked)}% of the outbound links we tested are broken` },
+    { lost: t.stale === null ? 0 : 30 - t.stale, text: `${stale.length} of ${dated.length} pages that mention a year mention nothing newer than ${cutoff} — their data is likely out of date` },
+    { lost: t.unsourced === null ? 0 : 20 - t.unsourced, text: `${unsourced.length} of ${n} content pages don't link to any source` },
+  ].sort((a, b) => b.lost - a.lost);
+  const fixes: string[] = [];
+  if (ex) fixes.push(`Fix or remove ${plural(broken.length, "broken outbound link")} — start with ${pathOf(ex.from)} → ${clip(ex.to, 80)}`);
+  if (stale.length) fixes.push(`Update the statistics on ${paths(stale.map((x) => x.p.url), 2)}: replace numbers from ${stale[0].y} or earlier with current ones and say when you checked`);
+  if (unsourced.length) fixes.push(`Link the source for key facts on ${paths(unsourced.map((p) => p.url), 2)} — a page that cites nobody is harder to trust`);
+  return measured(id, {
+    score: (100 * terms.reduce((s, x) => s + x.pts, 0)) / terms.reduce((s, x) => s + x.max, 0),
+    good: "Your citations hold up: few broken links, current data and sources on most pages",
+    bad: losses[0].text,
+    evidence,
+    fixes,
+  });
+}
+
 /* ============================================================
-   权威与外链(25)
+   权威、外链与声誉(default 20)
    ============================================================ */
 
 const BODY_LOCATIONS = ["article", "main", "section"];
@@ -1068,7 +1454,7 @@ function sumKnown(rec: Record<string, number> | undefined, unknown: string[]): n
 }
 
 /**
- * authority.editorial(30):min(60, 正文位置占比 / 0.6 × 60) + min(40, 优质平台占比 / 0.6 × 40)。
+ * authority.editorial(18):min(60, 正文位置占比 / 0.6 × 60) + min(40, 优质平台占比 / 0.6 × 40)。
  * 没有外链 → 0;authority 为 null / noData → null。DataForSEO 只回了其中一项分布时,
  * 用那一项按满分重新归一(与规格"缺项重新归一"同一原则),并在证据里写明。
  */
@@ -1131,7 +1517,7 @@ export function scoreAuthorityEditorial(ctx: RankingContext): SubScore {
   });
 }
 
-/** authority.breadth(25)= authority.score(与外链模块同一个数);null / noData → null */
+/** authority.breadth(18)= authority.score(与外链模块同一个数);null / noData → null */
 export function scoreAuthorityBreadth(ctx: RankingContext): SubScore {
   const id = "authority.breadth";
   const a = ctx.input.authority;
@@ -1222,7 +1608,7 @@ export function findTopicClusters(pages: CrawledPage[], brandWords: ReadonlySet<
   return out;
 }
 
-/** authority.clusters(15)= min(100, 落在簇里的内容页占比 / 0.6 × 100);内容页 <5 → null */
+/** authority.clusters(10)= min(100, 落在簇里的内容页占比 / 0.6 × 100);内容页 <5 → null */
 export function scoreAuthorityClusters(ctx: RankingContext): SubScore {
   const id = "authority.clusters";
   const pages = ctx.contentPages;
@@ -1273,9 +1659,7 @@ function corePages(ctx: RankingContext): CorePage[] {
     const k = urlKey(page.url);
     if (!out.has(k)) out.set(k, { page, role });
   };
-  const entry = ctx.input.probe?.entryUrl ? findPage(ctx.readable, ctx.input.probe.entryUrl) : null;
-  const home = entry ?? ctx.readable.find((p) => pageTypeOf(p) === "home") ?? null;
-  if (home) add(home, "homepage");
+  if (ctx.home) add(ctx.home, "homepage");
   for (const p of ctx.readable) {
     const t = pageTypeOf(p);
     if (t === "pricing") add(p, "pricing page");
@@ -1297,7 +1681,7 @@ export function inboundPoints(share: number): number {
   return share >= 0.5 ? 100 : share >= 0.2 ? 70 : share >= 0.05 ? 40 : 10;
 }
 
-/** authority.internal(15):每个核心页按入链页占比给分,取平均 */
+/** authority.internal(10):每个核心页按入链页占比给分,取平均 */
 export function scoreAuthorityInternal(ctx: RankingContext): SubScore {
   const id = "authority.internal";
   if (ctx.readable.length < 2) return notMeasured(id, `we need at least 2 crawled pages to measure internal links (found ${ctx.readable.length})`);
@@ -1339,7 +1723,7 @@ export function brandDemandPoints(volume: number): number {
   return volume >= 1000 ? 40 : volume >= 100 ? 25 : volume > 0 ? 10 : 0;
 }
 
-/** authority.entity(15):实体一致 40 + sameAs≥2 20 + 品牌需求 40;visibility 无数据时品牌需求不计,按 60 满额重新归一 */
+/** authority.entity(8):实体一致 40 + sameAs≥2 20 + 品牌需求 40;visibility 无数据时品牌需求不计,按 60 满额重新归一 */
 export function scoreAuthorityEntity(ctx: RankingContext): SubScore {
   const id = "authority.entity";
   const pages = ctx.signalPages;
@@ -1393,8 +1777,1130 @@ export function scoreAuthorityEntity(ctx: RankingContext): SubScore {
   });
 }
 
+/* ---------- authority.linkprofile(10)—— 链接质量细项(规格 v2 §4) ---------- */
+
+/**
+ * 通用锚文本("click here"、"website"、空锚 / 纯符号)既不是品牌也不是关键词 —— 不算"过度优化"的候选,
+ * 但留在分母里(它们也是锚文本分布的一部分)。
+ */
+const GENERIC_ANCHOR =
+  /^(?:click here|here|this|this link|link|website|web site|site|homepage|home page|home|read more|learn more|more|more info|source|visit|visit site|visit website|go|continue|this article|this post|this page|official site|official website|view|details|download|[\W_]*)$/i;
+/** 裸 URL / 域名锚("example.com"、"https://…")天然是品牌类,不是关键词 */
+const URL_ANCHOR = /^(?:https?:\/\/|www\.)|^[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:\/\S*)?$/i;
+
+type AnchorKind = "brand" | "url" | "generic" | "keyword";
+
+function anchorKind(anchor: string, ctx: RankingContext): AnchorKind {
+  const a = (anchor ?? "").trim();
+  if (!a || GENERIC_ANCHOR.test(a)) return "generic";
+  if (URL_ANCHOR.test(a)) return "url";
+  const tokens = uniq([...ctx.brand.keywordTokens, ctx.brand.key && ctx.brand.key.length >= 4 ? ctx.brand.key : ""].filter(Boolean));
+  return isBrandKeyword(a, tokens) ? "brand" : "keyword";
+}
+
+/** 规格 §4 的锚文本分档:非品牌最大锚文本占比 ≤ 0.4 → 30,≤ 0.6 → 15,否则 0 */
+export function anchorPoints(topShare: number): number {
+  return topShare <= 0.4 ? 30 : topShare <= 0.6 ? 15 : 0;
+}
+
+/**
+ * authority.linkprofile(10):增速 40 × 新增 / (新增 + 丢失)(近 90 天引荐域)+ 锚文本 30 / 15 / 0
+ * + 深链 30 × 有自己外链的排名页占比(非首页)。没有数据的项不计,按可用项重新归一;三项都没有 → null。
+ * 锚文本占比按引荐域计(一个站的全站页脚链接不该把占比冲到 90%);DataForSEO 没给引荐域时退回按外链数。
+ */
+export function scoreAuthorityLinkProfile(ctx: RankingContext): SubScore {
+  const id = "authority.linkprofile";
+  const a = ctx.input.authority;
+  const aOk = !!a && !a.noData;
+  const vis = ctx.input.visibility;
+  const visOk = !!vis && !vis.noData;
+
+  // ① 增速
+  const ts = aOk ? (a.timeseries ?? []) : [];
+  const gained = ts.reduce((s, x) => s + num(x?.newReferringDomains), 0);
+  const lost = ts.reduce((s, x) => s + num(x?.lostReferringDomains), 0);
+  const growth = gained + lost > 0 ? gained / (gained + lost) : null;
+
+  // ② 锚文本
+  const anchors = aOk ? (a.anchors ?? []).filter((x) => !!x && typeof x.anchor === "string") : [];
+  const byRd = anchors.reduce((s, x) => s + num(x.referringDomains), 0) > 0;
+  const metric = (x: { backlinks: number; referringDomains: number }) => (byRd ? num(x.referringDomains) : num(x.backlinks));
+  const total = anchors.reduce((s, x) => s + metric(x), 0);
+  const kinds = anchors.map((x) => ({ x, kind: anchorKind(x.anchor, ctx) }));
+  const keywordAnchors = kinds
+    .filter((k) => k.kind === "keyword")
+    .map((k) => k.x)
+    .sort((p, q) => metric(q) - metric(p) || p.anchor.localeCompare(q.anchor));
+  const topShare = total > 0 ? (keywordAnchors.length ? metric(keywordAnchors[0]) / total : 0) : null;
+  const brandShare = total > 0 ? kinds.filter((k) => k.kind === "brand" || k.kind === "url").reduce((s, k) => s + metric(k.x), 0) / total : 0;
+
+  // ③ 深链:排名 URL(非首页)里有自己外链的占比;同一 URL 多个词时取最大值,没给数的 URL 不进分母
+  const byUrl = new Map<string, { url: string; rd: number | null }>();
+  if (visOk) {
+    const homeKey = ctx.home ? urlKey(ctx.home.url) : null;
+    for (const k of vis.topKeywords ?? []) {
+      if (!k?.url || pathOnly(k.url) === "/" || urlKey(k.url) === homeKey) continue;
+      const key = urlKey(k.url);
+      const rd = finite(k.pageReferringDomains) ? k.pageReferringDomains : null;
+      const prev = byUrl.get(key);
+      if (!prev) byUrl.set(key, { url: k.url, rd });
+      else if (rd !== null && (prev.rd === null || rd > prev.rd)) prev.rd = rd;
+    }
+  }
+  const known = Array.from(byUrl.values()).filter((x): x is { url: string; rd: number } => x.rd !== null);
+  const withLinks = known.filter((x) => x.rd >= 1);
+  const without = known.filter((x) => x.rd < 1);
+  const deep = known.length ? withLinks.length / known.length : null;
+
+  const terms = [
+    { max: 40, pts: growth === null ? null : 40 * growth },
+    { max: 30, pts: topShare === null ? null : anchorPoints(topShare) },
+    { max: 30, pts: deep === null ? null : 30 * deep },
+  ];
+  const avail = terms.filter((x): x is { max: number; pts: number } => x.pts !== null);
+  if (!avail.length) {
+    return notMeasured(
+      id,
+      !aOk && !visOk
+        ? (authorityGap(a) ?? "backlink data was not available for this report")
+        : "DataForSEO reported no link growth, anchor text or links to your ranking pages for this domain",
+    );
+  }
+  const top = keywordAnchors[0];
+  const unit = byRd ? "linking domains" : "backlinks";
+  const evidence = [
+    growth !== null
+      ? `Last 90 days: ${fmtInt(gained)} new vs ${fmtInt(lost)} lost referring domains — ${pct01(growth)}% of the movement is growth`
+      : "Link growth not reported for the last 90 days — scored on the other signals",
+    topShare !== null
+      ? top
+        ? `Most-used keyword anchor: "${clip(top.anchor, 60)}" on ${pct01(topShare)}% of ${unit}; brand and URL anchors make up ${pct01(brandShare)}%`
+        : `No keyword-rich anchor among your top ${plural(anchors.length, "anchor")} — brand and URL anchors make up ${pct01(brandShare)}%`
+      : "Anchor text not reported — scored on the other signals",
+    deep !== null
+      ? `Ranking pages (other than the homepage) with backlinks of their own: ${withLinks.length} of ${known.length}${without.length ? ` — none for ${paths(without.map((x) => x.url), 2)}` : ""}`
+      : "No page-level link data for your ranking pages — scored on the other signals",
+  ];
+  // 每一项丢分都配一条修法,按丢分多少排序:问题句与第一条修法说的是同一件事
+  const losses = [
+    {
+      lost: growth === null ? 0 : 40 - 40 * growth,
+      text: `Link growth is weak: ${fmtInt(gained)} new vs ${fmtInt(lost)} lost referring domains in the last 90 days`,
+      fix:
+        growth !== null && growth < 0.6
+          ? `You gained ${fmtInt(gained)} and lost ${fmtInt(lost)} referring domains in 90 days — check which links disappeared and ask those sites to restore or update them`
+          : "Keep new linking sites coming: pitch one useful resource a month to sites that already link to pages like yours",
+    },
+    {
+      lost: topShare === null ? 0 : 30 - anchorPoints(topShare),
+      text: `One keyword anchor${top ? ` ("${clip(top.anchor, 40)}")` : ""} dominates your backlinks — a pattern Google treats as manipulative`,
+      fix: top && topShare !== null ? `Diversify anchor text: "${clip(top.anchor, 40)}" makes up ${pct01(topShare)}% of your ${unit} — ask for your brand name or a natural phrase in new links` : "",
+    },
+    {
+      lost: deep === null ? 0 : 30 - 30 * deep,
+      text: `${without.length} of ${known.length} ranking pages have no backlinks of their own — links point only at your homepage`,
+      fix: without.length ? `Earn links to the pages that rank, not just the homepage — ${paths(without.map((x) => x.url), 2)} have none` : "",
+    },
+  ].sort((x, y) => y.lost - x.lost);
+  return measured(id, {
+    score: (100 * avail.reduce((s, x) => s + x.pts, 0)) / avail.reduce((s, x) => s + x.max, 0),
+    good: "A healthy link profile: steady growth, natural anchor text and links to inner pages",
+    bad: losses[0].text,
+    evidence,
+    fixes: losses.filter((x) => x.lost > 0.5 && x.fix).map((x) => x.fix),
+  });
+}
+
+/* ---------- authority.focus(12)—— 主题聚焦(规格 v2 §4) ---------- */
+
+/** 分页 / 标签 / 作者 / 分类页不是内容,不考察 */
+const FOCUS_SKIP_PATH = /\/(?:tags?|authors?|category|categories|page)(?:\/|$)|[?&]page=\d+/i;
+const LEGAL_PATH = /\/(?:privacy|terms|tos|legal|cookies?|imprint|impressum|disclaimer|gdpr|refund|accessibility)(?:[-_./]|$)/i;
+/**
+ * 公司 / 功能性栏目(联系、关于、团队、招聘、定价、帮助)与 pageTypeOf 的 contact / pricing 同口径:
+ * 它们不是"内容",谈不上跑题;不排除的话 /contact-us、/careers/engineer 都会被算成跑题页。
+ */
+const UTILITY_PATH = /^\/(?:contact|contact-us|about|about-us|team|our-team|support|help|careers?|jobs?|pricing|plans|price)(?:[/?]|$)/i;
+const NON_PAGE_EXT = /\.(?:jpe?g|png|gif|webp|avif|svg|ico|pdf|xml|txt|csv|zip|gz|mp4|mp3|webm|css|js|json)$/i;
+/** sitemap 只看前 2000 条(与 run.ts 传入的上限一致) */
+const SITEMAP_FOCUS_MAX = 2000;
+/** 核心词汇少于 5 个词时不足以判断"主题",不出分 */
+const FOCUS_MIN_CORE = 5;
+/** 跑题页占一半即 0 分 */
+const FOCUS_ZERO_SHARE = 0.5;
+/** sitemap 跑题示例最多留 5 个(证据也只列 5 个) */
+const FOCUS_EXAMPLES = 5;
+
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
+/** sitemap URL 的 slug 主题词;slug 少于 2 个词、分页 / 标签 / 作者 / 法律 / 公司功能页 / 非页面文件 → null(不考察) */
+export function slugTopic(url: string, brandWords: ReadonlySet<string> = new Set()): Set<string> | null {
+  const full = pathOf(url);
+  const bare = full.split("?")[0];
+  if (FOCUS_SKIP_PATH.test(full) || LEGAL_PATH.test(bare) || UTILITY_PATH.test(bare) || NON_PAGE_EXT.test(bare) || isToolPath(url)) return null;
+  const last = bare.replace(/\/+$/, "").split("/").filter(Boolean).pop() ?? "";
+  const words = safeDecode(last)
+    .replace(/\.(?:html?|php|aspx?)$/i, "")
+    .split(/[-_+.\s]+/)
+    .filter(Boolean);
+  if (words.length < 2) return null;
+  const toks = topicTokens(words.join(" "), brandWords);
+  return toks.size ? toks : null;
+}
+
+/** 链到某页的已抓页数(不含自己) */
+function inboundCount(ctx: RankingContext, page: CrawledPage, sets: Set<string>[]): number {
+  const keys = uniq([urlKey(page.url), page.finalUrl ? urlKey(page.finalUrl) : ""].filter(Boolean));
+  let n = 0;
+  ctx.readable.forEach((q, i) => {
+    if (q !== page && keys.some((k) => sets[i].has(k))) n += 1;
+  });
+  return n;
+}
+
+/**
+ * 核心词汇 = 首页 title + H1 + description 的主题词 ∪ 点击深度 1 的内容页标题主题词 ∪ 入链最多的 5 个内容页标题主题词
+ * (去品牌 / 停用词,词干化)。按出现次数降序返回,供证据展示。
+ */
+export function coreVocabulary(ctx: RankingContext): Map<string, number> {
+  const bw = ctx.brand.words;
+  const core = new Map<string, number>();
+  const add = (toks: Set<string>) => toks.forEach((t) => core.set(t, (core.get(t) ?? 0) + 1));
+  const home = ctx.home;
+  if (home) add(topicTokens(`${titleCore(home)} ${(home.h1s ?? []).join(" ")} ${home.description ?? ""}`, bw));
+  for (const p of ctx.contentPages) if (p.depth === 1) add(topicTokens(titleCore(p), bw));
+  const sets = linkKeySets(ctx.readable);
+  // 一条入链都没有的页谈不上"入链最多",不拿它定义核心主题(否则只是按 URL 字母序挑了 5 页)
+  const ranked = ctx.contentPages
+    .map((p) => ({ p, n: inboundCount(ctx, p, sets) }))
+    .filter((x) => x.n > 0)
+    .sort((x, y) => y.n - x.n || x.p.url.localeCompare(y.p.url));
+  for (const { p } of ranked.slice(0, 5)) add(topicTokens(titleCore(p), bw));
+  return core;
+}
+
+function overlapsCore(toks: Set<string>, core: Map<string, number>): boolean {
+  return Array.from(toks).some((t) => core.has(t));
+}
+
+/** 已抓内容页按标题 + H1 的主题词参与考察(没有主题词的页无从判断,跳过) */
+function crawledFocusItems(ctx: RankingContext): { url: string; toks: Set<string> }[] {
+  return ctx.contentPages
+    .map((p) => ({ url: p.url, toks: topicTokens(`${titleCore(p)} ${(p.h1s ?? []).join(" ")}`, ctx.brand.words) }))
+    .filter((x) => x.toks.size > 0);
+}
+
+export type SitemapFocus = NonNullable<RankingFramework["basis"]["sitemapFocus"]>;
+
+/**
+ * 主题聚焦里 sitemap 那一部分:考察了多少条、跑题多少条、跑题示例(≤5 个路径)。
+ * - 给了 sitemapUrls:当场按 slug 判(已抓到的页不重复计,内容页按标题判、非内容页不判);
+ * - 没给 sitemapUrls 但给了 sitemapFocus(接入 / 断开 Search Console 时从已存结果重算):原样采用存下的计数 ——
+ *   sitemap 缓存只在抓取那次进程里有,重算时拿不到 URL,存计数才能让重算结果与原结果逐字相同;
+ * - 都没有 → null(只看已抓内容页)。
+ */
+export function sitemapFocusOf(ctx: RankingContext, core: Map<string, number> = coreVocabulary(ctx)): SitemapFocus | null {
+  const urls = ctx.input.sitemapUrls;
+  if (Array.isArray(urls)) {
+    const crawled = new Set<string>();
+    for (const p of ctx.readable) {
+      crawled.add(urlKey(p.url));
+      if (p.finalUrl) crawled.add(urlKey(p.finalUrl));
+    }
+    const seen = new Set<string>();
+    let considered = 0;
+    let offTopic = 0;
+    const examples: string[] = [];
+    for (const u of urls.slice(0, SITEMAP_FOCUS_MAX)) {
+      if (typeof u !== "string" || !isOwnDomain(hostOf(u), ctx.input.domain)) continue;
+      const key = urlKey(u);
+      if (crawled.has(key) || seen.has(key)) continue;
+      seen.add(key);
+      const toks = slugTopic(u, ctx.brand.words);
+      if (!toks) continue;
+      considered += 1;
+      if (!overlapsCore(toks, core)) {
+        offTopic += 1;
+        if (examples.length < FOCUS_EXAMPLES) examples.push(pathOf(u));
+      }
+    }
+    return { considered, offTopic, examples };
+  }
+  const stored = ctx.input.sitemapFocus;
+  if (stored && finite(stored.considered) && finite(stored.offTopic)) {
+    const considered = Math.max(0, Math.round(stored.considered));
+    return {
+      considered,
+      offTopic: Math.min(considered, Math.max(0, Math.round(stored.offTopic))),
+      examples: (Array.isArray(stored.examples) ? stored.examples : []).filter((x): x is string => typeof x === "string" && !!x).slice(0, FOCUS_EXAMPLES),
+    };
+  }
+  return null;
+}
+
+/** "/a, /b, /c (+4 more)":前几个示例 + 总数(sitemap 只存了 5 个示例,所以总数单独给) */
+function examplePaths(shownFrom: string[], total: number, n: number): string {
+  const shown = shownFrom.slice(0, n);
+  const rest = total - shown.length;
+  return rest > 0 ? `${shown.join(", ")} (+${rest} more)` : shown.join(", ");
+}
+
+/**
+ * authority.focus(12):考察集合 = 已抓内容页(标题 + H1 主题词)+ sitemap 里的其余 URL(slug 主题词,≥2 个词,
+ * 排除标签 / 作者 / 分页 / 法律 / 公司功能页);跑题 = 与核心词汇零重合。分 = 100 × (1 − min(1, 跑题占比 / 0.5))。
+ * 核心词汇少于 5 个词 → null。有 Search Console 时证据另列"近 28 天有曝光却 0 点击的页数"。
+ */
+export function scoreAuthorityFocus(ctx: RankingContext): SubScore {
+  const id = "authority.focus";
+  const core = coreVocabulary(ctx);
+  if (core.size < FOCUS_MIN_CORE) {
+    return notMeasured(id, `your homepage and main pages name too few topic words (${core.size}) to tell what the site is about`, {
+      fixes: ["Say what you do in plain words in your homepage title, H1 and meta description"],
+    });
+  }
+  const crawled = crawledFocusItems(ctx);
+  const sm = sitemapFocusOf(ctx, core);
+  const total = crawled.length + (sm?.considered ?? 0);
+  if (!total) return notMeasured(id, "no content pages or sitemap URLs could be checked against your core topics");
+  const crawledOff = crawled.filter((x) => !overlapsCore(x.toks, core));
+  const offTotal = crawledOff.length + (sm?.offTopic ?? 0);
+  const share = offTotal / total;
+  // 示例:先列已抓的跑题页,再列 sitemap 里的
+  const offPaths = [...crawledOff.map((x) => pathOf(x.url)), ...(sm?.examples ?? [])];
+  const coreTop = Array.from(core.entries())
+    .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
+    .slice(0, 8)
+    .map(([t]) => t);
+  const evidence = [
+    `Core topics (from your homepage and most-linked pages): ${coreTop.join(", ")}`,
+    `Off-topic: ${offTotal} of ${total} pages share no topic word with them (${plural(crawled.length, "crawled content page")} + ${fmtInt(sm?.considered ?? 0)} more from your sitemap)`,
+  ];
+  if (offTotal) evidence.push(`Off-topic examples: ${examplePaths(offPaths, offTotal, FOCUS_EXAMPLES)}`);
+  const zc = ctx.input.gsc?.zeroClickPages;
+  if (zc && num(zc.total) > 0) evidence.push(`Search Console: ${fmtInt(num(zc.count))} of ${fmtInt(num(zc.total))} pages with impressions got no clicks in the last 28 days`);
+  const fixes: string[] = [];
+  if (offTotal) fixes.push(`Merge, redirect or retire pages unrelated to your core topics — e.g. ${examplePaths(offPaths, offTotal, 3)}`);
+  fixes.push(`Plan new content inside your core topics (${coreTop.slice(0, 3).join(", ")}) so every page strengthens the same subject`);
+  if (zc && num(zc.count) > 0) fixes.push("Review pages that get impressions but no clicks in Search Console: improve the on-topic ones and retire the rest");
+  return measured(id, {
+    score: 100 * (1 - Math.min(1, share / FOCUS_ZERO_SHARE)),
+    good: offTotal === 0 ? "Every page we checked stays on your core topics" : `Only ${pctOf(offTotal, total)}% of pages stray from your core topics — the site reads as one clear subject`,
+    bad: `${offTotal} of ${total} pages (${pctOf(offTotal, total)}%) are off your core topics, which blurs what Google thinks the site is about`,
+    evidence,
+    fixes,
+  });
+}
+
+/* ---------- authority.reputation(14;本地商家 25)—— 站外声誉(规格 v2 §4) ---------- */
+
+/** 评价平台的平均分:按评价数加权(评价数缺失按 1 计);没有任何评分为 null */
+function averageRating(platforms: ReputationAnalysis["reviewPlatforms"]): number | null {
+  const rated = (platforms ?? []).filter((p) => !!p?.rating && finite(p.rating.value));
+  if (!rated.length) return null;
+  return weightedMean(rated.map((p) => ({ w: volWeight(p.rating?.votes), v: (p.rating as { value: number }).value })));
+}
+
+/**
+ * 规格 v2 §4 authority.reputation:品牌 SERP(第 1 → 25,前 3 → 15;知识面板 +10;ownsBrandSerp 为 null → 该项不计)
+ * + 评价平台(≥2 → 30,1 → 15;平均分 ≥4.0 → 15,≥3.5 → 8)+ 独立提及(≥4 → 20,≥2 → 10)− 每个负面标题 10(上限 20)。
+ * 品牌 SERP 项不计时其余两项(满分 65)按 100 重新归一,再扣负面;夹到 0–100。
+ */
+export function reputationScore(r: ReputationAnalysis): number {
+  const serp = r.ownsBrandSerp === null || r.ownsBrandSerp === undefined ? null : (r.ownsBrandSerp ? 25 : r.brandTop3 ? 15 : 0) + (r.knowledgePanel ? 10 : 0);
+  const platforms = uniq((r.reviewPlatforms ?? []).map((p) => bareHost(p?.domain ?? "")).filter(Boolean)).length;
+  const rating = averageRating(r.reviewPlatforms);
+  const reviews = (platforms >= 2 ? 30 : platforms === 1 ? 15 : 0) + (rating === null ? 0 : rating >= 4 ? 15 : rating >= 3.5 ? 8 : 0);
+  const independent = num(r.independentDomains) >= 4 ? 20 : num(r.independentDomains) >= 2 ? 10 : 0;
+  const penalty = Math.min(20, 10 * Math.max(0, num(r.negativeSignals)));
+  const max = (serp === null ? 0 : 35) + 45 + 20;
+  return Math.min(100, Math.max(0, (100 * ((serp ?? 0) + reviews + independent)) / max - penalty));
+}
+
+/** authority.reputation:reputation 没跑(null)→ null */
+export function scoreAuthorityReputation(ctx: RankingContext): SubScore {
+  const id = "authority.reputation";
+  const r = ctx.input.reputation ?? null;
+  if (!r) return notMeasured(id, "the brand reputation check did not run for this report");
+  const brand = (r.brandName || ctx.brand.name || ctx.brand.label || ctx.input.domain).trim();
+  const brandQuery = r.brandQuery || brand;
+  const reviewsQuery = r.reviewsQuery || `${brand} reviews`;
+  const owns = r.ownsBrandSerp === null || r.ownsBrandSerp === undefined ? null : r.ownsBrandSerp;
+  const platforms = (r.reviewPlatforms ?? []).filter((p) => !!p?.domain);
+  const platformCount = uniq(platforms.map((p) => bareHost(p.domain))).length;
+  const rating = averageRating(platforms);
+  const indep = Math.max(0, num(r.independentDomains));
+  const negative = Math.max(0, num(r.negativeSignals));
+  const forums = Math.max(0, num(r.forumMentions));
+  const score = reputationScore(r);
+
+  const platformText = (p: (typeof platforms)[number]) =>
+    `${bareHost(p.domain)}${p.rating && finite(p.rating.value) ? ` ${fmt1(p.rating.value)}★${finite(p.rating.votes) ? ` (${plural(p.rating.votes, "review")})` : ""}` : ""}`;
+  const evidence = [
+    owns === null
+      ? `Searching ${quoteQuery(brandQuery)} returned no results we could judge`
+      : `Searching ${quoteQuery(brandQuery)}: ${owns ? "your site is #1" : r.brandTop3 ? "your site is in the top 3 but not #1" : "your site is not in the top 3"}${r.knowledgePanel ? ", with a knowledge panel" : ", no knowledge panel"}`,
+    platformCount
+      ? `Review sites for ${quoteQuery(reviewsQuery)}: ${platforms.slice(0, 3).map(platformText).join(", ")}${rating !== null ? ` — average ${fmt1(rating)}★` : ""}`
+      : `No review platform (G2, Capterra, Trustpilot, Google Maps, Yelp …) shows up for ${quoteQuery(reviewsQuery)}`,
+    `${plural(indep, "independent site")} in the top 10 for ${quoteQuery(brandQuery)}${forums ? `, plus ${plural(forums, "forum thread")} (Reddit, Quora …)` : ""}`,
+  ];
+  if (negative) evidence.push(`${plural(negative, "result")} for your brand mention scams, complaints or lawsuits`);
+  const serpPts = owns === null ? null : (owns ? 25 : r.brandTop3 ? 15 : 0) + (r.knowledgePanel ? 10 : 0);
+  const reviewPts = (platformCount >= 2 ? 30 : platformCount === 1 ? 15 : 0) + (rating === null ? 0 : rating >= 4 ? 15 : rating >= 3.5 ? 8 : 0);
+  // 问题句挑丢分最多的一项;并列时负面结果优先(买家最先看到它),其后按品牌 SERP → 评价 → 独立提及
+  const losses = [
+    { lost: Math.min(20, 10 * negative), rank: 0, text: `Searches for ${quoteQuery(brand)} surface complaints or scam warnings` },
+    { lost: serpPts === null ? 0 : 35 - serpPts, rank: 1, text: `Your site isn't the top result when people search for ${quoteQuery(brandQuery)}` },
+    {
+      lost: 45 - reviewPts,
+      rank: 2,
+      text: platformCount
+        ? `Buyers searching ${quoteQuery(reviewsQuery)} find few reviews of you${rating !== null && rating < 4 ? ` (average ${fmt1(rating)}★)` : ""}`
+        : `Buyers searching ${quoteQuery(reviewsQuery)} find no reviews of you`,
+    },
+    { lost: 20 - (indep >= 4 ? 20 : indep >= 2 ? 10 : 0), rank: 3, text: `Few independent sites mention ${quoteQuery(brand)} — only ${plural(indep, "site")} besides yours and the review platforms` },
+  ].sort((x, y) => y.lost - x.lost || x.rank - y.rank);
+  const fixes: string[] = [];
+  if (negative) fixes.push("Reply publicly to the complaints that show up for your brand and resolve them — buyers read those results first");
+  if (owns === false) fixes.push(`Make your site the top result for ${quoteQuery(brand)}: use the exact brand name in your homepage title and Organization schema, and link your official profiles`);
+  if (platformCount < 2) fixes.push(`Collect reviews on ${platformCount ? "one more" : "two"} review site${platformCount ? "" : "s"} your buyers check — G2 or Capterra for software, Google Business Profile or Yelp for local services, Trustpilot for stores`);
+  else if (rating !== null && rating < 4) fixes.push(`Lift your ${fmt1(rating)}★ average: reply to every negative review and ask happy customers to leave one`);
+  if (indep < 4) fixes.push("Get mentioned on independent sites — guest articles, podcasts, partner pages and \"best X\" roundups your buyers read");
+  return measured(id, {
+    score,
+    good: owns === true ? `People searching for ${quoteQuery(brand)} find you first and see independent reviews` : `Reviews and independent mentions vouch for ${quoteQuery(brand)}`,
+    bad: losses[0].text,
+    evidence,
+    fixes,
+  });
+}
+
 /* ============================================================
-   用户满意信号(10)
+   可赢性(default 10)—— 选的战场打不打得赢(规格 v2 §4)
+   ============================================================ */
+
+/** S13 弱位:竞品页超过 18 个月没更新 / 主体 < 500 词 / 域名权威 < 100 */
+const STALE_COMPETITOR_MONTHS = 18;
+const THIN_COMPETITOR_WORDS = 500;
+const LOW_AUTHORITY_RANK = 100;
+/** 一个查询至少要能评估前 5 名里的 3 个,弱位数才有意义 */
+const MIN_KNOWN_RESULTS = 3;
+
+/** 弱位标记的固定顺序(UI 的弱位标签与证据里都按它排,同一份报告每次读出来一样) */
+const WEAK_SPOT_ORDER = ["forum", "stale", "thin", "off-intent", "low-authority"];
+
+function orderWeakSpots(flags: string[]): string[] {
+  const rank = (f: string) => {
+    const i = WEAK_SPOT_ORDER.indexOf(f);
+    return i === -1 ? WEAK_SPOT_ORDER.length : i;
+  };
+  // Array.prototype.sort 是稳定排序:未知标记保持原来的相对顺序,排在已知标记之后
+  return [...flags].sort((a, b) => rank(a) - rank(b));
+}
+
+const WEAK_SPOT_TEXT: Record<string, string> = {
+  forum: "forum or user-generated page",
+  stale: "not updated in 18+ months",
+  thin: "thin page",
+  "off-intent": "doesn't match the search",
+  "low-authority": "low-authority site",
+};
+
+function monthsAgo(now: Date, months: number): Date {
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - months, now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes()));
+}
+
+/**
+ * 一个竞品结果的弱位标记:relevance.ts 给的 weakSpots,再叠加本站权威规则("domainRank ≤ 本站 rank" → low-authority)。
+ * 旧数据(v3 相关性分析没有 weakSpots)按规格同一套规则就地补算能补的几项;off-intent 需要查询语境,旧数据不补。
+ */
+export function competitorWeakSpots(c: CompetitorPageSignals, ownRank: number | null, now: Date): string[] {
+  const flags: string[] = Array.isArray(c.weakSpots) ? c.weakSpots.filter((f) => typeof f === "string" && !!f) : [];
+  const add = (f: string) => {
+    if (!flags.includes(f)) flags.push(f);
+  };
+  if (!Array.isArray(c.weakSpots)) {
+    if (c.ugc === true) add("forum");
+    const d = parseDate(c.dateModified ?? null);
+    if (d && d.getTime() < monthsAgo(now, STALE_COMPETITOR_MONTHS).getTime()) add("stale");
+    if (c.fetched && num(c.wordCount) < THIN_COMPETITOR_WORDS) add("thin");
+    if (finite(c.domainRank) && c.domainRank < LOW_AUTHORITY_RANK) add("low-authority");
+  }
+  if (ownRank !== null && finite(c.domainRank) && c.domainRank <= ownRank) add("low-authority");
+  return orderWeakSpots(flags);
+}
+
+/** 规格 §4 serpweakness 的分档:前 5 里带标记的结果数 0 → 20,1 → 50,2 → 80,≥3 → 100 */
+export function weakSpotPoints(weak: number): number {
+  return weak <= 0 ? 20 : weak === 1 ? 50 : weak === 2 ? 80 : 100;
+}
+
+/** "已知结果" = relevance.ts 评估过(有 weakSpots)或抓到了页面 */
+function isKnownResult(c: CompetitorPageSignals): boolean {
+  return Array.isArray(c.weakSpots) || c.fetched === true;
+}
+
+/**
+ * 输出用的相关性分析:input.relevance 的副本,每个"已知结果"的竞品带上合并后的弱位(relevance.ts 的标记 +
+ * "≤ 本站 rank"规则,固定顺序)—— UI 的弱位标签与 serpweakness 的证据读的是同一组标记,不会对不上。
+ * 不改 input;没评估过的竞品原样保留(写个空数组会让它在重算时变成"已知结果",分数就不可复现了)。
+ */
+export function relevanceWithWeakSpots(rel: RelevanceAnalysis | null, ownRank: number | null, now: Date): RelevanceAnalysis | null {
+  if (!rel) return null;
+  if (!Array.isArray(rel.pairs)) return { ...rel };
+  return {
+    ...rel,
+    pairs: rel.pairs.map((p) =>
+      p && Array.isArray(p.competitors)
+        ? { ...p, competitors: p.competitors.map((c) => (c && typeof c === "object" && isKnownResult(c) ? { ...c, weakSpots: competitorWeakSpots(c, ownRank, now) } : c)) }
+        : p,
+    ),
+  };
+}
+
+function weakSpotLabel(c: CompetitorPageSignals, flags: string[]): string {
+  return flags.map((f) => (f === "low-authority" && finite(c.domainRank) ? `low-authority site, rank ${fmtInt(c.domainRank)}` : (WEAK_SPOT_TEXT[f] ?? f))).join(", ");
+}
+
+/**
+ * winnability.serpweakness(30):每个查询取前 5 名,数带 ≥1 个弱位标记的结果(forum / stale / thin / off-intent / low-authority);
+ * 0 → 20、1 → 50、2 → 80、≥3 → 100,取平均。少于 3 个已知结果的查询不进平均;一个都没有 → null。
+ */
+export function scoreWinnabilitySerpWeakness(ctx: RankingContext): SubScore {
+  const id = "winnability.serpweakness";
+  const gap = relevanceGap(ctx);
+  if (gap) return notMeasured(id, gap.reason, { evidence: gap.evidence });
+  const own = ownDomainRank(ctx.input);
+  const rows = ctx.pairs
+    .map((p) => {
+      const top = [...(p.competitors ?? [])]
+        .filter((c) => !!c && typeof c === "object")
+        .sort((a, b) => num(a.position) - num(b.position))
+        .slice(0, 5);
+      const known = top.filter(isKnownResult);
+      const weak = known.map((c) => ({ c, flags: competitorWeakSpots(c, own, ctx.now) })).filter((x) => x.flags.length > 0);
+      return { p, known: known.length, weak, pts: weakSpotPoints(weak.length) };
+    })
+    .filter((r) => r.known >= MIN_KNOWN_RESULTS);
+  if (!rows.length) {
+    return notMeasured(id, `we could not assess at least ${MIN_KNOWN_RESULTS} of the top 5 results for any of your queries`, {
+      evidence: ctx.pairs.slice(0, 2).map((p) => `${quoteQuery(p.query)}: ${(p.competitors ?? []).filter(isKnownResult).length} of the top results could be assessed`),
+    });
+  }
+  const sorted = [...rows].sort((a, b) => b.weak.length - a.weak.length || a.p.query.localeCompare(b.p.query));
+  const avgWeak = mean(rows.map((r) => r.weak.length));
+  const evidence = sorted.map(
+    (r) =>
+      `${quoteQuery(r.p.query)}: ${r.weak.length} of the top ${r.known} ${r.weak.length === 1 ? "is" : "are"} beatable${r.weak.length ? ` — ${r.weak
+        .slice(0, 3)
+        .map((x) => `${x.c.domain} (${weakSpotLabel(x.c, x.flags)})`)
+        .join("; ")}` : ""}`,
+  );
+  const fixes: string[] = [];
+  const best = sorted.find((r) => r.weak.length >= 2);
+  if (best) fixes.push(`Go after ${quoteQuery(best.p.query)} first: ${best.weak.length} of the top 5 are weak — a thorough, up-to-date page can take one of those spots`);
+  for (const r of sorted.filter((x) => x.weak.length <= 1).slice(0, 2)) {
+    fixes.push(`For ${quoteQuery(r.p.query)} the top 5 are strong sites — target a narrower version of it (a specific use case, audience or location) where weaker pages rank`);
+  }
+  return measured(id, {
+    score: mean(rows.map((r) => r.pts)),
+    good: `The top 5 for your queries include beatable pages — ${fmt1(avgWeak)} weak result${avgWeak === 1 ? "" : "s"} per query on average`,
+    bad: "The top 5 results for your queries are hard to displace — few forum threads, stale, thin or low-authority pages among them",
+    evidence,
+    fixes,
+  });
+}
+
+/** 规格 §4 difficulty 的分档:有本站强度时按 kd − 强度(≤10 → 100,≤25 → 70,≤40 → 40,其余 10);没有时按绝对 KD(≤30 / ≤45 / ≤60) */
+export function difficultyPoints(kd: number, strength: number | null): number {
+  if (strength === null) return kd <= 30 ? 100 : kd <= 45 ? 70 : kd <= 60 ? 40 : 10;
+  return kd <= strength + 10 ? 100 : kd <= strength + 25 ? 70 : kd <= strength + 40 ? 40 : 10;
+}
+
+const DIFFICULTY_VERDICT: Record<number, string> = { 100: "within reach", 70: "a stretch", 40: "hard", 10: "out of reach for now" };
+
+/**
+ * winnability.difficulty(25):本站强度 = min(100, Domain Rank / 8);每对按 KD 与强度的差分档,按搜索量加权平均(量缺失记 1)。
+ * 没有 Domain Rank 时按绝对 KD 分档,summary 注明;没有任何 KD → null。
+ */
+export function scoreWinnabilityDifficulty(ctx: RankingContext): SubScore {
+  const id = "winnability.difficulty";
+  const gap = relevanceGap(ctx);
+  if (gap) return notMeasured(id, gap.reason, { evidence: gap.evidence });
+  const rows = ctx.pairs.filter((p) => finite(p.kd)).map((p) => ({ p, kd: p.kd as number, w: volWeight(p.volume) }));
+  if (!rows.length) {
+    // kd 为 null = 这一版查了但 DataForSEO 没有难度数据;字段不存在 = 旧报告
+    return notMeasured(
+      id,
+      ctx.pairs.some((p) => p.kd !== undefined)
+        ? "DataForSEO has no keyword difficulty for the queries we analysed"
+        : "this report predates keyword difficulty data — re-run it to measure",
+    );
+  }
+  const rank = ownDomainRank(ctx.input);
+  const strength = rank === null ? null : Math.min(100, rank / 8);
+  const scored = rows.map((r) => ({ ...r, pts: difficultyPoints(r.kd, strength) })).sort((a, b) => a.pts - b.pts || b.kd - a.kd || a.p.query.localeCompare(b.p.query));
+  const absolute = strength === null ? " (judged on absolute difficulty — no Domain Rank available)" : "";
+  const fit = strength === null ? "within reach" : "within reach for a site of your strength";
+  const evidence = [
+    strength !== null
+      ? `Your strength: Domain Rank ${fmtInt(rank as number)} ≈ ${Math.round(strength)}/100 on the keyword-difficulty scale`
+      : "No Domain Rank available, so queries are judged on absolute difficulty (30 or less is easy)",
+    ...scored.map(
+      (r) => `${quoteQuery(r.p.query)} — difficulty ${Math.round(r.kd)}/100${finite(r.p.volume) ? `, ${fmtInt(r.p.volume)} searches a month` : ""}: ${DIFFICULTY_VERDICT[r.pts] ?? "hard"}`,
+    ),
+  ];
+  const fixes: string[] = [];
+  for (const r of scored.filter((x) => x.pts <= 40).slice(0, 2)) {
+    fixes.push(`${quoteQuery(r.p.query)} (difficulty ${Math.round(r.kd)}) is beyond your site's current strength — target a longer, more specific version first and come back once you have more links`);
+  }
+  if (scored.some((x) => x.pts < 100)) {
+    fixes.push(strength !== null ? `Prioritise queries with difficulty under ${Math.round(strength + 10)} — that's where a site of your strength ranks fastest` : "Prioritise queries with difficulty of 30 or less while you build authority");
+  }
+  return measured(id, {
+    score: weightedMean(scored.map((r) => ({ w: r.w, v: r.pts }))),
+    good: `Most of your queries are ${fit}${absolute}`,
+    bad: strength === null ? `Several of your queries are too competitive to win quickly${absolute}` : "Several of your queries are harder than your site can win today",
+    evidence,
+    fixes,
+  });
+}
+
+/** 规格 §4 gap 的分档:本站 rank / 对手 rank ≥1 → 100,≥0.6 → 70,≥0.3 → 40,其余 10 */
+export function gapPoints(ratio: number): number {
+  return ratio >= 1 ? 100 : ratio >= 0.6 ? 70 : ratio >= 0.3 ? 40 : 10;
+}
+
+/**
+ * winnability.gap(20):每对 ratio = 本站 Domain Rank / 该词前 10 名平均主域权威(缺则用前 5 竞品 domainRank 的中位数);
+ * 分档取平均。缺本站 rank 或所有对都缺对手数据 → null。对手权威为 0 时比值视为 ≥1。
+ */
+export function scoreWinnabilityGap(ctx: RankingContext): SubScore {
+  const id = "winnability.gap";
+  const gap = relevanceGap(ctx);
+  if (gap) return notMeasured(id, gap.reason, { evidence: gap.evidence });
+  const rank = ownDomainRank(ctx.input);
+  if (rank === null) return notMeasured(id, ctx.input.authority && !ctx.input.authority.noData ? "your Domain Rank was not reported" : (authorityGap(ctx.input.authority) ?? "your Domain Rank was not available"));
+  const rows = ctx.pairs
+    .map((p) => {
+      const avg = finite(p.avgTopDomainRank) && p.avgTopDomainRank > 0 ? p.avgTopDomainRank : null;
+      const comp = median(
+        [...(p.competitors ?? [])]
+          .sort((a, b) => num(a.position) - num(b.position))
+          .slice(0, 5)
+          .map((c) => c.domainRank)
+          .filter((x): x is number => finite(x)),
+      );
+      const opp = avg ?? comp;
+      if (opp === null) return null;
+      const ratio = opp > 0 ? rank / opp : Number.POSITIVE_INFINITY;
+      return { p, opp, source: avg !== null ? "top-10 average" : "median of the top 5 we checked", ratio, pts: gapPoints(ratio) };
+    })
+    .filter((r): r is NonNullable<typeof r> => r !== null)
+    .sort((a, b) => a.ratio - b.ratio || a.p.query.localeCompare(b.p.query));
+  if (!rows.length) return notMeasured(id, "we have no authority data for the sites ranking for your queries");
+  const typical = median(rows.map((r) => r.opp)) ?? 0;
+  const evidence = [
+    `Your Domain Rank: ${fmtInt(rank)} (0–1,000 scale)`,
+    ...rows.map((r) =>
+      r.opp > 0
+        ? `${quoteQuery(r.p.query)}: ranking sites ${fmtInt(r.opp)} (${r.source}) — you're at ${pct01(Math.min(r.ratio, 9.99))}% of that`
+        : `${quoteQuery(r.p.query)}: the ranking sites have no measurable authority (${r.source})`,
+    ),
+  ];
+  const fixes = rows
+    .filter((r) => r.ratio < 1)
+    .slice(0, 2)
+    .map((r) =>
+      r.ratio < 0.6
+        ? `Close the gap on ${quoteQuery(r.p.query)}: sites ranking there sit at about ${fmtInt(r.opp)} vs your ${fmtInt(rank)} — earn links to ${pathOf(r.p.url)} itself, or pick a query where smaller sites rank`
+        : `You're close on ${quoteQuery(r.p.query)} (${fmtInt(rank)} vs about ${fmtInt(r.opp)}) — a few links from relevant sites to ${pathOf(r.p.url)} can tip it`,
+    );
+  return measured(id, {
+    score: mean(rows.map((r) => r.pts)),
+    good: "Your site's authority holds up against the sites ranking for your queries",
+    bad: `The sites ranking for your queries have ${rank <= 0 || typical / rank >= 2 ? "far " : ""}more authority than yours (Domain Rank ${fmtInt(rank)} vs about ${fmtInt(typical)})`,
+    evidence,
+    fixes,
+  });
+}
+
+/** 规格 §4 striking 的名次分档:1–3 → 100,4–10 → 70,11–20 → 40,其余 10 */
+export function strikingPoints(position: number): number {
+  return position <= 3 ? 100 : position <= 10 ? 70 : position <= 20 ? 40 : 10;
+}
+
+/**
+ * winnability.striking(10):非品牌排名词按搜索量加权(量缺失 / 0 记 1)的名次分;证据列 4–15 名、月量 ≥50 的词(≤5)。
+ * 排名数据缺失 / noData → null;一个非品牌词都没有 → null(没有可推的词)。
+ */
+export function scoreWinnabilityStriking(ctx: RankingContext): SubScore {
+  const id = "winnability.striking";
+  const vis = ctx.input.visibility;
+  if (!vis || vis.noData) return notMeasured(id, vis ? "DataForSEO has no ranking data for this domain yet" : "ranking data was not available for this report");
+  const rows = (vis.topKeywords ?? []).filter((k): k is RankedKeyword => !!k && !!k.keyword && finite(k.position) && k.position >= 1 && !isBrandKeyword(k.keyword, ctx.brand.keywordTokens));
+  if (!rows.length) {
+    return notMeasured(id, "you don't rank for any non-brand keywords yet", {
+      fixes: ["Publish pages that answer the specific questions your buyers search — not just your brand name"],
+    });
+  }
+  const n = rows.length;
+  const top3 = rows.filter((k) => k.position <= 3).length;
+  const page1 = rows.filter((k) => k.position >= 4 && k.position <= 10).length;
+  const page2 = rows.filter((k) => k.position >= 11 && k.position <= 20).length;
+  const striking = rows
+    .filter((k) => k.position >= 4 && k.position <= 15 && num(k.volume) >= 50)
+    .sort((a, b) => num(b.volume) - num(a.volume) || a.position - b.position || a.keyword.localeCompare(b.keyword))
+    .slice(0, 5);
+  const score = weightedMean(rows.map((k) => ({ w: volWeight(k.volume), v: strikingPoints(k.position) })));
+  const evidence = [
+    `${top3} of ${plural(n, "non-brand keyword")} rank in the top 3, ${page1} at 4–10 and ${page2} on page two (11–20)`,
+    striking.length
+      ? `Close to the top: ${striking.map((k) => `${quoteQuery(k.keyword)} (#${k.position}, ${fmtInt(num(k.volume))}/mo)`).join(", ")}`
+      : "No keyword with 50+ monthly searches sits at positions 4–15",
+  ];
+  const fixes = striking
+    .slice(0, 2)
+    .map((k) => `Push ${quoteQuery(k.keyword)} (#${k.position}, ${fmtInt(num(k.volume))} searches a month) into the top 3: refresh ${k.url ? pathOf(k.url) : "the ranking page"}, add the subtopics the top 3 cover and link to it from related pages`);
+  if (rows.some((k) => k.position >= 4 && k.position <= 10)) fixes.push("Rewrite titles and descriptions of pages ranking 4–10 so more searchers pick them");
+  return measured(id, {
+    score,
+    good: score >= 90 ? "Your non-brand keywords mostly rank in the top 3" : "Most of your non-brand search volume ranks on page one",
+    bad: "Most of your non-brand search volume ranks below the top 10, where few people click",
+    evidence,
+    fixes,
+  });
+}
+
+/** 规格 §4 momentum(有 GSC):clamp(50 + 点击变化% / 40 × 50) */
+export function momentumFromChange(changePct: number): number {
+  return clampScore(50 + (changePct / 40) * 50);
+}
+
+/**
+ * winnability.momentum(15):有 Search Console(且两期有点击)时按近 28 天 vs 前 28 天点击变化(measured);
+ * 否则用 DataForSEO 排名词升降 (new + up − down − lost) / 合计 → 50 + 50 × 比值(estimated);合计 0 → null。
+ */
+/** 动量用 Search Console 时的最低样本:两期点击合计 / 两期曝光合计 */
+export const MOMENTUM_MIN_CLICKS = 20;
+export const MOMENTUM_MIN_IMPRESSIONS = 200;
+
+export function scoreWinnabilityMomentum(ctx: RankingContext): SubScore {
+  const id = "winnability.momentum";
+  const gsc = ctx.input.gsc ?? null;
+  const vis = ctx.input.visibility;
+  const visOk = !!vis && !vis.noData;
+  // 证据另列:排名词里 rankChange 的升降数
+  const changes = visOk ? (vis.topKeywords ?? []).map((k) => k?.rankChange).filter((c): c is NonNullable<RankedKeyword["rankChange"]> => !!c) : [];
+  const changeLine = changes.length
+    ? `Your top ${plural(changes.length, "keyword")} with rank history: ${changes.filter((c) => c.isUp).length} moved up, ${changes.filter((c) => c.isDown).length} moved down, ${changes.filter((c) => c.isNew).length} new`
+    : "";
+  // 样本门槛(站长 2026-10-02):"2 次点击 vs 0 次"不是增长,是噪音。两期点击合计 ≥ 20 才用点击;
+  // 不够就看曝光(合计 ≥ 200,曝光比点击多一个数量级,小站也够样本);再不够才退回排名升降
+  const clicksCur = num(gsc?.totals?.clicks);
+  const clicksPrev = num(gsc?.previous?.clicks);
+  const imprCur = num(gsc?.totals?.impressions);
+  const imprPrev = num(gsc?.previous?.impressions);
+  const metric: { name: "clicks" | "impressions"; cur: number; prev: number } | null =
+    gsc && gsc.previous
+      ? clicksCur + clicksPrev >= MOMENTUM_MIN_CLICKS
+        ? { name: "clicks", cur: clicksCur, prev: clicksPrev }
+        : imprCur + imprPrev >= MOMENTUM_MIN_IMPRESSIONS
+          ? { name: "impressions", cur: imprCur, prev: imprPrev }
+          : null
+      : null;
+  if (gsc && metric) {
+    const { name, cur, prev } = metric;
+    const Name = name === "clicks" ? "Clicks" : "Impressions";
+    const change = prev > 0 ? ((cur - prev) / prev) * 100 : 100;
+    const score = momentumFromChange(change);
+    const changeText = prev > 0 ? `${sign(change)}${Math.abs(Math.round(change))}%` : "up from zero";
+    const smallSample = name === "impressions" ? ` (clicks are too few to compare — ${fmtInt(clicksCur)} vs ${fmtInt(clicksPrev)} — so this uses impressions)` : "";
+    return measured(id, {
+      score,
+      good: prev > 0 ? `${Name} from Google are growing: ${changeText} vs the previous 28 days` : `${Name} from Google are growing: ${fmtInt(cur)} in the last 28 days, up from none before`,
+      bad:
+        change < 0
+          ? `${Name} from Google fell ${Math.abs(Math.round(change))}% vs the previous 28 days`
+          : change < 2
+            ? `${Name} from Google are flat (${changeText} vs the previous 28 days)`
+            : `${Name} from Google are growing only slowly (${changeText} vs the previous 28 days)`,
+      evidence: [
+        `Search Console ${name}: ${fmtInt(cur)} in the last 28 days vs ${fmtInt(prev)} in the 28 days before (${changeText})${smallSample}`,
+        name === "clicks"
+          ? `Impressions: ${fmtInt(imprCur)} vs ${fmtInt(imprPrev)}; average position ${fmt1(num(gsc.totals.position))} vs ${fmt1(num(gsc.previous?.position))}`
+          : `Average position ${fmt1(num(gsc.totals.position))} vs ${fmt1(num(gsc.previous?.position))}`,
+        changeLine,
+      ],
+      // 16% 以下(< 70 分)是下滑或持平:先救掉点击的页;16–32%(70–89 分)是在涨但还能更快:放大正在涨的页
+      fixes:
+        change < 16
+          ? [
+              "Open Search Console → Pages, compare the last 28 days with the previous period and refresh the pages that lost the most clicks first",
+              "Update facts, add missing subtopics and improve the titles of pages that slipped, then request indexing again",
+            ]
+          : ["Keep the growth going: find the queries gaining impressions in Search Console and strengthen those pages with fresher content and internal links"],
+      confidence: "measured",
+    });
+  }
+  const mv = visOk ? vis.movement : null;
+  const total = mv ? num(mv.isNew) + num(mv.isUp) + num(mv.isDown) + num(mv.isLost) : 0;
+  // 走到这里就没用上 Search Console 的点击数据(没接,或两期都没有点击):可信度一律 estimated
+  if (!mv || total <= 0) {
+    return notMeasured(
+      id,
+      gsc ? "Search Console has too little traffic to compare periods, and no keyword movement was reported" : visOk ? "no keyword movement was reported for this domain" : "neither Search Console data nor ranking history was available",
+      { confidence: "estimated", fixes: gsc ? [] : ["Connect Search Console to measure momentum from your real clicks"] },
+    );
+  }
+  const r = (num(mv.isNew) + num(mv.isUp) - num(mv.isDown) - num(mv.isLost)) / total;
+  const fixes: string[] = [];
+  if (r < 0.4) fixes.push("Refresh the pages behind falling keywords first: update facts, add missing subtopics and tighten titles");
+  if (!gsc) fixes.push("Connect Search Console to measure momentum from your real clicks instead of estimated rankings");
+  return measured(id, {
+    score: 50 + 50 * r,
+    good: "More of your keywords are rising or new than falling",
+    bad: r < 0 ? "More of your keywords are falling or dropping out than rising" : r < 0.05 ? "Your rankings are flat — about as many keywords fall as rise" : "Only slightly more of your keywords are rising than falling",
+    evidence: [
+      `Keyword movement (DataForSEO): ${fmtInt(num(mv.isNew))} new and ${fmtInt(num(mv.isUp))} up vs ${fmtInt(num(mv.isDown))} down and ${fmtInt(num(mv.isLost))} lost`,
+      changeLine,
+      gsc ? "Search Console shows no clicks in either period, so keyword movement is used instead" : "Estimated from ranking changes — connect Search Console to measure real clicks",
+    ],
+    fixes,
+    confidence: "estimated",
+  });
+}
+
+/* ============================================================
+   AI 搜索与点击机会(default 10)—— 排上去还有没有点击(规格 v2 §4)
+   ============================================================ */
+
+/** 拦掉某个检索类机器人等于退出哪个产品的答案(修法里说人话);名单本身来自 robots.ts 的 AI_RETRIEVAL_BOTS */
+const BOT_PRODUCT: Record<string, string> = {
+  "oai-searchbot": "ChatGPT search",
+  "chatgpt-user": "ChatGPT",
+  perplexitybot: "Perplexity",
+  "perplexity-user": "Perplexity",
+  "claude-searchbot": "Claude",
+  "claude-user": "Claude",
+  bingbot: "Bing and Copilot (and ChatGPT search, which leans on Bing)",
+  applebot: "Siri and Apple Intelligence",
+};
+
+/** aisearch.overview(30):AI 摘要出现且加载到引用来源的查询里,本站被引用的占比;没有查询出现 AI 摘要 → null */
+export function scoreAiSearchOverview(ctx: RankingContext): SubScore {
+  const id = "aisearch.overview";
+  const gap = relevanceGap(ctx);
+  if (gap) return notMeasured(id, gap.reason, { evidence: gap.evidence });
+  const share = ctx.input.visibility && !ctx.input.visibility.noData && finite(ctx.input.visibility.aiOverviewShare) ? ctx.input.visibility.aiOverviewShare : null;
+  const shareLine = share !== null ? `${pct01(Math.min(1, share))}% of your ranking keywords show an AI Overview (DataForSEO)` : "";
+  const withAio = ctx.pairs.filter((p) => !!p.aiOverview && p.aiOverview.present === true);
+  if (!withAio.length) {
+    const anyLive = ctx.pairs.some((p) => p.aiOverview !== undefined || Array.isArray(p.serpFeatures));
+    return notMeasured(id, anyLive ? "none of the analysed queries show an AI Overview" : "no live search results were checked for this report's queries", {
+      evidence: [shareLine || `Checked ${plural(ctx.pairs.length, "query", "queries")} — none shows an AI Overview`],
+    });
+  }
+  const judged = withAio.filter((p) => p.aiOverview?.loaded === true);
+  if (!judged.length) {
+    return notMeasured(id, `AI Overviews appear on ${withAio.length} of your queries, but their sources could not be loaded`, { evidence: [shareLine].filter(Boolean) });
+  }
+  const cited = (p: RelevancePair) => p.aiOverview?.cited === true || (p.aiOverview?.references ?? []).some((r) => isOwnDomain(r?.domain ?? "", ctx.input.domain));
+  const yes = judged.filter(cited);
+  const no = judged.filter((p) => !cited(p));
+  const sourcesOf = (p: RelevancePair) =>
+    uniq((p.aiOverview?.references ?? []).map((r) => bareHost(r?.domain ?? "")).filter((d) => d && !isOwnDomain(d, ctx.input.domain))).slice(0, 3);
+  const evidence = [
+    `AI Overview on ${withAio.length} of ${plural(ctx.pairs.length, "query", "queries")} we checked; you're cited in ${yes.length} of the ${judged.length} whose sources we could load`,
+    ...[...no, ...yes].slice(0, 2).map((p) => {
+      const others = sourcesOf(p);
+      return `${quoteQuery(p.query)}: ${cited(p) ? "cites you" : "doesn't cite you"}${others.length ? ` — ${cited(p) ? "also cites" : "cites"} ${others.join(", ")}` : ""}`;
+    }),
+  ];
+  if (shareLine) evidence.push(shareLine);
+  const fixes: string[] = [];
+  for (const p of no.slice(0, 2)) {
+    fixes.push(`Get cited in the AI Overview for ${quoteQuery(p.query)}: answer it in 2–3 plain sentences near the top of ${pathOf(p.url)}, with a number or a source, using the question's own words`);
+  }
+  const studied = no.length ? sourcesOf(no[0]) : [];
+  if (studied.length) fixes.push(`Study the pages AI Overviews quote instead (${studied.join(", ")}): short definitions, lists and tables are the easiest to cite`);
+  return measured(id, {
+    score: (100 * yes.length) / judged.length,
+    good: judged.length === 1 ? "The AI Overview on your query cites you" : `You're cited in ${yes.length} of ${judged.length} AI Overviews on your queries`,
+    bad:
+      judged.length === 1
+        ? "The AI Overview on your query doesn't cite you"
+        : yes.length === 0
+          ? `None of the ${judged.length} AI Overviews on your queries cite you`
+          : `You're cited in only ${yes.length} of ${judged.length} AI Overviews on your queries`,
+    evidence,
+    fixes,
+  });
+}
+
+type BotVerdict = "allow" | "disallow" | "unspecified";
+
+/** robots.txt 明确不存在(4xx):一切允许。抓取失败(超时 / 5xx / 网络错误)不算"不存在" —— 那是不知道 */
+function robotsMissing(probe: SiteProbe): boolean {
+  const r = probe.robots;
+  return !!r && r.found === false && !r.error && finite(r.status) && r.status >= 400 && r.status < 500;
+}
+
+/** 某个机器人在 robots.txt 里的判定;robots.txt 不存在 = 全部允许;探针里没有这个机器人的键(旧报告)= 没测 → null */
+function botVerdict(probe: SiteProbe, bot: string): BotVerdict | null {
+  if (robotsMissing(probe)) return "unspecified";
+  const rec = probe.robotsMeta?.aiCrawlers ?? {};
+  const hit = Object.keys(rec).find((k) => k.toLowerCase() === bot.toLowerCase());
+  const v = hit ? rec[hit] : undefined;
+  return v === "allow" || v === "disallow" || v === "unspecified" ? v : null;
+}
+
+/**
+ * aisearch.crawlers(20):检索类 AI 爬虫(robots.ts AI_RETRIEVAL_BOTS)allow / unspecified 的占比 × 70
+ * + (入口页不是 JS 空壳 ? 30 : 0)。训练类(AI_TRAINING_BOTS)只作证据 —— 让不让 AI 公司拿内容训练是商业选择,
+ * 与能不能被 AI 搜索引用无关,不计分。
+ * 旧报告的探针只给了部分机器人的判定:没有键的机器人不进分母;一个检索类判定都没有 → 爬虫项不计,
+ * 只用 JS 空壳项按满分重新归一;JS 空壳也无从判断(没读到入口页、探针没记)→ null。
+ */
+export function scoreAiSearchCrawlers(ctx: RankingContext): SubScore {
+  const id = "aisearch.crawlers";
+  const probe = ctx.input.probe;
+  if (!probe) return notMeasured(id, "the site probe did not run for this report");
+  const noRobots = robotsMissing(probe);
+  const retrieval = AI_RETRIEVAL_BOTS.map((bot) => ({ bot, v: botVerdict(probe, bot) })).filter((x): x is { bot: string; v: BotVerdict } => x.v !== null);
+  const blocked = retrieval.filter((x) => x.v === "disallow");
+  const allowedN = retrieval.length - blocked.length;
+  const crawlerPts = retrieval.length ? (allowedN / retrieval.length) * 70 : null;
+  const jsKnown = typeof probe.jsDependent === "boolean" || !!ctx.home;
+  const shell = probe.jsDependent === true || ctx.home?.jsShell === true;
+  const jsPts = jsKnown ? (shell ? 0 : 30) : null;
+  if (crawlerPts === null && jsPts === null) return notMeasured(id, "we could not read the AI crawler rules in your robots.txt or your homepage");
+  const training = AI_TRAINING_BOTS.map((bot) => ({ bot, v: botVerdict(probe, bot) })).filter((x) => x.v !== null);
+  const tBlocked = training.filter((x) => x.v === "disallow");
+  const evidence = [
+    noRobots
+      ? "No robots.txt, so every AI crawler is allowed by default"
+      : crawlerPts === null
+        ? "We could not read AI crawler rules from your robots.txt — scored on JavaScript rendering only"
+        : `AI search crawlers allowed: ${allowedN} of ${retrieval.length}${blocked.length ? ` — blocked: ${blocked.map((x) => x.bot).join(", ")}` : ""}`,
+    jsPts === null
+      ? "We could not read your homepage, so JavaScript rendering was not checked"
+      : shell
+        ? "Your homepage needs JavaScript to show its content — most AI crawlers don't run JavaScript, so they see an empty page"
+        : "Your homepage content is in the raw HTML, readable without JavaScript",
+  ];
+  if (training.length) {
+    evidence.push(
+      `Training crawlers (${training.map((x) => x.bot).join(", ")}): ${tBlocked.length} blocked, ${training.length - tBlocked.length} allowed — a business choice that doesn't affect AI search, so it isn't scored`,
+    );
+  }
+  const products = uniq(blocked.map((x) => BOT_PRODUCT[x.bot.toLowerCase()]).filter(Boolean));
+  const fixes: string[] = [];
+  if (blocked.length) fixes.push(`Allow ${listJoin(blocked.map((x) => x.bot))} in robots.txt — blocking ${blocked.length === 1 ? "it" : "them"} keeps you out of answers in ${listJoin(products) || "AI search"}`);
+  if (shell) fixes.push("Render your main content on the server (or pre-render it) so crawlers that don't run JavaScript can read it");
+  const max = (crawlerPts === null ? 0 : 70) + (jsPts === null ? 0 : 30);
+  return measured(id, {
+    score: (100 * ((crawlerPts ?? 0) + (jsPts ?? 0))) / max,
+    good: crawlerPts === null ? "AI crawlers can read your pages without running JavaScript" : `AI search crawlers can reach and read your pages (${allowedN} of ${retrieval.length} allowed)`,
+    bad: blocked.length
+      ? `Your robots.txt blocks ${blocked.length} AI search crawler${blocked.length === 1 ? "" : "s"} (${blocked.map((x) => x.bot).join(", ")}), so ${blocked.length === 1 ? "that assistant" : "those assistants"} can't cite you`
+      : "AI crawlers can get in, but your content needs JavaScript to appear, so they see an empty page",
+    evidence,
+    fixes,
+  });
+}
+
+/** types.ts:PageContentSignals.firstParagraph 只存前 300 字符;存满说明原段落更长 */
+const FIRST_PARAGRAPH_CAP = 300;
+const CITABLE_SCHEMA = new Set(["article", "newsarticle", "blogposting", "faqpage", "howto", "product"]);
+
+export interface CitabilityParts {
+  /** 首段 ≤60 词且含 ≥50% 标题核心词 */
+  opening: boolean;
+  /** 问句式小标题 ≥2 或有 FAQ */
+  questions: boolean;
+  /** 每千词数据点 */
+  dataPer1k: number;
+  /** 有列表或表格 */
+  structured: boolean;
+  /** Article / NewsArticle / BlogPosting / FAQPage / HowTo / Product 结构化数据 */
+  schema: boolean;
+  /** 有署名且有日期 */
+  signed: boolean;
+  points: number;
+}
+
+/**
+ * 规格 v2 §4 aisearch.citability 的每页公式:首段直接回答 25 + 问句小标题或 FAQ 20 + 每千词数据点 ≥5 → 20(≥2 → 10)
+ * + 列表 / 表格 15 + 可引用的结构化数据 10 + 署名 + 日期 10。
+ * 首段存满 300 字符时原段落一定更长(60 词大约 330–360 字符),按"不是简短首段"处理 —— 截断后的前 50 来个词不能冒充短答案。
+ */
+export function citabilityParts(p: CrawledPage, brandWords: ReadonlySet<string> = new Set()): CitabilityParts {
+  const c = contentOf(p);
+  const fp = (c.firstParagraph ?? "").replace(/\s+/g, " ").trim();
+  const words = fp ? fp.split(" ").length : 0;
+  const want = topicTokens(titleCore(p), brandWords);
+  const have = topicTokens(fp, brandWords);
+  let hit = 0;
+  want.forEach((t) => {
+    if (have.has(t)) hit += 1;
+  });
+  const opening = !!fp && fp.length < FIRST_PARAGRAPH_CAP && words <= 60 && want.size > 0 && hit / want.size >= 0.5;
+  const questions = num(c.questionHeadings) >= 2 || c.hasFaq === true;
+  const dataPer1k = num(c.mainWords) > 0 ? (num(c.numberCount) / num(c.mainWords)) * 1000 : 0;
+  const structured = num(c.listCount) > 0 || num(c.tableCount) > 0;
+  const schema = (p.jsonLdTypes ?? []).some((t) => CITABLE_SCHEMA.has(String(t).toLowerCase()));
+  const signed = c.byline === true && !!(c.datePublished || c.dateModified);
+  const points = (opening ? 25 : 0) + (questions ? 20 : 0) + (dataPer1k >= 5 ? 20 : dataPer1k >= 2 ? 10 : 0) + (structured ? 15 : 0) + (schema ? 10 : 0) + (signed ? 10 : 0);
+  return { opening, questions, dataPer1k, structured, schema, signed, points };
+}
+
+/** aisearch.citability(25):内容页平均;无内容页 → null */
+export function scoreAiSearchCitability(ctx: RankingContext): SubScore {
+  const id = "aisearch.citability";
+  const pages = ctx.contentPages;
+  if (!pages.length) return notMeasured(id, contentGap(ctx), { fixes: ctx.signalPages.length ? [CONTENT_GAP_FIX] : [] });
+  const n = pages.length;
+  const rows = pages.map((p) => ({ p, c: citabilityParts(p, ctx.brand.words) }));
+  const count = (f: (x: CitabilityParts) => boolean) => rows.filter((r) => f(r.c));
+  const opening = count((x) => x.opening);
+  const questions = count((x) => x.questions);
+  const data = count((x) => x.dataPer1k >= 5);
+  const structured = count((x) => x.structured);
+  const schema = count((x) => x.schema);
+  const signed = count((x) => x.signed);
+  const missing = (list: typeof rows) => rows.filter((r) => !list.includes(r)).map((r) => r.p.url);
+  const evidence = [
+    `Short, direct opening answer (60 words or fewer, using the title's words): ${opening.length} of ${n} content pages`,
+    `Question-style subheadings (2+) or an FAQ: ${questions.length} of ${n}`,
+    `5+ data points per 1,000 words: ${data.length} of ${n}; lists or tables: ${structured.length} of ${n}`,
+    `Article, FAQ, HowTo or Product structured data: ${schema.length} of ${n}; byline plus date: ${signed.length} of ${n}`,
+  ];
+  // 丢分最多的部分先说、先修
+  const parts = [
+    { lost: 25 * (n - opening.length), text: "Most pages don't open with a short, direct answer an AI can quote", fix: `Open each page with a 1–2 sentence answer (under 60 words) that repeats the title's key words — missing on ${paths(missing(opening), 2)}` },
+    { lost: 20 * (n - questions.length), text: "Few pages phrase subheadings as the questions people ask", fix: "" },
+    { lost: 20 * (n - data.length), text: "Pages have few specific numbers for AI answers to quote", fix: "Add specific numbers — prices, timings, percentages, sample sizes; AI answers quote figures" },
+    { lost: 15 * (n - structured.length), text: "Few pages use lists or tables, which AI answers lift most easily", fix: `Turn steps, options and specs into lists or a table on ${paths(missing(structured), 2)}` },
+    { lost: 10 * (n - schema.length), text: "Most pages lack Article, FAQ, HowTo or Product structured data", fix: "Add Article (or FAQPage / HowTo / Product) structured data with the author and dates" },
+    { lost: 10 * (n - signed.length), text: "Most pages don't show who wrote them and when", fix: "Show a byline and a publish or update date on every article" },
+  ];
+  const paa = uniq(ctx.pairs.flatMap((p) => p.paa ?? []).filter((q) => typeof q === "string" && q.trim())).slice(0, 2);
+  parts[1].fix = paa.length
+    ? `Use the questions searchers also ask as subheadings and answer each right below — e.g. ${paa.map((q) => quoteQuery(q)).join(", ")}`
+    : "Phrase 2–3 subheadings as the questions people ask and answer each right below";
+  const ordered = parts.filter((x) => x.lost > 0).sort((a, b) => b.lost - a.lost);
+  return measured(id, {
+    score: mean(rows.map((r) => r.c.points)),
+    good: "Your content is easy for AI answers to quote: direct openings, question headings and specific data",
+    bad: ordered[0]?.text ?? "Your pages are hard for AI answers to quote",
+    evidence,
+    fixes: ordered.map((x) => x.fix),
+  });
+}
+
+/** 规格 v2 §4 zeroclick 的吸收权重(同组只算一次:paid / shopping、local_pack / map) */
+const ABSORBERS: { types: string[]; w: number; name: string }[] = [
+  { types: ["ai_overview"], w: 0.35, name: "AI Overview" },
+  { types: ["featured_snippet"], w: 0.2, name: "featured snippet" },
+  { types: ["answer_box"], w: 0.2, name: "answer box" },
+  { types: ["paid", "shopping"], w: 0.15, name: "ads or shopping" },
+  { types: ["local_pack", "map"], w: 0.15, name: "map pack" },
+  { types: ["knowledge_graph"], w: 0.1, name: "knowledge panel" },
+  { types: ["video"], w: 0.05, name: "videos" },
+  { types: ["people_also_ask"], w: 0.05, name: "People also ask" },
+  { types: ["top_stories"], w: 0.05, name: "Top stories" },
+];
+const MAX_ABSORPTION = 0.85;
+
+/** 一个词的 SERP 元素吸收掉的点击比例:min(0.85, Σ 权重);本站拥有的精选摘要不算被抢 */
+export function absorption(types: Iterable<string>, ownSnippet = false): number {
+  const set = new Set(Array.from(types, (t) => String(t).toLowerCase()));
+  let sum = 0;
+  for (const a of ABSORBERS) {
+    if (!a.types.some((t) => set.has(t))) continue;
+    if (a.types[0] === "featured_snippet" && ownSnippet) continue;
+    sum += a.w;
+  }
+  return Math.min(MAX_ABSORPTION, sum);
+}
+
+function absorberNames(types: Set<string>, ownSnippet: boolean): string[] {
+  return ABSORBERS.filter((a) => a.types.some((t) => types.has(t)) && !(a.types[0] === "featured_snippet" && ownSnippet)).map((a) => a.name);
+}
+
+/**
+ * aisearch.zeroclick(25):非品牌排名词(serpItemTypes)按搜索量加权的平均吸收,分 = 100 × (1 − 平均吸收);
+ * 分析对的 live SERP 元素并入(同一词取并集)。品牌词不算 —— 品牌词的知识面板、站点链接本来就是你自己的,不是被抢走的点击。
+ * "本站拥有精选摘要"只认 live SERP(pair.featuredSnippet.own):RankedKeyword.isFeaturedSnippet 已被 DataForSEO 弃用、恒为 false。
+ * 元素清单为空([] = 供应商没给)或字段不存在(旧报告)都算这个词没有数据;一个有数据的词都没有 → null。
+ */
+export function scoreAiSearchZeroClick(ctx: RankingContext): SubScore {
+  const id = "aisearch.zeroclick";
+  const rows = new Map<string, { keyword: string; volume: number | null; types: Set<string>; own: boolean }>();
+  let fieldSeen = false;
+  const upsert = (keyword: string, volume: number | null | undefined, lists: (string[] | undefined)[], own: boolean) => {
+    if (!keyword || isBrandKeyword(keyword, ctx.brand.keywordTokens)) return;
+    const key = keyword.trim().toLowerCase();
+    const row = rows.get(key) ?? { keyword: keyword.trim(), volume: null, types: new Set<string>(), own: false };
+    for (const list of lists) {
+      if (!Array.isArray(list)) continue;
+      fieldSeen = true;
+      for (const t of list) if (typeof t === "string" && t) row.types.add(t.toLowerCase());
+    }
+    if (row.volume === null && finite(volume)) row.volume = volume;
+    row.own = row.own || own;
+    rows.set(key, row);
+  };
+  const vis = ctx.input.visibility;
+  if (vis && !vis.noData) for (const k of vis.topKeywords ?? []) if (k?.keyword) upsert(k.keyword, k.volume, [k.serpItemTypes], false);
+  for (const p of ctx.pairs) upsert(p.query, p.volume, [p.serpItemTypes, p.serpFeatures], p.featuredSnippet?.own === true);
+  const withData = Array.from(rows.values()).filter((r) => r.types.size > 0);
+  if (!withData.length) {
+    return notMeasured(
+      id,
+      !rows.size
+        ? "no non-brand keywords were available to check"
+        : fieldSeen
+          ? "DataForSEO had no search-feature data for your non-brand keywords"
+          : "this report predates search-feature data — re-run it to measure",
+    );
+  }
+  const scored = withData.map((r) => ({ r, abs: absorption(r.types, r.own), w: volWeight(r.volume) }));
+  const avg = weightedMean(scored.map((x) => ({ w: x.w, v: x.abs })));
+  const n = withData.length;
+  const has = (t: string) => withData.filter((r) => r.types.has(t));
+  const aio = has("ai_overview");
+  const othersSnippet = withData.filter((r) => r.types.has("featured_snippet") && !r.own);
+  const ads = withData.filter((r) => r.types.has("paid") || r.types.has("shopping"));
+  const worst = [...scored].sort((a, b) => b.abs * b.w - a.abs * a.w || a.r.keyword.localeCompare(b.r.keyword))[0];
+  const cleanest = [...scored].sort((a, b) => a.abs - b.abs || b.w - a.w || a.r.keyword.localeCompare(b.r.keyword))[0];
+  const evidence = [
+    `Search features take about ${pct01(avg)}% of the clicks across ${plural(n, "non-brand keyword")} (weighted by search volume)`,
+    `AI Overview on ${aio.length} of ${n}; featured snippet held by another site on ${othersSnippet.length}; ads or shopping results on ${ads.length}`,
+  ];
+  if (worst && worst.abs > 0) evidence.push(`Most crowded: ${quoteQuery(worst.r.keyword)} (${absorberNames(worst.r.types, worst.r.own).join(", ")}) — about ${pct01(worst.abs)}% of clicks go to features, not links`);
+  const fixes: string[] = [];
+  if (cleanest && cleanest.abs < 0.2) fixes.push(`Favour queries where results are mostly plain links — ${quoteQuery(cleanest.r.keyword)} still sends most clicks to the listed pages`);
+  if (othersSnippet.length) fixes.push(`Win the featured snippet for ${quoteQuery(othersSnippet[0].keyword)}: answer it in 40–60 words right under a heading that matches the query`);
+  if (aio.length) fixes.push(`On AI Overview queries like ${quoteQuery(aio[0].keyword)}, aim to be a cited source: a short, direct answer near the top, backed by a number or a source`);
+  return measured(id, {
+    score: 100 * (1 - avg),
+    good: `Your keywords still send clicks: search features take only about ${pct01(avg)}% of them`,
+    bad: `Search features (AI Overviews, snippets, ads) take about ${pct01(avg)}% of the clicks on your keywords`,
+    evidence,
+    fixes,
+  });
+}
+
+/* ============================================================
+   用户满意信号(default 10)
    ============================================================ */
 
 type Band = "good" | "ni" | "poor";
@@ -1458,7 +2964,7 @@ const CWV_FIX: Record<CwvRow["key"], string> = {
   cls: "Stop the layout from jumping: give images, ads and embeds fixed dimensions and reserve space for banners (target ≤ 0.1)",
 };
 
-/** behavior.realuser(30):LCP / INP / CLS 各 good → 33.3、needs improvement → 16.7、poor → 0;没有真实用户数据 → null */
+/** behavior.realuser(25):LCP / INP / CLS 各 good → 33.3、needs improvement → 16.7、poor → 0;没有真实用户数据 → null */
 export function scoreBehaviorRealUser(ctx: RankingContext): SubScore {
   const id = "behavior.realuser";
   const ru = realUserRows(ctx.input.psi);
@@ -1484,8 +2990,77 @@ export function scoreBehaviorRealUser(ctx: RankingContext): SubScore {
   });
 }
 
+/* ---------- behavior.ctr(25)—— 真实点击率 vs 预期(仅 Search Console;规格 v2 §4) ---------- */
+
 /**
- * behavior.task(25):40 × 答案前置占比(相关性分析的对)+ 30 × 内容页有下一步链接的占比
+ * 按名次的预期点击率(Backlinko 2023 CTR 研究;方法论页注明来源)。第 1–10 名逐位给值,>10 名 1.0%;
+ * 平均名次是小数(如 3.4),相邻两位之间线性插值,10–11 名之间插到 1.0% —— 不在 10.01 名处断崖。
+ */
+export const CTR_CURVE: readonly number[] = [0.276, 0.158, 0.11, 0.084, 0.063, 0.049, 0.039, 0.033, 0.027, 0.024];
+export const CTR_BEYOND_10 = 0.01;
+/** 曝光少于 50 的 query 点击率噪声太大,不算 */
+const CTR_MIN_IMPRESSIONS = 50;
+
+export function expectedCtr(position: number): number {
+  if (!finite(position) || position <= 1) return CTR_CURVE[0];
+  if (position >= 11) return CTR_BEYOND_10;
+  const lo = Math.floor(position);
+  const at = (p: number) => (p <= 10 ? CTR_CURVE[p - 1] : CTR_BEYOND_10);
+  return at(lo) + (at(lo + 1) - at(lo)) * (position - lo);
+}
+
+/** 规格 v2 §4:min(100, 85 × 实际点击 / 预期点击) */
+export function ctrPoints(ratio: number): number {
+  return Math.min(100, 85 * Math.max(0, ratio));
+}
+
+/**
+ * behavior.ctr(25):非品牌、曝光 ≥50 的 query,ratio = Σ 点击 / Σ(预期点击率 × 曝光);分 = min(100, 85 × ratio)。
+ * 证据列"丢掉的点击"最多的 3 个 query(曝光高、点击率又低的,改标题与描述收益最大)。没有 Search Console → null。
+ */
+export function scoreBehaviorCtr(ctx: RankingContext): SubScore {
+  const id = "behavior.ctr";
+  const gsc = ctx.input.gsc ?? null;
+  if (!gsc) {
+    return notMeasured(id, "connect Search Console", {
+      evidence: ["Click-through rates come only from your own Search Console data, which isn't connected to this report"],
+      fixes: ["Connect Search Console from this report to compare your real click-through rate with what your positions should earn"],
+    });
+  }
+  const rows = (gsc.queries ?? [])
+    .filter((q) => !!q && !q.brand && num(q.impressions) >= CTR_MIN_IMPRESSIONS && finite(q.position) && q.position > 0)
+    .map((q) => {
+      const exp = expectedCtr(q.position);
+      const expClicks = exp * num(q.impressions);
+      return { q, exp, expClicks, missed: expClicks - num(q.clicks) };
+    });
+  if (!rows.length) return notMeasured(id, `no non-brand query had ${CTR_MIN_IMPRESSIONS} or more impressions in the last 28 days`);
+  const clicks = rows.reduce((s, r) => s + num(r.q.clicks), 0);
+  const expected = rows.reduce((s, r) => s + r.expClicks, 0);
+  const ratio = expected > 0 ? clicks / expected : 0;
+  const worst = [...rows].filter((r) => r.missed > 0).sort((a, b) => b.missed - a.missed || a.q.query.localeCompare(b.q.query));
+  const ctrOf = (r: (typeof rows)[number]) => (num(r.q.impressions) > 0 ? num(r.q.clicks) / num(r.q.impressions) : 0);
+  const evidence = [
+    `${plural(rows.length, "non-brand query", "non-brand queries")} with ${CTR_MIN_IMPRESSIONS}+ impressions earned ${fmtInt(clicks)} clicks vs about ${fmtInt(expected)} expected for their positions (${pct01(ratio)}% of expected)`,
+    ...worst
+      .slice(0, 3)
+      .map((r) => `${quoteQuery(r.q.query)}: ${fmtInt(num(r.q.impressions))} impressions at position ${fmt1(r.q.position)}, ${fmt1(ctrOf(r) * 100)}% click-through vs ${fmt1(r.exp * 100)}% expected`),
+  ];
+  const fixes = worst
+    .slice(0, 2)
+    .map((r) => `Rewrite the title and meta description of the page ranking for ${quoteQuery(r.q.query)} — it shows ${fmtInt(num(r.q.impressions))} times in 28 days but earns ${fmtInt(num(r.q.clicks))} clicks`);
+  if (worst.length) fixes.push("Put the searcher's words and a concrete benefit (a number, a price, a free tool) in titles that rank but don't get clicked");
+  return measured(id, {
+    score: ctrPoints(ratio),
+    good: `Your pages earn ${pct01(ratio)}% of the clicks their positions should get`,
+    bad: `Your pages earn only ${pct01(ratio)}% of the clicks their positions should get — titles and snippets aren't winning the click`,
+    evidence,
+    fixes,
+  });
+}
+
+/**
+ * behavior.task(20):40 × 答案前置占比(相关性分析的对)+ 30 × 内容页有下一步链接的占比
  * + 15 × 文章页有 FAQ 的占比 + 15 × 无弹窗遮罩。
  * 某项没有分母(没有查询对 / 没有文章页)时按其余项重新归一,不把"没测"当 0。
  * 弹窗一项按"无弹窗线索的内容页占比"计:全站弹窗时与规格的 0/1 一致,只有个别页有零星线索时不至于一票否决。
@@ -1536,7 +3111,7 @@ export function fleschPoints(avg: number | null): number {
   return avg >= 60 ? 50 : avg >= 40 ? 35 : avg >= 30 ? 20 : 10;
 }
 
-/** behavior.readability(25):Flesch 50 + 段落长度 20 + 每个小标题对应词数 15 + 有列表 / 表格的占比 15 */
+/** behavior.readability(15):Flesch 50 + 段落长度 20 + 每个小标题对应词数 15 + 有列表 / 表格的占比 15 */
 export function scoreBehaviorReadability(ctx: RankingContext): SubScore {
   const id = "behavior.readability";
   const pages = ctx.contentPages;
@@ -1601,7 +3176,7 @@ function titleTopicCoverage(p: CrawledPage, brandWords: ReadonlySet<string>): nu
   return hit / want.size;
 }
 
-/** behavior.promise(20):100 − 标题党页占比 × 50 − 数字不兑现占比 × 30 − 标题主题不在开头与小标题里的占比 × 20 */
+/** behavior.promise(15):100 − 标题党页占比 × 50 − 数字不兑现占比 × 30 − 标题主题不在开头与小标题里的占比 × 20 */
 export function scoreBehaviorPromise(ctx: RankingContext): SubScore {
   const id = "behavior.promise";
   const pages = ctx.contentPages;
@@ -1634,7 +3209,7 @@ export function scoreBehaviorPromise(ctx: RankingContext): SubScore {
 }
 
 /* ============================================================
-   技术基础(10):与免费版 Technical SEO 同一套数字
+   技术基础(default 5):与免费版 Technical SEO 同一套数字
    ============================================================ */
 
 function issueOrder(c: SeoCheck): number {
@@ -1674,6 +3249,131 @@ export function scoreTechnicalSub(ctx: RankingContext, id: string): SubScore {
 }
 
 /* ============================================================
+   站点类型(规格 v2 §1):决定支柱权重
+   ============================================================ */
+
+/** schema.org LocalBusiness 及其常见子类型(小写比较;jsonLdTypes 含嵌套类型) */
+const LOCAL_BUSINESS_TYPES = new Set([
+  "localbusiness", "animalshelter", "automotivebusiness", "autobodyshop", "autodealer", "autopartsstore", "autorental", "autorepair",
+  "autowash", "gasstation", "motorcycledealer", "motorcyclerepair", "childcare", "dentist", "drycleaningorlaundry", "emergencyservice",
+  "hospital", "employmentagency", "entertainmentbusiness", "amusementpark", "artgallery", "casino", "comedyclub", "movietheater",
+  "nightclub", "financialservice", "accountingservice", "bankorcreditunion", "insuranceagency", "foodestablishment", "bakery",
+  "barorpub", "brewery", "cafeorcoffeeshop", "distillery", "fastfoodrestaurant", "icecreamshop", "restaurant", "winery",
+  "healthandbeautybusiness", "beautysalon", "dayspa", "hairsalon", "healthclub", "nailsalon", "tattooparlor",
+  "homeandconstructionbusiness", "electrician", "generalcontractor", "hvacbusiness", "housepainter", "locksmith", "movingcompany",
+  "plumber", "roofingcontractor", "legalservice", "attorney", "notary", "lodgingbusiness", "bedandbreakfast", "campground",
+  "hostel", "hotel", "motel", "resort", "vacationrental", "medicalbusiness", "medicalclinic", "optician", "pharmacy", "physician",
+  "physiotherapy", "professionalservice", "realestateagent", "recyclingcenter", "selfstorage", "shoppingcenter",
+  "sportsactivitylocation", "bowlingalley", "exercisegym", "golfcourse", "sportsclub", "store", "bikestore", "bookstore",
+  "clothingstore", "computerstore", "conveniencestore", "departmentstore", "electronicsstore", "florist", "furniturestore",
+  "gardenstore", "grocerystore", "hardwarestore", "hobbyshop", "homegoodsstore", "jewelrystore", "liquorstore", "mobilephonestore",
+  "musicstore", "petstore", "shoestore", "sportinggoodsstore", "tireshop", "toystore", "travelagency", "veterinarycare",
+]);
+const PRODUCT_SCHEMA = new Set(["product", "productgroup", "productmodel", "individualproduct", "someproducts"]);
+const OFFER_SCHEMA = new Set(["offer", "aggregateoffer"]);
+/**
+ * SaaS 常把 SoftwareApplication + Offer 放进全站布局(那是软件定价,不是在卖货):Offer 只在页面上没有软件类类型时
+ * 才算商品信号,否则每个 SaaS 都会被判成网店。Product 类型照规格直接算。
+ */
+const SOFTWARE_SCHEMA = new Set(["softwareapplication", "webapplication", "mobileapplication", "videogame"]);
+/** 规格:路径含 /product(s)/、/shop/、/collections/、/cart */
+const SHOP_PATH = /\/(?:products?|shop|collections)\/|\/cart(?:\/|$)/i;
+/** 购物车 / 结账入口(网店的硬信号;SaaS 的 /product/ 功能页没有它) */
+const CART_PATH = /\/(?:cart|basket|bag|checkout)(?:\/|$|\?)/i;
+/** overall.note 里"Scored as …"的说法 */
+const PROFILE_PHRASE: Record<SiteProfileId, string> = {
+  default: "a business, SaaS or publisher site",
+  ecommerce: "an online store",
+  local: "a local business",
+  ymyl: "a health, finance or legal site",
+};
+
+function lowerTypes(p: CrawledPage): string[] {
+  return (p.jsonLdTypes ?? []).map((t) => String(t).toLowerCase());
+}
+
+/** 页面上第一个 LocalBusiness 系类型(原样大小写,供 reason 展示);没有为 null */
+function localBusinessType(p: CrawledPage): string | null {
+  return (p.jsonLdTypes ?? []).find((t) => LOCAL_BUSINESS_TYPES.has(String(t).toLowerCase())) ?? null;
+}
+
+function hasCommerceSchema(p: CrawledPage): boolean {
+  const t = lowerTypes(p);
+  if (t.some((x) => PRODUCT_SCHEMA.has(x))) return true;
+  return t.some((x) => OFFER_SCHEMA.has(x)) && !t.some((x) => SOFTWARE_SCHEMA.has(x));
+}
+
+/**
+ * 站点类型(规格 v2 §1,可复现;多个命中按 ymyl > local > ecommerce > default):
+ * - ymyl:YMYL 内容页(isYmylPage)占内容页 ≥ 30%;
+ * - local:入口页或 ≥2 个可读页有 LocalBusiness 系 schema;或首页同时有地址与电话且 ≥30% 可读页有电话;
+ * - ecommerce:Product / Offer schema 出现在 ≥20% 可读页或 ≥5 页;或 classifyFormat = product 的页 ≥20%;
+ *   或路径含 /product(s)/、/shop/、/collections/、/cart 的页 ≥20%;
+ * - 其余 default(SaaS / 企业站 / 内容站)。
+ * 返回的 weights 是 SITE_PROFILE_WEIGHTS 的副本(调用方改它不会污染常量)。
+ */
+export function detectSiteProfile(ctx: RankingContext): SiteProfile {
+  const make = (id: SiteProfileId, reason: string): SiteProfile => ({
+    id,
+    label: SITE_PROFILE_WEIGHTS[id].label,
+    reason: trimDot(reason),
+    weights: { ...SITE_PROFILE_WEIGHTS[id].weights },
+  });
+  const cp = ctx.contentPages;
+  const ymyl = cp.filter((p) => isYmylPage(contentOf(p)));
+  if (cp.length && ymyl.length / cp.length >= 0.3) {
+    return make("ymyl", `${ymyl.length} of ${cp.length} content pages (${pctOf(ymyl.length, cp.length)}%) cover health, money or legal topics, which Google holds to a stricter standard`);
+  }
+  const pages = ctx.readable;
+  const n = pages.length;
+  const homeType = ctx.home ? localBusinessType(ctx.home) : null;
+  if (homeType) return make("local", `Your homepage is marked up as a local business (${homeType} structured data)`);
+  const localPages = pages.filter((p) => localBusinessType(p) !== null);
+  if (localPages.length >= 2) {
+    return make("local", `${localPages.length} pages are marked up as a local business (${localBusinessType(localPages[0])} structured data on ${paths(localPages.map((p) => p.url), 2)})`);
+  }
+  // 只认 LocalBusiness 系结构化数据(站长 2026-10-02):"首页有地址 + 多数页面有电话"会把页脚写着公司地址与
+  // 客服电话的 SaaS 判成本地商家 —— 头部写着 "Scored as: Local business" 比少给本地商家一点权重更伤信任
+  if (n) {
+    const schema = pages.filter(hasCommerceSchema).length;
+    if (schema >= 5 || schema / n >= 0.2) return make("ecommerce", `${schema} of ${n} pages we read carry product or offer structured data`);
+    // SaaS 也常有 /product/ 功能页:没有商品结构化数据时,还要看到购物车 / 结账入口才算网店
+    const sells = schema > 0 || pages.some((p) => (p.links ?? []).some((l) => CART_PATH.test(pathOnly(l))));
+    if (sells) {
+      const products = pages.filter((p) => classifyFormat(p) === "product").length;
+      if (products / n >= 0.2) return make("ecommerce", `${products} of ${n} pages we read are product pages, and the site has a cart or checkout`);
+      const shop = pages.filter((p) => SHOP_PATH.test(pathOnly(p.url))).length;
+      if (shop / n >= 0.2) return make("ecommerce", `${shop} of ${n} pages we read sit under /products/, /shop/ or /collections/, and the site has a cart or checkout`);
+    }
+  }
+  return make("default", "No strong signs of an online store, a local business or a health, finance or legal site, so the standard weights apply");
+}
+
+/**
+ * 站点类型对个别小维度权重的覆盖(SITE_PROFILE_SUB_WEIGHTS;例:本地商家的 authority.reputation = 25):
+ * 被覆盖的小维度取新权重,同支柱其余小维度按原比例压缩,支柱内权重合计不变;压缩后的权重保留 1 位小数,
+ * 支柱分就用这组展示出来的权重计算(UI 上看到的权重与算分用的是同一组数)。
+ */
+export function applyProfileSubWeights(subs: SubScore[], profileId: SiteProfileId): SubScore[] {
+  const over = SITE_PROFILE_SUB_WEIGHTS[profileId];
+  if (!over || !Object.keys(over).length) return subs;
+  const out = subs.map((s) => ({ ...s }));
+  for (const pillar of PILLAR_IDS) {
+    const mine = out.filter((s) => s.pillar === pillar);
+    const hit = mine.filter((s) => finite(over[s.id]));
+    if (!hit.length) continue;
+    const total = mine.reduce((n, s) => n + s.weight, 0);
+    const fixed = hit.reduce((n, s) => n + over[s.id], 0);
+    const rest = mine.filter((s) => !finite(over[s.id]));
+    const restTotal = rest.reduce((n, s) => n + s.weight, 0);
+    const scale = restTotal > 0 ? Math.max(0, total - fixed) / restTotal : 0;
+    for (const s of hit) s.weight = over[s.id];
+    for (const s of rest) s.weight = Math.round(s.weight * scale * 10) / 10;
+  }
+  return out;
+}
+
+/* ============================================================
    拼装
    ============================================================ */
 
@@ -1683,17 +3383,32 @@ export const SUB_SCORERS: Readonly<Record<string, (ctx: RankingContext) => SubSc
   "relevance.coverage": scoreRelevanceCoverage,
   "relevance.gain": scoreRelevanceGain,
   "relevance.alignment": scoreRelevanceAlignment,
+  "relevance.cannibalization": scoreRelevanceCannibalization,
   "quality.experience": scoreQualityExperience,
   "quality.data": scoreQualityData,
   "quality.authorship": scoreQualityAuthorship,
   "quality.freshness": scoreQualityFreshness,
   "quality.scaled": scoreQualityScaled,
+  "quality.sources": scoreQualitySources,
   "authority.editorial": scoreAuthorityEditorial,
   "authority.breadth": scoreAuthorityBreadth,
+  "authority.linkprofile": scoreAuthorityLinkProfile,
   "authority.clusters": scoreAuthorityClusters,
+  "authority.focus": scoreAuthorityFocus,
   "authority.internal": scoreAuthorityInternal,
   "authority.entity": scoreAuthorityEntity,
+  "authority.reputation": scoreAuthorityReputation,
+  "winnability.serpweakness": scoreWinnabilitySerpWeakness,
+  "winnability.difficulty": scoreWinnabilityDifficulty,
+  "winnability.gap": scoreWinnabilityGap,
+  "winnability.striking": scoreWinnabilityStriking,
+  "winnability.momentum": scoreWinnabilityMomentum,
+  "aisearch.overview": scoreAiSearchOverview,
+  "aisearch.crawlers": scoreAiSearchCrawlers,
+  "aisearch.citability": scoreAiSearchCitability,
+  "aisearch.zeroclick": scoreAiSearchZeroClick,
   "behavior.realuser": scoreBehaviorRealUser,
+  "behavior.ctr": scoreBehaviorCtr,
   "behavior.task": scoreBehaviorTask,
   "behavior.readability": scoreBehaviorReadability,
   "behavior.promise": scoreBehaviorPromise,
@@ -1701,10 +3416,17 @@ export const SUB_SCORERS: Readonly<Record<string, (ctx: RankingContext) => SubSc
 };
 
 /** 支柱分 = 有分小维度按权重加权平均(null 不进分母);全是 null → null */
+/**
+ * 支柱分 = 有分小维度按权重加权平均(null 不进分母)。至少要有 MIN_MEASURED_SUBS 个小维度测到才算分
+ * (站长 2026-10-02):只剩一个小维度时,那一个数会被放大成整个支柱的结论 —— 例如对比没跑成时,
+ * 相关性支柱会只由"一个意图一页"撑着,常常是 100。技术支柱不走这里(直接取免费技术分)。
+ */
+export const MIN_MEASURED_SUBS = 2;
+
 export function weightedPillarScore(subs: SubScore[]): number | null {
   const scored = subs.filter((s) => typeof s.score === "number");
   const w = scored.reduce((n, s) => n + s.weight, 0);
-  if (!scored.length || w <= 0) return null;
+  if (scored.length < MIN_MEASURED_SUBS || w <= 0) return null;
   return clampScore(scored.reduce((n, s) => n + s.weight * (s.score as number), 0) / w);
 }
 
@@ -1716,29 +3438,50 @@ function pillarSummary(id: PillarId, score: number | null, subs: SubScore[], ctx
       : `Same as your Technical SEO score: ${score}/100 across 7 technical areas`;
   }
   const done = subs.filter((s) => typeof s.score === "number");
-  if (score === null || !done.length) return `Not measured: none of its ${subs.length} sub-scores had data for this site`;
+  if (score === null || !done.length) {
+    return done.length
+      ? `Not measured: only ${done.length} of its ${subs.length} sub-scores had data — too little to score the pillar`
+      : `Not measured: none of its ${subs.length} sub-scores had data for this site`;
+  }
   const weakest = [...done].sort((a, b) => (a.score as number) - (b.score as number) || (SUB_ORDER.get(a.id) ?? 0) - (SUB_ORDER.get(b.id) ?? 0))[0];
   const tail = done.length < subs.length ? ` (${done.length} of ${subs.length} sub-scores measured)` : "";
-  if ((weakest.score as number) >= 85) return `Strong across the board — every measured sub-score is 85 or higher${tail}`;
+  const top = (weakest.score as number) >= 85;
+  // 两个新支柱用各自的"作用"来说话:可赢性回答"打不打得赢",AI 搜索回答"排上去还有没有点击"
+  if (id === "winnability") {
+    if (top) return `These look like fights you can win — every measured sub-score is 85 or higher${tail}`;
+    if (score >= 70) return `Mostly winnable fights; the weakest spot is ${weakest.label} at ${weakest.score}/100${tail}`;
+    return `Some of your target searches are hard to win today — mainly ${weakest.label} at ${weakest.score}/100${tail}`;
+  }
+  if (id === "aisearch") {
+    if (top) return `Your rankings should still earn visits and AI citations — every measured sub-score is 85 or higher${tail}`;
+    if (score >= 70) return `Rankings should still earn visits; the weakest spot is ${weakest.label} at ${weakest.score}/100${tail}`;
+    return `AI answers and search features may take the visits your rankings would earn — mainly ${weakest.label} at ${weakest.score}/100${tail}`;
+  }
+  if (top) return `Strong across the board — every measured sub-score is 85 or higher${tail}`;
   if (score >= 70) return `Solid overall; the weakest spot is ${weakest.label} at ${weakest.score}/100${tail}`;
   return `Held back mainly by ${weakest.label} at ${weakest.score}/100${tail}`;
 }
 
 /**
- * 计算 SEO Ranking Score(规格 §4)。纯函数:同一输入永远得到同一输出,不修改输入。
- * 总分 = Σ 支柱权重 × 支柱分 / Σ 有分支柱的权重;免费版有致命项时总分 ≤40、等级 F、capped。
+ * 计算 SEO Ranking Score(规格 §4 + v2)。纯函数:同一输入永远得到同一输出,不修改输入。
+ * 站点类型决定支柱权重(与个别小维度权重);总分 = Σ 支柱权重 × 支柱分 / Σ 有分支柱的权重;
+ * 免费版有致命项时总分 ≤40、等级 F、capped(v1 规则不变)。
  */
 export function computeRanking(input: RankingInput): RankingFramework {
   const ctx = buildRankingContext(input);
-  const subs = RANKING_SUBS.map((m) => SUB_SCORERS[m.id](ctx));
+  const profile = detectSiteProfile(ctx);
+  const subs = applyProfileSubWeights(
+    RANKING_SUBS.map((m) => SUB_SCORERS[m.id](ctx)),
+    profile.id,
+  );
 
-  const pillars: PillarScore[] = PILLAR_ORDER.map((id) => {
+  const pillars: PillarScore[] = PILLAR_IDS.map((id) => {
     const meta = RANKING_PILLARS[id];
     const mine = subs.filter((s) => s.pillar === id);
     // 技术支柱直接取免费技术分(含致命项封顶),两处永远是同一个数字;等级也沿用免费版(封顶时是 F 而不是 40 分对应的 D)
     const score = id === "technical" ? clampScore(num(input.technical?.score)) : weightedPillarScore(mine);
     const grade: Grade | null = id === "technical" ? (input.technical?.grade ?? gradeFor(score as number)) : score === null ? null : gradeFor(score);
-    return { id, label: meta.label, role: meta.role, weight: meta.weight, score, grade, summary: trimDot(pillarSummary(id, score, mine, ctx)), subs: mine };
+    return { id, label: meta.label, role: meta.role, weight: profile.weights[id], score, grade, summary: trimDot(pillarSummary(id, score, mine, ctx)), subs: mine };
   });
 
   const scored = pillars.filter((p) => typeof p.score === "number");
@@ -1754,15 +3497,27 @@ export function computeRanking(input: RankingInput): RankingFramework {
 
   const nullSubs = subs.filter((s) => s.score === null);
   const blockerText = blockers.map((b) => checkTitle(b, "fail")).join("; ");
+  const basedOn = nullSubs.length
+    ? `Based on ${subs.length - nullSubs.length} of ${subs.length} sub-scores — ${nullSubs.length} could not be measured`
+    : `Based on all ${subs.length} sub-scores`;
+  const scoredAs = profile.id === "default" ? "" : `Scored as ${PROFILE_PHRASE[profile.id]}`;
   const note = capped
-    ? `Capped at ${GATE_OVERALL_CAP} (grade F): fix the technical blockers first — ${blockerText}`
-    : nullSubs.length
-      ? `Based on ${subs.length - nullSubs.length} of ${subs.length} sub-scores — ${nullSubs.length} could not be measured`
-      : `Based on all ${subs.length} sub-scores`;
+    ? `Capped at ${GATE_OVERALL_CAP} (grade F): fix the technical blockers first — ${blockerText}${scoredAs ? `. ${scoredAs}` : ""}`
+    : scoredAs
+      ? `${scoredAs}; ${basedOn.charAt(0).toLowerCase()}${basedOn.slice(1)}`
+      : basedOn;
 
   const notes: string[] = [];
   if (capped) notes.push(`Overall score capped at ${GATE_OVERALL_CAP} because the technical audit found critical blockers: ${blockerText}. Fix the technical blockers first — nothing else counts while they stand`);
-  for (const p of pillars) if (p.score === null) notes.push(`${p.label} is left out of the overall score: none of its sub-scores could be measured`);
+  for (const p of pillars) {
+    if (p.score !== null) continue;
+    const measuredSubs = p.subs.filter((x) => typeof x.score === "number").length;
+    notes.push(
+      measuredSubs
+        ? `${p.label} is left out of the overall score: only ${measuredSubs} of its sub-scores could be measured (a pillar needs at least ${MIN_MEASURED_SUBS})`
+        : `${p.label} is left out of the overall score: none of its sub-scores could be measured`
+    );
+  }
   for (const s of nullSubs) notes.push(`${s.label} — ${s.summary}`);
   const gain = subs.find((s) => s.id === "relevance.gain");
   if (gain && gain.score !== null && ctx.pairs.length && !ctx.pairs.some((p) => (p.competitors ?? []).some((c) => c.fetched))) {
@@ -1771,18 +3526,53 @@ export function computeRanking(input: RankingInput): RankingFramework {
 
   const fetchedCompetitors = new Set<string>();
   for (const p of ctx.pairs) for (const c of p.competitors ?? []) if (c.fetched && c.url) fetchedCompetitors.add(urlKey(c.url));
+  const targets = Array.isArray(input.targetKeywords) ? input.targetKeywords : (input.relevance?.targetKeywords ?? []);
+  const basis: RankingFramework["basis"] = {
+    pagesAnalyzed: ctx.readable.length,
+    contentPages: ctx.contentPages.length,
+    queries: ctx.pairs.map((p) => ({ query: p.query, url: p.url, position: p.position ?? null, volume: p.volume ?? null, intent: p.intent, source: p.source ?? "ranking" })),
+    competitorsCompared: fetchedCompetitors.size,
+    targetKeywords: uniq(targets.filter((k): k is string => typeof k === "string" && !!k.trim()).map((k) => k.trim())),
+    gscConnected: !!input.gsc,
+  };
+  // 主题聚焦的 sitemap 部分存进 basis:之后接入 / 断开 Search Console 时不重抓也能逐字复现这一分
+  const sitemapFocus = sitemapFocusOf(ctx);
+  if (sitemapFocus) basis.sitemapFocus = sitemapFocus;
 
   return {
-    version: 1,
+    version: 2,
     overall: { score, grade, capped, note },
     pillars,
-    basis: {
-      pagesAnalyzed: ctx.readable.length,
-      contentPages: ctx.contentPages.length,
-      queries: ctx.pairs.map((p) => ({ query: p.query, url: p.url, position: p.position ?? null, volume: p.volume ?? null, intent: p.intent })),
-      competitorsCompared: fetchedCompetitors.size,
-    },
-    relevance: input.relevance ?? null,
+    basis,
+    relevance: relevanceWithWeakSpots(input.relevance ?? null, ownDomainRank(input), ctx.now),
+    profile,
     notes,
   };
+}
+
+/**
+ * 只换 Search Console 数据、从已存的完整版结果重算 Ranking Score(接入 / 断开 Search Console 时立即刷新分数,不重抓)。
+ * 纯函数:除 gsc / now 外,一切输入都取自 result 本身 —— 相关性对与目标词取自上次的 ranking,
+ * 主题聚焦的 sitemap 部分取自 basis.sitemapFocus。没有 ranking 或不是完整版 → null。
+ */
+export function recomputeRankingFromResult(result: SeoAuditResult, overrides: { gsc: GscData | null; now?: Date }): RankingFramework | null {
+  const prev = result?.ranking;
+  if (!prev || result.plan !== "full") return null;
+  return computeRanking({
+    domain: result.domain,
+    pages: Array.isArray(result.pages) ? result.pages : [],
+    probe: result.probe,
+    psi: result.psi ?? { mobile: null, desktop: null },
+    checks: Array.isArray(result.checks) ? result.checks : [],
+    dimensions: Array.isArray(result.dimensions) ? result.dimensions : [],
+    technical: { score: result.overall.score, grade: result.overall.grade, blockers: result.meta?.blockers ?? [] },
+    authority: result.authority ?? null,
+    visibility: result.visibility ?? null,
+    relevance: prev.relevance ?? null,
+    reputation: result.reputation ?? null,
+    gsc: overrides.gsc ?? null,
+    sitemapFocus: prev.basis?.sitemapFocus,
+    targetKeywords: prev.basis?.targetKeywords,
+    now: overrides.now,
+  });
 }

@@ -58,7 +58,9 @@ const SITEMAP_FILES = MAX_SITEMAP_CANDIDATES + MAX_SITEMAP_CHILDREN;
  * - 前 DEFAULT_MAX_SERP 个查询各取 Google 前 DEFAULT_COMPETITORS 个自然结果(URL 去重),
  *   每个主机先取一次 robots.txt(读不到按 RFC 9309 视为禁止、跳过),按 Crawl-delay 调整同主机间隔,
  *   再 GET 一次(8 s、2 MB,与 fetch.ts 的默认值相同),全局并发 CONCURRENCY;
- * - 付费重跑沿用上次的竞品 URL(不再查 SERP),但会重新抓这些页面。
+ * - 付费重跑沿用上次的竞品 URL(不再查 SERP,只有站长新加的目标词例外),但会重新抓这些页面。
+ * v2 起 SERP 由 3 个查询加到 DEFAULT_MAX_SERP 个;品牌声誉的两次搜索与 Search Console 都不访问任何网站
+ * (前者是 DataForSEO 的搜索接口,后者是 Google 的 API),这页如实写明,免得站长在日志里找不到对应请求。
  * 数字直接取自 relevance.ts 的导出常量 —— 那边一改,这页自动跟着变(复审 C36)。
  */
 const RANKING_OWN_FETCHES_MAX = MAX_TARGET_FETCHES;
@@ -234,7 +236,14 @@ export default function BotPage() {
             <p className="mt-3 text-xs leading-relaxed text-ink/45">
               So if one of your pages ranks for a query an audited site cares about, you may see one request for it plus
               your robots.txt — nothing else on your site. A re-run of that paid report fetches the same pages again
-              without a new search. Blocking AEOeyeBot in robots.txt stops it.
+              without a new search, unless the site&rsquo;s owner has added a new target keyword. Blocking AEOeyeBot in
+              robots.txt stops it.
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-ink/45">
+              Two parts of a full report send no request to any website. The brand-reputation check is two Google searches
+              run through DataForSEO — the audited site&rsquo;s brand name, and the name plus &ldquo;reviews&rdquo;. Search
+              Console data, read only when the audited site&rsquo;s owner connects it, comes from Google&rsquo;s API.
+              Neither shows up as AEOeyeBot in anyone&rsquo;s logs.
             </p>
           </div>
         </section>

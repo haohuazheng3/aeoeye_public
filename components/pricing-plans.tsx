@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
+import { PILLAR_IDS, RANKING_SUBS } from "@/lib/seo-audit/types";
 
 /**
  * 三档定价:免费审计 + $29 一次性完整 AI 可见度报告 + $10 一次性完整 SEO 报告(2026-09-30 新增)。
@@ -61,11 +62,13 @@ export function PricingPlans() {
         onClick={toSeoAudit}
         features={[
           "Free: technical score across 7 dimensions, top issues",
-          // v3:完整版的新总分 —— 5 个支柱、25 个小维度,与排名前 5 的页面逐项对比
-          "SEO Ranking Score: 5 pillars, 25 sub-scores",
-          "Your pages vs the top 5 Google results",
+          // 完整版的新总分 —— 支柱数 / 小维度数取自类型层常量(v2 = 7 / 40),与排名前 5 的页面逐项对比。
+          // 这是客户端组件:只许 import types.ts,不能为了"查询数"去引 relevance.ts(会把服务端代码打进浏览器包)
+          `SEO Ranking Score: ${PILLAR_IDS.length} pillars, ${RANKING_SUBS.length} sub-scores`,
+          "Your pages vs the top 5 Google results, AI Overviews included",
           "Every check with evidence and page-level fixes",
-          "Backlinks, rankings and competitors (DataForSEO)",
+          "Backlinks, rankings, competitors and brand reputation",
+          "Your target keywords + optional Search Console data",
           "Roadmap, page table, free re-runs for 30 days",
         ]}
       />

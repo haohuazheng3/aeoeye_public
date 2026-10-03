@@ -1,0 +1,1 @@
+ALTER TABLE "seo_gsc_claims" ADD COLUMN "token" text;

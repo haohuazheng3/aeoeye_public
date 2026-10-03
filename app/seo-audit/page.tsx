@@ -4,7 +4,8 @@ import { ArrowRight, Check, Lock, Minus } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { SeoAuditForm } from "@/components/seo-audit/seo-audit-form";
 import { DIMENSION_ICON } from "@/components/seo-audit/dimension-meta";
-import { PILLAR_ICON, PILLAR_ORDER, PillarName, subsOf } from "@/components/seo-audit/ranking-meta";
+import { PILLAR_ICON, PILLAR_ORDER, PROFILES_HREF, PillarName, pillarGridItemClass, subsOf } from "@/components/seo-audit/ranking-meta";
+import { DEFAULT_COMPETITORS, DEFAULT_MAX_SERP } from "@/lib/seo-audit/relevance";
 import { pageMeta, faqJsonLd, breadcrumbJsonLd, softwareJsonLd } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site";
 import {
@@ -16,13 +17,26 @@ import {
   SEO_GRADE_SCALE,
   RANKING_PILLARS,
   RANKING_SUBS,
+  SITE_PROFILE_WEIGHTS,
 } from "@/lib/seo-audit/types";
 
-/** 排名分的支柱与权重一句话("Relevance & search intent 30%, … and Technical foundation 10%");
- *  FAQ 正文与 FAQPage JSON-LD 共用,权重只在 types.ts 改一处 */
+/** 排名分的支柱与权重一句话("Relevance & search intent 25%; …; and Technical foundation 5%");
+ *  FAQ 正文与 FAQPage JSON-LD 共用,权重只在 types.ts 改一处。
+ *  用分号分隔:支柱名 "Authority, links & reputation" 自带逗号,逗号列表会读串 */
 const PILLAR_WEIGHTS = (() => {
   const parts = PILLAR_ORDER.map((p) => `${RANKING_PILLARS[p].label} ${RANKING_PILLARS[p].weight}%`);
-  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+  return `${parts.slice(0, -1).join("; ")}; and ${parts[parts.length - 1]}`;
+})();
+
+/** 其余三种站点类型的名称("online stores, local businesses and health, finance or legal sites") */
+const OTHER_PROFILES = "online stores, local businesses and health, finance or legal sites";
+/** 对比规模:查询数 × 每个查询的前几名 —— 直接取 relevance.ts 的默认值,那边一改这页跟着变 */
+const SERP_QUERIES = DEFAULT_MAX_SERP;
+const SERP_RESULTS = DEFAULT_COMPETITORS;
+/** 默认类型(SaaS / 企业 / 内容站)的显示名,来自类型层;只把首字母变小写("SaaS" 不能被压成 "saas") */
+const DEFAULT_PROFILE_LABEL = (() => {
+  const l = SITE_PROFILE_WEIGHTS.default.label;
+  return l.charAt(0).toLowerCase() + l.slice(1);
 })();
 
 /* ============================================================
@@ -45,7 +59,7 @@ const FAQS = [
   },
   {
     q: "What do I need to run it?",
-    a: "Just the URL. No account, no card, no Google Search Console access, no tag to install. We fetch your site the way a search crawler would, from the outside.",
+    a: "Just the URL. No account, no card, no tag to install — we fetch your site the way a search crawler would, from the outside. Google Search Console is optional and only for the full report: connect it (read-only) if you want your real clicks scored.",
   },
   {
     q: "Why is my score different from Lighthouse, Semrush or Ahrefs?",
@@ -57,18 +71,25 @@ const FAQS = [
   },
   {
     q: "What is the SEO Ranking Score?",
-    a: `A 0–100 score for whether your pages can win rankings, not just get crawled. It weights ${PILLAR_ORDER.length} pillars — ${PILLAR_WEIGHTS} — built from ${RANKING_SUBS.length} sub-scores, each traced to evidence on your pages, your backlinks and the top 5 Google results for up to 3 of your queries. No AI model grades anything: every rule is published, so the same site gets the same score twice. It comes with the full report; the free technical score is its fifth pillar.`,
+    a: `A 0–100 score for whether your pages can win rankings, not just get crawled. It weights ${PILLAR_ORDER.length} pillars — ${PILLAR_WEIGHTS} for a ${DEFAULT_PROFILE_LABEL}, re-weighted for ${OTHER_PROFILES} — built from ${RANKING_SUBS.length} sub-scores. Each one is traced to evidence: your pages, your backlinks, what Google shows for your brand, and the top ${SERP_RESULTS} Google results (AI Overviews included) for up to ${SERP_QUERIES} queries, starting with up to 3 target keywords you choose. Connect Google Search Console (read-only, optional) and click-through, momentum and keyword cannibalization are scored from your real clicks instead of estimated. No AI model grades anything: every rule is published, so the same site gets the same score twice. It comes with the full report; the free technical score is its technical-foundation pillar.`,
   },
   {
     q: "What does the $10 full report include, and is there a subscription?",
-    a: `One-time, per report, no subscription and no account needed. It adds the SEO Ranking Score — ${PILLAR_ORDER.length} pillars and ${RANKING_SUBS.length} sub-scores, with your pages compared against the pages that rank above them — and unlocks the evidence and fix for every check, a page-by-page table, the prioritised roadmap, authority and backlinks, ranked keywords with quick wins, top-5 competitors (all via DataForSEO), desktop PageSpeed, JSON export and 30 days of re-runs.`,
+    a: `One-time, per report, no subscription and no account needed. It adds the SEO Ranking Score — ${PILLAR_ORDER.length} pillars and ${RANKING_SUBS.length} sub-scores, with your pages compared against the pages that rank above them — and unlocks the evidence and fix for every check, a page-by-page table, the prioritised roadmap, authority and backlinks, ranked keywords with quick wins, top-5 competitors and your brand's reputation (all via DataForSEO), desktop PageSpeed, JSON export and 30 days of re-runs. You can add up to 3 target keywords before or after paying; connecting Search Console needs a free sign-in so the data stays tied to your account.`,
   },
 ];
 
 const FREE_VS_FULL: { label: string; free: string | boolean; full: string | boolean }[] = [
   { label: "Technical SEO score, grade and 7 dimension scores", free: true, full: true },
   { label: `SEO Ranking Score: ${PILLAR_ORDER.length} pillars, ${RANKING_SUBS.length} sub-scores, each with evidence and fixes`, free: false, full: true },
-  { label: "Your pages vs the top 5 Google results for up to 3 of your queries", free: false, full: true },
+  {
+    label: `Your pages vs the top ${SERP_RESULTS} Google results for up to ${SERP_QUERIES} queries — AI Overviews, featured snippets and People also ask`,
+    free: false,
+    full: true,
+  },
+  { label: "Up to 3 target keywords you choose, compared first", free: false, full: true },
+  { label: "Brand reputation: your brand's Google results, review sites and mentions", free: false, full: true },
+  { label: "Search Console (optional, read-only): real clicks, CTR vs expected, momentum", free: false, full: true },
   { label: "Every check listed with pass / warn / fail", free: true, full: true },
   { label: "Top 3 issues with full evidence and fix", free: true, full: true },
   { label: "Evidence + fix for all critical and high checks", free: "up to 8", full: "all" },
@@ -164,7 +185,8 @@ export default function SeoAuditLanding() {
           Off-site dimensions are scored separately and never change your technical score.
         </p>
 
-        {/* SEO Ranking Score(完整版):五个支柱 + 权重 + 作用;技术分就是第 5 支柱,一句话交代两个分数的关系 */}
+        {/* SEO Ranking Score(完整版):七个支柱 + 默认权重 + 作用;技术分就是技术支柱,一句话交代两个分数的关系。
+            权重随站点类型变 —— 卡片下方一句话 + 链到方法论页的权重表 */}
         <div className="card mt-10 min-w-0 p-6 sm:p-8">
           <div className="relative z-10 min-w-0">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -177,15 +199,17 @@ export default function SeoAuditLanding() {
               Can your pages win the ranking? {PILLAR_ORDER.length} pillars, {RANKING_SUBS.length} sub-scores.
             </h3>
             <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-ink/55">
-              Your pages compared with the top 5 Google results for up to 3 of your queries, scored by published rules — no AI
-              grading, so the same site gets the same score twice. The technical score above is the fifth pillar.
+              Your pages compared with the top {SERP_RESULTS} Google results for up to {SERP_QUERIES} queries — your own
+              target keywords first — plus AI Overviews, your brand&rsquo;s reputation and, if you connect it, your Search
+              Console data. Scored by published rules — no AI grading, so the same site gets the same score twice. The
+              technical score above is its technical-foundation pillar.
             </p>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              {PILLAR_ORDER.map((p) => {
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-12">
+              {PILLAR_ORDER.map((p, i) => {
                 const meta = RANKING_PILLARS[p];
                 const Icon = PILLAR_ICON[p];
                 return (
-                  <div key={p} className="surface min-w-0 p-4">
+                  <div key={p} className={`surface p-4 ${pillarGridItemClass(i, PILLAR_ORDER.length)}`}>
                     <div className="flex items-center justify-between gap-2">
                       <Icon className="h-3.5 w-3.5 shrink-0 text-iris" />
                       <span className="rounded-full bg-ink/[0.05] px-2 py-0.5 text-[11px] font-semibold tabular-nums text-ink/55">
@@ -201,9 +225,17 @@ export default function SeoAuditLanding() {
                 );
               })}
             </div>
+            <p className="mt-4 text-xs leading-relaxed text-ink/45">
+              Weights shown are for a {DEFAULT_PROFILE_LABEL}. {OTHER_PROFILES.charAt(0).toUpperCase() + OTHER_PROFILES.slice(1)}{" "}
+              are scored with their own weights —{" "}
+              <Link href={PROFILES_HREF} className="font-medium text-iris hover:underline">
+                see the table
+              </Link>
+              .
+            </p>
             <Link
               href="/seo-audit/how-we-score#ranking-score"
-              className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-iris hover:underline"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-iris hover:underline"
             >
               Every pillar and sub-score, explained <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -277,15 +309,20 @@ export default function SeoAuditLanding() {
                     <Link href="/bot" className="text-iris hover:underline">
                       AEOeyeBot
                     </Link>
-                    ). The full report also reads the top-ranking pages for up to 3 of your queries.
+                    ). The full report also reads the top-ranking pages for up to {SERP_QUERIES} of your queries.
                   </li>
                   <li>
                     <span className="font-medium text-ink">Google PageSpeed Insights</span> — real-user Core Web Vitals (CrUX
                     p75) plus a single Lighthouse run.
                   </li>
                   <li>
-                    <span className="font-medium text-ink">DataForSEO</span> — backlinks, ranked keywords, competitors and the
-                    Google results for those queries, full report only.
+                    <span className="font-medium text-ink">DataForSEO</span> — backlinks, ranked keywords, competitors, the
+                    Google results for those queries (AI Overviews included) and two searches for your brand, full report
+                    only.
+                  </li>
+                  <li>
+                    <span className="font-medium text-ink">Google Search Console</span> — optional, full report only: read-only
+                    clicks, impressions and positions once you connect it.
                   </li>
                 </ul>
                 <Link href="/seo-audit/how-we-score" className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-iris hover:underline">
@@ -352,8 +389,9 @@ export default function SeoAuditLanding() {
             <Link href="/" className="font-medium text-iris hover:underline">
               run the free AI visibility audit
             </Link>
-            . It also does not render JavaScript, read your Search Console, or crawl your whole site: it samples{" "}
-            {FREE_CRAWL_PAGES} pages and says so on every page-level check.
+            . It also does not render JavaScript or crawl your whole site: it samples {FREE_CRAWL_PAGES} pages and says so
+            on every page-level check. It reads your Search Console only if you connect it to a full report, and only
+            with read-only access.
           </p>
         </div>
       </section>

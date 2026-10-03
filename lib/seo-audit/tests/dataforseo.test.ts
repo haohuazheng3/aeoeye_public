@@ -271,15 +271,20 @@ test("fetchVisibility maps overview/ranked/site: SERP and computes brand, AI Ove
   assert.deepEqual(v.positions, { pos1: 42, pos2_3: 170, pos4_10: 1512, pos11_20: 2705, pos21_50: 5346, pos51_100: 1850 });
   assert.deepEqual(v.movement, { isNew: 9698, isUp: 1117, isDown: 627, isLost: 1948 });
   assert.equal(v.topKeywords.length, 3);
-  assert.deepEqual(v.topKeywords[0], {
-    keyword: "1000 keywords",
-    position: 1,
-    volume: 40,
-    etv: 12.15999984741211,
-    url: "https://dataforseo.com/free-seo-stats/top-1000-keywords",
-    intent: "informational",
-    cpc: null,
-  });
+  // v1 字段原样不变(v4 字段另见下面的 mapKeyword 测试)
+  const { keyword, position, volume, etv, url, intent, cpc } = v.topKeywords[0];
+  assert.deepEqual(
+    { keyword, position, volume, etv, url, intent, cpc },
+    {
+      keyword: "1000 keywords",
+      position: 1,
+      volume: 40,
+      etv: 12.15999984741211,
+      url: "https://dataforseo.com/free-seo-stats/top-1000-keywords",
+      intent: "informational",
+      cpc: null,
+    }
+  );
   assert.deepEqual(v.quickWins, []); // 三个词都在第 1 位
   assert.equal(v.brandKeywords, 0);
   assert.equal(v.nonBrandKeywords, 11625);
@@ -382,13 +387,16 @@ test("fetchCompetitors: empty items → noData", async () => {
 });
 
 /* ---------------- v3 · SERP top results ---------------- */
+// v4:fetchSerpTop 改为 fetchSerpAdvanced 的薄封装(同价)—— 端点从 live/regular 换成 live/advanced。
+// regular 与 advanced 的 organic 条目结构相同,所以下面仍用录自沙盒的 regular fixture 测解析规则。
+const SERP_ADVANCED = "serp/google/organic/live/advanced";
 
 test("fetchSerpTop: Google US/en, depth 10, sandbox base URL; organic items mapped in rank order", async () => {
-  const calls = installFetch({ "serp/google/organic/live/regular": fixture("dfs-serp-organic") });
+  const calls = installFetch({ [SERP_ADVANCED]: fixture("dfs-serp-organic") });
   const items = await dfs.fetchSerpTop("  best   aeo tools ");
 
   assert.equal(calls.length, 1);
-  assert.ok(calls[0].url.startsWith("https://sandbox.dataforseo.com/v3/serp/google/organic/live/regular"), calls[0].url);
+  assert.ok(calls[0].url.startsWith(`https://sandbox.dataforseo.com/v3/${SERP_ADVANCED}`), calls[0].url);
   assert.deepEqual(calls[0].body, { keyword: "best aeo tools", location_code: 2840, language_code: "en", depth: 10 });
 
   // 沙盒回的是固定的 "pizza" SERP(10 条 organic)
@@ -424,7 +432,7 @@ test("fetchSerpTop: keeps organic items only and de-duplicates by URL (best posi
   r.items.push({ type: "organic", rank_absolute: 31, domain: "late.example", url: "https://late.example/page", title: "Late" });
   // 非 http(s) 链接不要
   r.items.push({ type: "organic", rank_group: 12, rank_absolute: 32, domain: "x", url: "ftp://files.example/x", title: "FTP" });
-  installFetch({ "serp/google/organic/live/regular": fx });
+  installFetch({ [SERP_ADVANCED]: fx });
 
   const items = await dfs.fetchSerpTop("best aeo tools", { depth: 20 });
   assert.equal(items.length, 11);
@@ -435,7 +443,7 @@ test("fetchSerpTop: keeps organic items only and de-duplicates by URL (best posi
 });
 
 test("fetchSerpTop: depth option is clamped and passed through; empty keyword makes no request", async () => {
-  const calls = installFetch({ "serp/google/organic/live/regular": fixture("dfs-serp-organic") });
+  const calls = installFetch({ [SERP_ADVANCED]: fixture("dfs-serp-organic") });
   await dfs.fetchSerpTop("aeo", { depth: 20 });
   await dfs.fetchSerpTop("aeo", { depth: 500 });
   assert.deepEqual(
@@ -450,21 +458,492 @@ test("fetchSerpTop: cost is booked per call; empty result → []; task error →
   const { SeoAuditError } = await import("../url");
   const fx = fixture("dfs-serp-organic");
   fx.tasks[0].cost = 0.002;
-  installFetch({ "serp/google/organic/live/regular": fx });
+  installFetch({ [SERP_ADVANCED]: fx });
   const { result, entries } = await costMod.withCostLedger(() => dfs.fetchSerpTop("best aeo tools"));
   assert.equal(result.length, 10);
   assert.equal(entries.length, 1);
-  assert.equal(entries[0].resource, "serp/google/organic/live/regular");
+  assert.equal(entries[0].resource, SERP_ADVANCED);
   assert.equal(entries[0].stage, "seo-audit");
   assert.equal(entries[0].usd, 0.002);
   mock.restoreAll();
 
-  installFetch({ "serp/google/organic/live/regular": envelope([{ items: null }]) });
+  installFetch({ [SERP_ADVANCED]: envelope([{ items: null }]) });
   assert.deepEqual(await dfs.fetchSerpTop("nothing ranks"), []);
   mock.restoreAll();
 
-  installFetch({ "serp/google/organic/live/regular": envelope(null, 0, 40501) });
+  installFetch({ [SERP_ADVANCED]: envelope(null, 0, 40501) });
   await assert.rejects(dfs.fetchSerpTop("x"), (e: unknown) => e instanceof SeoAuditError && e.code === "unreachable");
+});
+
+/* ---------------- v4 · advanced SERP 快照 ---------------- */
+// dfs-serp-advanced.json / dfs-serp-advanced-kg.json 录自免费沙盒(固定回 "pizza" 的 SERP,不含 AI 摘要);
+// dfs-serp-advanced-aio.json 是按官方文档的响应结构手写的(沙盒永远不回 ai_overview),文件里 _note 写明了。
+
+type SerpItem = Record<string, unknown>;
+const serpItems = (e: Envelope) => result0<{ items: SerpItem[] }>(e).items;
+
+test("fetchSerpAdvanced (sandbox): advanced endpoint, no load_async_ai_overview unless asked; organic, item types and PAA parsed", async () => {
+  const calls = installFetch({ [SERP_ADVANCED]: fixture("dfs-serp-advanced") });
+  const s = await dfs.fetchSerpAdvanced("  best   aeo tools ");
+
+  assert.equal(calls.length, 1);
+  assert.ok(calls[0].url.startsWith(`https://sandbox.dataforseo.com/v3/${SERP_ADVANCED}`), calls[0].url);
+  assert.deepEqual(calls[0].body, { keyword: "best aeo tools", location_code: 2840, language_code: "en", depth: 10 });
+  assert.equal("load_async_ai_overview" in (calls[0].body ?? {}), false, "the +$0.002 option is off by default");
+
+  assert.equal(s.organic.length, 10);
+  assert.deepEqual(s.organic[0], {
+    url: "https://www.tripadvisor.co.uk/Restaurants-g186338-c31-zfp19-London_England.html",
+    domain: "tripadvisor.co.uk",
+    position: 1,
+    title: "The Best Pizza Places Delivery in London",
+  });
+  assert.deepEqual(
+    s.organic.map((o) => o.position),
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "position = rank_group: the local pack and PAA do not take organic slots"
+  );
+  assert.equal(s.organic[7].domain, "facebook.com");
+  assert.deepEqual(s.itemTypes, ["find_results_on", "local_pack", "organic", "people_also_ask", "related_searches"]);
+  assert.deepEqual(s.paa, [
+    "What is the 2 hour rule for pizza?",
+    "Which is the best pizza in the UK?",
+    "What is the 3/8 pizza rule?",
+    "What are the top 10 types of pizza?",
+  ]);
+  assert.equal(s.aiOverview, null, "no ai_overview element → null, not an empty object");
+  assert.equal(s.featuredSnippet, null);
+  assert.equal(s.knowledgeGraph, false);
+  assert.deepEqual(s.ratings, []);
+
+  // fetchSerpTop 与它同端点、同解析:自然结果完全一致
+  mock.restoreAll();
+  installFetch({ [SERP_ADVANCED]: fixture("dfs-serp-advanced") });
+  assert.deepEqual(await dfs.fetchSerpTop("best aeo tools"), s.organic);
+});
+
+test("fetchSerpAdvanced (sandbox): loadAiOverview sends load_async_ai_overview: true; a SERP without an AI Overview stays null; knowledge graph detected", async () => {
+  const calls = installFetch({ [SERP_ADVANCED]: fixture("dfs-serp-advanced-kg") });
+  const s = await dfs.fetchSerpAdvanced("best aeo tools", { loadAiOverview: true });
+  assert.deepEqual(calls[0].body, { keyword: "best aeo tools", location_code: 2840, language_code: "en", depth: 10, load_async_ai_overview: true });
+  assert.equal(s.aiOverview, null, "asked for the async overview, but the SERP has none");
+  assert.equal(s.knowledgeGraph, true);
+  assert.deepEqual(s.itemTypes, ["find_results_on", "local_pack", "organic", "people_also_ask", "knowledge_graph", "google_reviews"]);
+  assert.equal(s.organic.length, 10);
+  assert.equal(s.organic[6].domain, "london.eater.com", "subdomains other than www. are kept");
+  assert.equal(s.paa.length, 4);
+
+  await dfs.fetchSerpAdvanced("best aeo tools", { loadAiOverview: false });
+  await dfs.fetchSerpAdvanced("best aeo tools", { depth: 20 });
+  assert.equal("load_async_ai_overview" in (calls[1].body ?? {}), false, "false is the same as absent");
+  assert.equal(calls[2].body?.depth, 20);
+  assert.equal("load_async_ai_overview" in (calls[2].body ?? {}), false);
+});
+
+test("fetchSerpAdvanced (documented shape): AI Overview references from the element and its nested items, de-duplicated, fragments stripped", async () => {
+  installFetch({ [SERP_ADVANCED]: fixture("dfs-serp-advanced-aio") });
+  const s = await dfs.fetchSerpAdvanced("what is answer engine optimization", { loadAiOverview: true });
+  assert.deepEqual(s.aiOverview, {
+    present: true,
+    loaded: true,
+    references: [
+      // 元素自身的 references(右侧来源卡片)在前
+      { domain: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Answer_engine" },
+      { domain: "search-notes.example", url: "https://www.search-notes.example/aeo/" },
+      // 再补子元素里的;wikipedia 重复的那条去掉;#:~:text= 片段去掉
+      { domain: "aeo-guide.example", url: "https://www.aeo-guide.example/what-is-aeo" },
+      // 展开组件(ai_overview_expanded_component)里的引用也算
+      { domain: "answers-lab.example", url: "https://answers-lab.example/blog/aeo-vs-seo" },
+    ],
+  });
+  assert.ok(
+    !s.aiOverview?.references.some((r) => r.url.includes("aeo-vs-seo") && r.domain === "search-notes.example"),
+    "the AI answer nested inside a PAA question is not part of the AI Overview's citations"
+  );
+  assert.deepEqual(s.paa, [
+    "What is an example of answer engine optimization?",
+    "Is AEO replacing SEO?",
+    "How do I get cited in Google AI Overviews?",
+    "What does AEO stand for in marketing?",
+  ]);
+  assert.deepEqual(s.itemTypes, ["ai_overview", "people_also_ask", "organic"]);
+  assert.deepEqual(
+    s.organic.map((o) => [o.position, o.domain]),
+    [
+      [1, "aeo-guide.example"],
+      [2, "en.wikipedia.org"],
+      [3, "reddit.com"],
+    ]
+  );
+  assert.equal(s.knowledgeGraph, false);
+  assert.equal(s.featuredSnippet, null);
+});
+
+test("fetchSerpAdvanced: an asynchronous AI Overview shell without content is present but not loaded; references capped at 10", async () => {
+  const shell = fixture("dfs-serp-advanced-aio");
+  serpItems(shell)[0] = { type: "ai_overview", rank_group: 1, rank_absolute: 1, asynchronous_ai_overview: true, markdown: null, items: null, references: null };
+  installFetch({ [SERP_ADVANCED]: shell });
+  const s = await dfs.fetchSerpAdvanced("what is answer engine optimization");
+  assert.deepEqual(s.aiOverview, { present: true, loaded: false, references: [] });
+  mock.restoreAll();
+
+  // 结果级 item_types 说有 AI 摘要、却没回元素(异步摘要没加载):同样是"在、但没加载",不是"没有"
+  const listedOnly = fixture("dfs-serp-advanced");
+  result0<{ item_types: string[] }>(listedOnly).item_types.push("ai_overview", "knowledge_graph");
+  installFetch({ [SERP_ADVANCED]: listedOnly });
+  const l = await dfs.fetchSerpAdvanced("pizza");
+  assert.deepEqual(l.aiOverview, { present: true, loaded: false, references: [] });
+  assert.equal(l.knowledgeGraph, true, "knowledgeGraph agrees with itemTypes");
+  assert.deepEqual(l.itemTypes.slice(-2), ["ai_overview", "knowledge_graph"]);
+  mock.restoreAll();
+
+  // 只有引用、没有文字的摘要也算加载了;引用最多 10 条,非 http(s) / 缺 URL 的跳过
+  const many = fixture("dfs-serp-advanced-aio");
+  serpItems(many)[0] = {
+    type: "ai_overview",
+    asynchronous_ai_overview: false,
+    markdown: null,
+    items: [],
+    references: [
+      { type: "ai_overview_reference", domain: null, url: null },
+      { type: "ai_overview_reference", domain: "x", url: "javascript:alert(1)" },
+      ...Array.from({ length: 14 }, (_, i) => ({ type: "ai_overview_reference", domain: `www.src${i}.example`, url: `https://www.src${i}.example/p` })),
+    ],
+  };
+  installFetch({ [SERP_ADVANCED]: many });
+  const m = await dfs.fetchSerpAdvanced("what is answer engine optimization");
+  assert.equal(m.aiOverview?.present, true);
+  assert.equal(m.aiOverview?.loaded, true);
+  assert.equal(m.aiOverview?.references.length, 10);
+  assert.deepEqual(m.aiOverview?.references[0], { domain: "src0.example", url: "https://www.src0.example/p" });
+});
+
+test("fetchSerpAdvanced: featured snippet, ratings normalised to a 5-point scale, organic de-dupe keeps the best rank_group, PAA ≤ 6", async () => {
+  const fx = fixture("dfs-serp-advanced");
+  const items = serpItems(fx);
+  const organic = items.filter((it) => it.type === "organic");
+  // 精选摘要(真实 SERP 里它在自然结果之上,不占自然名次)
+  items.unshift({
+    type: "featured_snippet",
+    rank_group: 1,
+    rank_absolute: 1,
+    domain: "www.bbcgoodfood.com",
+    title: "30 best pizza restaurants in London",
+    featured_title: "Best pizza in London",
+    url: "https://www.bbcgoodfood.com/travel/the-best-pizza-in-london",
+  });
+  // 评分:Max5 原样;Percents 92 → 4.6;CustomMax 8/10 → 4;超出满分的脏值丢弃;rating 为 null 的不列
+  organic[0].rating = { rating_type: "Max5", value: 4.5, votes_count: 1234, rating_max: 5 };
+  organic[1].rating = { rating_type: "Percents", value: 92, votes_count: null, rating_max: 100 };
+  organic[2].rating = { rating_type: "CustomMax", value: 8, votes_count: 50, rating_max: 10 };
+  organic[3].rating = { rating_type: "Max5", value: 7, votes_count: 3, rating_max: 5 };
+  // 同一页面再出现一次(末尾斜杠 + 片段),名次更靠后 → 只留第一条,评分也只算那一条
+  items.push({ ...organic[0], rank_group: 11, rank_absolute: 40, url: `${String(organic[0].url)}/#reviews`, rating: { rating_type: "Max5", value: 1, votes_count: 1, rating_max: 5 } });
+  // 第二个 PAA 块:与第一个重复的问题(大小写不同)去掉,总数封顶 6
+  items.push({
+    type: "people_also_ask",
+    rank_group: 2,
+    rank_absolute: 41,
+    items: ["WHAT IS THE 3/8 PIZZA RULE?", "Is pizza healthy?", "Who invented pizza?", "Why is pizza round?", "  Is   pizza Italian? "].map((title) => ({ type: "people_also_ask_element", title })),
+  });
+  installFetch({ [SERP_ADVANCED]: fx });
+  const s = await dfs.fetchSerpAdvanced("pizza");
+
+  assert.deepEqual(s.featuredSnippet, { domain: "bbcgoodfood.com", url: "https://www.bbcgoodfood.com/travel/the-best-pizza-in-london" });
+  assert.equal(s.itemTypes[0], "featured_snippet");
+  assert.equal(s.organic.length, 10, "the duplicate is collapsed");
+  assert.equal(s.organic.filter((o) => o.domain === "tripadvisor.co.uk").length, 1);
+  assert.deepEqual(s.ratings, [
+    { domain: "tripadvisor.co.uk", url: "https://www.tripadvisor.co.uk/Restaurants-g186338-c31-zfp19-London_England.html", value: 4.5, votes: 1234 },
+    { domain: "pizzapilgrims.co.uk", url: "https://www.pizzapilgrims.co.uk/", value: 4.6, votes: null },
+    { domain: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Pizza", value: 4, votes: 50 },
+  ]);
+  assert.deepEqual(s.paa, [
+    "What is the 2 hour rule for pizza?",
+    "Which is the best pizza in the UK?",
+    "What is the 3/8 pizza rule?",
+    "What are the top 10 types of pizza?",
+    "Is pizza healthy?",
+    "Who invented pizza?",
+  ]);
+});
+
+test("fetchSerpAdvanced: blank keyword is free; '+' and '%' are escaped; search operators are neutralised (5× price); cost booked; errors throw", async () => {
+  const { SeoAuditError } = await import("../url");
+  const fx = fixture("dfs-serp-advanced");
+  fx.tasks[0].cost = 0.002;
+  const calls = installFetch({ [SERP_ADVANCED]: fx });
+
+  assert.deepEqual(await dfs.fetchSerpAdvanced("   "), {
+    organic: [],
+    itemTypes: [],
+    aiOverview: null,
+    featuredSnippet: null,
+    paa: [],
+    knowledgeGraph: false,
+    ratings: [],
+  });
+  assert.deepEqual((await dfs.fetchSerpAdvanced(null as unknown as string)).organic, []);
+  assert.equal(calls.length, 0, "blank keyword → no request, no charge");
+  const before = calls.length;
+
+  await dfs.fetchSerpAdvanced("C++ vs Rust: 100% honest");
+  assert.equal(calls[before].body?.keyword, "C%2B%2B vs Rust: 100%25 honest", "DataForSEO decodes %## and turns '+' into a space");
+  await dfs.fetchSerpAdvanced("best crm site:reddit.com intitle:review");
+  assert.equal(calls[before + 1].body?.keyword, "best crm site reddit.com intitle review");
+  await dfs.fetchSerpAdvanced("x".repeat(900));
+  assert.equal(String(calls[before + 2].body?.keyword).length, 700, "keyword capped at 700 characters");
+  await dfs.fetchSerpAdvanced("pizza", { depth: Number.NaN });
+  assert.equal(calls[before + 3].body?.depth, 10, "a junk depth falls back to one page");
+  mock.restoreAll();
+
+  installFetch({ [SERP_ADVANCED]: fx });
+  const { result, entries } = await costMod.withCostLedger(() => dfs.fetchSerpAdvanced("pizza", { loadAiOverview: true }));
+  assert.equal(result.organic.length, 10);
+  assert.deepEqual(
+    entries.map((e) => [e.resource, e.usd, e.stage]),
+    [[SERP_ADVANCED, 0.002, "seo-audit"]]
+  );
+  mock.restoreAll();
+
+  installFetch({ [SERP_ADVANCED]: envelope([{ items: null }]) });
+  const empty = await dfs.fetchSerpAdvanced("nothing here");
+  assert.deepEqual(empty.organic, []);
+  assert.equal(empty.aiOverview, null);
+  mock.restoreAll();
+
+  installFetch({ [SERP_ADVANCED]: envelope(null, 0, 40501) });
+  await assert.rejects(dfs.fetchSerpAdvanced("x"), (e: unknown) => e instanceof SeoAuditError && e.code === "unreachable");
+});
+
+/* ---------------- v4 · keyword_overview ---------------- */
+
+const KW_OVERVIEW = "dataforseo_labs/google/keyword_overview/live";
+
+test("fetchKeywordOverview (sandbox): one Labs request with include_serp_info; maps volume, KD, intent, SERP types, top-10 authority, trend; missing keywords → nulls", async () => {
+  // 沙盒不管问什么都回 "phone" 和 "watch" 两个词
+  const calls = installFetch({ [KW_OVERVIEW]: fixture("dfs-keyword-overview") });
+  const rows = await dfs.fetchKeywordOverview(["phone", "  Watch ", "best aeo tools"]);
+
+  assert.equal(calls.length, 1);
+  assert.ok(calls[0].url.startsWith(`https://sandbox.dataforseo.com/v3/${KW_OVERVIEW}`), calls[0].url);
+  assert.deepEqual(calls[0].body, {
+    keywords: ["phone", "watch", "best aeo tools"],
+    location_code: 2840,
+    language_code: "en",
+    include_serp_info: true,
+  });
+  assert.deepEqual(rows, [
+    {
+      keyword: "phone",
+      volume: 673000,
+      kd: 54,
+      intent: "informational",
+      serpItemTypes: ["organic", "people_also_ask", "ai_overview", "perspectives", "images", "related_searches"],
+      avgTopDomainRank: 688.7,
+      volumeTrend: { quarterly: 50, yearly: 50 },
+    },
+    {
+      keyword: "Watch",
+      volume: 550000,
+      kd: 54,
+      intent: "transactional",
+      serpItemTypes: ["local_pack", "people_also_ask", "product_considerations", "organic", "related_searches", "images"],
+      avgTopDomainRank: 470.7,
+      volumeTrend: { quarterly: 0, yearly: 22 },
+    },
+    // 供应商数据库里没有的词:不回、不收钱 → 全部 null,SERP 类型为空
+    { keyword: "best aeo tools", volume: null, kd: null, intent: null, serpItemTypes: [], avgTopDomainRank: null, volumeTrend: null },
+  ]);
+});
+
+test("fetchKeywordOverview: empty input is free; ≤10 keywords per request; duplicates collapse; over-long keywords are not sent; cost booked; errors throw", async () => {
+  const { SeoAuditError } = await import("../url");
+  const calls = installFetch({ [KW_OVERVIEW]: fixture("dfs-keyword-overview") });
+  assert.deepEqual(await dfs.fetchKeywordOverview([]), []);
+  assert.deepEqual(await dfs.fetchKeywordOverview(["", "   "]), []);
+  assert.deepEqual(await dfs.fetchKeywordOverview(null as unknown as string[]), []);
+  assert.equal(calls.length, 0, "nothing to look up → no request, no charge");
+
+  const twelve = Array.from({ length: 12 }, (_, i) => `keyword ${i}`);
+  const tooLong = "a".repeat(81);
+  const tooManyWords = "one two three four five six seven eight nine ten eleven";
+  const rows = await dfs.fetchKeywordOverview(["Phone", "phone", "PHONE ", tooLong, tooManyWords, ...twelve]);
+  assert.equal(calls.length, 1);
+  const sent = calls[0].body?.keywords as string[];
+  assert.equal(sent.length, 10, "one request, at most 10 keywords");
+  assert.deepEqual(sent.slice(0, 2), ["phone", "keyword 0"], "duplicates collapse; >80 chars / >10 words are not sent");
+  assert.equal(rows.length, 15, "one row per distinct input keyword");
+  assert.equal(rows[0].keyword, "Phone");
+  assert.equal(rows[0].volume, 673000);
+  assert.equal(rows[1].keyword, tooLong);
+  assert.equal(rows[1].volume, null);
+  assert.deepEqual(rows[14], { keyword: "keyword 11", volume: null, kd: null, intent: null, serpItemTypes: [], avgTopDomainRank: null, volumeTrend: null });
+  mock.restoreAll();
+
+  const fx = fixture("dfs-keyword-overview");
+  fx.tasks[0].cost = 0.01224;
+  installFetch({ [KW_OVERVIEW]: fx });
+  const { entries } = await costMod.withCostLedger(() => dfs.fetchKeywordOverview(["phone", "watch"]));
+  assert.deepEqual(
+    entries.map((e) => [e.resource, e.usd]),
+    [[KW_OVERVIEW, 0.01224]]
+  );
+  mock.restoreAll();
+
+  installFetch({ [KW_OVERVIEW]: envelope(null, 0, 40501) });
+  await assert.rejects(dfs.fetchKeywordOverview(["phone"]), (e: unknown) => e instanceof SeoAuditError && e.code === "unreachable");
+});
+
+/* ---------------- v4 · bulk_ranks ---------------- */
+
+const BULK_RANKS = "backlinks/bulk_ranks/live";
+
+test("fetchBulkRanks (sandbox): one request of registrable domains (0–1000 scale), keyed by the domain as passed; unknown → null", async () => {
+  // 沙盒固定回 seopanel.org/blog/(28)、pedia.watcha.com(182)、dustyloft.com(156)
+  const calls = installFetch({ [BULK_RANKS]: fixture("dfs-bulk-ranks") });
+  const inputs = ["https://www.seopanel.org/blog/post-1", "pedia.watcha.com", "DustyLoft.com", "www.dustyloft.com", "unknown-site.example"];
+  const ranks = await dfs.fetchBulkRanks(inputs);
+
+  assert.equal(calls.length, 1);
+  assert.ok(calls[0].url.startsWith(`https://sandbox.dataforseo.com/v3/${BULK_RANKS}`), calls[0].url);
+  assert.deepEqual(calls[0].body, {
+    targets: ["seopanel.org", "watcha.com", "dustyloft.com", "unknown-site.example"],
+    rank_scale: "one_thousand",
+  });
+  assert.deepEqual(ranks, {
+    "https://www.seopanel.org/blog/post-1": 28,
+    "pedia.watcha.com": 182,
+    "DustyLoft.com": 156,
+    "www.dustyloft.com": 156,
+    "unknown-site.example": null,
+  });
+});
+
+test("fetchBulkRanks: empty input is free; ≤30 distinct domains; junk hosts never sent; hosting-platform subdomains kept; rank 0 is a real value; errors throw", async () => {
+  const { SeoAuditError } = await import("../url");
+  const calls = installFetch({
+    [BULK_RANKS]: envelope([
+      {
+        items_count: 3,
+        items: [
+          { target: "news.example.co.uk", rank: 0 },
+          { target: "alice.github.io", rank: 12 },
+          { target: "wikipedia.org", rank: 950 },
+        ],
+      },
+    ]),
+  });
+  assert.deepEqual(await dfs.fetchBulkRanks([]), {});
+  assert.deepEqual(await dfs.fetchBulkRanks(["", "  "]), {});
+  assert.equal(calls.length, 0, "nothing to look up → no request, no charge");
+
+  const many = Array.from({ length: 35 }, (_, i) => `site${i}.example`);
+  const junk = ["localhost", "10.0.0.1", "not a domain", "http://"];
+  const ranks = await dfs.fetchBulkRanks(["https://en.wikipedia.org/wiki/Pizza", "www.news.example.co.uk", "alice.github.io", ...junk, ...many]);
+  assert.equal(calls.length, 1);
+  const targets = calls[0].body?.targets as string[];
+  assert.equal(targets.length, 30, "one request, at most 30 domains");
+  assert.deepEqual(targets.slice(0, 4), ["wikipedia.org", "example.co.uk", "alice.github.io", "site0.example"]);
+  assert.equal(ranks["https://en.wikipedia.org/wiki/Pizza"], 950);
+  assert.equal(ranks["www.news.example.co.uk"], 0, "rank 0 = measured, no backlinks — not 'unknown'");
+  assert.equal(ranks["alice.github.io"], 12, "a github.io site is its own site, not github.io");
+  for (const j of junk) assert.equal(ranks[j], null, j);
+  assert.equal(targets[29], "site26.example", "the 30th domain is the last one sent");
+  assert.ok(!targets.includes("site27.example"));
+  assert.equal(ranks["site27.example"], null, "beyond the 30-domain cap → null");
+  assert.equal(Object.keys(ranks).length, 3 + junk.length + many.length, "every input gets a key");
+  mock.restoreAll();
+
+  installFetch({ [BULK_RANKS]: envelope(null, 0, 40501) });
+  await assert.rejects(dfs.fetchBulkRanks(["a.example"]), (e: unknown) => e instanceof SeoAuditError && e.code === "unreachable");
+});
+
+/* ---------------- v4 · ranked_keywords 补字段(mapKeyword) ---------------- */
+
+test("mapKeyword (v4): KD, SERP item types, top-10 authority, rank change, page links, volume trend come from the same ranked_keywords response", async () => {
+  const calls = installFetch(VIS_ROUTES());
+  const v = await dfs.fetchVisibility("aeoeye.com");
+  assert.equal(calls.length, 3, "no extra request for the v4 fields");
+
+  const [first, second, third] = v.topKeywords;
+  assert.equal(first.kd, 15);
+  assert.deepEqual(first.serpItemTypes, ["ai_overview", "organic", "people_also_ask", "video", "discussions_and_forums", "related_searches"]);
+  assert.ok(first.serpItemTypes?.includes("ai_overview"));
+  assert.equal(first.avgTopDomainRank, 448.9);
+  assert.equal(first.avgTopReferringDomains, 1214.8);
+  assert.deepEqual(first.rankChange, { previous: 1, isNew: false, isUp: false, isDown: true });
+  assert.equal(first.pageReferringDomains, 4);
+  assert.equal(first.pageRank, 64);
+  assert.deepEqual(first.volumeTrend, { quarterly: -80, yearly: -80 });
+  assert.equal(first.isFeaturedSnippet, false);
+
+  assert.equal(second.kd, 6);
+  assert.deepEqual(second.rankChange, { previous: 3, isNew: false, isUp: true, isDown: false });
+  assert.equal(second.pageReferringDomains, 80);
+  assert.deepEqual(second.volumeTrend, { quarterly: 100, yearly: -60 });
+
+  // 页面没有外链记录(backlinks_info: null)→ null(没测),不冒充 0;新上榜的词没有上一次名次
+  assert.equal(third.kd, 0);
+  assert.equal(third.pageReferringDomains, null);
+  assert.equal(third.pageRank, 0);
+  assert.deepEqual(third.rankChange, { previous: null, isNew: true, isUp: false, isDown: false });
+});
+
+test("mapKeyword (v4): missing blocks become null / [] rather than throwing; KD falls back to ranked_serp_element; featured-snippet flag", async () => {
+  installFetch({
+    "domain_rank_overview/live": fixture("dfs-domain-rank-overview"),
+    "ranked_keywords/live": envelope([
+      {
+        items: [
+          {
+            keyword_data: { keyword: "bare keyword", keyword_info: { search_volume: 90 } },
+            ranked_serp_element: { serp_item: { rank_group: 4, url: "https://aeoeye.com/a" } },
+          },
+          {
+            keyword_data: { keyword: "fallbacks", keyword_properties: { keyword_difficulty: null }, keyword_info: { search_volume_trend: { monthly: 5 } } },
+            ranked_serp_element: {
+              keyword_difficulty: 140,
+              serp_item_types: ["featured_snippet", " organic ", "featured_snippet"],
+              serp_item: { type: "organic", rank_group: 1, is_featured_snippet: true, rank_changes: {} },
+            },
+          },
+        ],
+      },
+    ]),
+    "serp/google/organic/live/regular": fixture("dfs-serp-site"),
+  });
+  const v = await dfs.fetchVisibility("aeoeye.com");
+  const [bare, fb] = v.topKeywords;
+  assert.deepEqual(
+    {
+      kd: bare.kd,
+      serpItemTypes: bare.serpItemTypes,
+      avgTopDomainRank: bare.avgTopDomainRank,
+      avgTopReferringDomains: bare.avgTopReferringDomains,
+      rankChange: bare.rankChange,
+      pageReferringDomains: bare.pageReferringDomains,
+      pageRank: bare.pageRank,
+      volumeTrend: bare.volumeTrend,
+      isFeaturedSnippet: bare.isFeaturedSnippet,
+    },
+    {
+      kd: null,
+      serpItemTypes: [],
+      avgTopDomainRank: null,
+      avgTopReferringDomains: null,
+      rankChange: null,
+      pageReferringDomains: null,
+      pageRank: null,
+      volumeTrend: null,
+      isFeaturedSnippet: false,
+    }
+  );
+  assert.equal(fb.kd, 100, "falls back to ranked_serp_element.keyword_difficulty, clamped to 0–100");
+  assert.deepEqual(fb.serpItemTypes, ["featured_snippet", "organic"]);
+  assert.deepEqual(fb.rankChange, { previous: null, isNew: false, isUp: false, isDown: false });
+  assert.equal(fb.volumeTrend, null, "only a monthly figure → no quarterly/yearly trend");
+  assert.equal(fb.isFeaturedSnippet, true);
 });
 
 /* ---------------- failures, cost ledger, base URL ---------------- */

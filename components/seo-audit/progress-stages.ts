@@ -1,5 +1,5 @@
 import type { SeoAuditStage } from "@/lib/seo-audit/types";
-import { ONSITE_DIMENSIONS, RANKING_PILLARS, RANKING_SUBS } from "@/lib/seo-audit/types";
+import { ONSITE_DIMENSIONS, PILLAR_IDS, RANKING_SUBS } from "@/lib/seo-audit/types";
 
 /* ============================================================
    进度页的阶段逻辑(纯函数,SeoProgress 用;单独成文件好在 node 里直接验)。
@@ -50,15 +50,16 @@ const STATUS: Record<SeoAuditStage, string> = {
   verifying: "Checking sitemap samples, links and images",
   authority: "Desktop PageSpeed, authority and backlinks",
   visibility: "Search visibility and ranked keywords",
-  competitors: "Competitors and page-one comparison",
+  competitors: "Competitors, page-one comparison and brand reputation",
   scoring: "Scoring and picking top issues",
   done: "Finishing up",
 };
 
 function scoringLabel(paid: boolean): string {
-  // 完整版的头条是 v3 SEO Ranking Score(5 个支柱 / 25 个小维度);免费版仍是 7 个站内维度的技术分
+  // 完整版的头条是 SEO Ranking Score(支柱数 / 小维度数取自类型层常量,v2 = 7 / 40);
+  // 已连接 Search Console 的报告在这一步把真实点击并进计分。免费版仍是 7 个站内维度的技术分
   return paid
-    ? `Computing your SEO Ranking Score (${Object.keys(RANKING_PILLARS).length} pillars, ${RANKING_SUBS.length} sub-scores) and fix roadmap`
+    ? `Computing your SEO Ranking Score (${PILLAR_IDS.length} pillars, ${RANKING_SUBS.length} sub-scores, with Search Console data if connected) and fix roadmap`
     : `Scoring ${ONSITE_DIMENSIONS.length} dimensions and picking top issues`;
 }
 
@@ -85,7 +86,13 @@ export function stageRows(paid: boolean): StageRow[] {
     to: st,
     label: STATUS[st],
   }));
-  if (paid) rows.push({ id: "paid", from: "authority", to: "competitors", label: "Desktop PageSpeed, authority, rankings, competitors and page-one comparison" });
+  if (paid)
+    rows.push({
+      id: "paid",
+      from: "authority",
+      to: "competitors",
+      label: "Desktop PageSpeed, authority, rankings, competitors, page-one comparison and brand reputation",
+    });
   rows.push({ id: "scoring", from: "scoring", to: "scoring", label: scoringLabel(paid) });
   return rows;
 }

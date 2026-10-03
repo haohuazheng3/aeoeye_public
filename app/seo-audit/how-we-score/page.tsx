@@ -12,24 +12,44 @@ import {
   SEO_GRADE_SCALE,
   RANKING_PILLARS,
   RANKING_SUBS,
+  SITE_PROFILE_WEIGHTS,
   type PillarId,
   type SignalConfidence,
+  type SiteProfileId,
 } from "@/lib/seo-audit/types";
-import { CONFIDENCE_ORDER, ConfidenceBadge, PILLAR_ICON, PILLAR_ORDER, PillarName, subMeasures, subsOf } from "@/components/seo-audit/ranking-meta";
+import {
+  CONFIDENCE_ORDER,
+  ConfidenceBadge,
+  CTR_SOURCE,
+  EXPECTED_CTR,
+  GSC_PRIVACY_LINE,
+  PILLAR_ICON,
+  PILLAR_ORDER,
+  PROFILE_ORDER,
+  PROFILE_RULE,
+  PillarName,
+  pillarWeightRange,
+  subMeasures,
+  subsOf,
+  subWeightOverrides,
+} from "@/components/seo-audit/ranking-meta";
+import { DEFAULT_COMPETITORS, DEFAULT_MAX_SERP } from "@/lib/seo-audit/relevance";
 
 /* ============================================================
    /seo-audit/how-we-score —— 评分模型全文公开。
    一个分数只有在阈值可查、来源可查时才值得信;这页就是那张"可查"的表。
    所有数字与 lib/seo-audit/types.ts 及 V2-1 评分规则保持一致;改规则先改这里的说明。
-   v3:新增 #ranking-score 一节 —— SEO Ranking Score 的五支柱、权重、每个小维度测什么、
+   v3:新增 #ranking-score 一节 —— SEO Ranking Score 的支柱、权重、每个小维度测什么、
    可信度标签、技术门槛与诚实的局限(规格 docs/design/seo-ranking-score-spec.md §4)。
-   报告里的 "How we score" 链接指向这个锚点,id 不能改。
+   v4(规格 v2):七个支柱 / 40 个小维度;#ranking-profiles 站点类型权重表(直接由 SITE_PROFILE_WEIGHTS 渲染);
+   #ctr-curve 预期点击率曲线与来源;#search-console 读什么、怎么绑定、隐私。
+   报告里的 "How we score"、"Scored as"、Search Console 卡都链到这些锚点,id 不能改。
    ============================================================ */
 
 export const metadata: Metadata = pageMeta({
   title: "How We Score — SEO Audit Methodology",
   description:
-    "Every weight and threshold behind the AEOeye technical SEO score and the SEO Ranking Score: dimension and pillar weights, every sub-score, severity weights, gate rules, Core Web Vitals thresholds, grade scale, data sources and limits.",
+    "Every weight and threshold behind the AEOeye technical SEO score and the SEO Ranking Score: dimension and pillar weights by site type, every sub-score, the expected click-through curve, Search Console access, severity weights, gate rules, Core Web Vitals thresholds, grade scale, data sources and limits.",
   path: "/seo-audit/how-we-score",
 });
 
@@ -41,19 +61,52 @@ const CONFIDENCE_DETAIL: Record<SignalConfidence, string> = {
   proxy: "Page traits standing in for user-behaviour data that Google doesn't share with anyone.",
 };
 
-/** 诚实的局限:排名分看不到什么、在哪里会偏 —— 与规格 §0 / §3 的做法逐条对应 */
+/** 对比规模直接取自 relevance.ts 的默认值(那边一改,这页跟着变) */
+const SERP_QUERIES = DEFAULT_MAX_SERP;
+const SERP_RESULTS = DEFAULT_COMPETITORS;
+
+/** 判型的先后顺序(多个命中时靠前者胜,规格 v2 §1:ymyl > local > ecommerce > default) */
+const PROFILE_PRECEDENCE: SiteProfileId[] = ["ymyl", "local", "ecommerce", "default"];
+
+/** 每种站点类型的权重合计 —— 表格末行照实算出来,不手写 100 */
+function profileTotal(id: SiteProfileId): number {
+  return PILLAR_ORDER.reduce((n, p) => n + SITE_PROFILE_WEIGHTS[id].weights[p], 0);
+}
+
+/** 小维度权重覆盖(本地商家的站外声誉 25%):从 SITE_PROFILE_SUB_WEIGHTS 推出来,不手写 */
+const SUB_OVERRIDES = RANKING_SUBS.flatMap((sub) =>
+  subWeightOverrides(sub.id).map((o) => ({
+    subId: sub.id,
+    subLabel: sub.label,
+    pillarLabel: RANKING_PILLARS[sub.pillar].label,
+    defaultWeight: sub.weight,
+    profile: o.profile,
+    profileLabel: o.label,
+    weight: o.weight,
+  }))
+);
+
+/** 诚实的局限:排名分看不到什么、在哪里会偏 —— 与规格 §0 / §3 / v2 §3 的做法逐条对应 */
 const RANKING_LIMITS: { title: string; body: string }[] = [
   {
-    title: "Behaviour is scored through page traits",
-    body: "Google doesn't share clicks, dwell time or returns to the results page. Apart from real Chrome UX Report data, the User satisfaction pillar scores the traits that drive satisfaction — an early answer, a next step, readable text, titles that keep their promise — and labels those sub-scores Proxy.",
+    title: "Behaviour is partly scored through page traits",
+    body: "Google doesn't share dwell time or returns to the results page. The User satisfaction pillar uses real Chrome UX Report data and — once you connect Search Console — your real click-through; the rest scores the traits that drive satisfaction (an early answer, a next step, readable text, titles that keep their promise) and is labelled Proxy.",
   },
   {
     title: "Comparisons are a sample",
-    body: "Up to 3 of your queries × the top 5 organic Google results (US, English). Pages that block AEOeyeBot in robots.txt or don't load are skipped and shown as not fetched.",
+    body: `Up to ${SERP_QUERIES} queries × the top ${SERP_RESULTS} organic Google results (US, English), read once at the time of the run. Pages that block AEOeyeBot in robots.txt or don't load are skipped and shown as not fetched.`,
   },
   {
-    title: "Queries come from your rankings",
-    body: "Non-brand first, highest search volume, one per page. A site with no ranking data is compared on the topics of its homepage and two most-linked content pages instead.",
+    title: "Your keywords first, then your rankings",
+    body: "Up to 3 target keywords you add come first, then keywords you already rank for — non-brand first, highest search volume, one per page. A site with no ranking data is compared on the topics of its homepage and most-linked content pages instead.",
+  },
+  {
+    title: "AI Overviews change from search to search",
+    body: "We read one US result page per query. An AI Overview can appear, disappear or cite different sources an hour later, so treat it as a snapshot, not a verdict.",
+  },
+  {
+    title: "Reputation is what Google shows",
+    body: "Brand reputation reads page one for your brand and for your brand plus “reviews”. Review sites Google doesn't surface there aren't counted.",
   },
   {
     title: "Subtopics are matched by wording, not meaning",
@@ -65,7 +118,7 @@ const RANKING_LIMITS: { title: string; body: string }[] = [
   },
   {
     title: "A model, not a forecast",
-    body: "It measures the factors that decide rankings; it doesn't predict positions and doesn't see your Search Console data.",
+    body: "It measures the factors that decide rankings; it doesn't predict positions. Without Search Console it can't see your real clicks: click-through isn't scored and momentum falls back to ranking changes.",
   },
 ];
 
@@ -103,7 +156,8 @@ export default function HowWeScorePage() {
           <a href="#ranking-score" className="text-iris hover:underline">
             SEO Ranking Score
           </a>{" "}
-          in the full report builds four more pillars on top of it. Here is every number that goes into both.
+          in the full report builds {PILLAR_ORDER.length - 1} more pillars on top of it. Here is every number that goes into
+          both.
         </p>
       </header>
 
@@ -319,12 +373,22 @@ export default function HowWeScorePage() {
               </li>
               <li>
                 <span className="font-medium text-ink">DataForSEO</span> (full report): backlink summary and anchors,
-                ranked keywords (Google US, English), competitor domains, and the top 10 organic results for up to 3 of
-                your queries. Traffic and index figures are estimates.
+                ranked keywords (Google US, English) with their difficulty and result-page features, competitor domains,
+                the top 10 organic results — with AI Overview, featured snippet and People also ask — for up to{" "}
+                {SERP_QUERIES} of your queries, the domain rank of the sites that rank, and two searches for your brand.
+                Traffic and index figures are estimates.
               </li>
               <li>
-                <span className="font-medium text-ink">Top-ranking pages</span> (full report): the top 5 results for each
-                of those queries, fetched once each by our crawler as raw HTML, robots.txt respected.
+                <span className="font-medium text-ink">Top-ranking pages</span> (full report): the top {SERP_RESULTS} results
+                for each of those queries, fetched once each by our crawler as raw HTML, robots.txt respected.
+              </li>
+              <li>
+                <span className="font-medium text-ink">Google Search Console</span> (full report, optional): read-only
+                search analytics for the property you connect —{" "}
+                <a href="#search-console" className="text-iris hover:underline">
+                  see below
+                </a>
+                .
               </li>
             </ul>
           </div>
@@ -341,47 +405,99 @@ export default function HowWeScorePage() {
           <p className="mt-3 text-ink/65">
             The technical score asks whether Google can crawl and index you. The Ranking Score asks whether your pages can
             win the ranking: {PILLAR_ORDER.length} pillars and {RANKING_SUBS.length} sub-scores, each 0–100 and traced to
-            evidence on your pages, your backlinks and the pages that rank today. No AI model grades anything — every
-            sub-score is a rule published below, so the same site gets the same score twice.
+            evidence on your pages, your backlinks, your brand&rsquo;s search results and the pages that rank today. No AI
+            model grades anything — every sub-score is a rule published below, so the same site gets the same score twice.
           </p>
         </div>
 
         <div className="mt-8 grid gap-4 lg:grid-cols-2">
-          {/* 支柱与权重 + 合成公式 */}
-          <section className="card min-w-0 p-6 sm:p-7" aria-labelledby="ranking-weights">
+          {/* 站点类型 × 支柱权重(直接由 SITE_PROFILE_WEIGHTS 渲染)+ 判型规则 + 小维度权重覆盖 */}
+          <section
+            id="ranking-profiles"
+            className="card min-w-0 scroll-mt-28 p-6 sm:p-7 lg:col-span-2"
+            aria-labelledby="ranking-weights"
+          >
             <div className="relative z-10 min-w-0">
               <h3 id="ranking-weights" className="font-display text-xl font-semibold tracking-tight">
-                Pillars and weights
+                Pillars and weights by type of site
               </h3>
-              <p className="mt-1.5 text-sm text-ink/55">
-                Score = Σ(pillar score × weight) ÷ Σ(weights of scored pillars). Inside a pillar, sub-scores roll up the
-                same way.
+              <p className="mt-1.5 max-w-3xl text-sm text-ink/55">
+                Score = Σ(pillar score × weight) ÷ Σ(weights of scored pillars); inside a pillar, sub-scores roll up the
+                same way. An online store lives or dies on its technical health, a local business on its reviews, a health
+                or money site on trust — so the weights follow the type of site, and the report says which one it used
+                (&ldquo;Scored as&rdquo;).
               </p>
-              <table className="mt-4 w-full text-sm">
-                <thead>
-                  <tr className="border-b border-ink/[0.06]">
-                    <Th>Pillar</Th>
-                    <Th right>Weight</Th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PILLAR_ORDER.map((p) => (
-                    <tr key={p} className="border-b border-ink/[0.05] last:border-0">
-                      <td className="py-2 pr-3">
-                        <a href={`#pillar-${p}`} className="text-ink/80 hover:text-iris">
-                          <PillarName label={RANKING_PILLARS[p].label} />
-                        </a>
-                        <span className="mt-0.5 block text-xs leading-relaxed text-ink/45">{RANKING_PILLARS[p].role}</span>
-                      </td>
-                      <td className="py-2 text-right align-top font-medium tabular-nums">{RANKING_PILLARS[p].weight}%</td>
+              <div className="mt-4 min-w-0 overflow-x-auto">
+                <table className="w-full min-w-[640px] text-sm">
+                  <thead>
+                    <tr className="border-b border-ink/[0.06]">
+                      <Th>Pillar</Th>
+                      {PROFILE_ORDER.map((id) => (
+                        <Th key={id} right>
+                          {SITE_PROFILE_WEIGHTS[id].label}
+                        </Th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p className="mt-3 text-xs leading-relaxed text-ink/45">
-                A sub-score we can&rsquo;t measure shows as &ldquo;Not measured&rdquo; and its weight goes to the rest of its
-                pillar — it is never scored as zero. Grades use the same scale as the technical score.
-              </p>
+                  </thead>
+                  <tbody>
+                    {PILLAR_ORDER.map((p) => (
+                      <tr key={p} className="border-b border-ink/[0.05] last:border-0">
+                        <td className="py-2 pr-3">
+                          <a href={`#pillar-${p}`} className="text-ink/80 hover:text-iris">
+                            <PillarName label={RANKING_PILLARS[p].label} />
+                          </a>
+                          <span className="mt-0.5 block text-xs leading-relaxed text-ink/45">{RANKING_PILLARS[p].role}</span>
+                        </td>
+                        {PROFILE_ORDER.map((id) => (
+                          <td key={id} className="py-2 pr-3 text-right align-top font-medium tabular-nums">
+                            {SITE_PROFILE_WEIGHTS[id].weights[p]}%
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                    <tr className="border-t border-ink/[0.08]">
+                      <td className="py-2 pr-3 text-xs font-semibold uppercase tracking-[0.12em] text-ink/45">Total</td>
+                      {PROFILE_ORDER.map((id) => (
+                        <td key={id} className="py-2 pr-3 text-right text-xs font-semibold tabular-nums text-ink/55">
+                          {profileTotal(id)}%
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-6 grid gap-5 lg:grid-cols-2">
+                <div className="min-w-0">
+                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/45">How we pick the type</h4>
+                  <ul className="mt-2 space-y-2 text-sm leading-relaxed text-ink/65">
+                    {PROFILE_PRECEDENCE.map((id) => (
+                      <li key={id}>
+                        <span className="font-medium text-ink">{SITE_PROFILE_WEIGHTS[id].label}:</span> {PROFILE_RULE[id]}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-2 text-xs leading-relaxed text-ink/45">
+                    Checked in that order from the pages we crawl — the first match wins. Same pages, same type, every run.
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/45">Sub-score weights</h4>
+                  <ul className="mt-2 space-y-2 text-sm leading-relaxed text-ink/65">
+                    {SUB_OVERRIDES.map((o) => (
+                      <li key={`${o.profile}-${o.subId}`}>
+                        <span className="font-medium text-ink">{o.profileLabel}:</span> {o.subLabel} counts for {o.weight}% of
+                        the {o.pillarLabel} pillar instead of {o.defaultWeight}%; the pillar&rsquo;s other sub-scores shrink in
+                        proportion.
+                      </li>
+                    ))}
+                    <li>
+                      A sub-score we can&rsquo;t measure shows as &ldquo;Not measured&rdquo; and its weight goes to the rest
+                      of its pillar — it is never scored as zero. Grades use the same scale as the technical score.
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -411,6 +527,122 @@ export default function HowWeScorePage() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-3 text-xs leading-relaxed text-ink/45">
+                A label can change with the data behind it: One page per intent, for example, is Estimated from your pages
+                and Measured once Search Console shows which pages share a query.
+              </p>
+            </div>
+          </section>
+
+          {/* 预期点击率曲线(behavior.ctr 的基准)+ 来源 */}
+          <section id="ctr-curve" className="card min-w-0 scroll-mt-28 p-6 sm:p-7" aria-labelledby="ctr-curve-title">
+            <div className="relative z-10 min-w-0">
+              <h3 id="ctr-curve-title" className="font-display text-xl font-semibold tracking-tight">
+                Expected click-through by position
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink/55">
+                The yardstick for <span className="font-medium text-ink/75">Click-through vs. expected</span>: the share of
+                searchers who click an organic result at each Google position.
+              </p>
+              <ul className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-6">
+                {EXPECTED_CTR.map((r) => (
+                  <li key={r.position} className="surface p-2.5 text-center">
+                    <p className="text-[11px] font-semibold text-ink/45">#{r.position}</p>
+                    <p className="mt-0.5 font-display text-sm font-semibold tabular-nums text-ink">{r.ctr.toFixed(1)}%</p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm leading-relaxed text-ink/65">
+                For non-brand queries with 50+ impressions, expected clicks = impressions × the rate at the query&rsquo;s
+                average position, interpolated between positions. Score = 85 × your clicks ÷ expected clicks, capped at
+                100 — matching the curve scores 85. Brand queries are left out: people searching your name click you
+                anyway.
+              </p>
+              <p className="mt-3 text-xs leading-relaxed text-ink/45">
+                Source:{" "}
+                <a href={CTR_SOURCE.url} target="_blank" rel="noopener noreferrer" className="text-iris hover:underline">
+                  {CTR_SOURCE.label}
+                </a>
+                . Real curves shift with the query and the layout of the result page, so read it as a yardstick: matching
+                it is good, not perfect.
+              </p>
+            </div>
+          </section>
+
+          {/* Search Console:读什么、怎么绑定、隐私(连接卡与报告里的链接都指向这里) */}
+          <section
+            id="search-console"
+            className="card min-w-0 scroll-mt-28 p-6 sm:p-7 lg:col-span-2"
+            aria-labelledby="search-console-title"
+          >
+            <div className="relative z-10 min-w-0">
+              <h3 id="search-console-title" className="font-display text-xl font-semibold tracking-tight">
+                Google Search Console (optional)
+              </h3>
+              <p className="mt-1.5 max-w-3xl text-sm text-ink/55">
+                Without it, three sub-scores are estimated or not measured. With it, they&rsquo;re measured from your real
+                search data: Click-through vs. expected, Ranking momentum and One page per intent.
+              </p>
+              <div className="mt-5 grid gap-6 lg:grid-cols-3">
+                <div className="min-w-0">
+                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/45">What we read</h4>
+                  <ul className="mt-2 space-y-2 text-sm leading-relaxed text-ink/65">
+                    <li>
+                      Google&rsquo;s Search Console API with one permission:{" "}
+                      <code className="rounded bg-paper-soft px-1.5 py-0.5 text-xs">webmasters.readonly</code>. We can&rsquo;t
+                      change settings, submit anything or add users.
+                    </li>
+                    <li>
+                      Search analytics for the property that matches the audited domain: clicks, impressions, CTR and average
+                      position by query and by page — the 28 days ending 3 days ago, and the 28 days before.
+                    </li>
+                    <li>
+                      Up to 100 queries and 100 pages by impressions, plus query–page pairs to find pages competing for the
+                      same search.
+                    </li>
+                  </ul>
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/45">How connecting works</h4>
+                  <ol className="mt-2 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-ink/65 marker:text-ink/35">
+                    <li>Sign in (an email code, no password) and open your unlocked report.</li>
+                    <li>Press Connect. You get a verification tag that&rsquo;s unique to your request.</li>
+                    <li>
+                      Add the tag to your homepage&rsquo;s{" "}
+                      <code className="rounded bg-paper-soft px-1 py-0.5 text-xs">&lt;head&gt;</code> — or a TXT record to
+                      your domain&rsquo;s DNS — and, in Search Console → Settings → Users and permissions, add our service
+                      account&rsquo;s email as a Restricted user.
+                    </li>
+                    <li>
+                      Press Verify. We check that the tag is live on the audited site and that a domain property, or a
+                      URL-prefix property on the same host, is shared with us. Your scores update straight away.
+                    </li>
+                  </ol>
+                  <p className="mt-2 text-xs leading-relaxed text-ink/45">
+                    Why the tag: anyone can share a Search Console property with our service account, but only someone who
+                    controls the site can publish a tag made for their request — the same way Google verifies site owners.
+                    You can remove the tag after verification.
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink/45">Privacy</h4>
+                  <ul className="mt-2 space-y-2 text-sm leading-relaxed text-ink/65">
+                    <li>
+                      <span className="font-medium text-ink">{GSC_PRIVACY_LINE}</span> Report links aren&rsquo;t listed or
+                      indexed, but whoever you send one to can open it — Search Console numbers included.
+                    </li>
+                    <li>
+                      The data shows only in unlocked full reports, never in free previews, and it&rsquo;s in your JSON
+                      export — it&rsquo;s your data.
+                    </li>
+                    <li>
+                      We never see your Google password: you grant access in your own Search Console. Disconnecting
+                      removes the data from the report and re-scores it; to revoke our access completely, also remove the
+                      service account under Users and permissions.
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -453,7 +685,7 @@ export default function HowWeScorePage() {
   );
 }
 
-/** 一个支柱的方法卡:作用、权重、每个小维度(权重 + 可信度 + 测什么) */
+/** 一个支柱的方法卡:作用、权重(随站点类型给区间)、每个小维度(权重 + 类型覆盖 + 可信度 + 测什么) */
 function PillarMethod({ pillar }: { pillar: PillarId }) {
   const meta = RANKING_PILLARS[pillar];
   const Icon = PILLAR_ICON[pillar];
@@ -467,9 +699,13 @@ function PillarMethod({ pillar }: { pillar: PillarId }) {
               <PillarName label={meta.label} />
             </span>
           </h3>
-          <span className="mt-1 shrink-0 rounded-full bg-ink/[0.05] px-2.5 py-0.5 text-xs font-semibold tabular-nums text-ink/60">
-            {meta.weight}%
-          </span>
+          <a
+            href="#ranking-profiles"
+            title="Weight depends on the type of site"
+            className="mt-1 shrink-0 rounded-full bg-ink/[0.05] px-2.5 py-0.5 text-xs font-semibold tabular-nums text-ink/60 hover:text-ink"
+          >
+            {pillarWeightRange(pillar)}
+          </a>
         </div>
         <p className="mt-1.5 text-sm text-ink/55">
           {meta.role}.
@@ -477,16 +713,22 @@ function PillarMethod({ pillar }: { pillar: PillarId }) {
             " The pillar score is the free Technical SEO score itself, gate cap included, so the two never disagree."}
         </p>
         <dl className="mt-4 divide-y divide-ink/[0.05]">
-          {subsOf(pillar).map((s) => (
-            <div key={s.id} className="py-3 first:pt-0 last:pb-0">
-              <dt className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span className="text-sm font-semibold text-ink">{s.label}</span>
-                <span className="text-xs tabular-nums text-ink/40">{s.weight}%</span>
-                <ConfidenceBadge confidence={s.confidence} />
-              </dt>
-              <dd className="mt-1 text-sm leading-relaxed text-ink/60">{subMeasures(s.id)}</dd>
-            </div>
-          ))}
+          {subsOf(pillar).map((s) => {
+            const overrides = subWeightOverrides(s.id);
+            return (
+              <div key={s.id} className="py-3 first:pt-0 last:pb-0">
+                <dt className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span className="text-sm font-semibold text-ink">{s.label}</span>
+                  <span className="text-xs tabular-nums text-ink/40">
+                    {s.weight}%
+                    {overrides.map((o) => ` · ${o.weight}% for a ${o.label.charAt(0).toLowerCase()}${o.label.slice(1)}`).join("")}
+                  </span>
+                  <ConfidenceBadge confidence={s.confidence} />
+                </dt>
+                <dd className="mt-1 text-sm leading-relaxed text-ink/60">{subMeasures(s.id)}</dd>
+              </div>
+            );
+          })}
         </dl>
       </div>
     </section>
