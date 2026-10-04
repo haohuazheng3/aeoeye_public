@@ -2,7 +2,6 @@ import { Target, BadgeCheck, Trophy, Swords, Sparkles, MousePointerClick, Wrench
 import {
   DIMENSIONS,
   PILLAR_IDS,
-  RANKING_PILLARS,
   RANKING_SUBS,
   SITE_PROFILE_SUB_WEIGHTS,
   SITE_PROFILE_WEIGHTS,
@@ -181,18 +180,17 @@ export function weakSpotUi(w: string): { label: string; hint: string } {
 
 /**
  * 支柱名:"Content quality (E-E-A-T)" 在窄卡片里会在连字符处断成 "(E-E-" / "A-T)"。
- * 括号段整体不换行,前半段照常换行。名称来自 RANKING_PILLARS,所有展示处共用这一个组件。
+ * 括号段整体不换行,前半段照常换行。
  */
 /**
- * 展示用的名称一律按 id 取当前常量(RANKING_PILLARS / RANKING_SUBS),不用落库结果里的文字:
- * 标签是计分那一刻写进 result 的,改名(例:2026-10-02 把 "AI search & click opportunity" 缩成 "AI search & clicks")
- * 之后旧报告也要显示新名字;陌生 id(更新的结果、手工改过的行)退回结果里的原文。
+ * 支柱标签和作用使用报告结果里随分数一起落库的值。这个文件进入客户端包；不在这里读取
+ * 服务端/共享模块里的支柱对象，避免旧报告在浏览器渲染时因客户端模块裁剪而出现未定义绑定。
  */
 export function pillarLabel(p: { id: string; label: string }): string {
-  return (RANKING_PILLARS as Record<string, { label: string }>)[p.id]?.label ?? p.label;
+  return p.label;
 }
 export function pillarRole(p: { id: string; role: string }): string {
-  return (RANKING_PILLARS as Record<string, { role: string }>)[p.id]?.role ?? p.role;
+  return p.role;
 }
 const SUB_LABEL = new Map(RANKING_SUBS.map((x) => [x.id, x.label]));
 export function subLabel(x: { id?: string; label: string }): string {
