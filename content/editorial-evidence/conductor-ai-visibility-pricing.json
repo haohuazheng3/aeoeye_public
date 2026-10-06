@@ -1,0 +1,45 @@
+{
+  "contentSha256": "aaf036898b71bcaab0d92057bc19f736c3ca11bda1a5e0c6aa5f0f2bbfe2de01",
+  "reviewedAt": "2026-10-06",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Understand a quote-only enterprise AI Search purchase without confusing annual credit allowance with monthly answer capacity.",
+    "connection": "Direct purchase decision for a named AI-search-visibility or GEO vendor; supports selecting measurement or execution after an AEOeye baseline."
+  },
+  "assessment": "Read final body and FAQs and checked the current plans and feature descriptions. The opening discloses the absence of a dollar rate. The key decision is the conversion between planned observations and vendor credits; the article refuses to manufacture that conversion. Essentials has no highlighted allowance rather than being labelled unavailable. Operational recommendations and proposed demo checks are explicitly buyer analysis.",
+  "sources": [
+    {
+      "url": "https://www.conductor.com/pricing/",
+      "checkedAt": "2026-10-06",
+      "supports": "Public Essentials/Growth/Enterprise allowances, annual credit basis and sales/trial routes without dollar prices."
+    },
+    {
+      "url": "https://www.conductor.com/platform/features/ai-search-performance/",
+      "checkedAt": "2026-10-06",
+      "supports": "AI Response Credits usage model and described AI visibility/content workflow capabilities; no complete per-model conversion schedule established."
+    },
+    {
+      "url": "https://www.conductor.com/platform/features/ai-search-performance/ai-tracking-customization/",
+      "checkedAt": "2026-10-06",
+      "supports": "Selected engines and configuration include credit forecasts."
+    },
+    {
+      "url": "https://www.conductor.com/platform/features/pages-report/",
+      "checkedAt": "2026-10-06",
+      "supports": "Page-level combined AI/organic reporting described by the vendor."
+    }
+  ],
+  "checks": [
+    "Compared each table cell with the current Conductor plans page: Growth2500 AI Search Credits/year, Enterprise2500+, Essentials highlight absent; page,keyword,website quantities match.",
+    "Recomputed25*3*30=2250 observations and2250*12=27000 for twelve30-day periods;2500/12=208.3333 credits arithmetic average, expressly not replenishment or answer count.",
+    "Read customization and Pages feature text for credit forecasting and page-level reporting. Verified the draft does not infer a credit conversion, private quote, trial accuracy or causal revenue improvement; all five-new-page crosslinks and the sample limitations are explicit."
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "Global enterprise sales; currency, purchaser jurisdiction and tax unquoted",
+    "billing": "Contract term and monetary charges require a quote; published AI allowance is annual",
+    "verification": "Official current plan page has limits but no dollar amount; verified annual allowance and independently computed observation workload without equating observations with billable credits. Monetary first-year total remains an algebraic formula, not a fabricated invoice.",
+    "checkedAt": "2026-10-06"
+  }
+}

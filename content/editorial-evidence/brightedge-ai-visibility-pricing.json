@@ -1,0 +1,40 @@
+{
+  "contentSha256": "40bc0c9524a365913ec6a2c3ffc31084c9ac19c84daa2f52c06aaa56d3decc0e",
+  "reviewedAt": "2026-10-06",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Determine the incremental or full-platform cost of AI Catalyst and avoid inferring unlimited free access from historical inclusion statements.",
+    "connection": "Direct purchase decision for a named AI-search-visibility or GEO vendor; supports selecting measurement or execution after an AEOeye baseline."
+  },
+  "assessment": "Read all final text and FAQs against current product/pricing pages and the older launch announcement. The article preserves the date distinction: availability to customers at launch does not establish present contractual rights. Quote-only status is prominent and no third-party SEO price is used as an AI Catalyst price. The buyer receives a concrete observation workload, demo path and duplication-cost decision rather than an invented product rating.",
+  "sources": [
+    {
+      "url": "https://www.brightedge.com/products/product-pricing",
+      "checkedAt": "2026-10-06",
+      "supports": "Official contact-sales pricing route with no public monetary rate."
+    },
+    {
+      "url": "https://www.brightedge.com/products/ai-catalyst",
+      "checkedAt": "2026-10-06",
+      "supports": "Current product descriptions of mentions,citations,sentiment,competitive analysis and CSV reporting."
+    },
+    {
+      "url": "https://www.brightedge.com/news/press-releases/brightedge-ai-catalyst-completes-search-picture-brands-win-ai-era",
+      "checkedAt": "2026-10-06",
+      "supports": "Dated launch availability to customers, not proof of present unlimited/free entitlement."
+    }
+  ],
+  "checks": [
+    "Opened current product URL after observing /ai-catalyst redirects to /products/ai-catalyst. Checked that the current pricing route requests contact and publishes no amount.",
+    "Compared the historical launch claim available to all customers with the newer product page; the article asks to confirm current entitlement and does not promise free or standalone access.",
+    "Recomputed2*20*3*4=480 observations and2*20*3*30=3600, ratio7.5; this is explicitly not a price multiplier. Verified crawler study1/193 caveat and distinction between product descriptions and unperformed demos."
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "Sales-led purchase; currency, purchaser region and taxes not published in checked offer",
+    "billing": "Current order term, allowance and incremental cost require BrightEdge confirmation",
+    "verification": "Current product and official product-pricing page verified. No dollar starting price asserted. Historical inclusion treated as a dated statement only. Workload arithmetic is transparent and not labelled a bill or actual quote.",
+    "checkedAt": "2026-10-06"
+  }
+}

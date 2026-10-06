@@ -1,0 +1,40 @@
+{
+  "contentSha256": "82a2a8505cfc5a1acdf1e1227379b084919267effd8f12a3300294a95d9916bd",
+  "reviewedAt": "2026-10-06",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Price and govern an autonomous GEO content service without mistaking operational benchmark figures for subscription rates.",
+    "connection": "Direct purchase decision for a named AI-search-visibility or GEO vendor; supports selecting measurement or execution after an AEOeye baseline."
+  },
+  "assessment": "Read final body and FAQs against Rex commercial and capability sections, Google content guidance and the public AEOeye aggregate. The $0.003 figure is correctly identified as a benchmark, not a rate card. Custom Pricing is stated first; output, permissions, acceptance and cancellation questions are framed as requested contract terms, not asserted product features. Removed an unsupported housekeeping link during review and replaced it with directly documented audit evidence and relevant official editorial guidance.",
+  "sources": [
+    {
+      "url": "https://www.relixir.ai/rex",
+      "checkedAt": "2026-10-06",
+      "supports": "Custom Pricing, described GEO operations and30–60-day refresh cycle; operational cost benchmark distinguished from customer price."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/using-gen-ai-content",
+      "checkedAt": "2026-10-06",
+      "supports": "AI-assisted publishing must add user value; scaled low-value output can breach policy, without claiming a violation by the vendor."
+    },
+    {
+      "url": "https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "checkedAt": "2026-10-06",
+      "supports": "892 answer observations across127 self-selected audits; unequal engine samples cannot benchmark Rex."
+    }
+  ],
+  "checks": [
+    "Compared the Rex Custom Pricing deployment section with the cost-per-action benchmark; no invented monthly fee, included article count or customer outcome remains.",
+    "Recomputed20*(20+10)=600 minutes,8*15=120 minutes,total12 review hours;10*3*4=120 observations. Both examples are clearly illustrative and not vendor allowances or independent buyer samples.",
+    "Checked that approvals,rollback,permission revocation and draft-only operation are proposed acceptance criteria rather than claimed Rex features; checked Google guidance does not imply an allegation about Rex. No performance benchmark is presented as reproduced."
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "Official global English offer; currency, buyer jurisdiction and taxes need a quote",
+    "billing": "Custom proposal; term, included usage and optional charges not publicly verified",
+    "verification": "Commercial section explicitly Custom Pricing. Operational $0.003 benchmark is excluded from bill calculations. No private quote or monthly amount is manufactured; internal review-time and study-size examples are separate from vendor charges.",
+    "checkedAt": "2026-10-06"
+  }
+}

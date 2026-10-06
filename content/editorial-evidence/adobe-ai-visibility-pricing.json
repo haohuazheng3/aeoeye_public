@@ -1,0 +1,40 @@
+{
+  "contentSha256": "5188e41677ef351a7be7422ca18b4164f955a4dfd54f67573c400764325ddc03",
+  "reviewedAt": "2026-10-06",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Buy the current Adobe Brand Visibility offering under the former LLM Optimizer intent and validate implementation and contract scope.",
+    "connection": "Direct purchase decision for a named AI-search-visibility or GEO vendor; supports selecting measurement or execution after an AEOeye baseline."
+  },
+  "assessment": "Read final article and all FAQs against the US transition and product pages and the October2 page-control tutorial. One URL serves both names of the same purchase intent. Opening and conclusion consistently use current product naming and quote-only pricing; no Adobe Creative Cloud or unrelated Semrush price is imported. Existing-customer feature continuity is kept separate from unverified renewal price. The pilot recommendations are not represented as measured Adobe results.",
+  "sources": [
+    {
+      "url": "https://business.adobe.com/products/brand-visibility/llm-optimizer.html",
+      "checkedAt": "2026-10-06",
+      "supports": "July31,2026 replacement for new sales and active existing-customer feature continuity."
+    },
+    {
+      "url": "https://business.adobe.com/products/brand-visibility.html",
+      "checkedAt": "2026-10-06",
+      "supports": "Current product scope, no public price table, non-AEM compatibility and CDN/analytics descriptions."
+    },
+    {
+      "url": "https://experienceleague.adobe.com/en/docs/brand-visibility-learn/tutorials/technical/do-you-have-to-optimize-your-entire-website",
+      "checkedAt": "2026-10-06",
+      "supports": "Page selection, unchanged unselected pages and documented rollback, updatedOctober2,2026."
+    }
+  ],
+  "checks": [
+    "Verified July31,2026 new-sale transition and active pre-cutoff customer continuity in the Adobe transition FAQ, including the absence of a renewal-price guarantee.",
+    "Verified non-AEM support and named CDNs on the current product FAQ; opened Adobe page-by-page selection and rollback tutorial. The article requires account-specific architecture verification instead of claiming compatibility testing.",
+    "Recomputed2*20*3*2*4=960 illustrative answer observations and separated them from deployment units. Checked crawler study60/375 and its one-fetch convenience-sample limits, and the distinct fetch/citation/conversion outcomes."
+  ],
+  "pricing": {
+    "status": "quote-only",
+    "region": "US English official pages; contract currency, region and taxes require sales confirmation",
+    "billing": "No public rate or complete allowance schedule verified; contract-specific terms",
+    "verification": "Official product and transition pages checked. No current USD fee found or invented; LLM Optimizer historical name is consolidated into the Brand Visibility buying intent. Capacity arithmetic is an illustrative requirement, not an Adobe billing unit.",
+    "checkedAt": "2026-10-06"
+  }
+}

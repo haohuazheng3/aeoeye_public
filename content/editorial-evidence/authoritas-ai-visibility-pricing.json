@@ -1,0 +1,40 @@
+{
+  "contentSha256": "d252e4428afb79ce88fb2663db0ab0c5379fb0aaa76509f49c764282058462a2",
+  "reviewedAt": "2026-10-06",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Choose an Authoritas AI Search plan using real USD amounts, model access and a scheduled observation workload.",
+    "connection": "Direct purchase decision for a named AI-search-visibility or GEO vendor; supports selecting measurement or execution after an AEOeye baseline."
+  },
+  "assessment": "Read the complete final body and four FAQs against the official pricing page and the live USD monthly/annual browser captures. The piece answers the actual purchase question immediately, separates AI Search from SEO/API, and avoids equating a prompt with one credit. Annual overage interpretation remains explicitly unverified rather than applying the monthly formula to a different display. No paid-product experience or accuracy result is claimed.",
+  "sources": [
+    {
+      "url": "https://www.authoritas.com/app/ai-search-platform-pricing",
+      "checkedAt": "2026-10-06",
+      "supports": "Six monthly USD plan prices, credit allowances, overage rates, model weights, Enterprise grounding restriction and P1 annual total; live browser captures resolve the static GBP default."
+    },
+    {
+      "url": "https://www.authoritas.com/app/pricing",
+      "checkedAt": "2026-10-06",
+      "supports": "AI Search, SEO and API are separate product selections."
+    },
+    {
+      "url": "https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "checkedAt": "2026-10-06",
+      "supports": "892 answers from127 completed self-selected audits, unequal engine samples and repeated brands; not a vendor comparison."
+    }
+  ],
+  "checks": [
+    "Operated the USD selector in the public pricing UI and inspected the screenshot: P1/P2/P3 119/299/499 USD monthly, 2000/6000/15000 credits, overage 66/55/49 USD per 1000 in monthly mode; checked all three Enterprise rows in the browser text.",
+    "Operated annual billing: P1 1309 USD/year. Recomputed 119*12=1428, savings119, equivalent109.0833; 25*30*2=1500, 25*31*2=1550, P1 at3000 credits=185 and at5000=317, approximate crossing4727.27.",
+    "Read the disclosure, caveats and FAQ: public-control verification is not tracking accuracy testing, grounded models require Enterprise per the current vendor table, annual overage rules and free-credit renewal remain unverified. Checked audit aggregate wording and unequal-engine limitation."
+  ],
+  "pricing": {
+    "status": "published",
+    "region": "Official USD selector; purchaser region and taxes require checkout confirmation",
+    "billing": "Monthly USD schedule; P1 annual total shown separately",
+    "verification": "Live browser monthly and annual controls verified; six monthly plan and overage rows recorded. Capacity, overage comparisons and annual saving independently recomputed. Annual overage invoice mechanics not verified and excluded from calculations.",
+    "checkedAt": "2026-10-06"
+  }
+}
