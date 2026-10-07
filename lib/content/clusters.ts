@@ -19,7 +19,6 @@ export const PILLARS: Pillar[] = [
     blurb: "The complete guide to getting recommended by AI answer engines — and every sub-topic that matters.",
     clusters: [
       { href: "/blog/aeo-vs-seo", label: "AEO vs SEO" },
-      { href: "/compare/aeo-vs-geo-vs-seo", label: "AEO vs GEO vs SEO" },
       { href: "/blog/aeo-strategy", label: "Build an AEO strategy" },
       { href: "/blog/aeo-audit-checklist", label: "AEO audit checklist" },
       { href: "/blog/answer-engine-optimization-agency", label: "Choose an AEO agency" },
@@ -30,7 +29,6 @@ export const PILLARS: Pillar[] = [
     name: "Generative Engine Optimization (GEO)",
     blurb: "What GEO is, how it differs from SEO, and the tactics that get you cited by generative engines.",
     clusters: [
-      { href: "/compare/aeo-vs-geo-vs-seo", label: "AEO vs GEO vs SEO" },
       { href: "/blog/geo-examples", label: "GEO examples" },
       { href: "/blog/answer-engine-optimization-agency", label: "What AEO / GEO agencies deliver" },
       { href: "/blog/most-aeo-advice-is-recycled-seo", label: "Most AEO advice is recycled SEO" },
@@ -42,7 +40,6 @@ export const PILLARS: Pillar[] = [
     blurb: "How to measure whether AI recommends you — the metrics, tools and tracking that matter.",
     clusters: [
       { href: "/answers/what-is-ai-visibility", label: "What is AI visibility?" },
-      { href: "/answers/what-is-ai-citation-tracking", label: "AI citation tracking" },
       { href: "/blog/free-ai-visibility-checker", label: "Free AI visibility check" },
       { href: "/blog/ai-visibility-tracker", label: "AI visibility trackers" },
       { href: "/blog/ai-visibility-score-methodology", label: "How AI visibility scores work" },
@@ -71,8 +68,6 @@ export const PILLARS: Pillar[] = [
     blurb: "The content structure, schema, crawler access and files that make your site machine-readable and quotable.",
     clusters: [
       { href: "/guides/how-to-optimize-content-for-ai-search", label: "Optimize content for AI search" },
-      { href: "/answers/what-makes-content-quotable-by-ai", label: "What makes content quotable" },
-      { href: "/blog/what-is-llms-txt", label: "What is llms.txt?" },
       { href: "/guides/how-to-add-llms-txt", label: "How to add llms.txt" },
       { href: "/blog/ai-crawler-user-agent-directory", label: "AI crawler directory" },
       { href: "/blog/blocking-gptbot-is-usually-a-mistake", label: "Should you block GPTBot?" },
@@ -83,7 +78,6 @@ export const PILLARS: Pillar[] = [
     name: "AI Visibility Tools",
     blurb: "Honest comparisons and alternatives across every major AI visibility platform.",
     clusters: [
-      { href: "/blog/ai-search-optimization-tools-buyers-guide", label: "How to choose an AI visibility tool" },
       { href: "/blog/ai-visibility-tracker", label: "AI visibility trackers" },
       { href: "/vs/profound", label: "AEOeye vs Profound" },
       { href: "/vs/otterly", label: "AEOeye vs Otterly" },

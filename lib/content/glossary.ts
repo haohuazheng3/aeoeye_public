@@ -6,17 +6,7 @@ export type Term = {
   related: string[]; // slugs
 };
 
-export const GLOSSARY: Term[] = [   
-  {
-    slug: "mention-rate",
-    term: "Mention Rate",
-    short: "The percentage of relevant questions in which an AI engine mentions your brand.",
-    body: [
-      "Mention rate is the share of category questions where your brand appears in the AI's answer. A 0% mention rate means you're invisible for those prompts; a high rate means the AI consistently considers you.",
-      "Because AI answers vary by phrasing and engine, mention rate should be measured across many questions and multiple engines to be meaningful.",
-    ],
-    related: [],
-  },      
+export const GLOSSARY: Term[] = [         
   {
     slug: "query-fan-out",
     term: "Query Fan-Out",
@@ -65,7 +55,7 @@ export const GLOSSARY: Term[] = [
       "Share of voice in AI search measures what portion of the total brand mentions in AI-generated answers belongs to you. If engines name five brands across your category's buyer questions and you account for a third of those mentions, that's your share of voice — the same competitive lens marketers have used for decades, pointed at a new surface.",
       "It differs from share of model, AEOeye's per-question recommendation metric, mainly in framing: share of voice aggregates mentions across a whole question set, while share of model looks at how recommendation slots split within answers. Both answer the same underlying question — are you or your competitors winning the AI conversation?",
     ],
-    related: ["mention-rate"],
+    related: [],
   },
   {
     slug: "agentic-search",
@@ -104,7 +94,6 @@ export const TERM_SOURCES: Record<string, { label: string; url: string }[]> = {
  * 目标必须是现存页(scripts/verify-content-quality.mjs 会核对)。
  */
 export const TERM_DEEP_DIVE: Record<string, { href: string; label: string }> = {
-  "mention-rate": { href: "/blog/measuring-ai-visibility", label: "How to measure AI visibility" },
   "share-of-voice-ai": { href: "/blog/measuring-ai-visibility", label: "How to measure AI visibility" },
   "query-fan-out": { href: "/blog/how-to-rank-in-google-ai-mode", label: "How to show up in Google AI Mode" },
   "agentic-search": { href: "/blog/what-is-ai-search", label: "What is AI search?" },
