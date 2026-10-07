@@ -20,11 +20,9 @@ export const PILLARS: Pillar[] = [
     clusters: [
       { href: "/blog/aeo-vs-seo", label: "AEO vs SEO" },
       { href: "/compare/aeo-vs-geo-vs-seo", label: "AEO vs GEO vs SEO" },
-      { href: "/blog/what-is-an-answer-engine", label: "What is an answer engine?" },
       { href: "/blog/aeo-strategy", label: "Build an AEO strategy" },
       { href: "/blog/aeo-audit-checklist", label: "AEO audit checklist" },
       { href: "/blog/answer-engine-optimization-agency", label: "Choose an AEO agency" },
-      { href: "/glossary/answer-engine-optimization", label: "AEO — glossary" },
     ],
   },
   {
@@ -36,7 +34,6 @@ export const PILLARS: Pillar[] = [
       { href: "/blog/geo-examples", label: "GEO examples" },
       { href: "/blog/answer-engine-optimization-agency", label: "What AEO / GEO agencies deliver" },
       { href: "/blog/most-aeo-advice-is-recycled-seo", label: "Most AEO advice is recycled SEO" },
-      { href: "/glossary/generative-engine-optimization", label: "GEO — glossary" },
     ],
   },
   {
@@ -51,7 +48,6 @@ export const PILLARS: Pillar[] = [
       { href: "/blog/ai-visibility-score-methodology", label: "How AI visibility scores work" },
       { href: "/blog/ai-traffic-analytics", label: "Track AI referral traffic" },
       { href: "/blog/ai-brand-recommendation-measurement", label: "Measure AI brand recommendations" },
-      { href: "/glossary/ai-visibility", label: "AI visibility — glossary" },
     ],
   },
   {
@@ -80,7 +76,6 @@ export const PILLARS: Pillar[] = [
       { href: "/guides/how-to-add-llms-txt", label: "How to add llms.txt" },
       { href: "/blog/ai-crawler-user-agent-directory", label: "AI crawler directory" },
       { href: "/blog/blocking-gptbot-is-usually-a-mistake", label: "Should you block GPTBot?" },
-      { href: "/glossary/structured-data", label: "Structured data — glossary" },
     ],
   },
   {
