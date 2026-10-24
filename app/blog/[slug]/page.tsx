@@ -50,6 +50,12 @@ const H2 = ({ children }: { children?: React.ReactNode }) => (
     {children}
   </h2>
 );
+// 正文配图:固定 16:9 框 + object-cover + 懒加载 —— Pexels 原图比例各异,不固定框会在加载后撑高页面(CLS)
+const ProseImg = ({ src, alt }: { src?: string; alt?: string }) => (
+  // eslint-disable-next-line @next/next/no-img-element
+  <img src={src} alt={alt ?? ""} width={1200} height={675} loading="lazy" decoding="async" className="aspect-video h-auto w-full rounded-3xl object-cover shadow-float" />
+);
+
 const H3 = ({ children }: { children?: React.ReactNode }) => (
   <h3 id={headingId(childText(children))} className="scroll-mt-24">
     {children}
@@ -121,7 +127,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         {post.meta.image?.url && (
           <figure className="mt-8 overflow-hidden rounded-3xl border border-white/60 shadow-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={post.meta.image.url} alt={post.meta.image.alt || post.meta.title} className="h-auto w-full object-cover" width={1200} height={600} />
+            <img src={post.meta.image.url} alt={post.meta.image.alt || post.meta.title} className="aspect-[2/1] h-auto w-full object-cover" width={1200} height={600} />
             {post.meta.image.photographer && (
               <figcaption className="bg-white px-3 py-1.5 text-[11px] text-ink/40">
                 Photo by{" "}
@@ -137,7 +143,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <TableOfContents items={toc} />
 
         <div className="prose mt-6">
-          <Markdown options={{ forceBlock: true, overrides: { h2: { component: H2 }, h3: { component: H3 }, a: { component: ContentLink } } }}>
+          <Markdown options={{ forceBlock: true, overrides: { h2: { component: H2 }, h3: { component: H3 }, a: { component: ContentLink }, img: { component: ProseImg } } }}>
             {post.content}
           </Markdown>
         </div>

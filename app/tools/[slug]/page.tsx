@@ -55,7 +55,7 @@ function Figure({ img }: { img: ToolImage }) {
   return (
     <figure className="not-prose my-8 overflow-hidden rounded-3xl bg-white shadow-float">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={img.url} alt={img.alt} width={1200} height={675} loading="lazy" decoding="async" className="h-auto w-full object-cover" />
+      <img src={img.url} alt={img.alt} width={1200} height={675} loading="lazy" decoding="async" className="aspect-video h-auto w-full object-cover" />
       <figcaption className="px-4 py-2 text-[11px] text-ink/40">
         Photo by{" "}
         <a href={img.photographerUrl} target="_blank" rel="noopener noreferrer" className="underline">

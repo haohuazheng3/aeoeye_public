@@ -4,7 +4,12 @@ import { useState } from "react";
 import { ArrowRight, Loader2, Globe } from "lucide-react";
 import type { ToolResult } from "@/lib/tools/types";
 import { fwEvent } from "@/components/flowglance";
-import { ResultView } from "./result-view";
+import dynamic from "next/dynamic";
+
+// 结果视图只在跑完检查后才需要:按需加载,工具页首屏少下载一大块 JS(移动端 LCP)
+const ResultView = dynamic(() => import("./result-view").then((m) => m.ResultView), {
+  loading: () => <div className="h-40 animate-pulse rounded-3xl bg-white/60" />,
+});
 
 /* ============================================================
    通用工具运行器:首屏输入框 → POST /api/tools/<tool> → ResultView。
