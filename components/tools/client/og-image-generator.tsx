@@ -145,7 +145,7 @@ export function OgImageGenerator() {
       <div className="rounded-3xl bg-white p-4 shadow-float">
         <canvas ref={ref} width={W} height={H} className="h-auto w-full rounded-2xl" aria-label="Open Graph image preview" />
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs text-ink/50">1200 × 630 PNG{kb !== null && ` · ${kb} KB`} · made in your browser, nothing uploaded</p>
+          <p className="text-xs text-ink/50">1200 × 630 PNG · {kb !== null ? `${kb} KB` : "… KB"} · made in your browser, nothing uploaded</p>
           <button type="button" onClick={download} className="inline-flex items-center gap-2 rounded-2xl bg-iris px-4 py-2.5 text-sm font-semibold text-white shadow-glow hover:bg-iris-deep"><Download className="h-4 w-4" /> Download PNG</button>
         </div>
       </div>
