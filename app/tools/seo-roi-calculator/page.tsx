@@ -71,9 +71,7 @@ export default function Page() {
           Classic ROI counts clicks. But a growing share of your search presence now happens inside AI answers — ChatGPT,
           Perplexity, Gemini, and Google&rsquo;s AI Overviews naming (or skipping) your brand with no click involved. That
           visibility drives branded search and direct visits later, and it never shows up in this calculator. Measuring it
-          is a separate job — see <Link href="/blog/measuring-ai-visibility">how to measure AI visibility</Link> and{" "}
-          <Link href="/blog/ai-overviews-and-your-traffic">what AI Overviews do to your traffic</Link>, or check{" "}
-          <Link href="/blog/ai-seo-services">what AI SEO services cost</Link> if you&rsquo;re budgeting the investment side.
+          is a separate job — the free audit on the <Link href="/">home page</Link> shows whether AI assistants name your brand today.
         </p>
       </section>
 

@@ -24,17 +24,6 @@ const groups: { title: string; links: { href: string; label: string }[] }[] = [
     ],
   },
   {
-    title: "Learn",
-    links: [
-      { href: "/blog", label: "Blog" },
-      { href: "/guides", label: "Guides" },
-      { href: "/answers", label: "Answers" },
-      { href: "/vs", label: "Comparisons" },
-      { href: "/alternatives", label: "Alternatives" },
-      { href: "/glossary", label: "AEO glossary" },
-    ],
-  },
-  {
     title: "Company",
     links: [
       { href: "/about", label: "About" },

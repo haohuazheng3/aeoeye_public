@@ -101,8 +101,8 @@ test('generic SaaS and SEO-tool pricing/review pages are off-topic', () => {
 test('AI assistant plans, features and assistant-vs-assistant pages are off-topic', () => {
   for (const slug of ['claude-max-pricing', 'chatgpt-projects', 'gemini-gems', 'grok-vs-gemini', 'chatgpt-review', 'what-is-fine-tuning', 'prompt-engineer-salary']) assert.ok(offTopicReason(slug), slug);
 });
-test('AEO tools, engine search behaviour and AI-visibility topics stay allowed', () => {
-  for (const slug of ['peec-ai-pricing', 'profound-vs-semrush', 'perplexity-vs-chatgpt-for-brand-visibility', 'how-does-chatgpt-choose-sources', 'does-chatgpt-cite-wikipedia', 'ai-search-citation-evaluation-metrics', 'aeo-vs-seo', 'chatgpt-vs-google-ai-overviews-citations', 'how-to-rank-in-perplexity', 'ai-search-statistics', 'perplexity-citation-patterns', 'example-geo-tool-pricing', 'example-ai-visibility-pricing']) assert.equal(offTopicReason(slug), null, slug);
+test('AEO tools, engine search behaviour and AI-visibility topics stay allowed (hypothetical slugs — every real page is retired since 2026-10-24)', () => {
+  for (const slug of ['example-aeo-tool-pricing', 'example-aeo-tool-vs-other-aeo-tool', 'how-does-example-engine-choose-sources', 'example-engine-citation-patterns', 'example-geo-tool-pricing', 'example-ai-visibility-pricing']) assert.equal(offTopicReason(slug), null, slug);
 });
 test('published INR pricing is accepted as a concrete visible amount', () => {
   const raw = article(`GEOpta is ₹4,999 per month. See [official pricing](${source}).`, 'GEOpta Pricing');
@@ -116,11 +116,12 @@ test('a new off-topic page fails the gate with the reason spelled out', () => {
 });
 
 // ---- 2026-10-03 第二轮清理:规则扩到全部内容栏目,并补上第一轮漏掉的几类跑题 ----
-test('round-two retirements cover every content section, not just the blog', () => {
-  for (const p of ['/answers/what-is-llm-visibility', '/guides/how-to-rank-in-chatgpt', '/compare/geo-vs-seo', '/glossary/ai-agent', '/blog/chatgpt-market-share', '/blog/perplexity-vs-claude']) assert.ok(RETIRED_PATHS.has(p), p);
+test('retirements cover every content section, not just the blog', () => {
+  for (const p of ['/answers/what-is-llm-visibility', '/guides/how-to-rank-in-chatgpt', '/compare/geo-vs-seo', '/glossary/ai-agent', '/blog/chatgpt-market-share', '/blog/perplexity-vs-claude', '/answers/what-is-ai-visibility', '/blog/chatgpt-seo']) assert.ok(RETIRED_PATHS.has(p), p);
   assert.ok(RETIRED_SLUGS.has('chatgpt-market-share') && !RETIRED_SLUGS.has('what-is-llm-visibility'), 'blog view only holds blog slugs');
   assert.ok(offTopicReason('what-is-llm-visibility', 'answers'));
-  assert.equal(offTopicReason('what-is-ai-visibility', 'answers'), null);
+  // 2026-10-24 起连曾经的规范页也已下线;门禁必须拒绝重建
+  assert.match(offTopicReason('what-is-ai-visibility', 'answers'), /retired/);
 });
 test('assistant or search-engine comparisons need a brand-visibility angle', () => {
   for (const slug of ['grok-vs-perplexity', 'copilot-vs-chatgpt', 'google-vs-perplexity', 'claude-vs-gemini-for-coding']) assert.ok(offTopicReason(slug), slug);

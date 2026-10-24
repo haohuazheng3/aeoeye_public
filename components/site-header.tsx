@@ -5,10 +5,8 @@ import { MobileMenu } from "@/components/mobile-menu";
 
 const nav = [
   { href: "/how-it-works", label: "How it works" },
-  { href: "/guides", label: "Guides" },
   { href: "/tools", label: "Tools" },
   { href: "/seo-audit", label: "SEO Audit" },
-  { href: "/blog", label: "Blog" },
   { href: "/pricing", label: "Pricing" },
 ];
 

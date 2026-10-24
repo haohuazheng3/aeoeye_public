@@ -183,6 +183,8 @@ export function verifyContent(root = process.cwd()) {
   ];
   const errors = [];
   let reviewed = 0;
+  // 2026-10-24 站长决定停做 SEO 内容:content/ 下不得再出现任何内容页;定时管线再发页,这里直接拦下(CLAUDE.md)。
+  for (const d of docs) errors.push(`${d.file}: SEO content was discontinued on 2026-10-24 (owner decision) — no content pages may be published`);
   const artifactExists = (value) => {
     if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//') || value.includes('..')) return false;
     const target = path.resolve(root, 'public', value.slice(1));
@@ -201,7 +203,7 @@ export function verifyContent(root = process.cwd()) {
     errors.push(...checkPost({ file, raw, baselineHash: baseline.posts[file], evidence, artifactExists }));
   }
   const featured = JSON.parse(fs.readFileSync(path.join(root, 'content/editorial-featured.json'), 'utf8'));
-  if (featured.length < 1 || featured.length > 10 || new Set(featured).size !== featured.length) errors.push('featured list must contain 1–10 unique core-topic pages');
+  if (featured.length !== 0) errors.push('featured list must be empty: SEO content discontinued 2026-10-24');
   for (const slug of featured) {
     if (!blogFiles.some((f) => f.replace(/\.mdx?$/, '') === slug)) errors.push(`featured page does not exist: ${slug}`);
     if (GENERIC_PRICING.test(slug)) errors.push(`generic software price guide cannot lead the AEO blog: ${slug}`);

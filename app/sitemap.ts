@@ -1,9 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site";
-import { getAllPosts, getCategories } from "@/lib/content/blog";
-import { GLOSSARY } from "@/lib/content/glossary";
 import { TOOLS } from "@/lib/content/tools";
-import { getPages } from "@/lib/content/pages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   /*
@@ -27,14 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/seo-audit", priority: 0.8, freq: "weekly" },
     { path: "/seo-audit/how-we-score", priority: 0.4, freq: "monthly" },
     { path: "/bot", priority: 0.2, freq: "yearly" },
-    { path: "/blog", priority: 0.7, freq: "weekly" },
-    { path: "/guides", priority: 0.8, freq: "weekly" },
-    { path: "/answers", priority: 0.7, freq: "weekly" },
-    { path: "/compare", priority: 0.7, freq: "monthly" },
-    { path: "/vs", priority: 0.8, freq: "monthly" },
-    { path: "/alternatives", priority: 0.8, freq: "monthly" },
-    { path: "/for", priority: 0.7, freq: "monthly" },
-    { path: "/glossary", priority: 0.6, freq: "monthly" },
     { path: "/about", priority: 0.6, freq: "monthly" },
     { path: "/contact", priority: 0.4, freq: "yearly" },
     { path: "/privacy", priority: 0.2, freq: "yearly" },
@@ -48,45 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r.priority,
   }));
 
-  // 分类枢纽页进 sitemap;?page=N 分页不进 —— 它们仍可抓取(自 canonical、index,follow,
-  // 从枢纽页的分页链接可达),但 2026-09-23 GSC 抽样里未收录的 19 条有 6 条是分页页,
-  // 在抓取预算已经紧张(Discovery 只占 6%)时,不该让分页和文章抢同一份配额。
-  const hubs = getCategories().map((c) => ({
-    url: `${siteUrl}/blog/category/${c.slug}`,
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
-  }));
-
-  // getAllPosts() already excludes permanently redirected duplicates so the
-  // sitemap, blog hubs, and related-post links share one canonical inventory.
-  const posts = getAllPosts().map((p) => ({
-      url: `${siteUrl}/blog/${p.slug}`,
-      lastModified: new Date(p.date),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
-
-  const glossary = GLOSSARY.map((t) => ({
-    url: `${siteUrl}/glossary/${t.slug}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.4,
-  }));
-
   const tools = TOOLS.map((t) => ({
     url: `${siteUrl}/tools/${t.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  const dyn = (["answers", "compare", "for", "vs", "alternatives", "guides"] as const).flatMap((type) =>
-    getPages(type).map((p) => ({
-      url: `${siteUrl}/${type}/${p.slug}`,
-      // 只有真改过(updated 字段)的页才写 lastmod —— 规则同上:缺失优于撒谎
-      ...(p.updated ? { lastModified: new Date(p.updated) } : {}),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }))
-  );
-
-  return [...staticEntries, ...tools, ...hubs, ...posts, ...glossary, ...dyn];
+  // 2026-10-24 起不再有内容页:博客 / 问答 / 对比 / 术语等栏目整树 410,不进 sitemap。
+  return [...staticEntries, ...tools];
 }
