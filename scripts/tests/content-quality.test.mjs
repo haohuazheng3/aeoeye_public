@@ -143,3 +143,65 @@ test('JSON content pages are checked like posts: fields are read as visible text
   assert.match(checkPost({ file, raw: '{not json' }).join('\n'), /malformed content file/);
 });
 
+
+/* ---------- SEO 底座 v2(2026-10-24):A 级工具页 + B 级决策页 ---------- */
+const toolSource = 'https://developers.google.com/search/docs/crawling-indexing/301-redirects';
+function toolPage(patch = {}) {
+  const sentence = 'We fetch the URL from our server, follow every hop and report the status code, the target and the time each hop took. ';
+  return {
+    slug: 'redirect-checker', category: 'crawl-index', name: 'Redirect Checker', title: 'Redirect Checker: Trace Every Hop',
+    description: 'Free redirect checker.', answer: 'Paste a URL to see every redirect hop and whether the chain hurts SEO.', keywords: ['redirect checker'],
+    runner: { component: 'runner', tool: 'redirect', submitLabel: 'Check' }, trust: 'We fetch live.',
+    body: `## Redirect check: what it shows\n\n${sentence.repeat(14)}See [Google on redirects](${toolSource}).\n\n## How to read it\n\n${sentence.repeat(10)}`,
+    faqs: [{ q: 'A?', a: 'Yes.' }, { q: 'B?', a: 'No.' }, { q: 'C?', a: 'Maybe.' }],
+    sources: [{ label: 'Google', url: toolSource }],
+    images: [1, 2].map((i) => ({ url: `https://images.pexels.com/photos/10${i}/pexels-photo.jpeg`, alt: 'Server racks with blinking network lights in a data centre', photographer: 'Someone', photographerUrl: 'https://www.pexels.com/@someone' })),
+    related: [], cta: 'seo', published: '2026-10-24', updated: '2026-10-24', ...patch,
+  };
+}
+function toolEvidence(raw, patch = {}) {
+  return {
+    contentSha256: hash(raw), reviewedAt: '2026-10-24', kind: 'tool-page',
+    assessment: 'The tool runs a live redirect trace first; the copy explains how to read each status code and when a chain costs crawl budget.',
+    topic: { area: 'technical-seo-tools', readerProblem: 'Find out where a URL redirects and whether the chain is harmful.', connection: 'The free SEO audit checks redirect chains site-wide; this is the single-URL version.' },
+    sources: [{ url: toolSource, checkedAt: '2026-10-24', supports: 'Google treats 301/308 as permanent and 302/307 as temporary.' }],
+    checks: ['Ran the tool against three real URLs with chains.', 'Checked every status-code claim against Google docs.', 'Read title, H1, answer and FAQ for one intent.'],
+    ...patch,
+  };
+}
+const toolFile = 'content/tools/redirect-checker.json';
+test('an A-level tool page with a runner, 300–800 words, 2–3 Pexels images and 3–5 FAQs passes', () => {
+  const raw = JSON.stringify(toolPage(), null, 1);
+  assert.deepEqual(checkPost({ file: toolFile, raw, evidence: toolEvidence(raw) }), []);
+});
+test('tool pages outside the A-level word range fail', () => {
+  const raw = JSON.stringify(toolPage({ body: '## Short\n\nToo short. See [Google](' + toolSource + ').' }), null, 1);
+  assert.match(checkPost({ file: toolFile, raw, evidence: toolEvidence(raw) }).join('\n'), /must be 300–800/);
+});
+test('placeholders and template residue cannot ship on a tool page', () => {
+  const p = toolPage();
+  p.body += '\n\nTODO: add the screenshot here.';
+  const raw = JSON.stringify(p, null, 1);
+  assert.match(checkPost({ file: toolFile, raw, evidence: toolEvidence(raw) }).join('\n'), /placeholder/);
+});
+test('tool pages need 2–3 images and 3–5 FAQs', () => {
+  const raw = JSON.stringify(toolPage({ images: [], faqs: [] }), null, 1);
+  const out = checkPost({ file: toolFile, raw, evidence: toolEvidence(raw) }).join('\n');
+  assert.match(out, /2–3 Pexels images/);
+  assert.match(out, /need 3–5/);
+});
+test('technical SEO tools are on-topic in the tools section, but third-party pricing pages are not', () => {
+  for (const slug of ['seo-audit-checklist', 'robots-txt-tester', 'schema-validator', 'twitter-card-validator']) assert.equal(offTopicReason(slug, 'tools'), null, slug);
+  assert.ok(offTopicReason('semrush-pricing', 'tools'));
+});
+test('only the owner-approved technical decisions are allowed as blog comparisons', () => {
+  for (const slug of ['301-vs-302', 'https-vs-http', 'subdomain-vs-subfolder', 'webp-vs-avif']) assert.equal(offTopicReason(slug, 'blog'), null, slug);
+  assert.ok(offTopicReason('react-vs-vue', 'blog'));
+});
+test('B-level decision pages need a verdict card and 1200–1500 words', () => {
+  const raw = `---\ntitle: 301 vs 302\ndate: '2026-10-24'\n---\nShort body. See [Google](${toolSource}).\n`;
+  const ev = toolEvidence(raw, { kind: 'research-asset', topic: { area: 'technical-seo-decisions', readerProblem: 'Pick the right redirect type for a URL move.', connection: 'The free SEO audit flags temporary redirects used for permanent moves.' } });
+  const out = checkPost({ file: 'content/blog/301-vs-302.mdx', raw, evidence: ev }).join('\n');
+  assert.match(out, /verdict card/);
+  assert.match(out, /must be 1200–1500/);
+});

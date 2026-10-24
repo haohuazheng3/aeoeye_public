@@ -1,0 +1,90 @@
+{
+  "slug": "twitter-card-validator",
+  "category": "social-schema",
+  "name": "Twitter Card Validator",
+  "title": "Twitter Card Validator: Preview X Cards Now",
+  "description": "X retired its Card Validator. Paste a URL to preview your X card, see which tags X reads (twitter: vs og: fallbacks) and fix image errors.",
+  "answer": "X's own Card Validator is no longer a practical way to preview cards, so this tool does the job: enter a URL and we fetch it as Twitterbot, check the twitter:card type and the Open Graph fallbacks, measure the image and show how the card will look on X. Most pages need just one X-specific tag.",
+  "keywords": [
+    "twitter card validator",
+    "twitter card preview",
+    "x card validator"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "twitter",
+    "submitLabel": "Validate card",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "theverge.com"
+    ],
+    "busyText": "Fetching as Twitterbot…"
+  },
+  "trust": "We request the page with X's Twitterbot user agent and build the preview from exactly what it receives.",
+  "body": "## Twitter Card Preview: How Your Link Looks on X\n\nX builds a card from your page's tags when someone posts the link. The `twitter:card` tag picks the layout; title, description and image come from `twitter:` tags or, if those are missing, from Open Graph tags.\n\n| twitter:card | Layout |\n|---|---|\n| summary_large_image | Large image above the link — what most sites want |\n| summary | Small square thumbnail beside the text |\n| player / app | Video players and app installs (special cases) |\n\nSo the minimum for a big-image card is one tag on top of your Open Graph set: `<meta name=\"twitter:card\" content=\"summary_large_image\">`.\n\n## X Card Validator: Fix summary_large_image Errors\n\nMost broken cards come from four problems: no `twitter:card` tag (X falls back to a small summary at best), an image X can't fetch, an SVG image, or a page that returns an error to Twitterbot. The checker tests each one.\n\n## What happened to the official Card Validator?\n\nX's old validator page now sends logged-out visitors to a login screen instead of showing a preview. X's developer documentation for cards has also moved: when we checked on October 24, 2026, the old card docs URLs redirected to a general docs overview. Image requirements are now best inferred from the Open Graph standards platforms share: 1200×630 at 1.91:1 works for X, [Facebook](https://developers.facebook.com/docs/sharing/webmasters/images/) and [LinkedIn](https://www.linkedin.com/help/linkedin/answer/a521928) alike.\n\n## How common are X cards?\n\nVery. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 82.5% set a `twitter:card` tag: 74.3% chose `summary_large_image` and 7.3% `summary`.\n\n## Why does X still show my old card?\n\nX caches cards. After you fix tags, the old preview can persist on existing posts; new posts usually pick up the change. Adding a query string such as `?v=2` to the shared URL usually makes X fetch the page again.\n\nTo see your link on six platforms at once, use the [link preview tool](/tools/link-preview). To check every og: tag in depth, use the [Open Graph checker](/tools/open-graph-checker).",
+  "faqs": [
+    {
+      "q": "Does X still have a Card Validator?",
+      "a": "The old cards-dev.twitter.com page now sends logged-out visitors to a login screen rather than showing a preview. This tool fetches your page as Twitterbot and renders the card for anyone, no account needed."
+    },
+    {
+      "q": "Do I need twitter:title and twitter:image if I have Open Graph tags?",
+      "a": "Usually not. X falls back to og:title, og:description and og:image. Add twitter: versions only when you want X to show something different from other platforms."
+    },
+    {
+      "q": "What image size works for summary_large_image?",
+      "a": "A 1200×630 image at roughly 2:1 to 1.91:1 works well on X and doubles as your Open Graph image for Facebook and LinkedIn. Use PNG, JPEG or WebP, not SVG."
+    }
+  ],
+  "sources": [
+    {
+      "label": "The Open Graph protocol",
+      "url": "https://ogp.me/"
+    },
+    {
+      "label": "Meta — Images in link shares",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/"
+    },
+    {
+      "label": "LinkedIn Help — Image requirements for shared links",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a521928"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/11594551/pexels-photo-11594551.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of hands using a smartphone indoors, highlighting touch technology.",
+      "photographer": "Towfiqu barbhuiya",
+      "photographerUrl": "https://www.pexels.com/@towfiqu-barbhuiya-3440682",
+      "pexelsUrl": "https://www.pexels.com/photo/person-using-a-mobile-phone-11594551/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/7662059/pexels-photo-7662059.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up view of smartphone screen featuring various app icons and notifications.",
+      "photographer": "Szabó Viktor",
+      "photographerUrl": "https://www.pexels.com/@szaboviktor",
+      "pexelsUrl": "https://www.pexels.com/photo/a-smartphone-in-close-up-photography-7662059/"
+    }
+  ],
+  "related": [
+    "link-preview",
+    "open-graph-checker",
+    "og-image-checker",
+    "facebook-debugger"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

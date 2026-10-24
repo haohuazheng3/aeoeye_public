@@ -1,0 +1,92 @@
+{
+  "slug": "applebot",
+  "category": "ai-search",
+  "name": "Applebot Checker",
+  "title": "Applebot: Check Access for Apple's Crawler (and AI)",
+  "description": "Check whether Applebot and Applebot-Extended can crawl your site. One powers Siri and Spotlight, the other controls Apple AI training. See your rules.",
+  "answer": "Applebot is Apple's crawler for Spotlight, Siri and Safari search; Applebot-Extended is only a robots.txt switch that controls whether that content may train Apple's AI models. Enter your site to see what your robots.txt and server allow for each.",
+  "keywords": [
+    "applebot"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "bot-access",
+    "submitLabel": "Check Apple bots",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website or a specific page",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "extra": {
+      "bots": [
+        "applebot",
+        "applebotextended",
+        "googlebot"
+      ]
+    },
+    "examples": [
+      "nytimes.com",
+      "shopify.com"
+    ],
+    "busyText": "Reading robots.txt and requesting as each bot…",
+    "footnote": "We check two things: what your robots.txt allows each bot, and what your server actually returns when we request the page with that bot's user agent. Firewalls that verify bots by IP address may treat our test request differently from the real crawler — a block here is a strong hint, not proof."
+  },
+  "trust": "We read your live robots.txt for Applebot and Applebot-Extended and request the page as Applebot, with Googlebot as a control.",
+  "body": "## What does Applebot do?\n\nApplebot crawls the web to power search across Apple's ecosystem — Spotlight, Siri and Safari — including answers that link back to source websites, according to [Apple's documentation](https://support.apple.com/en-us/119829). Blocking it means fewer chances to appear when iPhone and Mac users search.\n\n## What is Applebot-Extended?\n\nApplebot-Extended never crawls anything. Apple describes it as a separate robots.txt token that decides whether content Applebot has already crawled may be used to train Apple's generative models.\n\n| Token | Crawls pages? | Controls |\n|---|---|---|\n| Applebot | Yes | Inclusion in Spotlight, Siri and Safari search |\n| Applebot-Extended | No | Use of your content to train Apple's AI models |\n\nSo the best setup for most sites is simple: **allow Applebot, and decide separately about Applebot-Extended.**\n\n## What happens if my robots.txt only mentions Googlebot?\n\nApplebot copies your Googlebot rules. Apple documents that when robots.txt has no Applebot group but does have a Googlebot group, Applebot follows the Googlebot instructions. A strict Googlebot block can therefore shut Apple out too — one more reason to read the deciding rule we show.\n\n## How many sites opt out of Apple's AI training?\n\nAbout one in ten in our sample. When we checked 391 sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 10.9% disallowed Applebot-Extended. News publishers did so 73.7% of the time; SaaS sites only 1%.\n\n## How do I read the result?\n\nFix Applebot problems first, because they cost you search visibility; Applebot-Extended is only a training preference.\n\n- **Applebot blocked** — usually caused by a broad `User-agent: *` rule or an inherited Googlebot rule.\n- **Applebot-Extended blocked, Applebot allowed** — the training opt-out works as intended.\n- **Live request blocked** — your firewall turns Applebot away even though robots.txt allows it.\n\n## What rule should I copy?\n\nAdd one group for the training token and leave Applebot itself alone. Matching follows the standard robots rules ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html)).\n\n```\nUser-agent: Applebot-Extended\nDisallow: /\n```\n\nCheck every AI bot at once with the [AI crawler checker](/tools/ai-crawlers), or generate a complete policy with the [AI robots.txt generator](/tools/ai-robots-txt-generator).",
+  "faqs": [
+    {
+      "q": "Does blocking Applebot-Extended remove me from Siri?",
+      "a": "No. Apple says Applebot-Extended only controls whether your content can train its generative models. Siri, Spotlight and Safari search depend on Applebot, which keeps crawling as usual."
+    },
+    {
+      "q": "Why does the live test show no result for Applebot-Extended?",
+      "a": "Because Applebot-Extended never visits your site. Apple states that it does not crawl webpages; it exists only as a robots.txt token, so only the robots.txt verdict applies to it."
+    },
+    {
+      "q": "What if my robots.txt only has rules for Googlebot?",
+      "a": "Apple documents that Applebot follows Googlebot instructions when robots.txt mentions Googlebot but not Applebot. Add an explicit Applebot group if you want Apple treated differently."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Apple — About Applebot",
+      "url": "https://support.apple.com/en-us/119829"
+    },
+    {
+      "label": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/265144/pexels-photo-265144.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Monochrome image of a laptop, camera, lens, and coffee cup on a wooden desk",
+      "photographer": "Pixabay",
+      "photographerUrl": "https://www.pexels.com/@pixabay",
+      "pexelsUrl": "https://www.pexels.com/photo/macbook-pro-265144/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/7764/pexels-photo-7764.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A person photographs a stunning sunset landscape with a smartphone in nature.",
+      "photographer": "Life Of Pix",
+      "photographerUrl": "https://www.pexels.com/@life-of-pix",
+      "pexelsUrl": "https://www.pexels.com/photo/person-using-space-gray-iphone-5s-7764/"
+    }
+  ],
+  "related": [
+    "ai-crawlers",
+    "gptbot",
+    "claudebot",
+    "ai-robots-txt-generator"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

@@ -1,0 +1,80 @@
+{
+  "slug": "title-tag-checker",
+  "category": "on-page",
+  "name": "Title Tag Checker",
+  "title": "Title Tag Checker: Real Pixel Width & SERP Preview",
+  "description": "Free title tag checker with real pixel width, not just characters: preview your title and meta description on desktop and mobile, then fix truncation.",
+  "answer": "A title tag checker measures your title the way Google displays it — in pixels, not characters — and shows where it gets cut off on desktop and mobile. Type a title and description, or load them from any URL, and the preview and pixel meters update as you edit.",
+  "keywords": [
+    "title tag checker",
+    "title tag check",
+    "meta description checker",
+    "check meta description"
+  ],
+  "runner": {
+    "component": "serp-editor"
+  },
+  "trust": "Pixel widths are measured in your browser with the same font family Google uses for results. Loading a URL fetches its live title and description.",
+  "body": "## Title Tag Check: Will Google Cut Off Your Title?\n\nGoogle doesn't cut titles at a character count. It cuts them when they no longer fit the width of the results column — Google's own docs say titles are [truncated as needed to fit the device width](https://developers.google.com/search/docs/appearance/title-link), and there's no limit on how long the element itself can be. In practice that's roughly 600 pixels on desktop.\n\nCharacters are a poor proxy: \"WWW\" is about twice as wide as \"iii\". That's why this checker measures pixels.\n\n## How long are real titles?\n\nShorter than most advice suggests. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), the median title was 51 characters, about 470 pixels by our estimate. Still, 13.2% ran past 600 pixels and 21% past 60 characters — so even large companies lose words to truncation.\n\n## Meta Description Checker: Length, Pixels and Preview\n\nDescriptions get cut the same way, by width. Our meter uses roughly 920 pixels for desktop and 680 for mobile, the point where descriptions commonly truncate; Google publishes no exact limit.\n\nThe median homepage description in our sample was 150 characters, and 25.3% were longer than 160 — usually fine on desktop, often cut on phones.\n\n## Check Meta Description Before You Publish\n\nRun three checks before you hit publish:\n\n1. **Front-load the point.** Put what the reader gets in the first 100 characters, in case the rest is cut.\n2. **Match the query.** Google [may use your description](https://developers.google.com/search/docs/appearance/snippet) when it describes the page better than on-page text; otherwise it writes its own snippet.\n3. **Make every page different.** Duplicate descriptions are usually ignored.\n\n## Will Google use my title?\n\nUsually. After an update in 2021, Google said its systems use the HTML title element [around 87% of the time](https://developers.google.com/search/blog/2021/09/more-info-about-titles). The rest get rewritten, typically because the title is too long, stuffed with keywords or doesn't match the page.\n\nWrite titles that name the page clearly and keep the important words inside the pixel limit. To generate the full tag set once you're happy, use the [meta tag generator](/tools/meta-tag-generator); to grade the whole page, run the [on-page SEO checker](/tools/on-page-seo-checker).",
+  "faqs": [
+    {
+      "q": "How long should a title tag be?",
+      "a": "Long enough to describe the page and short enough to fit about 600 pixels on desktop, which is often 50–60 characters. Measure pixels rather than characters, because wide letters take more space."
+    },
+    {
+      "q": "Why does Google show a different title than mine?",
+      "a": "Google rewrites titles it considers too long, repetitive, stuffed with keywords or unrepresentative of the page. It says it uses the HTML title around 87% of the time."
+    },
+    {
+      "q": "What is the ideal meta description length?",
+      "a": "Aim for roughly 120–160 characters with the key message first. Google truncates by pixel width and may replace your description entirely if it does not match the search."
+    },
+    {
+      "q": "Is the pixel measurement exact?",
+      "a": "It is a close estimate. We measure your text in your browser with fonts like those in Google results, but Google adjusts layouts by device and does not publish exact limits."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Influencing your title links",
+      "url": "https://developers.google.com/search/docs/appearance/title-link"
+    },
+    {
+      "label": "Google — Snippets and meta descriptions",
+      "url": "https://developers.google.com/search/docs/appearance/snippet"
+    },
+    {
+      "label": "Google Search Central blog — More info about titles (2021)",
+      "url": "https://developers.google.com/search/blog/2021/09/more-info-about-titles"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/3866816/pexels-photo-3866816.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A stack of folded newspapers placed on a wooden table, symbolizing news and information.",
+      "photographer": "Suzy Hazelwood",
+      "photographerUrl": "https://www.pexels.com/@suzyhazelwood",
+      "pexelsUrl": "https://www.pexels.com/photo/stack-of-newspapers-3866816/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/1298626/pexels-photo-1298626.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Black and white close-up of retro typewriter keys showcasing vintage charm.",
+      "photographer": "Enzo Abramo",
+      "photographerUrl": "https://www.pexels.com/@enzo-abramo-538091",
+      "pexelsUrl": "https://www.pexels.com/photo/closeup-photo-of-white-typewriter-keys-1298626/"
+    }
+  ],
+  "related": [
+    "meta-tag-generator",
+    "meta-tag-checker",
+    "on-page-seo-checker",
+    "slug-generator"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

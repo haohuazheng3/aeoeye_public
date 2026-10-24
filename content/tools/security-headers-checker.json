@@ -1,0 +1,94 @@
+{
+  "slug": "security-headers-checker",
+  "category": "speed-security",
+  "name": "Security Headers Checker",
+  "title": "Security Headers: Check & Grade Any Site A–F",
+  "description": "Free security headers checker: scan a URL for HSTS, CSP, X-Frame-Options, X-Content-Type-Options and more, graded A–F with copy-paste fixes.",
+  "answer": "Security headers are HTTP response headers that tell browsers to enforce HTTPS, limit which scripts run and block clickjacking. Enter a URL to check HSTS, Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy and Permissions-Policy, get an A–F grade and copy a starting configuration.",
+  "keywords": [
+    "security headers",
+    "security headers checker",
+    "security headers check"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "security",
+    "submitLabel": "Check security headers",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "example.com"
+    ],
+    "busyText": "Requesting headers…"
+  },
+  "trust": "We request the URL live and grade the headers your server actually returns; nothing is probed or attacked.",
+  "body": "## Security Headers Checker: The 6 Headers That Matter\n\nSix headers do most of the work. Each one closes a specific door:\n\n| Header | Protects against | Docs |\n|---|---|---|\n| Strict-Transport-Security | Downgrades to insecure HTTP | [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security) |\n| Content-Security-Policy | Cross-site scripting, injected scripts | [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) |\n| X-Frame-Options / frame-ancestors | Clickjacking in hidden frames | [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options) |\n| X-Content-Type-Options: nosniff | Browsers guessing file types | [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Content-Type-Options) |\n| Referrer-Policy | Leaking full URLs to other sites | [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy) |\n| Permissions-Policy | Unwanted camera, mic, location access | — |\n\n## Security Headers Check: CSP, HSTS and X-Frame-Options\n\nThese three carry the most weight in the grade. HSTS and clickjacking protection are quick wins; CSP is the hardest, because a strict policy can break scripts. Start with `Content-Security-Policy-Report-Only` to see violations without blocking anything, then tighten.\n\n## How do real sites score?\n\nUnevenly. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)):\n\n- 84.1% sent HSTS, 72.7% had clickjacking protection and 62.2% sent nosniff;\n- only 53.7% had a Content-Security-Policy, 37.1% a Referrer-Policy and 15.9% a Permissions-Policy;\n- just 21.9% had all five of the core headers, and 6% had none of them.\n\n## Do security headers help SEO?\n\nNot directly as ranking signals, apart from HTTPS itself, which Google has used as a [lightweight ranking signal since 2014](https://developers.google.com/search/blog/2014/08/https-as-ranking-signal). Their value is protecting visitors and your domain's reputation — a hijacked or defaced site loses rankings fast.\n\n## How is the grade calculated?\n\nPoints for each header that's present and sensible, deductions for weak values such as a short HSTS max-age or `unsafe-url` referrer policy. A is 90 or more, F is under 35. The nginx snippet is a starting point: test it on staging, especially the CSP.\n\nFor HSTS specifically — max-age, subdomains and preload eligibility — use the [HSTS checker](/tools/hsts-checker). To see every header your server sends, use the [HTTP header checker](/tools/http-header-checker).",
+  "faqs": [
+    {
+      "q": "Which security headers should every website have?",
+      "a": "At minimum Strict-Transport-Security, X-Content-Type-Options: nosniff, clickjacking protection with X-Frame-Options or CSP frame-ancestors, a Referrer-Policy, and a Content-Security-Policy suited to your scripts."
+    },
+    {
+      "q": "Will adding a Content-Security-Policy break my site?",
+      "a": "A strict CSP can block scripts, styles or embeds you rely on. Deploy it first as Content-Security-Policy-Report-Only, fix the reported violations, then enforce it."
+    },
+    {
+      "q": "Is X-XSS-Protection still needed?",
+      "a": "No. Modern browsers have removed the XSS filter it controlled, so the header does nothing useful today. A Content-Security-Policy is the real protection."
+    }
+  ],
+  "sources": [
+    {
+      "label": "MDN — Strict-Transport-Security",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security"
+    },
+    {
+      "label": "MDN — Content Security Policy (CSP)",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP"
+    },
+    {
+      "label": "MDN — X-Frame-Options",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options"
+    },
+    {
+      "label": "Google Search Central blog — HTTPS as a ranking signal (2014)",
+      "url": "https://developers.google.com/search/blog/2014/08/https-as-ranking-signal"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/4006805/pexels-photo-4006805.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Iron gate with a padlock securing a closed entrance in Portland, Oregon.",
+      "photographer": "Kevin Bidwell",
+      "photographerUrl": "https://www.pexels.com/@kevinbidwell",
+      "pexelsUrl": "https://www.pexels.com/photo/red-metal-gate-with-padlock-4006805/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/35562107/pexels-photo-35562107.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Security guard in uniform standing alert at a building entrance.",
+      "photographer": "Anil  Sharma",
+      "photographerUrl": "https://www.pexels.com/@shootsaga",
+      "pexelsUrl": "https://www.pexels.com/photo/professional-security-guard-at-entrance-35562107/"
+    }
+  ],
+  "related": [
+    "hsts-checker",
+    "http-header-checker",
+    "core-web-vitals-test",
+    "redirect-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

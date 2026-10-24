@@ -1,0 +1,36 @@
+{
+  "contentSha256": "67831e588913007a9b502873179313ecdd8934983214de54e4df73f488836c93",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"sitemap checker\" (720/mo, KD 10): the Sitemap Checker is the first screen, the 48-word answer resolves the query directly, and the body answers \"sitemap test\", \"sitemap validator\", \"xml sitemap tester\", \"sitemap finder\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"sitemap checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "checkedAt": "2026-10-24",
+      "supports": "Sitemap limits 50,000 URLs / 50MB; Google ignores priority and changefreq; lastmod only if accurate."
+    },
+    {
+      "url": "https://www.sitemaps.org/protocol.html",
+      "checkedAt": "2026-10-24",
+      "supports": "Sitemap XML protocol: urlset, sitemapindex, namespace and tags."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 369 words, 2 Pexels images, 2 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/sitemap against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

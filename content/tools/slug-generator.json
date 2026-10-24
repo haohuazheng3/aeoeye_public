@@ -1,0 +1,65 @@
+{
+  "slug": "slug-generator",
+  "category": "on-page",
+  "name": "Slug Generator",
+  "title": "Slug Generator: SEO-Friendly URLs From Any Title",
+  "description": "Free slug generator: turn any title into a clean, lowercase, hyphenated URL slug — strip stop words, accents and symbols — and check its length.",
+  "answer": "A slug generator turns a page title into the readable part of a URL: lowercase, words joined by hyphens, accents and symbols removed. Paste one title or a list below; you can strip filler words, cap the length and copy each slug.",
+  "keywords": [
+    "slug generator"
+  ],
+  "runner": {
+    "component": "slug-generator"
+  },
+  "trust": "Runs entirely in your browser. Nothing you paste is sent to a server.",
+  "body": "## What makes a good URL slug?\n\nShort, readable and hyphenated. Google recommends simple, descriptive URLs and specifically [hyphens instead of underscores](https://developers.google.com/search/docs/crawling-indexing/url-structure) between words, because hyphens mark a word boundary while underscores join words together.\n\nA good slug:\n\n- uses lowercase letters, numbers and hyphens only;\n- keeps the words that describe the page and drops filler;\n- doesn't include dates or version numbers you'll have to change;\n- stays the same once published.\n\n## How long should a slug be?\n\nAround three to five words. We measured the last path segment of 497 URLs that rank in Google's top 10 for 61 technical SEO searches in October 2026: the median slug was 19 characters and 3 words long, and only 4.2% ran past 60 characters.\n\nThe same sample shows how settled the conventions are. 75.7% of slugs used hyphens, 4.6% used underscores and 5.6% of paths had uppercase letters — the rest were single words.\n\n## Should I remove stop words like \"the\" and \"of\"?\n\nUsually, yes, when it doesn't change the meaning. \"how-to-fix-a-redirect-chain\" reads fine as \"fix-redirect-chain\". Keep a stop word when dropping it makes the slug ambiguous; in our sample, 18.1% of ranking slugs still contained at least one, so this is a readability choice, not a rule.\n\nThis generator only removes stop words when a title has more than three words, and always keeps the first word.\n\n## What if I change a slug after publishing?\n\nAdd a 301 redirect from the old URL to the new one, and update internal links. Google treats a permanent redirect as a strong signal that the new URL should replace the old one ([Google on redirects](https://developers.google.com/search/docs/crawling-indexing/301-redirects)).\n\nChanged slugs without redirects are one of the most common causes of 404s after a redesign. Test the old URLs afterwards with the [redirect checker](/tools/redirect-checker), and keep page titles aligned with the slug using the [title tag checker](/tools/title-tag-checker).",
+  "faqs": [
+    {
+      "q": "What is a URL slug?",
+      "a": "The part of a URL that identifies a single page in readable words, usually after the last slash. In example.com/blog/fix-redirect-chain, the slug is \"fix-redirect-chain\"."
+    },
+    {
+      "q": "Do keywords in the URL help SEO?",
+      "a": "A little at most. A descriptive URL mainly helps people decide to click because it tells them what the page is before they visit. Readability matters far more than squeezing extra keywords in."
+    },
+    {
+      "q": "Should slugs be lowercase?",
+      "a": "Yes. URL paths are case-sensitive, so Example and example can be treated as two different URLs. Lowercase-only slugs avoid accidental duplicates and broken links."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — URL structure best practices",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/url-structure"
+    },
+    {
+      "label": "Google — Redirects and Google Search",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/36242660/pexels-photo-36242660.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Street signs for Milton Rd and Goodhouse Rd with trees in the background.",
+      "photographer": "Dave Luzi, Litchfield CT REALTOR",
+      "photographerUrl": "https://www.pexels.com/@dave-luzi-litchfield-ct-realtor-2159711678",
+      "pexelsUrl": "https://www.pexels.com/photo/intersection-of-milton-road-and-goodhouse-road-signage-36242660/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/9304484/pexels-photo-9304484.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A young woman in an apron labeling a handcrafted ceramic cup in a creative workspace.",
+      "photographer": "Mikhail Nilov",
+      "photographerUrl": "https://www.pexels.com/@mikhail-nilov",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-in-apron-labeling-handmade-cup-9304484/"
+    }
+  ],
+  "related": [
+    "title-tag-checker",
+    "redirect-checker",
+    "meta-tag-generator",
+    "on-page-seo-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

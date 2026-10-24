@@ -1,0 +1,74 @@
+{
+  "slug": "meta-tag-generator",
+  "category": "on-page",
+  "name": "Meta Tag Generator",
+  "title": "Meta Description Generator With Live Google Preview",
+  "description": "Write meta descriptions that fit: live pixel meter, Google preview and copy-ready title, description, Open Graph and X card tags. Free, no signup.",
+  "answer": "A meta description generator should help you write a description that fits and earns the click, not spit out generic text. Write yours here with a live pixel meter and Google preview, then copy a complete, escaped tag set: title, description, canonical, robots, Open Graph and X card.",
+  "keywords": [
+    "meta description generator",
+    "meta tag generator"
+  ],
+  "runner": {
+    "component": "meta-generator"
+  },
+  "trust": "Everything runs in your browser. We don't write the copy for you — the preview and pixel meters keep you honest while you do.",
+  "body": "## What makes a meta description worth clicking?\n\nA clear promise in the first 100 characters. Google truncates descriptions to fit the screen and only uses yours [when it describes the page better](https://developers.google.com/search/docs/appearance/snippet) than the text it could pull itself, so a vague description is often replaced.\n\nA pattern that works for most pages:\n\n1. **What the page gives** — \"Free redirect checker: see every hop…\"\n2. **The specific detail** — numbers, the format, who it's for.\n3. **What's different** — \"no signup\", \"with fixes\", \"tested on 391 sites\".\n\nAvoid quotes and repeated keywords; aim for roughly 120–160 characters and check the mobile meter.\n\n## Meta Tag Generator: Title, Description, OG and X Tags\n\nThe output is a ready-to-paste block for your page head. Values are HTML-escaped, so quotes and ampersands won't break the markup.\n\n| Tag | Generated when |\n|---|---|\n| title, meta description | Always |\n| link rel=canonical | You enter a URL |\n| meta robots | You choose anything other than index, follow |\n| og:type, og:title, og:description, og:url | Always / when filled |\n| og:image with 1200×630 dimensions | You add an image URL |\n| twitter:card | Always: large image if there's an image |\n\nDeclaring og:image width and height lets Facebook render the image the first time a link is shared, according to [Meta's image guidance](https://developers.facebook.com/docs/sharing/webmasters/images/).\n\n## Should I let AI write my meta descriptions?\n\nUse it for a first draft if you like, but edit for specifics. Generic descriptions look the same as every other result, and Google rewrites many of them anyway.\n\nWe see the gap in real data: in our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), the median description was 150 characters — and a quarter ran past 160, where phones usually cut them.\n\n## Where do these tags go?\n\nInside the head, before any scripts or images, because [Google stops reading the head](https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata) at the first invalid element. Then confirm the live page with the [meta tag checker](/tools/meta-tag-checker), and design a share image with the [OG image generator](/tools/og-image-generator).",
+  "faqs": [
+    {
+      "q": "Does a meta description help rankings?",
+      "a": "Not directly. It influences whether people click your result, which matters just as much. Google uses it as the snippet when it describes the page better than other text on the page."
+    },
+    {
+      "q": "How many characters should a meta description be?",
+      "a": "Roughly 120–160 characters, with the main message in the first 100. Google truncates by pixel width, so check the mobile preview rather than relying on a character count alone."
+    },
+    {
+      "q": "Do I need both Open Graph and Twitter tags?",
+      "a": "X falls back to Open Graph tags for title, description and image, so twitter:card is the only X-specific tag most pages need. The generator adds it automatically."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Snippets and meta descriptions",
+      "url": "https://developers.google.com/search/docs/appearance/snippet"
+    },
+    {
+      "label": "Google — Use valid HTML to specify page metadata",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata"
+    },
+    {
+      "label": "Meta — Images in link shares",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/204511/pexels-photo-204511.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A warm, inviting workspace featuring coffee, handwritten notes, and a pen on the desk.",
+      "photographer": "David Bares",
+      "photographerUrl": "https://www.pexels.com/@david-bares-42311",
+      "pexelsUrl": "https://www.pexels.com/photo/closeup-photo-of-blue-pen-tinted-spiral-notepad-placed-beside-pen-die-cast-car-and-coffee-cup-204511/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/12797275/pexels-photo-12797275.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Vibrant collection of sticky notes organized on an indoor wall.",
+      "photographer": "Connor Scott McManus",
+      "photographerUrl": "https://www.pexels.com/@connorscottmcmanus",
+      "pexelsUrl": "https://www.pexels.com/photo/sticking-notes-on-the-wall-12797275/"
+    }
+  ],
+  "related": [
+    "title-tag-checker",
+    "meta-tag-checker",
+    "og-image-generator",
+    "open-graph-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

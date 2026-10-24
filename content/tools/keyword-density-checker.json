@@ -1,0 +1,82 @@
+{
+  "slug": "keyword-density-checker",
+  "category": "on-page",
+  "name": "Keyword Density Checker",
+  "title": "Keyword Density Checker: Real Page Text, Not Paste",
+  "description": "Free keyword density checker: enter a URL and analyse the text Google reads — top 1-, 2- and 3-word phrases, density and where your keyword appears.",
+  "answer": "A keyword density checker counts how often words and phrases appear in a page's text. Enter a URL (and optionally a target keyword): we read the main content Google sees — not menus or footers — and show the top one-, two- and three-word phrases, their density, and whether your keyword appears in the places that matter.",
+  "keywords": [
+    "keyword density checker"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "density",
+    "submitLabel": "Analyse keywords",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      },
+      {
+        "name": "keyword",
+        "label": "Target keyword",
+        "placeholder": "e.g. redirect checker",
+        "optional": true
+      }
+    ],
+    "busyText": "Reading the page text…"
+  },
+  "trust": "We fetch the live page and analyse the main content area, excluding navigation, headers, footers and forms.",
+  "body": "## Is there an ideal keyword density?\n\nNo. Google has never published a target density, and its spam policies list [keyword stuffing](https://developers.google.com/search/docs/essentials/spam-policies) — \"repeating the same words or phrases so often that it sounds unnatural\" — as a violation. Chasing 2% or 3% is a habit left over from much older search engines.\n\nWhat density is still good for is spotting extremes: a phrase that dominates the page in a way no human would write, or a page that never mentions the thing it's supposed to be about.\n\n## Why check a URL instead of pasted text?\n\nBecause the page you publish isn't the draft you wrote. Templates add navigation, related links, cookie banners and footers that pasted text never shows. We isolate the main content the way a reader sees it, so the counts reflect your actual copy.\n\n## What should I look at instead of a percentage?\n\nPlacement and coverage. If you enter a target keyword, we check whether it appears in:\n\n- the **title** and **H1**;\n- the **first 100 words**;\n- the **meta description**;\n- the **URL**.\n\nThen read the top phrases. A healthy page about \"redirect checker\" will also use related terms — status code, 301, chain, hop — because covering a topic properly requires them. If your top phrases are all variations of the same keyword, you're writing for a machine.\n\n## What do we see in practice?\n\nWe measured our own tool pages while writing them. Across 22 drafts, the main keyword's density had a median of 0.76%; the highest was 3.8%, on a page about a crawler whose name is the keyword. Nothing was tuned to a number — and three drafts turned out never to use their exact main phrase in the body, which we then fixed. That's the useful signal here: gaps, not percentages.\n\nGoogle's guidance on [helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) asks whether content is written for people first. Use this tool to catch stuffing and gaps, then grade the full page with the [on-page SEO checker](/tools/on-page-seo-checker) or count its words with the [website word counter](/tools/website-word-counter).",
+  "faqs": [
+    {
+      "q": "What is a good keyword density for SEO?",
+      "a": "There is no target number. Mention your main topic naturally in the title, headings and opening, cover related terms, and avoid repetition that sounds unnatural. Google treats stuffing as spam."
+    },
+    {
+      "q": "Does keyword density still matter?",
+      "a": "Not as a ranking formula. It is useful only as a sanity check for pages that over-repeat a phrase or barely mention their topic."
+    },
+    {
+      "q": "Why are menu words missing from the results?",
+      "a": "We deliberately exclude navigation, headers, footers and forms so the analysis reflects your actual content rather than words repeated on every page of the site."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Spam policies (keyword stuffing)",
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+    },
+    {
+      "label": "Google — Creating helpful, reliable, people-first content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6958536/pexels-photo-6958536.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Hand highlighting text in a book using a green marker, capturing a focused study moment.",
+      "photographer": "https://kaboompics.com/",
+      "photographerUrl": "https://www.pexels.com/@karola-g",
+      "pexelsUrl": "https://www.pexels.com/photo/person-using-blue-highlighter-pen-on-a-book-page-6958536/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/20062955/pexels-photo-20062955.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Artistic close-up of stacked white paper sheets creating geometric shadows and patterns in soft light.",
+      "photographer": "Michaela St",
+      "photographerUrl": "https://www.pexels.com/@michaela-st-3448542",
+      "pexelsUrl": "https://www.pexels.com/photo/corner-of-paper-stack-20062955/"
+    }
+  ],
+  "related": [
+    "on-page-seo-checker",
+    "website-word-counter",
+    "title-tag-checker",
+    "link-extractor"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

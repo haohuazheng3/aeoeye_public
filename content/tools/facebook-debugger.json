@@ -1,0 +1,90 @@
+{
+  "slug": "facebook-debugger",
+  "category": "social-schema",
+  "name": "Facebook Sharing Debugger",
+  "title": "Facebook Sharing Debugger: See What Facebook Scrapes",
+  "description": "See what Facebook scrapes from your URL: we fetch it as facebookexternalhit, show the og: tags and image it uses, and explain how to force a re-scrape.",
+  "answer": "A Facebook sharing debugger shows what Facebook's crawler sees when your link is shared. Enter a URL: we fetch it as facebookexternalhit, check the response and every og: tag Facebook uses, measure the image and render the Facebook card — no login needed.",
+  "keywords": [
+    "facebook sharing debugger",
+    "facebook debugger tool",
+    "facebook debug tool"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "facebook",
+    "submitLabel": "Debug for Facebook",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "bbc.com"
+    ],
+    "busyText": "Fetching as facebookexternalhit…"
+  },
+  "trust": "We request the page with the facebookexternalhit user agent, exactly as Meta's link-preview crawler identifies itself.",
+  "body": "## What does Facebook's crawler see?\n\nFacebook builds previews with a crawler called facebookexternalhit. [Meta's documentation](https://developers.facebook.com/docs/sharing/webmasters/web-crawlers/) says it fetches pages shared in its apps to gather the title, description and thumbnail — and that it may bypass robots.txt for security or integrity checks.\n\nThis debugger sends a request with that user agent and shows the status code, redirects, every og: tag and the card Facebook would build from them.\n\n## Facebook Debugger Tool: Why Your Old Image Still Shows\n\nFacebook caches. [Meta says](https://developers.facebook.com/docs/sharing/webmasters/images/) it caches images by URL, so replacing the file but keeping the same URL can leave the old picture in place. Two fixes:\n\n1. Give the new image a new filename or a version query (`card.png?v=2`).\n2. Ask Facebook to refresh: paste the page into Meta's official [Sharing Debugger](https://developers.facebook.com/tools/debug/) and choose \"Scrape Again\".\n\nOur tool shows what Facebook will see on its next scrape; Meta's tool is the one that clears Facebook's cache.\n\n## Facebook Debug Tool Checklist: The og: Tags Facebook Needs\n\nFour tags make a reliable Facebook card: og:title, og:description, og:image and og:url. Add og:image:width and og:image:height so the image renders on the first share. Meta recommends images of [at least 1200×630](https://developers.facebook.com/docs/sharing/webmasters/images/), under 8 MB.\n\n## Why does Facebook show no preview at all?\n\nUsually the crawler can't get the page. Firewalls and bot protection often challenge facebookexternalhit, and a page that returns 403 or a challenge gives Facebook nothing to work with.\n\nWe saw how common that wall is when we fetched 391 well-known homepages with a labelled research crawler in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)): 55 answered with a 403. If your firewall blocks unknown crawlers, allow Meta's crawler explicitly.\n\nCompare the Facebook card with five other platforms in the [link preview tool](/tools/link-preview), or check the image alone with the [OG image checker](/tools/og-image-checker).",
+  "faqs": [
+    {
+      "q": "How do I clear Facebook's cache for my link?",
+      "a": "Paste the URL into Meta's Sharing Debugger at developers.facebook.com/tools/debug and click \"Scrape Again\". If the image still doesn't change, give the image file a new URL."
+    },
+    {
+      "q": "Do I need to log in to use this debugger?",
+      "a": "No. We fetch your page as Facebook's crawler and show the result without any account. Only clearing Facebook's own cache requires Meta's tool and a login."
+    },
+    {
+      "q": "Does facebookexternalhit obey robots.txt?",
+      "a": "Meta says it may bypass robots.txt when performing security or integrity checks. To stop previews entirely, you would need to block it at the server or firewall."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Meta — Web crawlers",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/web-crawlers/"
+    },
+    {
+      "label": "Meta — Images in link shares",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/"
+    },
+    {
+      "label": "Meta — Sharing Debugger",
+      "url": "https://developers.facebook.com/tools/debug/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/7737449/pexels-photo-7737449.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Macro shot of a stink bug (Pentatomidae) perched on a leaf, showcasing its unique texture and natural habitat.",
+      "photographer": "Jorge Urosa",
+      "photographerUrl": "https://www.pexels.com/@jorgeural",
+      "pexelsUrl": "https://www.pexels.com/photo/a-close-up-shot-of-a-stink-bug-7737449/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/34803999/pexels-photo-34803999.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Focused view of a computer screen displaying code and debug information.",
+      "photographer": "Daniil Komov",
+      "photographerUrl": "https://www.pexels.com/@dkomov",
+      "pexelsUrl": "https://www.pexels.com/photo/close-up-of-computer-screen-with-code-display-34803999/"
+    }
+  ],
+  "related": [
+    "open-graph-checker",
+    "og-image-checker",
+    "link-preview",
+    "twitter-card-validator"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

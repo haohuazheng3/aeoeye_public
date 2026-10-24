@@ -1,0 +1,36 @@
+{
+  "contentSha256": "1d81c63cbe04ad1d2c3a5b58a21fa0ec0d41383d9b1a63ccc31468371ad01571",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"llms txt file\" (880/mo, KD 31): the llms.txt Checker is the first screen, the 45-word answer resolves the query directly, and the body answers the main query with first-hand AEOeye measurements before handing off to the free AI visibility audit.",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Someone searching \"llms txt file\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "AEOeye measures AI visibility; crawler access and AI-ready pages are the prerequisites this page tests, and it links to the free AI audit."
+  },
+  "sources": [
+    {
+      "url": "https://llmstxt.org/",
+      "checkedAt": "2026-10-24",
+      "supports": "llms.txt v2 (modified 2026-08-10): H1 required, blockquote, H2 file lists, Optional section; root or subpath; used mainly at inference."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-24",
+      "supports": "No additional requirements for AI Overviews/AI Mode; page must be indexed and snippet-eligible; preview controls apply."
+    },
+    {
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site robots.txt study: per-bot block rates by group (e.g. GPTBot 9.1%, ClaudeBot 11.5%, Bytespider 14.6%)."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 394 words, 2 Pexels images, 6 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye AI Crawler Access Study (391 sites, 2026-10-03) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/llms-txt against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "slug": "link-preview",
+  "category": "social-schema",
+  "name": "Link Preview",
+  "title": "Link Preview: See Your URL on 6 Platforms at Once",
+  "description": "Free link preview tool: see how a URL looks on Facebook, LinkedIn, X, Slack, Discord and iMessage — from the tags each platform actually reads.",
+  "answer": "A link preview is the card — title, description, image — that appears when you share a URL. Enter any URL to see approximately how it will look on Facebook, LinkedIn, X, Slack, Discord and iMessage at once, and which tags each preview was built from.",
+  "keywords": [
+    "link preview",
+    "og preview",
+    "open graph preview",
+    "linkedin preview",
+    "url preview",
+    "social share preview"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "link-preview",
+    "submitLabel": "Preview link",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URL to share",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "spotify.com"
+    ],
+    "busyText": "Building previews…"
+  },
+  "trust": "We fetch the page once, read its Open Graph, X card and fallback tags, and render each platform's layout from the same data. Platforms change their designs, so treat the cards as close approximations.",
+  "body": "## OG Preview: How Open Graph Tags Become a Card\n\nEvery platform starts from the same tags. The [Open Graph](https://ogp.me/) title, description and image fill the card; if they're missing, platforms fall back to the page title, the meta description and whatever image they can find.\n\n## Open Graph Preview for Facebook, LinkedIn, X and Slack\n\nThe data is shared, the layouts aren't:\n\n| Platform | Image shape | Notes |\n|---|---|---|\n| Facebook | Wide, about 1.91:1 | Small thumbnail below about 600×315 |\n| LinkedIn | Wide, 1.91:1 | Minimum 1200×627 for the large layout |\n| X | Wide with summary_large_image | Needs the twitter:card tag |\n| Slack | Small image beside the text | Shows the site name above the title |\n| Discord | Embed card | Image below the text |\n| iMessage | Large image card | Title and domain under the image |\n\n## LinkedIn Preview: Why LinkedIn Shows a Different Image\n\nLinkedIn uses og:image only when it meets its rules — [at least 1200×627 at 1.91:1, under 5 MB](https://www.linkedin.com/help/linkedin/answer/a521928). Smaller images get a small thumbnail or are skipped. LinkedIn also caches previews: run the URL through [Post Inspector](https://www.linkedin.com/post-inspector/) to refresh it.\n\n## URL Preview Before You Share It\n\nCheck before you post, because changing tags afterwards doesn't always update posts already shared. Look at three things: the title isn't a menu label, the image isn't a logo on a white square, and the description isn't a cookie notice.\n\n## Social Share Preview: The 60-Second Checklist\n\nFive tags fix nearly every preview:\n\n1. og:title — written for the share, not stuffed with keywords.\n2. og:description — one clear sentence.\n3. og:image — 1200×630, PNG or JPEG, absolute URL.\n4. og:url — the canonical URL.\n5. twitter:card — summary_large_image.\n\nMost big sites have them: in our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 86.7% set og:image and 74.3% chose the large X card. Create a card image with the [OG image generator](/tools/og-image-generator), and dig into individual tags with the [Open Graph checker](/tools/open-graph-checker).",
+  "faqs": [
+    {
+      "q": "How do I preview how a link will look when shared?",
+      "a": "Enter the URL above. We read the page's Open Graph and X card tags and render approximate previews for Facebook, LinkedIn, X, Slack, Discord and iMessage side by side."
+    },
+    {
+      "q": "Why does my link show no image?",
+      "a": "The og:image tag is missing, points to a file that fails to load, is too small for the platform's large layout, or uses SVG. Each platform also caches old previews."
+    },
+    {
+      "q": "How do I change the preview of a link I already shared?",
+      "a": "Update the tags, then refresh the platform's cache with Meta's Sharing Debugger or LinkedIn's Post Inspector. On X, posting the link with a query string forces a new fetch."
+    }
+  ],
+  "sources": [
+    {
+      "label": "The Open Graph protocol",
+      "url": "https://ogp.me/"
+    },
+    {
+      "label": "LinkedIn Help — Image requirements for shared links",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a521928"
+    },
+    {
+      "label": "LinkedIn — Post Inspector",
+      "url": "https://www.linkedin.com/post-inspector/"
+    },
+    {
+      "label": "Meta — Images in link shares",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/32944547/pexels-photo-32944547.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Smartphone screen showing various app icons with notification badges in low light.",
+      "photographer": "dumitru bumbu",
+      "photographerUrl": "https://www.pexels.com/@dumitru-bumbu-742240889",
+      "pexelsUrl": "https://www.pexels.com/photo/smartphone-display-with-app-notifications-32944547/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/7439124/pexels-photo-7439124.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A businesswoman typing on a laptop in an office setting, using Slack for communication.",
+      "photographer": "cottonbro studio",
+      "photographerUrl": "https://www.pexels.com/@cottonbro",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-using-a-laptop-7439124/"
+    }
+  ],
+  "related": [
+    "open-graph-checker",
+    "og-image-checker",
+    "twitter-card-validator",
+    "facebook-debugger",
+    "og-image-generator"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

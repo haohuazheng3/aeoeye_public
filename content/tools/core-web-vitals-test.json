@@ -1,0 +1,97 @@
+{
+  "slug": "core-web-vitals-test",
+  "category": "speed-security",
+  "name": "Core Web Vitals Test",
+  "title": "Core Web Vitals Test: Real-User LCP, INP, CLS",
+  "description": "Free Core Web Vitals test: real-user LCP, INP and CLS from Chrome field data plus a mobile Lighthouse run — and the three fixes that matter most.",
+  "answer": "A Core Web Vitals test reports how fast real visitors experience your page: LCP (loading, good ≤ 2.5 s), INP (responsiveness, ≤ 200 ms) and CLS (visual stability, ≤ 0.1), measured at the 75th percentile. Enter a URL for Chrome field data plus a mobile Lighthouse run and the fixes worth the most.",
+  "keywords": [
+    "core web vitals test",
+    "lighthouse test"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "cwv",
+    "submitLabel": "Test Core Web Vitals",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "web.dev",
+      "amazon.com"
+    ],
+    "busyText": "Fetching Chrome field data and running Lighthouse (20–40 s)…"
+  },
+  "trust": "Data comes from Google's PageSpeed Insights API: real-user Chrome UX Report data for the page and origin, and a simulated mobile Lighthouse run.",
+  "body": "## What do LCP, INP and CLS measure?\n\nThree things users feel, with thresholds set by Google ([web.dev](https://web.dev/articles/vitals)):\n\n| Metric | Measures | Good | Poor |\n|---|---|---|---|\n| LCP | When the main content appears | ≤ 2.5 s | > 4 s |\n| INP | How fast the page responds to taps and clicks | ≤ 200 ms | > 500 ms |\n| CLS | How much the layout jumps | ≤ 0.1 | > 0.25 |\n\nA page passes when it meets all three at the 75th percentile of visits. INP replaced First Input Delay as a Core Web Vital in 2024 ([web.dev](https://web.dev/blog/inp-cwv-launch)). Google says good Core Web Vitals align with what its [core ranking systems seek to reward](https://developers.google.com/search/docs/appearance/core-web-vitals).\n\n## Lighthouse Test: Lab Scores vs Real-User Field Data\n\nTwo different measurements, and they often disagree. Field data comes from real Chrome users over the past 28 days ([PSI docs](https://developers.google.com/speed/docs/insights/v5/about)); it's what Google uses. Lab data is one simulated Lighthouse load on a throttled phone; it's what you use to debug.\n\nThe gap is real. When we pulled PageSpeed Insights data for 30 well-known SaaS homepages in October 2026 ([dataset](/resources/core-web-vitals-sample-2026-10.json)), 6 of the 28 with field data had good real-user LCP despite a Lighthouse score under 50. A bad lab score is a lead, not a verdict.\n\n## How many sites actually pass?\n\nFewer than you'd expect from big brands. Of those 28 SaaS sites, only 3 passed all three Core Web Vitals. Layout stability was mostly fine (75% good CLS), but only 32.1% had good LCP and 25% good INP; the median site loaded its main content in 2,885 ms and responded to taps in 287 ms.\n\n## Why does it say there's no field data?\n\nChrome only reports sites and pages with enough real-user visits. New or low-traffic pages fall back to origin-level data or to lab results only ([CrUX](https://developer.chrome.com/docs/crux)).\n\n## What should I fix first?\n\nWhichever metric fails in the field. For LCP, make the hero image load early (no lazy-loading, `fetchpriority=\"high\"`) and cut server response time. For INP, break up long JavaScript tasks and defer third-party scripts. For CLS, give images and embeds explicit dimensions. The \"biggest fixes\" table ranks Lighthouse opportunities by estimated savings.\n\nSpeed is one part of mobile quality; layout is the other — check it with the [mobile-friendly test](/tools/mobile-friendly-test). For every check across your site, run the [free SEO audit](/seo-audit).",
+  "faqs": [
+    {
+      "q": "What are good Core Web Vitals scores?",
+      "a": "LCP of 2.5 seconds or less, INP of 200 milliseconds or less and CLS of 0.1 or less, each at the 75th percentile of page visits, measured separately for mobile and desktop."
+    },
+    {
+      "q": "Why is my Lighthouse score low but Core Web Vitals pass?",
+      "a": "Lighthouse simulates one load on a slow phone and network, while Core Web Vitals use real visits. Fast real devices and cached returning visitors often perform much better than the simulation."
+    },
+    {
+      "q": "How long until Core Web Vitals improve after a fix?",
+      "a": "Field data covers the previous 28 days, so improvements show gradually over about four weeks as new visits replace old ones in the Chrome UX Report."
+    },
+    {
+      "q": "Do Core Web Vitals affect rankings?",
+      "a": "Google says good Core Web Vitals align with what its core ranking systems reward, as part of page experience. Relevance and content quality still matter far more."
+    }
+  ],
+  "sources": [
+    {
+      "label": "web.dev — Web Vitals",
+      "url": "https://web.dev/articles/vitals"
+    },
+    {
+      "label": "Google — Understanding Core Web Vitals and Google search results",
+      "url": "https://developers.google.com/search/docs/appearance/core-web-vitals"
+    },
+    {
+      "label": "Google — About PageSpeed Insights",
+      "url": "https://developers.google.com/speed/docs/insights/v5/about"
+    },
+    {
+      "label": "Chrome for Developers — Chrome UX Report",
+      "url": "https://developer.chrome.com/docs/crux"
+    },
+    {
+      "label": "AEOeye Core Web Vitals sample (Oct 2026, 30 SaaS homepages)",
+      "url": "https://aeoeye.com/resources/core-web-vitals-sample-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/5037300/pexels-photo-5037300.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Adult man checks smartwatch while exercising by the Brooklyn Bridge, promoting healthy lifestyle.",
+      "photographer": "Ketut Subiyanto",
+      "photographerUrl": "https://www.pexels.com/@ketut-subiyanto",
+      "pexelsUrl": "https://www.pexels.com/photo/man-in-sports-clothing-checking-his-stopwatch-5037300/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/166681/pexels-photo-166681.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a car speedometer displaying a warning indicator. Ideal for automotive themes.",
+      "photographer": "Mike Bird",
+      "photographerUrl": "https://www.pexels.com/@mikebird",
+      "pexelsUrl": "https://www.pexels.com/photo/white-and-grey-car-speedometer-gauge-on-0-miles-per-hour-166681/"
+    }
+  ],
+  "related": [
+    "mobile-friendly-test",
+    "on-page-seo-checker",
+    "http-header-checker",
+    "seo-audit-checklist"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

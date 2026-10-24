@@ -12,7 +12,7 @@ import { RETIRED_PATHS, pageExists, PAGE_SECTIONS } from './verify-content-quali
 
 const ROOT = process.cwd();
 const HUBS = new Set(['ai-search-audit-methodology-template', 'ai-search-citation-evaluation-metrics', 'ai-brand-recommendation-measurement', 'ai-search-statistics', 'ai-crawler-user-agent-directory']);
-const FIRST_HAND = /ai-crawler-access-study|crawler access study|AEOeye(?:'|’)s (?:own )?(?:audit|data|study|logs|crawler|records)|our (?:own )?(?:audit logs|audit records|crawler study|study|data)|we (?:checked|fetched|crawled|measured|retired|merged|audited)|when we (?:checked|ran|looked|audited)/i;
+const FIRST_HAND = /ai-crawler-access-study|technical-seo-baseline|core-web-vitals-sample|robots-agents-2026|crawler access study|AEOeye(?:'|’)s (?:own )?(?:audit|data|study|logs|crawler|records)|our (?:own )?(?:audit logs|audit records|crawler study|study|data)|we (?:checked|fetched|crawled|measured|retired|merged|audited|traced|tested|analy[sz]ed|scanned|requested|probed|ran)|when we (?:checked|ran|looked|audited|traced|tested)/i;
 const DRAFT_NOTES = /\b(?:the supplied (?:plan |official )?(?:facts|information|guide|pricing|rate)|supplied (?:plan facts|official facts|pricing (?:summary|information)|plan limits|US pricing)|not specified in (?:the )?supplied facts|according to (?:the )?(?:writer|writing) brief|insert (?:price|source|image) here|TODO|TBD|lorem ipsum|evidence pack|writer brief|\[citation needed\])\b/i;
 const AI_ISMS = /\b(?:delve|in today's (?:fast-paced|digital)|ever-evolving landscape|game-changer|unlock the power|it's important to note that|in conclusion,|navigating the complex|tapestry|revolutioni[sz]e)\b/i;
 const PERSONA = /(?:^|[.!?]\s+|\n)I (?:am|was|have|tested|think|believe|ran|found|spent)\b|\bour team of \d+|\b\d+\+? years of experience\b|\bas a (?:seasoned|certified) /;
@@ -36,6 +36,16 @@ function load(file) {
   const m = rel.match(/^content\/([a-z]+)\/([^/]+?)\.(mdx?|json)$/);
   if (!m) throw new Error(`not a content file: ${rel}`);
   const [, section, slug, ext] = m;
+  if (ext === 'json' && section === 'tools') {
+    // A 级工具优先页(SEO 底座 v2):答案句 + 正文计词,配图在 images 字段
+    const p = JSON.parse(raw);
+    return {
+      rel, section, slug, raw, kind: 'tool', body: p.body || '',
+      bodyForWords: [p.answer, p.body].filter(Boolean).join('\n\n'),
+      title: p.title, h1: p.title, description: p.description, faqs: p.faqs ?? [],
+      sources: p.sources ?? [], hero: null, images: p.images ?? [], date: p.updated, published: p.published, data: p,
+    };
+  }
   if (ext === 'json') {
     const p = JSON.parse(raw);
     const body = [p.intro, ...(p.sections ?? []).map((s) => `## ${s.heading}\n\n${s.body}`), ...(p.keyTakeaways ?? [])].filter(Boolean).join('\n\n');
@@ -56,7 +66,7 @@ function load(file) {
 
 function pexelsIdsElsewhere(selfRel) {
   const ids = new Map();
-  for (const sec of ['blog', ...PAGE_SECTIONS]) {
+  for (const sec of ['blog', 'tools', ...PAGE_SECTIONS]) {
     const dir = path.join(ROOT, 'content', sec);
     if (!fs.existsSync(dir)) continue;
     for (const f of fs.readdirSync(dir)) {
@@ -79,13 +89,16 @@ export function lint(file, { today = new Date().toISOString().slice(0, 10) } = {
 
   // ---- 篇幅
   const n = words(visible(d.bodyForWords));
-  const max = HUBS.has(d.slug) ? 1800 : 1500;
-  if (n < 1200 || n > max) E(`body is ${n} words; target 1200–${max} (FAQs and frontmatter excluded)`);
+  const isTool = d.kind === 'tool';
+  const [min, max] = isTool ? [300, 800] : [1200, HUBS.has(d.slug) ? 1800 : 1500];
+  if (n < min || n > max) E(`body is ${n} words; target ${min}–${max} (${isTool ? 'A-level tool page: answer + body' : 'FAQs and frontmatter excluded'})`);
 
-  // ---- 配图:题图 + 正文 2–3 张,Pexels,alt 要描述画面,全站不重复
-  if (!d.hero?.url) E('hero image missing (frontmatter image / JSON image)');
-  const inline = [...d.body.matchAll(/!\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g)];
-  if (inline.length < 2 || inline.length > 3) E(`${inline.length} inline images; need 2–3 in the body`);
+  // ---- 配图:题图 + 正文 2–3 张(工具页:images 字段 2–3 张),Pexels,alt 要描述画面,全站不重复
+  if (!isTool && !d.hero?.url) E('hero image missing (frontmatter image / JSON image)');
+  const inline = isTool
+    ? (d.images || []).map((im) => [null, im.alt || '', im.url || ''])
+    : [...d.body.matchAll(/!\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g)];
+  if (inline.length < 2 || inline.length > 3) E(`${inline.length} ${isTool ? 'images' : 'inline images'}; need 2–3`);
   for (const [, alt, url] of inline) {
     if (!/images\.pexels\.com\/photos\/\d+\//.test(url)) E(`inline image is not a Pexels photo URL: ${url}`);
     if (words(alt) < 5) E(`alt text too thin (describe what is in the picture): "${alt}"`);
@@ -103,10 +116,10 @@ export function lint(file, { today = new Date().toISOString().slice(0, 10) } = {
   // ---- 来源:正文里的外链密度(约每 150–200 词一条),frontmatter sources ≥ 3
   const links = [...d.body.matchAll(/(?<!!)\[([^\]]+)\]\(([^)\s]+)\)/g)].map((x) => x[2]);
   const external = links.filter((u) => /^https:\/\//.test(u) && !/aeoeye\.com/.test(u));
-  const minExternal = Math.max(5, Math.floor(n / 250));
+  const minExternal = isTool ? Math.max(2, Math.floor(n / 250)) : Math.max(5, Math.floor(n / 250));
   if (external.length < minExternal) E(`${external.length} inline source links; need ≥ ${minExternal} (one cited fact every ~150–250 words)`);
   if (new Set(external).size < Math.min(external.length, 4)) W('inline sources mostly repeat the same URL');
-  if (d.sources.length < 3) E(`${d.sources.length} sources in the sources list; need ≥ 3`);
+  if (d.sources.length < (isTool ? 2 : 3)) E(`${d.sources.length} sources in the sources list; need ≥ ${isTool ? 2 : 3}`);
   for (const s of d.sources) if (!/^https:\/\//.test(s.url || '')) E(`source is not an https URL: ${s.url}`);
   for (const u of external) if (/^http:\/\//.test(u)) W(`http (not https) link: ${u}`);
 
@@ -114,7 +127,8 @@ export function lint(file, { today = new Date().toISOString().slice(0, 10) } = {
   const internal = links.filter((u) => u.startsWith('/') && !u.startsWith('//'));
   const absSelf = links.filter((u) => /^https?:\/\/(?:www\.)?aeoeye\.com/.test(u));
   if (absSelf.length) W(`use relative links for aeoeye.com pages: ${absSelf.slice(0, 3).join(', ')}`);
-  if (internal.length + absSelf.length < 3) E(`${internal.length + absSelf.length} internal links; need ≥ 3 contextual links to related AEOeye pages`);
+  const minInternal = isTool ? 2 : 3;
+  if (internal.length + absSelf.length < minInternal) E(`${internal.length + absSelf.length} internal links; need ≥ ${minInternal} contextual links to related AEOeye pages`);
   for (const u of [...internal, ...absSelf.map((x) => x.replace(/^https?:\/\/(?:www\.)?aeoeye\.com/, '') || '/')]) {
     const clean = u.replace(/[#?].*$/, '').replace(/\/$/, '') || '/';
     if (RETIRED_PATHS.has(clean.toLowerCase())) E(`links to a retired page: ${u}`);
@@ -135,11 +149,12 @@ export function lint(file, { today = new Date().toISOString().slice(0, 10) } = {
   if (falseClaim) E(`claims an AEOeye feature that does not exist: "${falseClaim[0]}"`);
 
   // ---- 结构:H2 数量、问句式比例、每节首段是否短而直接(answer-first 的机械近似)
-  const h2 = [...d.body.matchAll(/^##\s+(.+)$/gm)].map((x) => x[1].trim());
-  if (h2.length < 4) E(`${h2.length} H2 sections; need ≥ 4 semantic sections`);
+  const noCode = d.body.replace(/```[\s\S]*?```/g, '');
+  const h2 = [...noCode.matchAll(/^##\s+(.+)$/gm)].map((x) => x[1].trim());
+  if (h2.length < (isTool ? 3 : 4)) E(`${h2.length} H2 sections; need ≥ ${isTool ? 3 : 4} semantic sections`);
   const q = h2.filter((h) => /\?\s*$/.test(h)).length;
   if (h2.length && q / h2.length < 0.5) W(`${q}/${h2.length} H2s are questions; aim for most H2s phrased as the reader's question`);
-  const sectionsText = d.body.split(/^##\s+.+$/m).slice(1);
+  const sectionsText = noCode.split(/^##\s+.+$/m).slice(1);
   sectionsText.forEach((sec, i) => {
     const first = sec.trim().split(/\n\s*\n/)[0] || '';
     if (/^(?:#{3}|[-*]|\d+\.|\||!\[)/.test(first.trim())) W(`section "${h2[i]}" opens with a list/table/image/subheading — open with a 1–2 sentence direct answer`);
@@ -158,6 +173,7 @@ export function lint(file, { today = new Date().toISOString().slice(0, 10) } = {
   // ---- 日期
   if (d.date !== today) W(`date/updated is ${d.date}; a substantive rewrite should set it to ${today}`);
   if (d.kind === 'mdx' && d.date === today && !d.published) W('set published: <original publication date> so datePublished keeps the original date');
+  if (isTool && Array.isArray(d.data.related) && (d.data.related.length < 3 || d.data.related.length > 5)) W(`${d.data.related.length} related tools; aim for 3–5`);
 
   return { file: d.rel, words: n, inlineImages: inline.length, externalLinks: external.length, internalLinks: internal.length, faqs: d.faqs.length, h2: h2.length, errors, warnings };
 }

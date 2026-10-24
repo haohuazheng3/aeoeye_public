@@ -1,0 +1,75 @@
+{
+  "slug": "ai-visibility-checker",
+  "category": "ai-search",
+  "name": "AI Visibility Checker",
+  "title": "AI Visibility Checker: Does ChatGPT Recommend You?",
+  "description": "Free AI visibility checker: we ask ChatGPT your buyers' questions and show whether you're named, where you rank and who wins instead. No signup.",
+  "answer": "An AI visibility checker tells you whether AI assistants recommend your brand when buyers ask. Enter your brand or website: we write three buyer questions for your category, ask ChatGPT live and show the full answers — whether you're named, where you rank and who is recommended instead.",
+  "keywords": [
+    "ai visibility checker",
+    "ai visibility audit"
+  ],
+  "runner": {
+    "component": "ai-audit"
+  },
+  "trust": "Questions are asked live on ChatGPT's free default model — the one most of your buyers use — not a tuned or premium one.",
+  "body": "## AI Visibility Audit: 3 Buyer Questions, Answered Live\n\nThe free audit runs the same test a buyer would. We generate three questions someone shopping in your category would ask (\"What's the best … for …?\"), send them to ChatGPT and keep every answer word for word.\n\nYou get four things back:\n\n- **Mentioned or not** for each question.\n- **Rank** when you are mentioned — first, third, buried at the end.\n- **Who won instead** — the competitors named in your place.\n- **The full answers**, so you can read the reasons the AI gave.\n\n## Why test the free default model?\n\nBecause that is what most people use. Testing a premium model, or one with custom instructions, would flatter the result. We test the default experience on purpose, even when it makes scores look worse.\n\n## How often do brands actually get recommended?\n\nLess often than most founders expect. In AEOeye's audit data — 892 answers from completed audits between June and September 2026 — the audited brand was named in 17.6% of answers, and ChatGPT named it in just 5% of its 161 answers ([benchmark](https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json)).\n\nWhen a brand was named, it usually came near the top. Each answer named about 2.9 competitors on average. The sample is self-selected — brands that chose to run an audit — so read it as a reality check, not a market average.\n\n## What should I do with the result?\n\nStart from the pattern, not the single answer. The fix depends on whether you are missing entirely, mentioned low, or already winning.\n\n- **Not mentioned anywhere:** first make sure AI crawlers can reach you with the [AI crawler checker](/tools/ai-crawlers), then study who wins and why.\n- **Mentioned but low:** answers usually lean on comparison pages, reviews and listicles. Those third-party sources are where the work is.\n- **Mentioned first:** keep the report as a baseline and re-run after big launches.\n\nThe free audit covers ChatGPT. The one-time $29 full report asks 10 questions across ChatGPT, Claude, Gemini, Google AI and Perplexity — see [pricing](/pricing).\n\n## How is this different from rank tracking?\n\nRank trackers watch ten blue links. AI answers have no fixed slots: they name a handful of brands and explain why. Google itself treats AI Overviews and AI Mode as their own surface in its [guidance on AI features](https://developers.google.com/search/docs/appearance/ai-features).\n\nMeasuring that means reading the answers, which is why we show them in full. Research on generative search found that the way content is written and cited changes how often it shows up in AI answers ([Aggarwal et al., KDD 2024](https://arxiv.org/abs/2311.09735)) — visibility can be improved, but only once you can see it.",
+  "faqs": [
+    {
+      "q": "Is the AI visibility check really free?",
+      "a": "Yes. The free audit asks three buyer questions on ChatGPT and shows every answer in full. You only pay if you want the one-time $29 report that covers five AI engines."
+    },
+    {
+      "q": "Which AI assistants do you test?",
+      "a": "The free audit tests ChatGPT. The one-time $29 report adds Claude, Gemini, Google AI and Perplexity, with 10 buyer questions asked on each engine and every answer shown."
+    },
+    {
+      "q": "Why might results change if I run it again?",
+      "a": "AI answers vary between runs and shift as models and their search results update. Treat a single run as a snapshot, and compare runs that use the same questions."
+    },
+    {
+      "q": "Do you track my brand every day?",
+      "a": "No. AEOeye runs one-time audits with no subscription. Re-run an audit whenever you want a fresh snapshot, for example after a launch or a round of PR."
+    }
+  ],
+  "sources": [
+    {
+      "label": "AEOeye AI brand recommendation benchmark (Sept 2026)",
+      "url": "https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json"
+    },
+    {
+      "label": "Google — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "label": "Aggarwal et al. — GEO: Generative Engine Optimization (KDD 2024)",
+      "url": "https://arxiv.org/abs/2311.09735"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/19559803/pexels-photo-19559803.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A neatly arranged desk setup featuring a vintage camera, keyboard, magnifying glass, and smartphone.",
+      "photographer": "Marcelo Verfe",
+      "photographerUrl": "https://www.pexels.com/@marceloverfe",
+      "pexelsUrl": "https://www.pexels.com/photo/electronics-accessories-and-magnifying-glass-on-gray-background-19559803/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/5902792/pexels-photo-5902792.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Woman comfortably sitting indoors using a smartphone with plants in the background.",
+      "photographer": "https://kaboompics.com/",
+      "photographerUrl": "https://www.pexels.com/@karola-g",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-using-modern-cellphone-5902792/"
+    }
+  ],
+  "related": [
+    "aeo-grader",
+    "ai-crawlers",
+    "gptbot",
+    "llms-txt-file"
+  ],
+  "cta": "aeo",
+  "appCategory": "BusinessApplication",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

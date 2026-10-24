@@ -1,0 +1,85 @@
+{
+  "slug": "aeo-grader",
+  "category": "ai-search",
+  "name": "AEO Grader",
+  "title": "AEO Grader: Score Your Site's AI Search Readiness",
+  "description": "Free AEO grader: we check AI crawler access, llms.txt, schema, answer-first content and entity signals, then score your AI search readiness 0–100.",
+  "answer": "An AEO grader scores how ready your site is to be found and cited by AI search. Ours checks ten things — AI crawler access, server-rendered content, indexability, entity markup, answer-ready structure, metadata, sitemap, HTTPS and llms.txt — and returns a 0–100 score with the fix for each gap.",
+  "keywords": [
+    "aeo grader"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "aeo",
+    "submitLabel": "Grade my site",
+    "fields": [
+      {
+        "name": "url",
+        "label": "A page to grade (homepage or a key landing page)",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "stripe.com",
+      "notion.so"
+    ],
+    "busyText": "Checking crawlers, rendering, markup and structure…"
+  },
+  "trust": "Every point comes from a rule we can show you: your live robots.txt, requests as AI crawlers, the raw HTML and its structured data.",
+  "body": "## What does the AEO grader score?\n\nTen checks, weighted by how much each one can stop AI search from using your page:\n\n| Check | Points |\n|---|---|\n| AI search crawlers allowed in robots.txt | 20 |\n| AI crawlers actually receive the page (no firewall block) | 15 |\n| Main content is in the HTML, no JavaScript needed | 15 |\n| Indexable: HTTP 200, no noindex, self-referencing canonical | 10 |\n| Organization markup (name, logo, sameAs) | 10 |\n| Answer-ready structure: direct answers, question headings, lists | 10 |\n| Title and meta description | 5 |\n| XML sitemap declared in robots.txt | 5 |\n| HTTPS | 5 |\n| llms.txt | 5 |\n\nThe top three are gates. If a crawler can't get the page, or gets an empty JavaScript shell, nothing else matters. Google renders JavaScript, but [Google's own JavaScript SEO guide](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) still recommends server-side rendering — and many AI crawlers don't render at all.\n\n## Why does llms.txt only count for 5 points?\n\nBecause no AI search engine has said it uses llms.txt to choose sources. We'd rather under-promise than sell you a file. [Our llms.txt page](/tools/llms-txt-file) covers what it is good for.\n\n## How do I read my score?\n\nTreat the score as a triage list, not a grade to frame.\n\n- **85–100:** technically ready. What decides citations now is content and reputation.\n- **60–84:** one or two real gaps, usually rendering or entity markup.\n- **Below 60:** something is blocking AI crawlers or hiding your content. Fix the red items first.\n\n## How do real sites compare?\n\nBig brands are not as clean as you'd expect. When we checked 391 well-known sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 84.6% declared a sitemap in robots.txt and 70.2% of the homepages we could parse had Organization markup — but 16% of the homepages we requested answered with a bot challenge instead of content.\n\n## Is a high score enough?\n\nNo. Readiness only means AI *can* use your site. Whether ChatGPT actually recommends you when a buyer asks is a different test, and that is what the free [AI visibility checker](/tools/ai-visibility-checker) runs.\n\nGoogle's [guidance on AI features](https://developers.google.com/search/docs/appearance/ai-features) says the same SEO fundamentals apply to AI Overviews and AI Mode — this grader checks those fundamentals with the AI crawlers added in.",
+  "faqs": [
+    {
+      "q": "What is AEO?",
+      "a": "Answer engine optimization: making your brand easy for AI assistants and AI search to find, understand and cite. It builds on SEO fundamentals such as crawlability and clear content rather than replacing them."
+    },
+    {
+      "q": "How is this different from HubSpot's AEO grader?",
+      "a": "HubSpot's AI Search Grader (formerly its AEO Grader) reports what ChatGPT, Perplexity and Gemini say about your brand from their training data. Ours audits your website's technical readiness with transparent rules; our separate AI visibility checker asks ChatGPT live."
+    },
+    {
+      "q": "Why did my score drop although I changed nothing?",
+      "a": "Usually a CDN or firewall setting started challenging AI crawlers, or robots.txt was redeployed from an old template. Run the AI crawler checker to see which bot changed."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "label": "Google — JavaScript SEO basics",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6684373/pexels-photo-6684373.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a teacher marking a test paper with a red marker on a desk.",
+      "photographer": "Andy Barbour",
+      "photographerUrl": "https://www.pexels.com/@andy-barbour",
+      "pexelsUrl": "https://www.pexels.com/photo/a-person-marking-a-test-paper-6684373/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/899317/pexels-photo-899317.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a tennis scoreboard showing games won by each player.",
+      "photographer": "Mat Brown",
+      "photographerUrl": "https://www.pexels.com/@mat-brown-150387",
+      "pexelsUrl": "https://www.pexels.com/photo/sets-won-2-sets-won-1-899317/"
+    }
+  ],
+  "related": [
+    "ai-visibility-checker",
+    "ai-crawlers",
+    "llms-txt-file",
+    "schema-validator",
+    "googlebot-simulator"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

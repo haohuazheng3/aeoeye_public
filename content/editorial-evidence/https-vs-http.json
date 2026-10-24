@@ -1,0 +1,63 @@
+{
+  "contentSha256": "62dab15b1df95b5e2b67e0ccd044f1951f62d07e27ae4cccca26ed046a038194",
+  "reviewedAt": "2026-10-24",
+  "kind": "research-asset",
+  "assessment": "B-level decision page for \"https vs http\" (1600/mo, KD 33): the verdict card answers the choice above the fold, every H2 opens with a direct answer, and the recommendation is backed by AEOeye's own measurements (AEOeye Technical SEO Baseline (391 sites, 2026-10-24)) with limitations stated.",
+  "topic": {
+    "area": "technical-seo-decisions",
+    "readerProblem": "A site owner deciding \"https vs http\" needs a straight recommendation and the evidence for it.",
+    "connection": "The free SEO audit flags exactly this decision on real sites (redirect types, HTTPS, structure, image formats); the page links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/blog/2014/08/https-as-ranking-signal",
+      "checkedAt": "2026-10-24",
+      "supports": "HTTPS is a very lightweight ranking signal, affecting fewer than 1% of queries (2014)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "checkedAt": "2026-10-24",
+      "supports": "Redirects are a strong canonical signal; Google prefers HTTPS over HTTP as canonical."
+    },
+    {
+      "url": "https://blog.chromium.org/2018/02/a-secure-web-is-here-to-stay.html",
+      "checkedAt": "2026-10-24",
+      "supports": "From July 2018 (Chrome 68) Chrome marks all HTTP sites \"not secure\"."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7568.html",
+      "checkedAt": "2026-10-24",
+      "supports": "SSLv3 MUST NOT be used (2015)."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8996.html",
+      "checkedAt": "2026-10-24",
+      "supports": "TLS 1.0 and TLS 1.1 formally deprecated (2021)."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8446.html",
+      "checkedAt": "2026-10-24",
+      "supports": "TLS 1.3 specification."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security",
+      "checkedAt": "2026-10-24",
+      "supports": "HSTS syntax: max-age, includeSubDomains, preload; ignored over plain HTTP."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (7 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 1245 words, 2 Pexels images, 10 inline source links, 4 internal links, 4 FAQs, 10 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources."
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/technical-seo-baseline-2026-10.json",
+      "description": "AEOeye Technical SEO Baseline (391 sites, 2026-10-24) — the raw data behind the figures quoted in this decision page."
+    }
+  ],
+  "methodology": "Figures come from AEOeye's own zero-cost measurements published under /resources: plain HTTP requests from a self-identified research user agent (AEOeyeResearch), robots.txt respected, 1 s between requests per domain; encoding tests run locally with cwebp/avifenc and SSIM via ffmpeg. Each dataset file states its exact method.",
+  "limitations": "Convenience sample of well-known sites (not the whole web), homepages only, a single snapshot on 2026-10-24; the image test covers 20 screenshots, not photographs."
+}

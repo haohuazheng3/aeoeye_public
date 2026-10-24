@@ -3,15 +3,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContentLink } from "@/components/content-link";
 import Markdown from "markdown-to-jsx";
-import { ArrowLeft, BookOpen, ExternalLink } from "lucide-react";
+import { ArrowLeft, BookOpen, ExternalLink, CheckCircle2 } from "lucide-react";
 import { getPost, getPostSlugs, getAllPosts, extractHeadings, relatedPosts } from "@/lib/content/blog";
 import { JsonLd } from "@/components/json-ld";
 import { AuditForm } from "@/components/audit-form";
+import { SeoAuditForm } from "@/components/seo-audit/seo-audit-form";
+import { getToolPage } from "@/lib/content/tool-pages";
+import { TOOLS as LEGACY_TOOLS } from "@/lib/content/tools";
 import { TableOfContents } from "@/components/toc";
-import { ClusterNav } from "@/components/topic-cluster";
-import { pillarForBlog } from "@/lib/content/clusters";
 import { pageMeta, articleJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
+
+// 只渲染构建时已知的文章;未知 slug 直接 404(不再渲染 "Post not found" 却回 200 的软 404)
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getPostSlugs().map((slug) => ({ slug }));
@@ -65,13 +69,20 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
   // 同分类优先 + 确定性轮转 —— 见 lib/content/blog.ts 的 relatedPosts 注释
   const related = relatedPosts(post.meta.slug, post.meta.category);
-  const pillar = pillarForBlog(post.meta.slug);
+  const tools = post.meta.relatedTools
+    .map((slug) => {
+      const t = getToolPage(slug);
+      if (t) return { slug, name: t.name, description: t.description };
+      const l = LEGACY_TOOLS.find((x) => x.slug === slug);
+      return l ? { slug, name: l.name, description: l.description } : null;
+    })
+    .filter((x): x is { slug: string; name: string; description: string } => x !== null);
 
   return (
     <article className="py-14">
       <div className="container-tight max-w-3xl">
         <Link href="/blog" className="inline-flex items-center gap-1.5 text-sm font-medium text-ink/50 hover:text-ink">
-          <ArrowLeft className="h-4 w-4" /> All articles
+          <ArrowLeft className="h-4 w-4" /> All decision guides
         </Link>
 
         <div className="mt-6">
@@ -85,6 +96,27 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <span>{post.meta.readingTime}</span>
           </div>
         </div>
+
+        {post.meta.verdict && (
+          <aside aria-label="The short answer" className="mt-8 rounded-3xl bg-white p-6 shadow-float sm:p-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-iris">The short answer</p>
+            <p className="mt-2 font-display text-lg font-semibold leading-snug text-ink sm:text-xl">{post.meta.verdict.summary}</p>
+            <ul className="mt-4 space-y-2.5">
+              {post.meta.verdict.picks.map((p) => (
+                <li key={p.when} className="flex items-start gap-2.5 text-sm">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-mint-deep" />
+                  <span>
+                    <span className="text-ink/60">{p.when}</span> <strong className="text-ink">→ {p.pick}</strong>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 border-t border-paper-dim pt-4">
+              <p className="mb-2 text-xs text-ink/50">{post.meta.cta === "seo" ? "Check what your own site does today — free:" : "See whether AI assistants mention your brand — free:"}</p>
+              {post.meta.cta === "seo" ? <SeoAuditForm source={`blog-verdict-${post.meta.slug}`} variant="inline" /> : <AuditForm source={`blog-verdict-${post.meta.slug}`} variant="inline" />}
+            </div>
+          </aside>
+        )}
 
         {post.meta.image?.url && (
           <figure className="mt-8 overflow-hidden rounded-3xl border border-white/60 shadow-float">
@@ -145,19 +177,43 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </section>
         )}
 
-        {pillar && <ClusterNav pillar={pillar} />}
+        {tools.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-semibold">Test it on your own site</h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {tools.map((t) => (
+                <Link key={t.slug} href={`/tools/${t.slug}`} className="card p-5 card-hover">
+                  <h3 className="font-display text-base font-semibold">{t.name}</h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-ink/55">{t.description}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mt-14 panel-dark p-8 text-center text-white">
-          <h2 className="font-display text-xl font-semibold">Is AI recommending you?</h2>
-          <p className="mt-2 text-sm text-white/65">Run a free AI visibility audit and find out in under a minute.</p>
-          <div className="mx-auto mt-5 max-w-md">
-            <AuditForm source={`blog-${post.meta.slug}`} />
-          </div>
+          {post.meta.cta === "seo" ? (
+            <>
+              <h2 className="font-display text-xl font-semibold">Find out what your site actually does</h2>
+              <p className="mt-2 text-sm text-white/65">The free SEO audit crawls your site and scores ~90 checks, with evidence and fixes.</p>
+              <div className="mx-auto mt-5 max-w-md">
+                <SeoAuditForm source={`blog-${post.meta.slug}`} variant="inline" />
+              </div>
+            </>
+          ) : (
+            <>
+              <h2 className="font-display text-xl font-semibold">Is AI recommending you?</h2>
+              <p className="mt-2 text-sm text-white/65">Run a free AI visibility audit and find out in under a minute.</p>
+              <div className="mx-auto mt-5 max-w-md">
+                <AuditForm source={`blog-${post.meta.slug}`} variant="inline" />
+              </div>
+            </>
+          )}
         </section>
 
         {related.length > 0 && (
           <section className="mt-14">
-            <h2 className="font-display text-xl font-semibold">Keep reading</h2>
+            <h2 className="font-display text-xl font-semibold">More decisions, tested</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {related.map((p) => (
                 <Link key={p.slug} href={`/blog/${p.slug}`} className="card p-5 card-hover">

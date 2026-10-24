@@ -1,0 +1,90 @@
+{
+  "slug": "mobile-friendly-test",
+  "category": "speed-security",
+  "name": "Mobile-Friendly Test",
+  "title": "Mobile Friendly Test by Google Is Gone — Test Here",
+  "description": "Google retired its Mobile-Friendly Test in Dec 2023. Test any URL here: real mobile screenshot, viewport and font checks, and a clear pass or fail.",
+  "answer": "Google retired its Mobile-Friendly Test in December 2023, so run the check here. Enter a URL: we take a real mobile screenshot with Lighthouse, check the viewport tag, fixed-width layouts, tap targets, font sizes and content width, test what a Googlebot Smartphone request receives, and give a clear pass or fail.",
+  "keywords": [
+    "mobile friendly test by google",
+    "mobile friendly test",
+    "mobile friendly tester"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "mobile",
+    "submitLabel": "Test on mobile",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "wikipedia.org",
+      "craigslist.org"
+    ],
+    "busyText": "Running a mobile Lighthouse test (20–40 s)…"
+  },
+  "trust": "The screenshot and audits come from Google's own Lighthouse engine via the PageSpeed Insights API on an emulated phone; we read your HTML as a phone browser.",
+  "body": "## What happened to Google's Mobile-Friendly Test?\n\nGoogle removed the Mobile-Friendly Test, its API and the Mobile Usability report in December 2023, and deleted mentions of them from its documentation ([Search Central updates](https://developers.google.com/search/updates)). This test runs on [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview), Google's open-source auditing engine, through the PageSpeed Insights API.\n\nThe reason it went away matters: mobile-friendliness didn't stop mattering, it became the default. Google now indexes and ranks [the mobile version of your pages](https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing), crawled with Googlebot Smartphone.\n\n## Mobile Friendly Test: Screenshot, Viewport and Tap Targets\n\nThe test combines a live fetch with a mobile Lighthouse run:\n\n| Check | Fails when |\n|---|---|\n| Viewport meta tag | Missing, so phones render a shrunken desktop page |\n| Fixed-width elements | Inline widths of 1000px or more |\n| Tap targets | Buttons and links too small or too close together |\n| Legible font sizes | Too much text below a readable size |\n| Content fits the screen | The page scrolls sideways |\n| Googlebot Smartphone request | The page fails for both a phone browser and Googlebot |\n\nYou also get the mobile screenshot Lighthouse captured, so you can see what a phone actually rendered.\n\n## Mobile Friendly Tester: What a Pass Actually Means\n\nA pass means the page works on a phone: it scales, it's readable and it's tappable. It doesn't mean it's fast. Speed on mobile is measured separately by Core Web Vitals, where many sites that look fine on a phone still fail.\n\nThe basics are nearly universal now: in our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 99% set a viewport tag. The failures we see more often are content that only appears on desktop — and Google says the mobile and desktop versions should carry the same content so both can rank.\n\n## What should I fix first?\n\nThe viewport tag and horizontal scrolling, because they break the whole page; then tap targets and font sizes. Make sure your mobile version has the same main content, structured data and metadata as desktop.\n\nThen check speed with the [Core Web Vitals test](/tools/core-web-vitals-test), and confirm what Googlebot Smartphone receives with the [Googlebot simulator](/tools/googlebot-simulator).",
+  "faqs": [
+    {
+      "q": "Is the Google Mobile-Friendly Test still available?",
+      "a": "No. Google retired the Mobile-Friendly Test, its API and the Mobile Usability report in December 2023 and pointed site owners to Lighthouse, which powers this test."
+    },
+    {
+      "q": "Does mobile-friendliness affect rankings?",
+      "a": "Google indexes and ranks the mobile version of pages, so a page that is broken on phones is effectively broken for Google. Speed and usability on mobile also feed page experience."
+    },
+    {
+      "q": "Why does the test take longer than other tools?",
+      "a": "It runs a full Lighthouse audit on an emulated phone through Google's PageSpeed Insights API, which loads and renders the page. That usually takes 20 to 40 seconds."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google Search Central — Documentation updates",
+      "url": "https://developers.google.com/search/updates"
+    },
+    {
+      "label": "Google — Mobile-first indexing best practices",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing"
+    },
+    {
+      "label": "Chrome for Developers — Lighthouse overview",
+      "url": "https://developer.chrome.com/docs/lighthouse/overview"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/36764831/pexels-photo-36764831.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Person holding smartphone with green screen while relaxing on a couch indoors.",
+      "photographer": "Vitaly Gariev",
+      "photographerUrl": "https://www.pexels.com/@silverkblack",
+      "pexelsUrl": "https://www.pexels.com/photo/person-relaxing-at-home-with-smartphone-on-couch-36764831/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/15470522/pexels-photo-15470522.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of modern digital devices with cloud-themed wallpaper and lock screens.",
+      "photographer": "Chengxin Zhao",
+      "photographerUrl": "https://www.pexels.com/@chengxin-zhao-1218017",
+      "pexelsUrl": "https://www.pexels.com/photo/two-mobile-devices-15470522/"
+    }
+  ],
+  "related": [
+    "core-web-vitals-test",
+    "googlebot-simulator",
+    "on-page-seo-checker",
+    "security-headers-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

@@ -1,0 +1,86 @@
+{
+  "slug": "view-page-source",
+  "category": "crawl-index",
+  "name": "View Page Source",
+  "title": "View Page Source: Any URL, Formatted & Searchable",
+  "description": "View page source of any URL online: HTML with line numbers and search, minified pages formatted, plus title, meta, canonical and JSON-LD found by line.",
+  "answer": "To view page source, enter any URL: we fetch the HTML the server sends — before JavaScript runs — and show it with line numbers, search, copy and download, formatting minified pages so they're readable. The SEO tags (title, description, robots, canonical, Open Graph, JSON-LD) are listed with the line where each one appears.",
+  "keywords": [
+    "view page source",
+    "page source viewer",
+    "source code viewer"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "source",
+    "submitLabel": "View source",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "example.com",
+      "wikipedia.org"
+    ],
+    "busyText": "Fetching the HTML…"
+  },
+  "trust": "We fetch the page from our server as a desktop browser and show the response (up to 1 MB). Minified HTML gets line breaks between tags for reading; the content is unchanged and nothing is executed.",
+  "body": "## Page Source Viewer With Line Numbers and Search\n\nThis viewer shows the HTML the server sent, with line numbers down the side and a search box that highlights matches. Many sites serve minified HTML — a whole page on a few lines — so we put each tag on its own line; the content stays exactly the same. It also works on phones and tablets, where browsers hide the view-source option.\n\nCopy the whole document or download it as `source.html` to diff against another version.\n\n## Source Code Viewer: Find Meta, Canonical and Scripts Fast\n\nAbove the source, we list the tags that matter for search and the line each one starts on: title, meta description, meta robots, canonical, hreflang, og:title, og:image, twitter:card, viewport and JSON-LD blocks. If a tag says \"not found\", it isn't in the raw HTML.\n\nMost big sites have the basics in place. In our October 2026 analysis of 315 homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 94.3% had a canonical tag, 98.4% had a title and 74% had at least one JSON-LD block.\n\n## Why is \"view source\" different from \"inspect element\"?\n\nView source is what the server sent; inspect element is the page after JavaScript has changed it. Search engines and AI crawlers start from the source. Googlebot renders JavaScript later, but [Google recommends](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) keeping important content in the initial HTML, and many AI crawlers never run JavaScript at all.\n\nIf your main text, links or structured data appear only in \"inspect element\", crawlers may not see them.\n\n## What should I look for in the source?\n\nStart with the head, then check that the body actually contains your content:\n\n1. **One title and one meta description**, matching what you expect in search.\n2. **A canonical** pointing to the URL you want indexed.\n3. **No stray noindex** in a robots meta tag.\n4. **JSON-LD that parses** — test it in the [schema validator](/tools/schema-validator).\n5. **Your main text in the body**, not just an empty app shell.\n\nTo compare what Googlebot receives with what a browser receives, use the [Googlebot simulator](/tools/googlebot-simulator). For the rendered version Google itself sees, run the [URL Inspection tool](https://support.google.com/webmasters/answer/9012289?hl=en) in Search Console.",
+  "faqs": [
+    {
+      "q": "How do I view page source on a phone?",
+      "a": "Mobile browsers mostly hide view-source. Enter the URL in this tool instead; it fetches the HTML and shows it with line numbers and search on any screen size."
+    },
+    {
+      "q": "Why is the source different from what I see in my browser?",
+      "a": "The source is the HTML before JavaScript runs. Your browser then executes scripts that add or change content. Crawlers that don't render JavaScript only see the source."
+    },
+    {
+      "q": "Can I view the source of any website?",
+      "a": "Any public URL that returns a response to our server. Pages behind a login, or sites that block automated requests, will show the error or challenge page they send instead."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — JavaScript SEO basics",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics"
+    },
+    {
+      "label": "Google — URL Inspection tool",
+      "url": "https://support.google.com/webmasters/answer/9012289?hl=en"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6424583/pexels-photo-6424583.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of colorful programming code displayed on a computer monitor with a dark background.",
+      "photographer": "Nemuel Sereti",
+      "photographerUrl": "https://www.pexels.com/@nemuel",
+      "pexelsUrl": "https://www.pexels.com/photo/monitor-displaying-lines-of-code-6424583/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/270488/pexels-photo-270488.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of HTML code lines highlighting web development concepts and techniques.",
+      "photographer": "Pixabay",
+      "photographerUrl": "https://www.pexels.com/@pixabay",
+      "pexelsUrl": "https://www.pexels.com/photo/computer-coding-270488/"
+    }
+  ],
+  "related": [
+    "googlebot-simulator",
+    "meta-tag-checker",
+    "schema-validator",
+    "http-header-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

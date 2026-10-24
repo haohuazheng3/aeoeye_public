@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/site";
 import { TOOLS } from "@/lib/content/tools";
+import { getToolPages, TOOL_CATEGORIES } from "@/lib/content/tool-pages";
+import { getAllPosts } from "@/lib/content/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   /*
@@ -43,6 +45,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // 2026-10-24 起不再有内容页:博客 / 问答 / 对比 / 术语等栏目整树 410,不进 sitemap。
-  return [...staticEntries, ...tools];
+  // 2026-10-24 SEO 底座 v2:工具优先页(有真实发布/修订日期)+ 5 个工具枢纽 + /blog 决策页。
+  // 老栏目(answers / guides / compare / vs / alternatives / for / glossary)仍整树 410,不进 sitemap。
+  const toolPages = getToolPages().map((p) => ({
+    url: `${siteUrl}/tools/${p.slug}`,
+    lastModified: p.updated,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+  const hubs = TOOL_CATEGORIES.map((c) => ({
+    url: `${siteUrl}/tools/category/${c.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+  const posts = getAllPosts();
+  const blog = posts.length
+    ? [
+        { url: `${siteUrl}/blog`, changeFrequency: "weekly" as const, priority: 0.6 },
+        ...posts.map((p) => ({ url: `${siteUrl}/blog/${p.slug}`, lastModified: p.date, changeFrequency: "monthly" as const, priority: 0.6 })),
+      ]
+    : [];
+  return [...staticEntries, ...tools, ...toolPages, ...hubs, ...blog];
 }

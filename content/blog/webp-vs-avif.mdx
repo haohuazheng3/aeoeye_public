@@ -1,0 +1,191 @@
+---
+title: 'WebP vs AVIF: Which Image Format to Ship in 2026'
+description: >-
+  WebP vs AVIF: AVIF is usually smaller at equal quality, WebP encodes faster
+  and works everywhere. Our measurements and a simple rule for which to ship.
+date: '2026-10-24'
+published: '2026-10-24'
+category: Decisions
+readingTime: 5 min read
+keywords:
+  - webp vs avif
+image:
+  url: >-
+    https://images.pexels.com/photos/838680/pexels-photo-838680.jpeg?auto=compress&cs=tinysrgb&w=1200
+  alt: >-
+    Close-up of a classic Olympus OM10 film camera with a lens, showcasing
+    vintage photographic equipment.
+  photographer: Terricks Noah
+  photographerUrl: 'https://www.pexels.com/@terricks-noah-282960'
+verdict:
+  summary: >-
+    Ship AVIF with a WebP fallback when your build or image CDN can encode both
+    automatically. AVIF was smaller than WebP at equal quality on all 20 images
+    we tested — a median 21.5% — but took about five times longer to encode. If
+    you can only pick one format, WebP is the simpler safe default.
+  picks:
+    - when: An image CDN or build step generates formats automatically
+      pick: 'AVIF first, WebP fallback, via <picture>'
+    - when: 'You export images by hand, one at a time'
+      pick: 'WebP — faster to make, nearly as small'
+    - when: Hero or LCP image on a high-traffic page
+      pick: AVIF — every kilobyte counts here
+    - when: 'Logos, icons and simple illustrations'
+      pick: SVG where possible
+cta: seo
+relatedTools:
+  - core-web-vitals-test
+  - og-image-checker
+  - mobile-friendly-test
+  - on-page-seo-checker
+faqs:
+  - q: Is AVIF better than WebP?
+    a: >-
+      For file size, usually yes: in our test AVIF matched WebP's quality at a
+      median 21.5% smaller size. WebP encodes about five times faster and has
+      been supported a little longer, so it remains the easier format to
+      produce.
+  - q: Do all browsers support AVIF?
+    a: >-
+      Nearly all current ones. Can I Use estimates AVIF support at about 96% of
+      global users and WebP at about 97% (October 2026). Keep a fallback for the
+      remainder with the picture element.
+  - q: Does Google index AVIF images?
+    a: >-
+      Yes. Google Search lists AVIF among the image formats it supports for
+      indexing, alongside BMP, GIF, JPEG, PNG, WebP and SVG, so switching
+      formats does not cost you image search visibility.
+  - q: Should I convert my OG images to AVIF?
+    a: >-
+      No. Social platforms are slower to support new formats for link previews.
+      Keep og:image as PNG or JPEG, and use AVIF and WebP for images on your own
+      pages.
+sources:
+  - label: 'Google — WebP: a new image format for the web'
+    url: 'https://developers.google.com/speed/webp'
+  - label: 'web.dev — Image formats: AVIF'
+    url: 'https://web.dev/learn/images/avif'
+  - label: Can I use — AVIF image format
+    url: 'https://caniuse.com/avif'
+  - label: Can I use — WebP image format
+    url: 'https://caniuse.com/webp'
+  - label: MDN — The picture element
+    url: >-
+      https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/picture
+  - label: Can I use — JPEG XL image format
+    url: 'https://caniuse.com/jpegxl'
+  - label: Google — Image SEO best practices (supported formats)
+    url: 'https://developers.google.com/search/docs/appearance/google-images'
+---
+
+AVIF usually makes smaller files than WebP at the same visual quality; WebP encodes much faster and is slightly more widely supported. We measured both on 20 real images on October 24, 2026: at equal or better quality, AVIF was smaller every time, by a median of 21.5%, but took roughly five times longer to encode. Serve both and let the browser choose — or pick WebP if you can only manage one.
+
+## What is the difference between WebP and AVIF?
+
+They're two generations of modern image formats. Google released WebP in 2010 based on the VP8 video codec. AVIF arrived in 2019, based on the newer AV1 codec, and trades heavier encoding for better compression.
+
+| | WebP | AVIF |
+|---|---|---|
+| Based on | VP8 video codec | AV1 video codec |
+| Typical size vs JPEG | Google reports 25–34% smaller at equal SSIM | Smaller still in most tests |
+| Encoding speed | Fast | Slow — several times slower |
+| Transparency and animation | Yes | Yes |
+| HDR and wide color gamut | No | Yes |
+| Browser support (Oct 2026) | About 97% of users | About 96% of users |
+
+Google's own figures for WebP are 25–34% smaller than comparable JPEGs for lossy images and 26% smaller than PNG for lossless ones ([Google](https://developers.google.com/speed/webp)). Support numbers come from [Can I Use](https://caniuse.com/avif), last updated October 22, 2026 at the time of writing.
+
+## How did we test them?
+
+We wanted a fair comparison at equal quality, not at each tool's arbitrary default. So for each of 20 images we did the following ([full data](/resources/webp-vs-avif-test-2026-10.json)):
+
+1. Resized the image to 1,200 pixels wide and saved a lossless PNG as the reference.
+2. Encoded WebP with cwebp at quality 75, its default.
+3. Measured WebP's quality against the reference with SSIM, a standard similarity score.
+4. Encoded AVIF with avifenc at increasing quality levels and kept the smallest file whose SSIM matched or beat the WebP.
+5. Timed each encode on the same laptop, and added a plain JPEG at roughly quality 85 as a familiar baseline.
+
+The images were real UI screenshots — software pricing pages and web interfaces — which is what many SaaS and B2B sites serve most. That's a deliberate scope, and an important limitation we come back to below.
+
+![Elderly man engaged in photo editing at home office, showcasing a cozy and focused workspace.](https://images.pexels.com/photos/11284046/pexels-photo-11284046.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What did we find?
+
+AVIF won on size every time, and WebP won on speed every time:
+
+| Result (median of 20 images) | JPEG (~q85) | WebP (q75) | AVIF (matched quality) |
+|---|---|---|---|
+| File size | 99.1 KB | 38.8 KB | 31.1 KB |
+| Smaller than JPEG | — | 60.8% | 69.1% |
+| SSIM vs reference | — | 0.9827 | 0.9847 |
+| Encode time per image | — | 0.054 s | 0.272 s |
+
+At equal or slightly better quality, AVIF was smaller than WebP on all 20 images, by a median of 21.5%. It was also about five times slower to encode, even at a mid-range speed setting.
+
+The spread matters as much as the median. AVIF's advantage ranged from 3.1% on one image to 42.1% on another, and the encode-time penalty from 2.8× to 5.7×. In practice, AVIF quality 50 matched WebP quality 75 on 15 of the 20 images — a reasonable starting point if you're setting up a pipeline.
+
+The savings over JPEG look dramatic because our JPEG baseline used a plain encoder. A carefully tuned JPEG would narrow that gap, but the WebP-to-AVIF comparison — same reference, matched quality — is the number to act on.
+
+## Why does a 20% saving matter?
+
+Because images are usually the largest bytes on a page, and often the element that decides Largest Contentful Paint. LCP should happen within 2.5 seconds for a good experience ([web.dev](https://web.dev/articles/vitals)), and a hero image that's 20% smaller arrives sooner on every slow connection.
+
+Most sites haven't taken the first step yet. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), only 46.6% of those with images referenced WebP or AVIF files at all; 10.8% used AVIF and 37.7% served only JPEG and PNG. Some image CDNs negotiate formats without a visible file extension, so the true share of modern formats is somewhat higher than what the HTML shows.
+
+## When should I choose WebP over AVIF?
+
+When encoding cost matters more than the last kilobytes:
+
+- **You export images by hand.** WebP is faster to make, and nearly every design tool exports it.
+- **Images change constantly** — user uploads, generated thumbnails — and encoding time adds up on your servers.
+- **You need one format only.** WebP's support is marginally wider and it has fewer edge cases in older software.
+
+![Beautiful fall scenery with vibrant orange and green foliage under a clear blue sky.](https://images.pexels.com/photos/34452511/pexels-photo-34452511.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## When should I choose AVIF?
+
+When images are produced once and served many times. Hero images, product photos and anything on a high-traffic page repay the slower encode immediately. AVIF also handles HDR and wide color gamuts, which WebP doesn't.
+
+If your platform or image CDN already converts images automatically, the encoding cost is someone else's problem — choose AVIF with a WebP fallback and move on.
+
+## What about JPEG XL?
+
+Promising, but not a safe default yet. JPEG XL compresses well and can losslessly recompress existing JPEGs, but Can I Use puts full browser support at about 43% of global users, with another 17% partial ([Can I Use](https://caniuse.com/jpegxl)). Until that number looks like WebP's and AVIF's, it belongs behind a fallback at most.
+
+## How do I convert existing images?
+
+Resize first, then convert. The biggest savings usually come from serving images at the size they're displayed — a 4,000-pixel photo in a 1,200-pixel slot wastes more bytes than any format change saves.
+
+Then pick the route that fits your stack:
+
+- **Command line:** `cwebp -q 75 in.png -o out.webp` and `avifenc -q 50 -s 6 in.png out.avif` are close to the settings we used; adjust quality by eye.
+- **Build tools:** most frameworks and static-site generators have image plugins that output AVIF and WebP with srcset automatically.
+- **Image CDNs:** many convert on the fly based on what each browser accepts, which removes the encoding cost entirely.
+
+Keep your originals. Re-encoding an already compressed image loses quality each time.
+
+## Does image format affect SEO directly?
+
+Not as a ranking factor on its own. Google indexes both formats, and what it evaluates is the page experience the image creates — mainly how fast the largest image loads. For image search, Google's own guidance puts more weight on descriptive alt text, sensible file names and the text around the image than on the file type ([Google image SEO](https://developers.google.com/search/docs/appearance/google-images)).
+
+So the format choice is a speed decision. Make the hero image small, give it dimensions, and don't lazy-load it.
+
+## How do I serve both?
+
+Use the picture element: the browser picks the first format it supports, and the img tag is the fallback ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/picture)):
+
+```
+<picture>
+  <source type="image/avif" srcset="hero.avif">
+  <source type="image/webp" srcset="hero.webp">
+  <img src="hero.jpg" alt="Product dashboard showing weekly revenue" width="1200" height="675">
+</picture>
+```
+
+Keep the width and height attributes so the layout doesn't jump while the image loads. Google Search supports both formats for indexing — its [list of supported image formats](https://developers.google.com/search/docs/appearance/google-images) includes WebP and AVIF — so neither choice hurts image SEO.
+
+## What are the limits of our test?
+
+Three, stated plainly. Screenshots have large flat areas that favor modern codecs, so photographs will show different numbers — [web.dev's guide to AVIF](https://web.dev/learn/images/avif) is a good starting point for photo-heavy sites. Twenty images on one machine is a small sample. And SSIM is one quality metric; your eyes are another, so check important images by hand.
+
+The direction, though, matches what you'll find elsewhere: AVIF is smaller, WebP is faster, and serving both gets you most of each. Then confirm the effect where it counts with the [Core Web Vitals test](/tools/core-web-vitals-test).

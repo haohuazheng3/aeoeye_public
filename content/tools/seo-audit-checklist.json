@@ -1,0 +1,74 @@
+{
+  "slug": "seo-audit-checklist",
+  "category": "on-page",
+  "name": "SEO Audit Checklist",
+  "title": "SEO Audit Checklist: 40 Checks, Auto-Tested",
+  "description": "An SEO audit checklist you can tick or run: 40 checks across crawling, indexing, on-page, speed, mobile, schema and HTTPS, auto-tested for free.",
+  "answer": "An SEO audit checklist covers six areas: crawling and indexing, on-page basics, speed and mobile, structured data, HTTPS and site architecture. Tick through the 40 checks below by hand, or auto-test all of them on your site with the free SEO audit — each check maps to a real test.",
+  "keywords": [
+    "seo audit checklist"
+  ],
+  "runner": {
+    "component": "seo-checklist"
+  },
+  "trust": "Every item corresponds to a check our free SEO audit runs on your live site, so \"auto-tested\" means a real pass, warn or fail for each.",
+  "body": "## Why these 40 checks and not 200?\n\nBecause these are the ones that move rankings or block them. A checklist with 200 items buries the five that matter under 195 that don't.\n\nWe picked each item for one of two reasons. Either it can stop Google from crawling or indexing pages (robots.txt, noindex, canonicals, redirects), or it is a basic Google explicitly recommends in its [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) — titles, descriptions, headings, image alt text, readable URLs.\n\n## In what order should I work through it?\n\nTop to bottom. The order is deliberate:\n\n1. **Crawling and indexing first.** A page Google can't fetch or won't index gets zero traffic, no matter how good it is.\n2. **On-page next.** Titles and descriptions decide whether people click once you do rank.\n3. **Speed and mobile.** Google indexes the mobile version of your pages, and Core Web Vitals have clear thresholds: LCP under 2.5 s, INP under 200 ms, CLS under 0.1 ([web.dev](https://web.dev/articles/vitals)).\n4. **Structured data, HTTPS and architecture** last — important, rarely the blocker.\n\n## How does the auto-test work?\n\nThe free SEO audit crawls up to 20 pages of your site, fetches robots.txt and your sitemap, pulls real-user Core Web Vitals and scores about 90 individual checks. Every item in this checklist is one of them, so you get a pass, warn or fail for each without ticking anything.\n\nThe free report shows the status of every check, plus the evidence and fix for the most serious problems.\n\n## What do most sites get wrong?\n\nNot the basics you'd expect. When we checked the homepages of 391 well-known sites in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)), 94.3% had a canonical tag and 91.7% returned a real 404 for a missing page. And when we ran our audit on a healthy SaaS site (85/100), robots.txt, the sitemap, HTTPS and canonicals all passed.\n\nThe failures were further down the list: no Article markup on article pages, headings that skip from H1 to H3, and slow real-user loading on mobile. That pattern — clean foundations, sloppy details — is typical, and it's why the checklist goes past the crawl section.\n\nNeed a deeper look at one item? Each line links to a single-purpose tool, such as the [robots.txt tester](/tools/robots-txt-tester) or the [Core Web Vitals test](/tools/core-web-vitals-test).",
+  "faqs": [
+    {
+      "q": "What is an SEO audit checklist?",
+      "a": "A list of the technical and on-page checks that decide whether search engines can crawl, index and understand your pages. Working through it in order finds the problems that cost traffic first."
+    },
+    {
+      "q": "How long does an SEO audit take?",
+      "a": "By hand, a few hours for a small site. The free SEO audit runs these checks automatically on up to 20 pages in about a minute, then you spend your time on the fixes."
+    },
+    {
+      "q": "Is my checklist progress saved?",
+      "a": "Ticks are saved only in your own browser, on this device. Nothing is sent to our servers. Use \"Copy as Markdown\" or the CSV download to share your progress with a team."
+    },
+    {
+      "q": "How often should I run an SEO audit?",
+      "a": "Quarterly for a stable site, and after every migration, redesign, CMS change or large release. Most serious SEO problems are introduced by a deploy, not by time passing."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    },
+    {
+      "label": "web.dev — Web Vitals",
+      "url": "https://web.dev/articles/vitals"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8580716/pexels-photo-8580716.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A neatly organized to-do list on a clipboard next to a laptop and pen, conveying productivity.",
+      "photographer": "RDNE Stock project",
+      "photographerUrl": "https://www.pexels.com/@rdne",
+      "pexelsUrl": "https://www.pexels.com/photo/black-pen-on-white-pad-paper-8580716/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/4269510/pexels-photo-4269510.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Back view of anonymous male pilots in uniform and headset navigating modern airplane while taking off",
+      "photographer": "K",
+      "photographerUrl": "https://www.pexels.com/@kelly",
+      "pexelsUrl": "https://www.pexels.com/photo/pilots-operating-airplane-in-cockpit-during-flight-4269510/"
+    }
+  ],
+  "related": [
+    "seo-report-template",
+    "on-page-seo-checker",
+    "robots-txt-tester",
+    "core-web-vitals-test",
+    "sitemap-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

@@ -1,0 +1,46 @@
+{
+  "contentSha256": "b0d617caa9f7512cc08d6ca91250e0d80debd1302caa7f484b88fa27be79ab46",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"rich snippets tool\" (1000/mo, KD 44): the Rich Snippets Test is the first screen, the 51-word answer resolves the query directly, and the body answers \"rich snippets test\", \"rich snippets checker\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"rich snippets tool\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+      "checkedAt": "2026-10-24",
+      "supports": "Google structured data features and the types each supports."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-24",
+      "supports": "Google does not guarantee structured data will show up even when valid."
+    },
+    {
+      "url": "https://developers.google.com/search/updates",
+      "checkedAt": "2026-10-24",
+      "supports": "Search Central changelog: FAQ rich results gone from 2026-05-07; Mobile-Friendly Test removed Dec 2023; other retired features."
+    },
+    {
+      "url": "https://search.google.com/test/rich-results",
+      "checkedAt": "2026-10-24",
+      "supports": "Google Rich Results Test checks eligibility for Google rich results."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (5 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 326 words, 2 Pexels images, 4 inline source links, 2 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/rich against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

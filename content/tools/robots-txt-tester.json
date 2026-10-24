@@ -1,0 +1,97 @@
+{
+  "slug": "robots-txt-tester",
+  "category": "crawl-index",
+  "name": "Robots.txt Tester",
+  "title": "Robots.txt Tester: Test Any URL Against the Rules",
+  "description": "Free robots.txt tester: test any URL for Googlebot, Bingbot, GPTBot, ClaudeBot and 13 more bots, and see exactly which rule decides (RFC 9309).",
+  "answer": "A robots.txt tester checks whether a specific URL is allowed or blocked for each crawler, and which rule decides it. Enter a page URL: we fetch your live robots.txt, test that path for Googlebot, Bingbot, GPTBot, ClaudeBot and 13 more bots, and flag syntax problems Google would ignore.",
+  "keywords": [
+    "robots.txt checker",
+    "robots.txt tester",
+    "robots.txt validator"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "robots",
+    "submitLabel": "Test robots.txt",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL to test",
+        "placeholder": "https://yoursite.com/blog/post",
+        "type": "url"
+      },
+      {
+        "name": "ua",
+        "label": "Custom user agent",
+        "placeholder": "e.g. Screaming Frog",
+        "optional": true
+      }
+    ],
+    "examples": [
+      "https://www.nytimes.com/",
+      "https://www.amazon.com/gp/cart"
+    ],
+    "busyText": "Fetching robots.txt and matching rules…"
+  },
+  "trust": "We fetch your live robots.txt and match rules the way Google does: most specific user-agent group, then the longest matching path, with Allow winning ties.",
+  "body": "## Robots.txt Checker: Is Googlebot or GPTBot Blocked?\n\nEach crawler obeys exactly one group of rules: the group whose user-agent line matches its name most specifically, falling back to `User-agent: *` only if no group names it. That's why a site can block GPTBot while Googlebot sails through.\n\nWithin that group, the longest matching path wins. When an Allow and a Disallow match with the same length, [Google uses the least restrictive rule](https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec) — the same tie-break the [RFC 9309 standard](https://www.rfc-editor.org/rfc/rfc9309.html) describes. The table shows, for each bot, the result and the exact deciding rule.\n\n## Robots.txt Validator: Syntax Errors Google Ignores\n\nGoogle is forgiving: lines it can't parse are skipped silently rather than breaking the file. That's exactly the danger. We flag:\n\n- **Unknown directives** such as `Noindex:` (Google stopped supporting it in 2019) — they do nothing.\n- **Rules before any User-agent line**, which belong to no group.\n- **Crawl-delay**, which Google ignores (Bing and others use it).\n- **Relative Sitemap URLs** — the Sitemap line needs a full URL.\n- **Files over 500 KiB** — Google reads only the first 500 KiB.\n\n## What happens if robots.txt is missing or broken?\n\nIt depends on the status code, and the difference is dramatic. Google treats a 4xx (other than 429) as \"no restrictions\". A 5xx is a server error: for the first 12 hours Google stops crawling the site while it retries, then uses the last good copy for up to 30 days.\n\nMissing files are more common than broken ones. Among 391 well-known sites we checked in October 2026, 33 had no robots.txt at all and 7 couldn't serve it reliably ([dataset](/resources/ai-crawler-access-study-2026-10.json)).\n\n## Does robots.txt stop a page from being indexed?\n\nNo — it stops crawling, not indexing. A blocked URL can still appear in results if other pages link to it, just without a description. To keep a page out of Google, allow crawling and use noindex; check it with the [meta robots checker](/tools/meta-robots-checker).\n\nManaging AI bots? Build a policy with the [AI robots.txt generator](/tools/ai-robots-txt-generator) and test it here.",
+  "faqs": [
+    {
+      "q": "How do I test if a URL is blocked by robots.txt?",
+      "a": "Enter the full page URL above. We fetch the live robots.txt from that host, then show for each crawler whether the path is allowed or blocked and which rule decided it."
+    },
+    {
+      "q": "Does Google still have a robots.txt tester?",
+      "a": "Google retired the old robots.txt Tester and replaced it with a robots.txt report in Search Console, which shows fetch status and parsing issues for your own verified sites."
+    },
+    {
+      "q": "Are robots.txt paths case-sensitive?",
+      "a": "Yes. Paths in robots.txt rules are case-sensitive, so Disallow: /Private does not block /private. User-agent names, on the other hand, are matched case-insensitively."
+    },
+    {
+      "q": "How long does Google take to see robots.txt changes?",
+      "a": "Google generally caches robots.txt for up to 24 hours, and longer if it can't refresh the file. Expect changes to take effect within about a day."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — How Google interprets the robots.txt specification",
+      "url": "https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec"
+    },
+    {
+      "label": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8045875/pexels-photo-8045875.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a red do not enter sign in a leafy outdoor environment indicating no entry.",
+      "photographer": "Steve DiMatteo",
+      "photographerUrl": "https://www.pexels.com/@stevedimatteo",
+      "pexelsUrl": "https://www.pexels.com/photo/red-and-white-sign-8045875/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/18905809/pexels-photo-18905809.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A rustic white wooden gate with diagonal panels and a black metal frame in a residential entrance.",
+      "photographer": "David Brown",
+      "photographerUrl": "https://www.pexels.com/@ninobur",
+      "pexelsUrl": "https://www.pexels.com/photo/a-gate-in-front-of-a-house-18905809/"
+    }
+  ],
+  "related": [
+    "ai-robots-txt-generator",
+    "ai-crawlers",
+    "meta-robots-checker",
+    "googlebot-simulator",
+    "sitemap-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

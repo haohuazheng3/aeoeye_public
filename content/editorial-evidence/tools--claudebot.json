@@ -1,0 +1,36 @@
+{
+  "contentSha256": "8fc6a71a25cc9f58a33158af317724bd4d95a456f5792b2ce213d3bdd836148c",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"claudebot\" (6600/mo, KD 28): the ClaudeBot Checker is the first screen, the 41-word answer resolves the query directly, and the body answers \"claudebot ai\" with first-hand AEOeye measurements before handing off to the free AI visibility audit.",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Someone searching \"claudebot\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "AEOeye measures AI visibility; crawler access and AI-ready pages are the prerequisites this page tests, and it links to the free AI audit."
+  },
+  "sources": [
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-24",
+      "supports": "ClaudeBot (training), Claude-SearchBot (search), Claude-User (user requests); bots honor robots.txt and Crawl-delay."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-24",
+      "supports": "Robots Exclusion Protocol: most specific user-agent group and longest-match rules."
+    },
+    {
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site robots.txt study: per-bot block rates by group (e.g. GPTBot 9.1%, ClaudeBot 11.5%, Bytespider 14.6%)."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 403 words, 2 Pexels images, 2 inline source links, 3 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye AI Crawler Access Study (391 sites, 2026-10-03) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/bot-access against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

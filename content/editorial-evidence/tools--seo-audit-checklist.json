@@ -1,0 +1,36 @@
+{
+  "contentSha256": "f1731680e2eebd4527e0ded07c7dba402b00e440555c9dcd71caece811b1df14",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"seo audit checklist\" (260/mo, KD 28): the SEO Audit Checklist is the first screen, the 50-word answer resolves the query directly, and the body answers the main query with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"seo audit checklist\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+      "checkedAt": "2026-10-24",
+      "supports": "Google SEO fundamentals: titles, descriptions, headings, link text, image alt text."
+    },
+    {
+      "url": "https://web.dev/articles/vitals",
+      "checkedAt": "2026-10-24",
+      "supports": "Core Web Vitals thresholds: LCP 2.5 s, INP 200 ms, CLS 0.1 at the 75th percentile."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 429 words, 2 Pexels images, 2 inline source links, 3 internal links, 4 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised the interactive 40-item checklist in the browser on the local build at desktop and 375 px widths."
+  ]
+}

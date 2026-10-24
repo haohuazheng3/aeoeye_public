@@ -1,0 +1,30 @@
+{
+  "contentSha256": "960180d61a04455851f476b13ea90c06bb5a982db18cc9ee9c39c6a4f1727fd9",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"seo report template\" (480/mo, KD 11): the SEO Report Template is the first screen, the 55-word answer resolves the query directly, and the body answers \"seo audit example\" with primary-source detail before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"seo report template\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+      "checkedAt": "2026-10-24",
+      "supports": "Google SEO fundamentals: titles, descriptions, headings, link text, image alt text."
+    },
+    {
+      "url": "https://web.dev/articles/vitals",
+      "checkedAt": "2026-10-24",
+      "supports": "Core Web Vitals thresholds: LCP 2.5 s, INP 200 ms, CLS 0.1 at the 75th percentile."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (2 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 432 words, 2 Pexels images, 2 inline source links, 2 internal links, 4 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Exercised the filled report template in the browser on the local build at desktop and 375 px widths."
+  ]
+}

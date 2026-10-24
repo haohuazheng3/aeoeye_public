@@ -1,0 +1,46 @@
+{
+  "contentSha256": "0cb24d5100c03ce95e93fc65bf7e9a234d856183928df2f5b7040b1eab684866",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"security headers\" (720/mo, KD 29): the Security Headers Checker is the first screen, the 40-word answer resolves the query directly, and the body answers \"security headers checker\", \"security headers check\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"security headers\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security",
+      "checkedAt": "2026-10-24",
+      "supports": "HSTS syntax: max-age, includeSubDomains, preload; ignored over plain HTTP."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP",
+      "checkedAt": "2026-10-24",
+      "supports": "Content Security Policy limits which resources and scripts run."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options",
+      "checkedAt": "2026-10-24",
+      "supports": "X-Frame-Options prevents clickjacking via framing."
+    },
+    {
+      "url": "https://developers.google.com/search/blog/2014/08/https-as-ranking-signal",
+      "checkedAt": "2026-10-24",
+      "supports": "HTTPS is a very lightweight ranking signal, affecting fewer than 1% of queries (2014)."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (5 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 357 words, 2 Pexels images, 6 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/security against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

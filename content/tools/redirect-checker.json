@@ -1,0 +1,90 @@
+{
+  "slug": "redirect-checker",
+  "category": "crawl-index",
+  "name": "Redirect Checker",
+  "title": "Redirect Checker: Trace Every Hop, Status & Loop",
+  "description": "Free redirect checker: paste a URL to see every hop, status code (301/302/307/308), timing and loops — and whether the chain hurts SEO. No signup.",
+  "answer": "A redirect checker follows a URL hop by hop and shows each status code — 301, 302, 307 or 308 — where it points and how long it took. Paste a URL to see the full chain, catch loops and temporary redirects, and find out whether the chain costs you SEO.",
+  "keywords": [
+    "redirect checker",
+    "redirect check",
+    "301 redirect checker"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "redirect",
+    "submitLabel": "Trace redirects",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URL to trace",
+        "placeholder": "http://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "http://github.com",
+      "http://bbc.co.uk"
+    ],
+    "busyText": "Following every hop…"
+  },
+  "trust": "We request each hop ourselves without auto-following, so you see every status code and Location header exactly as a crawler does.",
+  "body": "## Redirect Check: 301, 302, 307 and 308 on Any URL\n\nFour status codes cover almost every redirect, and they split into two pairs. Google treats [301 and 308 as permanent](https://developers.google.com/search/docs/crawling-indexing/301-redirects) — show the new URL in search — and 302 and 307 as temporary, keep the old one.\n\n| Code | Meaning | Keeps request method? | Use it for |\n|---|---|---|---|\n| 301 | Moved permanently | Not guaranteed | Site moves, changed URLs |\n| 308 | Moved permanently | Yes | Same, when POST must stay POST |\n| 302 | Found (temporary) | Not guaranteed | A/B tests, short promotions |\n| 307 | Temporary redirect | Yes | Same, with method preserved |\n\nMeta refresh redirects work, but Google says server-side redirects are the most reliable signal. This checker flags them.\n\n## 301 Redirect Checker: Is Your Move Really Permanent?\n\nCheck the first hop. If a page moved for good and the chain starts with a 302, Google may keep showing the old URL for a while. Switching a permanent move to 301 or 308 is usually a one-line server change.\n\nWhen we traced `http://` homepages of 379 well-known sites in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)), the first redirect was a 301 85.8% of the time and a 308 12.9% of the time. Only 1.3% started with a 302 — but 8.1% of chains had a temporary redirect somewhere along the way.\n\n## How many hops is too many?\n\nOne is ideal; three is a problem. Google's crawlers [follow up to 10 redirect hops](https://developers.google.com/crawling/docs/troubleshooting/http-status-codes), but every hop adds a round trip for users and crawl time for bots.\n\nLong chains are more common than you'd think. In our sample, 44.3% of sites needed two or more hops to get from `http://domain` to the final homepage — typically `http` → `https` → `www`. Only 53.6% did it in one.\n\n## How do I read the result?\n\nRead the table top to bottom. Each row is one request: the URL, its status, where it pointed and the time it took. Then check the verdicts underneath:\n\n- **Redirect loop** — the chain returns to a URL it already visited. Browsers and crawlers give up.\n- **2+ hops** — point the first URL straight at the final destination.\n- **Temporary redirect on a permanent move** — switch to 301 or 308.\n- **Ends on 4xx or 5xx** — the chain leads nowhere, and visitors and link signals are lost.\n\n## How do I fix a redirect chain?\n\nUpdate the first rule so it targets the final URL directly, then update internal links to point at the final URL so most visitors never hit a redirect at all. For `http`, `https` and `www` variants, one combined rule can do both changes in a single hop.\n\nChecking many URLs at once? Use the [HTTP status checker](/tools/http-status-checker). For the decision between temporary and permanent, see [301 vs 302](/blog/301-vs-302).",
+  "faqs": [
+    {
+      "q": "Do redirects hurt SEO?",
+      "a": "A single 301 or 308 passes signals to the new URL and is fine. Problems start with long chains, loops, temporary redirects used for permanent moves, and chains that end on an error page."
+    },
+    {
+      "q": "How many redirects does Google follow?",
+      "a": "Google says its crawlers follow up to 10 redirect hops. Beyond that, the URL is reported as a redirect error. Aim for one hop anyway, because each extra hop slows visitors."
+    },
+    {
+      "q": "Why does the checker show a different result from my browser?",
+      "a": "Browsers cache 301 redirects and may skip hops you changed recently. We request every hop fresh, so you see the chain your server returns right now."
+    },
+    {
+      "q": "Can this checker trace JavaScript redirects?",
+      "a": "No. We trace HTTP redirects and meta refresh tags. JavaScript redirects run only in a browser after the page loads, and Google recommends server-side redirects instead."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Redirects and Google Search",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects"
+    },
+    {
+      "label": "Google — How HTTP status codes affect Google's crawlers",
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/http-status-codes"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/15208236/pexels-photo-15208236.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Street scene featuring a bicycle detour sign and metal railings, guiding traffic.",
+      "photographer": "Robert So",
+      "photographerUrl": "https://www.pexels.com/@robertkso",
+      "pexelsUrl": "https://www.pexels.com/photo/directional-sign-on-a-sidewalk-15208236/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/4345863/pexels-photo-4345863.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "From above of glowing lamps on contemporary city road junction above greenery and broad river at night",
+      "photographer": "蔡宗翰",
+      "photographerUrl": "https://www.pexels.com/@2805051",
+      "pexelsUrl": "https://www.pexels.com/photo/modern-road-junction-in-outskirts-at-night-4345863/"
+    }
+  ],
+  "related": [
+    "http-status-checker",
+    "http-header-checker",
+    "googlebot-simulator",
+    "sitemap-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

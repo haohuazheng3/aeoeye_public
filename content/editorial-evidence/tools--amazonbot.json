@@ -1,0 +1,36 @@
+{
+  "contentSha256": "9d04defe970d32e68e4ca0011f0869f40b2dfbbb9127ed16f592cd4b75ab27f3",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"amazonbot\" (590/mo, KD 47): the Amazonbot Checker is the first screen, the 48-word answer resolves the query directly, and the body answers the main query with first-hand AEOeye measurements before handing off to the free AI visibility audit.",
+  "topic": {
+    "area": "ai-crawler-indexing",
+    "readerProblem": "Someone searching \"amazonbot\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "AEOeye measures AI visibility; crawler access and AI-ready pages are the prerequisites this page tests, and it links to the free AI audit."
+  },
+  "sources": [
+    {
+      "url": "https://developer.amazon.com/amazonbot",
+      "checkedAt": "2026-10-24",
+      "supports": "Amazonbot (may train Amazon AI), Amzn-SearchBot (Alexa/search, no training), Amzn-User (user-initiated); ~24h; no crawl-delay."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-24",
+      "supports": "Robots Exclusion Protocol: most specific user-agent group and longest-match rules."
+    },
+    {
+      "url": "https://aeoeye.com/resources/robots-agents-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye robots.txt check: Amazonbot blocked by 9.4% (publishers 60.5%, SaaS 1.6%); Amzn-SearchBot named by 2.6%."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 387 words, 2 Pexels images, 2 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye robots.txt check for Amazon/Meta agents (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/bot-access against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

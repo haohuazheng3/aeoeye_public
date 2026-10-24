@@ -1,0 +1,480 @@
+{
+ "study": "AEOeye Core Web Vitals sample (October 2026)",
+ "run": "2026-10-24",
+ "method": "Google PageSpeed Insights API v5 (free), strategy=mobile, for the homepages of the first 30 SaaS domains in scripts/research/ai-crawler-study-domains.json. Field data = Chrome UX Report origin-level p75 over the trailing 28 days; lab = Lighthouse mobile performance score (0-1). Thresholds: LCP <= 2500 ms, INP <= 200 ms, CLS <= 0.1 (web.dev).",
+ "limitations": [
+  "30 homepages from one convenience sample; not representative of the web.",
+  "Origin-level field data covers the whole site, not just the homepage.",
+  "Lab scores vary run to run."
+ ],
+ "summary": {
+  "sampled": 30,
+  "withOriginFieldData": 28,
+  "passAllThree": 3,
+  "lcpGood": 9,
+  "inpGood": 7,
+  "clsGood": 21,
+  "medianOriginLcpMs": 2885,
+  "medianOriginInpMs": 287,
+  "labScoreUnder50": 18,
+  "goodFieldLcpButLabUnder50": 6
+ },
+ "rows": [
+  {
+   "domain": "pipedrive.com",
+   "status": 200,
+   "page": {
+    "lcp": 2812,
+    "inp": 212,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2423,
+    "inp": 193,
+    "cls": 0
+   },
+   "overall": "AVERAGE",
+   "lab": 0.5
+  },
+  {
+   "domain": "zoho.com",
+   "status": 200,
+   "page": {
+    "lcp": 2363,
+    "inp": 129,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2467,
+    "inp": 142,
+    "cls": 0.01
+   },
+   "overall": "AVERAGE",
+   "lab": 0.41
+  },
+  {
+   "domain": "salesforce.com",
+   "status": 200,
+   "page": {
+    "lcp": 3376,
+    "inp": 350,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 4693,
+    "inp": 484,
+    "cls": 0.02
+   },
+   "overall": "AVERAGE",
+   "lab": 0.28
+  },
+  {
+   "domain": "freshworks.com",
+   "status": 200,
+   "page": {
+    "lcp": 2295,
+    "inp": 386,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2372,
+    "inp": 394,
+    "cls": 0
+   },
+   "overall": "AVERAGE",
+   "lab": 0.32
+  },
+  {
+   "domain": "hubspot.com",
+   "status": 200,
+   "page": {
+    "lcp": 3301,
+    "inp": 347,
+    "cls": 0.24
+   },
+   "origin": {
+    "lcp": 2885,
+    "inp": 306,
+    "cls": 0.16
+   },
+   "overall": "SLOW",
+   "lab": 0.32
+  },
+  {
+   "domain": "copper.com",
+   "status": 200,
+   "page": {
+    "lcp": 2645,
+    "inp": 146,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2521,
+    "inp": 163,
+    "cls": 0
+   },
+   "overall": "AVERAGE",
+   "lab": 0.61
+  },
+  {
+   "domain": "outreach.io",
+   "status": 200,
+   "page": {
+    "lcp": 4107,
+    "inp": 342,
+    "cls": 0.21
+   },
+   "origin": {
+    "lcp": 4107,
+    "inp": 342,
+    "cls": 0.21
+   },
+   "overall": "SLOW",
+   "lab": 0.43
+  },
+  {
+   "domain": "attio.com",
+   "status": 200,
+   "page": {
+    "lcp": 5576,
+    "inp": 576,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 4841,
+    "inp": 490,
+    "cls": 0
+   },
+   "overall": "SLOW",
+   "lab": 0.35
+  },
+  {
+   "domain": "salesloft.com",
+   "status": 200,
+   "page": {
+    "lcp": 2276,
+    "inp": 294,
+    "cls": 0.09
+   },
+   "origin": {
+    "lcp": 2759,
+    "inp": 305,
+    "cls": 0.1
+   },
+   "overall": "AVERAGE",
+   "lab": 0.56
+  },
+  {
+   "domain": "apollo.io",
+   "status": 200,
+   "page": {
+    "lcp": 2149,
+    "inp": 393,
+    "cls": 0.02
+   },
+   "origin": {
+    "lcp": 4115,
+    "inp": 379,
+    "cls": 0
+   },
+   "overall": "AVERAGE",
+   "lab": 0.5
+  },
+  {
+   "domain": "gong.io",
+   "status": 200,
+   "page": {
+    "lcp": 2770,
+    "inp": 203,
+    "cls": 0.11
+   },
+   "origin": {
+    "lcp": 3578,
+    "inp": 243,
+    "cls": 0.25
+   },
+   "overall": "AVERAGE",
+   "lab": 0.3
+  },
+  {
+   "domain": "clari.com",
+   "status": 200,
+   "page": {
+    "lcp": 2276,
+    "inp": 294,
+    "cls": 0.09
+   },
+   "origin": {
+    "lcp": 2759,
+    "inp": 305,
+    "cls": 0.1
+   },
+   "overall": "AVERAGE",
+   "lab": 0.7
+  },
+  {
+   "domain": "lusha.com",
+   "status": 200,
+   "page": {
+    "lcp": 2973,
+    "inp": 367,
+    "cls": 0.08
+   },
+   "origin": {
+    "lcp": 2979,
+    "inp": 340,
+    "cls": 0.07
+   },
+   "overall": "SLOW",
+   "lab": 0.58
+  },
+  {
+   "domain": "zoominfo.com",
+   "status": 200,
+   "page": {
+    "lcp": 3755,
+    "inp": 388,
+    "cls": 0.25
+   },
+   "origin": {
+    "lcp": 1574,
+    "inp": 158,
+    "cls": 0.02
+   },
+   "overall": "SLOW",
+   "lab": 0.29
+  },
+  {
+   "domain": "clay.com",
+   "status": 200,
+   "page": {
+    "lcp": 5086,
+    "inp": 295,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 3900,
+    "inp": 232,
+    "cls": 0
+   },
+   "overall": "SLOW",
+   "lab": 0.41
+  },
+  {
+   "domain": "keap.com",
+   "status": 200,
+   "page": {
+    "lcp": 2538,
+    "inp": 145,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 3112,
+    "inp": 151,
+    "cls": 0.02
+   },
+   "overall": "AVERAGE",
+   "lab": 0.25
+  },
+  {
+   "domain": "gohighlevel.com",
+   "status": 200,
+   "page": {
+    "lcp": 1824,
+    "inp": null,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2355,
+    "inp": 296,
+    "cls": 0.02
+   },
+   "overall": "AVERAGE",
+   "lab": 0.44
+  },
+  {
+   "domain": "nutshell.com",
+   "status": 200,
+   "page": {
+    "lcp": 3921,
+    "inp": 173,
+    "cls": 0.04
+   },
+   "origin": {
+    "lcp": 3151,
+    "inp": 196,
+    "cls": 0.04
+   },
+   "overall": "SLOW",
+   "lab": 0.55
+  },
+  {
+   "domain": "insightly.com",
+   "status": 200,
+   "page": {
+    "lcp": 1837,
+    "inp": 200,
+    "cls": 0.11
+   },
+   "origin": {
+    "lcp": 2259,
+    "inp": 196,
+    "cls": 0.11
+   },
+   "overall": "AVERAGE",
+   "lab": 0.4
+  },
+  {
+   "domain": "capsulecrm.com",
+   "status": 200,
+   "page": {
+    "lcp": 1342,
+    "inp": 229,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 1493,
+    "inp": 212,
+    "cls": 0
+   },
+   "overall": "AVERAGE",
+   "lab": 0.81
+  },
+  {
+   "domain": "asana.com",
+   "status": 200,
+   "page": {
+    "lcp": 2197,
+    "inp": 373,
+    "cls": 0.04
+   },
+   "origin": {
+    "lcp": 2783,
+    "inp": 287,
+    "cls": 0.15
+   },
+   "overall": "AVERAGE",
+   "lab": 0.25
+  },
+  {
+   "domain": "notion.com",
+   "status": 200,
+   "page": {
+    "lcp": 1990,
+    "inp": 267,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2256,
+    "inp": 274,
+    "cls": 0.01
+   },
+   "overall": "AVERAGE",
+   "lab": 0.35
+  },
+  {
+   "domain": "close.com",
+   "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+  },
+  {
+   "domain": "trello.com",
+   "status": 200,
+   "page": {
+    "lcp": 3694,
+    "inp": 228,
+    "cls": 0.41
+   },
+   "origin": {
+    "lcp": 5356,
+    "inp": 378,
+    "cls": 0.32
+   },
+   "overall": "SLOW",
+   "lab": 0.41
+  },
+  {
+   "domain": "clickup.com",
+   "status": 200,
+   "page": {
+    "lcp": 4501,
+    "inp": 1047,
+    "cls": 0.07
+   },
+   "origin": {
+    "lcp": 3792,
+    "inp": 657,
+    "cls": 0.01
+   },
+   "overall": "SLOW",
+   "lab": 0.35
+  },
+  {
+   "domain": "basecamp.com",
+   "status": 200,
+   "page": {
+    "lcp": 1488,
+    "inp": 220,
+    "cls": 0.01
+   },
+   "origin": {
+    "lcp": 1594,
+    "inp": 234,
+    "cls": 0
+   },
+   "overall": "AVERAGE",
+   "lab": 0.65
+  },
+  {
+   "domain": "linear.app",
+   "status": 200,
+   "page": {
+    "lcp": 4310,
+    "inp": 226,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 6300,
+    "inp": 211,
+    "cls": 0
+   },
+   "overall": "SLOW",
+   "lab": 0.41
+  },
+  {
+   "domain": "wrike.com",
+   "status": 200,
+   "page": {
+    "lcp": 1205,
+    "inp": 269,
+    "cls": 0
+   },
+   "origin": {
+    "lcp": 2797,
+    "inp": 246,
+    "cls": 0.08
+   },
+   "overall": "AVERAGE",
+   "lab": 0.64
+  },
+  {
+   "domain": "folk.app",
+   "error": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+  },
+  {
+   "domain": "atlassian.com",
+   "status": 200,
+   "page": {
+    "lcp": 10898,
+    "inp": 1156,
+    "cls": 0.12
+   },
+   "origin": {
+    "lcp": 5116,
+    "inp": 492,
+    "cls": 0.13
+   },
+   "overall": "SLOW",
+   "lab": 0.25
+  }
+ ]
+}

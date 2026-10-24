@@ -1,0 +1,67 @@
+{
+  "contentSha256": "bb5ab9d90a78b285100bd90890d736212e587adc85d31d4336bfefdc057c007b",
+  "reviewedAt": "2026-10-24",
+  "kind": "research-asset",
+  "assessment": "B-level decision page for \"webp vs avif\" (210/mo, KD 13): the verdict card answers the choice above the fold, every H2 opens with a direct answer, and the recommendation is backed by AEOeye's own measurements (AEOeye Technical SEO Baseline (391 sites, 2026-10-24); AEOeye WebP vs AVIF encoding test (20 images, 2026-10-24)) with limitations stated.",
+  "topic": {
+    "area": "technical-seo-decisions",
+    "readerProblem": "A site owner deciding \"webp vs avif\" needs a straight recommendation and the evidence for it.",
+    "connection": "The free SEO audit flags exactly this decision on real sites (redirect types, HTTPS, structure, image formats); the page links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/speed/webp",
+      "checkedAt": "2026-10-24",
+      "supports": "WebP lossy 25-34% smaller than JPEG at equal SSIM; lossless 26% smaller than PNG."
+    },
+    {
+      "url": "https://web.dev/learn/images/avif",
+      "checkedAt": "2026-10-24",
+      "supports": "web.dev overview of the AVIF image format."
+    },
+    {
+      "url": "https://caniuse.com/avif",
+      "checkedAt": "2026-10-24",
+      "supports": "AVIF supported for about 96.3% of global users (Can I Use data updated 2026-10-22)."
+    },
+    {
+      "url": "https://caniuse.com/webp",
+      "checkedAt": "2026-10-24",
+      "supports": "WebP supported for about 97.1% of global users (Can I Use data updated 2026-10-22)."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/picture",
+      "checkedAt": "2026-10-24",
+      "supports": "The picture element lets the browser choose among source formats with an img fallback."
+    },
+    {
+      "url": "https://caniuse.com/jpegxl",
+      "checkedAt": "2026-10-24",
+      "supports": "JPEG XL full support about 43% plus 17% partial (Can I Use data updated 2026-10-22)."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/google-images",
+      "checkedAt": "2026-10-24",
+      "supports": "Google Search supports BMP, GIF, JPEG, PNG, WebP, SVG and AVIF images."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (7 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 1228 words, 2 Pexels images, 8 inline source links, 3 internal links, 4 FAQs, 11 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) and AEOeye WebP vs AVIF encoding test (20 images, 2026-10-24) from the raw files in /public/resources."
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/technical-seo-baseline-2026-10.json",
+      "description": "AEOeye Technical SEO Baseline (391 sites, 2026-10-24) — the raw data behind the figures quoted in this decision page."
+    },
+    {
+      "path": "/resources/webp-vs-avif-test-2026-10.json",
+      "description": "AEOeye WebP vs AVIF encoding test (20 images, 2026-10-24) — the raw data behind the figures quoted in this decision page."
+    }
+  ],
+  "methodology": "Figures come from AEOeye's own zero-cost measurements published under /resources: plain HTTP requests from a self-identified research user agent (AEOeyeResearch), robots.txt respected, 1 s between requests per domain; encoding tests run locally with cwebp/avifenc and SSIM via ffmpeg. Each dataset file states its exact method.",
+  "limitations": "Convenience sample of well-known sites (not the whole web), homepages only, a single snapshot on 2026-10-24; the image test covers 20 screenshots, not photographs."
+}

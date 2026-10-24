@@ -1,0 +1,110 @@
+{
+  "slug": "ai-crawlers",
+  "category": "ai-search",
+  "name": "AI Crawler Checker",
+  "title": "AI Crawlers: Live List + Check Your Site in 1 Click",
+  "description": "Every major AI crawler — GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Bytespider and more — what each does, plus a 1-click check of your site.",
+  "answer": "AI crawlers fall into three groups: training crawlers (GPTBot, ClaudeBot…), search crawlers that let assistants cite you (OAI-SearchBot, Claude-SearchBot, PerplexityBot) and user-triggered fetchers. Enter your site to test all of them at once against your robots.txt and your server.",
+  "keywords": [
+    "ai crawlers"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "bot-access",
+    "submitLabel": "Check all AI crawlers",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website or a specific page",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "nytimes.com",
+      "shopify.com"
+    ],
+    "busyText": "Reading robots.txt and requesting as each bot…",
+    "footnote": "We check two things: what your robots.txt allows each bot, and what your server actually returns when we request the page with that bot's user agent. Firewalls that verify bots by IP address may treat our test request differently from the real crawler — a block here is a strong hint, not proof."
+  },
+  "trust": "We read your live robots.txt and request the page as each AI crawler, using the user-agent strings their operators publish.",
+  "body": "## Which AI crawlers exist, and what does each one do?\n\nEvery major AI company now runs more than one bot, and they do different jobs. Mixing them up is how sites accidentally vanish from AI answers.\n\n| Crawler | Operator | Job |\n|---|---|---|\n| OAI-SearchBot | OpenAI | ChatGPT search results |\n| GPTBot | OpenAI | Model training |\n| Claude-SearchBot | Anthropic | Search answers in Claude |\n| ClaudeBot | Anthropic | Model training |\n| PerplexityBot | Perplexity | Perplexity search results |\n| Google-Extended | Google | Gemini training and grounding control (token only) |\n| Applebot-Extended | Apple | Apple AI training control (token only) |\n| Amzn-SearchBot | Amazon | Alexa and Amazon search answers |\n| Amazonbot | Amazon | Amazon services; may train Amazon models |\n| Bytespider | ByteDance | Reportedly training data for ByteDance models |\n| Meta-WebIndexer | Meta | Meta AI search results and citations |\n| meta-externalagent | Meta | AI training and product indexing |\n| CCBot | Common Crawl | Open web archive |\n\nSources: [OpenAI](https://developers.openai.com/api/docs/bots), [Anthropic](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler), [Perplexity](https://docs.perplexity.ai/docs/resources/perplexity-crawlers), [Google](https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers), [Amazon](https://developer.amazon.com/amazonbot), [Meta](https://developers.facebook.com/docs/sharing/webmasters/web-crawlers/), [Common Crawl](https://commoncrawl.org/ccbot).\n\n## Which AI crawlers should I allow?\n\nAllow the search crawlers, and treat training crawlers as a separate business decision. Blocking a training bot doesn't remove you from AI search; blocking a search bot does.\n\nGoogle is explicit about its own token: Google-Extended does not affect inclusion or ranking in Google Search. The other operators draw the same line between training and search bots in their documentation.\n\n## What do real sites do?\n\nMost block nothing. When we checked 391 well-known sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 16.7% blocked at least one training crawler and 9.6% blocked at least one AI search crawler.\n\nNews publishers are the exception: 84.2% block a training bot and 71.1% block a search bot. For a SaaS or e-commerce brand, an AI search block is usually an accident — a copied robots.txt template or a CDN \"block AI bots\" toggle that also catches search bots.\n\n## How do I read the results table?\n\nEach row shows two separate verdicts. The robots.txt column shows what your rules allow, plus the exact deciding line; the live column shows what your server returned to a request with that bot's user agent.\n\n- **Allowed + 200** — the bot can read the page.\n- **Allowed + 403 or challenge** — usually a firewall preset, not your robots.txt.\n- **Token-only rows** (Google-Extended, Applebot-Extended) have no live result, because they never visit.\n\n## How do I fix a block?\n\nStart with the search bots, because those cost visibility today. Edit robots.txt with the [AI robots.txt generator](/tools/ai-robots-txt-generator), relax the firewall rule if the live column failed, then dig into a single bot on its own page, such as [GPTBot](/tools/gptbot) or [ClaudeBot](/tools/claudebot).",
+  "faqs": [
+    {
+      "q": "Do AI crawlers follow robots.txt?",
+      "a": "The major operators — OpenAI, Anthropic, Google, Apple, Perplexity, Amazon, Meta and Common Crawl — document robots.txt controls for their automatic crawlers. User-triggered fetchers such as ChatGPT-User, Amzn-User and Meta-ExternalFetcher may not follow every rule."
+    },
+    {
+      "q": "Will blocking AI crawlers hurt my Google rankings?",
+      "a": "Not if you only block AI-specific bots. Google ranks pages with Googlebot, and Google states that the Google-Extended token does not affect inclusion or ranking in Google Search."
+    },
+    {
+      "q": "Why do some bots show a robots.txt result but no live result?",
+      "a": "Google-Extended and Applebot-Extended are control tokens, not crawlers. They never request pages from your server, so only your robots.txt rules decide how they are treated."
+    },
+    {
+      "q": "How often should I re-check?",
+      "a": "After any change to robots.txt, your CDN or your firewall. OpenAI and Amazon both say robots.txt changes can take about 24 hours to reach their systems, so re-test the next day."
+    }
+  ],
+  "sources": [
+    {
+      "label": "OpenAI — Overview of OpenAI crawlers",
+      "url": "https://developers.openai.com/api/docs/bots"
+    },
+    {
+      "label": "Anthropic — Does Anthropic crawl data from the web?",
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"
+    },
+    {
+      "label": "Google — Google common crawlers (Google-Extended)",
+      "url": "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers"
+    },
+    {
+      "label": "Perplexity — Perplexity crawlers",
+      "url": "https://docs.perplexity.ai/docs/resources/perplexity-crawlers"
+    },
+    {
+      "label": "Amazon — Amazonbot, Amzn-SearchBot and Amzn-User",
+      "url": "https://developer.amazon.com/amazonbot"
+    },
+    {
+      "label": "Meta — Meta web crawlers",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/web-crawlers/"
+    },
+    {
+      "label": "Common Crawl — CCBot",
+      "url": "https://commoncrawl.org/ccbot"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8566621/pexels-photo-8566621.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Futuristic delivery robots lined up in an urban environment, showcasing modern innovation.",
+      "photographer": "Kindel Media",
+      "photographerUrl": "https://www.pexels.com/@kindelmedia",
+      "pexelsUrl": "https://www.pexels.com/photo/delivery-robots-parked-beside-glass-wall-8566621/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/17489151/pexels-photo-17489151.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of tower servers in a data center with blue and red lighting.",
+      "photographer": "panumas nikhomkhai",
+      "photographerUrl": "https://www.pexels.com/@cookiecutter",
+      "pexelsUrl": "https://www.pexels.com/photo/line-of-pc-towers-17489151/"
+    }
+  ],
+  "related": [
+    "gptbot",
+    "claudebot",
+    "ai-robots-txt-generator",
+    "robots-txt-tester",
+    "aeo-grader"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

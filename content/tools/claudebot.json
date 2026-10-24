@@ -1,0 +1,95 @@
+{
+  "slug": "claudebot",
+  "category": "ai-search",
+  "name": "ClaudeBot Checker",
+  "title": "ClaudeBot: Check If Anthropic's Crawler Can Reach You",
+  "description": "Is ClaudeBot blocked on your site? Check robots.txt and a live request as ClaudeBot, Claude-SearchBot and Claude-User — and what each Anthropic bot does.",
+  "answer": "ClaudeBot is Anthropic's crawler for collecting training data; Claude-SearchBot indexes pages for Claude's search answers and Claude-User fetches pages on request. Enter your site to see whether robots.txt and your server let each one in — and which line decides it.",
+  "keywords": [
+    "claudebot",
+    "claudebot ai"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "bot-access",
+    "submitLabel": "Check Anthropic bots",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website or a specific page",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "extra": {
+      "bots": [
+        "claudebot",
+        "claudesearchbot",
+        "claudeuser",
+        "googlebot"
+      ]
+    },
+    "examples": [
+      "nytimes.com",
+      "shopify.com"
+    ],
+    "busyText": "Reading robots.txt and requesting as each bot…",
+    "footnote": "We check two things: what your robots.txt allows each bot, and what your server actually returns when we request the page with that bot's user agent. Firewalls that verify bots by IP address may treat our test request differently from the real crawler — a block here is a strong hint, not proof."
+  },
+  "trust": "We read your live robots.txt and request the page as ClaudeBot, Claude-SearchBot and Claude-User, with Googlebot as a control.",
+  "body": "## ClaudeBot AI Crawler: What It Collects and Whether to Block It\n\nClaudeBot collects public web content that may be used to train Anthropic's models. Blocking it asks Anthropic to leave your future content out of training — on its own, it does not remove you from Claude's search answers.\n\n[Anthropic's help page](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) lists three separate agents, each with its own robots.txt name:\n\n| Agent | Job | If you block it |\n|---|---|---|\n| ClaudeBot | Training data collection | Future pages are excluded from training |\n| Claude-SearchBot | Indexing for search results in Claude | Your visibility in Claude's answers can drop |\n| Claude-User | Fetching a page a user asked about | Claude can't read your page for that user |\n\nAnthropic says its bots honor robots.txt directives and support the non-standard Crawl-delay line.\n\n## Should I block ClaudeBot?\n\nFor most companies, no. If buyers ask Claude about your category, you want Claude to know who you are and what you do. Publishers that license their archives are the exception.\n\nThe split between those two groups is stark. When we checked 391 sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 11.5% blocked ClaudeBot overall — 78.9% of news publishers versus 1.6% of SaaS companies. Claude-SearchBot was blocked by 6.3% overall.\n\nIf you want out of training but still want to be found, block ClaudeBot and leave Claude-SearchBot and Claude-User open.\n\n## How do I read the result?\n\nLook at both columns. robots.txt shows what your rules say; the live request shows what your server really did.\n\n- **robots.txt allowed, live 200** — nothing stands in the way.\n- **robots.txt allowed, live 403 or challenge** — a firewall rule is blocking Anthropic's user agents. Many bot-protection presets block \"AI scrapers\" by default.\n- **robots.txt blocked** — we show the exact group and rule, including whether a wildcard `User-agent: *` rule caught it.\n\nRobots rules are matched by the most specific user-agent group, then the longest path ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html)). A `ClaudeBot` group therefore overrides your `*` group completely.\n\n## What rule should I copy?\n\nUse two groups: one that opts out of training and one that keeps search open.\n\n```\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: Claude-SearchBot\nAllow: /\n```\n\nRun the [AI crawler checker](/tools/ai-crawlers) to see every AI bot in one table, or build a full policy with the [AI robots.txt generator](/tools/ai-robots-txt-generator).",
+  "faqs": [
+    {
+      "q": "Is ClaudeBot the same as Claude?",
+      "a": "No. ClaudeBot is a crawler that collects training data. Claude, the assistant, reads the web through Claude-SearchBot for search indexing and Claude-User for pages a user specifically asks about."
+    },
+    {
+      "q": "Does ClaudeBot respect robots.txt?",
+      "a": "Anthropic says its bots honor standard robots.txt directives and the Crawl-delay extension, and it documents how to disallow each agent by name. Firewall blocks are a separate layer you control."
+    },
+    {
+      "q": "Will blocking ClaudeBot hurt my Google rankings?",
+      "a": "No. Google crawls and ranks with Googlebot, which follows its own robots.txt group. A ClaudeBot rule only changes what Anthropic may collect from your site."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Anthropic — Does Anthropic crawl data from the web?",
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"
+    },
+    {
+      "label": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A woman using a laptop navigating a contemporary data center with mirrored servers.",
+      "photographer": "Christina Morillo",
+      "photographerUrl": "https://www.pexels.com/@divinetechygirl",
+      "pexelsUrl": "https://www.pexels.com/photo/engineer-holding-laptop-1181316/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/39945368/pexels-photo-39945368.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a delicate spider web with morning dew on dry plant stem, showcasing nature's artistry.",
+      "photographer": "Jelena Kazak",
+      "photographerUrl": "https://www.pexels.com/@selena1965",
+      "pexelsUrl": "https://www.pexels.com/photo/intricate-spider-web-on-with-morning-dew-39945368/"
+    }
+  ],
+  "related": [
+    "ai-crawlers",
+    "gptbot",
+    "robots-txt-tester",
+    "ai-robots-txt-generator",
+    "ai-visibility-checker"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

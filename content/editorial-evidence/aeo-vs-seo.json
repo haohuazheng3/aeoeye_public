@@ -1,0 +1,67 @@
+{
+  "contentSha256": "f92b29627231aeba24a62f0ed977b3999f58f24aa343d70331d18634c482f1bc",
+  "reviewedAt": "2026-10-24",
+  "kind": "research-asset",
+  "assessment": "B-level decision page for \"aeo vs seo\" (1900/mo, KD 17): the verdict card answers the choice above the fold, every H2 opens with a direct answer, and the recommendation is backed by AEOeye's own measurements (AEOeye AI Crawler Access Study (391 sites, 2026-10-03); AEOeye AI recommendation benchmark (892 answers)) with limitations stated.",
+  "topic": {
+    "area": "answer-engine-optimization",
+    "readerProblem": "A site owner deciding \"aeo vs seo\" needs a straight recommendation and the evidence for it.",
+    "connection": "Defines the line between SEO and the AI-visibility measurement AEOeye sells, using AEOeye audit and crawler data."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-24",
+      "supports": "No additional requirements for AI Overviews/AI Mode; page must be indexed and snippet-eligible; preview controls apply."
+    },
+    {
+      "url": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+      "checkedAt": "2026-10-24",
+      "supports": "Pew: 8% click a result with an AI summary vs 15% without; 1% click a link inside the summary."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-24",
+      "supports": "GEO paper: generative engine optimization can boost visibility by up to 40% in generative engine responses."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/bots",
+      "checkedAt": "2026-10-24",
+      "supports": "GPTBot = training, OAI-SearchBot = ChatGPT search, ChatGPT-User = user actions; ~24h for robots.txt changes."
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
+      "checkedAt": "2026-10-24",
+      "supports": "ClaudeBot (training), Claude-SearchBot (search), Claude-User (user requests); bots honor robots.txt and Crawl-delay."
+    },
+    {
+      "url": "https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye benchmark: 892 answers, 17.6% mention rate, ChatGPT 5% of 161, ~2.9 competitors per answer."
+    },
+    {
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site robots.txt study: per-bot block rates by group (e.g. GPTBot 9.1%, ClaudeBot 11.5%, Bytespider 14.6%)."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (7 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 1274 words, 2 Pexels images, 6 inline source links, 6 internal links, 4 FAQs, 9 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye AI Crawler Access Study (391 sites, 2026-10-03) and AEOeye AI recommendation benchmark (892 answers) from the raw files in /public/resources."
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/ai-crawler-access-study-2026-10.json",
+      "description": "AEOeye AI Crawler Access Study (391 sites, 2026-10-03) — the raw data behind the figures quoted in this decision page."
+    },
+    {
+      "path": "/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "description": "AEOeye AI recommendation benchmark (892 answers) — the raw data behind the figures quoted in this decision page."
+    }
+  ],
+  "methodology": "Figures come from AEOeye's own zero-cost measurements published under /resources: plain HTTP requests from a self-identified research user agent (AEOeyeResearch), robots.txt respected, 1 s between requests per domain; encoding tests run locally with cwebp/avifenc and SSIM via ffmpeg. Each dataset file states its exact method.",
+  "limitations": "Convenience sample of well-known sites (not the whole web), homepages only, a single snapshot on 2026-10-24; the image test covers 20 screenshots, not photographs."
+}

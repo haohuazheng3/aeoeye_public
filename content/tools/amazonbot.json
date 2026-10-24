@@ -1,0 +1,94 @@
+{
+  "slug": "amazonbot",
+  "category": "ai-search",
+  "name": "Amazonbot Checker",
+  "title": "Amazonbot: Check If Amazon's Crawler Can Reach You",
+  "description": "What is Amazonbot and should you allow it? Check your robots.txt and a live request as Amazonbot, plus what Amazon says it uses the crawler for.",
+  "answer": "Amazonbot is Amazon's web crawler; Amazon says it improves its products and services and may be used to train Amazon AI models. A separate bot, Amzn-SearchBot, makes pages eligible for Alexa and Amazon search answers. Enter your site to see what robots.txt and your server allow each one.",
+  "keywords": [
+    "amazonbot"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "bot-access",
+    "submitLabel": "Check Amazon bots",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website or a specific page",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "extra": {
+      "bots": [
+        "amazonbot",
+        "amznsearchbot",
+        "amznuser",
+        "googlebot"
+      ]
+    },
+    "examples": [
+      "nytimes.com",
+      "shopify.com"
+    ],
+    "busyText": "Reading robots.txt and requesting as each Amazon bot…",
+    "footnote": "We check what your robots.txt allows each Amazon agent and what your server returns to a request with its user agent. Firewalls that verify bots by IP address may treat our test differently from the real crawler."
+  },
+  "trust": "We read your live robots.txt and request the page as Amazonbot, Amzn-SearchBot and Amzn-User, with Googlebot as a control.",
+  "body": "## What is Amazonbot used for?\n\nAmazon now documents three agents, each controlled separately in robots.txt ([Amazon](https://developer.amazon.com/amazonbot)):\n\n| Agent | What Amazon says it does | AI training? |\n|---|---|---|\n| Amazonbot | Improves Amazon products and services | May be used to train Amazon AI models |\n| Amzn-SearchBot | Makes content eligible for search experiences such as Alexa | No |\n| Amzn-User | Fetches live pages when a user asks Alexa something | No; may not follow every robots.txt rule |\n\nAmazon adds two practical details: changes can take about 24 hours to apply, and its crawlers don't support the crawl-delay directive.\n\n## Should I block Amazonbot?\n\nDecide on the two main bots separately. Blocking Amazonbot opts you out of a crawler that may feed Amazon's AI training; blocking Amzn-SearchBot removes you from answers in Alexa and Amazon's search experiences.\n\nFor most brands, allowing Amzn-SearchBot is the easy call — it's a visibility bot with no training use. Amazonbot is the same kind of training decision as GPTBot or ClaudeBot.\n\n## What do real sites do?\n\nWhen we checked the robots.txt files of 391 well-known sites in October 2026 ([dataset](/resources/robots-agents-2026-10.json)), 9.4% blocked Amazonbot — 60.5% of news publishers, but only 1.6% of SaaS companies.\n\nThe newer bot is barely on anyone's radar: only 2.6% of robots.txt files named Amzn-SearchBot at all, and 3.4% blocked it, mostly through broad rules aimed at every bot.\n\n## Does Amzn-SearchBot follow my other rules?\n\nPartly. Amazon says that if robots.txt doesn't mention Amzn-SearchBot but allows other search bots, Amzn-SearchBot follows the directives given to those search bots. Naming it explicitly removes the guesswork.\n\nStandard matching still applies: the most specific user-agent group wins ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html)), and Amazon reads robots.txt per host — `shop.example.com` needs its own file.\n\n## What rules should I copy?\n\nTo stay in Alexa answers but opt out of training:\n\n```\nUser-agent: Amazonbot\nDisallow: /\n\nUser-agent: Amzn-SearchBot\nAllow: /\n```\n\nAmazon also honors page-level robots meta tags: `noarchive` (don't use the page for model training), `noindex` and `none`. Check every AI bot at once with the [AI crawler checker](/tools/ai-crawlers), or build a full policy with the [AI robots.txt generator](/tools/ai-robots-txt-generator).",
+  "faqs": [
+    {
+      "q": "Is Amazonbot used for AI training?",
+      "a": "Amazon says Amazonbot may be used to train Amazon AI models. Its other two agents, Amzn-SearchBot and Amzn-User, are documented as not crawling content for generative AI training."
+    },
+    {
+      "q": "Does blocking Amazonbot remove me from Alexa?",
+      "a": "Not by itself. Alexa and Amazon search answers depend on Amzn-SearchBot, which has its own robots.txt group. Block Amazonbot and allow Amzn-SearchBot to keep that visibility."
+    },
+    {
+      "q": "Does Amazonbot support crawl-delay?",
+      "a": "No. Amazon says its crawlers do not support the crawl-delay directive. To reduce load, use robots.txt rules, rate limiting on your server, or contact Amazon at the address it publishes."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Amazon — Amazonbot, Amzn-SearchBot and Amzn-User",
+      "url": "https://developer.amazon.com/amazonbot"
+    },
+    {
+      "label": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+      "label": "AEOeye robots.txt check for Amazon and Meta crawlers (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/robots-agents-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/4487383/pexels-photo-4487383.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Two workers handle a package in a spacious warehouse surrounded by shelves stocked with boxes and products.",
+      "photographer": "Tiger Lily",
+      "photographerUrl": "https://www.pexels.com/@tiger-lily",
+      "pexelsUrl": "https://www.pexels.com/photo/workers-walking-along-aisle-in-warehouse-4487383/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/20323501/pexels-photo-20323501.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of an orange smart speaker with a glowing blue light, showcasing modern technology.",
+      "photographer": "Robert So",
+      "photographerUrl": "https://www.pexels.com/@robertkso",
+      "pexelsUrl": "https://www.pexels.com/photo/orange-ball-device-20323501/"
+    }
+  ],
+  "related": [
+    "ai-crawlers",
+    "bytespider",
+    "gptbot",
+    "ai-robots-txt-generator",
+    "robots-txt-tester"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

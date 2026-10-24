@@ -1,0 +1,88 @@
+{
+  "slug": "sitemap-checker",
+  "category": "crawl-index",
+  "name": "Sitemap Checker",
+  "title": "Sitemap Checker: Find, Validate & Test Any XML Sitemap",
+  "description": "Free sitemap checker: find a site's sitemaps, validate the XML, count URLs and test a sample for 200s, redirects and noindex. No signup.",
+  "answer": "A sitemap checker finds a site's XML sitemaps, validates the format and tests whether the URLs inside actually work. Enter any domain: we look in robots.txt and the usual locations, check the XML against the sitemap protocol, count the URLs and sample them for errors, redirects and noindex.",
+  "keywords": [
+    "sitemap checker",
+    "sitemap test",
+    "sitemap validator",
+    "xml sitemap tester",
+    "sitemap finder"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "sitemap",
+    "submitLabel": "Check sitemap",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Website or sitemap URL",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "apple.com",
+      "shopify.com"
+    ],
+    "busyText": "Finding and validating sitemaps…"
+  },
+  "trust": "We fetch robots.txt and the sitemap files live, then request a sample of listed URLs as Googlebot.",
+  "body": "## Sitemap Finder: Where Is This Site's Sitemap?\n\nLook in robots.txt first. A `Sitemap:` line there is how most crawlers find it, and it can point anywhere — `/sitemap_index.xml`, `/sitemaps/main.xml` or another host entirely. Then try the conventional locations such as `/sitemap.xml`.\n\nMost big sites follow that convention. When we checked 391 well-known sites in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)), 92.9% of the robots.txt files we could read had a `Sitemap:` line, but only 74.9% served a valid XML sitemap at `/sitemap.xml` itself.\n\n## Sitemap Validator: The XML Errors Google Rejects\n\nA sitemap must be valid XML in the sitemaps.org namespace, UTF-8 encoded, with absolute URLs ([protocol](https://www.sitemaps.org/protocol.html)). The common failures:\n\n- **Wrong namespace or root element** — not `urlset` or `sitemapindex`.\n- **Over the limits** — more than 50,000 URLs or 50 MB uncompressed in one file ([Google](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)).\n- **URLs from another host** — a sitemap may only list URLs on its own site unless cross-site submission is set up.\n- **Broken lastmod dates** — not in W3C date format.\n\n## Sitemap Test: Do the Listed URLs Actually Return 200?\n\nA valid file full of bad URLs is still a bad sitemap. We sample listed URLs as Googlebot and flag any that redirect, return errors, carry noindex or point their canonical elsewhere — each of those tells Google you're listing pages you don't want indexed.\n\n## XML Sitemap Tester for Indexes, Images and Hreflang\n\nSitemap indexes are followed into their child sitemaps, and image, video, news and hreflang extensions are recognized rather than reported as errors. See annotated samples of each format in our [sitemap examples](/tools/sitemap-examples).\n\n## What should I fix first?\n\nErrors that make Google ignore the file: invalid XML, a wrong namespace or a 404. Then remove URLs that redirect or are noindexed, so the sitemap lists only pages you want in search. Google says it uses `lastmod` only if it's consistently accurate, so stop updating it on every deploy.\n\nNo sitemap at all? Build one with the [sitemap generator](/tools/xml-sitemap-generator).",
+  "faqs": [
+    {
+      "q": "How do I find a website's sitemap?",
+      "a": "Open /robots.txt and look for a \"Sitemap:\" line, then try /sitemap.xml and /sitemap_index.xml. This checker does all of that automatically and follows sitemap indexes to their child files."
+    },
+    {
+      "q": "Why does Search Console say my sitemap couldn't be read?",
+      "a": "Usually the URL returns an error or an HTML page, the XML is malformed, or a firewall blocks Googlebot. Run this check to see the exact status code and validation errors."
+    },
+    {
+      "q": "Should my sitemap list every page?",
+      "a": "It should list every page you want indexed, and nothing else. Leave out redirects, noindexed pages, duplicates and pages whose canonical points to another URL."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Build and submit a sitemap",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+    },
+    {
+      "label": "sitemaps.org — Sitemap protocol",
+      "url": "https://www.sitemaps.org/protocol.html"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/5302807/pexels-photo-5302807.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of rolled nautical maps on a wooden table, perfect for navigation themes.",
+      "photographer": "cottonbro studio",
+      "photographerUrl": "https://www.pexels.com/@cottonbro",
+      "pexelsUrl": "https://www.pexels.com/photo/close-up-photo-of-rolled-maps-5302807/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/7663519/pexels-photo-7663519.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a hand placing a red pin on a map indicating geographic location pinning.",
+      "photographer": "GeoJango Maps",
+      "photographerUrl": "https://www.pexels.com/@geojango-maps-50965933",
+      "pexelsUrl": "https://www.pexels.com/photo/hand-placing-pin-on-map-7663519/"
+    }
+  ],
+  "related": [
+    "xml-sitemap-generator",
+    "sitemap-examples",
+    "robots-txt-tester",
+    "bing-url-submission"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

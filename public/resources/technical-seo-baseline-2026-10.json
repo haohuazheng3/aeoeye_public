@@ -1,0 +1,781 @@
+{
+  "study": "AEOeye Technical SEO Baseline (October 2026)",
+  "run": "2026-10-24",
+  "userAgent": "Mozilla/5.0 (compatible; AEOeyeResearch/1.0; +https://aeoeye.com/bot)",
+  "sample": "The same 391 domains as the AEOeye AI Crawler Access Study (scripts/research/ai-crawler-study-domains.json): a convenience sample of well-known SaaS, AI-visibility vendor, e-commerce/consumer, news publisher and UGC/review sites. Not a random sample of the web.",
+  "method": [
+    "robots.txt fetched first; domains whose robots.txt disallows our user agent for \"/\" were not fetched further (outcome robots-disallowed).",
+    "Redirects followed manually from http://<domain>/ (max 10 hops); every status code recorded. \"One hop to HTTPS\" = exactly one redirect that lands on https.",
+    "Homepage response headers and HTML analysed (title, description, canonical, Open Graph, X card, icons, JSON-LD, images, links). Title pixel width is an estimate at 20px Arial-like metrics.",
+    "og:image: first 64 KB fetched to read format and pixel size from the file header.",
+    "Soft-404 probe: one request to a random non-existent path on the final origin.",
+    "Blog/docs location: from homepage links only (blog./news./insights./resources. subdomains vs /blog, /news, /insights, /resources paths; docs./help./support./developer(s). vs matching paths).",
+    "Image formats: from <img src/srcset> file extensions and format query parameters, plus <source type>. CDNs that negotiate formats without a visible extension are counted separately (\"auto\") and otherwise invisible to this method.",
+    "Requests: one domain at a time per worker, 1 s apart, 8 workers, 12 s timeout per request, 90 s cap per domain."
+  ],
+  "limitations": [
+    "Homepages only — inner pages often differ.",
+    "Bot-protected sites may serve challenges to our user agent; those count as http-403 / not-html outcomes and are excluded from page-level percentages.",
+    "Percentages for page-level fields use homepagesAnalyzed as the denominator unless the field name says otherwise.",
+    "A single snapshot on 2026-10-24; headers and markup change with every deploy."
+  ],
+  "all": {
+    "domains": 391,
+    "outcomes": {
+      "http-403": 55,
+      "ok": 315,
+      "http-429": 7,
+      "unreachable": 6,
+      "page-unreachable": 2,
+      "robots-disallowed": 5,
+      "domain-timeout": 1
+    },
+    "homepagesAnalyzed": 315,
+    "redirect": {
+      "reached": 379,
+      "httpToHttpsOneHopPct": 53.6,
+      "twoPlusHopsPct": 44.3,
+      "threePlusHopsPct": 3.4,
+      "noRedirectFromHttpPct": 1.8,
+      "finalHttpsPct": 97.9,
+      "finalWwwPct": 62.3,
+      "firstHopCodePct": {
+        "301": 85.8,
+        "302": 1.3,
+        "303": 0,
+        "307": 0,
+        "308": 12.9
+      },
+      "anyTemporaryInChainPct": 8.1,
+      "loops": 1
+    },
+    "headers": {
+      "hstsPct": 84.1,
+      "hstsMaxAgeOneYearPct": 68.3,
+      "hstsIncludeSubPct": 45.1,
+      "hstsPreloadPct": 32.7,
+      "hstsPreloadReadyPct": 26,
+      "cspPct": 53.7,
+      "cspReportOnlyPct": 5.7,
+      "frameProtectionPct": 72.7,
+      "xContentTypeOptionsPct": 62.2,
+      "referrerPolicyPct": 37.1,
+      "permissionsPolicyPct": 15.9,
+      "allFiveCorePct": 21.9,
+      "noneOfFivePct": 6,
+      "brotliPct": 59,
+      "gzipPct": 37.1,
+      "uncompressedPct": 3.8,
+      "xRobotsTagPct": 2.9
+    },
+    "meta": {
+      "titleMissingPct": 1.6,
+      "titleMedianChars": 51,
+      "titleMedianPx": 468,
+      "titleOver600pxPct": 13.2,
+      "titleOver60CharsPct": 21,
+      "descMissingPct": 2.2,
+      "descMedianChars": 150,
+      "descOver160Pct": 25.3,
+      "descUnder70Pct": 3.6,
+      "canonicalPct": 94.3,
+      "viewportPct": 99,
+      "langPct": 96.5,
+      "h1NonePct": 14.3,
+      "h1OnePct": 76.5,
+      "h1MultiplePct": 9.2,
+      "metaRobotsNoindexPct": 0.6
+    },
+    "social": {
+      "ogTitlePct": 90.8,
+      "ogDescriptionPct": 90.5,
+      "ogImagePct": 86.7,
+      "ogImageDeclaresSizePct": 34.6,
+      "ogImageMeasured": 270,
+      "ogImageExactly1200x630Pct": 40,
+      "ogImageAtLeast1200WidePct": 85.9,
+      "ogImageRatioNear191Pct": 71.9,
+      "ogImageUnder600WidePct": 5.9,
+      "ogImageMedianWidth": 1200,
+      "ogImageFormats": {
+        "png": 166,
+        "jpeg": 87,
+        "webp": 14,
+        "gif": 1,
+        "avif": 1,
+        "svg": 1
+      },
+      "ogImageBrokenPct": 0.7,
+      "twitterCardPct": 82.5,
+      "summaryLargeImagePct": 74.3,
+      "summaryPct": 7.3,
+      "iconLinkPct": 90.8,
+      "iconSvgPct": 21.3,
+      "appleTouchIconPct": 66.7
+    },
+    "structuredData": {
+      "jsonLdAnyPct": 74,
+      "jsonLdInvalidPct": 0,
+      "organizationPct": 66.3,
+      "webSitePct": 47,
+      "faqPagePct": 11.1,
+      "breadcrumbPct": 12.4,
+      "productOrSoftwarePct": 23.5
+    },
+    "images": {
+      "homepagesWithImages": 305,
+      "anyAvifPct": 10.8,
+      "anyWebpPct": 43.6,
+      "modernFormatPct": 46.6,
+      "jpgPngOnlyPct": 37.7,
+      "autoFormatCdnPct": 0.7
+    },
+    "architecture": {
+      "blogLinked": 223,
+      "blogSubfolderPct": 90.6,
+      "blogSubdomainPct": 4.5,
+      "blogBothPct": 4.9,
+      "docsLinked": 218,
+      "docsSubdomainPct": 48.6,
+      "docsSubfolderPct": 24.8
+    },
+    "errors": {
+      "missingPageProbed": 313,
+      "real404Pct": 91.7,
+      "gone410Pct": 0,
+      "soft404Pct": 5.1,
+      "otherPct": 3.2,
+      "sitemapXmlValidPct": 74.9,
+      "robotsSitemapLinePct": 92.9
+    }
+  },
+  "byGroup": {
+    "saas": {
+      "domains": 194,
+      "outcomes": {
+        "http-403": 12,
+        "ok": 178,
+        "http-429": 3,
+        "unreachable": 1
+      },
+      "homepagesAnalyzed": 178,
+      "redirect": {
+        "reached": 193,
+        "httpToHttpsOneHopPct": 55.4,
+        "twoPlusHopsPct": 44.6,
+        "threePlusHopsPct": 2.6,
+        "noRedirectFromHttpPct": 0,
+        "finalHttpsPct": 100,
+        "finalWwwPct": 59.1,
+        "firstHopCodePct": {
+          "301": 86.5,
+          "302": 1.6,
+          "303": 0,
+          "307": 0,
+          "308": 11.9
+        },
+        "anyTemporaryInChainPct": 6.7,
+        "loops": 0
+      },
+      "headers": {
+        "hstsPct": 88.2,
+        "hstsMaxAgeOneYearPct": 77.5,
+        "hstsIncludeSubPct": 55.6,
+        "hstsPreloadPct": 41,
+        "hstsPreloadReadyPct": 34.8,
+        "cspPct": 55.6,
+        "cspReportOnlyPct": 8.4,
+        "frameProtectionPct": 75.3,
+        "xContentTypeOptionsPct": 63.5,
+        "referrerPolicyPct": 43.3,
+        "permissionsPolicyPct": 14.6,
+        "allFiveCorePct": 25.3,
+        "noneOfFivePct": 4.5,
+        "brotliPct": 53.9,
+        "gzipPct": 41.6,
+        "uncompressedPct": 4.5,
+        "xRobotsTagPct": 2.8
+      },
+      "meta": {
+        "titleMissingPct": 0.6,
+        "titleMedianChars": 53,
+        "titleMedianPx": 471,
+        "titleOver600pxPct": 10.2,
+        "titleOver60CharsPct": 19.8,
+        "descMissingPct": 0,
+        "descMedianChars": 150,
+        "descOver160Pct": 24.7,
+        "descUnder70Pct": 2.8,
+        "canonicalPct": 96.6,
+        "viewportPct": 100,
+        "langPct": 97.2,
+        "h1NonePct": 4.5,
+        "h1OnePct": 87.1,
+        "h1MultiplePct": 8.4,
+        "metaRobotsNoindexPct": 0.6
+      },
+      "social": {
+        "ogTitlePct": 93.8,
+        "ogDescriptionPct": 93.8,
+        "ogImagePct": 92.7,
+        "ogImageDeclaresSizePct": 29.8,
+        "ogImageMeasured": 164,
+        "ogImageExactly1200x630Pct": 42.1,
+        "ogImageAtLeast1200WidePct": 89.6,
+        "ogImageRatioNear191Pct": 82.3,
+        "ogImageUnder600WidePct": 1.2,
+        "ogImageMedianWidth": 1200,
+        "ogImageFormats": {
+          "png": 102,
+          "jpeg": 51,
+          "webp": 10,
+          "gif": 1
+        },
+        "ogImageBrokenPct": 0,
+        "twitterCardPct": 92.1,
+        "summaryLargeImagePct": 83.1,
+        "summaryPct": 9,
+        "iconLinkPct": 94.4,
+        "iconSvgPct": 25.3,
+        "appleTouchIconPct": 71.9
+      },
+      "structuredData": {
+        "jsonLdAnyPct": 78.1,
+        "jsonLdInvalidPct": 0,
+        "organizationPct": 74.7,
+        "webSitePct": 46.1,
+        "faqPagePct": 6.7,
+        "breadcrumbPct": 10.7,
+        "productOrSoftwarePct": 26.4
+      },
+      "images": {
+        "homepagesWithImages": 178,
+        "anyAvifPct": 16.3,
+        "anyWebpPct": 55.1,
+        "modernFormatPct": 58.4,
+        "jpgPngOnlyPct": 26.4,
+        "autoFormatCdnPct": 1.1
+      },
+      "architecture": {
+        "blogLinked": 161,
+        "blogSubfolderPct": 90.1,
+        "blogSubdomainPct": 3.1,
+        "blogBothPct": 6.8,
+        "docsLinked": 155,
+        "docsSubdomainPct": 49,
+        "docsSubfolderPct": 18.1
+      },
+      "errors": {
+        "missingPageProbed": 178,
+        "real404Pct": 93.8,
+        "gone410Pct": 0,
+        "soft404Pct": 4.5,
+        "otherPct": 1.7,
+        "sitemapXmlValidPct": 83.1,
+        "robotsSitemapLinePct": 93.4
+      }
+    },
+    "aeo-vendors": {
+      "domains": 43,
+      "outcomes": {
+        "http-403": 1,
+        "ok": 42
+      },
+      "homepagesAnalyzed": 42,
+      "redirect": {
+        "reached": 43,
+        "httpToHttpsOneHopPct": 53.5,
+        "twoPlusHopsPct": 41.9,
+        "threePlusHopsPct": 2.3,
+        "noRedirectFromHttpPct": 4.7,
+        "finalHttpsPct": 95.3,
+        "finalWwwPct": 41.9,
+        "firstHopCodePct": {
+          "301": 56.1,
+          "302": 0,
+          "303": 0,
+          "307": 0,
+          "308": 43.9
+        },
+        "anyTemporaryInChainPct": 14.6,
+        "loops": 0
+      },
+      "headers": {
+        "hstsPct": 69,
+        "hstsMaxAgeOneYearPct": 66.7,
+        "hstsIncludeSubPct": 31,
+        "hstsPreloadPct": 19,
+        "hstsPreloadReadyPct": 14.3,
+        "cspPct": 26.2,
+        "cspReportOnlyPct": 0,
+        "frameProtectionPct": 47.6,
+        "xContentTypeOptionsPct": 45.2,
+        "referrerPolicyPct": 35.7,
+        "permissionsPolicyPct": 21.4,
+        "allFiveCorePct": 19,
+        "noneOfFivePct": 19,
+        "brotliPct": 78.6,
+        "gzipPct": 21.4,
+        "uncompressedPct": 0,
+        "xRobotsTagPct": 2.4
+      },
+      "meta": {
+        "titleMissingPct": 0,
+        "titleMedianChars": 52,
+        "titleMedianPx": 476,
+        "titleOver600pxPct": 14.3,
+        "titleOver60CharsPct": 16.7,
+        "descMissingPct": 0,
+        "descMedianChars": 155,
+        "descOver160Pct": 33.3,
+        "descUnder70Pct": 2.4,
+        "canonicalPct": 90.5,
+        "viewportPct": 100,
+        "langPct": 92.9,
+        "h1NonePct": 4.8,
+        "h1OnePct": 92.9,
+        "h1MultiplePct": 2.4,
+        "metaRobotsNoindexPct": 0
+      },
+      "social": {
+        "ogTitlePct": 97.6,
+        "ogDescriptionPct": 97.6,
+        "ogImagePct": 85.7,
+        "ogImageDeclaresSizePct": 57.1,
+        "ogImageMeasured": 36,
+        "ogImageExactly1200x630Pct": 63.9,
+        "ogImageAtLeast1200WidePct": 97.2,
+        "ogImageRatioNear191Pct": 75,
+        "ogImageUnder600WidePct": 0,
+        "ogImageMedianWidth": 1200,
+        "ogImageFormats": {
+          "png": 26,
+          "jpeg": 6,
+          "webp": 3,
+          "avif": 1
+        },
+        "ogImageBrokenPct": 0,
+        "twitterCardPct": 92.9,
+        "summaryLargeImagePct": 88.1,
+        "summaryPct": 4.8,
+        "iconLinkPct": 90.5,
+        "iconSvgPct": 28.6,
+        "appleTouchIconPct": 71.4
+      },
+      "structuredData": {
+        "jsonLdAnyPct": 76.2,
+        "jsonLdInvalidPct": 0,
+        "organizationPct": 71.4,
+        "webSitePct": 64.3,
+        "faqPagePct": 47.6,
+        "breadcrumbPct": 16.7,
+        "productOrSoftwarePct": 57.1
+      },
+      "images": {
+        "homepagesWithImages": 38,
+        "anyAvifPct": 2.6,
+        "anyWebpPct": 28.9,
+        "modernFormatPct": 31.6,
+        "jpgPngOnlyPct": 39.5,
+        "autoFormatCdnPct": 0
+      },
+      "architecture": {
+        "blogLinked": 33,
+        "blogSubfolderPct": 100,
+        "blogSubdomainPct": 0,
+        "blogBothPct": 0,
+        "docsLinked": 23,
+        "docsSubdomainPct": 43.5,
+        "docsSubfolderPct": 47.8
+      },
+      "errors": {
+        "missingPageProbed": 42,
+        "real404Pct": 90.5,
+        "gone410Pct": 0,
+        "soft404Pct": 7.1,
+        "otherPct": 2.4,
+        "sitemapXmlValidPct": 90.5,
+        "robotsSitemapLinePct": 97.6
+      }
+    },
+    "ecommerce-consumer": {
+      "domains": 95,
+      "outcomes": {
+        "http-403": 22,
+        "ok": 63,
+        "http-429": 4,
+        "page-unreachable": 1,
+        "unreachable": 4,
+        "robots-disallowed": 1
+      },
+      "homepagesAnalyzed": 63,
+      "redirect": {
+        "reached": 90,
+        "httpToHttpsOneHopPct": 45.6,
+        "twoPlusHopsPct": 48.9,
+        "threePlusHopsPct": 6.7,
+        "noRedirectFromHttpPct": 4.4,
+        "finalHttpsPct": 94.4,
+        "finalWwwPct": 70,
+        "firstHopCodePct": {
+          "301": 90.7,
+          "302": 2.3,
+          "303": 0,
+          "307": 0,
+          "308": 7
+        },
+        "anyTemporaryInChainPct": 10.5,
+        "loops": 1
+      },
+      "headers": {
+        "hstsPct": 85.7,
+        "hstsMaxAgeOneYearPct": 49.2,
+        "hstsIncludeSubPct": 31.7,
+        "hstsPreloadPct": 19,
+        "hstsPreloadReadyPct": 15.9,
+        "cspPct": 63.5,
+        "cspReportOnlyPct": 3.2,
+        "frameProtectionPct": 79.4,
+        "xContentTypeOptionsPct": 76.2,
+        "referrerPolicyPct": 22.2,
+        "permissionsPolicyPct": 12.7,
+        "allFiveCorePct": 15.9,
+        "noneOfFivePct": 4.8,
+        "brotliPct": 60.3,
+        "gzipPct": 33.3,
+        "uncompressedPct": 6.3,
+        "xRobotsTagPct": 0
+      },
+      "meta": {
+        "titleMissingPct": 6.3,
+        "titleMedianChars": 49,
+        "titleMedianPx": 441,
+        "titleOver600pxPct": 15.3,
+        "titleOver60CharsPct": 22,
+        "descMissingPct": 9.5,
+        "descMedianChars": 151,
+        "descOver160Pct": 22.8,
+        "descUnder70Pct": 5.3,
+        "canonicalPct": 90.5,
+        "viewportPct": 96.8,
+        "langPct": 95.2,
+        "h1NonePct": 27,
+        "h1OnePct": 57.1,
+        "h1MultiplePct": 15.9,
+        "metaRobotsNoindexPct": 1.6
+      },
+      "social": {
+        "ogTitlePct": 77.8,
+        "ogDescriptionPct": 77.8,
+        "ogImagePct": 69.8,
+        "ogImageDeclaresSizePct": 30.2,
+        "ogImageMeasured": 43,
+        "ogImageExactly1200x630Pct": 25.6,
+        "ogImageAtLeast1200WidePct": 79.1,
+        "ogImageRatioNear191Pct": 58.1,
+        "ogImageUnder600WidePct": 16.3,
+        "ogImageMedianWidth": 1200,
+        "ogImageFormats": {
+          "jpeg": 20,
+          "png": 22,
+          "webp": 1
+        },
+        "ogImageBrokenPct": 2.3,
+        "twitterCardPct": 52.4,
+        "summaryLargeImagePct": 44.4,
+        "summaryPct": 4.8,
+        "iconLinkPct": 77.8,
+        "iconSvgPct": 6.3,
+        "appleTouchIconPct": 42.9
+      },
+      "structuredData": {
+        "jsonLdAnyPct": 60.3,
+        "jsonLdInvalidPct": 0,
+        "organizationPct": 50.8,
+        "webSitePct": 30.2,
+        "faqPagePct": 4.8,
+        "breadcrumbPct": 9.5,
+        "productOrSoftwarePct": 3.2
+      },
+      "images": {
+        "homepagesWithImages": 59,
+        "anyAvifPct": 5.1,
+        "anyWebpPct": 25.4,
+        "modernFormatPct": 28.8,
+        "jpgPngOnlyPct": 57.6,
+        "autoFormatCdnPct": 0
+      },
+      "architecture": {
+        "blogLinked": 18,
+        "blogSubfolderPct": 77.8,
+        "blogSubdomainPct": 22.2,
+        "blogBothPct": 0,
+        "docsLinked": 29,
+        "docsSubdomainPct": 44.8,
+        "docsSubfolderPct": 44.8
+      },
+      "errors": {
+        "missingPageProbed": 61,
+        "real404Pct": 88.5,
+        "gone410Pct": 0,
+        "soft404Pct": 8.2,
+        "otherPct": 3.3,
+        "sitemapXmlValidPct": 57.1,
+        "robotsSitemapLinePct": 90.8
+      }
+    },
+    "publishers": {
+      "domains": 39,
+      "outcomes": {
+        "http-403": 10,
+        "robots-disallowed": 2,
+        "ok": 25,
+        "page-unreachable": 1,
+        "unreachable": 1
+      },
+      "homepagesAnalyzed": 25,
+      "redirect": {
+        "reached": 36,
+        "httpToHttpsOneHopPct": 63.9,
+        "twoPlusHopsPct": 33.3,
+        "threePlusHopsPct": 2.8,
+        "noRedirectFromHttpPct": 2.8,
+        "finalHttpsPct": 97.2,
+        "finalWwwPct": 77.8,
+        "firstHopCodePct": {
+          "301": 100,
+          "302": 0,
+          "303": 0,
+          "307": 0,
+          "308": 0
+        },
+        "anyTemporaryInChainPct": 2.9,
+        "loops": 0
+      },
+      "headers": {
+        "hstsPct": 72,
+        "hstsMaxAgeOneYearPct": 48,
+        "hstsIncludeSubPct": 28,
+        "hstsPreloadPct": 28,
+        "hstsPreloadReadyPct": 8,
+        "cspPct": 60,
+        "cspReportOnlyPct": 4,
+        "frameProtectionPct": 76,
+        "xContentTypeOptionsPct": 44,
+        "referrerPolicyPct": 36,
+        "permissionsPolicyPct": 24,
+        "allFiveCorePct": 16,
+        "noneOfFivePct": 0,
+        "brotliPct": 64,
+        "gzipPct": 36,
+        "uncompressedPct": 0,
+        "xRobotsTagPct": 12
+      },
+      "meta": {
+        "titleMissingPct": 0,
+        "titleMedianChars": 57,
+        "titleMedianPx": 520,
+        "titleOver600pxPct": 32,
+        "titleOver60CharsPct": 40,
+        "descMissingPct": 0,
+        "descMedianChars": 133,
+        "descOver160Pct": 24,
+        "descUnder70Pct": 8,
+        "canonicalPct": 100,
+        "viewportPct": 100,
+        "langPct": 100,
+        "h1NonePct": 60,
+        "h1OnePct": 28,
+        "h1MultiplePct": 12,
+        "metaRobotsNoindexPct": 0
+      },
+      "social": {
+        "ogTitlePct": 92,
+        "ogDescriptionPct": 92,
+        "ogImagePct": 92,
+        "ogImageDeclaresSizePct": 48,
+        "ogImageMeasured": 22,
+        "ogImageExactly1200x630Pct": 22.7,
+        "ogImageAtLeast1200WidePct": 68.2,
+        "ogImageRatioNear191Pct": 31.8,
+        "ogImageUnder600WidePct": 18.2,
+        "ogImageMedianWidth": 1200,
+        "ogImageFormats": {
+          "jpeg": 9,
+          "png": 12,
+          "svg": 1
+        },
+        "ogImageBrokenPct": 4.3,
+        "twitterCardPct": 80,
+        "summaryLargeImagePct": 72,
+        "summaryPct": 4,
+        "iconLinkPct": 96,
+        "iconSvgPct": 16,
+        "appleTouchIconPct": 84
+      },
+      "structuredData": {
+        "jsonLdAnyPct": 88,
+        "jsonLdInvalidPct": 0,
+        "organizationPct": 52,
+        "webSitePct": 72,
+        "faqPagePct": 0,
+        "breadcrumbPct": 24,
+        "productOrSoftwarePct": 4
+      },
+      "images": {
+        "homepagesWithImages": 24,
+        "anyAvifPct": 0,
+        "anyWebpPct": 33.3,
+        "modernFormatPct": 33.3,
+        "jpgPngOnlyPct": 66.7,
+        "autoFormatCdnPct": 0
+      },
+      "architecture": {
+        "blogLinked": 10,
+        "blogSubfolderPct": 100,
+        "blogSubdomainPct": 0,
+        "blogBothPct": 0,
+        "docsLinked": 8,
+        "docsSubdomainPct": 75,
+        "docsSubfolderPct": 12.5
+      },
+      "errors": {
+        "missingPageProbed": 25,
+        "real404Pct": 88,
+        "gone410Pct": 0,
+        "soft404Pct": 0,
+        "otherPct": 12,
+        "sitemapXmlValidPct": 52,
+        "robotsSitemapLinePct": 100
+      }
+    },
+    "ugc-review": {
+      "domains": 20,
+      "outcomes": {
+        "robots-disallowed": 2,
+        "http-403": 10,
+        "ok": 7,
+        "domain-timeout": 1
+      },
+      "homepagesAnalyzed": 7,
+      "redirect": {
+        "reached": 17,
+        "httpToHttpsOneHopPct": 52.9,
+        "twoPlusHopsPct": 47.1,
+        "threePlusHopsPct": 0,
+        "noRedirectFromHttpPct": 0,
+        "finalHttpsPct": 100,
+        "finalWwwPct": 76.5,
+        "firstHopCodePct": {
+          "301": 94.1,
+          "302": 0,
+          "303": 0,
+          "307": 0,
+          "308": 5.9
+        },
+        "anyTemporaryInChainPct": 5.9,
+        "loops": 0
+      },
+      "headers": {
+        "hstsPct": 100,
+        "hstsMaxAgeOneYearPct": 85.7,
+        "hstsIncludeSubPct": 42.9,
+        "hstsPreloadPct": 42.9,
+        "hstsPreloadReadyPct": 28.6,
+        "cspPct": 57.1,
+        "cspReportOnlyPct": 0,
+        "frameProtectionPct": 85.7,
+        "xContentTypeOptionsPct": 71.4,
+        "referrerPolicyPct": 28.6,
+        "permissionsPolicyPct": 14.3,
+        "allFiveCorePct": 28.6,
+        "noneOfFivePct": 0,
+        "brotliPct": 42.9,
+        "gzipPct": 57.1,
+        "uncompressedPct": 0,
+        "xRobotsTagPct": 0
+      },
+      "meta": {
+        "titleMissingPct": 0,
+        "titleMedianChars": 13,
+        "titleMedianPx": 140,
+        "titleOver600pxPct": 0,
+        "titleOver60CharsPct": 0,
+        "descMissingPct": 14.3,
+        "descMedianChars": 130,
+        "descOver160Pct": 16.7,
+        "descUnder70Pct": 0,
+        "canonicalPct": 71.4,
+        "viewportPct": 85.7,
+        "langPct": 100,
+        "h1NonePct": 42.9,
+        "h1OnePct": 57.1,
+        "h1MultiplePct": 0,
+        "metaRobotsNoindexPct": 0
+      },
+      "social": {
+        "ogTitlePct": 85.7,
+        "ogDescriptionPct": 71.4,
+        "ogImagePct": 71.4,
+        "ogImageDeclaresSizePct": 14.3,
+        "ogImageMeasured": 5,
+        "ogImageExactly1200x630Pct": 0,
+        "ogImageAtLeast1200WidePct": 20,
+        "ogImageRatioNear191Pct": 0,
+        "ogImageUnder600WidePct": 60,
+        "ogImageMedianWidth": 596,
+        "ogImageFormats": {
+          "png": 4,
+          "jpeg": 1
+        },
+        "ogImageBrokenPct": 0,
+        "twitterCardPct": 57.1,
+        "summaryLargeImagePct": 42.9,
+        "summaryPct": 14.3,
+        "iconLinkPct": 100,
+        "iconSvgPct": 28.6,
+        "appleTouchIconPct": 57.1
+      },
+      "structuredData": {
+        "jsonLdAnyPct": 28.6,
+        "jsonLdInvalidPct": 0,
+        "organizationPct": 14.3,
+        "webSitePct": 28.6,
+        "faqPagePct": 0,
+        "breadcrumbPct": 14.3,
+        "productOrSoftwarePct": 0
+      },
+      "images": {
+        "homepagesWithImages": 6,
+        "anyAvifPct": 0,
+        "anyWebpPct": 16.7,
+        "modernFormatPct": 16.7,
+        "jpgPngOnlyPct": 50,
+        "autoFormatCdnPct": 0
+      },
+      "architecture": {
+        "blogLinked": 1,
+        "blogSubfolderPct": 0,
+        "blogSubdomainPct": 100,
+        "blogBothPct": 0,
+        "docsLinked": 3,
+        "docsSubdomainPct": 33.3,
+        "docsSubfolderPct": 33.3
+      },
+      "errors": {
+        "missingPageProbed": 7,
+        "real404Pct": 85.7,
+        "gone410Pct": 0,
+        "soft404Pct": 0,
+        "otherPct": 14.3,
+        "sitemapXmlValidPct": 14.3,
+        "robotsSitemapLinePct": 70.6
+      }
+    }
+  },
+  "files": {
+    "perDomainCsv": "/resources/technical-seo-baseline-2026-10.csv",
+    "perDomainNdjson": "/resources/technical-seo-baseline-2026-10.ndjson",
+    "code": "scripts/research/technical-seo-baseline.mts"
+  }
+}

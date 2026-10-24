@@ -1,0 +1,36 @@
+{
+  "contentSha256": "acc34867215693b50cb0c2e8bd83613a31ecc5a3ebaef897e30fd5d7ed49ea3c",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"ai visibility checker\" (260/mo, KD 9): the AI Visibility Checker is the first screen, the 48-word answer resolves the query directly, and the body answers \"ai visibility audit\" with first-hand AEOeye measurements before handing off to the free AI visibility audit.",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Someone searching \"ai visibility checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "AEOeye measures AI visibility; crawler access and AI-ready pages are the prerequisites this page tests, and it links to the free AI audit."
+  },
+  "sources": [
+    {
+      "url": "https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye benchmark: 892 answers, 17.6% mention rate, ChatGPT 5% of 161, ~2.9 competitors per answer."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/ai-features",
+      "checkedAt": "2026-10-24",
+      "supports": "No additional requirements for AI Overviews/AI Mode; page must be indexed and snippet-eligible; preview controls apply."
+    },
+    {
+      "url": "https://arxiv.org/abs/2311.09735",
+      "checkedAt": "2026-10-24",
+      "supports": "GEO paper: generative engine optimization can boost visibility by up to 40% in generative engine responses."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 472 words, 2 Pexels images, 2 inline source links, 2 internal links, 4 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye AI recommendation benchmark (892 answers) from the raw files in /public/resources.",
+    "Exercised the free AI visibility audit form in the browser on the local build at desktop and 375 px widths."
+  ]
+}

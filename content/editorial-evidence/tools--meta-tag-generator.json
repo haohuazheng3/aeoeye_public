@@ -1,0 +1,41 @@
+{
+  "contentSha256": "d516318ebdc894d917c83a32df5510a2f797583c28077632c9e33ade7a7a5053",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"meta description generator\" (260/mo, KD 11): the Meta Tag Generator is the first screen, the 48-word answer resolves the query directly, and the body answers \"meta tag generator\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"meta description generator\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "checkedAt": "2026-10-24",
+      "supports": "No limit on meta description length; snippets truncated to fit the device; description used when it describes the page better."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata",
+      "checkedAt": "2026-10-24",
+      "supports": "An invalid element in the head makes Google ignore the elements after it."
+    },
+    {
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/",
+      "checkedAt": "2026-10-24",
+      "supports": "Meta recommends at least 1200x630, ~1.91:1, max 8 MB; 600x315 minimum for large cards; images cached by URL."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (4 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 375 words, 2 Pexels images, 3 inline source links, 3 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised the meta tag generator in the browser on the local build at desktop and 375 px widths."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "slug": "sitemap-examples",
+  "category": "crawl-index",
+  "name": "Sitemap Examples",
+  "title": "Sitemap Website Example: 8 Valid XML Samples to Copy",
+  "description": "Copy-ready sitemap examples: urlset, sitemap index, image, video, news and hreflang sitemaps, each annotated — plus a 1-click check of any site's real sitemap.",
+  "answer": "A sitemap is an XML file that lists the URLs you want search engines to find. The simplest sitemap website example is a urlset with one url and loc per page. Below are eight copy-ready samples — basic, index, blog, e-commerce images, video, news, multilingual and plain text — plus a live lookup of any real site's sitemap.",
+  "keywords": [
+    "sitemap website example",
+    "xml sitemap example"
+  ],
+  "runner": {
+    "component": "sitemap-examples"
+  },
+  "trust": "Every sample follows the sitemaps.org 0.9 protocol and Google's extension namespaces; the live lookup fetches and validates a real site's sitemap.",
+  "body": "## XML Sitemap Example: urlset, Index, Image, Video and News\n\nEvery XML sitemap is one of two shapes. A **urlset** lists pages; a **sitemapindex** lists other sitemaps. The image, video, news and hreflang variants are a urlset with an extra namespace for the additional tags.\n\n| Example | Root element | Extra namespace | Use it when |\n|---|---|---|---|\n| Basic / blog | urlset | none | Any site |\n| Sitemap index | sitemapindex | none | Over 50,000 URLs or 50 MB |\n| E-commerce | urlset | image | You want product photos found |\n| Video | urlset | video | Pages built around a video |\n| News | urlset | news | Publishers in Google News |\n| Multilingual | urlset | xhtml | Same page in several languages |\n\nThe format itself is defined at [sitemaps.org](https://www.sitemaps.org/protocol.html).\n\n## Which tags does Google actually use?\n\nOnly `loc` and, when it's honest, `lastmod`. Google says it [ignores priority and changefreq](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap), and uses lastmod only if it is consistently and verifiably accurate. That's why our samples leave priority and changefreq out entirely.\n\nTwo limits apply to every sitemap: 50,000 URLs or 50 MB uncompressed per file. Past either, split into several files and list them in a sitemap index.\n\n## When do I need the special sitemaps?\n\nRarely, for most sites. Image tags help when product photos are loaded in ways Google can't discover on its own ([image sitemaps](https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps)). News sitemaps are only for publishers, and only for articles from the last two days, with at most 1,000 news entries per file ([news sitemaps](https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap)).\n\nIf none of that applies, the basic example is all you need.\n\n## How do real sites organize theirs?\n\nMostly with an index. When we checked 391 well-known sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 84.6% pointed to their sitemap from robots.txt — the simplest way to make sure every crawler finds it. Use the live lookup above on a site you admire to see its structure.\n\n## How do I check my own sitemap?\n\nPaste your domain into the [sitemap checker](/tools/sitemap-checker): it finds the file through robots.txt, validates the XML and samples the URLs for errors. No sitemap yet? The [sitemap generator](/tools/xml-sitemap-generator) crawls your site and builds one.",
+  "faqs": [
+    {
+      "q": "What is the simplest valid sitemap?",
+      "a": "An XML file with a urlset root element in the sitemaps.org namespace and one url entry containing a loc for each page. lastmod is optional but useful when it reflects real edits."
+    },
+    {
+      "q": "Where should I put my sitemap?",
+      "a": "Usually at the site root, such as /sitemap.xml, and referenced from robots.txt with a \"Sitemap:\" line. You can also submit it in Google Search Console and Bing Webmaster Tools."
+    },
+    {
+      "q": "Should I include priority and changefreq?",
+      "a": "You can, but Google ignores both. Spend the effort on accurate lastmod dates instead, which Google uses when they consistently match real changes to the page."
+    }
+  ],
+  "sources": [
+    {
+      "label": "sitemaps.org — Sitemap protocol",
+      "url": "https://www.sitemaps.org/protocol.html"
+    },
+    {
+      "label": "Google — Build and submit a sitemap",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+    },
+    {
+      "label": "Google — News sitemaps",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap"
+    },
+    {
+      "label": "Google — Image sitemaps",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8555070/pexels-photo-8555070.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A couple examines a subway map, planning their route at a station.",
+      "photographer": "Liliana Drew",
+      "photographerUrl": "https://www.pexels.com/@liliana-drew",
+      "pexelsUrl": "https://www.pexels.com/photo/a-couple-pointing-on-the-map-8555070/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/11835545/pexels-photo-11835545.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A striking view of bare tree branches silhouetted against a colorful twilight sky, capturing winter's quiet beauty.",
+      "photographer": "Nuh Isa El Carillo",
+      "photographerUrl": "https://www.pexels.com/@nuh-isa-el-carillo-151117050",
+      "pexelsUrl": "https://www.pexels.com/photo/photo-of-leafless-trees-11835545/"
+    }
+  ],
+  "related": [
+    "sitemap-checker",
+    "xml-sitemap-generator",
+    "robots-txt-tester",
+    "bing-url-submission"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

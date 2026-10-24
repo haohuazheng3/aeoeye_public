@@ -1,0 +1,36 @@
+{
+  "contentSha256": "d56c62ca1baa567102927dbdbba273537f848e8cb957f2944632322e2baa4da4",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"redirect checker\" (3600/mo, KD 29): the Redirect Checker is the first screen, the 51-word answer resolves the query directly, and the body answers \"redirect check\", \"301 redirect checker\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"redirect checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+      "checkedAt": "2026-10-24",
+      "supports": "301/308 permanent (show target), 302/307 temporary (show source); server-side redirects most reliable."
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/http-status-codes",
+      "checkedAt": "2026-10-24",
+      "supports": "Google follows up to 10 redirect hops; 4xx except 429 treated the same; 429 and 5xx slow crawling; soft 404."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 491 words, 2 Pexels images, 2 inline source links, 3 internal links, 4 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/redirect against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

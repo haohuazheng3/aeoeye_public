@@ -1,0 +1,101 @@
+{
+  "slug": "xml-sitemap-generator",
+  "category": "crawl-index",
+  "name": "XML Sitemap Generator",
+  "title": "Sitemap Generator: Crawl Your Site, Get Valid XML",
+  "description": "Free sitemap generator: we crawl your site like a search engine (up to 500 pages), skip noindex and redirects, and build valid XML to download.",
+  "answer": "A sitemap generator crawls your website like a search engine and writes the pages it finds into a valid XML sitemap. Enter your homepage: we follow internal links (up to 500 pages), respect robots.txt, skip redirects, noindexed pages and pages that canonicalize elsewhere, then give you sitemap.xml to download.",
+  "keywords": [
+    "sitemap generator",
+    "xml sitemap generator",
+    "sitemap generator free"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "sitemap-generator",
+    "submitLabel": "Generate sitemap",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your homepage",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      },
+      {
+        "name": "max",
+        "label": "Maximum pages",
+        "type": "select",
+        "options": [
+          {
+            "value": "100",
+            "label": "100 pages"
+          },
+          {
+            "value": "250",
+            "label": "250 pages"
+          },
+          {
+            "value": "500",
+            "label": "500 pages"
+          }
+        ]
+      }
+    ],
+    "busyText": "Crawling your site (up to 45 seconds)…"
+  },
+  "trust": "Our crawler follows your internal links live, obeys your robots.txt and stops after 45 seconds or the page limit, whichever comes first.",
+  "body": "## XML Sitemap Generator for Up to 500 Pages\n\nThe generator works like a small search engine. Starting at your homepage, it follows internal links, reads each page and keeps only URLs that deserve to be indexed:\n\n- returns **HTTP 200** (redirects are skipped, the final URL is kept);\n- has **no noindex** in the meta tag or X-Robots-Tag header;\n- has a **canonical pointing to itself** (or none);\n- is **allowed by your robots.txt**.\n\nSkipped URLs are listed with the reason, which often doubles as an audit: a page you expected to see might be missing because it's noindexed by accident.\n\n## Free Sitemap Generator: No Signup, No Install\n\nYou get a standard sitemaps.org file, ready to upload to your site root as `/sitemap.xml`. It contains only `loc` entries, because Google [ignores priority and changefreq](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap) and only trusts `lastmod` when it's accurate — and a crawler can't know your real edit dates.\n\nEach crawl stops at 45 seconds or your page limit. Large or slow sites may need a CMS plugin or a build-time generator; most frameworks can generate sitemaps automatically from your routes.\n\n## Where do I put the sitemap?\n\nUpload it to your site root and add one line to robots.txt so every crawler finds it:\n\n```\nSitemap: https://yoursite.com/sitemap.xml\n```\n\nThat line is standard practice: in our October 2026 check of 391 well-known sites ([dataset](/resources/technical-seo-baseline-2026-10.json)), 92.9% of readable robots.txt files included it. Then submit the sitemap in Google Search Console and Bing Webmaster Tools.\n\n## What if my site has more than 500 pages?\n\nSplit it. The [sitemap protocol](https://www.sitemaps.org/protocol.html) allows up to 50,000 URLs per file and a sitemap index to list many files. Generate one sitemap per section and combine them in an index — the [sitemap examples](/tools/sitemap-examples) include one.\n\nAfter uploading, validate the live file with the [sitemap checker](/tools/sitemap-checker).",
+  "faqs": [
+    {
+      "q": "Do I need a sitemap?",
+      "a": "Small, well-linked sites can be crawled without one, but a sitemap helps search engines find new and deep pages faster. It costs nothing, so most sites should have one."
+    },
+    {
+      "q": "Why are some of my pages missing from the generated sitemap?",
+      "a": "They redirect, carry noindex, point their canonical elsewhere, are blocked by robots.txt, or aren't linked from pages we reached within the time and page limits. The skipped list shows the reason."
+    },
+    {
+      "q": "How often should I regenerate my sitemap?",
+      "a": "Whenever you add or remove pages. Better still, let your CMS or framework generate it automatically on every publish so it never goes stale."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Build and submit a sitemap",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+    },
+    {
+      "label": "sitemaps.org — Sitemap protocol",
+      "url": "https://www.sitemaps.org/protocol.html"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/4458205/pexels-photo-4458205.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "High-resolution close-up of an architectural floor plan showcasing design details.",
+      "photographer": "Ivan S",
+      "photographerUrl": "https://www.pexels.com/@ivan-s",
+      "pexelsUrl": "https://www.pexels.com/photo/a-photo-of-a-floor-plan-4458205/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/1181311/pexels-photo-1181311.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A person creates a flowchart diagram with red pen on a whiteboard, detailing plans and budgeting.",
+      "photographer": "Christina Morillo",
+      "photographerUrl": "https://www.pexels.com/@divinetechygirl",
+      "pexelsUrl": "https://www.pexels.com/photo/white-dry-erase-board-with-red-diagram-1181311/"
+    }
+  ],
+  "related": [
+    "sitemap-checker",
+    "sitemap-examples",
+    "robots-txt-tester",
+    "bing-url-submission"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

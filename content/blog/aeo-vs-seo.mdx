@@ -1,0 +1,170 @@
+---
+title: 'AEO vs SEO: What Changes, What Doesn''t, What to Fix'
+description: >-
+  AEO vs SEO: SEO wins rankings, AEO wins mentions in AI answers. Our data from
+  127 audits and 384 sites shows where they overlap and what to fix first.
+date: '2026-10-24'
+published: '2026-10-24'
+category: Decisions
+readingTime: 5 min read
+keywords:
+  - aeo vs seo
+  - aeo vs geo
+image:
+  url: >-
+    https://images.pexels.com/photos/30479289/pexels-photo-30479289.jpeg?auto=compress&cs=tinysrgb&w=1200
+  alt: Mobile phone displaying AI chatbot interface on a wooden table
+  photographer: Airam Dato-on
+  photographerUrl: 'https://www.pexels.com/@airamdphoto'
+verdict:
+  summary: >-
+    SEO earns rankings and clicks in search results; AEO earns mentions and
+    citations inside AI answers. They share most of the groundwork, so do SEO
+    first — then measure what AI assistants actually say, because that part SEO
+    tools can't see.
+  picks:
+    - when: Google can't crawl or index your key pages yet
+      pick: Fix SEO first — AI features depend on it
+    - when: 'You rank, but buyers say "ChatGPT recommended someone else"'
+      pick: 'Add AEO: measure answers, earn third-party mentions'
+    - when: You block AI crawlers or render content with JavaScript only
+      pick: Fix access first — it blocks both
+    - when: You're choosing between "AEO" and "GEO" vendors
+      pick: 'Same job — compare what they measure, not the label'
+cta: aeo
+relatedTools:
+  - ai-visibility-checker
+  - aeo-grader
+  - ai-crawlers
+  - llms-txt-file
+faqs:
+  - q: Is AEO replacing SEO?
+    a: >-
+      No. AI answers in Google are built on Google's index, and Google says
+      there are no extra requirements beyond normal SEO. AEO adds new
+      measurement and an emphasis on third-party mentions on top of SEO.
+  - q: What is the difference between AEO and GEO?
+    a: >-
+      Mostly the name. AEO (answer engine optimization) and GEO (generative
+      engine optimization) both describe getting your brand mentioned and cited
+      in AI-generated answers. Compare what a tool or agency measures rather
+      than the label.
+  - q: Can I do AEO without doing SEO?
+    a: >-
+      Not well. AI search systems retrieve pages from search indexes and crawl
+      the web, so pages that can't be crawled or indexed rarely get cited.
+      Crawlability and clear content come first.
+  - q: How do I measure AEO?
+    a: >-
+      Ask AI assistants the questions your buyers ask and record whether your
+      brand is named, where it ranks and who is named instead. Repeat over time
+      with the same questions to see a trend.
+sources:
+  - label: Google — AI features and your website
+    url: 'https://developers.google.com/search/docs/appearance/ai-features'
+  - label: >-
+      Pew Research Center — Google users are less likely to click on links when
+      an AI summary appears (2025)
+    url: >-
+      https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/
+  - label: 'Aggarwal et al. — GEO: Generative Engine Optimization (KDD 2024)'
+    url: 'https://arxiv.org/abs/2311.09735'
+  - label: OpenAI — Overview of OpenAI crawlers
+    url: 'https://developers.openai.com/api/docs/bots'
+  - label: Anthropic — Does Anthropic crawl data from the web?
+    url: >-
+      https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler
+  - label: AEOeye AI brand recommendation benchmark (Sept 2026)
+    url: 'https://aeoeye.com/resources/aeoeye-recommendation-benchmark-2026-09.json'
+  - label: 'AEOeye AI Crawler Access Study (Oct 2026, 391 sites)'
+    url: 'https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json'
+---
+
+SEO gets your pages ranked and clicked in search results. AEO — answer engine optimization — gets your brand named, recommended and cited inside the answers that ChatGPT, Claude, Gemini, Perplexity and Google's AI features write. Most of the work overlaps. What's genuinely different is the unit of success (a mention, not a position), how much third-party sources matter, and how you measure it.
+
+## What is the difference between AEO and SEO?
+
+The goal and the scoreboard differ; the foundations don't. Side by side:
+
+| | SEO | AEO |
+|---|---|---|
+| Where you show up | Ten blue links, featured snippets | AI answers, AI Overviews, assistant chats |
+| Unit of success | A ranking position and a click | Being named, recommended or cited |
+| Who decides | A ranking system ordering pages | A model synthesizing several sources |
+| What helps most | Relevance, links, technical health | The same, plus mentions on other sites |
+| How you measure | Rank trackers, Search Console | Reading AI answers to real buyer questions |
+| Crawlers to allow | Googlebot, Bingbot | Those, plus OAI-SearchBot, Claude-SearchBot, PerplexityBot… |
+
+The last row is where many sites trip: an AI search crawler blocked in robots.txt or at the firewall makes AEO impossible no matter how good the content is.
+
+## AEO vs GEO: Same Job, Different Names?
+
+Yes, for practical purposes. "Answer engine optimization" grew out of featured snippets and voice assistants; "generative engine optimization" was coined in a 2023 research paper that tested ways to make content more visible in AI-generated answers and reported visibility gains of up to 40% ([Aggarwal et al.](https://arxiv.org/abs/2311.09735)). You'll also see LLMO and "AI SEO."
+
+The labels describe the same work. When you compare tools or agencies, ignore the acronym and ask what they measure: which engines, which questions, how often, and whether you can read the actual answers.
+
+![An adult using a laptop indoors, browsing Google at a wooden table with coffee.](https://images.pexels.com/photos/6961857/pexels-photo-6961857.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What stays the same?
+
+More than the hype suggests. Google says there are [no additional requirements](https://developers.google.com/search/docs/appearance/ai-features) to appear in AI Overviews or AI Mode, and no special optimizations necessary: a page must be indexed and eligible to show with a snippet. The same SEO fundamentals decide whether you're a candidate at all.
+
+That carries over beyond Google. AI search products fetch pages with their own crawlers — OpenAI documents [OAI-SearchBot for ChatGPT search](https://developers.openai.com/api/docs/bots), Anthropic documents [Claude-SearchBot](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) — so the classic technical checklist still applies: crawlable URLs, fast responses, and main content in the HTML. Google renders JavaScript, but its own guide notes that [not all bots can run JavaScript](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics), which matters more now that half a dozen AI crawlers read your pages.
+
+## How do AI assistants decide which brands to mention?
+
+They combine what the model already learned with what it retrieves at answer time, then synthesize. For product questions, retrieval now dominates: in the recent answers where our audits recorded it, every engine we test searched the web before answering ([benchmark](/resources/aeoeye-recommendation-benchmark-2026-09.json)). That's why crawlability and search visibility feed straight into AI recommendations.
+
+What the model retrieves are pages that describe and compare options. It then picks brands that several sources agree on, and explains its choice with the reasons those sources give — "best for small teams," "cheapest," "most integrations." A brand that's mentioned consistently, with a clear positioning, is easy to recommend. A brand that only describes itself on its own site is easy to skip.
+
+## What actually changes with AEO?
+
+Four things, in order of how much they change your work:
+
+1. **You compete for a mention, not a slot.** An AI answer names a handful of brands and explains why. There is no position seven; you're in or you're out.
+2. **Other people's pages count more.** Answers lean on comparisons, reviews, listicles and forums. Your own site matters, but being described well elsewhere often decides the recommendation.
+3. **Clicks get scarcer.** Pew Research found that people who saw a Google AI summary clicked a traditional result in 8% of visits, versus 15% without one, and clicked a link inside the summary in only 1% ([Pew](https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/)). Being named in the summary is increasingly the visit.
+4. **Measurement means reading answers.** Rank trackers can't tell you that ChatGPT recommended three competitors and called you "a budget option." Only asking the questions can.
+
+## What does real AI answer data show?
+
+That most brands are invisible more often than they think. Across 892 AI answers from completed AEOeye audits between June and September 2026, the audited brand was named in 17.6% of them; ChatGPT named it in 5% of its 161 answers. Each answer named about 2.9 competitors on average ([benchmark](/resources/aeoeye-recommendation-benchmark-2026-09.json)). The sample is self-selected and engines aren't directly comparable, but the direction is consistent: absence is the default.
+
+Access is rarely the blocker for companies — but it's worth ruling out. When we checked the robots.txt files of 391 well-known sites in October 2026 ([crawler study](/resources/ai-crawler-access-study-2026-10.json)), 9.6% blocked at least one AI search crawler. Among SaaS companies it was 0.5%; among news publishers, 71.1%. If you're not a publisher and you block one, it's almost certainly an accident.
+
+![A tranquil path through a forest of fir trees with a direction signpost.](https://images.pexels.com/photos/34787908/pexels-photo-34787908.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Which metrics should I track for each?
+
+Different scoreboards, so different numbers:
+
+| SEO metric | AEO metric |
+|---|---|
+| Impressions and clicks (Search Console) | Mention rate: share of answers that name you |
+| Average position for target queries | Average rank when you are named |
+| Click-through rate | Share of answers you win versus each competitor |
+| Indexed pages | Which sources the answers cite about you |
+| Organic conversions | How the answers describe you (sentiment, positioning) |
+
+Track both against the same customer questions. If impressions grow while mention rate stays flat, AI answers are taking the clicks without crediting you — the signal to work on third-party mentions.
+
+## What should I fix first?
+
+Work from the bottom of the funnel up — access, then understanding, then reputation:
+
+1. **Let the right crawlers in.** Allow Googlebot, Bingbot and the AI search crawlers; decide separately on training crawlers. Check all of them with the [AI crawler checker](/tools/ai-crawlers).
+2. **Make content readable without JavaScript.** Server-render the text, headings and structured data that explain what you do.
+3. **State the facts plainly.** Who you are, what you sell, for whom, at what price, compared with what. Organization markup and a clear about page help models get the entity right.
+4. **Write answer-first pages.** Lead each section with the direct answer, then the detail — the format both featured snippets and AI answers extract.
+5. **Earn third-party descriptions.** Comparison pages, reviews, directories and community discussions are where models learn how you stack up.
+6. **Measure, then repeat.** Run the same buyer questions monthly and watch mentions, rank and the reasons given.
+
+Steps 1–4 are SEO work you can grade today with the [AEO grader](/tools/aeo-grader). Step 6 is what the free [AI visibility checker](/tools/ai-visibility-checker) does.
+
+## Is AEO worth doing for a small company?
+
+Yes, because the first steps are cheap and the measurement is free. Fixing crawler access and writing clearer pages costs a few hours and helps classic SEO too. The expensive part — earning mentions on other sites — is also what builds a brand anyway.
+
+A realistic first month looks like this: week one, check crawler access and fix anything blocked; week two, rewrite your three most important pages answer-first and add Organization markup; weeks three and four, list the comparison and review pages that AI answers cite in your category and get your brand onto the ones that matter. Then measure again.
+
+What isn't worth it is paying for daily AI rank tracking before you know whether you appear at all. Start with a snapshot of what the assistants say today, fix the obvious gaps, and re-check after changes. Our position is simple: SEO is the foundation, AEO is the scoreboard that tells you whether the foundation is turning into recommendations.

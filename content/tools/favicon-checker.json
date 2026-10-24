@@ -1,0 +1,84 @@
+{
+  "slug": "favicon-checker",
+  "category": "social-schema",
+  "name": "Favicon Checker",
+  "title": "Favicon Checker: Will Google Show Your Icon?",
+  "description": "Free favicon checker: see every icon a page declares, test that each loads, and check Google's search-result favicon rules (48px multiple, crawlable).",
+  "answer": "A favicon checker tells you whether Google can show your icon next to your search results. Enter your site: we find every icon your homepage declares plus /favicon.ico, load each one as Googlebot-Image, and test it against Google's rules — square, at least 8×8 pixels, ideally larger than 48×48, or SVG.",
+  "keywords": [
+    "favicon checker"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "favicon",
+    "submitLabel": "Check favicon",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your homepage",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "stripe.com"
+    ],
+    "busyText": "Finding and measuring icons…"
+  },
+  "trust": "We fetch your homepage, request every declared icon file and read its real format and pixel size from the file itself.",
+  "body": "## What does Google require for a favicon?\n\nA square image of at least 8×8 pixels, declared on your homepage with `<link rel=\"icon\">`. Google's [favicon guidelines](https://developers.google.com/search/docs/appearance/favicon-in-search) recommend going bigger than 48×48 so it stays sharp, and SVG has no size requirement at all.\n\nThe rule used to be \"a multiple of 48 pixels\"; Google has since relaxed it to the 8×8 minimum. Checkers built on the old rule will still warn you about icons that are perfectly fine.\n\n## Why isn't Google showing my favicon?\n\nUsually one of these:\n\n1. **No link tag on the homepage** — Google looks at the home page's head, not /favicon.ico by default.\n2. **The file is blocked** — Googlebot-Image must be able to crawl the icon and Googlebot the homepage.\n3. **Not square** — a 64×32 logo won't qualify.\n4. **Subdirectory homepage** — Google supports favicons for domain and subdomain homepages, not for paths like example.com/news.\n5. **Not recrawled yet** — changes appear after Google revisits the homepage.\n\n## How do I read the results?\n\nEach icon gets a row with its URL, how it was declared, its status code, format and real pixel size; ICO files list every size they contain. The checks above the table tell you whether at least one icon meets Google's minimum and its recommended size.\n\n## What do big sites use?\n\nAlmost everyone declares one. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 90.8% had a `<link rel=\"icon\">`, 21.3% offered an SVG icon and 66.7% set an Apple touch icon for iPhone home screens.\n\n## How do I fix it?\n\nMake a square icon, export it in a few sizes, reference it from your homepage head and make sure robots.txt doesn't block it. The [favicon generator](/tools/favicon-generator) produces favicon.ico, PNGs, an Apple touch icon and the HTML in one zip. Then request a recrawl of your homepage with the URL Inspection tool, as Google suggests. Icons for app installs follow the [web app manifest](https://web.dev/articles/add-manifest) sizes, 192 and 512 pixels.",
+  "faqs": [
+    {
+      "q": "What size should a favicon be for Google?",
+      "a": "Square and at least 8×8 pixels, but Google recommends larger than 48×48 so it looks sharp. A 48×48, 96×96 or SVG icon is a safe choice."
+    },
+    {
+      "q": "How long does it take for Google to show a new favicon?",
+      "a": "Until Google recrawls your homepage and processes the icon, which can take days to weeks. Requesting indexing of the homepage in Search Console can speed it up."
+    },
+    {
+      "q": "Is favicon.ico enough?",
+      "a": "Declare your icon explicitly with a link rel=\"icon\" tag on the homepage. Google's guidelines are built around that tag, and browsers use it to pick the best size."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Define a favicon to show in search results",
+      "url": "https://developers.google.com/search/docs/appearance/favicon-in-search"
+    },
+    {
+      "label": "web.dev — Add a web app manifest",
+      "url": "https://web.dev/articles/add-manifest"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/13268478/pexels-photo-13268478.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A detailed view of a laptop keyboard with browser tabs open, highlighting 'New Window' and 'New Private Window'.",
+      "photographer": "Diana ✨",
+      "photographerUrl": "https://www.pexels.com/@didsss",
+      "pexelsUrl": "https://www.pexels.com/photo/laptop-keyboard-in-close-up-photography-13268478/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/10920328/pexels-photo-10920328.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up image of a smartphone screen displaying various app icons on a dark background.",
+      "photographer": "El Jundi",
+      "photographerUrl": "https://www.pexels.com/@talal",
+      "pexelsUrl": "https://www.pexels.com/photo/a-close-up-shot-of-icons-on-a-screen-10920328/"
+    }
+  ],
+  "related": [
+    "favicon-generator",
+    "meta-tag-checker",
+    "og-image-checker",
+    "link-preview"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

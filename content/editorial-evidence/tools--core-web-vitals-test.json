@@ -1,0 +1,46 @@
+{
+  "contentSha256": "5af1c468cd6ec5546b8cf8d54deb2004b4b4ac6939b25ffcd9f4e4d08a7fc665",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"core web vitals test\" (480/mo, KD 43): the Core Web Vitals Test is the first screen, the 53-word answer resolves the query directly, and the body answers \"lighthouse test\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"core web vitals test\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://web.dev/articles/vitals",
+      "checkedAt": "2026-10-24",
+      "supports": "Core Web Vitals thresholds: LCP 2.5 s, INP 200 ms, CLS 0.1 at the 75th percentile."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/core-web-vitals",
+      "checkedAt": "2026-10-24",
+      "supports": "Good Core Web Vitals align with what Google core ranking systems seek to reward."
+    },
+    {
+      "url": "https://developers.google.com/speed/docs/insights/v5/about",
+      "checkedAt": "2026-10-24",
+      "supports": "PSI field data covers the trailing 28 days; lab data comes from Lighthouse."
+    },
+    {
+      "url": "https://developer.chrome.com/docs/crux",
+      "checkedAt": "2026-10-24",
+      "supports": "Chrome UX Report is the real-user dataset behind field Core Web Vitals."
+    },
+    {
+      "url": "https://aeoeye.com/resources/core-web-vitals-sample-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye PSI sample: 3 of 28 SaaS homepages pass all three CWV; 6 had good field LCP with lab score under 50."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (5 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 430 words, 2 Pexels images, 5 inline source links, 3 internal links, 4 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye PSI Core Web Vitals sample (30 SaaS homepages, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/cwv against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

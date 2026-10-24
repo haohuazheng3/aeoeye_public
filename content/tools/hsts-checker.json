@@ -1,0 +1,85 @@
+{
+  "slug": "hsts-checker",
+  "category": "speed-security",
+  "name": "HSTS Checker",
+  "title": "HSTS Checker: Is Strict-Transport-Security Set Right?",
+  "description": "What is HSTS and is yours right? Check any site's Strict-Transport-Security header, max-age, includeSubDomains and preload eligibility, with fixes.",
+  "answer": "HSTS (HTTP Strict Transport Security) is a response header that tells browsers to use HTTPS for your site for a set time, even if someone types http://. Enter your domain to check the header, its max-age, includeSubDomains and preload settings, and whether HTTP redirects to HTTPS — the conditions for the preload list.",
+  "keywords": [
+    "hsts",
+    "hsts header"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "hsts",
+    "submitLabel": "Check HSTS",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your domain",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "google.com",
+      "github.com"
+    ],
+    "busyText": "Checking HSTS and the HTTP redirect…"
+  },
+  "trust": "We request both the https:// and http:// versions of your domain and read the Strict-Transport-Security header your server returns.",
+  "body": "## HSTS Header: max-age, includeSubDomains and Preload\n\nThe header has one required part and two optional ones ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security)):\n\n```\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\n```\n\n- **max-age** — how many seconds browsers should remember to use HTTPS. One year (31536000) is the common target.\n- **includeSubDomains** — applies the rule to every subdomain. Only add it when all of them serve HTTPS.\n- **preload** — signals that you want to be on browsers' built-in HSTS list.\n\nBrowsers only honor the header when it's sent over HTTPS.\n\n## Why does HSTS matter if I already redirect to HTTPS?\n\nBecause the redirect itself happens over plain HTTP. On the first visit, an on-path attacker can intercept that redirect and keep the browser on HTTP, a weakness [hstspreload.org](https://hstspreload.org/) describes as a protocol downgrade. After one HTTPS visit, HSTS makes the browser skip HTTP entirely; preloading removes even that first-visit gap.\n\n## What does it take to get on the preload list?\n\nFour conditions, per [hstspreload.org](https://hstspreload.org/): a valid certificate, a redirect from HTTP to HTTPS on the same host, HTTPS on all subdomains, and an HSTS header on the base domain with max-age of at least 31536000, includeSubDomains and the preload directive.\n\nPreloading is hard to undo — removal takes a long time to reach users — so ramp up max-age in stages first, as the site recommends.\n\n## How do real sites set HSTS?\n\nMost send it; few are preload-ready. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 84.1% sent an HSTS header, 68.3% with a max-age of at least a year. But only 45.1% included subdomains, 32.7% carried the preload directive and 26% met all three header conditions for preloading.\n\n## How do I read the result?\n\nFail means the header is missing or max-age is very short; warn means it works but isn't preload-eligible; pass means it's set correctly. The recommended header at the bottom is ready to paste. Check the rest of your headers with the [security headers checker](/tools/security-headers-checker), and make sure your HTTP-to-HTTPS redirect is a single hop with the [redirect checker](/tools/redirect-checker).",
+  "faqs": [
+    {
+      "q": "What is HSTS?",
+      "a": "HTTP Strict Transport Security: a response header that makes browsers connect to your site only over HTTPS for the time set in max-age, protecting visitors from downgrade attacks."
+    },
+    {
+      "q": "What max-age should I use for HSTS?",
+      "a": "Start small, for example 300 seconds, to test, then increase in stages to one year (31536000 seconds). One year is the minimum for the HSTS preload list."
+    },
+    {
+      "q": "Can HSTS break my site?",
+      "a": "Yes, if any part of the site or a subdomain still needs plain HTTP. With includeSubDomains, every subdomain must serve HTTPS, so audit them before adding it."
+    }
+  ],
+  "sources": [
+    {
+      "label": "MDN — Strict-Transport-Security",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security"
+    },
+    {
+      "label": "HSTS Preload List submission requirements",
+      "url": "https://hstspreload.org/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/19882101/pexels-photo-19882101.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Two steel security vault doors attached to a vintage brick wall, showcasing industrial strength.",
+      "photographer": "wutthichai charoenburi",
+      "photographerUrl": "https://www.pexels.com/@wutthichai-charoenburi-553075115",
+      "pexelsUrl": "https://www.pexels.com/photo/steel-heavy-doors-of-vault-19882101/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/30839556/pexels-photo-30839556.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a chained and padlocked weathered wooden door.",
+      "photographer": "Chus García",
+      "photographerUrl": "https://www.pexels.com/@chus-garcia-2149871591",
+      "pexelsUrl": "https://www.pexels.com/photo/rustic-padlocked-door-with-weathered-texture-30839556/"
+    }
+  ],
+  "related": [
+    "security-headers-checker",
+    "redirect-checker",
+    "http-header-checker",
+    "mobile-friendly-test"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

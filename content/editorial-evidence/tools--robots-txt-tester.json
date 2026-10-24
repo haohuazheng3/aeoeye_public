@@ -1,0 +1,36 @@
+{
+  "contentSha256": "132e6a19091708e27768fac4c1328966494646bc980fd58454e0e58aa500d106",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"robots.txt checker\" (1300/mo, KD 35): the Robots.txt Tester is the first screen, the 48-word answer resolves the query directly, and the body answers \"robots.txt tester\", \"robots.txt validator\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"robots.txt checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec",
+      "checkedAt": "2026-10-24",
+      "supports": "Robots.txt spec: 500 KiB limit, 4xx = no restrictions, 5xx = stop 12h then last good copy up to 30 days, least restrictive rule wins, crawl-delay unsupported, 24h cache."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "checkedAt": "2026-10-24",
+      "supports": "Robots Exclusion Protocol: most specific user-agent group and longest-match rules."
+    },
+    {
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site robots.txt study: per-bot block rates by group (e.g. GPTBot 9.1%, ClaudeBot 11.5%, Bytespider 14.6%)."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 382 words, 2 Pexels images, 2 inline source links, 3 internal links, 4 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye AI Crawler Access Study (391 sites, 2026-10-03) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/robots against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

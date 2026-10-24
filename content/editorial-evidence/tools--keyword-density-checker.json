@@ -1,0 +1,30 @@
+{
+  "contentSha256": "d7fe9e2596487993210d860fdff1261cb4730258e03b7c7fb843b79583d2254e",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"keyword density checker\" (720/mo, KD 29): the Keyword Density Checker is the first screen, the 57-word answer resolves the query directly, and the body answers the main query with primary-source detail before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"keyword density checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "checkedAt": "2026-10-24",
+      "supports": "Keyword stuffing, including repeating words so often it sounds unnatural, is a spam policy violation."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+      "checkedAt": "2026-10-24",
+      "supports": "Google has no preferred word count (\"No, we don't\")."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (2 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 388 words, 2 Pexels images, 2 inline source links, 2 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Exercised POST /api/tools/density against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

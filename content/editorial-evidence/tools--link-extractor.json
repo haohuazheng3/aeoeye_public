@@ -1,0 +1,30 @@
+{
+  "contentSha256": "518e978a12fcc720d365d0d555a912b92273e2bb5f35055714308e9465858fd2",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"link extractor\" (260/mo, KD 0): the Link Extractor is the first screen, the 42-word answer resolves the query directly, and the body answers the main query with primary-source detail before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"link extractor\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+      "checkedAt": "2026-10-24",
+      "supports": "Google can generally only crawl links that are <a> elements with an href."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "checkedAt": "2026-10-24",
+      "supports": "rel=\"sponsored\", \"ugc\" and \"nofollow\" meanings for outbound links."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (2 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 359 words, 2 Pexels images, 2 inline source links, 2 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Exercised POST /api/tools/links against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

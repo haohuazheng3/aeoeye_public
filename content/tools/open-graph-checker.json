@@ -1,0 +1,91 @@
+{
+  "slug": "open-graph-checker",
+  "category": "social-schema",
+  "name": "Open Graph Checker",
+  "title": "Open Graph Checker: Validate Every og: Tag",
+  "description": "Free Open Graph checker: validate og:title, og:description, og:image, og:url and og:type on any URL, catch broken tags and see the fix for each.",
+  "answer": "An Open Graph checker reads a page's og: tags — the ones Facebook, LinkedIn, Slack and others use to build link previews — and flags missing, duplicate or broken values. Enter a URL to validate og:title, og:type, og:image and og:url, compare og:url with your canonical and see the preview.",
+  "keywords": [
+    "open graph checker",
+    "open graph check",
+    "open graph debugger"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "og",
+    "submitLabel": "Check Open Graph",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "nytimes.com"
+    ],
+    "busyText": "Reading og: tags…"
+  },
+  "trust": "We fetch the page live, read every og: tag in the raw HTML and request the image it points to.",
+  "body": "## Open Graph Check: The 4 Tags Every Page Needs\n\nThe [Open Graph protocol](https://ogp.me/) defines four required properties for every page:\n\n| Tag | What it is |\n|---|---|\n| og:title | The title as it should appear in the preview |\n| og:type | The kind of object, usually website or article |\n| og:image | The preview image URL |\n| og:url | The canonical URL of the page |\n\nog:description and og:site_name are optional but make a better card. Without the required tags, platforms guess — often picking the wrong image or a menu label as the title.\n\n## Open Graph Debugger: Why the Wrong Image Shows Up\n\nFour causes cover most cases:\n\n1. **Duplicate tags** — a theme and an SEO plugin both output og:image, and platforms take the first.\n2. **Wrong attribute** — the protocol uses `property=\"og:…\"`; some platforms ignore `name=`.\n3. **og:url disagrees with your canonical** — shares and previews split across two URLs.\n4. **Cached old version** — platforms cache previews; Meta's [Sharing Debugger](https://developers.facebook.com/tools/debug/) and LinkedIn's [Post Inspector](https://www.linkedin.com/post-inspector/) can refresh theirs.\n\n## How common are Open Graph tags?\n\nClose to universal on big sites. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 90.8% set og:title, 90.5% og:description and 86.7% og:image.\n\nThe gaps are in the details: only 34.6% declared the image's width and height, which Meta uses to render the image on the first share.\n\n## How do I read the result?\n\nFails are missing required tags or broken images; warnings are duplicates, `name=` attributes, long descriptions and og:url mismatches. The table lists every og: tag exactly as found, so you can spot the plugin that added a duplicate.\n\nFix the tags in your page head, then check the image itself with the [OG image checker](/tools/og-image-checker) and see the result on six platforms with the [link preview tool](/tools/link-preview).",
+  "faqs": [
+    {
+      "q": "What are Open Graph tags?",
+      "a": "Meta tags in a page's head, defined by the Open Graph protocol, that tell social platforms and messaging apps which title, description and image to show when the page is shared."
+    },
+    {
+      "q": "Do Open Graph tags help SEO?",
+      "a": "Not as a Google ranking factor. They control how your links look when shared, which affects clicks from social and chat, and they give AI tools a clean summary of the page."
+    },
+    {
+      "q": "Why does Facebook show an old title after I changed my tags?",
+      "a": "Facebook caches previews per URL. Run the URL through Meta's Sharing Debugger and choose \"Scrape Again\" to refresh the cached title, description and image."
+    }
+  ],
+  "sources": [
+    {
+      "label": "The Open Graph protocol",
+      "url": "https://ogp.me/"
+    },
+    {
+      "label": "Meta — Sharing Debugger",
+      "url": "https://developers.facebook.com/tools/debug/"
+    },
+    {
+      "label": "LinkedIn — Post Inspector",
+      "url": "https://www.linkedin.com/post-inspector/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/5845022/pexels-photo-5845022.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Crop unrecognizable diverse friends in casual clothes sitting and listening to music in earphones in daytime",
+      "photographer": "Tim  Samuel",
+      "photographerUrl": "https://www.pexels.com/@tim-samuel",
+      "pexelsUrl": "https://www.pexels.com/photo/multiracial-friends-listening-to-music-in-earphones-5845022/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/927629/pexels-photo-927629.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A Lenovo laptop displaying Facebook login beside a lavender plant indoors.",
+      "photographer": "Tobias Dziuba",
+      "photographerUrl": "https://www.pexels.com/@tobias-dziuba-319638",
+      "pexelsUrl": "https://www.pexels.com/photo/photo-of-laptop-near-plant-927629/"
+    }
+  ],
+  "related": [
+    "og-image-checker",
+    "link-preview",
+    "facebook-debugger",
+    "twitter-card-validator",
+    "meta-tag-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

@@ -1,0 +1,41 @@
+{
+  "contentSha256": "472bbf0d476e66f9a8312b1cd90ba3635a081dde94dd47b40b65bf79f2027e39",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"sitemap website example\" (480/mo, KD 27): the Sitemap Examples is the first screen, the 58-word answer resolves the query directly, and the body answers \"xml sitemap example\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"sitemap website example\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://www.sitemaps.org/protocol.html",
+      "checkedAt": "2026-10-24",
+      "supports": "Sitemap XML protocol: urlset, sitemapindex, namespace and tags."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "checkedAt": "2026-10-24",
+      "supports": "Sitemap limits 50,000 URLs / 50MB; Google ignores priority and changefreq; lastmod only if accurate."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap",
+      "checkedAt": "2026-10-24",
+      "supports": "News sitemaps: articles from the last two days, up to 1,000 news tags per sitemap."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps",
+      "checkedAt": "2026-10-24",
+      "supports": "Image sitemap extension for discovering images."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (4 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 395 words, 2 Pexels images, 4 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json with one deliberate deviation: Title changed from \"8 Real XML Samples\" to \"8 Valid XML Samples to Copy\" because the samples are valid templates, not files copied from real sites..",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye AI Crawler Access Study (391 sites, 2026-10-03) from the raw files in /public/resources.",
+    "Exercised the sitemap sample gallery + live lookup in the browser on the local build at desktop and 375 px widths."
+  ]
+}

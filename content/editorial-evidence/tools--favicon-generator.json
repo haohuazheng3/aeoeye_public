@@ -1,0 +1,36 @@
+{
+  "contentSha256": "8993e05b2921295a032569be8dcc5c042309931ab83911b13ce6c8dda753216d",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"favicon generator\" (14800/mo, KD 68): the Favicon Generator is the first screen, the 50-word answer resolves the query directly, and the body answers \"favicon generator free\", \"favicon generator online\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"favicon generator\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/favicon-in-search",
+      "checkedAt": "2026-10-24",
+      "supports": "Favicon must be square, at least 8x8 px, recommended >48x48; Googlebot-Image crawls it; no subdirectory homepages."
+    },
+    {
+      "url": "https://web.dev/articles/add-manifest",
+      "checkedAt": "2026-10-24",
+      "supports": "Web app manifest icons at 192 and 512 px."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 365 words, 2 Pexels images, 2 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised the favicon ICO/PNG/zip generator in the browser on the local build at desktop and 375 px widths."
+  ]
+}

@@ -1,0 +1,177 @@
+---
+title: '301 vs 302 Redirect: Which to Use (We Tested 300+ Sites)'
+description: >-
+  301 vs 302: use 301 for permanent moves and 302 for temporary ones. We checked
+  redirects on 300+ real sites to see what they use and when 308 fits.
+date: '2026-10-24'
+published: '2026-10-24'
+category: Decisions
+readingTime: 5 min read
+keywords:
+  - 301 vs 302 redirect
+  - 302 vs 301
+  - 301 vs 302
+image:
+  url: >-
+    https://images.pexels.com/photos/4554377/pexels-photo-4554377.jpeg?auto=compress&cs=tinysrgb&w=1200
+  alt: >-
+    A couple exploring their new home while unpacking boxes and looking at a
+    photo album.
+  photographer: cottonbro studio
+  photographerUrl: 'https://www.pexels.com/@cottonbro'
+verdict:
+  summary: >-
+    Use a 301 when a URL has moved for good and a 302 only when the original URL
+    is coming back. Google shows the new URL for permanent redirects and keeps
+    the old one for temporary ones.
+  picks:
+    - when: 'Page moved, renamed, merged or switched to HTTPS'
+      pick: 301 (or 308)
+    - when: 'A/B test, short promotion, temporary out-of-stock page'
+      pick: 302 (or 307)
+    - when: The redirect must keep a POST as a POST
+      pick: '308 for permanent, 307 for temporary'
+    - when: Site down for maintenance
+      pick: No redirect — return 503
+cta: seo
+relatedTools:
+  - redirect-checker
+  - http-status-checker
+  - http-header-checker
+  - sitemap-checker
+faqs:
+  - q: Is a 302 redirect bad for SEO?
+    a: >-
+      Not when the move really is temporary. It becomes a problem when a
+      permanent move is set up as a 302, because Google keeps showing the old
+      URL instead of consolidating signals on the new one.
+  - q: Does a 301 redirect pass PageRank?
+    a: >-
+      Yes. Google treats permanent redirects as a strong signal that the target
+      should become the canonical URL, so links and other signals consolidate on
+      the new page once Google recrawls the old one.
+  - q: How long should I keep a 301 redirect in place?
+    a: >-
+      As long as anyone might still use the old URL — in practice, keep it for
+      at least a year and ideally indefinitely. Removing it turns old links and
+      bookmarks into 404s.
+  - q: What is the difference between 302 and 307?
+    a: >-
+      Both are temporary. A 307 guarantees the browser repeats the request with
+      the same method, so a POST stays a POST. A 302 allows clients to switch to
+      GET.
+sources:
+  - label: Google — Redirects and Google Search
+    url: 'https://developers.google.com/search/docs/crawling-indexing/301-redirects'
+  - label: Google — How to specify a canonical URL (redirects as a signal)
+    url: >-
+      https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+  - label: Google — How HTTP status codes affect Google's crawlers
+    url: >-
+      https://developers.google.com/crawling/docs/troubleshooting/http-status-codes
+  - label: 'RFC 9110 — HTTP Semantics, Redirection 3xx'
+    url: 'https://www.rfc-editor.org/rfc/rfc9110.html#name-redirection-3xx'
+  - label: MDN — 308 Permanent Redirect
+    url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/308'
+  - label: Google — Site moves with URL changes
+    url: >-
+      https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
+---
+
+A 301 says "this URL has moved permanently"; a 302 says "it's somewhere else for now, keep using the old address." Pick by intent: if the old URL is never coming back, use 301 (or 308). If it is, use 302 (or 307). Everything else in this guide is about the cases where that simple rule gets misapplied — which, on real sites, is more often than you'd think.
+
+## What is the difference between a 301 and a 302 redirect?
+
+The difference is permanence. Both send visitors and crawlers to a new URL, but they make opposite promises about the old one, and HTTP defines four codes along two lines — permanent or temporary, and whether the request method must be preserved ([RFC 9110](https://www.rfc-editor.org/rfc/rfc9110.html#name-redirection-3xx)):
+
+| Code | Name | Permanent? | Method preserved? |
+|---|---|---|---|
+| 301 | Moved Permanently | Yes | Not guaranteed (POST may become GET) |
+| 302 | Found | No | Not guaranteed |
+| 307 | Temporary Redirect | No | Yes |
+| 308 | Permanent Redirect | Yes | Yes |
+
+For ordinary page moves, the method doesn't matter: browsers and crawlers fetch pages with GET either way. The method only matters for forms and APIs that send POST requests, which is what 307 and 308 were added for ([MDN on 308](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/308)).
+
+## 301 vs 302: Does Google Treat Them Differently?
+
+Yes, in what it shows. Google's documentation is explicit: for permanent redirects it shows the new target in search results; for temporary redirects it shows the source page ([Google on redirects](https://developers.google.com/search/docs/crawling-indexing/301-redirects)).
+
+That difference cascades into ranking signals. Google lists redirects as a [strong signal](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls) that the target should become the canonical URL, and tells site owners to use permanent redirects when the old URL is a worse version of the new one. A 302 asks Google to keep the old URL as the one that represents the content — which is exactly what you want during a two-week test, and exactly what you don't want after a site migration.
+
+Crawling works the same for both. Google's crawlers follow up to 10 redirect hops whatever the code ([Google](https://developers.google.com/crawling/docs/troubleshooting/http-status-codes)), so a 302 doesn't stop Google from reaching the target. It changes which URL Google treats as the real one.
+
+![Roadside detour sign with arrow in rural Plainview, MN, under clear skies. Perfect for travel and road maintenance themes.](https://images.pexels.com/photos/9826960/pexels-photo-9826960.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## 302 vs 301: When a Temporary Redirect Is Right
+
+A 302 is the honest choice whenever the original URL will be back. Common cases:
+
+- **A/B and split tests** that send a share of visitors to a variant URL.
+- **Short promotions** — a product page that points to a seasonal landing page for a few weeks.
+- **Temporarily unavailable content** that will return at the same address.
+- **Device- or login-based routing**, where the same URL sends different users to different places.
+
+Two cases look temporary but aren't. A permanent URL change that you "might reverse someday" is still permanent — use 301. And short planned downtime should not redirect anywhere: Google's guidance for disabling a site for a day or two is to [return a 503](https://developers.google.com/search/docs/crawling-indexing/pause-online-business) with an informational page, so crawlers come back later instead of indexing a maintenance screen.
+
+## What did 379 real sites actually use?
+
+Overwhelmingly, permanent redirects. On October 24, 2026 we traced the redirect chain from `http://` on the homepages of 391 well-known sites, and 379 answered ([dataset](/resources/technical-seo-baseline-2026-10.json)):
+
+| Finding | Share |
+|---|---|
+| First redirect was a 301 | 85.8% |
+| First redirect was a 308 | 12.9% |
+| First redirect was a 302 | 1.3% |
+| A temporary code (302 or 307) appeared somewhere in the chain | 8.1% |
+| Two or more hops before the final page | 44.3% |
+| Only one hop to the final HTTPS page | 53.6% |
+
+The headline is reassuring: almost nobody uses a 302 for the HTTP-to-HTTPS move. The fine print is not. One in twelve chains still contained a temporary hop — usually a second step such as `https://example.com` → `https://www.example.com` or a geo or language redirect — and 44.3% of these large sites made visitors and crawlers take two or more hops to reach the homepage.
+
+The 308s are worth noticing too. Frameworks such as Next.js [use 308 for permanent redirects](https://nextjs.org/docs/app/api-reference/config/next-config-js/redirects) by default, and Google treats 308 exactly like 301.
+
+## When should I use 307 or 308 instead?
+
+Use them when the request method matters. If a form, webhook or API endpoint receives POST requests and you move it, a 301 or 302 lets clients retry the request as a GET, which silently drops the payload. A 308 (permanent) or 307 (temporary) keeps the method intact.
+
+For normal pages, 301 and 308 are interchangeable from an SEO point of view, as are 302 and 307. If your platform emits 308 by default, there's no reason to change it.
+
+![A close-up of vintage airmail envelopes with stamps and postmarks, showcasing nostalgic design.](https://images.pexels.com/photos/1921957/pexels-photo-1921957.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Which redirect mistakes cost the most?
+
+Four mistakes account for most of the damage we see:
+
+1. **302 for a permanent move.** The old URL stays in results and signals don't consolidate. The fix is a one-line server change.
+2. **Chains.** `http` → `https` → `www` → trailing slash adds a round trip per hop for users and wastes crawl time. Point every old variant straight at the final URL.
+3. **Redirecting deleted pages to the homepage.** Google warns that sending many old URLs to one irrelevant page such as the homepage [can be treated as a soft 404](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes). Redirect to the closest equivalent page, or return a real 404 or 410 when nothing equivalent exists.
+4. **Internal links that point at redirects.** Every internal link should use the final URL; redirects are for outside links and bookmarks you can't edit.
+
+## How should redirects work in a site migration?
+
+One old URL, one new URL, one permanent hop. Google's migration guide starts with a [URL mapping](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes): a list pairing every old URL with its closest new equivalent before anything goes live. That list becomes your redirect rules, your test plan and your rollback plan.
+
+Three rules make migrations go smoothly:
+
+- **Map page to page, not page to homepage.** A product page should land on the same product, a guide on the same guide. Only send a URL to a category or the homepage when there is truly no equivalent.
+- **Keep the redirects for a long time.** Google says to keep them as long as possible, generally at least a year. Old links, bookmarks and other sites' pages will keep sending people to the old URLs for much longer than that.
+- **Tell Google about domain changes.** If the domain or subdomain changes, submit a Change of Address in Search Console for the old site, as the guide recommends.
+
+## How long does Google take to process a 301?
+
+As long as it takes to recrawl the old URL. Google only sees a redirect when it revisits the redirected page, so popular pages switch over within days while rarely crawled pages can take weeks. You can speed up important ones by listing the new URLs in your sitemap and requesting indexing for them in Search Console.
+
+During that window, both URLs may appear in results. That's normal, and it is not a reason to switch to a 302 or remove the redirect — doing either resets the process.
+
+## How do I check and fix my redirects?
+
+Start with the URLs that matter most — homepage variants, top landing pages and any URLs you changed recently:
+
+1. Trace each one with the [redirect checker](/tools/redirect-checker) to see every hop and status code.
+2. Replace temporary codes on permanent moves with 301 or 308.
+3. Collapse chains so each old URL reaches the final page in one hop.
+4. Bulk-check old URLs from a migration with the [HTTP status checker](/tools/http-status-checker).
+5. Update internal links and your sitemap to the final URLs, then confirm the [sitemap](/tools/sitemap-checker) lists no redirecting URLs.
+
+Then run the [free SEO audit](/seo-audit), which checks redirect chains and links to redirected URLs across your whole site.

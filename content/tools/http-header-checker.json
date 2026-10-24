@@ -1,0 +1,86 @@
+{
+  "slug": "http-header-checker",
+  "category": "crawl-index",
+  "name": "HTTP Header Checker",
+  "title": "Header Checker: See Every HTTP Response Header",
+  "description": "Free HTTP header checker: see every response header for a URL, with SEO-critical ones flagged — X-Robots-Tag, canonical Link, cache-control, HSTS.",
+  "answer": "An HTTP header checker shows every response header a URL returns, including the first response if it redirects. SEO-critical headers are pulled out and explained: X-Robots-Tag, Link (canonical), Content-Type, Cache-Control, compression and HSTS. Enter a URL to see them.",
+  "keywords": [
+    "header checker",
+    "http header checker",
+    "http headers check"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "headers",
+    "submitLabel": "Check headers",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "wikipedia.org"
+    ],
+    "busyText": "Requesting headers…"
+  },
+  "trust": "We request the URL live and show the raw headers exactly as your server or CDN returned them.",
+  "body": "## HTTP Header Checker: X-Robots-Tag, Cache and Redirects\n\nMost headers don't matter for SEO; a few matter a lot because they can override what your HTML says.\n\n| Header | Why it matters |\n|---|---|\n| X-Robots-Tag | Can noindex a page (or a PDF) without any meta tag |\n| Link | Can declare rel=canonical or hreflang, mainly for non-HTML files |\n| Location | The redirect target on 3xx responses |\n| Content-Type | Pages must be text/html to be parsed as HTML |\n| Cache-Control / ETag | Repeat-visit speed and efficient recrawling |\n| Content-Encoding | gzip or brotli compression |\n| Strict-Transport-Security | Forces HTTPS on future visits |\n\nGoogle documents [X-Robots-Tag](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag) as equivalent to the robots meta tag — and it's the only option for files without HTML.\n\n## HTTP Headers Check: What Each Header Does to SEO\n\nThe dangerous one is X-Robots-Tag, because it's invisible in the page source. A `noindex` header left over from staging removes pages from Google while the HTML looks perfectly fine.\n\nIt's rare on homepages — 2.9% of the 315 homepages we analyzed in October 2026 sent an X-Robots-Tag ([dataset](/resources/technical-seo-baseline-2026-10.json)) — but much more common on PDFs, feeds and environments copied from staging.\n\n## Is my site compressing pages?\n\nCheck `Content-Encoding`. In our sample, 59% of homepages were served with brotli, 37.1% with gzip and 3.8% uncompressed. Uncompressed HTML is a free speed win waiting to happen: turning on gzip or brotli is usually a single server or CDN setting.\n\n## How do I read the result?\n\nStart with the status line, then the flagged SEO headers, then the full list. If the URL redirects, we also show the first response, because headers on a redirect (like a stray noindex) can matter too.\n\nFor definitions of any header you don't recognize, [MDN's header reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers) is the standard. To check the security headers specifically and get a grade, use the [security headers checker](/tools/security-headers-checker); for indexing directives in both tags and headers together, use the [meta robots checker](/tools/meta-robots-checker).",
+  "faqs": [
+    {
+      "q": "How do I check the HTTP headers of a website?",
+      "a": "Enter the URL above. You can also use your browser's developer tools (Network tab) or run curl -I with the URL in a terminal to see the response headers."
+    },
+    {
+      "q": "Can an HTTP header noindex my page?",
+      "a": "Yes. An X-Robots-Tag: noindex header tells Google not to index the URL, exactly like a robots meta tag, and it works on PDFs and images that can't carry meta tags."
+    },
+    {
+      "q": "Why do headers differ between this tool and my browser?",
+      "a": "CDNs can vary responses by location, device, cookies or user agent, and browsers add cached responses. We show what a fresh request from our server receives."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Robots meta tag and X-Robots-Tag specifications",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag"
+    },
+    {
+      "label": "MDN — HTTP headers reference",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/5207601/pexels-photo-5207601.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of vintage letters tied together with a twine, accompanied by an old photograph and handwritten note.",
+      "photographer": "Suzy Hazelwood",
+      "photographerUrl": "https://www.pexels.com/@suzyhazelwood",
+      "pexelsUrl": "https://www.pexels.com/photo/close-up-shot-a-stack-of-letters-5207601/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/2881229/pexels-photo-2881229.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Detailed view of network cables plugged into a server rack in a data center.",
+      "photographer": "Brett Sayles",
+      "photographerUrl": "https://www.pexels.com/@brett-sayles",
+      "pexelsUrl": "https://www.pexels.com/photo/cables-connected-on-server-2881229/"
+    }
+  ],
+  "related": [
+    "security-headers-checker",
+    "meta-robots-checker",
+    "redirect-checker",
+    "hsts-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

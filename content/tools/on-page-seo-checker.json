@@ -1,0 +1,94 @@
+{
+  "slug": "on-page-seo-checker",
+  "category": "on-page",
+  "name": "On-Page SEO Checker",
+  "title": "On-Page SEO Tool: Grade Any URL in 10 Seconds",
+  "description": "Free on-page SEO checker: grade one URL on 25 checks — title, meta, headings, content, images, internal links, schema, indexability — each with a fix.",
+  "answer": "An on-page SEO tool grades a single URL on the things you control on that page: indexability, title and description, headings, content, images, links, structured data, social tags, mobile setup and speed basics. Enter a URL (and a keyword if you like) to get a score and a fix for every failed check.",
+  "keywords": [
+    "on page seo tool",
+    "on page seo checker",
+    "check seo on page",
+    "on page seo check"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "onpage",
+    "submitLabel": "Grade this page",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      },
+      {
+        "name": "keyword",
+        "label": "Target keyword",
+        "placeholder": "e.g. project management software",
+        "optional": true
+      }
+    ],
+    "examples": [
+      "stripe.com",
+      "notion.so"
+    ],
+    "busyText": "Running 26 checks…"
+  },
+  "trust": "Every check reads the live page HTML; the score is a weighted sum you can trace item by item.",
+  "body": "## On-Page SEO Checker: 26 Checks, Each With a Fix\n\nThe checks are grouped by what they protect, and weighted so that problems which stop indexing count more than polish:\n\n| Group | Checks | Example |\n|---|---|---|\n| Indexing | 5 | Status 200, no noindex, self-canonical |\n| Title & meta | 4 | Title length in pixels, one description |\n| Headings | 4 | One H1, logical H2/H3 order |\n| Content | 3 | Enough main text, keyword placement |\n| Images | 2 | Alt text, explicit dimensions |\n| Links | 2 | Internal links in content, anchor text |\n| Structured data, social, mobile, speed | 6 | JSON-LD, OG tags, viewport, page weight |\n\nEvery failed or warned check comes with what to change.\n\n## Check SEO on Page: Title, Headings, Links and Schema\n\nThese four areas cause most on-page problems we see. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 14.3% had no H1 at all and 9.2% had several; 13.2% had titles wider than 600 pixels; and 26% carried no JSON-LD structured data.\n\nGoogle's [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) covers the same fundamentals: descriptive titles, clear headings, helpful text, descriptive link text and alt text.\n\n## On-Page SEO Check vs a Full Site Audit\n\nAn on-page check grades one URL; a site audit finds problems across many pages — duplicate titles, orphan pages, redirect chains, sitewide speed. Use this tool when you're publishing or fixing a specific page, and the [free SEO audit](/seo-audit) when you need the whole site.\n\n## Does a keyword change the score?\n\nOnly the keyword checks. If you enter one, we check that it appears in the title, H1, first 100 words, description and URL. Leave it blank and those checks are skipped rather than failed. We never reward repetition: Google's spam policies treat [keyword stuffing](https://developers.google.com/search/docs/essentials/spam-policies) as a violation.\n\nDon't chase 100. A page that scores 85 because it skips a decorative image's dimensions is fine; a page that scores 85 because it's noindexed is not. Read the fails first. For the title and description specifically, preview them with the [title tag checker](/tools/title-tag-checker).",
+  "faqs": [
+    {
+      "q": "What is on-page SEO?",
+      "a": "Everything on the page itself that helps search engines understand and rank it: the title, description, headings, content, images, internal links, structured data and technical signals such as indexability."
+    },
+    {
+      "q": "What is a good on-page SEO score?",
+      "a": "Above 80 usually means the basics are in place. More important than the number is that no indexing check fails, because those can keep a page out of search entirely."
+    },
+    {
+      "q": "Why is my score different from other SEO tools?",
+      "a": "Every tool weights checks differently. Ours puts indexing first and shows the weight of each check, so you can see exactly why the score is what it is."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    },
+    {
+      "label": "Google — Influencing your title links",
+      "url": "https://developers.google.com/search/docs/appearance/title-link"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8293635/pexels-photo-8293635.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of hands holding a home inspection checklist clipboard for buyers.",
+      "photographer": "RDNE Stock project",
+      "photographerUrl": "https://www.pexels.com/@rdne",
+      "pexelsUrl": "https://www.pexels.com/photo/checklist-on-a-clipboard-8293635/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/247781/pexels-photo-247781.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Detailed view of a book page magnified by a glass, enhancing text clarity.",
+      "photographer": "Pixabay",
+      "photographerUrl": "https://www.pexels.com/@pixabay",
+      "pexelsUrl": "https://www.pexels.com/photo/close-up-of-text-247781/"
+    }
+  ],
+  "related": [
+    "title-tag-checker",
+    "meta-tag-checker",
+    "keyword-density-checker",
+    "schema-validator",
+    "seo-audit-checklist"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

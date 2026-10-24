@@ -1,0 +1,36 @@
+{
+  "contentSha256": "467dcbbba157fc2fba7c1a650de4a33cd6c84554b8d455e8af3e56203f4bd9f0",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"http status checker\" (210/mo, KD 12): the HTTP Status Checker is the first screen, the 51-word answer resolves the query directly, and the body answers \"http status check\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"http status checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/http-status-codes",
+      "checkedAt": "2026-10-24",
+      "supports": "Google follows up to 10 redirect hops; 4xx except 429 treated the same; 429 and 5xx slow crawling; soft 404."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
+      "checkedAt": "2026-10-24",
+      "supports": "Reference definitions of HTTP status codes."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 394 words, 2 Pexels images, 2 inline source links, 3 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/status against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

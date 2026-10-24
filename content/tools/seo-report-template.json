@@ -1,0 +1,70 @@
+{
+  "slug": "seo-report-template",
+  "category": "on-page",
+  "name": "SEO Report Template",
+  "title": "SEO Report Template: A Real Audit, Filled In",
+  "description": "A real SEO report template, filled in from an actual audit: score, issues ranked by impact, evidence and fixes. Or generate your own free in about a minute.",
+  "answer": "A good SEO report template has five parts: a one-paragraph summary, scores by area, the top issues ranked by impact with evidence and a fix, a dated roadmap, and what you will measure next. Download the blank template below, see it filled in from a real audit, or have it filled for your site automatically.",
+  "keywords": [
+    "seo report template",
+    "seo audit example"
+  ],
+  "runner": {
+    "component": "seo-report"
+  },
+  "trust": "The filled example is a real audit we ran on October 24, 2026 with our free SEO audit; the site name and page paths are withheld.",
+  "body": "## SEO Audit Example: What a Good Audit Report Shows\n\nA useful audit report answers three questions in order: how healthy is the site, what is broken, and what should we fix first. Everything else is supporting detail.\n\nThe example above comes from a real SaaS marketing site we audited on October 24, 2026. Our crawler fetched 20 pages and scored them across seven areas. The site scored 85 out of 100 — healthy — yet the report still surfaced real money on the table:\n\n- **Article pages had no Article markup** (3 of 3), the cheapest fix on the list.\n- **Real-user loading was slow on mobile**: Largest Contentful Paint at 3,012 ms, above the 2,500 ms \"good\" line in [Google's Core Web Vitals thresholds](https://web.dev/articles/vitals).\n- **One page that should rank carried noindex**, a classic leftover from a redesign.\n\n## What should every section contain?\n\nEach section earns its place by helping someone decide or act. Cut anything that doesn't.\n\n| Section | What goes in it | Who reads it |\n|---|---|---|\n| Executive summary | Score, biggest risk, quickest win | Founders, managers |\n| Scores by area | One row per area, weight and note | Everyone |\n| Top issues | Evidence → fix → effort → owner | Developers, writers |\n| Roadmap | This week / this month / later | Whoever plans the sprint |\n| Measurement | Indexed pages, Core Web Vitals, clicks | Whoever reports next month |\n\n## How do I rank issues by impact?\n\nSeverity times reach, divided by effort. A critical problem on every page (a robots.txt block, a site-wide noindex) beats a cosmetic issue on one page, even if the cosmetic fix is faster.\n\nOur audit does this automatically: every finding carries a severity, the share of pages affected and an effort estimate, which is how the roadmap above splits into 4 fixes this week, 10 this month and 4 later.\n\n## What makes an SEO report worth reading?\n\nEvidence. \"Improve page speed\" is not a finding; \"mobile LCP is 3,012 ms for real Chrome users, the hero image is lazy-loaded\" is. Every issue in the template has an evidence line for that reason — and the fix links back to a primary source such as [Google's SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).\n\nWant the checks themselves? The [SEO audit checklist](/tools/seo-audit-checklist) lists all 40 in plain English, and the [free SEO audit](/seo-audit) fills this template for your own site.",
+  "faqs": [
+    {
+      "q": "What should an SEO report include?",
+      "a": "A short summary, scores by area, the top issues ranked by impact with evidence and a fix for each, a roadmap with owners and dates, and the metrics you will track before the next report."
+    },
+    {
+      "q": "How long should an SEO audit report be?",
+      "a": "As short as the problems allow. One page of summary and roadmap, then an issue list with evidence. Long reports that list every minor warning usually get ignored by the people who have to act."
+    },
+    {
+      "q": "Can I use this SEO report template for clients?",
+      "a": "Yes. The Markdown template and CSV issue tracker are free to download, edit and brand. Running the free SEO audit on the client site fills in the scores, evidence and fixes for you."
+    },
+    {
+      "q": "How often should I produce an SEO report?",
+      "a": "Monthly for active sites, and after any migration, redesign or large release. Re-running the same audit keeps the numbers comparable from one report to the next."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    },
+    {
+      "label": "web.dev — Web Vitals thresholds",
+      "url": "https://web.dev/articles/vitals"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/7948055/pexels-photo-7948055.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Magnifying glass and colored pencils on financial trend graphs highlighting sales growth.",
+      "photographer": "RDNE Stock project",
+      "photographerUrl": "https://www.pexels.com/@rdne",
+      "pexelsUrl": "https://www.pexels.com/photo/colored-pencils-and-a-magnifying-glass-over-documents-with-graphs-7948055/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/7651554/pexels-photo-7651554.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A person writing on a clipboard with a ballpen in an office setting.",
+      "photographer": "Kindel Media",
+      "photographerUrl": "https://www.pexels.com/@kindelmedia",
+      "pexelsUrl": "https://www.pexels.com/photo/a-close-up-shot-of-a-person-writing-on-a-document-7651554/"
+    }
+  ],
+  "related": [
+    "seo-audit-checklist",
+    "on-page-seo-checker",
+    "core-web-vitals-test",
+    "schema-validator"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

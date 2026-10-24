@@ -1,0 +1,71 @@
+{
+  "slug": "favicon-generator",
+  "category": "social-schema",
+  "name": "Favicon Generator",
+  "title": "Favicon Generator: ICO, PNG & Apple Icons in One Zip",
+  "description": "Free favicon generator: favicon.ico, 16–512px PNGs and an Apple touch icon from an image, text or emoji — plus the HTML to paste. No signup.",
+  "answer": "A favicon generator turns a letter, emoji or image into the icon files a website needs. Create yours below and download one zip with favicon.ico (16, 32 and 48 px), a 180 px Apple touch icon, 192 and 512 px app icons, a web manifest and the HTML to paste.",
+  "keywords": [
+    "favicon generator",
+    "favicon generator free",
+    "favicon generator online"
+  ],
+  "runner": {
+    "component": "favicon-generator"
+  },
+  "trust": "Every file is drawn and packaged in your browser. Uploaded images never leave your device.",
+  "body": "## Free Favicon Generator From Text, Emoji or Image\n\nThree ways to start: type one or two letters, paste an emoji, or upload a logo. Pick a background, shape and padding, and the previews update at real sizes — 16, 32, 48 and 180 pixels — so you can see whether it still reads at the size of a browser tab.\n\nSimple shapes survive best. A detailed logo that works at 512 pixels often turns into a smudge at 16.\n\n## Favicon Generator Online: The Sizes Google Needs\n\nGoogle needs very little: a square icon of at least 8×8 pixels, ideally larger than 48×48, declared on your homepage ([Google's guidelines](https://developers.google.com/search/docs/appearance/favicon-in-search)). The other files serve browsers and devices:\n\n| File | Size | Used by |\n|---|---|---|\n| favicon.ico | 16, 32, 48 px | Browser tabs, Google Search |\n| apple-touch-icon.png | 180 px | iPhone and iPad home screens |\n| icon-192.png, icon-512.png | 192, 512 px | Android and installable web apps |\n| site.webmanifest | — | Lists the app icons ([web.dev](https://web.dev/articles/add-manifest)) |\n\n## Why does my favicon look blurry or invisible?\n\nUsually because a wide logo was squeezed into a square, or thin details vanished at 16 pixels. Use a bold mark or a single letter, leave a little padding, and check contrast against both light and dark browser tabs — a dark icon on a transparent background can disappear in dark mode.\n\n## How do I install the favicons?\n\nUnzip the files into your site root and paste the snippet into the head of every page:\n\n```\n<link rel=\"icon\" href=\"/favicon.ico\" sizes=\"48x48\">\n<link rel=\"icon\" href=\"/icon-192.png\" type=\"image/png\" sizes=\"192x192\">\n<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\">\n<link rel=\"manifest\" href=\"/site.webmanifest\">\n```\n\nMake sure robots.txt doesn't block the files: Google fetches favicons with Googlebot-Image.\n\n## Do big sites bother with all these files?\n\nMost do. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 90.8% declared an icon, 66.7% set an Apple touch icon and 21.3% offered an SVG favicon.\n\nAfter uploading, run the [favicon checker](/tools/favicon-checker) to confirm Google can load a qualifying icon, then check how your site looks when shared with the [link preview tool](/tools/link-preview).",
+  "faqs": [
+    {
+      "q": "What size should a favicon be?",
+      "a": "Provide favicon.ico with 16, 32 and 48 pixel versions, a 180 pixel Apple touch icon and 192 and 512 pixel PNGs. Google requires at least 8×8 and recommends larger than 48×48."
+    },
+    {
+      "q": "Can I use an emoji as a favicon?",
+      "a": "Yes. Type an emoji in the text field and the generator draws it into every file. Emoji rendering follows your device's emoji font, so check the preview before downloading."
+    },
+    {
+      "q": "Should I use an SVG favicon?",
+      "a": "An SVG icon scales perfectly and Google accepts it, but keep favicon.ico as well for older browsers and tools that only look for /favicon.ico."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Define a favicon to show in search results",
+      "url": "https://developers.google.com/search/docs/appearance/favicon-in-search"
+    },
+    {
+      "label": "web.dev — Add a web app manifest",
+      "url": "https://web.dev/articles/add-manifest"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/13129483/pexels-photo-13129483.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Abstract image featuring a black and white checkered pattern with pixelated forms.",
+      "photographer": "Steve A Johnson",
+      "photographerUrl": "https://www.pexels.com/@steve",
+      "pexelsUrl": "https://www.pexels.com/photo/squares-in-black-and-white-13129483/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/3730210/pexels-photo-3730210.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Digital drawing setup with laptop and tablet for modern art creation.",
+      "photographer": "Daniele",
+      "photographerUrl": "https://www.pexels.com/@daniele-2103096",
+      "pexelsUrl": "https://www.pexels.com/photo/tablet-beside-laptop-on-red-table-3730210/"
+    }
+  ],
+  "related": [
+    "favicon-checker",
+    "og-image-generator",
+    "meta-tag-generator",
+    "link-preview"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

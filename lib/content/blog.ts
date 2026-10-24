@@ -21,6 +21,12 @@ export type PostMeta = {
   faqs: { q: string; a: string }[];
   image: PostImage;
   sources: PostSource[];
+  /** B 级决策页首屏结论卡(SEO 底座 v2):一句话结论 + 何时选哪个 */
+  verdict?: { summary: string; picks: { when: string; pick: string }[] };
+  /** 文末与卡内 CTA:seo = 免费 SEO 审计,aeo = 免费 AI 可见度审计 */
+  cta: "seo" | "aeo";
+  /** 正文相关的免费工具(/tools/<slug>) */
+  relatedTools: string[];
 };
 
 export type Post = { meta: PostMeta; content: string };
@@ -53,6 +59,9 @@ function toMeta(slug: string, data: Record<string, unknown>): PostMeta {
     faqs: Array.isArray(data.faqs) ? (data.faqs as { q: string; a: string }[]) : [],
     image: (data.image as PostImage) ?? null,
     sources: Array.isArray(data.sources) ? (data.sources as PostSource[]) : [],
+    ...(data.verdict ? { verdict: data.verdict as PostMeta["verdict"] } : {}),
+    cta: data.cta === "seo" ? "seo" : "aeo",
+    relatedTools: Array.isArray(data.relatedTools) ? (data.relatedTools as string[]) : [],
   };
 }
 

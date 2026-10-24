@@ -1,0 +1,41 @@
+{
+  "contentSha256": "dadbc690689a2a91150af8c02e5f8d5f9d6173f5513ef1b2ee4180af5232eb29",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"open graph checker\" (480/mo, KD 35): the Open Graph Checker is the first screen, the 49-word answer resolves the query directly, and the body answers \"open graph check\", \"open graph debugger\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"open graph checker\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://ogp.me/",
+      "checkedAt": "2026-10-24",
+      "supports": "Open Graph protocol: four required properties og:title, og:type, og:image, og:url; og:image:width/height."
+    },
+    {
+      "url": "https://developers.facebook.com/tools/debug/",
+      "checkedAt": "2026-10-24",
+      "supports": "Meta Sharing Debugger re-scrapes a URL to refresh the cached preview."
+    },
+    {
+      "url": "https://www.linkedin.com/post-inspector/",
+      "checkedAt": "2026-10-24",
+      "supports": "LinkedIn Post Inspector shows and refreshes how LinkedIn reads a URL."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (4 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 349 words, 2 Pexels images, 3 inline source links, 3 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/og against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

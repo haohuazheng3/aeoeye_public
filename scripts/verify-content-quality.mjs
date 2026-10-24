@@ -11,8 +11,10 @@ const retiredPath = (k) => (k.startsWith('/') ? k.toLowerCase() : `/blog/${k.toL
 export const RETIRED_PATHS = new Set([...RETIRED.gone, ...Object.keys(RETIRED.merged)].map(retiredPath));
 /** 博客 slug 视图(老接口,测试与 featured 校验在用) */
 export const RETIRED_SLUGS = new Set([...RETIRED_PATHS].filter((p) => p.startsWith('/blog/')).map((p) => p.slice('/blog/'.length)));
-/** 除博客外,按 JSON 存放的内容栏目 */
+/** 除博客外,按 JSON 存放的内容栏目(老栏目;2026-10-24 起整树 410,目录为空) */
 export const PAGE_SECTIONS = ['answers', 'guides', 'compare', 'vs', 'alternatives', 'for'];
+/** SEO 底座 v2(2026-10-24 下午):A 级工具优先页 content/tools/<slug>.json,证据 tools--<slug>.json */
+export const TOOL_SECTION = 'tools';
 
 const seg = (re) => new RegExp(`(^|-)(?:${re})(-|$)`);
 // 只有这些 AI 可见度 / AEO 工具与服务,才允许出 pricing / review / alternatives / vs 页
@@ -27,12 +29,23 @@ const GENERIC_AI = /^(what-is-(fine-tuning|a-token-in-ai|an-ai-agent|an-ai-model
 const GENERIC_TOOL_PAGE = /^((schema-markup|faq-schema|json-ld|robots-txt|llms-txt)-generator|structured-data-testing-tool|people-also-ask|digital-pr)$/;
 // AI 公司营收 / 市场份额 / 用户量这类行业统计:与"品牌在 AI 答案里被不被推荐"无关
 const AI_INDUSTRY_STATS = /(^|-)(revenue|market-share|valuation|funding|net-worth|user-count)$|^(?:[a-z0-9-]+-)?(chatgpt|claude|gemini|perplexity|copilot|grok|deepseek|openai|anthropic|llm|generative-ai|ai-usage|ai-adoption|voice-search|search-engine|ai-hallucination|ai-misinformation)-(statistics|stats|users|usage)$/;
+// SEO 底座 v2(站长 2026-10-24 下午):选题边界扩到"免费 SEO 审计 / AI 可见度审计能直接承接的技术 SEO 单点检查与决策"。
+// B 级决策页只允许这份点名清单 —— 放宽只能由站长拍板后改这里。
+export const TECH_SEO_DECISIONS = new Set(['301-vs-302', 'https-vs-http', 'subdomain-vs-subfolder', 'webp-vs-avif']);
 // 对比页要有"品牌可见度"这条线,否则就是助手 / 搜索引擎测评
 const VISIBILITY_ANGLE = /(^|-)(brand|brands|visibility|citations?|cited|seo|aeo|geo|ranking|rank|mentions?|recommend[a-z]*|traffic|optimization)(-|$)/;
 
 /** 返回跑题原因;null = 允许。规则与 2026-09-24 的清理决策一致(docs/audit/2026-09-24-content-pruning.md)。 */
 export function offTopicReason(slug, section = 'blog') {
   if (RETIRED_PATHS.has(`/${section}/${slug}`.toLowerCase())) return 'retired URL (content/retired.json) — must not be re-created';
+  // 工具页本身就是"免费审计承接的单点检查";只挡 AI 通识、行业统计与第三方产品价格评测
+  if (section === TOOL_SECTION) {
+    if (GENERIC_AI.test(slug)) return 'generic AI explainer / assistant roundup';
+    if (AI_INDUSTRY_STATS.test(slug)) return 'AI industry revenue / market-share / usage statistics with no brand-visibility angle';
+    if (PRODUCT_PAGE.test(slug)) return 'third-party software pricing/review/alternatives page';
+    return null;
+  }
+  if (section === 'blog' && TECH_SEO_DECISIONS.has(slug)) return null;
   if (GENERIC_SEO.test(slug)) return 'generic SEO fundamentals without an AI-visibility angle';
   if (GENERIC_AI.test(slug)) return 'generic AI explainer / assistant roundup';
   if (GENERIC_TOOL_PAGE.test(slug)) return 'generic SEO utility / consumer topic (AEOeye already has the matching free tool page)';
@@ -52,8 +65,25 @@ export function offTopicReason(slug, section = 'blog') {
 export const CORE_TOPICS = new Set([
   'ai-search-visibility', 'answer-engine-optimization', 'brand-citations',
   'ai-crawler-indexing', 'aeo-measurement', 'aeo-buyer-decisions',
+  // SEO 底座 v2:免费 SEO 审计承接的技术检查工具与决策
+  'technical-seo-tools', 'technical-seo-decisions',
 ]);
-const KINDS = new Set(['guide', 'pricing-guide', 'documentation-guide', 'hands-on-review', 'research-asset']);
+const KINDS = new Set(['guide', 'pricing-guide', 'documentation-guide', 'hands-on-review', 'research-asset', 'tool-page']);
+// 发布门禁 · 无内部备注/占位符(底座 v2 四道门之一):模板残留、待填项、草稿标记
+const PLACEHOLDERS = /\b(?:TODO|TBD|FIXME|lorem ipsum|placeholder text|insert [a-z ]{2,20} here|writer brief|evidence pack)\b|\{\{[^}]*\}\}|\[(?:citation needed|link|source|image)\]|\bXX(?:%|\.X)?\b/i;
+/** 可见词数(与 content-lint 同口径:去代码块、图片、链接地址、标记符号) */
+export function visibleWords(md) {
+  const t = String(md || '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/https?:\/\/\S+/g, ' ')
+    .replace(/[#>*_`|-]/g, ' ');
+  return (t.match(/[A-Za-z0-9][A-Za-z0-9'’.-]*/g) || []).length;
+}
+/** A 级 300–800 词(答案句 + 正文,不含 FAQ);B 级 1200–1500 词(正文,不含 FAQ 与 frontmatter) */
+export const WORD_RANGE = { tool: [300, 800], decision: [1200, 1500] };
 const INTERNAL_NOTES = /\b(?:the supplied (?:plan |official )?(?:facts|information|guide|pricing|rate)|supplied (?:plan facts|official facts|pricing (?:summary|information)|plan limits|US pricing)|not specified in (?:the )?supplied facts|storage shown in supplied facts|according to (?:the )?(?:writer|writing) brief|insert (?:price|source) here|TODO:\s*(?:price|source|verify))\b/i;
 const GENERIC_PRICING = /^(?:slack|dropbox|zoom|mailchimp|mailgun|hootsuite|meltwater|brandwatch|hubspot|canva-pro)-pricing$/;
 const sha256 = (raw) => crypto.createHash('sha256').update(raw).digest('hex');
@@ -66,6 +96,13 @@ const httpsUrl = (value) => {
 /** This is a mechanical evidence gate, not an automated judgment of factual truth. */
 /** JSON 内容页(answers / guides / compare / vs / alternatives / for)的可见文字,供与 mdx 正文同样的检查 */
 function pageText(page) {
+  if (typeof page.body === 'string' && page.runner) {
+    // 工具页:标题 / 答案句 / 可信说明 / 正文 / FAQ / 来源 都是可见文字
+    const tp = [page.title, page.answer, page.trust, page.body];
+    for (const f of page.faqs ?? []) tp.push(`### ${f.q}`, f.a);
+    for (const src of page.sources ?? []) tp.push(`${src.label} ${src.url}`);
+    return tp.filter(Boolean).join('\n\n');
+  }
   const parts = [page.title, page.shortAnswer, page.intro];
   for (const sec of page.sections ?? []) parts.push(`## ${sec.heading}`, sec.body);
   if (page.comparisonTable) parts.push(JSON.stringify(page.comparisonTable));
@@ -98,6 +135,11 @@ export function checkPost({ file, raw, baselineHash, evidence, artifactExists = 
   const fail = (message) => errors.push(`${file}: ${message}`);
   const residue = raw.match(INTERNAL_NOTES);
   if (residue) fail(`internal drafting note: ${residue[0]}`);
+  const { section: sec0 } = docId(file);
+  if (sec0 === TOOL_SECTION || evidence?.topic?.area === 'technical-seo-decisions' || evidence?.kind === 'tool-page') {
+    const ph = content.match(PLACEHOLDERS);
+    if (ph) fail(`placeholder / unfinished text in the published page: "${ph[0]}"`);
+  }
   const scenarios = [...content.matchAll(/^#{2,4}\s+Scenario\s+(\d+)\s*:/gmi)].map((m) => Number(m[1]));
   if (scenarios.some((n, i) => n !== i + 1)) fail('scenario numbering must start at 1 and be consecutive');
   const hash = sha256(raw);
@@ -120,6 +162,30 @@ export function checkPost({ file, raw, baselineHash, evidence, artifactExists = 
     if (/\breview\b/i.test(String(data.title))) fail('untested documentation guides must not be presented as hands-on reviews');
     const opening = content.slice(0, 2400);
     if (!/documentation[- ]based|public documentation|documented features/i.test(opening) || !/not (?:a )?hands-on|have not|did not|not tested/i.test(opening)) fail('documentation guide must disclose source scope and unperformed tests near its opening');
+  }
+  if (section === TOOL_SECTION) {
+    // A 级工具优先页:首屏即工具、单一意图、300–800 词、2–3 张 Pexels 图、3–5 FAQ、相关工具真实存在
+    if (evidence.kind !== 'tool-page') fail('tool pages must be recorded as kind "tool-page"');
+    if (data.slug !== slug) fail('slug field must match the file name');
+    if (!data.runner || typeof data.runner.component !== 'string') fail('tool page needs a runner (the tool is the first screen)');
+    const n = visibleWords([data.answer, data.body].join('\n\n'));
+    const [lo, hi] = WORD_RANGE.tool;
+    if (n < lo || n > hi) fail(`A-level tool page body is ${n} words; must be ${lo}–${hi}`);
+    if (visibleWords(data.answer) > 60) fail('answer sentence under the H1 must be ≤ 60 words');
+    const imgs = Array.isArray(data.images) ? data.images : [];
+    if (imgs.length < 2 || imgs.length > 3) fail(`${imgs.length} images; tool pages need 2–3 Pexels images`);
+    for (const im of imgs) if (!/^https:\/\/images\.pexels\.com\/photos\/\d+\//.test(im.url || '') || !meaningful(im.alt, 20) || !meaningful(im.photographer, 1)) fail(`image needs a Pexels URL, descriptive alt and photographer: ${im.url}`);
+    const faqs = Array.isArray(data.faqs) ? data.faqs : [];
+    if (faqs.length < 3 || faqs.length > 5) fail(`${faqs.length} FAQs; need 3–5`);
+    if (!Array.isArray(data.keywords) || data.keywords.length === 0) fail('bind at least one validated keyword');
+    if (!/^## /m.test(String(data.body))) fail('body needs H2 sections (one per secondary keyword / sub-question)');
+  }
+  if (section === 'blog' && isNew && evidence.topic?.area === 'technical-seo-decisions' || (section === 'blog' && isNew && data.verdict)) {
+    // B 级决策页:首屏结论卡 + 1200–1500 词
+    if (!data.verdict || !meaningful(data.verdict.summary, 40) || !Array.isArray(data.verdict.picks) || data.verdict.picks.length < 2) fail('B-level decision page needs a verdict card (summary + at least two "when → pick" lines)');
+    const n = visibleWords(content);
+    const [lo, hi] = WORD_RANGE.decision;
+    if (n < lo || n > hi) fail(`B-level decision page body is ${n} words; must be ${lo}–${hi}`);
   }
   const sources = evidence.sources;
   if (!Array.isArray(sources) || sources.length === 0) fail('at least one checked source is required');
@@ -157,6 +223,8 @@ export function checkPost({ file, raw, baselineHash, evidence, artifactExists = 
 export function pageExists(root, href) {
   const clean = href.replace(/[#?].*$/, '').replace(/\/$/, '').toLowerCase();
   if (RETIRED_PATHS.has(clean)) return false;
+  const hub = clean.match(/^\/tools\/category\/([a-z0-9-]+)$/);
+  if (hub) return fs.readFileSync(path.join(root, 'lib/content/tool-pages.ts'), 'utf8').includes(`slug: "${hub[1]}"`);
   const m = clean.match(/^\/([a-z]+)(?:\/([a-z0-9-]+))?$/);
   if (!m) return false;
   const [, section, slug] = m;
@@ -164,7 +232,7 @@ export function pageExists(root, href) {
   if (section === 'blog') return ['.mdx', '.md'].some((ext) => fs.existsSync(path.join(root, 'content/blog', slug + ext)));
   if (PAGE_SECTIONS.includes(section)) return fs.existsSync(path.join(root, 'content', section, `${slug}.json`));
   if (section === 'glossary') return fs.readFileSync(path.join(root, 'lib/content/glossary.ts'), 'utf8').includes(`slug: "${slug}"`);
-  if (section === 'tools') return fs.readFileSync(path.join(root, 'lib/content/tools.ts'), 'utf8').includes(`"${slug}"`);
+  if (section === 'tools') return fs.existsSync(path.join(root, 'content/tools', `${slug}.json`)) || fs.readFileSync(path.join(root, 'lib/content/tools.ts'), 'utf8').includes(`"${slug}"`);
   return false;
 }
 
@@ -175,7 +243,7 @@ export function verifyContent(root = process.cwd()) {
   // 博客 + JSON 内容页一视同仁:新页 / 改过的页都要有编辑证据;JSON 页的证据文件名是 <section>--<slug>.json
   const docs = [
     ...blogFiles.map((name) => ({ file: `content/blog/${name}`, evidenceName: name.replace(/\.mdx?$/, '.json') })),
-    ...PAGE_SECTIONS.flatMap((section) => {
+    ...[...PAGE_SECTIONS, TOOL_SECTION].flatMap((section) => {
       const dir = path.join(root, 'content', section);
       if (!fs.existsSync(dir)) return [];
       return fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((name) => ({ file: `content/${section}/${name}`, evidenceName: `${section}--${name}` }));
@@ -183,8 +251,12 @@ export function verifyContent(root = process.cwd()) {
   ];
   const errors = [];
   let reviewed = 0;
-  // 2026-10-24 站长决定停做 SEO 内容:content/ 下不得再出现任何内容页;定时管线再发页,这里直接拦下(CLAUDE.md)。
-  for (const d of docs) errors.push(`${d.file}: SEO content was discontinued on 2026-10-24 (owner decision) — no content pages may be published`);
+  // 2026-10-24 上午停做 SEO 时这里曾拒绝一切内容页;同日下午站长以 SEO 底座 v2 重启(A 级工具页 + B 级决策页),
+  // 改为:老栏目仍不许出现文件(整树 410),新页一律走编辑证据与 A/B 结构门禁。
+  for (const d of docs) {
+    const { section } = docId(d.file);
+    if (PAGE_SECTIONS.includes(section)) errors.push(`${d.file}: legacy content sections (answers/guides/compare/vs/alternatives/for) stay retired (HTTP 410) — publish tool pages under content/tools or decision pages under content/blog`);
+  }
   const artifactExists = (value) => {
     if (typeof value !== 'string' || !value.startsWith('/') || value.startsWith('//') || value.includes('..')) return false;
     const target = path.resolve(root, 'public', value.slice(1));
@@ -203,11 +275,28 @@ export function verifyContent(root = process.cwd()) {
     errors.push(...checkPost({ file, raw, baselineHash: baseline.posts[file], evidence, artifactExists }));
   }
   const featured = JSON.parse(fs.readFileSync(path.join(root, 'content/editorial-featured.json'), 'utf8'));
-  if (featured.length !== 0) errors.push('featured list must be empty: SEO content discontinued 2026-10-24');
   for (const slug of featured) {
     if (!blogFiles.some((f) => f.replace(/\.mdx?$/, '') === slug)) errors.push(`featured page does not exist: ${slug}`);
     if (GENERIC_PRICING.test(slug)) errors.push(`generic software price guide cannot lead the AEO blog: ${slug}`);
     if (RETIRED_SLUGS.has(slug)) errors.push(`retired page cannot be featured: ${slug}`);
+  }
+  // 工具页 related 与正文 / 决策页正文里的站内链接必须指向现存、未下线页
+  for (const { file } of docs) {
+    const raw = fs.readFileSync(path.join(root, file), 'utf8');
+    let hrefs = [];
+    if (file.startsWith('content/tools/')) {
+      const page = JSON.parse(raw);
+      for (const r of page.related ?? []) if (!pageExists(root, `/tools/${r}`)) errors.push(`${file}: related tool does not exist: ${r}`);
+      hrefs = [...String(page.body).matchAll(/\]\((\/[^)\s]*)\)/g)].map((m) => m[1]);
+    } else if (file.startsWith('content/blog/')) {
+      const { data, content } = matter(raw);
+      for (const r of data.relatedTools ?? []) if (!pageExists(root, `/tools/${r}`)) errors.push(`${file}: related tool does not exist: ${r}`);
+      hrefs = [...content.matchAll(/\]\((\/[^)\s]*)\)/g)].map((m) => m[1]);
+    }
+    for (const h of hrefs) {
+      const clean = h.replace(/[#?].*$/, '').replace(/\/$/, '') || '/';
+      if (/^\/(blog|tools|glossary|answers|guides|compare|vs|alternatives|for)(\/|$)/.test(clean) && !pageExists(root, clean)) errors.push(`${file}: links to a missing or retired page: ${h}`);
+    }
   }
   // 代码里写死的站内链接(主题拓扑、术语"深读")必须指向现存页 —— 清理后最容易留下的就是这种死链
   for (const rel of ['lib/content/clusters.ts', 'lib/content/glossary.ts']) {

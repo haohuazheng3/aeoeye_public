@@ -1,0 +1,30 @@
+{
+  "contentSha256": "1bf72cc469696ba06bf84bd053c428b17b9288af28986dc4451857a9acbccb63",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"bing url submission\" (390/mo, KD 27): the Bing URL Submission is the first screen, the 43-word answer resolves the query directly, and the body answers \"submit url to bing\" with primary-source detail before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"bing url submission\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://www.indexnow.org/documentation",
+      "checkedAt": "2026-10-24",
+      "supports": "IndexNow key 8-128 hex chars, up to 10,000 URLs per POST, 200 = received, 202 = key pending."
+    },
+    {
+      "url": "https://www.indexnow.org/faq",
+      "checkedAt": "2026-10-24",
+      "supports": "Submissions are shared with all participating engines (Bing, Yandex, Seznam, Naver, Yep, Amazon)."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (2 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 376 words, 2 Pexels images, 2 inline source links, 2 internal links, 4 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json with one deliberate deviation: Secondary H2 no longer claims a ChatGPT link: OpenAI's own text only says it \"sometimes partners\" with search providers, so \"Submit URL to Bing: IndexNow vs Webmaster Tools\" replaced the planned title..",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Exercised the IndexNow key + submit flow (verification path tested with an unhosted key) in the browser on the local build at desktop and 375 px widths."
+  ]
+}

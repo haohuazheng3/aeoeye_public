@@ -1,0 +1,41 @@
+{
+  "contentSha256": "8a252e5da13be01f45be36c0c6a93a731c747d3adc055d2c7f2f3d94fbdf3fa3",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"facebook sharing debugger\" (1600/mo, KD 5): the Facebook Sharing Debugger is the first screen, the 43-word answer resolves the query directly, and the body answers \"facebook debugger tool\", \"facebook debug tool\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"facebook sharing debugger\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/web-crawlers/",
+      "checkedAt": "2026-10-24",
+      "supports": "facebookexternalhit builds link previews and may bypass robots.txt; meta-externalagent and Meta-WebIndexer roles."
+    },
+    {
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/",
+      "checkedAt": "2026-10-24",
+      "supports": "Meta recommends at least 1200x630, ~1.91:1, max 8 MB; 600x315 minimum for large cards; images cached by URL."
+    },
+    {
+      "url": "https://developers.facebook.com/tools/debug/",
+      "checkedAt": "2026-10-24",
+      "supports": "Meta Sharing Debugger re-scrapes a URL to refresh the cached preview."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (4 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 347 words, 2 Pexels images, 4 inline source links, 3 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/facebook against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

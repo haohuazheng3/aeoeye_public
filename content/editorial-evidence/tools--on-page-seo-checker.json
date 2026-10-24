@@ -1,0 +1,36 @@
+{
+  "contentSha256": "53781709a36d12315b172b0907d6507ba1515de5f77d5a3e40a6bd95658ca3d7",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"on page seo tool\" (590/mo, KD 57): the On-Page SEO Checker is the first screen, the 53-word answer resolves the query directly, and the body answers \"on page seo checker\", \"check seo on page\", \"on page seo check\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"on page seo tool\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+      "checkedAt": "2026-10-24",
+      "supports": "Google SEO fundamentals: titles, descriptions, headings, link text, image alt text."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/title-link",
+      "checkedAt": "2026-10-24",
+      "supports": "No limit on title element length; title links truncated to fit the device width."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (3 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 382 words, 2 Pexels images, 2 inline source links, 3 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json with one deliberate deviation: H2 says 26 checks instead of the planned 25, matching the 26 checks the tool actually runs..",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/onpage against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

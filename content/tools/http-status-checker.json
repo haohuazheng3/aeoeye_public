@@ -1,0 +1,81 @@
+{
+  "slug": "http-status-checker",
+  "category": "crawl-index",
+  "name": "HTTP Status Checker",
+  "title": "HTTP Status Checker: Bulk-Check Up to 20 URLs",
+  "description": "Free HTTP status checker: paste up to 20 URLs and get each final status code, redirect hops and response time — plus what each code means for SEO.",
+  "answer": "An HTTP status checker requests a list of URLs and reports the final status code of each — 200, 301, 404, 410, 5xx — with the redirect path and response time. Paste up to 20 URLs, one per line, to find broken links, unexpected redirects and server errors in one go.",
+  "keywords": [
+    "http status checker",
+    "http status check"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "status",
+    "submitLabel": "Check status codes",
+    "fields": [
+      {
+        "name": "url",
+        "label": "URLs (one per line, up to 20)",
+        "placeholder": "https://yoursite.com/\nhttps://yoursite.com/pricing\nhttps://yoursite.com/old-page",
+        "type": "textarea"
+      }
+    ],
+    "busyText": "Requesting every URL…"
+  },
+  "trust": "We request each URL live from our server, follow redirects and record every status code along the way.",
+  "body": "## HTTP Status Check: What 200, 301, 404, 410 and 5xx Mean for SEO\n\nStatus codes are how your server tells crawlers what happened, and Google acts on them directly ([Google's crawler docs](https://developers.google.com/crawling/docs/troubleshooting/http-status-codes)):\n\n| Code | What Google does |\n|---|---|\n| 200 | Considers the page for indexing |\n| 301 / 308 | Treats as a permanent move; signals go to the target |\n| 302 / 307 | Treats as temporary; may keep the old URL indexed |\n| 404 / 410 | Treats the content as not existing; drops it over time |\n| 429 | Treats as server overload; slows crawling |\n| 500 / 503 | Slows crawling; persistent errors get URLs dropped |\n\nOne detail surprises people: Google says all 4xx errors except 429 are treated the same, so a 410 is not a magic fast-removal switch. Use whichever is honest. Full definitions of every code are on [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status).\n\n## What is a soft 404?\n\nA page that says \"not found\" but returns 200. Google detects many of these and reports them in Search Console, but they waste crawl budget until it does, and some get indexed as thin pages.\n\nWe tested this on 313 big-brand sites in October 2026 by requesting a random URL that couldn't exist ([dataset](/resources/technical-seo-baseline-2026-10.json)). 91.7% returned a proper 404, 5.1% returned a 200 — a soft 404 — and the rest answered with redirects or other codes.\n\n## How do I read the results?\n\nEach row shows the final status, the full status path (for example `301 → 200`), the final URL and the time taken.\n\n- **200 with a redirect path** — works, but update links to the final URL.\n- **404 on a page you link to** — fix the link or redirect the old URL.\n- **403** — often a firewall rule; crawlers see the same wall.\n- **5xx** — server trouble. If it persists, Google will drop the URLs.\n\n## When should I check status codes?\n\nAfter every migration, redesign or URL change, and whenever Search Console reports new errors. Paste the old URLs here to confirm each one redirects to a live page, then trace any long chains with the [redirect checker](/tools/redirect-checker). Status codes for robots.txt itself have their own rules — test them in the [robots.txt tester](/tools/robots-txt-tester).",
+  "faqs": [
+    {
+      "q": "What is the difference between 404 and 410?",
+      "a": "404 means not found; 410 means gone on purpose. Google says it treats all 4xx codes except 429 the same way, so pick the code that honestly describes the page rather than expecting faster removal."
+    },
+    {
+      "q": "Is a 301 redirect bad for SEO?",
+      "a": "No. A 301 passes signals to the new URL. The cost comes from chains of several redirects and from internal links that keep pointing at redirected URLs."
+    },
+    {
+      "q": "Why does a URL return 403 here but work in my browser?",
+      "a": "Firewalls and bot protection often block requests that don't come from a regular browser. If crawlers hit the same rule, they can't index the page, so check your firewall settings."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — How HTTP status codes affect Google's crawlers",
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/http-status-codes"
+    },
+    {
+      "label": "MDN — HTTP response status codes",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6307433/pexels-photo-6307433.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A bustling city intersection with night lights and streaking car trails.",
+      "photographer": "Omar Ramadan",
+      "photographerUrl": "https://www.pexels.com/@omar-ramadan-1739260",
+      "pexelsUrl": "https://www.pexels.com/photo/cars-on-road-near-buildings-during-night-time-6307433/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/37730212/pexels-photo-37730212.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of server racks in a data center highlighting modern technology infrastructure.",
+      "photographer": "panumas nikhomkhai",
+      "photographerUrl": "https://www.pexels.com/@cookiecutter",
+      "pexelsUrl": "https://www.pexels.com/photo/data-center-server-racks-with-active-equipment-37730212/"
+    }
+  ],
+  "related": [
+    "redirect-checker",
+    "http-header-checker",
+    "link-extractor",
+    "sitemap-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

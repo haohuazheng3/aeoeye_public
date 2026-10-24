@@ -1,0 +1,80 @@
+{
+  "slug": "link-extractor",
+  "category": "on-page",
+  "name": "Link Extractor",
+  "title": "Link Extractor: Pull Every Link From Any Page",
+  "description": "Free link extractor: get every link on a page — internal vs external, anchor text, nofollow, sponsored, ugc — as a table you can copy or export.",
+  "answer": "A link extractor pulls every link from a page into a table: URL, anchor text, internal or external, and rel attributes such as nofollow, sponsored and ugc. Enter a URL to see all links, filter them, and export the list as CSV.",
+  "keywords": [
+    "link extractor"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "links",
+    "submitLabel": "Extract links",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "news.ycombinator.com",
+      "wikipedia.org"
+    ],
+    "busyText": "Collecting links…"
+  },
+  "trust": "We fetch the live HTML and read every a element with an href, exactly as a crawler that doesn't run JavaScript would.",
+  "body": "## What does the link extractor show?\n\nEvery `<a href>` on the page, one row each, with the details that decide how search engines treat it:\n\n| Column | Why it matters |\n|---|---|\n| URL | Where the link goes (resolved to an absolute URL) |\n| Anchor text | The words Google uses to understand the target |\n| Internal / external | Internal links spread authority through your site |\n| In navigation | Menu and footer links vs links inside content |\n| rel | nofollow, sponsored, ugc — or none |\n\nDownload the table as CSV to sort, filter or compare in a spreadsheet.\n\n## Which links can Google follow?\n\nOnly real links. Google says it can generally [crawl a link only if it's an a element with an href](https://developers.google.com/search/docs/crawling-indexing/links-crawlable); links that work only through JavaScript click handlers often go undiscovered. Because we read raw HTML, a link missing here is a link a non-rendering crawler can't see.\n\n## What do nofollow, sponsored and ugc mean?\n\nThey're hints about the relationship between you and the page you link to, documented in Google's guide to [qualifying outbound links](https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links):\n\n- **sponsored** — paid or affiliate links;\n- **ugc** — links in user-generated content such as comments;\n- **nofollow** — any other link you don't want to vouch for.\n\nUse them on links that need them, not on your own internal links.\n\n## How should I use the list?\n\nThree quick audits:\n\n1. **Anchor text** — replace \"click here\" and \"read more\" with words that describe the target.\n2. **Internal links in content** — important pages should get links from body copy, not only menus.\n3. **Broken or redirected targets** — paste the URLs into the [HTTP status checker](/tools/http-status-checker).\n\nWhen we ran it on our own homepage, 48 of its 52 links sat in the navigation and footer and only 4 in the content itself. Template links are fine, but they're the same on every page — contextual links from body copy are what tell Google which pages matter most. For page-level grading, use the [on-page SEO checker](/tools/on-page-seo-checker).",
+  "faqs": [
+    {
+      "q": "How do I extract all links from a web page?",
+      "a": "Enter the URL above. We list every link in the HTML with its anchor text and attributes, and you can export the full table as a CSV file."
+    },
+    {
+      "q": "Why are some links on the page missing?",
+      "a": "Links created only by JavaScript, or elements without an href, don't exist in the raw HTML. Google may miss them too, which is why it recommends real a elements with href attributes."
+    },
+    {
+      "q": "Should internal links be nofollow?",
+      "a": "No. Nofollow on your own internal links stops signals flowing to your own pages. Reserve nofollow, sponsored and ugc for outbound links that need them."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Make your links crawlable",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable"
+    },
+    {
+      "label": "Google — Qualify your outbound links",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/35930741/pexels-photo-35930741.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Black and white close-up of industrial steel chains showcasing their texture and strength.",
+      "photographer": "wal_ 172619",
+      "photographerUrl": "https://www.pexels.com/@wal_-172619-2156618639",
+      "pexelsUrl": "https://www.pexels.com/photo/industrial-steel-chains-in-black-and-white-35930741/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/35569763/pexels-photo-35569763.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Intricate fishing nets with white floats in a mix of textures and colors.",
+      "photographer": "Maria Lucia Sampaio",
+      "photographerUrl": "https://www.pexels.com/@maria-lucia-sampaio-571466466",
+      "pexelsUrl": "https://www.pexels.com/photo/detailed-closeup-of-fishing-nets-and-floats-35569763/"
+    }
+  ],
+  "related": [
+    "http-status-checker",
+    "on-page-seo-checker",
+    "redirect-checker",
+    "website-word-counter"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

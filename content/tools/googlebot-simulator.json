@@ -1,0 +1,89 @@
+{
+  "slug": "googlebot-simulator",
+  "category": "crawl-index",
+  "name": "Googlebot Simulator",
+  "title": "Googlebot Tester: See the HTML Google Actually Gets",
+  "description": "Free Googlebot tester: fetch a page as Googlebot Smartphone and compare it with a browser fetch — status, robots, noindex, canonical and readable text.",
+  "answer": "A Googlebot tester fetches your page with Googlebot Smartphone's user agent and puts the result next to a normal browser fetch: status code, robots rules, noindex, canonical, title and the text Google can read without JavaScript. If the two columns differ, Google may be seeing a different page than you are.",
+  "keywords": [
+    "googlebot tester",
+    "googlebot simulator"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "googlebot",
+    "submitLabel": "Fetch as Googlebot",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page to test",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "nytimes.com",
+      "stripe.com"
+    ],
+    "busyText": "Fetching as Googlebot and as a browser…"
+  },
+  "trust": "We send two requests from our server — one as Googlebot Smartphone, one as a desktop browser — and compare what comes back.",
+  "body": "## Googlebot Simulator: Fetch Your Page as Googlebot Smartphone\n\nGoogle crawls with two crawlers, [Googlebot Smartphone and Googlebot Desktop](https://developers.google.com/search/docs/crawling-indexing/googlebot), and for most sites the smartphone one does nearly all the work. So this test uses the smartphone user agent.\n\nGoogle's documentation adds two numbers worth knowing. Googlebot fetches up to 15 MB of an HTML file — content after that is ignored — and it reads robots.txt as a whole, so you can't write separate rules for the smartphone and desktop crawlers.\n\n## What does the comparison show?\n\nSix things side by side, chosen because each one can quietly change what Google indexes:\n\n- **Status code** — a page that returns 200 to you and 403 to Googlebot is invisible to search.\n- **Title and canonical** — some setups serve different tags to bots.\n- **Robots meta** — a stray noindex shows up here.\n- **Readable text** — the words in the raw HTML, before any JavaScript runs.\n- **Links and JSON-LD** — how much Google can follow and parse without rendering.\n\n## Why would Googlebot get a different page?\n\nUsually a firewall, CDN or \"bot protection\" product. They often treat unknown crawlers as threats; some block anything that claims to be Googlebot but doesn't come from Google's IP ranges.\n\nThat's common among big sites. When we fetched the homepages of 391 well-known sites in October 2026 with an openly labelled research crawler ([dataset](/resources/technical-seo-baseline-2026-10.json)), 55 of them (14.1%) answered with a 403 rather than the page.\n\n## Does Googlebot run JavaScript?\n\nYes, Googlebot renders pages with an evergreen Chromium, but rendering can happen later than crawling, and [Google still recommends](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics) putting important content in the server-rendered HTML. Many AI crawlers don't run JavaScript at all.\n\nIf the \"readable text\" column is nearly empty while your page looks full in a browser, your content depends on JavaScript. Check what the source contains with [view page source](/tools/view-page-source).\n\n## Is a 403 here proof that Google is blocked?\n\nNot quite. Our request uses Googlebot's user agent but comes from our server, not Google's. Firewalls that [verify Googlebot by reverse DNS](https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot) will correctly reject us while letting the real Googlebot through.\n\nTreat a mismatch as a lead, then confirm with the URL Inspection tool in Search Console, which fetches from Google's own infrastructure. For robots rules, use the [robots.txt tester](/tools/robots-txt-tester).",
+  "faqs": [
+    {
+      "q": "Is this the same as Fetch as Google?",
+      "a": "Similar in spirit. Fetch as Google was replaced by the URL Inspection tool in Search Console, which fetches from Google itself. This test is instant, works on any site and compares bot and browser responses."
+    },
+    {
+      "q": "Why does my site block Googlebot but not browsers?",
+      "a": "Usually a bot-protection or firewall rule matching the Googlebot user agent, or a geo or rate-limit rule. Check your CDN logs for the request and whitelist verified Google crawlers."
+    },
+    {
+      "q": "Does Googlebot see my JavaScript content?",
+      "a": "Googlebot renders JavaScript, but later and with limits. Content present in the raw HTML is indexed most reliably, and it is also what non-rendering AI crawlers can read."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Googlebot",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/googlebot"
+    },
+    {
+      "label": "Google — Verifying Googlebot and other crawlers",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/verifying-googlebot"
+    },
+    {
+      "label": "Google — JavaScript SEO basics",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8566449/pexels-photo-8566449.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A small modern robot placed on a wooden desk surrounded by office supplies, showcases innovative technology.",
+      "photographer": "Kindel Media",
+      "photographerUrl": "https://www.pexels.com/@kindelmedia",
+      "pexelsUrl": "https://www.pexels.com/photo/black-miniature-robot-toy-on-wooden-surface-8566449/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a computer monitor displaying cyber security data and code, indicative of system hacking or programming.",
+      "photographer": "Tima Miroshnichenko",
+      "photographerUrl": "https://www.pexels.com/@tima-miroshnichenko",
+      "pexelsUrl": "https://www.pexels.com/photo/close-up-view-of-system-hacking-in-a-monitor-5380664/"
+    }
+  ],
+  "related": [
+    "view-page-source",
+    "robots-txt-tester",
+    "meta-robots-checker",
+    "redirect-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

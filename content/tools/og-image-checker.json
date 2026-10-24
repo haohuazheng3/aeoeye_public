@@ -1,0 +1,92 @@
+{
+  "slug": "og-image-checker",
+  "category": "social-schema",
+  "name": "OG Image Checker",
+  "title": "OG Image Size: Check Yours Against 1200×630",
+  "description": "What OG image size works? 1200×630 px. Check your og:image dimensions, file size, format and crop on Facebook, LinkedIn, X and Slack in one click.",
+  "answer": "The standard OG image size is 1200×630 pixels, a 1.91:1 ratio — Facebook recommends at least that, LinkedIn asks for at least 1200×627. Enter a URL to check that your og:image loads, measure its real pixel size and format, and preview how it crops on Facebook, LinkedIn, X and Slack.",
+  "keywords": [
+    "og image size",
+    "og image checker",
+    "open graph image checker",
+    "og image test"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "og-image",
+    "submitLabel": "Check OG image",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "github.com",
+      "stripe.com"
+    ],
+    "busyText": "Fetching and measuring the image…"
+  },
+  "trust": "We download the start of your og:image file and read its real dimensions and format from the file header — not from what your tags claim.",
+  "body": "## What size should an OG image be?\n\n1200×630 pixels covers every major platform. [Meta recommends images of at least 1200×630](https://developers.facebook.com/docs/sharing/webmasters/images/) for the best display on high-resolution screens and a ratio as close to 1.91:1 as possible; [LinkedIn's minimum is 1200×627](https://www.linkedin.com/help/linkedin/answer/a521928) at the same ratio, with a 5 MB file limit. Meta's own file limit is 8 MB, and anything under 600×315 gets a small thumbnail instead of a large card.\n\n## OG Image Checker: Is Your og:image Actually Loading?\n\nA tag pointing to a missing or blocked file is worse than no tag, because platforms show a broken or empty card. We request the file itself and report its status, real pixel size, format and weight.\n\nWe also compare it with your `og:image:width` and `og:image:height` tags. Meta uses those to render the image on the very first share; if they're wrong, the first share can go out without a picture.\n\n## Open Graph Image Checker for Facebook, LinkedIn and X\n\nEvery platform reads the same `og:image`, but each crops it differently. SVG doesn't work on Facebook, LinkedIn or X — use PNG, JPEG or WebP — and very large files may simply time out.\n\n## OG Image Test: Preview the Crop on Every Platform\n\nThe previews show where each platform cuts. Keep text and logos inside the central safe area, roughly the middle 1000×500 pixels, so a square or narrower crop doesn't slice off your headline.\n\n## What do big sites use?\n\nMostly the standard. When we measured the og:image of 270 big-brand homepages in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)), the median width was exactly 1200 pixels, 40% were exactly 1200×630 and 71.9% were within a hair of 1.91:1. PNG led (166 images) ahead of JPEG (87) and WebP (14).\n\nBut only 34.6% declared the image size in their tags, and 13.3% of homepages had no og:image at all. Make one in seconds with the [OG image generator](/tools/og-image-generator), then check every other tag with the [Open Graph checker](/tools/open-graph-checker).",
+  "faqs": [
+    {
+      "q": "What is the best OG image size?",
+      "a": "1200×630 pixels at a 1.91:1 ratio. It meets Meta's recommendation and LinkedIn's minimum of 1200×627, and it still looks sharp when platforms scale it down."
+    },
+    {
+      "q": "Why is my OG image not showing?",
+      "a": "Usually the file returns an error, is blocked to the platform's crawler, is in an unsupported format such as SVG, or the platform cached an older version. This checker tests each of those."
+    },
+    {
+      "q": "Should I add og:image:width and og:image:height?",
+      "a": "Yes. Meta says declaring the dimensions lets its crawler render the image on the first share without downloading it first. Make sure the numbers match the real file."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Meta — Images in link shares",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/"
+    },
+    {
+      "label": "LinkedIn Help — Image requirements for shared links",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a521928"
+    },
+    {
+      "label": "The Open Graph protocol",
+      "url": "https://ogp.me/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/7305375/pexels-photo-7305375.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Artistic arrangement of framed photos on a rustic gray wall in a cozy room.",
+      "photographer": "Anthony Nguyen",
+      "photographerUrl": "https://www.pexels.com/@anthony-nguyen-41365574",
+      "pexelsUrl": "https://www.pexels.com/photo/picture-frames-on-the-gray-wall-of-a-room-7305375/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/33464098/pexels-photo-33464098.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Person browsing Instagram over coffee, relaxed morning vibe.",
+      "photographer": "Mayara Caroline  Mombelli",
+      "photographerUrl": "https://www.pexels.com/@mayaramombellifotografias",
+      "pexelsUrl": "https://www.pexels.com/photo/casual-coffee-and-social-media-browsing-33464098/"
+    }
+  ],
+  "related": [
+    "og-image-generator",
+    "open-graph-checker",
+    "link-preview",
+    "facebook-debugger",
+    "twitter-card-validator"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

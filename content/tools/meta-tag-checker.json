@@ -1,0 +1,86 @@
+{
+  "slug": "meta-tag-checker",
+  "category": "on-page",
+  "name": "Meta Tag Checker",
+  "title": "Meta Tag Checker: Every Tag on a Page, Graded",
+  "description": "Free meta tag checker: see every tag that matters on a URL — title, description, robots, canonical, viewport, Open Graph, X cards — graded with fixes.",
+  "answer": "A meta tag checker reads a page's head and grades every tag that affects search and sharing: title, meta description, robots, canonical, viewport, charset, language, Open Graph, X card, hreflang and favicon. Enter a URL to see what's present, what's missing and how to fix each one.",
+  "keywords": [
+    "meta tag checker",
+    "meta tags checker"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "meta",
+    "submitLabel": "Check meta tags",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "airbnb.com",
+      "stripe.com"
+    ],
+    "busyText": "Reading the page head…"
+  },
+  "trust": "We fetch the page live as a browser would and grade the raw HTML head, before any JavaScript runs.",
+  "body": "## Meta Tags Checker: Robots, Canonical, OG and Viewport in One Scan\n\nOnly a handful of meta tags change how Google treats a page. Google lists the ones it supports in its [special tags documentation](https://developers.google.com/search/docs/crawling-indexing/special-tags); the rest are ignored. This checker grades the ones that matter:\n\n| Tag | What it controls | Missing means |\n|---|---|---|\n| title | The clickable headline in results | Google writes its own |\n| meta description | Often the snippet | Google picks page text |\n| meta robots | Indexing and snippets | Default: index, follow |\n| link rel=canonical | Which URL gets indexed | Google chooses |\n| viewport | Mobile layout | Shrunken desktop page on phones |\n| html lang / charset | Language and encoding | Misread text |\n| og: / twitter: | Link previews when shared | Bare or broken previews |\n\n## Why does tag order in the head matter?\n\nBecause invalid HTML in the head can hide your other tags. Google says that if it meets an [invalid element in the head](https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata), it ignores the elements after it. An image or a stray div placed early in the head can make Google miss your canonical or robots tag.\n\nThat's one reason \"the tag is in my source\" doesn't always mean \"Google read it\". If the checker reports a tag missing that you can see in the source, check what precedes it.\n\n## What do big sites miss?\n\nLess than you'd think, but not nothing. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)):\n\n- 94.3% had a canonical tag and 99% a viewport tag;\n- 2.2% had no meta description and 1.6% no title;\n- 13.3% had no Open Graph image.\n\n## How do I read the grades?\n\nFail means a tag is missing or broken in a way that affects indexing or display; warn means it works but could be better (a long title, a description Google will probably cut); info means present and fine. Fix fails first.\n\nTo preview the title and description as a search result, use the [title tag checker](/tools/title-tag-checker). To check Open Graph tags in depth, use the [Open Graph checker](/tools/open-graph-checker).",
+  "faqs": [
+    {
+      "q": "Which meta tags matter for SEO?",
+      "a": "Title, meta description, robots, canonical and viewport matter most for search. Open Graph and X card tags matter for how links look when shared. Meta keywords is ignored by Google."
+    },
+    {
+      "q": "Does Google use the meta keywords tag?",
+      "a": "No. Google has ignored meta keywords for years. It does no harm, but it does nothing for ranking either, so you can safely leave it out."
+    },
+    {
+      "q": "Why does the checker miss a tag I can see in my source?",
+      "a": "Usually because an invalid element earlier in the head makes parsers stop reading the head there, or because the tag is added by JavaScript after load. Move tags above any non-head elements."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Meta tags and attributes that Google supports",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/special-tags"
+    },
+    {
+      "label": "Google — Use valid HTML to specify page metadata",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6333743/pexels-photo-6333743.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of labeled wooden storage drawers, perfect for organization concepts.",
+      "photographer": "cottonbro studio",
+      "photographerUrl": "https://www.pexels.com/@cottonbro",
+      "pexelsUrl": "https://www.pexels.com/photo/close-up-of-brown-drawers-6333743/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/14853183/pexels-photo-14853183.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Explore a lively market stall displaying a range of goods with bold sales tags.",
+      "photographer": "Jimmy Liao",
+      "photographerUrl": "https://www.pexels.com/@jimmy-liao-3615017",
+      "pexelsUrl": "https://www.pexels.com/photo/variety-of-products-on-plastic-trays-14853183/"
+    }
+  ],
+  "related": [
+    "title-tag-checker",
+    "open-graph-checker",
+    "meta-robots-checker",
+    "meta-tag-generator",
+    "on-page-seo-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

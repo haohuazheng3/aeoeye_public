@@ -1,0 +1,58 @@
+{
+  "contentSha256": "98f1398d774b55b1c54be314634d4d5e2fb6b7f07544ec7be9ec66def1a499f1",
+  "reviewedAt": "2026-10-24",
+  "kind": "research-asset",
+  "assessment": "B-level decision page for \"subdomain vs subfolder\" (390/mo, KD 10): the verdict card answers the choice above the fold, every H2 opens with a direct answer, and the recommendation is backed by AEOeye's own measurements (AEOeye Technical SEO Baseline (391 sites, 2026-10-24)) with limitations stated.",
+  "topic": {
+    "area": "technical-seo-decisions",
+    "readerProblem": "A site owner deciding \"subdomain vs subfolder\" needs a straight recommendation and the evidence for it.",
+    "connection": "The free SEO audit flags exactly this decision on real sites (redirect types, HTTPS, structure, image formats); the page links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites",
+      "checkedAt": "2026-10-24",
+      "supports": "Pros/cons of ccTLDs, subdomains and subdirectories for multi-regional sites."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/site-names",
+      "checkedAt": "2026-10-24",
+      "supports": "Site names supported per domain or subdomain, not at the subdirectory level."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/favicon-in-search",
+      "checkedAt": "2026-10-24",
+      "supports": "Favicon must be square, at least 8x8 px, recommended >48x48; Googlebot-Image crawls it; no subdirectory homepages."
+    },
+    {
+      "url": "https://support.google.com/webmasters/answer/34592?hl=en",
+      "checkedAt": "2026-10-24",
+      "supports": "Domain property includes all subdomains and protocols."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes",
+      "checkedAt": "2026-10-24",
+      "supports": "URL mapping, keep redirects at least 1 year, avoid redirecting many URLs to the homepage (soft 404), Change of Address."
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec",
+      "checkedAt": "2026-10-24",
+      "supports": "Robots.txt spec: 500 KiB limit, 4xx = no restrictions, 5xx = stop 12h then last good copy up to 30 days, least restrictive rule wins, crawl-delay unsupported, 24h cache."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (6 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 1270 words, 2 Pexels images, 7 inline source links, 5 internal links, 4 FAQs, 10 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources."
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/technical-seo-baseline-2026-10.json",
+      "description": "AEOeye Technical SEO Baseline (391 sites, 2026-10-24) — the raw data behind the figures quoted in this decision page."
+    }
+  ],
+  "methodology": "Figures come from AEOeye's own zero-cost measurements published under /resources: plain HTTP requests from a self-identified research user agent (AEOeyeResearch), robots.txt respected, 1 s between requests per domain; encoding tests run locally with cwebp/avifenc and SSIM via ffmpeg. Each dataset file states its exact method.",
+  "limitations": "Convenience sample of well-known sites (not the whole web), homepages only, a single snapshot on 2026-10-24; the image test covers 20 screenshots, not photographs."
+}

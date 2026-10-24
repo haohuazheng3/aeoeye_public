@@ -1,0 +1,70 @@
+{
+  "slug": "og-image-generator",
+  "category": "social-schema",
+  "name": "OG Image Generator",
+  "title": "OG Image Generator: 1200×630 Cards in Seconds",
+  "description": "Free OG image generator: type a title, pick a layout, download a 1200×630 PNG that stays readable when Facebook, LinkedIn, X and Slack crop it.",
+  "answer": "An OG image generator makes the picture that appears when your page is shared. Type a title and subtitle, pick a theme and layout, add a logo if you like, and download a 1200×630 PNG — drawn in your browser and laid out to stay readable when platforms crop it.",
+  "keywords": [
+    "og image generator",
+    "open graph image generator"
+  ],
+  "runner": {
+    "component": "og-image-generator"
+  },
+  "trust": "The image is drawn on a canvas in your browser. Nothing you type or upload is sent anywhere.",
+  "body": "## Open Graph Image Generator: Layouts That Survive Cropping\n\nPlatforms don't show your image the same way. Facebook and LinkedIn use a wide 1.91:1 frame; Slack shows a small thumbnail; some messaging apps crop closer to square. A layout that only works at full size loses its headline everywhere else.\n\nSo the generator keeps text inside a central safe area and away from the edges, scales long titles down to three lines, and puts the brand at the bottom where a crop is least likely to cut it.\n\n## What makes a good OG image?\n\nOne idea, readable at thumbnail size:\n\n1. **A short headline** — six to ten words. Long titles become unreadable at phone size.\n2. **High contrast** — dark text on light, or light on dark; avoid busy photos behind text.\n3. **Your brand, small** — a name or logo, not a full-width banner.\n4. **Different per page** — a generic logo card for every URL wastes the space.\n\n## What size and format should I export?\n\n1200×630 PNG, which is what this tool produces. [Meta recommends at least 1200×630](https://developers.facebook.com/docs/sharing/webmasters/images/) at a 1.91:1 ratio, and [LinkedIn's minimum is 1200×627](https://www.linkedin.com/help/linkedin/answer/a521928). PNG keeps text crisp; switch to JPEG only for photo-heavy images that come out large.\n\nThat's also what the web has settled on: when we measured the og:image of 270 big-brand homepages in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)), the median width was 1200 pixels and PNG was the most common format, 166 of 270.\n\n## How do I add it to my page?\n\nUpload the PNG and reference it in your page head, ideally with its dimensions:\n\n```\n<meta property=\"og:image\" content=\"https://yoursite.com/og/page.png\">\n<meta property=\"og:image:width\" content=\"1200\">\n<meta property=\"og:image:height\" content=\"630\">\n```\n\nThen confirm it loads and crops well with the [OG image checker](/tools/og-image-checker), and generate the rest of your tags with the [meta tag generator](/tools/meta-tag-generator).",
+  "faqs": [
+    {
+      "q": "What is an OG image?",
+      "a": "The image named in a page's og:image tag. Facebook, LinkedIn, X, Slack, Discord and messaging apps show it in the preview card when someone shares the link."
+    },
+    {
+      "q": "Is this OG image generator free?",
+      "a": "Yes. It runs entirely in your browser with no signup, no watermark and no upload — the PNG is created on your device and downloaded directly."
+    },
+    {
+      "q": "Can I generate OG images automatically for every page?",
+      "a": "Yes, with code. Frameworks such as Next.js can render OG images per page at build or request time. This tool is for designing the template or making images by hand."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Meta — Images in link shares",
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/"
+    },
+    {
+      "label": "LinkedIn Help — Image requirements for shared links",
+      "url": "https://www.linkedin.com/help/linkedin/answer/a521928"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/326514/pexels-photo-326514.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A modern computer screen displaying web design work, showcasing creative visuals in a workspace.",
+      "photographer": "Tranmautritam",
+      "photographerUrl": "https://www.pexels.com/@tranmautritam",
+      "pexelsUrl": "https://www.pexels.com/photo/full-frame-shot-of-computer-326514/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/9492914/pexels-photo-9492914.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Hands examining colorful fabric swatches on a table, highlighting design choices.",
+      "photographer": "Helena Lopes",
+      "photographerUrl": "https://www.pexels.com/@helenalopes",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-hands-and-colorful-fabric-samples-9492914/"
+    }
+  ],
+  "related": [
+    "og-image-checker",
+    "meta-tag-generator",
+    "link-preview",
+    "open-graph-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

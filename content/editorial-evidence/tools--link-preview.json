@@ -1,0 +1,46 @@
+{
+  "contentSha256": "53539f56ddf831082b86012d495e4285d8715b8347c2411f1a4e8ba388e80b94",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"link preview\" (1900/mo, KD 18): the Link Preview is the first screen, the 46-word answer resolves the query directly, and the body answers \"og preview\", \"open graph preview\", \"linkedin preview\", \"url preview\", \"social share preview\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"link preview\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://ogp.me/",
+      "checkedAt": "2026-10-24",
+      "supports": "Open Graph protocol: four required properties og:title, og:type, og:image, og:url; og:image:width/height."
+    },
+    {
+      "url": "https://www.linkedin.com/help/linkedin/answer/a521928",
+      "checkedAt": "2026-10-24",
+      "supports": "LinkedIn shared-link images: minimum 1200x627, ratio 1.91:1, max 5 MB."
+    },
+    {
+      "url": "https://www.linkedin.com/post-inspector/",
+      "checkedAt": "2026-10-24",
+      "supports": "LinkedIn Post Inspector shows and refreshes how LinkedIn reads a URL."
+    },
+    {
+      "url": "https://developers.facebook.com/docs/sharing/webmasters/images/",
+      "checkedAt": "2026-10-24",
+      "supports": "Meta recommends at least 1200x630, ~1.91:1, max 8 MB; 600x315 minimum for large cards; images cached by URL."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (5 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 366 words, 2 Pexels images, 3 inline source links, 3 internal links, 3 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/link-preview against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

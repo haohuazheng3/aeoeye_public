@@ -1,0 +1,84 @@
+{
+  "slug": "llms-txt-file",
+  "category": "ai-search",
+  "name": "llms.txt Checker",
+  "title": "llms.txt File: Check Yours + Copy a Valid Example",
+  "description": "What goes in an llms.txt file, where it lives and who reads it. Check your site's llms.txt for format errors and broken links, or copy a valid example.",
+  "answer": "An llms.txt file is a short Markdown index at yoursite.com/llms.txt that points AI agents to your most useful pages. It needs an H1 with your name; a one-line summary and H2 link lists are recommended. Check yours below, or copy the valid example further down.",
+  "keywords": [
+    "llms txt file"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "llms-txt",
+    "submitLabel": "Check llms.txt",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "llmstxt.org",
+      "anthropic.com"
+    ],
+    "busyText": "Fetching /llms.txt and checking its links…"
+  },
+  "trust": "We fetch /llms.txt from your domain root, check that it is plain Markdown rather than an HTML error page, validate the structure and test the links it lists.",
+  "body": "## What goes in an llms.txt file?\n\nA short, strictly ordered Markdown file. The [llms.txt proposal](https://llmstxt.org/) — version 2, revised in August 2026 — defines the structure:\n\n1. **An H1** with the name of your site or project. This is the only required part.\n2. **A blockquote** with a one-line summary.\n3. **Optional paragraphs** with context an agent needs.\n4. **H2 sections of links**, each written as `- [Page name](url): what it covers`.\n5. **An \"Optional\" H2** for links an agent can skip when it's short on context.\n\n## Where does llms.txt live?\n\nAt your domain root, `https://yoursite.com/llms.txt`. Version 2 also allows files at a subpath: `/docs/llms.txt` covers everything under `/docs/`, and agents use the most specific file.\n\nIt must be served as plain text or Markdown. A CMS that returns your HTML homepage for unknown URLs creates a \"soft 404\" that agents can't use — our checker flags it.\n\n## Who actually reads it?\n\nAI agents, on demand, while they answer a question. The proposal's author notes it has been used mainly at inference time rather than for training, and most heavily on documentation sites where coding assistants look up APIs.\n\nBe realistic about search: no major AI search engine says llms.txt decides which sources it cites. Crawler access and server-rendered content matter far more, which is why our [AEO grader](/tools/aeo-grader) gives llms.txt only 5 of 100 points.\n\n## How common is it?\n\nMore common than you might think among tech brands. When we checked 391 sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 52.4% of those that gave us a definite answer served a valid llms.txt. AI-visibility vendors led at 65.9%; news publishers trailed at 3.4%, and 2.7% of sites returned an HTML page instead of a real file.\n\n## Is there a valid example I can copy?\n\nYes — this one follows the v2 structure. Replace the names and links with your own:\n\n```\n# Acme Analytics\n\n> Acme Analytics is product analytics for B2B SaaS teams: funnels, retention and revenue in one dashboard.\n\n## Product\n- [Features](https://acme.example/features): What Acme measures and how\n- [Pricing](https://acme.example/pricing): Plans and limits\n\n## Docs\n- [Quickstart](https://acme.example/docs/quickstart.md): Install the tracker in 5 minutes\n\n## Optional\n- [Changelog](https://acme.example/changelog)\n```\n\nPrefer a form? Build yours field by field with the [llms.txt generator](/tools/llms-txt-generator), then run the check above. Google's own advice for AI features ([Search Central](https://developers.google.com/search/docs/appearance/ai-features)) still starts with crawlable, indexable pages — llms.txt sits on top of that, not instead of it.",
+  "faqs": [
+    {
+      "q": "Is llms.txt required for AI search?",
+      "a": "No. It is an optional convention. Visibility in AI search depends mostly on whether AI search crawlers can reach your pages and read the content in the HTML that your server returns."
+    },
+    {
+      "q": "What is llms-full.txt?",
+      "a": "An optional companion file that puts the full text of your key pages into one Markdown document, for agents that would rather load everything at once than follow links one by one."
+    },
+    {
+      "q": "Does llms.txt replace robots.txt or sitemap.xml?",
+      "a": "No. robots.txt sets access rules for crawlers and sitemap.xml lists every indexable URL. llms.txt is a curated, readable overview of the pages that matter most to an AI agent."
+    }
+  ],
+  "sources": [
+    {
+      "label": "llmstxt.org — The /llms.txt file, v2",
+      "url": "https://llmstxt.org/"
+    },
+    {
+      "label": "Google — AI features and your website",
+      "url": "https://developers.google.com/search/docs/appearance/ai-features"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/5425609/pexels-photo-5425609.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Hand holding a pen writing cursive in a notebook with elegant handwriting.",
+      "photographer": "Anna Tarazevich",
+      "photographerUrl": "https://www.pexels.com/@anntarazevich",
+      "pexelsUrl": "https://www.pexels.com/photo/handwriting-a-note-with-an-ink-pen-5425609/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/5225982/pexels-photo-5225982.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A spacious library featuring tall wooden bookshelves filled with books and ambient lighting.",
+      "photographer": "Ahmet Polat",
+      "photographerUrl": "https://www.pexels.com/@ibnulharezmi",
+      "pexelsUrl": "https://www.pexels.com/photo/brown-wooden-book-shelves-in-the-bookstore-5225982/"
+    }
+  ],
+  "related": [
+    "llms-txt-generator",
+    "aeo-grader",
+    "ai-crawlers",
+    "sitemap-checker"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

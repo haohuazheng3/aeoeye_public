@@ -1,0 +1,58 @@
+{
+  "contentSha256": "0641888f4934ed02b5d4482d59595b20495af66443b3599560c7219d7f68f48f",
+  "reviewedAt": "2026-10-24",
+  "kind": "research-asset",
+  "assessment": "B-level decision page for \"301 vs 302 redirect\" (880/mo, KD 19): the verdict card answers the choice above the fold, every H2 opens with a direct answer, and the recommendation is backed by AEOeye's own measurements (AEOeye Technical SEO Baseline (391 sites, 2026-10-24)) with limitations stated.",
+  "topic": {
+    "area": "technical-seo-decisions",
+    "readerProblem": "A site owner deciding \"301 vs 302 redirect\" needs a straight recommendation and the evidence for it.",
+    "connection": "The free SEO audit flags exactly this decision on real sites (redirect types, HTTPS, structure, image formats); the page links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+      "checkedAt": "2026-10-24",
+      "supports": "301/308 permanent (show target), 302/307 temporary (show source); server-side redirects most reliable."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls",
+      "checkedAt": "2026-10-24",
+      "supports": "Redirects are a strong canonical signal; Google prefers HTTPS over HTTP as canonical."
+    },
+    {
+      "url": "https://developers.google.com/crawling/docs/troubleshooting/http-status-codes",
+      "checkedAt": "2026-10-24",
+      "supports": "Google follows up to 10 redirect hops; 4xx except 429 treated the same; 429 and 5xx slow crawling; soft 404."
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-redirection-3xx",
+      "checkedAt": "2026-10-24",
+      "supports": "HTTP semantics of 301, 302, 307 and 308."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/308",
+      "checkedAt": "2026-10-24",
+      "supports": "308 Permanent Redirect preserves the request method."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes",
+      "checkedAt": "2026-10-24",
+      "supports": "URL mapping, keep redirects at least 1 year, avoid redirecting many URLs to the homepage (soft 404), Change of Address."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (6 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 1260 words, 2 Pexels images, 9 inline source links, 5 internal links, 4 FAQs, 9 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources."
+  ],
+  "artifacts": [
+    {
+      "path": "/resources/technical-seo-baseline-2026-10.json",
+      "description": "AEOeye Technical SEO Baseline (391 sites, 2026-10-24) — the raw data behind the figures quoted in this decision page."
+    }
+  ],
+  "methodology": "Figures come from AEOeye's own zero-cost measurements published under /resources: plain HTTP requests from a self-identified research user agent (AEOeyeResearch), robots.txt respected, 1 s between requests per domain; encoding tests run locally with cwebp/avifenc and SSIM via ffmpeg. Each dataset file states its exact method.",
+  "limitations": "Convenience sample of well-known sites (not the whole web), homepages only, a single snapshot on 2026-10-24; the image test covers 20 screenshots, not photographs."
+}

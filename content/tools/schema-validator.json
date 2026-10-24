@@ -1,0 +1,104 @@
+{
+  "slug": "schema-validator",
+  "category": "social-schema",
+  "name": "Schema Validator",
+  "title": "Schema Validator: Test JSON-LD Against Google's Rules",
+  "description": "Free schema validator: parse every JSON-LD block on a URL and flag syntax errors and missing required properties per Google's structured data docs.",
+  "answer": "A schema validator checks a page's structured data in two layers: is the JSON-LD valid, and does it meet Google's requirements for the rich result it targets? Enter a URL to find every schema type on the page, see missing required and recommended properties, and spot types Google has retired.",
+  "keywords": [
+    "schema validator",
+    "schema markup validator",
+    "schema checker",
+    "structured data testing tool",
+    "schema markup checker"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "schema",
+    "submitLabel": "Validate schema",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "stripe.com",
+      "https://www.bbc.co.uk/food/recipes/easy_chocolate_cake_31070"
+    ],
+    "busyText": "Parsing structured data…"
+  },
+  "trust": "We parse every JSON-LD block in the live HTML and check each type against the property rules in Google's current structured data documentation.",
+  "body": "## Schema Markup Validator: Syntax vs Google Eligibility\n\nTwo different questions, two different tools. The [Schema Markup Validator](https://validator.schema.org/) checks that markup is valid schema.org; Google's [Rich Results Test](https://search.google.com/test/rich-results) checks whether it qualifies for a Google feature. Valid schema can still be ineligible — a Product without offers, reviews or ratings gets no product snippet.\n\nThis validator does both in one pass: syntax errors first, then Google's required and recommended properties for each type.\n\n## Schema Checker: Find Every Type on a Page\n\nPages often carry more markup than their owners know — a theme adds Organization, a plugin adds BreadcrumbList, an old template adds FAQPage. We list every type found in every JSON-LD block, nested ones included.\n\n## Structured Data Testing Tool: The Replacement for Google's\n\nGoogle retired its Structured Data Testing Tool and [moved schema validation to schema.org](https://developers.google.com/search/blog/2020/12/structured-data-testing-tool-update), pointing site owners to the Rich Results Test for Google features. This page covers the same ground for any public URL, with Google's rules applied per type.\n\n## Schema Markup Checker for Product, FAQ, Article and More\n\nRules come from Google's [search gallery](https://developers.google.com/search/docs/appearance/structured-data/search-gallery) documentation: Article, Product, Offer, Review, AggregateRating, BreadcrumbList, Event, JobPosting, LocalBusiness, Recipe, SoftwareApplication, VideoObject, Organization and more.\n\nRetired types are flagged instead of passed. Google stopped showing FAQ rich results on May 7, 2026, and HowTo, Course info and several others earlier ([Search Central updates](https://developers.google.com/search/updates)). Yet when we analyzed 315 big-brand homepages in October 2026 ([dataset](/resources/technical-seo-baseline-2026-10.json)), 11.1% still carried FAQPage markup — harmless, but no longer earning anything in Google.\n\n## Does valid schema guarantee rich results?\n\nNo. Google states plainly that it [doesn't guarantee](https://developers.google.com/search/docs/appearance/structured-data/sd-policies) structured data will show up even when it's correct. Content quality, policy compliance and the query all matter. JSON-LD is Google's recommended format ([Google](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data)), and 74% of the homepages in our sample used it.\n\nThen check which result types a page can win with the [rich snippets test](/tools/rich-snippets-test), or generate clean markup with the [schema generator](/tools/schema-generator).",
+  "faqs": [
+    {
+      "q": "What is the best schema validator?",
+      "a": "Use two checks: the Schema Markup Validator for schema.org syntax and Google's Rich Results Test for Google eligibility. This tool combines both views for any public URL."
+    },
+    {
+      "q": "Is FAQ schema still worth adding?",
+      "a": "Not for Google rich results: Google stopped showing FAQ rich results on May 7, 2026. The markup is harmless and can still help other systems read your Q&A, but don't expect a SERP feature."
+    },
+    {
+      "q": "JSON-LD, Microdata or RDFa — which should I use?",
+      "a": "Google says all three are fine when valid, and recommends JSON-LD because it is the easiest to add and maintain. This tool reads JSON-LD."
+    },
+    {
+      "q": "Why does Google ignore my valid structured data?",
+      "a": "Google never guarantees rich results. Markup can be ignored if it describes content users can't see, breaks a policy, or the page isn't considered helpful enough for the feature."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Introduction to structured data",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data"
+    },
+    {
+      "label": "Google — General structured data guidelines",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies"
+    },
+    {
+      "label": "Google — Structured data search gallery",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+    },
+    {
+      "label": "Google Search Central — Documentation updates",
+      "url": "https://developers.google.com/search/updates"
+    },
+    {
+      "label": "Google — An update on the Structured Data Testing Tool (2020)",
+      "url": "https://developers.google.com/search/blog/2020/12/structured-data-testing-tool-update"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/34940630/pexels-photo-34940630.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Close-up of a modern high-rise building with glass windows and geometric patterns.",
+      "photographer": "Reinis Brūzītis",
+      "photographerUrl": "https://www.pexels.com/@reinis-bruzitis-2153679369",
+      "pexelsUrl": "https://www.pexels.com/photo/modern-high-rise-apartment-building-exterior-34940630/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/7262981/pexels-photo-7262981.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Collection of various handmade bar soap in plastic jars with black lids placed on wooden surface",
+      "photographer": "Sarah  Chai",
+      "photographerUrl": "https://www.pexels.com/@sarah-chai",
+      "pexelsUrl": "https://www.pexels.com/photo/transparent-jars-with-natural-bar-soap-7262981/"
+    }
+  ],
+  "related": [
+    "rich-snippets-test",
+    "schema-generator",
+    "meta-tag-checker",
+    "on-page-seo-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

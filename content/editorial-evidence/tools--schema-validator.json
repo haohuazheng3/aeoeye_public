@@ -1,0 +1,51 @@
+{
+  "contentSha256": "51f1f9314d55bb57225acab0b956067e8a1e920d81776a9005f69c7b7bfe8dfc",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"schema validator\" (8100/mo, KD 43): the Schema Validator is the first screen, the 50-word answer resolves the query directly, and the body answers \"schema markup validator\", \"schema checker\", \"structured data testing tool\", \"schema markup checker\" with first-hand AEOeye measurements before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"schema validator\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
+      "checkedAt": "2026-10-24",
+      "supports": "JSON-LD recommended; all three formats fine when valid."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies",
+      "checkedAt": "2026-10-24",
+      "supports": "Google does not guarantee structured data will show up even when valid."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery",
+      "checkedAt": "2026-10-24",
+      "supports": "Google structured data features and the types each supports."
+    },
+    {
+      "url": "https://developers.google.com/search/updates",
+      "checkedAt": "2026-10-24",
+      "supports": "Search Central changelog: FAQ rich results gone from 2026-05-07; Mobile-Friendly Test removed Dec 2023; other retired features."
+    },
+    {
+      "url": "https://developers.google.com/search/blog/2020/12/structured-data-testing-tool-update",
+      "checkedAt": "2026-10-24",
+      "supports": "Structured Data Testing Tool refocused and migrated to the schema.org community; use Rich Results Test and Schema Markup Validator."
+    },
+    {
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json",
+      "checkedAt": "2026-10-24",
+      "supports": "AEOeye 391-site baseline: redirects, headers, meta tags, OG/X tags, icons, JSON-LD, image formats, blog location, soft 404s."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (6 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 368 words, 2 Pexels images, 7 inline source links, 3 internal links, 4 FAQs, 5 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Recomputed every figure quoted from AEOeye Technical SEO Baseline (391 sites, 2026-10-24) from the raw files in /public/resources.",
+    "Exercised POST /api/tools/schema against live public sites on the local build and confirmed a structured result (verdict, headline, sections) renders on the page."
+  ]
+}

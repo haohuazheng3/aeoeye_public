@@ -18,9 +18,12 @@ const groups: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: "Free tools",
     links: [
-      { href: "/tools/llms-txt-generator", label: "llms.txt generator" },
-      { href: "/tools/schema-generator", label: "Schema generator" },
-      { href: "/tools/ai-robots-txt-generator", label: "AI robots.txt generator" },
+      { href: "/tools/category/ai-search", label: "AEO & AI crawler tools" },
+      { href: "/tools/category/crawl-index", label: "Crawling & indexing" },
+      { href: "/tools/category/on-page", label: "On-page & content" },
+      { href: "/tools/category/social-schema", label: "Schema & social previews" },
+      { href: "/tools/category/speed-security", label: "Speed, mobile & security" },
+      { href: "/blog", label: "Technical SEO decisions" },
     ],
   },
   {

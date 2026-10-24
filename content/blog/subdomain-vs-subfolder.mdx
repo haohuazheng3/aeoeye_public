@@ -1,0 +1,192 @@
+---
+title: 'Subdomain vs Subfolder: Which Is Better for SEO?'
+description: >-
+  Subdomain vs subfolder for SEO: both can rank, but subfolders share signals
+  more easily. We checked where 300+ sites put their blogs, and when to split.
+date: '2026-10-24'
+published: '2026-10-24'
+category: Decisions
+readingTime: 5 min read
+keywords:
+  - subdomain vs subfolder
+image:
+  url: >-
+    https://images.pexels.com/photos/1370294/pexels-photo-1370294.jpeg?auto=compress&cs=tinysrgb&w=1200
+  alt: Organized filing cabinets stacked with indexed books in a library setting.
+  photographer: Element5 Digital
+  photographerUrl: 'https://www.pexels.com/@element5'
+verdict:
+  summary: >-
+    For a blog, guides or other marketing content, use a subfolder
+    (example.com/blog). Use a subdomain only when the section is a genuinely
+    separate product, platform or audience — like docs, an app or a community —
+    and you're prepared to grow it as its own site.
+  picks:
+    - when: 'Blog, resources, guides, landing pages'
+      pick: 'Subfolder: /blog'
+    - when: Developer docs on a separate docs platform
+      pick: 'Subdomain is fine: docs.'
+    - when: 'Web app, status page, community forum'
+      pick: 'Subdomain: app., status., community.'
+    - when: Country or language versions
+      pick: Either — subfolders are easier to run
+cta: seo
+relatedTools:
+  - robots-txt-tester
+  - sitemap-checker
+  - redirect-checker
+  - favicon-checker
+faqs:
+  - q: Is a subfolder better than a subdomain for SEO?
+    a: >-
+      For content that supports your main site, usually yes in practice: it
+      lives on the same host, shares internal links and needs no separate setup.
+      Google doesn't document a ranking penalty for subdomains, but treats them
+      as separate sites in several features.
+  - q: Does Google treat a subdomain as a separate website?
+    a: >-
+      In some respects, yes. Google supports separate site names and favicons
+      per subdomain, and robots.txt rules apply per host. Search Console can
+      group them through a Domain property.
+  - q: Should I move my blog from a subdomain to a subfolder?
+    a: >-
+      If the blog is meant to support your main site and the move is technically
+      easy, yes. Redirect every old URL to its new path with a 301, update
+      internal links and keep the redirects for at least a year.
+  - q: What about subdomains for different countries?
+    a: >-
+      Google's own comparison lists subdomains and subdirectories as both
+      workable for multi-regional sites. Subdirectories are easier to maintain
+      on one host; subdomains allow separate servers.
+sources:
+  - label: Google — Managing multi-regional and multilingual sites
+    url: >-
+      https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites
+  - label: Google — Site names in Google Search
+    url: 'https://developers.google.com/search/docs/appearance/site-names'
+  - label: Google — Favicons in Google Search
+    url: 'https://developers.google.com/search/docs/appearance/favicon-in-search'
+  - label: Google Search Console Help — Add a website property
+    url: 'https://support.google.com/webmasters/answer/34592?hl=en'
+  - label: Google — Site moves with URL changes
+    url: >-
+      https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
+  - label: Google — How Google interprets robots.txt
+    url: 'https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec'
+---
+
+A subfolder puts a section on your main host — `example.com/blog`. A subdomain puts it on a separate host — `blog.example.com`. Both can rank. But a subfolder shares everything your main site has already earned and needs no extra setup, while a subdomain is treated as a separate site in several places. For content meant to support your main site, choose the subfolder.
+
+## What is the difference between a subdomain and a subfolder?
+
+It's a difference in hosts. A subfolder is a path on the same host as your homepage; a subdomain is a different hostname that happens to share your registered domain.
+
+| | Subfolder (example.com/blog) | Subdomain (blog.example.com) |
+|---|---|---|
+| Host | Same as the main site | Separate host |
+| robots.txt | Your main file applies | Needs its own file |
+| Internal links | Ordinary internal links | Links between two hosts |
+| Separate server / platform | Harder | Easy |
+| Google site name and favicon | Shared with the main site | Can have its own |
+| Setup effort | Usually lowest | DNS, certificate, analytics, Search Console |
+
+Google's own comparison for multi-regional sites summarizes the trade-off in the same terms: subdirectories are easy to set up with low maintenance on the same host, while subdomains allow different server locations and easy separation of sites ([Google](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites)).
+
+## Does Google treat subdomains as separate sites?
+
+In several documented ways, yes. For site names, Google defines a site by its domain or subdomain and [doesn't support site names at the subdirectory level](https://developers.google.com/search/docs/appearance/site-names); its [favicon guidelines](https://developers.google.com/search/docs/appearance/favicon-in-search) draw the same line. Robots.txt rules apply per host, so `blog.example.com` needs its own file ([Google's robots.txt spec](https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec)).
+
+Search Console reflects this too: a URL-prefix property covers one host, while a [Domain property](https://support.google.com/webmasters/answer/34592?hl=en) is the way to see a domain and all its subdomains together.
+
+None of that is a penalty. It means a subdomain starts closer to being its own site: its pages don't automatically sit inside your main site's structure, and you have to link, configure and measure it separately. A subfolder gets all of that for free.
+
+![Multicolored urban apartment building with balconies and windows, showcasing city living.](https://images.pexels.com/photos/7189284/pexels-photo-7189284.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Does a subdomain inherit the main domain's strength?
+
+Not automatically in the way a subfolder does, and Google doesn't publish a formula either way. What you can rely on is structure: a subfolder page is linked from your main navigation, appears in your main sitemap and gets internal links from pages that already rank. A subdomain only gets those benefits if you deliberately build them — prominent links from the main site, its own sitemap, consistent branding.
+
+That's why "subdomains can rank just as well" and "subfolders usually win in practice" are both true. A well-supported subdomain can do fine; a neglected one, linked only from a footer, usually struggles because nothing tells crawlers it matters.
+
+## Where do real companies put their blog and docs?
+
+Overwhelmingly, blogs live in subfolders. On October 24, 2026 we analyzed the homepages of 391 well-known sites and looked at where their blog links pointed ([dataset](/resources/technical-seo-baseline-2026-10.json)). Of the 223 homepages that linked to a blog or resources section:
+
+| Location of the blog | Share |
+|---|---|
+| Subfolder (/blog, /resources, /insights…) | 90.6% |
+| Subdomain (blog., resources.…) | 4.5% |
+| Both | 4.9% |
+
+Documentation is the opposite story. Of the 218 homepages that linked to docs, help or developer content, 48.6% used only a subdomain and 24.8% only a subfolder, with the rest using both.
+
+That split is telling. Companies keep marketing content — which exists to win search traffic for the main brand — on the main host. Docs often run on a separate platform, have a different audience and a different release process, so a subdomain is the pragmatic choice there.
+
+## When is a subfolder the right call?
+
+When the section exists to support the main site. That covers most of what marketing teams publish:
+
+- **Blogs, guides and resources** that should build the main site's topical authority.
+- **Landing pages and comparison pages** that sit close to your product pages.
+- **Country or language versions** when one team runs one platform.
+
+A subfolder also keeps reporting simple: one analytics property, one Search Console property, one robots.txt, one sitemap index.
+
+## When is a subdomain the right call?
+
+When the section is genuinely separate — technically or in audience:
+
+- **A web app** (`app.example.com`) that shouldn't share cookies, caching or deploys with marketing pages.
+- **Documentation or a help center** on a dedicated platform.
+- **Community, status or developer portals** run by different tools or teams.
+- **Country sites** that need separate servers or legal entities.
+
+If you choose a subdomain for content you want to rank, treat it as a site in its own right: link to it prominently from the main site, give it its own sitemap and robots.txt, and add it to a Domain property in Search Console.
+
+![Close-up of tree roots in a sunlit forest, showcasing natural textures and greenery.](https://images.pexels.com/photos/37186494/pexels-photo-37186494.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## What about international sites?
+
+The same trade-off, with a third option. Google's comparison for multi-regional sites lists three structures ([Google](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites)):
+
+| Structure | Example | Strengths | Weaknesses |
+|---|---|---|---|
+| Country-code domain | example.de | Clear country targeting, server location irrelevant | Expensive, more infrastructure, one country each |
+| Subdomain | de.example.com | Easy setup, separate servers possible | Users may not read "de" as language or country |
+| Subdirectory | example.com/de/ | Easy setup, low maintenance on one host | One server location, harder to separate |
+
+Whichever you choose, connect the versions with hreflang annotations so Google shows each visitor the right language. For most companies with one platform and one team, subdirectories are the least work to run well.
+
+## Should I move my blog from a subdomain to a subfolder?
+
+Usually yes, if it's meant to support the main site and your platform can serve it under a path. Hosting platforms and reverse proxies can serve a separate blog system at `/blog` without changing the CMS.
+
+Treat it as a migration. Google's guide to [site moves with URL changes](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes) applies:
+
+1. Map every old URL to its new path, one to one.
+2. Set up 301 redirects from each old URL to its new one, in a single hop.
+3. Update internal links, canonicals and the sitemap to the new URLs.
+4. Keep the redirects in place for as long as possible, generally at least a year.
+5. Watch indexing in Search Console for both hosts until the old one drains.
+
+Expect a period of fluctuation while Google recrawls — and verify the redirects with the [redirect checker](/tools/redirect-checker) before you call it done.
+
+## What are the most common mistakes?
+
+Four come up again and again in audits:
+
+1. **The same content on both.** A blog reachable at `blog.example.com` and `example.com/blog` splits signals between duplicates. Pick one and 301 the other. Among the homepages in our sample that linked to a blog, 4.9% linked to both a blog subdomain and a blog subfolder.
+2. **A hosted blog nobody links to.** A third-party blogging platform on a subdomain, linked only from the footer, gives crawlers little reason to treat it as important.
+3. **Missing basics on the subdomain.** No robots.txt, no sitemap, no Search Console property, so problems go unnoticed for months.
+4. **Indexed staging subdomains.** `staging.` and `dev.` copies of the site leak into search unless they're behind a login or carry noindex.
+
+## What should I check after choosing?
+
+Whichever structure you use, run these checks on the section:
+
+1. **robots.txt** — a subdomain needs its own; test paths with the [robots.txt tester](/tools/robots-txt-tester).
+2. **Sitemap** — list the section's URLs and reference the sitemap from robots.txt; validate it with the [sitemap checker](/tools/sitemap-checker).
+3. **Internal links** — link the section from your main navigation and from relevant pages, not just the footer.
+4. **Favicon and site name** — a subdomain can show its own; make sure that's what you want with the [favicon checker](/tools/favicon-checker).
+
+Our position is deliberately boring: the best structure is the one your team can run cleanly for years. For most companies' content, that's a subfolder.

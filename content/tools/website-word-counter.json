@@ -1,0 +1,82 @@
+{
+  "slug": "website-word-counter",
+  "category": "on-page",
+  "name": "Website Word Counter",
+  "title": "Website Word Counter: Count Words on Any URL",
+  "description": "Free website word counter: enter a URL and count the words in the main content (not menus or footers), plus headings, paragraphs and reading time.",
+  "answer": "A website word counter fetches any URL and counts the words in its main content — leaving out menus, headers, footers and forms. Enter a URL to get the word count, the number of headings and paragraphs, and an estimated reading time.",
+  "keywords": [
+    "website word counter",
+    "word counter website",
+    "webpage word counter"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "wordcount",
+    "submitLabel": "Count words",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "wikipedia.org/wiki/Search_engine_optimization",
+      "paulgraham.com/greatwork.html"
+    ],
+    "busyText": "Counting words…"
+  },
+  "trust": "We fetch the live page and count words in the main content area, the same way a reader would see the article.",
+  "body": "## Word Counter Website Tool: Body Text vs Menus\n\nCopying a page into a word processor counts everything: the menu, the cookie notice, the footer links, the newsletter box. On short pages, that noise can double the count.\n\nThis counter finds the main content — the main or article element when the page has one — and strips navigation, headers, footers, sidebars and forms first. We report which area we counted, so you know whether the number reflects the article or the whole body.\n\n## Webpage Word Counter: How Long Should Your Page Be?\n\nAs long as the question needs. Google is blunt about it: its [helpful content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) asks whether you're writing to a particular word count because you heard Google prefers one — \"No, we don't.\"\n\nLength follows intent:\n\n- **Tool pages** answer fast and let the tool do the work.\n- **Comparisons and guides** need room for evidence and trade-offs.\n- **Product pages** need specifics, not filler.\n\nA better benchmark than a number: count the words on the pages that already rank for your query, then cover what they miss.\n\n## What else does the counter show?\n\nHeadings and paragraphs (a quick read on structure), average sentence length, reading time at 238 words per minute, and the count for the whole page including navigation — plus the boilerplate share between the two. A long page with two headings is hard to scan; a page with a heading every 80 words is choppy.\n\n## How long are our own pages?\n\nWe write our tool pages to answer in a few hundred words and our decision guides in 1,200–1,500, because those are the lengths the questions need. When we checked our own live pages with this counter, menus and footers made up 4% to 15% of all visible words — 15% on our llms.txt generator page, where the main content is 443 words.\n\nCompare the counts with the analysis in the [keyword density checker](/tools/keyword-density-checker), or grade the whole page with the [on-page SEO checker](/tools/on-page-seo-checker). Writing for both people and machines starts from Google's [SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide).",
+  "faqs": [
+    {
+      "q": "How do I count the words on a web page?",
+      "a": "Enter the URL above. We fetch the page, remove menus, headers, footers and forms, and count the words in the main content, with headings, paragraphs and reading time."
+    },
+    {
+      "q": "Does word count affect SEO?",
+      "a": "Not directly. Google says it has no preferred word count. Longer pages can rank when the topic needs depth, and short pages rank when they answer the question fully."
+    },
+    {
+      "q": "Why is my count different from Microsoft Word?",
+      "a": "Different tools split words differently around hyphens, numbers and symbols, and we exclude page furniture such as menus. Expect small differences, not large ones, on the same text."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Creating helpful, reliable, people-first content",
+      "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    },
+    {
+      "label": "Google — SEO Starter Guide",
+      "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6692926/pexels-photo-6692926.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A young child interacts with a colorful wooden abacus, exploring learning through play.",
+      "photographer": "Tara Winstead",
+      "photographerUrl": "https://www.pexels.com/@tara-winstead",
+      "pexelsUrl": "https://www.pexels.com/photo/an-abacus-on-a-carpet-6692926/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/39921634/pexels-photo-39921634.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Open books with Turkish text arranged neatly under natural light.",
+      "photographer": "azra melek",
+      "photographerUrl": "https://www.pexels.com/@melek",
+      "pexelsUrl": "https://www.pexels.com/photo/open-pages-of-turkish-text-in-natural-light-39921634/"
+    }
+  ],
+  "related": [
+    "keyword-density-checker",
+    "on-page-seo-checker",
+    "link-extractor",
+    "html-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

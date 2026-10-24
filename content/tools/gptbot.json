@@ -1,0 +1,99 @@
+{
+  "slug": "gptbot",
+  "category": "ai-search",
+  "name": "GPTBot Checker",
+  "title": "GPTBot: Is OpenAI's Crawler Allowed on Your Site?",
+  "description": "Is GPTBot or OAI-SearchBot blocked? We read your robots.txt and request your homepage as each OpenAI bot, then show which to allow for ChatGPT search.",
+  "answer": "GPTBot is OpenAI's training crawler; OAI-SearchBot is the separate bot that puts pages into ChatGPT search. Enter your site to see whether robots.txt and your server let each OpenAI bot in. Blocking GPTBot does not remove you from ChatGPT search — blocking OAI-SearchBot does.",
+  "keywords": [
+    "gptbot",
+    "oai-searchbot"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "bot-access",
+    "submitLabel": "Check OpenAI bots",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website or a specific page",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "extra": {
+      "bots": [
+        "gptbot",
+        "oaisearchbot",
+        "chatgptuser",
+        "googlebot"
+      ]
+    },
+    "examples": [
+      "nytimes.com",
+      "shopify.com"
+    ],
+    "busyText": "Reading robots.txt and requesting as each bot…",
+    "footnote": "We check two things: what your robots.txt allows each bot, and what your server actually returns when we request the page with that bot's user agent. Firewalls that verify bots by IP address may treat our test request differently from the real crawler — a block here is a strong hint, not proof."
+  },
+  "trust": "We read your live robots.txt and request the page as GPTBot, OAI-SearchBot and ChatGPT-User, with Googlebot as a control.",
+  "body": "## OAI-SearchBot: The OpenAI Bot Behind ChatGPT Search\n\nOAI-SearchBot decides whether your pages can be shown and linked in ChatGPT's search answers. OpenAI documents it separately from GPTBot, so you can allow one and block the other.\n\n| Bot | What OpenAI uses it for | If you block it |\n|---|---|---|\n| GPTBot | Training OpenAI's foundation models | Future content is left out of training |\n| OAI-SearchBot | Surfacing sites in ChatGPT search | You can drop out of ChatGPT search results |\n| ChatGPT-User | Fetching a page when a user asks ChatGPT to | User-initiated, so robots.txt rules may not apply |\n\nOpenAI's [crawler documentation](https://developers.openai.com/api/docs/bots) adds one practical detail: robots.txt changes take about 24 hours to reach its search systems. Re-test a day after you edit the file.\n\n## Should I block GPTBot?\n\nOnly if you have a reason to keep your content out of model training — usually because you license it. For most companies the answer is no, and the safer default is to leave OAI-SearchBot open no matter what you decide about GPTBot.\n\nOur view is simple: GPTBot is a business decision about training, OAI-SearchBot is a visibility decision. Blocking OAI-SearchBot by accident is pure loss.\n\n## How do I read the result?\n\nEach bot gets two verdicts: what your robots.txt says, and what your server actually did when we asked for the page with that bot's user agent.\n\n- **Allowed + 200:** the bot can reach the page.\n- **Allowed + 403 or a challenge page:** a firewall or CDN rule is blocking it even though robots.txt says yes. This is the most common surprise.\n- **Blocked by robots.txt:** we show the exact rule that decided it, so you know which line to change.\n\nRobots groups are matched by the most specific user-agent name ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html)), so a `GPTBot` group replaces your `User-agent: *` rules for that bot entirely.\n\n## What do 391 real sites do?\n\nMost sites leave OpenAI's bots alone. When we checked the robots.txt files of 391 well-known sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 9.1% blocked GPTBot but only 4.2% blocked OAI-SearchBot, and 4.9% made the deliberate split: training off, search on.\n\nNews publishers are the outlier, with 52.6% blocking GPTBot. Among SaaS companies it was 2.1%.\n\n## How do I allow ChatGPT search but block training?\n\nGive each bot its own group in robots.txt at your domain root:\n\n```\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n```\n\nThen check your firewall. If a bot-protection rule challenges unknown user agents, allow OpenAI's published IP ranges. Test every AI bot at once with the [AI crawler checker](/tools/ai-crawlers), or confirm which line matches a path in the [robots.txt tester](/tools/robots-txt-tester).",
+  "faqs": [
+    {
+      "q": "Does blocking GPTBot remove my site from ChatGPT?",
+      "a": "No. GPTBot only controls whether OpenAI may use your content for training. Whether you appear in ChatGPT search depends on OAI-SearchBot, which has its own robots.txt group you can leave open."
+    },
+    {
+      "q": "Is GPTBot the same as ChatGPT-User?",
+      "a": "No. ChatGPT-User only fetches a page when a person asks ChatGPT to look at it. OpenAI says robots.txt rules may not apply to these user-initiated visits, unlike its automatic crawlers."
+    },
+    {
+      "q": "How long until ChatGPT respects a robots.txt change?",
+      "a": "OpenAI says it can take about 24 hours for its search systems to pick up a robots.txt update. Make the change, wait a day, then run this check again to confirm the new rule is live."
+    },
+    {
+      "q": "Why does the live request fail when robots.txt allows the bot?",
+      "a": "Usually a firewall or CDN bot rule. Some verify crawlers by IP address, so our test can be blocked while the real OpenAI bot is not. Your firewall logs will show which rule fired."
+    }
+  ],
+  "sources": [
+    {
+      "label": "OpenAI — Overview of OpenAI crawlers",
+      "url": "https://developers.openai.com/api/docs/bots"
+    },
+    {
+      "label": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/34207369/pexels-photo-34207369.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A blue Yaskawa industrial robot arm on display, showcasing advanced technology and robotics.",
+      "photographer": "Freek Wolsink",
+      "photographerUrl": "https://www.pexels.com/@freek-wolsink-508219",
+      "pexelsUrl": "https://www.pexels.com/photo/blue-yaskawa-industrial-robot-in-showcase-display-34207369/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/8284724/pexels-photo-8284724.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A woman types on a laptop using a messaging app in a modern office setting.",
+      "photographer": "Mikhail Nilov",
+      "photographerUrl": "https://www.pexels.com/@mikhail-nilov",
+      "pexelsUrl": "https://www.pexels.com/photo/person-using-laptop-8284724/"
+    }
+  ],
+  "related": [
+    "ai-crawlers",
+    "claudebot",
+    "robots-txt-tester",
+    "ai-robots-txt-generator",
+    "ai-visibility-checker"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

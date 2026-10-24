@@ -1,0 +1,84 @@
+{
+  "slug": "html-checker",
+  "category": "on-page",
+  "name": "HTML Checker",
+  "title": "HTML Checker Online: Find Errors Crawlers Trip On",
+  "description": "Free online HTML checker: validate any URL with the W3C Nu engine and see the errors that matter for SEO first — head tags, nesting, duplicate IDs.",
+  "answer": "An online HTML checker validates a page against the HTML standard and lists the errors. Enter a URL: we run it through the W3C Nu validator and put the errors that affect how crawlers read the page first — invalid elements in the head, broken nesting, duplicate IDs — ahead of the cosmetic ones.",
+  "keywords": [
+    "html checker online"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "html",
+    "submitLabel": "Validate HTML",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "example.com",
+      "w3.org"
+    ],
+    "busyText": "Validating with the W3C Nu engine…"
+  },
+  "trust": "Validation is done by the W3C Nu HTML Checker, the same engine behind validator.w3.org. We sort its findings by SEO impact.",
+  "body": "## Does valid HTML matter for SEO?\n\nMostly no — with one important exception. Google says it tries to understand HTML even when it's invalid, so a page full of minor errors can rank fine. The exception is the head: [if Google meets an invalid element in the head](https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata), it ignores everything after it.\n\nThat makes a misplaced `<img>`, `<div>` or `<iframe>` near the top of the head genuinely dangerous: your canonical, robots tag or hreflang can sit right below it, invisible to Google.\n\n## Which errors should I fix first?\n\nWe sort errors into SEO-relevant and other, so the dangerous ones come first:\n\n1. **Elements not allowed in the head** — the problem above.\n2. **Stray or unclosed tags around the head and body** — parsers may close the head early.\n3. **Duplicate IDs** — break anchors, labels and scripts.\n4. **Broken nesting in links and headings** — can garble anchor text and outlines.\n\nAttribute warnings and obsolete markup come last; fix them when convenient.\n\n## Why use the W3C Nu validator?\n\nIt's the reference implementation of the HTML standard, maintained by the W3C and used by [validator.w3.org](https://validator.w3.org/nu/). Running it through this page adds the URL fetch and the SEO-first sorting, and keeps the full list one click away.\n\n## What does this look like on real sites?\n\nWhat matters on real sites is the head, not perfection. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), we could read a canonical tag on 94.3% and a meta description on 97.8%. When one of those tags is in your source but a checker can't find it, a head error above it is the first suspect.\n\nIf the validator flags a head problem, confirm what Google actually sees with the [meta tag checker](/tools/meta-tag-checker) and the raw markup in [view page source](/tools/view-page-source).",
+  "faqs": [
+    {
+      "q": "Is HTML validation a ranking factor?",
+      "a": "No. Google tries to understand invalid HTML, and validity itself is not a ranking signal. Errors matter only when they stop Google from reading metadata, especially inside the head."
+    },
+    {
+      "q": "Why does the validator report so many errors?",
+      "a": "Modern sites include frameworks, third-party scripts and attributes that strict validation flags. Most are harmless. Focus on the errors we mark as SEO-relevant."
+    },
+    {
+      "q": "Can I validate a page behind a login?",
+      "a": "No. We fetch public URLs only. For private pages, copy the HTML from your browser and paste it into validator.w3.org/nu directly."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Use valid HTML to specify page metadata",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/valid-page-metadata"
+    },
+    {
+      "label": "W3C — Nu HTML Checker",
+      "url": "https://validator.w3.org/nu/"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/8052171/pexels-photo-8052171.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A close-up shows a person editing papers outdoors using a red pen, hinting at a creative review process.",
+      "photographer": "RDNE Stock project",
+      "photographerUrl": "https://www.pexels.com/@rdne",
+      "pexelsUrl": "https://www.pexels.com/photo/a-person-writing-on-white-paper-8052171/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/4974912/pexels-photo-4974912.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A developer working on a laptop, typing code, showcasing programming and technology skills.",
+      "photographer": "olia danilevich",
+      "photographerUrl": "https://www.pexels.com/@olia-danilevich",
+      "pexelsUrl": "https://www.pexels.com/photo/person-coding-on-a-macbook-pro-4974912/"
+    }
+  ],
+  "related": [
+    "meta-tag-checker",
+    "view-page-source",
+    "on-page-seo-checker",
+    "schema-validator"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

@@ -1,0 +1,91 @@
+{
+  "slug": "bytespider",
+  "category": "ai-search",
+  "name": "Bytespider Checker",
+  "title": "Bytespider: Check If ByteDance's Crawler Can Reach You",
+  "description": "What is Bytespider and should you block it? Check your robots.txt and a live request as Bytespider, see what ByteDance uses it for, copy the rule.",
+  "answer": "Bytespider is ByteDance's web crawler, reportedly used to gather training data for its AI models such as Doubao. It is the most-blocked AI crawler we measured. Enter your site to see whether robots.txt and your server let Bytespider in, and copy the rule to block it.",
+  "keywords": [
+    "bytespider"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "bot-access",
+    "submitLabel": "Check Bytespider",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Your website or a specific page",
+        "placeholder": "https://yoursite.com",
+        "type": "url"
+      }
+    ],
+    "extra": {
+      "bots": [
+        "bytespider",
+        "googlebot"
+      ]
+    },
+    "examples": [
+      "nytimes.com",
+      "shopify.com"
+    ],
+    "busyText": "Reading robots.txt and requesting as each bot…",
+    "footnote": "We check two things: what your robots.txt allows each bot, and what your server actually returns when we request the page with that bot's user agent. Firewalls that verify bots by IP address may treat our test request differently from the real crawler — a block here is a strong hint, not proof."
+  },
+  "trust": "We read your live robots.txt and request the page with the Bytespider user agent, with Googlebot as a control.",
+  "body": "## What is Bytespider?\n\nBytespider is the crawler run by ByteDance, the company behind TikTok. Cloudflare's 2024 analysis listed it first among the four biggest AI crawlers by request volume on its network, and said it is reportedly used to collect training data for ByteDance's large language models, including Doubao ([Cloudflare](https://blog.cloudflare.com/declaring-your-aindependence-block-ai-bots-scrapers-and-crawlers-with-a-single-click/)).\n\nUnlike OpenAI, Anthropic or Apple, ByteDance doesn't publish a detailed page explaining what Bytespider feeds or how to verify its traffic. That gap is a big part of why site owners distrust it.\n\n## Should I block Bytespider?\n\nFor most brands selling in English-speaking markets, blocking it costs almost nothing. Bytespider isn't the crawler behind ChatGPT, Claude, Perplexity or Google's AI answers, so you give up no visibility in the assistants your buyers use.\n\nKeep it open only if ByteDance products such as TikTok search or Doubao matter to your audience.\n\n## How many sites block it?\n\nMore than any other AI bot we measured. When we checked 391 sites in October 2026 ([dataset](/resources/ai-crawler-access-study-2026-10.json)), 14.6% blocked Bytespider — ahead of ClaudeBot and CCBot at 11.5%. News publishers blocked it 78.9% of the time; SaaS sites, 4.7%.\n\n## How do I read the result?\n\nThe robots.txt verdict and the live request answer different questions, so read both.\n\n- **Blocked by robots.txt** — we show the deciding rule. A `User-agent: *` disallow counts too.\n- **Allowed, live request 403** — your CDN or firewall already turns it away.\n- **Allowed, live request 200** — Bytespider can fetch the page today.\n\nRobots.txt is a request, not a lock. If your server logs still show heavy Bytespider traffic after you block it, add a firewall rule that matches its user agent.\n\n## What rule should I copy?\n\nOne group is enough, because robots rules apply to the most specific matching user agent ([RFC 9309](https://www.rfc-editor.org/rfc/rfc9309.html)):\n\n```\nUser-agent: Bytespider\nDisallow: /\n```\n\nCheck every AI bot together with the [AI crawler checker](/tools/ai-crawlers), or test any path against your rules in the [robots.txt tester](/tools/robots-txt-tester).",
+  "faqs": [
+    {
+      "q": "Does Bytespider respect robots.txt?",
+      "a": "It identifies itself with a Bytespider user agent, so a robots.txt group can target it by name. Because ByteDance publishes little documentation, back the rule with a firewall block if your logs show it ignoring the rule."
+    },
+    {
+      "q": "Will blocking Bytespider affect my TikTok account?",
+      "a": "No. Blocking the crawler doesn't touch your TikTok account, videos or ads. It only stops ByteDance's crawler from fetching pages on your own website."
+    },
+    {
+      "q": "Why is Bytespider blocked so often?",
+      "a": "High crawl volume, little public documentation and a training-only purpose. In our October 2026 sample of 391 sites it was the most blocked of the 15 AI and search bots we checked."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Cloudflare — Declare your AIndependence (2024)",
+      "url": "https://blog.cloudflare.com/declaring-your-aindependence-block-ai-bots-scrapers-and-crawlers-with-a-single-click/"
+    },
+    {
+      "label": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+      "label": "AEOeye AI Crawler Access Study (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/ai-crawler-access-study-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/6958625/pexels-photo-6958625.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Smiling teenager using smartphone with headphones around neck indoors.",
+      "photographer": "https://kaboompics.com/",
+      "photographerUrl": "https://www.pexels.com/@karola-g",
+      "pexelsUrl": "https://www.pexels.com/photo/a-man-holding-a-smartphone-smiling-6958625/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/4682189/pexels-photo-4682189.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "From below of long thin blue cables connected to row of small white connectors on system block in data center",
+      "photographer": "Brett Sayles",
+      "photographerUrl": "https://www.pexels.com/@brett-sayles",
+      "pexelsUrl": "https://www.pexels.com/photo/patch-cables-plugged-in-patch-panel-4682189/"
+    }
+  ],
+  "related": [
+    "ai-crawlers",
+    "amazonbot",
+    "robots-txt-tester",
+    "ai-robots-txt-generator"
+  ],
+  "cta": "aeo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

@@ -1,0 +1,30 @@
+{
+  "contentSha256": "87b105f800279265d883c2bfa483cbe8fb051a48da382cad2a2ae6ed6b3d0481",
+  "reviewedAt": "2026-10-24",
+  "kind": "tool-page",
+  "assessment": "A-level tool-first page for \"slug generator\" (320/mo, KD 0): the Slug Generator is the first screen, the 42-word answer resolves the query directly, and the body answers the main query with primary-source detail before handing off to the free SEO audit.",
+  "topic": {
+    "area": "technical-seo-tools",
+    "readerProblem": "Someone searching \"slug generator\" wants to run the check immediately and know what the result means for their site.",
+    "connection": "The free SEO audit runs this check site-wide (crawlability, on-page, speed, schema, HTTPS); this page is the single-URL version and links into it."
+  },
+  "sources": [
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/url-structure",
+      "checkedAt": "2026-10-24",
+      "supports": "Use hyphens rather than underscores to separate words in URLs."
+    },
+    {
+      "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+      "checkedAt": "2026-10-24",
+      "supports": "301/308 permanent (show target), 302/307 temporary (show source); server-side redirects most reliable."
+    }
+  ],
+  "checks": [
+    "Re-read every factual claim against the cited primary sources, fetched on 2026-10-24 (2 sources listed on the page); unverifiable statements were removed or reworded before publishing.",
+    "content-lint passed with no errors: 355 words, 2 Pexels images, 2 inline source links, 2 internal links, 3 FAQs, 4 H2 sections.",
+    "Title/H1, secondary-keyword H2s and meta description match the locked three-round plan in docs/seo-v2/final-table.json.",
+    "Rendered on the local build at a 375 px mobile viewport: no horizontal overflow (document scrollWidth equals the viewport width).",
+    "Exercised the slug generator in the browser on the local build at desktop and 375 px widths."
+  ]
+}

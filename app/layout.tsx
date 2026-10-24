@@ -48,8 +48,10 @@ export const metadata: Metadata = {
     url: siteUrl,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
+    // 首页此前没有 og:image(分享时没有图);用站内 /og 动态图(1200×630)
+    images: [{ url: `/og?title=${encodeURIComponent(`${site.name} — ${site.tagline}`)}`, width: 1200, height: 630, alt: `${site.name} — ${site.tagline}` }],
   },
-  twitter: { card: "summary_large_image", creator: site.twitter },
+  twitter: { card: "summary_large_image", creator: site.twitter, images: [`/og?title=${encodeURIComponent(`${site.name} — ${site.tagline}`)}`] },
   robots: { index: true, follow: true },
   icons: { icon: "/icon.svg", apple: "/icon.svg" },
 };

@@ -1,0 +1,179 @@
+---
+title: 'HTTPS vs HTTP: What It Changes for SEO and Users'
+description: >-
+  HTTPS vs HTTP: HTTPS encrypts traffic, is a Google ranking signal and avoids
+  'Not secure' warnings. What our scan of real sites found, and how to switch.
+date: '2026-10-24'
+published: '2026-10-24'
+category: Decisions
+readingTime: 5 min read
+keywords:
+  - https vs http
+  - ssl vs https
+  - https vs ssl
+image:
+  url: >-
+    https://images.pexels.com/photos/36740854/pexels-photo-36740854.jpeg?auto=compress&cs=tinysrgb&w=1200
+  alt: 'Hand holding a brass padlock, symbolizing security and protection'
+  photographer: Nathan Thomas
+  photographerUrl: 'https://www.pexels.com/@nathanthomas'
+verdict:
+  summary: >-
+    Use HTTPS on every page — there is no remaining case for serving a public
+    website over plain HTTP. It encrypts traffic, is a Google ranking signal,
+    avoids Chrome's "Not secure" label and is free to set up.
+  picks:
+    - when: 'Any public website, including brochure sites'
+      pick: 'HTTPS everywhere, with a 301 from HTTP'
+    - when: Migrating an old HTTP site
+      pick: '301 every HTTP URL to its HTTPS twin, then add HSTS'
+    - when: Someone asks for an "SSL certificate"
+      pick: They mean a TLS certificate — free from Let's Encrypt
+    - when: HTTPS works but HTTP still loads without redirecting
+      pick: Add the redirect — two live versions split signals
+cta: seo
+relatedTools:
+  - hsts-checker
+  - security-headers-checker
+  - redirect-checker
+  - http-header-checker
+faqs:
+  - q: Does HTTPS improve Google rankings?
+    a: >-
+      Slightly. Google has used HTTPS as a lightweight ranking signal since 2014
+      and prefers HTTPS pages as canonical. The bigger effects are user trust
+      and avoiding browser warnings.
+  - q: Is SSL the same as HTTPS?
+    a: >-
+      No. HTTPS is HTTP sent over an encrypted connection. SSL was the original
+      encryption protocol; it has been replaced by TLS, but people still call
+      TLS certificates "SSL certificates".
+  - q: Do I need HTTPS if my site has no login or payments?
+    a: >-
+      Yes. HTTPS protects every page from tampering and eavesdropping, Chrome
+      labels all HTTP pages "Not secure", and many modern browser features only
+      work on pages served in a secure context.
+  - q: Will moving to HTTPS lose my rankings?
+    a: >-
+      Not if you redirect every HTTP URL to its HTTPS equivalent with a 301,
+      update internal links and canonicals, and submit the HTTPS sitemap. Expect
+      a short period of fluctuation while Google recrawls.
+sources:
+  - label: Google Search Central blog — HTTPS as a ranking signal (2014)
+    url: 'https://developers.google.com/search/blog/2014/08/https-as-ranking-signal'
+  - label: 'Google — Canonicalization: prefer HTTPS over HTTP'
+    url: >-
+      https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+  - label: Chromium blog — A secure web is here to stay (2018)
+    url: 'https://blog.chromium.org/2018/02/a-secure-web-is-here-to-stay.html'
+  - label: RFC 7568 — Deprecating SSL 3.0
+    url: 'https://www.rfc-editor.org/rfc/rfc7568.html'
+  - label: RFC 8996 — Deprecating TLS 1.0 and TLS 1.1
+    url: 'https://www.rfc-editor.org/rfc/rfc8996.html'
+  - label: RFC 8446 — TLS 1.3
+    url: 'https://www.rfc-editor.org/rfc/rfc8446.html'
+  - label: MDN — Strict-Transport-Security
+    url: >-
+      https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security
+---
+
+HTTPS is HTTP sent through an encrypted, authenticated connection. Visitors' data can't be read or altered on the way, browsers show your site as secure, and Google uses it as a ranking signal. Plain HTTP offers none of that and costs you Chrome's "Not secure" warning. In 2026 the real question isn't which to choose — it's whether your HTTPS setup is complete.
+
+## What is the difference between HTTPS and HTTP?
+
+Encryption and identity. HTTP sends requests and pages as readable text, so anyone on the network path — public Wi-Fi, an ISP, a compromised router — can read or change them. HTTPS wraps the same HTTP in TLS, which encrypts the traffic and uses a certificate to prove the server is really your domain.
+
+| | HTTP | HTTPS |
+|---|---|---|
+| Traffic | Readable by anyone on the path | Encrypted |
+| Tampering | Possible (injected ads, malware) | Detected and blocked |
+| Server identity | Not verified | Verified by a certificate |
+| Chrome address bar | "Not secure" | No warning |
+| Google | No HTTPS signal | Lightweight ranking signal |
+| Modern browser features | Many unavailable | Available |
+
+The performance argument against HTTPS is also gone. TLS 1.3 shortened the connection handshake ([RFC 8446](https://www.rfc-editor.org/rfc/rfc8446.html)), and browsers only use HTTP/2 over encrypted connections, so HTTPS sites are often faster than their HTTP versions ever were.
+
+## Does HTTPS affect SEO?
+
+Yes, in two concrete ways and one indirect one. First, Google announced HTTPS as a ranking signal in 2014, describing it at the time as very lightweight — affecting fewer than 1% of queries and carrying less weight than content quality ([Google](https://developers.google.com/search/blog/2014/08/https-as-ranking-signal)). Nobody should expect a ranking jump from HTTPS alone.
+
+Second, and more practical: when the same page exists on HTTP and HTTPS, [Google prefers the HTTPS version as canonical](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls) unless something is wrong with it, such as an invalid certificate or a redirect back to HTTP. So a half-finished migration can leave Google choosing between two versions of every page.
+
+The indirect effect is trust. Since Chrome 68 in July 2018, Chrome labels every HTTP page "Not secure" ([Chromium blog](https://blog.chromium.org/2018/02/a-secure-web-is-here-to-stay.html)). Visitors who see that label on a pricing or signup page leave.
+
+![Detailed view of blue ethernet cables connected to a network switch in a data center.](https://images.pexels.com/photos/2881232/pexels-photo-2881232.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## SSL vs HTTPS: Certificate vs Protocol
+
+SSL is an encryption protocol; HTTPS is HTTP running over one. The certificate you install is what lets the server prove its identity and set up that encryption. When people say "install an SSL certificate," they mean "enable HTTPS with a TLS certificate."
+
+The naming confusion comes from history: SSL came first, TLS replaced it, and the old name stuck to the certificates.
+
+## HTTPS vs SSL: Is "SSL" Still a Thing?
+
+Not as a protocol. SSL 3.0, the last version, was formally banned in 2015 — the standard simply says it "MUST NOT be used" ([RFC 7568](https://www.rfc-editor.org/rfc/rfc7568.html)). TLS 1.0 and 1.1 were deprecated in 2021 ([RFC 8996](https://www.rfc-editor.org/rfc/rfc8996.html)). A correctly configured server today offers TLS 1.2 and TLS 1.3 only.
+
+So "SSL" survives only as a label for certificates and in product names. If a hosting dashboard offers an "SSL certificate," that's a TLS certificate, and free ones from [Let's Encrypt](https://letsencrypt.org/) — a nonprofit that says it provides certificates to more than 700 million websites — encrypt traffic exactly as well as paid ones.
+
+## How do real sites handle HTTP and HTTPS?
+
+Nearly everyone has HTTPS; far fewer have finished the job. On October 24, 2026 we requested the `http://` homepage of 391 well-known sites and followed every redirect; 379 answered ([dataset](/resources/technical-seo-baseline-2026-10.json)):
+
+| Finding | Share |
+|---|---|
+| Ended on an HTTPS page | 97.9% |
+| Reached HTTPS in a single redirect | 53.6% |
+| Needed two or more hops | 44.3% |
+| Served the HTTP page with no redirect at all | 1.8% |
+| Sent an HSTS header on the final page (of 315 analyzed) | 84.1% |
+| HSTS set up well enough for the browser preload list | 26% |
+
+The gap between 97.9% and 53.6% is the interesting part. Most large sites redirect `http://example.com` to `https://example.com` and then again to `https://www.example.com`. It works, but each hop is a wasted round trip, and the first one happens over unencrypted HTTP.
+
+The 1.8% are the most striking row: well-known brands that still answer a plain HTTP request with the page itself. Anyone who types the domain without https:// browses unencrypted, and Google sees two live copies of the homepage.
+
+![Close-up of a person navigating online checkout on a laptop screen in a cozy indoor setting.](https://images.pexels.com/photos/6407760/pexels-photo-6407760.jpeg?auto=compress&cs=tinysrgb&w=1200)
+
+## Should HTTPS use www or no www?
+
+Either works; what matters is choosing one and sending everything else to it in a single hop. In our sample, 62.3% of sites ended on a www hostname and the rest on the bare domain, so there's no industry default to copy.
+
+Two details trip people up. The certificate must cover both names, or visitors who type the other one hit a security error before your redirect ever runs. And the redirect should go straight from `http://example.com` to the final `https://` host, rather than stopping at an intermediate step — that extra stop is exactly why 44.3% of the sites we traced needed two or more hops.
+
+## Does HTTPS slow a website down?
+
+No, not in any way a visitor would notice today. The encryption handshake once added a noticeable delay; TLS 1.3 cut it to a single round trip and supports resuming earlier sessions. HTTPS also unlocks HTTP/2 and HTTP/3 in browsers, which load many files over one connection.
+
+The slowdowns that remain come from configuration, not encryption: extra redirect hops, certificates served without the full chain, or a missing HSTS header that forces an HTTP request first. All three show up in the checks below.
+
+## What is mixed content, and how do I find it?
+
+Mixed content is an HTTPS page that still loads some files over HTTP. Browsers block risky resources such as scripts and upgrade or flag images, so the page may break or lose its padlock ([MDN on mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Mixed_content)).
+
+It usually comes from old absolute URLs in content, theme files or third-party embeds. Search your database and templates for `http://`, update them to `https://` or relative paths, and check the browser console on key pages after the switch.
+
+## What does a complete HTTPS setup look like?
+
+Five pieces, and most sites stop after two:
+
+1. **A valid certificate** covering every hostname you use, including www, renewed automatically.
+2. **A single 301 redirect** from every HTTP URL to its exact HTTPS equivalent — same path, same query.
+3. **HTTPS everywhere inside the site**: internal links, canonicals, hreflang, sitemaps and structured data all use https:// URLs.
+4. **No mixed content**: images, scripts and stylesheets also load over HTTPS, or browsers block or flag them.
+5. **HSTS**, so browsers skip the HTTP request entirely after the first visit ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Strict-Transport-Security)).
+
+## How do I move an HTTP site to HTTPS without losing traffic?
+
+Treat it as a site move with URL changes, because to Google it is one. Google's [migration guidance](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes) applies directly: map old URLs to new ones, redirect permanently, keep the redirects in place for a long time — generally at least a year — and update everything that references the old URLs.
+
+In order:
+
+1. Install the certificate and confirm every page loads over HTTPS.
+2. Fix mixed content before switching anything else.
+3. Update canonicals, internal links and the sitemap to HTTPS.
+4. Turn on the 301 redirects, one hop each, and verify them with the [redirect checker](/tools/redirect-checker).
+5. Add the HTTPS property in Search Console and submit the new sitemap.
+6. After a few weeks of clean operation, add HSTS with a short max-age, then raise it — test it with the [HSTS checker](/tools/hsts-checker).
+
+Finally, review the rest of your response headers with the [security headers checker](/tools/security-headers-checker). HTTPS is the foundation; those headers are the locks on the doors.

@@ -1,0 +1,86 @@
+{
+  "slug": "meta-robots-checker",
+  "category": "crawl-index",
+  "name": "Meta Robots Checker",
+  "title": "Meta Robots Checker: Find noindex, nofollow & More",
+  "description": "Check a page's meta robots tag and X-Robots-Tag header together — noindex, nofollow, nosnippet, max-image-preview — and which one Google obeys.",
+  "answer": "A meta robots checker reads the robots meta tag and the X-Robots-Tag header together and tells you what Google will do: index or not, follow links or not, and which snippet limits apply. It also checks robots.txt, because a blocked page can't show Google its noindex.",
+  "keywords": [
+    "meta robots",
+    "x-robots-tag",
+    "x robots tag"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "meta-robots",
+    "submitLabel": "Check robots directives",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "wikipedia.org",
+      "github.com/login"
+    ],
+    "busyText": "Reading tags, headers and robots.txt…"
+  },
+  "trust": "We fetch the page as Googlebot (or as a browser if your firewall rejects look-alike Googlebot requests), read every robots meta tag and X-Robots-Tag header, and match the path against your live robots.txt.",
+  "body": "## X-Robots-Tag Checker: Header Directives You Can't See\n\nThe X-Robots-Tag is an HTTP header that carries the same directives as the robots meta tag. Google [treats the two as equivalent](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag), and the header is the only option for PDFs, images and other files without HTML.\n\nBecause it never appears in the page source, it's the classic hidden culprit: a `noindex` header copied from a staging config can drop pages from search while the HTML looks clean. This checker reads both places at once.\n\n## X Robots Tag vs Meta Robots: Which One Wins?\n\nNeither — Google combines them. Every directive from the meta tag and the header is applied, and when they conflict, the more restrictive one wins. A page with `index` in the tag and `noindex` in the header is noindexed.\n\n| Directive | Effect |\n|---|---|\n| noindex | Keep the page out of search results |\n| nofollow | Don't follow links on the page |\n| none | noindex + nofollow |\n| nosnippet | No text snippet (also keeps text out of AI Overviews) |\n| max-snippet:[n] | Limit the snippet to n characters |\n| max-image-preview:[size] | none, standard or large image previews |\n| unavailable_after:[date] | Drop the page after a date |\n\n## Why can't Google see my noindex?\n\nBecause robots.txt blocks the page. Google has to crawl a URL to read its noindex; if robots.txt disallows it, the directive is never seen and the URL can still be indexed from links. Google's own docs say pages with indexing rules must not be disallowed from crawling, and its [robots.txt specification](https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec) confirms that a disallow only controls crawling.\n\n## How often do big sites get this wrong?\n\nRarely on homepages — but it happens. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 0.6% carried a noindex robots meta tag on the homepage itself, and 2.9% sent an X-Robots-Tag header.\n\nCheck your key templates, not just the homepage. To find which robots.txt rule blocks a path, use the [robots.txt tester](/tools/robots-txt-tester); to see every header a page returns, use the [HTTP header checker](/tools/http-header-checker).",
+  "faqs": [
+    {
+      "q": "What does meta robots noindex do?",
+      "a": "It tells search engines not to show the page in results. Google needs to crawl the page to see the tag, and the page drops out of the index after its next crawl."
+    },
+    {
+      "q": "Should I use noindex or robots.txt to hide a page?",
+      "a": "Use noindex to keep a page out of search results, and robots.txt to stop crawling. Never combine them on the same URL, because a robots.txt block hides the noindex from Google."
+    },
+    {
+      "q": "Does nofollow on a page stop Google from indexing linked pages?",
+      "a": "No. Page-level nofollow tells Google not to follow the links on that page, but linked pages can still be found and indexed through other links or your sitemap."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Robots meta tag, data-nosnippet and X-Robots-Tag",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag"
+    },
+    {
+      "label": "Google — How Google interprets robots.txt",
+      "url": "https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/9696272/pexels-photo-9696272.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "A worn 'STOP' sign placed on a cracked concrete pavement next to a yellow curb.",
+      "photographer": "Francesco Ungaro",
+      "photographerUrl": "https://www.pexels.com/@francesco-ungaro",
+      "pexelsUrl": "https://www.pexels.com/photo/photo-of-a-stop-sign-9696272/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/36359542/pexels-photo-36359542.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Aerial view of a private property sign marked in an alleyway, captured in black and white.",
+      "photographer": "Matt Fitz Gibaud",
+      "photographerUrl": "https://www.pexels.com/@mfitzart",
+      "pexelsUrl": "https://www.pexels.com/photo/black-and-white-private-property-sign-in-alley-36359542/"
+    }
+  ],
+  "related": [
+    "robots-txt-tester",
+    "http-header-checker",
+    "googlebot-simulator",
+    "meta-tag-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}

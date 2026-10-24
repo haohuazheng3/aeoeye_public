@@ -1,0 +1,94 @@
+{
+  "slug": "rich-snippets-test",
+  "category": "social-schema",
+  "name": "Rich Snippets Test",
+  "title": "Rich Snippets Test: Which Results Can Your Page Get?",
+  "description": "Free rich snippets test: see which Google rich results your page qualifies for — reviews, products, breadcrumbs, events — and what's missing.",
+  "answer": "A rich snippets tool tells you which enhanced results a page is eligible for — review stars, product prices, breadcrumbs, recipes, events, videos — based on its structured data. Enter a URL to see each result type the markup targets, what's missing to qualify and which types Google no longer shows.",
+  "keywords": [
+    "rich snippets tool",
+    "rich snippets test",
+    "rich snippets checker"
+  ],
+  "runner": {
+    "component": "runner",
+    "tool": "rich",
+    "submitLabel": "Test rich snippets",
+    "fields": [
+      {
+        "name": "url",
+        "label": "Page URL",
+        "placeholder": "https://yoursite.com/page",
+        "type": "url"
+      }
+    ],
+    "examples": [
+      "https://www.bbcgoodfood.com/recipes/classic-lasagne",
+      "https://www.bbc.co.uk/food/recipes/easy_chocolate_cake_31070"
+    ],
+    "busyText": "Checking eligibility…"
+  },
+  "trust": "Eligibility is computed from the JSON-LD in your live HTML and the required properties in Google's documentation for each feature.",
+  "body": "## Rich Snippets Tool: Eligibility by Result Type\n\nRich results are tied to specific schema types, and each type has its own required properties in Google's [search gallery](https://developers.google.com/search/docs/appearance/structured-data/search-gallery). The test groups your markup by the result it targets and marks it eligible, missing properties, or retired.\n\n| Result | Type | Commonly missing |\n|---|---|---|\n| Review stars | AggregateRating / Review | ratingCount or itemReviewed |\n| Product price | Product + Offer | price, priceCurrency |\n| Breadcrumb trail | BreadcrumbList | itemListElement |\n| Recipe card | Recipe | image |\n| Event listing | Event | location, startDate |\n| Video | VideoObject | thumbnailUrl, uploadDate |\n\n## Rich Snippets Checker: Why Google Ignores Valid Markup\n\nBecause eligible isn't the same as shown. Google says it [doesn't guarantee](https://developers.google.com/search/docs/appearance/structured-data/sd-policies) rich results even for correct markup. The usual reasons:\n\n- the marked-up content isn't visible on the page;\n- the markup breaks a policy, such as self-serving reviews on your own business;\n- the feature isn't shown for that query or region;\n- the site or page isn't considered high enough quality.\n\n## Which rich results are gone?\n\nMore than most guides admit. Google stopped showing FAQ rich results on May 7, 2026, and earlier removed HowTo, sitelinks search box, Course info, Estimated salary, Learning video, Special announcement and Vehicle listing, with Practice problem and Dataset phased out after that ([Search Central updates](https://developers.google.com/search/updates)).\n\nWe flag these as retired instead of letting you chase them. In our October 2026 analysis of 315 big-brand homepages ([dataset](/resources/technical-seo-baseline-2026-10.json)), 11.1% still carried FAQPage markup five months after the feature ended.\n\n## How do I confirm in Google?\n\nRun the URL through Google's [Rich Results Test](https://search.google.com/test/rich-results) for the final word on Google features, and watch the Enhancements reports in Search Console after deploying. For a full property-by-property breakdown of every type, use the [schema validator](/tools/schema-validator).",
+  "faqs": [
+    {
+      "q": "What is the difference between rich snippets and rich results?",
+      "a": "Rich snippets is the older name for enhanced listings like review stars. Google now calls the whole family rich results, which also covers carousels, event listings and other visual features."
+    },
+    {
+      "q": "How long until rich results appear after adding schema?",
+      "a": "Only after Google recrawls the page and processes the markup, usually days to weeks. Even then, eligibility doesn't guarantee display."
+    },
+    {
+      "q": "Can I get review stars for my own business?",
+      "a": "Not for reviews you control about your own business on your own site — Google calls those self-serving and doesn't show stars for them in LocalBusiness and Organization markup."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Google — Structured data search gallery",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/search-gallery"
+    },
+    {
+      "label": "Google — General structured data guidelines",
+      "url": "https://developers.google.com/search/docs/appearance/structured-data/sd-policies"
+    },
+    {
+      "label": "Google Search Central — Documentation updates",
+      "url": "https://developers.google.com/search/updates"
+    },
+    {
+      "label": "Google — Rich Results Test",
+      "url": "https://search.google.com/test/rich-results"
+    },
+    {
+      "label": "AEOeye Technical SEO Baseline (Oct 2026, 391 sites)",
+      "url": "https://aeoeye.com/resources/technical-seo-baseline-2026-10.json"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://images.pexels.com/photos/9821386/pexels-photo-9821386.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Yellow stars on pink and blue pastel background for rating or review concept.",
+      "photographer": "Towfiqu barbhuiya",
+      "photographerUrl": "https://www.pexels.com/@towfiqu-barbhuiya-3440682",
+      "pexelsUrl": "https://www.pexels.com/photo/five-yellow-stars-on-blue-and-pink-background-9821386/"
+    },
+    {
+      "url": "https://images.pexels.com/photos/833109/pexels-photo-833109.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "alt": "Monochrome image of a recipe book and handwritten notes in a kitchen setting.",
+      "photographer": "Isaiah",
+      "photographerUrl": "https://www.pexels.com/@isaiah-56332",
+      "pexelsUrl": "https://www.pexels.com/photo/white-and-gray-chevron-print-recipes-book-833109/"
+    }
+  ],
+  "related": [
+    "schema-validator",
+    "schema-generator",
+    "on-page-seo-checker",
+    "meta-tag-checker"
+  ],
+  "cta": "seo",
+  "published": "2026-10-24",
+  "updated": "2026-10-24"
+}
