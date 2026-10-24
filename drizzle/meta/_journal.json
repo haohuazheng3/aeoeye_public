@@ -57,6 +57,13 @@
       "when": 1790990852589,
       "tag": "0007_crazy_scrambler",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792842217045,
+      "tag": "0008_orange_killer_shrike",
+      "breakpoints": true
     }
   ]
 }

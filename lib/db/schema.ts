@@ -1,4 +1,4 @@
-import { pgTable, text, integer, boolean, timestamp, jsonb, index } from "drizzle-orm/pg-core";
+import { pgTable, text, integer, boolean, timestamp, jsonb, index, doublePrecision } from "drizzle-orm/pg-core";
 import type { AuditResult, ReportData } from "@/lib/engine/types";
 import type { SeoAuditProgress, SeoAuditResult } from "@/lib/seo-audit/types";
 
@@ -395,3 +395,25 @@ export const seoGscClaims = pgTable(
     auditIdx: index("seo_gsc_claims_audit_idx").on(t.auditId),
   })
 );
+
+/**
+ * Search Console 每日拉取(SEO 底座 v2,2026-10-24):aeoeye.com 自己的 date × page × query 行。
+ * page 与 query 都为 "" 的是当天全站合计行。id = sha1(date|page|query),cron 重复拉同一天时覆盖更新
+ * (GSC 数据会在 2–3 天内补齐,所以每次回拉最近几天)。由 /api/cron/gsc-daily 每天写入,零成本。
+ */
+export const gscDaily = pgTable(
+  "gsc_daily",
+  {
+    id: text("id").primaryKey(),
+    date: text("date").notNull(),
+    page: text("page").notNull().default(""),
+    query: text("query").notNull().default(""),
+    clicks: integer("clicks").notNull().default(0),
+    impressions: integer("impressions").notNull().default(0),
+    ctr: doublePrecision("ctr").notNull().default(0),
+    position: doublePrecision("position").notNull().default(0),
+    pulledAt: timestamp("pulled_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => ({ dateIdx: index("gsc_daily_date_idx").on(t.date) })
+);
+export type GscDailyRow = typeof gscDaily.$inferSelect;
