@@ -1,0 +1,22 @@
+{
+  "contentSha256": "c455421e5518598ecb87ce9d996d1cc3cebd1ea3c05b08a27cd01f1e0fad4437",
+  "reviewedAt": "2026-10-23",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "Investigate and correct inaccurate answer-engine claims without promising direct control or suppressing legitimate criticism.",
+    "connection": "Turns harmful or inaccurate answer observations from an AEOeye audit into an evidence-led correction and monitoring workflow."
+  },
+  "assessment": "Reviewed the incident workflow, severity model, source-tracing method, escalation guidance, legal caveats, images, links, and FAQs. The guide rejects manufactured praise and unsupported suppression, distinguishes persistent misinformation from output variation, and limits legal or urgent safety action to appropriate professional and platform channels.",
+  "sources": [
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-10-23","supports":"Governance basis for documenting AI risks, evidence, owners, response actions, and monitoring."},
+    {"url":"https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth","checkedAt":"2026-10-23","supports":"OpenAI accuracy limitations and the need to verify important outputs rather than treating answers as authoritative."},
+    {"url":"https://support.google.com/websearch/answer/3143948","checkedAt":"2026-10-23","supports":"Google pathways and limits for requesting removal of qualifying personal or harmful content."},
+    {"url":"https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking","checkedAt":"2026-10-23","supports":"FTC disclosure expectations relevant to deceptive testimonials, endorsements, and manufactured consensus."}
+  ],
+  "checks": [
+    "Checked the incident record captures exact prompt, engine, date, output, claim, sources, evidence, severity, owner, and recurrence tests.",
+    "Verified the correction ladder prioritizes owned and authoritative source accuracy before platform feedback or escalation.",
+    "Confirmed all five internal links resolve and no passage promises that a company can edit model memory or guarantee a favorable recommendation."
+  ]
+}

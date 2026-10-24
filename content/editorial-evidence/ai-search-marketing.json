@@ -1,0 +1,22 @@
+{
+  "contentSha256": "c788022e47285b473a6af235117dfec8a82759f1e1821bfdc87d6b92b867c763",
+  "reviewedAt": "2026-10-23",
+  "kind": "guide",
+  "topic": {
+    "area": "ai-search-visibility",
+    "readerProblem": "Coordinate technical access, answer-ready content, independent evidence, and measurement as one practical AI search program.",
+    "connection": "Turns visibility gaps found by AEOeye into owned, earned, technical, and measurement work with named owners."
+  },
+  "assessment": "Reviewed the final 90-day operating guide, workstream boundaries, source claims, ownership matrix, anti-patterns, internal links, and FAQs. It treats AI search marketing as a probability-improving discipline rather than a ranking guarantee, preserves the distinction between paid reach and organic recommendation, and assigns measurable evidence to each workstream.",
+  "sources": [
+    {"url":"https://blogs.bing.com/webmaster/2025/11/How-AI-Search-Is-Changing%E2%80%AFthe%E2%80%AFWay%E2%80%AFConversions%E2%80%AFare-Measured/","checkedAt":"2026-10-23","supports":"Microsoft guidance on citations, impressions, answer inclusion, and distributed AI-search conversion measurement."},
+    {"url":"https://developers.google.com/search/docs/appearance/ai-features","checkedAt":"2026-10-23","supports":"Google statement that normal SEO fundamentals apply to AI features and no special AI markup is required."},
+    {"url":"https://developers.openai.com/api/docs/bots","checkedAt":"2026-10-23","supports":"Separate OpenAI crawler controls for search appearance and model training."},
+    {"url":"https://docs.perplexity.ai/guides/bots","checkedAt":"2026-10-23","supports":"Perplexity crawler identities and access guidance for search retrieval."}
+  ],
+  "checks": [
+    "Checked that technical access, owned answers, earned evidence, and measurement each have a distinct definition, owner, and output.",
+    "Removed redundant prose to keep the visible article within 1200–1500 words without deleting decision-critical steps.",
+    "Verified all internal links resolve, bot names match official documentation, and no schema, file, or vendor outcome is presented as guaranteed inclusion."
+  ]
+}

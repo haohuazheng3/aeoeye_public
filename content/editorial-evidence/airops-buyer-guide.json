@@ -1,0 +1,21 @@
+{
+  "contentSha256": "9119f1ba953d32448a89eef7e6ab5f2ef637c594cc69f633be41924c8dceb317",
+  "reviewedAt": "2026-10-23",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Understand AirOps capabilities, boundaries, operating fit, and the evidence a buyer should demand in a pilot.",
+    "connection": "Supports the next-step platform decision when an AEOeye audit reveals recurring visibility or execution work."
+  },
+  "assessment": "Reviewed the complete documentation-based guide against AirOps public platform, pricing, and documentation pages. The opening discloses that AEOeye has not used the product hands-on, vendor outcome claims remain attributed, and the recommended pilot tests observable workflow behavior rather than promising results.",
+  "sources": [
+    {"url":"https://www.airops.com/platform","checkedAt":"2026-10-23","supports":"Intelligence-to-action-to-measurement positioning, governed workflows, integrations, and measurement claims."},
+    {"url":"https://www.airops.com/pricing","checkedAt":"2026-10-23","supports":"Current public plan names, capacity descriptions, and absence of a public USD subscription amount."},
+    {"url":"https://docs.airops.com/","checkedAt":"2026-10-23","supports":"Documentation boundary and implementation topics that buyers should verify during a controlled pilot."}
+  ],
+  "checks": [
+    "Verified the first paragraph states both the documentation basis and absence of hands-on product use.",
+    "Separated vendor-described capabilities from buyer-verified outcomes and removed language that could imply independent performance testing.",
+    "Checked the pilot workflow, fit matrix, limitations, internal links, images, and four FAQs for consistency with the final buying recommendation."
+  ]
+}

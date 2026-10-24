@@ -1,0 +1,22 @@
+{
+  "contentSha256": "da8fa4f9cc998914a09264ef4548c8bae74fe8af8d4f251ac8de44b7695d3179",
+  "reviewedAt": "2026-10-23",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Measure answer presence, cited-source evidence, and downstream business behavior without collapsing them into one misleading score.",
+    "connection": "Extends AEOeye audit evidence into a repeatable analytics model with explicit denominators and attribution limits."
+  },
+  "assessment": "Reviewed the full measurement guide, formulas, sample table, source claims, images, internal links, and FAQs. The article consistently separates answer observations, citations, referrals, and outcomes; it does not claim that a citation caused a visit or that identifiable referral traffic represents all AI influence.",
+  "sources": [
+    {"url":"https://developers.google.com/search/docs/appearance/ai-features","checkedAt":"2026-10-23","supports":"Google AI feature eligibility and the inclusion of AI-feature traffic in overall Search Console Web reporting."},
+    {"url":"https://support.google.com/analytics/answer/9756891","checkedAt":"2026-10-23","supports":"Google Analytics default channel-group basis and the limits of observable referral classification."},
+    {"url":"https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview/","checkedAt":"2026-10-23","supports":"Bing citation, cited-page, grounding-query, and trend metrics plus their stated interpretation limits."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-10-23","supports":"Governance basis for preserving evidence, documenting uncertainty, and reviewing AI-related measurement risk."}
+  ],
+  "checks": [
+    "Recalculated every displayed rate from its stated numerator and denominator and verified that missing runs cannot silently count as negative answers.",
+    "Checked the answer, citation, and business layers remain separate in the opening, schema, dashboard, reporting, and FAQ sections.",
+    "Verified all six internal links resolve and the two inline images plus credited header image are present in the final file."
+  ]
+}

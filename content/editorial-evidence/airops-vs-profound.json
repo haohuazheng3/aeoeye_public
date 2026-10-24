@@ -1,0 +1,22 @@
+{
+  "contentSha256": "56150c5b7abb7efe171d90feccd9d06bb29115acebc37d7f008a072491990269",
+  "reviewedAt": "2026-10-23",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Decide whether governed content execution or enterprise AI answer intelligence is the primary platform gap.",
+    "connection": "Compares two AEO operating models that teams may evaluate after finding brand visibility gaps with AEOeye."
+  },
+  "assessment": "Reviewed the final comparison against both vendors' public platform and pricing pages. The opening states that the work is documentation-based and not hands-on, vendor comparison claims are treated as self-interested, old Profound public-price claims are rejected, and the pilot uses identical prompts and acceptance criteria.",
+  "sources": [
+    {"url":"https://www.airops.com/platform","checkedAt":"2026-10-23","supports":"AirOps execution, governance, workflow, publishing, and measurement positioning."},
+    {"url":"https://www.airops.com/pricing","checkedAt":"2026-10-23","supports":"Current AirOps public plan packaging and free-start wording without a displayed USD amount."},
+    {"url":"https://www.tryprofound.com/","checkedAt":"2026-10-23","supports":"Profound AI intelligence, prompt, citation, and enterprise visibility positioning."},
+    {"url":"https://www.tryprofound.com/pricing","checkedAt":"2026-10-23","supports":"Current free Trial and custom Enterprise presentation used in the buying comparison."}
+  ],
+  "checks": [
+    "Confirmed the comparison separates documented positioning from independently demonstrated outcomes or data quality.",
+    "Checked the prompt-demand, workflow, integration, pricing, and pilot sections use symmetrical evaluation questions.",
+    "Repaired the Profound internal guide link and verified all remaining internal links resolve to current, non-retired pages."
+  ]
+}

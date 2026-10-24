@@ -1,0 +1,28 @@
+{
+  "contentSha256": "03168044f7e2627e990a1effae4628afc84b285d6492e88227bb1ecf6daeaa5d",
+  "reviewedAt": "2026-10-23",
+  "kind": "pricing-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Determine what AirOps publishes about plan scope and which unanswered billing questions prevent a reliable budget.",
+    "connection": "Direct buying decision for an AI visibility and content operations platform after establishing an AEOeye baseline."
+  },
+  "assessment": "Reviewed the final article, plan table, task arithmetic, FAQs, links, and disclosures against AirOps public pricing, platform, and documentation pages. The page states that no public USD rate was verified, distinguishes published allowances from inferred usage economics, and makes no hands-on or performance claim.",
+  "sources": [
+    {"url":"https://www.airops.com/pricing","checkedAt":"2026-10-23","supports":"Solo, Pro, and Enterprise packaging, stated plan allowances, free-start wording, and absent public USD rate."},
+    {"url":"https://www.airops.com/platform","checkedAt":"2026-10-23","supports":"Broader intelligence, workflow, publishing, and measurement positioning used to frame plan fit."},
+    {"url":"https://docs.airops.com/","checkedAt":"2026-10-23","supports":"Public documentation entry point readers can use to validate implementation details before purchase."}
+  ],
+  "checks": [
+    "Confirmed every numeric plan allowance in the article against the official pricing page and did not infer an unlisted dollar price.",
+    "Separated content-production task allowances from prompts, pages, seats, and a universal per-task cost that the public page does not define.",
+    "Checked the opening, comparison table, quote checklist, and four FAQs for consistent quote-required language and explicit no-hands-on disclosure."
+  ],
+  "pricing": {
+    "status": "not-publicly-verified",
+    "region": "US English public pages; applicable currency, tax, and regional terms require confirmation",
+    "billing": "Solo and Pro are described as starting free; no public USD subscription amount or complete billing schedule was verified",
+    "verification": "Official pricing page checked October 23, 2026. Published plan limits are reported directly; no quote, overage, effective annual price, or per-task cost was invented.",
+    "checkedAt": "2026-10-23"
+  }
+}

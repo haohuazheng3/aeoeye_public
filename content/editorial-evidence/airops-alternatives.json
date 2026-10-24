@@ -1,0 +1,23 @@
+{
+  "contentSha256": "8fd97309ce448365d206258df878cfc706c52d4deb424fc9abf5424ccc7d8ab7",
+  "reviewedAt": "2026-10-23",
+  "kind": "documentation-guide",
+  "topic": {
+    "area": "aeo-buyer-decisions",
+    "readerProblem": "Choose an AirOps alternative based on monitoring, enterprise intelligence, suite consolidation, or one-time audit needs.",
+    "connection": "Directly compares AI visibility and AEO tools, including where an AEOeye snapshot fits before recurring software."
+  },
+  "assessment": "Reviewed all seven alternatives, source links, disclosed prices, fit labels, internal links, and FAQs against current public vendor materials. The article discloses that it is documentation-based and not hands-on, uses job-to-be-done criteria instead of an affiliate ranking, and tells buyers to recheck mutable packaging.",
+  "sources": [
+    {"url":"https://www.airops.com/platform","checkedAt":"2026-10-23","supports":"AirOps reference positioning around governed execution and broader content operations."},
+    {"url":"https://www.tryprofound.com/","checkedAt":"2026-10-23","supports":"Profound enterprise AI visibility and intelligence positioning used in the shortlist."},
+    {"url":"https://peec.ai/","checkedAt":"2026-10-23","supports":"Peec AI recurring visibility monitoring positioning and product scope."},
+    {"url":"https://otterly.ai/","checkedAt":"2026-10-23","supports":"Otterly AI monitoring positioning used for the lightweight shortlist."},
+    {"url":"https://ahrefs.com/brand-radar","checkedAt":"2026-10-23","supports":"Brand Radar as an AI visibility option within an established SEO suite."}
+  ],
+  "checks": [
+    "Validated that each alternative maps to a distinct buyer job and that no product is described as universally best.",
+    "Removed drafting residue, repaired all Markdown internal links, and checked every linked AEOeye page exists and is not retired.",
+    "Checked price mentions remain dated public references, not a claim that packaging or currency will remain unchanged."
+  ]
+}

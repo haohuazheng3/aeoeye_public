@@ -1,0 +1,21 @@
+{
+  "contentSha256": "ea5a46162de31130699b9973406f97544389136bab0345e50a5ddf4b74157857",
+  "reviewedAt": "2026-10-23",
+  "kind": "guide",
+  "topic": {
+    "area": "aeo-measurement",
+    "readerProblem": "Produce a monthly AI visibility report that executives can audit and use for a concrete decision.",
+    "connection": "Provides a recurring reporting structure for AEOeye findings, raw answers, citations, errors, competitors, and actions."
+  },
+  "assessment": "Reviewed the full executive reporting template, denominator rules, score warnings, source claims, action log, images, internal links, and FAQs. The page requires raw-answer evidence behind aggregates, holds prompts and methods stable for comparisons, and separates observable referrals from inferred influence or revenue causality.",
+  "sources": [
+    {"url":"https://www.semrush.com/kb/1596-visibility-overview-report","checkedAt":"2026-10-23","supports":"Current Semrush Visibility Overview dimensions for mentions, citations, cited pages, trends, platforms, and countries."},
+    {"url":"https://rankmath.com/kb/analytics/","checkedAt":"2026-10-23","supports":"Analytics reporting context used to keep conventional search and business evidence visible beside AI observations."},
+    {"url":"https://www.nist.gov/itl/ai-risk-management-framework","checkedAt":"2026-10-23","supports":"Risk-management basis for documenting methods, limitations, factual errors, owners, and follow-up actions."}
+  ],
+  "checks": [
+    "Verified every example rate exposes its numerator and denominator and that unavailable engine runs remain visible rather than counted as absence.",
+    "Checked the report outline ends in an owner, deadline, expected signal, and next decision instead of a vanity-score summary.",
+    "Verified five internal links resolve and that the final page contains a header image, two inline images, seven question-led sections, and four FAQs."
+  ]
+}
